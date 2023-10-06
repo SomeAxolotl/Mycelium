@@ -8,10 +8,12 @@ public class EnemyHealth : MonoBehaviour
     float currentHealth;
     public int nutrientDrop;
     float dmgTaken;
+    Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
     {
         //This is just a placeholder death animation which also gives the player the amount of nutrients that this enemy is supposed to drop.
         this.gameObject.GetComponent<Collider>().enabled = false;
-        this.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        rb.Sleep();
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
         yield return new WaitForSeconds(2f);
         GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().currentNutrients += nutrientDrop;
