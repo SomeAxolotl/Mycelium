@@ -80,6 +80,8 @@ public class Swapping : MonoBehaviour
             {
                 //Swaps your current weapon
                 GameObject.FindWithTag("currentWeapon").transform.position = hit.transform.position;
+                GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
+                GameObject.FindWithTag("currentWeapon").transform.rotation = Quaternion.Euler(-25, 0, 0);
                 hit.transform.position = weaponHolder.position;
                 GameObject.FindWithTag("currentWeapon").tag = "Weapon";
                 hit.collider.gameObject.tag = "currentWeapon";

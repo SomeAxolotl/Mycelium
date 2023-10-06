@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     //Input fields
     private ThirdPersonActionsAsset playerActionsAsset;
     private InputAction move;
+    private InputAction dodge;
+    bool canDodge = true;
+    bool activeDodge = false;
+    bool isInvincible = false;
     bool playerSwapping;
     bool fetchedStats = false;
 
@@ -32,6 +36,7 @@ public class PlayerController : MonoBehaviour
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
         move = playerActionsAsset.Player.Move;
+        dodge = playerActionsAsset.Player.Dodge;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -47,6 +52,12 @@ public class PlayerController : MonoBehaviour
         if(fetchedStats == false || playerSwapping == true)
         {
             StartCoroutine("FetchStats");
+        }
+        
+        if(dodge.triggered && canDodge == true)
+        {
+            StartCoroutine("Dodging");
+            StartCoroutine("IFrames");
         }
     }
     IEnumerator FetchStats()
@@ -64,6 +75,24 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(forceDirection, ForceMode.Impulse);
         forceDirection = Vector3.zero;
+    }
+    IEnumerator Dodging()
+    {
+        canDodge = false;
+        activeDodge = true;
+        Debug.Log("dodging");
+        rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
+        yield return new WaitForSeconds(.15f);
+        activeDodge = false;
+        yield return new WaitForSeconds(1f);
+        canDodge = true;
+    }
+    IEnumerator IFrames()
+    {
+        isInvincible = true;
+        Debug.Log("Invincible!");
+        yield return new WaitForSeconds(.25f);
+        isInvincible = false;
     }
     private Vector3 GetCameraForward(Camera playerCamera)
     {
@@ -111,7 +140,7 @@ public class PlayerController : MonoBehaviour
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         //Limits player velocity
-        if(flatVel.magnitude > finalMoveSpeed)
+        if(flatVel.magnitude > finalMoveSpeed && activeDodge == false)
         {
             Vector3 limitedVel = flatVel.normalized * finalMoveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
