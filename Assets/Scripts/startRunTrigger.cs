@@ -26,7 +26,7 @@ public class startRunTrigger : MonoBehaviour
 
         if(other.CompareTag("currentPlayer"))
         {
-             SceneManager.LoadScene(0);
+            SceneManager.LoadScene(0);
         }
     }
 }
