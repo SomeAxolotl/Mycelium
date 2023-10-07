@@ -11,7 +11,7 @@ public class startRunTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start");
+        //Debug.Log("Start");
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class startRunTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("HIT");
+        //Debug.Log("HIT");
 
         if(other.CompareTag("currentPlayer"))
         {

@@ -97,7 +97,7 @@ public class AiController : MonoBehaviour
 
         if (playerDistance <= attackDistance && canAttack && seesPlayer)
             {
-                Debug.Log("Enemy attacking");
+                //Debug.Log("Enemy attacking");
                 StartCoroutine("AttackMelee");
             }
         }
@@ -119,7 +119,7 @@ public class AiController : MonoBehaviour
     {
         if(meleeCollider.transform.gameObject.GetComponent<Collider>().enabled == true && other.CompareTag("currentPlayer"))
         {
-            Debug.Log("Player Hit!");
+            //Debug.Log("Player Hit!");
             GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().currentHealth -= attackDamage;
         }
     }

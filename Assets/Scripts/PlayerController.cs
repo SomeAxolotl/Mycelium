@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         canDodge = false;
         activeDodge = true;
-        Debug.Log("dodging");
+        //Debug.Log("dodging");
         rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
         yield return new WaitForSeconds(.15f);
         activeDodge = false;
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator IFrames()
     {
         isInvincible = true;
-        Debug.Log("Invincible!");
+        //Debug.Log("Invincible!");
         yield return new WaitForSeconds(.25f);
         isInvincible = false;
     }

@@ -15,7 +15,6 @@ public class NutrientTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("nutrients: " + currentNutrients);
         transform.parent = GameObject.FindWithTag("currentPlayer").transform.parent;
     }
     public void SaveNutrients()

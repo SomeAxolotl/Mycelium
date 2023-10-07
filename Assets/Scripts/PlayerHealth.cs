@@ -30,12 +30,12 @@ public class PlayerHealth : MonoBehaviour
         }
         
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        Debug.Log("current health: " + currentHealth);
+        //Debug.Log("current health: " + currentHealth);
         
         //Current health will equal 0 for a single frame on load so this will remain as < for now
         if(currentHealth < 0)
         {
-            Debug.Log("death");
+            //Debug.Log("death");
         }
     }
     IEnumerator FetchStats()

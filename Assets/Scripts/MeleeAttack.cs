@@ -85,7 +85,7 @@ public class MeleeAttack : MonoBehaviour
     {
         attacking = true;
         yield return new WaitForSeconds(0.5f); //This is where the attack animation will go and replace the WaitForSeconds, yield return null will go at the end of this IEnumerator
-        Debug.Log("attacking");
+        //Debug.Log("attacking");
         attacking = false;
     }
 }

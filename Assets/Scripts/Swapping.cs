@@ -12,6 +12,8 @@ public class Swapping : MonoBehaviour
     public bool swapping = false;
     public bool playerSwapping = false;
 
+    private HUDWeapon hudWeaponScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,8 @@ public class Swapping : MonoBehaviour
         Instantiate(Resources.Load("StartWeapon"));
         GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
         }
+
+        hudWeaponScript = GameObject.Find("HUD").GetComponent<HUDWeapon>();
     }
 
     // Update is called once per frame
@@ -87,6 +91,9 @@ public class Swapping : MonoBehaviour
                 hit.collider.gameObject.tag = "currentWeapon";
                 transform.parent = GameObject.FindWithTag("currentPlayer").transform.parent;
                 swapping = true;
+
+                //Updates HUD weapon icon
+                hudWeaponScript.UpdateWeapon(hit.collider.gameObject.name);
             }
             else
             {
