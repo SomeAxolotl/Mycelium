@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    float maxHealth;
-    float currentHealth;
+    public float maxHealth;
+    public float currentHealth;
     float finalRegen;
     bool fetchedStats = false;
     bool canRegen;

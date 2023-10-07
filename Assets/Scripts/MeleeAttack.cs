@@ -11,12 +11,14 @@ public class MeleeAttack : MonoBehaviour
     bool attacking;
     float speedAtkCooldown;
     float weaponAtkCooldown;
-    float finalAtkCooldown;
+    public float finalAtkCooldown;
     float primalDmg;
     float weaponDmg;
     public float finalDmg;
     bool swapping;
     bool fetchedStats = false;
+
+    private HUDSkills hudSkills;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,8 @@ public class MeleeAttack : MonoBehaviour
         attack = playerActionsAsset.Player.Attack;
         canAttack = true;
         attacking = false;
+
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
     }
 
     // Update is called once per frame
@@ -73,6 +77,7 @@ public class MeleeAttack : MonoBehaviour
     {
         canAttack = false;
         StartCoroutine("Attack"); //Starts the coroutine which has the attack animation
+        hudSkills.StartHitCooldownUI();
         yield return new WaitForSeconds(finalAtkCooldown); //The cooldown between attacks
         canAttack = true;
     }
