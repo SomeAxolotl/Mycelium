@@ -27,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
             StartCoroutine("Death");
         }
     }
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "currentWeapon")
         {

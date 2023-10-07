@@ -17,12 +17,12 @@ public class Projectile : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "currentPlayer")
         {
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Enviroment")
         {
             Destroy(gameObject);
         }

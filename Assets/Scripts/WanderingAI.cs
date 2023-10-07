@@ -7,7 +7,6 @@ public class WanderingAI : MonoBehaviour
 {
     public float wanderRadius;
     public float wanderTimer;
-
     private Transform target;
     private NavMeshAgent agent;
     private float timer;
@@ -44,9 +43,4 @@ public class WanderingAI : MonoBehaviour
 
         return navHit.position;
     }
-    // Start is called before the first frame update
-   
-
-    // Update is called once per frame
-   
 }
