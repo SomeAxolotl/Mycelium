@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatTracker : MonoBehaviour
@@ -42,7 +43,10 @@ public class StatTracker : MonoBehaviour
         sentienceLevel = 0;
         vitalityLevel = 0;
     }
-
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     // Update is called once per frame
     void Update()
     {

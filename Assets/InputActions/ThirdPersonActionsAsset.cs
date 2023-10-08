@@ -384,6 +384,105 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""53b22d5b-24cd-4967-b15e-e6510d0bb632"",
+            ""actions"": [
+                {
+                    ""name"": ""Menu Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1aa17b9-5bda-45b6-8d59-447e11764913"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2fa1394-0b7a-45a1-ab71-77c3fe467d72"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbb3c128-045c-4f23-aa47-035a521401ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e9057fd-0070-421b-a308-62964d1a2286"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f7b25911-69dd-43ab-9d4a-6e37ec6ff6a2"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d4015b8-160d-4fd8-986b-be9fd5c25703"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b29a244f-526a-4b38-850e-1c9f1c825671"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaaca855-3338-41cb-a56f-8762e8156eaf"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e84c146-55d3-42a0-bd10-f7c9dd02367d"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -400,6 +499,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_Player_Stat_Skill_1 = m_Player.FindAction("Stat_Skill_1", throwIfNotFound: true);
         m_Player_Stat_Skill_2 = m_Player.FindAction("Stat_Skill_2", throwIfNotFound: true);
         m_Player_GetStats = m_Player.FindAction("GetStats", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_MenuUp = m_Menu.FindAction("Menu Up", throwIfNotFound: true);
+        m_Menu_MenuDown = m_Menu.FindAction("Menu Down", throwIfNotFound: true);
+        m_Menu_MenuLeft = m_Menu.FindAction("Menu Left", throwIfNotFound: true);
+        m_Menu_MenuRight = m_Menu.FindAction("Menu Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -575,6 +680,76 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_Menu_MenuUp;
+    private readonly InputAction m_Menu_MenuDown;
+    private readonly InputAction m_Menu_MenuLeft;
+    private readonly InputAction m_Menu_MenuRight;
+    public struct MenuActions
+    {
+        private @ThirdPersonActionsAsset m_Wrapper;
+        public MenuActions(@ThirdPersonActionsAsset wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MenuUp => m_Wrapper.m_Menu_MenuUp;
+        public InputAction @MenuDown => m_Wrapper.m_Menu_MenuDown;
+        public InputAction @MenuLeft => m_Wrapper.m_Menu_MenuLeft;
+        public InputAction @MenuRight => m_Wrapper.m_Menu_MenuRight;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+            @MenuUp.started += instance.OnMenuUp;
+            @MenuUp.performed += instance.OnMenuUp;
+            @MenuUp.canceled += instance.OnMenuUp;
+            @MenuDown.started += instance.OnMenuDown;
+            @MenuDown.performed += instance.OnMenuDown;
+            @MenuDown.canceled += instance.OnMenuDown;
+            @MenuLeft.started += instance.OnMenuLeft;
+            @MenuLeft.performed += instance.OnMenuLeft;
+            @MenuLeft.canceled += instance.OnMenuLeft;
+            @MenuRight.started += instance.OnMenuRight;
+            @MenuRight.performed += instance.OnMenuRight;
+            @MenuRight.canceled += instance.OnMenuRight;
+        }
+
+        private void UnregisterCallbacks(IMenuActions instance)
+        {
+            @MenuUp.started -= instance.OnMenuUp;
+            @MenuUp.performed -= instance.OnMenuUp;
+            @MenuUp.canceled -= instance.OnMenuUp;
+            @MenuDown.started -= instance.OnMenuDown;
+            @MenuDown.performed -= instance.OnMenuDown;
+            @MenuDown.canceled -= instance.OnMenuDown;
+            @MenuLeft.started -= instance.OnMenuLeft;
+            @MenuLeft.performed -= instance.OnMenuLeft;
+            @MenuLeft.canceled -= instance.OnMenuLeft;
+            @MenuRight.started -= instance.OnMenuRight;
+            @MenuRight.performed -= instance.OnMenuRight;
+            @MenuRight.canceled -= instance.OnMenuRight;
+        }
+
+        public void RemoveCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -587,5 +762,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnStat_Skill_1(InputAction.CallbackContext context);
         void OnStat_Skill_2(InputAction.CallbackContext context);
         void OnGetStats(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnMenuUp(InputAction.CallbackContext context);
+        void OnMenuDown(InputAction.CallbackContext context);
+        void OnMenuLeft(InputAction.CallbackContext context);
+        void OnMenuRight(InputAction.CallbackContext context);
     }
 }

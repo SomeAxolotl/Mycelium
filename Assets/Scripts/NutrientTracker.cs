@@ -9,7 +9,7 @@ public class NutrientTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
- 
+    PlayerPrefs.SetInt("currentNutrients", 100000000);
     }
 
     // Update is called once per frame
