@@ -16,6 +16,7 @@ public class MenuManger : MonoBehaviour
     public Button StartGamebutton;
 
     private HUDNutrients hudNutrients;
+    private NutrientTracker nutrientTracker;
 
     void Start()
     {
@@ -88,7 +89,8 @@ public class MenuManger : MonoBehaviour
         PlayerPrefs.SetInt(c.CharName, 1);
         PlayerPrefs.SetInt("SelectedChar", currentCharacterIndex);
         c.isUnlocked = true;
-        PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) -c.nutrientcost);
+        nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+        nutrientTracker.SubtractNutrients(c.nutrientcost);
         hudNutrients.UpdateNutrientsUI();
         StartGamebutton.Select();
     }
@@ -97,15 +99,13 @@ public class MenuManger : MonoBehaviour
         CharacterInformation c = Characterinfo[currentCharacterIndex];
         if (c.isUnlocked)
         {
-            Debug.Log("unlocked");
             purchaseButton.gameObject.SetActive(false);
             
         }
         else
         {
-            Debug.Log("not unlocked");
             purchaseButton.gameObject.SetActive(true);
-            if(c.nutrientcost< PlayerPrefs.GetInt("currentNutrients", 0))
+            if(c.nutrientcost <= PlayerPrefs.GetInt("currentNutrients", 0))
             {
                 purchaseButton.interactable = true;
             }

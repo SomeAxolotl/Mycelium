@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class NutrientTracker : MonoBehaviour
 {
-    [Header("Current Nutrients")]
-    public int currentNutrients;
-
     private HUDNutrients hudNutrients;
     // Start is called before the first frame update
     void Start()
@@ -19,13 +16,23 @@ public class NutrientTracker : MonoBehaviour
     {
         transform.parent = GameObject.FindWithTag("currentPlayer").transform.parent;
     }
-    public void SaveNutrients()
+
+    public void AddNutrients(int addedNutrients)
     {
-        PlayerPrefs.SetInt("currentNutrients", currentNutrients);
+        int newNutrients = GetNutrients() + addedNutrients;
+        PlayerPrefs.SetInt("currentNutrients", newNutrients);
         hudNutrients.UpdateNutrientsUI();
     }
-    public void GetNutrients()
+
+    public void SubtractNutrients(int subtractedNutrients)
     {
-        currentNutrients = PlayerPrefs.GetInt("currentNutrients");
+        int newNutrients = GetNutrients() - subtractedNutrients;
+        PlayerPrefs.SetInt("currentNutrients", newNutrients);
+        hudNutrients.UpdateNutrientsUI();
+    }
+
+    public int GetNutrients()
+    {
+        return PlayerPrefs.GetInt("currentNutrients");
     }
 }

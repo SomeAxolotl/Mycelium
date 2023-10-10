@@ -40,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
         rb.Sleep();
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
         yield return new WaitForSeconds(2f);
-        GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().currentNutrients += nutrientDrop;
+        GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
         this.gameObject.SetActive(false);
     }
 }
