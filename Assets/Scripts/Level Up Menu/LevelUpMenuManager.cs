@@ -11,6 +11,7 @@ public class LevelUpMenuManager : MonoBehaviour
     public TMP_Text SpeedText;
     public TMP_Text SentienceText;
     public TMP_Text VitalityText;
+    public TMP_Text Nutrients;
   
     public StatTracker currentstattracker;
     public GameObject UIenable;
@@ -32,13 +33,15 @@ public class LevelUpMenuManager : MonoBehaviour
         PrimalText.text = currentstattracker.primalLevel.ToString(); 
         SpeedText.text = currentstattracker.speedLevel.ToString(); 
         SentienceText.text = currentstattracker.sentienceLevel.ToString();
-        VitalityText.text = currentstattracker.vitalityLevel.ToString();  
+        VitalityText.text = currentstattracker.vitalityLevel.ToString(); 
+        Nutrients.text = "Nutrients: " + PlayerPrefs.GetInt("currentNutrients").ToString(); 
     }
 
     public void PrimalUP()
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.primalLevel += 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) -50);
       
  
     }
@@ -46,6 +49,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.primalLevel -= 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) +50);
        
        
     }
@@ -53,6 +57,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.speedLevel += 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) -50);
      
        
     }
@@ -60,6 +65,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.speedLevel -= 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) +50);
        
        
     }
@@ -67,6 +73,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.sentienceLevel += 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) -50);
       
        
     }
@@ -74,6 +81,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.sentienceLevel -= 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) +50);
        
        
     }
@@ -81,6 +89,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.vitalityLevel += 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) -50);
        
        
     }
@@ -88,6 +97,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.vitalityLevel -= 1;
+       PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) +50);
       
        
     }
