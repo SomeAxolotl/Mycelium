@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class startRunTrigger : MonoBehaviour
 {
-    [SerializeField]
-    GameObject characterSelectUI;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +23,7 @@ public class startRunTrigger : MonoBehaviour
 
         if(other.CompareTag("currentPlayer"))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("CharacterSelect");
         }
     }
 }

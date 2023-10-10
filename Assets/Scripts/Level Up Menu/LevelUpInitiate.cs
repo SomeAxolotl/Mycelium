@@ -8,28 +8,17 @@ public class LevelUpInitiate : MonoBehaviour
 {
     [SerializeField]
     GameObject levelupmenu;
-    public GameObject HUD;
 
-    // Start is called before the first frame update
-    void Start()
+    private PlayerController playerController;
+
+    private void OnCollisionEnter(Collision other)
     {
-        
-    }
+        playerController = GameObject.FindWithTag("currentPlayer").GetComponent<PlayerController>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("HIT");
-
-        if(other.CompareTag("currentPlayer"))
+        if(other.gameObject.CompareTag("currentPlayer"))
         {
             levelupmenu.SetActive(true);
-            HUD.SetActive(false);
+            playerController.DisableController();
         }
     }
 }

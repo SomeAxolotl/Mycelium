@@ -13,8 +13,10 @@ public class MenuManger : MonoBehaviour
     public int currentCharacterIndex;
     public CharacterInformation[] Characterinfo;
     public Button purchaseButton;
-    public TMP_Text NutrientsCounter;
     public Button StartGamebutton;
+
+    private HUDNutrients hudNutrients;
+
     void Start()
     {
         foreach(CharacterInformation Char in Characterinfo)
@@ -35,13 +37,13 @@ public class MenuManger : MonoBehaviour
             Characters[currentCharacterIndex].SetActive(true);
         }
         
+        hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateUI();
-        NutrientsCounter.text = "Nutrients: " + PlayerPrefs.GetInt("currentNutrients").ToString();
     }
     public void ChangeNext()
     {
@@ -87,6 +89,7 @@ public class MenuManger : MonoBehaviour
         PlayerPrefs.SetInt("SelectedChar", currentCharacterIndex);
         c.isUnlocked = true;
         PlayerPrefs.SetInt("currentNutrients", PlayerPrefs.GetInt("currentNutrients",0) -c.nutrientcost);
+        hudNutrients.UpdateNutrientsUI();
         StartGamebutton.Select();
     }
     public void UpdateUI()
@@ -94,11 +97,13 @@ public class MenuManger : MonoBehaviour
         CharacterInformation c = Characterinfo[currentCharacterIndex];
         if (c.isUnlocked)
         {
+            Debug.Log("unlocked");
             purchaseButton.gameObject.SetActive(false);
             
         }
         else
         {
+            Debug.Log("not unlocked");
             purchaseButton.gameObject.SetActive(true);
             if(c.nutrientcost< PlayerPrefs.GetInt("currentNutrients", 0))
             {
@@ -113,7 +118,7 @@ public class MenuManger : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Prototype Level");
         
     }
 }

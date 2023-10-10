@@ -21,15 +21,13 @@ public class HUDHealth : MonoBehaviour
     {
         healthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         healthNumberText = GameObject.Find("HPNumber").GetComponent<TMP_Text>();
-
-        StartCoroutine("HealthTest");
     }
 
     public void UpdateHealthUI()
     {
         playerHealth = GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>();
-        //currentHealth = playerHealth.currentHealth;
-        //maxHealth = playerHealth.maxHealth;
+        currentHealth = playerHealth.currentHealth;
+        maxHealth = playerHealth.maxHealth;
 
         float healthRatio = currentHealth / maxHealth;
         healthBar.fillAmount = healthRatio;
@@ -46,7 +44,7 @@ public class HUDHealth : MonoBehaviour
             healthBar.color = lowColor;
         }
         
-        healthNumberText.text = currentHealth + "/" + maxHealth;
+        healthNumberText.text = Mathf.FloorToInt(currentHealth) + "/" + Mathf.FloorToInt(maxHealth);
     }
 
     IEnumerator HealthTest()

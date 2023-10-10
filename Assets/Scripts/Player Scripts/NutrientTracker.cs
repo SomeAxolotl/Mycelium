@@ -6,10 +6,12 @@ public class NutrientTracker : MonoBehaviour
 {
     [Header("Current Nutrients")]
     public int currentNutrients;
+
+    private HUDNutrients hudNutrients;
     // Start is called before the first frame update
     void Start()
     {
-    PlayerPrefs.SetInt("currentNutrients", 100000000);
+        hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
     }
 
     // Update is called once per frame
@@ -20,6 +22,7 @@ public class NutrientTracker : MonoBehaviour
     public void SaveNutrients()
     {
         PlayerPrefs.SetInt("currentNutrients", currentNutrients);
+        hudNutrients.UpdateNutrientsUI();
     }
     public void GetNutrients()
     {

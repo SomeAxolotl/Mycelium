@@ -441,7 +441,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                 {
                     ""name"": """",
                     ""id"": ""1d4015b8-160d-4fd8-986b-be9fd5c25703"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -462,6 +462,17 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": """",
+                    ""id"": ""7e873e59-ee94-4c4b-8dcc-5709c88b5481"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""eaaca855-3338-41cb-a56f-8762e8156eaf"",
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
@@ -473,8 +484,30 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a99061ba-0584-4908-b7d7-e62a12ad002f"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""7e84c146-55d3-42a0-bd10-f7c9dd02367d"",
                     ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51e9d6bf-ad94-4d45-bc9c-16e2c63da76c"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
