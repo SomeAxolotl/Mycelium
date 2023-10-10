@@ -18,7 +18,7 @@ public class RangedEnemyProjectile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "currentPlayer")
+        if (collision.gameObject.tag == "currentPlayer" && GameObject.FindWithTag("currentPlayer").GetComponent<PlayerController>().isInvincible == false)
         {
             GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().Hurt(damage);
             Destroy(gameObject);

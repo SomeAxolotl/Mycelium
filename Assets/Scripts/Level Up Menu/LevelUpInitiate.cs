@@ -10,15 +10,18 @@ public class LevelUpInitiate : MonoBehaviour
     GameObject levelupmenu;
 
     private PlayerController playerController;
+    private MeleeAttack meleeAttack;
 
     private void OnCollisionEnter(Collision other)
     {
         playerController = GameObject.FindWithTag("currentPlayer").GetComponent<PlayerController>();
+        meleeAttack = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>();
 
-        if(other.gameObject.CompareTag("currentPlayer"))
+        if (other.gameObject.CompareTag("currentPlayer"))
         {
             levelupmenu.SetActive(true);
             playerController.DisableController();
+            meleeAttack.DisableAttack();
         }
     }
 }

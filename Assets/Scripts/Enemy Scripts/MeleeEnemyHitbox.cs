@@ -8,7 +8,7 @@ public class MeleeEnemyHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "currentPlayer")
+        if (collision.gameObject.tag == "currentPlayer" && GameObject.FindWithTag("currentPlayer").GetComponent<PlayerController>().isInvincible == false)
         {
             Debug.Log("Player Hit!");
             GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().Hurt(damage);

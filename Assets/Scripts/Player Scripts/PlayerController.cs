@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private InputAction dodge;
     bool canDodge = true;
     bool activeDodge = false;
-    bool isInvincible = false;
+    public bool isInvincible = false;
     bool playerSwapping;
     bool fetchedStats = false;
 
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         player = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         playerActionsAsset = new ThirdPersonActionsAsset();
-        playerActionsAsset.Player.Enable();
+        EnableController();
         move = playerActionsAsset.Player.Move;
         dodge = playerActionsAsset.Player.Dodge;
         Cursor.lockState = CursorLockMode.Locked;
