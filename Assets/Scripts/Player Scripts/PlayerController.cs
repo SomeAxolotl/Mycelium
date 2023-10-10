@@ -149,4 +149,14 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
+
+    public void EnableController()
+    {
+        playerActionsAsset.Player.Enable();
+    }
+
+    public void DisableController()
+    {
+        playerActionsAsset.Player.Disable();
+    }
 }

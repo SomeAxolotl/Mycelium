@@ -72,6 +72,17 @@ public class DylanFucksAround : MonoBehaviour
 
     private void GenerateEndcap(Transform transform)
     {
-        Instantiate(CapPrefabs[Random.Range(0,CapPrefabs.Count)],transform);
+        Instantiate(CapPrefabs[Random.Range(0,CapPrefabs.Count)], transform);
     }
+
+    /*private Transform NewTransform(Transform oldTransform)
+    {
+        oldTransform.localScale = Vector3.one;
+        Debug.Log("Name: "+ oldTransform);
+        Debug.Log("Position: "+ oldTransform.position);
+        Debug.Log("Rotation: "+ oldTransform.rotation);
+        Debug.Log("Scale: "+ oldTransform.localScale);
+        Debug.Log("_____________");
+        return oldTransform;
+    }*/
 }
