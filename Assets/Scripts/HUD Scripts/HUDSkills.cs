@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class HUDSkills : MonoBehaviour
 {
+    //Hit
+
     private MeleeAttack meleeAttack;
     private float hitCooldown;
     private float hitCooldownCounter;
@@ -14,6 +16,12 @@ public class HUDSkills : MonoBehaviour
     private Image hitCooldownBackground;
     private TMP_Text hitText;
     private TMP_Text hitButtonText;
+
+    //Skill
+
+    private AoEEffect aoeSkill;
+    private float skillCooldown;
+    private float skillCooldownCounter;
 
     private Image skillCooldownBackground;
     private TMP_Text skillText;
@@ -37,6 +45,13 @@ public class HUDSkills : MonoBehaviour
         hitCooldownCounter = hitCooldown;
     }
 
+    /*public void StartSkillCooldownUI()
+    {
+        aoeSkill = GameObject.FindWithTag("currentPlayer").GetComponent<AoEEffect>();
+        skillCooldown = aoeSkill.delay;
+        skillCooldownCounter = skillCooldown;
+    }*/
+
     void Update()
     {
         if (hitCooldownCounter > 0)
@@ -44,6 +59,12 @@ public class HUDSkills : MonoBehaviour
             hitCooldownCounter -= Time.deltaTime;
             hitCooldownBackground.fillAmount = hitCooldownCounter / hitCooldown;
         }
+
+        /*if (skillCooldownCounter > 0)
+        {
+            skillCooldownCounter -= Time.deltaTime;
+            skillCooldownBackground.fillAmount = skillCooldownCounter / skillCooldown;
+        }*/
     }
 
     /*

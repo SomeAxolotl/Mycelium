@@ -28,13 +28,17 @@ public class Swapping : MonoBehaviour
         }
 
         hudWeaponScript = GameObject.Find("HUD").GetComponent<HUDWeapon>();
+        //test
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
-        GameObject.FindWithTag("currentWeapon").transform.rotation = transform.rotation;
+        if (GameObject.FindWithTag("currentWeapon"))
+        {
+            GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
+            GameObject.FindWithTag("currentWeapon").transform.rotation = transform.rotation;
+        }
         
         Vector3 direction = rb.velocity;
         if(Mathf.Approximately(rb.velocity.x, 0) && Mathf.Approximately(rb.velocity.z, 0))

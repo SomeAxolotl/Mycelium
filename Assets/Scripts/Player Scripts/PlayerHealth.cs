@@ -11,11 +11,15 @@ public class PlayerHealth : MonoBehaviour
     bool canRegen;
     Rigidbody rb;
 
+    private HUDHealth hudHealth;
+
     // Start is called before the first frame update
     void Start()
     {
         canRegen = true;
         rb = GetComponent<Rigidbody>();
+
+        hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
     }
 
     // Update is called once per frame
@@ -43,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
         }
     }
+
     IEnumerator FetchStats()
     {
         yield return new WaitForEndOfFrame();
@@ -58,8 +63,21 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator Regen()
     {
         canRegen = false;
-        currentHealth += finalRegen;
+        Heal(finalRegen);
+        hudHealth.UpdateHealthUI();
         yield return new WaitForSeconds(1f);
         canRegen = true;
+    }
+
+    public void Hurt(float damage)
+    {
+        currentHealth -= damage;
+        hudHealth.UpdateHealthUI();
+    }
+
+    public void Heal(float healing)
+    {
+        currentHealth += healing;
+        hudHealth.UpdateHealthUI();
     }
 }

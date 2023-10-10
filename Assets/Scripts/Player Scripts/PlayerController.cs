@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     //private float moveSpeed = 5f;
     
-    [SerializeField]
     private Camera playerCamera;
 
     //Input fields
@@ -32,6 +31,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        playerCamera = Camera.main;
         player = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         playerActionsAsset = new ThirdPersonActionsAsset();
@@ -60,10 +60,10 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("Dodging");
             StartCoroutine("IFrames");
         }
-        if(isInvincible)
+        /*if(isInvincible)
         {
             
-        }
+        }*/
     }
     IEnumerator FetchStats()
     {

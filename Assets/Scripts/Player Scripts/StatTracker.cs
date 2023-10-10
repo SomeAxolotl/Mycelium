@@ -43,10 +43,7 @@ public class StatTracker : MonoBehaviour
         sentienceLevel = 0;
         vitalityLevel = 0;
     }
-    void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+
     // Update is called once per frame
     void Update()
     {

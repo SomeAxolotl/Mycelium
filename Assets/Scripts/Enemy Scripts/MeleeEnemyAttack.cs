@@ -52,7 +52,6 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         if (collision.gameObject.tag == "currentPlayer")
         {
-            Debug.Log("Player Hit!");
             GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().currentHealth -= damage;
         }
     }*/

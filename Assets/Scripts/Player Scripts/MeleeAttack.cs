@@ -30,6 +30,7 @@ public class MeleeAttack : MonoBehaviour
         attacking = false;
 
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        //test
     }
 
     // Update is called once per frame
@@ -49,11 +50,11 @@ public class MeleeAttack : MonoBehaviour
         }
 
         //The statement below makes it so that the weapon collider is only active when the attack animation is playing in order to damage the enemy.
-        if(attacking == false)
+        if(attacking == false &&  GameObject.FindWithTag("currentWeapon"))
         {
             GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
         }
-        else
+        else if (GameObject.FindWithTag("currentWeapon"))
         {
             GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
         }

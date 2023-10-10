@@ -20,7 +20,7 @@ public class RangedEnemyProjectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "currentPlayer")
         {
-            GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().currentHealth -= damage;
+            GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().Hurt(damage);
             Destroy(gameObject);
         }
         if (collision.gameObject.tag != "currentPlayer")
