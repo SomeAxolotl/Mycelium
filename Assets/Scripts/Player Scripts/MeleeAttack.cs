@@ -76,7 +76,7 @@ public class MeleeAttack : MonoBehaviour
     IEnumerator Attacking()
     {
         canAttack = false;
-        StartCoroutine("Attack"); //Starts the coroutine which has the attack animation
+        StartCoroutine(Attack()); //Starts the coroutine which has the attack animation
         hudSkills.StartHitCooldownUI();
         yield return new WaitForSeconds(finalAtkCooldown); //The cooldown between attacks
         canAttack = true;
