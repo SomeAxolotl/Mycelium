@@ -19,9 +19,6 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        //Debug.Log("Enemy Health: " + currentHealth);
-        //Debug.Log("Dmg Taken: " + dmgTaken);
-        
         if(currentHealth <= 0)
         {
             StartCoroutine("Death");

@@ -11,7 +11,6 @@ public class Swapping : MonoBehaviour
     private Transform weaponHolder;
     public bool swapping = false;
     public bool playerSwapping = false;
-
     private HUDWeapon hudWeaponScript;
 
     // Start is called before the first frame update
@@ -53,7 +52,6 @@ public class Swapping : MonoBehaviour
         Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), direction, out hit, 8f) || 
         Physics.Raycast(new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z), direction, out hit, 8f))
         {
-            //Debug.Log("raycast hitting");
             if(hit.transform.CompareTag("Player") && swapItem.triggered)
             {
                 //Swaps your current player

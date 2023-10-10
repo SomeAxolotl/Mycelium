@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     float horizontalInput;
     float verticalInput;
+
     //Vector3 moveDirection;
     Rigidbody rb;
     Transform player;
@@ -59,6 +60,10 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("Dodging");
             StartCoroutine("IFrames");
         }
+        if(isInvincible)
+        {
+            
+        }
     }
     IEnumerator FetchStats()
     {
@@ -80,7 +85,6 @@ public class PlayerController : MonoBehaviour
     {
         canDodge = false;
         activeDodge = true;
-        //Debug.Log("dodging");
         rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
         yield return new WaitForSeconds(.15f);
         activeDodge = false;
@@ -90,7 +94,6 @@ public class PlayerController : MonoBehaviour
     IEnumerator IFrames()
     {
         isInvincible = true;
-        //Debug.Log("Invincible!");
         yield return new WaitForSeconds(.25f);
         isInvincible = false;
     }

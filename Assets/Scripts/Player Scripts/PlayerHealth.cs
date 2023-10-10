@@ -9,11 +9,13 @@ public class PlayerHealth : MonoBehaviour
     float finalRegen;
     bool fetchedStats = false;
     bool canRegen;
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         canRegen = true;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -30,12 +32,15 @@ public class PlayerHealth : MonoBehaviour
         }
         
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        //Debug.Log("current health: " + currentHealth);
         
-        //Current health will equal 0 for a single frame on load so this will remain as < for now
-        if(currentHealth < 0)
+        if(currentHealth <= 0 && fetchedStats)
         {
-            //Debug.Log("death");
+            
+            currentHealth = 0;
+            Debug.Log("You Died");
+            gameObject.GetComponent<PlayerController>().enabled = false;
+            rb.Sleep();
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
         }
     }
     IEnumerator FetchStats()
