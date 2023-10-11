@@ -7,7 +7,6 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth;
     float currentHealth;
     public int nutrientDrop;
-    float dmgTaken;
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -29,8 +28,14 @@ public class EnemyHealth : MonoBehaviour
         if(other.gameObject.tag == "currentWeapon")
         {
             //Gets the damage value from the players melee attack script and subtracts that from its own health.
-            dmgTaken = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>().finalDmg;
+            var dmgTaken = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>().finalDmg;
             currentHealth -= dmgTaken;
+        }
+        if(other.gameObject.tag == "AoEHitbox")
+        {
+            var dmgTaken = GameObject.FindWithTag("currentPlayer").GetComponent<EruptionSkill>().finalEruptionDmg;
+            currentHealth -= dmgTaken;
+            StartCoroutine("Stunned");
         }
     }
     IEnumerator Death()
@@ -42,5 +47,30 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(2f);
         GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
         this.gameObject.SetActive(false);
+    }
+    IEnumerator Stunned()
+    {
+        gameObject.GetComponent<EnemyNavigation>().enabled = false;
+
+        if(gameObject.GetComponent<MeleeEnemyAttack>() == null)
+        {
+            gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
+        }
+        if(gameObject.GetComponent<RangedEnemyShoot>() == null)
+        {
+            gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
+        }
+        
+        yield return new WaitForSeconds(2f);
+        gameObject.GetComponent<EnemyNavigation>().enabled = true;
+        
+        if(gameObject.GetComponent<MeleeEnemyAttack>() == null)
+        {
+            gameObject.GetComponent<RangedEnemyShoot>().enabled = true;
+        }
+        if(gameObject.GetComponent<RangedEnemyShoot>() == null)
+        {
+            gameObject.GetComponent<MeleeEnemyAttack>().enabled = true;
+        }
     }
 }

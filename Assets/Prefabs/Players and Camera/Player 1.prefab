@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 2589582759157878678}
   - component: {fileID: 336446097711646164}
   - component: {fileID: 938669572614803875}
+  - component: {fileID: 565881821838613799}
   m_Layer: 3
   m_Name: Player 1
   m_TagString: currentPlayer
@@ -357,9 +358,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.2221234
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.38893992, z: 0}
 --- !u!54 &9062206772632151176
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -399,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5677c239b52326e40898a46e93c692d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  isInvincible: 0
 --- !u!114 &1254033828377089542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +466,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swapping: 0
   playerSwapping: 0
+--- !u!114 &565881821838613799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7088058615051300479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c816c6df0c95cf448b46220a7e8cc3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aoeHitbox: {fileID: 595167309576842801, guid: 3a0eb430c52ff004690240da5c8ee832,
+    type: 3}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  canSkill: 1
+  cooldown: 5
+  finalEruptionDmg: 0
 --- !u!1 &7848266065364645164
 GameObject:
   m_ObjectHideFlags: 0
