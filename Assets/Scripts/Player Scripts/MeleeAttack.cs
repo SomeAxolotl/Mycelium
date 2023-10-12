@@ -53,11 +53,11 @@ public class MeleeAttack : MonoBehaviour
         }
 
         //The statement below makes it so that the weapon collider is only active when the attack animation is playing in order to damage the enemy.
-        if(attacking == false &&  GameObject.FindWithTag("currentWeapon"))
+        if(attacking == false)
         {
             GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
         }
-        else if (GameObject.FindWithTag("currentWeapon"))
+        else if(attacking == true)
         {
             GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
         }
@@ -88,7 +88,9 @@ public class MeleeAttack : MonoBehaviour
     IEnumerator Attack()
     {
         attacking = true;
-        yield return new WaitForSeconds(0.5f); //This is where the attack animation will go and replace the WaitForSeconds, yield return null will go at the end of this IEnumerator
+        gameObject.GetComponent<PlayerController>().DisableController();
+        yield return new WaitForSeconds(0.6f); //This is where the attack animation will go and replace the WaitForSeconds, yield return null will go at the end of this IEnumerator
+        gameObject.GetComponent<PlayerController>().EnableController();
         if (fungalMightBonus > 1.0)
         {
             DeactivateFungalMight();

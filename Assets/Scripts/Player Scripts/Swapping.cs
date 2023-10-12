@@ -12,7 +12,6 @@ public class Swapping : MonoBehaviour
     public bool swapping = false;
     public bool playerSwapping = false;
     private HUDWeapon hudWeaponScript;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -34,11 +33,8 @@ public class Swapping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindWithTag("currentWeapon"))
-        {
             GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
             GameObject.FindWithTag("currentWeapon").transform.rotation = transform.rotation;
-        }
         
         Vector3 direction = rb.velocity;
         if(Mathf.Approximately(rb.velocity.x, 0) && Mathf.Approximately(rb.velocity.z, 0))
@@ -54,7 +50,9 @@ public class Swapping : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(transform.position, direction, out hit, 8f) || 
         Physics.Raycast(new Vector3(transform.position.x, transform.position.y - .75f, transform.position.z), direction, out hit, 8f) || 
-        Physics.Raycast(new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z), direction, out hit, 8f))
+        Physics.Raycast(new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z), direction, out hit, 8f) ||
+        Physics.Raycast(new Vector3(transform.position.x, transform.position.y - .25f, transform.position.z), direction, out hit, 8f) ||
+        Physics.Raycast(new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z), direction, out hit, 8f))
         {
             if(hit.transform.CompareTag("Player") && swapItem.triggered)
             {
