@@ -50,65 +50,100 @@ public class LevelUpMenuManager : MonoBehaviour
 
     public void PrimalUP()
     {
-       currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
-       currentstattracker.IncreaseStat("primal", 1);
-       nutrientTracker.SubtractNutrients(100);
+      if (EnoughNutrients())
+       {
+         currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
+         currentstattracker.IncreaseStat("primal", 1);
+         nutrientTracker.SubtractNutrients(100);
+       }
+       
     }
     public void PrimalDown()
     {
+      if (currentstattracker.primalLevel > 0)
+      {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.primalLevel -= 1;
        nutrientTracker.AddNutrients(100);
-       
+       }
        
     }
     public void SpeedUP()
     {
-       currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
-       currentstattracker.IncreaseStat("speed", 1);
-       nutrientTracker.SubtractNutrients(100);
+      if (EnoughNutrients())
+       {
+         currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
+         currentstattracker.IncreaseStat("speed", 1);
+         nutrientTracker.SubtractNutrients(100);
+       }
+       
      
        
     }
     public void SpeedDown()
     {
-       currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
-       currentstattracker.speedLevel -= 1;
-       nutrientTracker.AddNutrients(100);
+      if (currentstattracker.speedLevel > 0)
+      {
+         currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
+         currentstattracker.speedLevel -= 1;
+         nutrientTracker.AddNutrients(100);
+      }
        
        
     }
      public void SentienceUP()
     {
-       currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
+      if (EnoughNutrients())
+       {
+         currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.IncreaseStat("sentience", 1);
        nutrientTracker.SubtractNutrients(100);
+       }
+       
        
     }
     public void SentienceDown()
     {
+      if (currentstattracker.sentienceLevel > 0)
+      {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.sentienceLevel -= 1;
        nutrientTracker.AddNutrients(100);
-       
+       }
        
     }
      public void VitalityUP()
     {
-       currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
+      if (EnoughNutrients())
+       {
+         currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.IncreaseStat("vitality", 1);
        nutrientTracker.SubtractNutrients(100);
+       }
+       
        
        
     }
     public void VitalityDown()
     {
+       if (currentstattracker.vitalityLevel > 0)
+      {
        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.vitalityLevel -= 1;
        nutrientTracker.AddNutrients(100);
-      
+      }
        
     }
+
+    private bool EnoughNutrients()
+    {
+       if (nutrientTracker.GetNutrients() < 100)
+       {
+         return false;
+       }
+       return true;
+    }
+
     public void Commit()
     {
          UIenable.SetActive(false);

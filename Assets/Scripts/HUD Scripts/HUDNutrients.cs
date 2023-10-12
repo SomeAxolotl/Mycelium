@@ -15,6 +15,9 @@ public class HUDNutrients : MonoBehaviour
     {
         nutrientsTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         nutrientsNumberText = GameObject.Find("NutrientsNumber").GetComponent<TMP_Text>();
+        AddTestNutrients();
+        AddTestNutrients();
+        AddTestNutrients();
         UpdateNutrientsUI();
     }
 
