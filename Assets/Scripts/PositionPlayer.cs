@@ -9,7 +9,7 @@ public class PositionPlayer : MonoBehaviour
         GameObject player = GameObject.FindWithTag("currentPlayer");
         if (player)
         {
-           player.transform.position = new Vector3(0, 2, 0);
+           player.transform.position = new Vector3(-1.5f, 2f, 15f);
            Debug.Log(player.transform.position);
         }
     }
