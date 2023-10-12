@@ -53,7 +53,7 @@ public class Swapping : MonoBehaviour
         
         RaycastHit hit;
         if(Physics.Raycast(transform.position, direction, out hit, 8f) || 
-        Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), direction, out hit, 8f) || 
+        Physics.Raycast(new Vector3(transform.position.x, transform.position.y - .75f, transform.position.z), direction, out hit, 8f) || 
         Physics.Raycast(new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z), direction, out hit, 8f))
         {
             if(hit.transform.CompareTag("Player") && swapItem.triggered)
@@ -87,7 +87,7 @@ public class Swapping : MonoBehaviour
                 //Swaps your current weapon
                 GameObject.FindWithTag("currentWeapon").transform.position = hit.transform.position;
                 GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
-                GameObject.FindWithTag("currentWeapon").transform.rotation = Quaternion.Euler(-25, 0, 0);
+                GameObject.FindWithTag("currentWeapon").transform.rotation = Quaternion.Euler(45, 0, 0);
                 hit.transform.position = weaponHolder.position;
                 GameObject.FindWithTag("currentWeapon").tag = "Weapon";
                 hit.collider.gameObject.tag = "currentWeapon";

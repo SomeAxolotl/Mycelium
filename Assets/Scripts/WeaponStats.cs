@@ -12,7 +12,7 @@ public class WeaponStats : MonoBehaviour
     {
         if(gameObject.tag == "Weapon")
         {
-            transform.rotation = Quaternion.Euler(-25, 0, 0);
+            transform.rotation = Quaternion.Euler(45, 0, 0);
         }
     }
 
@@ -21,7 +21,7 @@ public class WeaponStats : MonoBehaviour
     {
         if(gameObject.tag == "Weapon")
         {
-            transform.Rotate(0, 75 * Time.deltaTime, 0);
+            transform.Rotate(0, 0, 75 * Time.deltaTime);
         }
     }
 }
