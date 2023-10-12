@@ -31,6 +31,7 @@ public class MeleeAttack : MonoBehaviour
         attack = playerActionsAsset.Player.Attack;
         canAttack = true;
         attacking = false;
+        fungalMightBonus = 1f;
 
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
     }
@@ -60,6 +61,7 @@ public class MeleeAttack : MonoBehaviour
         {
             GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
         }
+        Debug.Log("final damage: " + finalDmg);
     }
     IEnumerator FetchStats()
     {
@@ -107,6 +109,7 @@ public class MeleeAttack : MonoBehaviour
     public void ActivateFungalMight()
     {
         fungalMightBonus = 2.0f;
+        StartCoroutine("FetchStats");
         originalColor = GameObject.FindWithTag("currentWeapon").GetComponent<Renderer>().material.color;
         GameObject.FindWithTag("currentWeapon").GetComponent<Renderer>().material.SetColor("_Color", Color.red);
     }
@@ -114,6 +117,7 @@ public class MeleeAttack : MonoBehaviour
     private void DeactivateFungalMight()
     {
         Debug.Log("Deactivate");
+        StartCoroutine("FetchStats");
         fungalMightBonus = 1.0f;
         GameObject.FindWithTag("currentWeapon").GetComponent<Renderer>().material.SetColor("_Color", originalColor);
     }

@@ -39,7 +39,7 @@ public class RangedEnemyShoot : MonoBehaviour
     {
         Debug.Log("Shooting");
         canShoot = false;
-        Vector3 dirToPlayer = new Vector3(player.transform.position.x, player.transform.position.y + 1.5f, player.transform.position.z) - transform.position;
+        Vector3 dirToPlayer = new Vector3(player.transform.position.x, player.transform.position.y + 0.5f, player.transform.position.z) - transform.position;
         GameObject tempProj = Instantiate(projectile, transform.position, transform.rotation);
         tempProj.transform.right = dirToPlayer;
         tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer.normalized * 18f;

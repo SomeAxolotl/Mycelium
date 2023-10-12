@@ -44,11 +44,6 @@ public class FungalMightSkill : MonoBehaviour
             StartCoroutine("FetchStats");
         }
 
-        if(fetchedStats == false)
-        {
-            StartCoroutine("FetchStats");
-        }
-
         if (skillLoadout.transform.GetChild(0).name.Contains("FungalMightSkill"))
         {
             if (statSkill1.triggered && canSkill == true) 

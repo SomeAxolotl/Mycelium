@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
     bool fetchedStats = false;
     bool canRegen;
     Rigidbody rb;
-
+    bool respawned = true;
     private HUDHealth hudHealth;
 
     // Start is called before the first frame update
@@ -37,15 +39,23 @@ public class PlayerHealth : MonoBehaviour
         
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
-        if(currentHealth <= 0 && fetchedStats)
+        if(currentHealth <= 0 && fetchedStats && respawned)
         {
-            
-            currentHealth = 0;
-            Debug.Log("You Died");
-            gameObject.GetComponent<PlayerController>().enabled = false;
-            rb.Sleep();
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
+            currentHealth = 0f;
+            StartCoroutine("Death");
         }
+    }
+    IEnumerator Death()
+    {
+        respawned = false;
+        gameObject.GetComponent<PlayerController>().enabled = false;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("HubWorldPlaceholder");
+        gameObject.GetComponent<PlayerController>().enabled = true;
+        currentHealth = maxHealth;
+        transform.rotation = Quaternion.identity;
+        respawned = true;
     }
 
     public void UpdateStats()

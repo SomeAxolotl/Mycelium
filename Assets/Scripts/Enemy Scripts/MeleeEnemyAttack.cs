@@ -12,6 +12,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     private Transform player;
     private bool canAttack = true;
     private float attackCooldown = 2f;
+    private float attackPause = .5f;
     
     //private float damage = 25f;
 
@@ -33,7 +34,15 @@ public class MeleeEnemyAttack : MonoBehaviour
             
             if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer) && (dstToPlayer - .1f) <= navMeshAgent.stoppingDistance && canAttack)
             {
-                StartCoroutine("Attack");
+                attackPause -= Time.deltaTime;
+                if(attackPause <= 0)
+                {
+                    StartCoroutine("Attack");
+                }
+            }
+            else
+            {
+                attackPause = 1f;
             }
         }
     }

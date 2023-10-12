@@ -136,19 +136,19 @@ public class StatTracker : MonoBehaviour
 
     void UpdateBlendshape()
     {
+        Debug.Log("please work");
         float levelWeight = 0;
-        int totalPointsSpent = sentienceLevel + primalLevel + vitalityLevel + speedLevel;
         //map the weight for Sentience
-        levelWeight = sentienceLevel/15f * totalPointsSpent/15f * 100;
+        levelWeight = sentienceLevel * 100f/15f;
         statLevelWeights.Add(levelWeight);
         //map the weight for Primal
-        levelWeight = primalLevel/15f * totalPointsSpent/15f * 100;
+        levelWeight = primalLevel * 100f/15f;
         statLevelWeights.Add(levelWeight);
         //map the weight for Vitality
-        levelWeight = vitalityLevel/15f * totalPointsSpent/15f * 100;
+        levelWeight = vitalityLevel * 100f/15f;
         statLevelWeights.Add(levelWeight);
         //map the weight for Speed
-        levelWeight = speedLevel/15f * totalPointsSpent/15f * 100;
+        levelWeight = speedLevel * 100f/15f;
         statLevelWeights.Add(levelWeight);
 
         for(int i=0;i<blendShapeCount;i++)
