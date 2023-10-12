@@ -8,9 +8,11 @@ public class LevelUpInitiate : MonoBehaviour
 {
     [SerializeField]
     GameObject levelupmenu;
+    public Button firstbutton;
 
     private PlayerController playerController;
     private MeleeAttack meleeAttack;
+
 
     private void OnCollisionEnter(Collision other)
     {
@@ -22,6 +24,7 @@ public class LevelUpInitiate : MonoBehaviour
             levelupmenu.SetActive(true);
             playerController.DisableController();
             meleeAttack.DisableAttack();
+            firstbutton.Select();
         }
     }
 }
