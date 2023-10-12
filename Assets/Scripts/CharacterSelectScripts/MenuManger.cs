@@ -17,6 +17,9 @@ public class MenuManger : MonoBehaviour
 
     private HUDNutrients hudNutrients;
     private NutrientTracker nutrientTracker;
+    public colourswap colourSwapScript;
+    public bool unlock = false;
+
 
     void Start()
     {
@@ -39,6 +42,7 @@ public class MenuManger : MonoBehaviour
         }
         
         hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
+        colourSwapScript = GameObject.Find("ColourUpdater").GetComponent<colourswap>();
     }
 
     // Update is called once per frame
@@ -49,6 +53,7 @@ public class MenuManger : MonoBehaviour
     public void ChangeNext()
     {
         Characters[currentCharacterIndex].SetActive(false);
+        
 
         currentCharacterIndex++;
         if(currentCharacterIndex==Characters.Length)
@@ -62,13 +67,16 @@ public class MenuManger : MonoBehaviour
                 return;
             }
             PlayerPrefs.SetInt("SelectedChar", currentCharacterIndex);
-            
-        
+        if (colourSwapScript.unlock)
+        {
+         colourSwapScript.play2 = !colourSwapScript.play2;
+        }
+
     }
     public void ChangePrevious()
     {
         Characters[currentCharacterIndex].SetActive(false);
-
+        
         currentCharacterIndex--;
         if(currentCharacterIndex==-1)
         {
@@ -81,7 +89,10 @@ public class MenuManger : MonoBehaviour
                 return;
             }
             PlayerPrefs.SetInt("SelectedChar", currentCharacterIndex);
-        
+        if (colourSwapScript.unlock)
+        {
+         colourSwapScript.play2 = !colourSwapScript.play2;
+        }
     }
     public void UnlockCharacter()
     {
@@ -89,6 +100,8 @@ public class MenuManger : MonoBehaviour
         PlayerPrefs.SetInt(c.CharName, 1);
         PlayerPrefs.SetInt("SelectedChar", currentCharacterIndex);
         c.isUnlocked = true;
+        colourSwapScript.unlock = true;
+        colourSwapScript.play2 = !colourSwapScript.play2;
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         nutrientTracker.SubtractNutrients(c.nutrientcost);
         hudNutrients.UpdateNutrientsUI();

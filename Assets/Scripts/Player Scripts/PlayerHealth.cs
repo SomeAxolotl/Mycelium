@@ -53,9 +53,11 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("HubWorldPlaceholder");
         gameObject.GetComponent<PlayerController>().enabled = true;
+        transform.position = new Vector3(0, 1.5f, 1.0f);
         currentHealth = maxHealth;
         transform.rotation = Quaternion.identity;
         respawned = true;
+        
     }
 
     public void UpdateStats()
@@ -94,5 +96,10 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth += healing;
         hudHealth.UpdateHealthUI();
+    }
+
+    public void Reset()
+    {
+        currentHealth = maxHealth;
     }
 }

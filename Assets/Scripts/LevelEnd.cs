@@ -9,7 +9,9 @@ public class LevelEnd : MonoBehaviour
     {
         if (other.tag == "currentPlayer")
         {
+            GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().Reset();
             SceneManager.LoadScene("HubWorldPlaceholder");
+
         }
 
         other.gameObject.transform.position = new Vector3(0, 1.5f, 1.0f);

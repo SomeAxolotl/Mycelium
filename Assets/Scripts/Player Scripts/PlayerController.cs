@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
         MyInput();
         SpeedControl();
         
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        
         playerSwapping = gameObject.GetComponent<Swapping>().playerSwapping;
 
         if(fetchedStats == false || playerSwapping == true)
