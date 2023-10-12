@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class EruptionSkill : MonoBehaviour
+public class FungalMightSkill : MonoBehaviour
 {
-    [SerializeField] private GameObject aoeHitbox;
-    //private Collider[] enemyColliders;
-    //public LayerMask enemyLayer;
-    //private Transform enemy;
-    //private float aoeRadius = 4f;
     public bool canSkill = true;
-    float activeHitboxTime = .1f;
     private ThirdPersonActionsAsset playerActionsAsset;
     private InputAction statSkill1;
     private InputAction statSkill2;
     //private float dstToEnemy;
     bool fetchedStats = false;
     float sentienceSkillDmg;
-    float eruptionDmg = 25f;
     public float finalEruptionDmg;
-    float eruptionCooldown = 5f;
+    float fungalMightCooldown = 7f;
     float skillCooldownBuff;
     public float finalSkillCooldown;
 
@@ -51,39 +44,42 @@ public class EruptionSkill : MonoBehaviour
             StartCoroutine("FetchStats");
         }
 
-        if (skillLoadout.transform.GetChild(0).name.Contains("EruptionSkill"))
+        if(fetchedStats == false)
+        {
+            StartCoroutine("FetchStats");
+        }
+
+        if (skillLoadout.transform.GetChild(0).name.Contains("FungalMightSkill"))
         {
             if (statSkill1.triggered && canSkill == true) 
             {
                 player = GameObject.FindWithTag("currentPlayer");
-                StartCoroutine("Eruption");
+                StartCoroutine("FungalMight");
             }
         }
 
-        /*if (skillLoadout.transform.GetChild(1).name == "EruptionSkill")
+        /*if (skillLoadout.transform.GetChild(1).name == "FungalMightSkill")
         {
             if (statSkill2.triggered && canSkill == true) 
             {
                 player = GameObject.FindWithTag("currentPlayer");
-                StartCoroutine("Eruption");
+                StartCoroutine("FungalMight");
             }
         }*/
     }
+
+
     IEnumerator FetchStats()
     {
         yield return new WaitForEndOfFrame();
 
-        //The info below gets the stats from the StatTracker script and makes a final damage/cooldown value depending on which skill the player is using.
-        sentienceSkillDmg = player.GetComponent<StatTracker>().sentienceSkillDmg;
-        finalEruptionDmg = sentienceSkillDmg + eruptionDmg;
-
         skillCooldownBuff = player.GetComponent<StatTracker>().skillCooldownBuff;
-        finalSkillCooldown = eruptionCooldown - skillCooldownBuff;
+        finalSkillCooldown = fungalMightCooldown - skillCooldownBuff;
         
         fetchedStats = true;
     }
 
-    IEnumerator Eruption()
+    IEnumerator FungalMight()
     {
         StartCoroutine("FetchStats");
         canSkill = false;
@@ -97,11 +93,9 @@ public class EruptionSkill : MonoBehaviour
             dstToEnemy = Vector3.Distance(transform.position, enemy.position);
         }*/
 
-        GameObject tempHitbox = Instantiate(aoeHitbox, player.transform.position, player.transform.rotation) as GameObject;
-        yield return new WaitForSeconds(activeHitboxTime); //Animation will go here
-        Destroy(tempHitbox);
+        player.GetComponent<MeleeAttack>().ActivateFungalMight();
         hudSkills.StartSkill1CooldownUI(finalSkillCooldown);
-        yield return new WaitForSeconds(finalSkillCooldown - activeHitboxTime);
+        yield return new WaitForSeconds(finalSkillCooldown);
         canSkill = true;
     }
 }

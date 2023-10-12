@@ -328,10 +328,13 @@ MonoBehaviour:
   SpeedText: {fileID: 2038180013}
   SentienceText: {fileID: 1857055270}
   VitalityText: {fileID: 60229033}
-  Nutrients: {fileID: 0}
   currentstattracker: {fileID: 0}
   UIenable: {fileID: 1659212687}
   HUD: {fileID: 0}
+  eruptionObject: {fileID: 5745268188309084719, guid: 136ab3c9edff6b34292dcfba3a2bc13a,
+    type: 3}
+  fungalMightObject: {fileID: 5150063663384158485, guid: 980d093fd5559444b92b735141531cf4,
+    type: 3}
 --- !u!4 &58096238
 Transform:
   m_ObjectHideFlags: 0
@@ -2533,7 +2536,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684116588}
-  m_LocalRotation: {x: -0.036324963, y: 0.00000008940697, z: -0.000000074505806, w: 0.99934006}
+  m_LocalRotation: {x: -0.036325023, y: 0.000000029802322, z: 0.000000014901161, w: 0.99934006}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -3655,6 +3658,7 @@ GameObject:
   - component: {fileID: 963194231}
   - component: {fileID: 963194230}
   - component: {fileID: 963194233}
+  - component: {fileID: 963194234}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3950,6 +3954,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7103de06a81a9745b5007d9e5cd79a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &963194234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 257
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1 &971406276
 GameObject:
   m_ObjectHideFlags: 3
@@ -6329,6 +6363,50 @@ Transform:
   m_Father: {fileID: 1858221496}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -13.696, y: -1.418, z: 5.968}
+--- !u!1 &1358374246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1358374247}
+  - component: {fileID: 1358374248}
+  m_Layer: 0
+  m_Name: HubSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1358374247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358374246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4642011, y: 1.711, z: 0.837}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1358374248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358374246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60885fd4682e9744db28ca72eca46ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1367007439
 GameObject:
   m_ObjectHideFlags: 0
@@ -7783,17 +7861,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 565881821838613799, guid: 93044460928c4794396f5c71836c8a00,
+    - target: {fileID: 2129194067437530874, guid: 93044460928c4794396f5c71836c8a00,
         type: 3}
-      propertyPath: cooldown
-      value: 5
+      propertyPath: m_Name
+      value: FungalMightSkill
       objectReference: {fileID: 0}
-    - target: {fileID: 565881821838613799, guid: 93044460928c4794396f5c71836c8a00,
-        type: 3}
-      propertyPath: particleSystem
-      value: 
-      objectReference: {fileID: 1739310902855686771, guid: b10a598516154d14f9be86a9a99c2c40,
-        type: 3}
     - target: {fileID: 4206264188598728068, guid: 93044460928c4794396f5c71836c8a00,
         type: 3}
       propertyPath: m_TagString
@@ -7827,7 +7899,7 @@ PrefabInstance:
     - target: {fileID: 5339237950525832405, guid: 93044460928c4794396f5c71836c8a00,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.422
+      value: 1.59
       objectReference: {fileID: 0}
     - target: {fileID: 5339237950525832405, guid: 93044460928c4794396f5c71836c8a00,
         type: 3}
@@ -7894,7 +7966,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.119
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

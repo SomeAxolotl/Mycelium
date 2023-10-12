@@ -48,6 +48,11 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void UpdateStats()
+    {
+        StartCoroutine("FetchStats");
+    }
+
     IEnumerator FetchStats()
     {
         yield return new WaitForEndOfFrame();

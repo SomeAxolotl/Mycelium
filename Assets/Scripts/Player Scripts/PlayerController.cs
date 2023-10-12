@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
         if(fetchedStats == false || playerSwapping == true)
         {
-            StartCoroutine("FetchStats");
+            UpdateStats();
         }
         
         if(dodge.triggered && canDodge == true)
@@ -65,12 +65,14 @@ public class PlayerController : MonoBehaviour
             
         }*/
     }
-    IEnumerator FetchStats()
+
+    public void UpdateStats()
     {
-        yield return new WaitForEndOfFrame();
+        Debug.Log("PC fetched stats");
         finalMoveSpeed = gameObject.GetComponent<StatTracker>().finalMoveSpeed;
         fetchedStats = true;
     }
+
     private void FixedUpdate()
     {
         LookAt();

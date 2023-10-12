@@ -19,13 +19,12 @@ public class HUDSkills : MonoBehaviour
 
     //Skill
 
-    private AoEEffect aoeSkill;
-    private float skillCooldown;
-    private float skillCooldownCounter;
+    private float skill1Cooldown;
+    private float skill1CooldownCounter;
 
-    private Image skillCooldownBackground;
-    private TMP_Text skillText;
-    private TMP_Text skillButtonText;
+    private Image skill1CooldownBackground;
+    private TMP_Text skill1Text;
+    private TMP_Text skill1ButtonText;
 
     void Start()
     {
@@ -33,9 +32,9 @@ public class HUDSkills : MonoBehaviour
         hitText = GameObject.Find("HitText").GetComponent<TMP_Text>();
         hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();
 
-        skillCooldownBackground = GameObject.Find("Skill1CooldownBackground").GetComponent<Image>();
-        skillText = GameObject.Find("Skill1Text").GetComponent<TMP_Text>();
-        skillButtonText = GameObject.Find("Skill1Button").GetComponent<TMP_Text>();
+        skill1CooldownBackground = GameObject.Find("Skill1CooldownBackground").GetComponent<Image>();
+        skill1Text = GameObject.Find("Skill1Text").GetComponent<TMP_Text>();
+        skill1ButtonText = GameObject.Find("Skill1Button").GetComponent<TMP_Text>();
     }
 
     public void StartHitCooldownUI()
@@ -45,12 +44,11 @@ public class HUDSkills : MonoBehaviour
         hitCooldownCounter = hitCooldown;
     }
 
-    /*public void StartSkillCooldownUI()
+    public void StartSkill1CooldownUI(float cooldown)
     {
-        aoeSkill = GameObject.FindWithTag("currentPlayer").GetComponent<AoEEffect>();
-        skillCooldown = aoeSkill.delay;
-        skillCooldownCounter = skillCooldown;
-    }*/
+        skill1Cooldown = cooldown;
+        skill1CooldownCounter = cooldown;
+    }
 
     void Update()
     {
@@ -60,11 +58,11 @@ public class HUDSkills : MonoBehaviour
             hitCooldownBackground.fillAmount = hitCooldownCounter / hitCooldown;
         }
 
-        /*if (skillCooldownCounter > 0)
+        if (skill1CooldownCounter > 0)
         {
-            skillCooldownCounter -= Time.deltaTime;
-            skillCooldownBackground.fillAmount = skillCooldownCounter / skillCooldown;
-        }*/
+            skill1CooldownCounter -= Time.deltaTime;
+            skill1CooldownBackground.fillAmount = skill1CooldownCounter / skill1Cooldown;
+        }
     }
 
     /*

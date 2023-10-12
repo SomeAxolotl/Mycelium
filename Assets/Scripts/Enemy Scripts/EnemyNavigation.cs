@@ -42,7 +42,7 @@ public class EnemyNavigation : MonoBehaviour
             
             if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer) || dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer) && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer))
             {
-                Debug.Log("Spotted!");
+                //Debug.Log("Spotted!");
                 playerSeen = true;
                 StopCoroutine(patrol);
                 patrol = Patrol();

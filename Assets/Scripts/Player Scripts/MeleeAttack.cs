@@ -20,6 +20,9 @@ public class MeleeAttack : MonoBehaviour
 
     private HUDSkills hudSkills;
 
+    public float fungalMightBonus;
+    private Color originalColor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +33,6 @@ public class MeleeAttack : MonoBehaviour
         attacking = false;
 
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
-        //test
     }
 
     // Update is called once per frame
@@ -70,8 +72,7 @@ public class MeleeAttack : MonoBehaviour
         
         primalDmg = gameObject.GetComponent<StatTracker>().primalDmg;
         weaponDmg = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().weaponDmg;
-        finalDmg = primalDmg + weaponDmg;
-        
+        finalDmg = (primalDmg + weaponDmg) * fungalMightBonus;
         fetchedStats = true;
     }
     IEnumerator Attacking()
@@ -86,6 +87,10 @@ public class MeleeAttack : MonoBehaviour
     {
         attacking = true;
         yield return new WaitForSeconds(0.5f); //This is where the attack animation will go and replace the WaitForSeconds, yield return null will go at the end of this IEnumerator
+        if (fungalMightBonus > 1.0)
+        {
+            DeactivateFungalMight();
+        }
         attacking = false;
     }
 
@@ -97,5 +102,19 @@ public class MeleeAttack : MonoBehaviour
     public void DisableAttack()
     {
         playerActionsAsset.Player.Disable();
+    }
+
+    public void ActivateFungalMight()
+    {
+        fungalMightBonus = 2.0f;
+        originalColor = GameObject.FindWithTag("currentWeapon").GetComponent<Renderer>().material.color;
+        GameObject.FindWithTag("currentWeapon").GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+    }
+
+    private void DeactivateFungalMight()
+    {
+        Debug.Log("Deactivate");
+        fungalMightBonus = 1.0f;
+        GameObject.FindWithTag("currentWeapon").GetComponent<Renderer>().material.SetColor("_Color", originalColor);
     }
 }

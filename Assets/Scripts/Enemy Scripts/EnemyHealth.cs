@@ -15,21 +15,15 @@ public class EnemyHealth : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    { 
-        if(currentHealth <= 0)
-        {
-            StartCoroutine("Death");
-        }
-    }
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "currentWeapon")
         {
+            Debug.Log("Damage Taken");
             //Gets the damage value from the players melee attack script and subtracts that from its own health.
             var dmgTaken = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>().finalDmg;
             currentHealth -= dmgTaken;
+
         }
         if(other.gameObject.tag == "AoEHitbox")
         {
@@ -37,6 +31,11 @@ public class EnemyHealth : MonoBehaviour
             currentHealth -= dmgTaken;
             StartCoroutine("Stunned");
         }
+
+        if(currentHealth <= 0)
+            {
+                StartCoroutine("Death");
+            }
     }
     IEnumerator Death()
     {

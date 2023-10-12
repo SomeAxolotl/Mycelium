@@ -45,6 +45,8 @@ public class StatTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        statLevelWeights = new List<float>();
+
         primalLevel = 0;
         speedLevel = 0;
         sentienceLevel = 0;
@@ -53,11 +55,12 @@ public class StatTracker : MonoBehaviour
 
     void Awake()
     {   
-        foreach (Transform child in this.transform)
+        foreach (Transform child in this.transform.Find("SporePlaceholder"))
         {
             if (child.tag == "playerCap")
             {
                 skinnedMeshRenderer = child.gameObject.GetComponent<SkinnedMeshRenderer>();
+                Debug.Log(skinnedMeshRenderer);
                 skinnedMesh = child.gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh;
             }
         }
@@ -80,7 +83,7 @@ public class StatTracker : MonoBehaviour
         finalRegen = baseRegen + (.05f * vitalityLevel);
     }
 
-    int IncreaseStat(string statName, int increaseLevel)
+    public int IncreaseStat(string statName, int increaseLevel)
     {
         if(String.Compare(statName, "primal") == 0)
         {
@@ -149,6 +152,8 @@ public class StatTracker : MonoBehaviour
         statLevelWeights.Add(levelWeight);
 
         for(int i=0;i<blendShapeCount;i++)
+            {
             skinnedMeshRenderer.SetBlendShapeWeight(i,statLevelWeights[i]);
+            }
     }
 }
