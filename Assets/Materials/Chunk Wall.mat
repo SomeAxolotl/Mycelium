@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rock
+  m_Name: Chunk Wall
   m_Shader: {fileID: -6465566751694194690, guid: e5e0545853cbd964eb326b68c47e38f7,
     type: 3}
   m_Parent: {fileID: 0}
@@ -28,7 +28,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 53ac352f31fd23e4da9aa3a6cf6343dc, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -52,11 +52,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 53ac352f31fd23e4da9aa3a6cf6343dc, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 60d97186218717b46ae72dfe1ab239b0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 38aec9e5afe38e2409f9dabc75237565, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -100,13 +100,13 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Disable_Fresnel: 0
+    - _Disable_Fresnel: 1
     - _Disable_Specular: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Falloff_Amount: 0.01
-    - _Fresnel_Size: 0.125
+    - _Fresnel_Size: 0.001
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -131,7 +131,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.79607844, g: 0.9529412, b: 0.8666667, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -140,7 +140,7 @@ Material:
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &6699349174812591556
+--- !u!114 &2015424056519939691
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
