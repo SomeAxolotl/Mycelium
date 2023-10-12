@@ -156,5 +156,7 @@ public class StatTracker : MonoBehaviour
             {
             skinnedMeshRenderer.SetBlendShapeWeight(i,statLevelWeights[i]);
             }
+
+        statLevelWeights.Clear();
     }
 }

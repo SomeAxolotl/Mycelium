@@ -11,5 +11,7 @@ public class LevelEnd : MonoBehaviour
         {
             SceneManager.LoadScene("HubWorldPlaceholder");
         }
+
+        other.gameObject.transform.position = new Vector3(0, 1.5f, 1.0f);
     }
 }

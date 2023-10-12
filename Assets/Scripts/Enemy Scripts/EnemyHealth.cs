@@ -34,7 +34,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if(other.gameObject.tag == "AoEHitbox")
         {
-            var dmgTaken = GameObject.FindWithTag("currentPlayer").GetComponent<EruptionSkill>().finalEruptionDmg;
+            var dmgTaken = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").GetChild(0).GetComponent<EruptionSkill>().finalEruptionDmg;
             currentHealth -= dmgTaken;
             StartCoroutine("Stunned");
         }
