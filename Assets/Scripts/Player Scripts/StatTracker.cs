@@ -136,11 +136,10 @@ public class StatTracker : MonoBehaviour
 
     void UpdateBlendshape()
     {
+        Debug.Log("please work");
         float levelWeight = 0;
         //map the weight for Sentience
         levelWeight = sentienceLevel * 100f/15f;
-        Debug.Log(levelWeight);
-
         statLevelWeights.Add(levelWeight);
         //map the weight for Primal
         levelWeight = primalLevel * 100f/15f;
