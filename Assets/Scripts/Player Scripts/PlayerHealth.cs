@@ -81,7 +81,6 @@ public class PlayerHealth : MonoBehaviour
     {
         canRegen = false;
         Heal(finalRegen);
-        hudHealth.UpdateHealthUI();
         yield return new WaitForSeconds(1f);
         canRegen = true;
     }

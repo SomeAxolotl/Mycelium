@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth;
-    float currentHealth;
+    public float currentHealth;
     public int nutrientDrop;
     Rigidbody rb;
+
+    [SerializeField] private EnemyHealthBar enemyHealthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,16 +32,23 @@ public class EnemyHealth : MonoBehaviour
         if(other.gameObject.tag == "currentWeapon")
         {
             //Gets the damage value from the players melee attack script and subtracts that from its own health.
-            var dmgTaken = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>().finalDmg;
+            float dmgTaken = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>().finalDmg;
             currentHealth -= dmgTaken;
+
+            enemyHealthBar.UpdateEnemyHealth();
+            enemyHealthBar.DamageNumber(dmgTaken);
         }
         if(other.gameObject.tag == "AoEHitbox")
         {
-            var dmgTaken = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").GetChild(0).GetComponent<EruptionSkill>().finalEruptionDmg;
+            float dmgTaken = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").GetChild(0).GetComponent<EruptionSkill>().finalEruptionDmg;
             currentHealth -= dmgTaken;
             StartCoroutine("Stunned");
+
+            enemyHealthBar.UpdateEnemyHealth();
+            enemyHealthBar.DamageNumber(dmgTaken);
         }
     }
+
     IEnumerator Death()
     {
         //This is just a placeholder death animation which also gives the player the amount of nutrients that this enemy is supposed to drop.
