@@ -7,7 +7,7 @@ using UnityEngine.TextCore.Text;
 
 public class LevelUpMenuManager : MonoBehaviour
 {
-    public TMP_Text PrimalText;
+    /*public TMP_Text PrimalText;
     public TMP_Text SpeedText;
     public TMP_Text SentienceText;
     public TMP_Text VitalityText;
@@ -160,5 +160,5 @@ public class LevelUpMenuManager : MonoBehaviour
          Destroy(GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").GetChild(0).gameObject);
          Instantiate(eruptionObject, skillLoadout);
       }
-    }
+    }*/
 }
