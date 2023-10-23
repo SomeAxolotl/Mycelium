@@ -29,20 +29,16 @@ public class CharacterStats : MonoBehaviour
     public int totalLevel;
     int levelUpCost;
     private NutrientTracker nutrientTracker;
-    int currentNutrients;
+    private DesignTracker designTracker;
 
-    // Start is called before the first frame update
     void Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+        designTracker = gameObject.GetComponent<DesignTracker>();
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
-        levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
-        
+    {        
         //TEMPORARY KEYCODES FOR TESTING ~ WILL BE TURNED INTO UI BUTTONS IN THE FUTURE
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -75,8 +71,9 @@ public class CharacterStats : MonoBehaviour
         }
         else
         {
-            return;
+            Debug.Log("Not Enough Nutrients!");
         }
+        UpdateLevel();
     }
     public void LevelSpeed()
     {
@@ -89,8 +86,9 @@ public class CharacterStats : MonoBehaviour
         }
         else
         {
-            return;
+            Debug.Log("Not Enough Nutrients!");
         }
+        UpdateLevel();
     }
     public void LevelSentience()
     {
@@ -102,8 +100,9 @@ public class CharacterStats : MonoBehaviour
         }
         else
         {
-            return;
+            Debug.Log("Not Enough Nutrients!");
         }
+        UpdateLevel();
     }
     public void LevelVitality()
     {
@@ -116,7 +115,16 @@ public class CharacterStats : MonoBehaviour
         }
         else
         {
-            return;
+            Debug.Log("Not Enough Nutrients!");
         }
+        UpdateLevel();
+    }
+
+    private void UpdateLevel()
+    {
+        totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
+        levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
+
+        designTracker.UpdateBlendshape(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
     }
 }
