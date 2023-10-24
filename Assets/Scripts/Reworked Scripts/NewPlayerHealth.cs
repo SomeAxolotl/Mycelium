@@ -30,9 +30,9 @@ public class NewPlayerHealth : MonoBehaviour
             Death();
         }
     }
-    public void PlayerTakeDamage(float dmgAmount)
+    public void PlayerTakeDamage(float dmgTaken)
     {
-        currentHealth -= dmgAmount;
+        currentHealth -= dmgTaken;
     }
     void Death()
     {

@@ -21,10 +21,10 @@ public class SwapWeapon : MonoBehaviour
         swapItem = playerActionsAsset.Player.SwapItem;
         swapCharacter = GetComponent<SwapCharacter>();
         GameObject currentCharacter = swapCharacter.characters[swapCharacter.currentCharacterIndex];
-        Transform weaponHolder =  currentCharacter.transform.GetChild(1);
+        Transform weaponHolder =  currentCharacter.transform.GetChild(0);
         if(GameObject.FindWithTag("currentWeapon") == null)
         {
-        Instantiate(Resources.Load("StartWeapon"));
+        Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);
         GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
         }
     }
@@ -33,7 +33,7 @@ public class SwapWeapon : MonoBehaviour
     void Update()
     {
         currentCharacter = swapCharacter.characters[swapCharacter.currentCharacterIndex];
-        weaponHolder = currentCharacter.transform.GetChild(1);
+        weaponHolder = currentCharacter.transform.GetChild(0);
         GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
         GameObject.FindWithTag("currentWeapon").transform.rotation = currentCharacter.transform.rotation;
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
@@ -46,10 +46,12 @@ public class SwapWeapon : MonoBehaviour
                 Debug.Log("swap");
                 GameObject.FindWithTag("currentWeapon").transform.position = weapon.position;
                 GameObject.FindWithTag("currentWeapon").transform.rotation = Quaternion.Euler(-25, 0, 0);
+                GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
                 weapon.position = weaponHolder.position;
                 GameObject.FindWithTag("currentWeapon").layer = LayerMask.NameToLayer("Weapon");
                 GameObject.FindWithTag("currentWeapon").tag = "Weapon";
                 weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
+                weapon.GetComponent<Collider>().enabled = false;
                 weapon.tag = "currentWeapon";
                 transform.parent = GameObject.FindWithTag("currentPlayer").transform.parent;
             }

@@ -24,17 +24,21 @@ public class NewPlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (attack.triggered && canAttack)
         {
-            Attack();
+            GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
+            //Attack(curWeapon);
+            atkCooldown = curWeapon.GetComponent<WeaponStats>().weaponAtkCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
+            dmgDealt = swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<WeaponStats>().weaponDmg;
             StartCoroutine(AttackCooldown());
-            StartCoroutine(ActiveAttack());
+            StartCoroutine(ActiveAttack(curWeapon));
         }
     }
-    void Attack()
+    void Attack(GameObject curWeapon)
     {  
-        atkCooldown = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().weaponAtkCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
-        dmgDealt = swapCharacter.currentCharacterStats.primalDmg + GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().weaponDmg;
+        //atkCooldown = curWeapon.GetComponent<WeaponStats>().weaponAtkCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
+        //dmgDealt = swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<WeaponStats>().weaponDmg;
     }
     private IEnumerator AttackCooldown()
     {
@@ -42,14 +46,12 @@ public class NewPlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(atkCooldown);
         canAttack = true;
     }
-    private IEnumerator ActiveAttack()
+    private IEnumerator ActiveAttack(GameObject curWeapon)
     {
         attacking = true;
+        curWeapon.GetComponent<Collider>().enabled = true;
         yield return new WaitForSeconds(.6f); //How long the hitbox is active
         attacking = false;
-    }
-    void DealDamage()
-    {
-
+        curWeapon.GetComponent<Collider>().enabled = false;
     }
 }
