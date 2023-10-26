@@ -9,7 +9,7 @@ public class startRunTrigger : MonoBehaviour
     {
         if(other.CompareTag("currentPlayer"))
         {
-            SceneManager.LoadScene("CharacterSelect");
+            SceneManager.LoadScene(2);
         }
     }
 }

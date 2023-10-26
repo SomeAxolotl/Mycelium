@@ -92,16 +92,10 @@ public class EnemyNavigation : MonoBehaviour
                 StartCoroutine("RestartPatrol");
             }
         }
-        
-        if(playerSeen == true)
-        {
-            
-        }
     }
     IEnumerator Patrol()
     {
         patrolStart = true;
-        Debug.Log("Patrol Started!");
         int rotTime = Random.Range(1, 3);
         int rotateWait = Random.Range(1, 3);
         int rotateLorR = Random.Range(1, 2);

@@ -10,7 +10,7 @@ public class PositionPlayer : MonoBehaviour
         if (player)
         {
            player.transform.position = new Vector3(-1.5f, 2f, 15f);
-           Debug.Log(player.transform.position);
+           //Debug.Log(player.transform.position);
         }
     }
 }

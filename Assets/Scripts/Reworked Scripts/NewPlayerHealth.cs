@@ -29,6 +29,7 @@ public class NewPlayerHealth : MonoBehaviour
         {
             Death();
         }
+        Debug.Log("Player Health: " +  currentHealth);
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
@@ -36,7 +37,7 @@ public class NewPlayerHealth : MonoBehaviour
     }
     void Death()
     {
-        //Debug.Log("you died!");
+        Debug.Log("you died!");
     }
     void Regen()
     {
