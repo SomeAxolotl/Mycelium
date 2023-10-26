@@ -28,17 +28,13 @@ public class NewPlayerAttack : MonoBehaviour
         if (attack.triggered && canAttack)
         {
             GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
-            //Attack(curWeapon);
-            atkCooldown = curWeapon.GetComponent<WeaponStats>().weaponAtkCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
-            dmgDealt = swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<WeaponStats>().weaponDmg;
+
+            atkCooldown = curWeapon.GetComponent<NewWeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
+            dmgDealt = swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<NewWeaponStats>().wpnDamage;
+
             StartCoroutine(AttackCooldown());
-            StartCoroutine(ActiveAttack(curWeapon));
+            StartCoroutine(Attack(curWeapon));
         }
-    }
-    void Attack(GameObject curWeapon)
-    {  
-        //atkCooldown = curWeapon.GetComponent<WeaponStats>().weaponAtkCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
-        //dmgDealt = swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<WeaponStats>().weaponDmg;
     }
     private IEnumerator AttackCooldown()
     {
@@ -46,11 +42,11 @@ public class NewPlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(atkCooldown);
         canAttack = true;
     }
-    private IEnumerator ActiveAttack(GameObject curWeapon)
+    private IEnumerator Attack(GameObject curWeapon)
     {
         attacking = true;
         curWeapon.GetComponent<Collider>().enabled = true;
-        yield return new WaitForSeconds(.6f); //How long the hitbox is active
+        yield return new WaitForSeconds(.6f); //THIS IS WHERE THE ANIMATION WILL GO
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
     }

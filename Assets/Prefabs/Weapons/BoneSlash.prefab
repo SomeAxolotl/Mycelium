@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 1452286018134920330}
   - component: {fileID: 3762541017080616196}
   - component: {fileID: 3832327066707963518}
-  - component: {fileID: 3010724824921472857}
-  - component: {fileID: 116093912115695895}
   - component: {fileID: 5287147802071789271}
   - component: {fileID: 2591028057836836292}
+  - component: {fileID: 2437286862627534123}
   m_Layer: 7
   m_Name: BoneSlash
   m_TagString: Weapon
@@ -87,32 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3010724824921472857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139194183223825244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb031a69b4222a46a4488f46babdc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponDmg: 20
-  weaponAtkCooldown: 0.4
---- !u!114 &116093912115695895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139194183223825244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7103de06a81a9745b5007d9e5cd79a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &5287147802071789271
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -146,3 +119,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc81fed59e093044692620bd80000dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2437286862627534123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139194183223825244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ab41b7723205f4e97b4697fa6bcb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wpnCooldown: 0
+  wpnDamage: 0

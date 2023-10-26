@@ -8,7 +8,7 @@ public class NewWeaponCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        newPlayerAttack = GetComponentInParent<NewPlayerAttack>();
+        newPlayerAttack = GameObject.Find("PlayerParent").GetComponent<NewPlayerAttack>();
     }
 
     // Update is called once per frame
@@ -18,9 +18,9 @@ public class NewWeaponCollision : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy")
+        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && newPlayerAttack.attacking)
         {
-            float dmgDealt = newPlayerAttack.dmgDealt; //null reference???
+            float dmgDealt = newPlayerAttack.dmgDealt;
             other.GetComponent<NewEnemyHealth>().EnemyTakeDamage(dmgDealt);
         }
     }

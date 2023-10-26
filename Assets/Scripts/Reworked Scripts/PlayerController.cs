@@ -57,13 +57,12 @@ public class PlayerController : MonoBehaviour
         
         if(newPlayerAttack.attacking == true)
         {
-            //playerActionsAsset.Player.Disable();
+            playerActionsAsset.Player.Disable();
         }
         else
         {
             playerActionsAsset.Player.Enable();
         }
-        
     }
 
     private void FixedUpdate()
