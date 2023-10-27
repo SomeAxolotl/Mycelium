@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.1575038, g: 0.2421673, b: 0.16218911, a: 1}
+  m_IndirectSpecularColor: {r: 1.1574993, g: 0.2421654, b: 0.16218802, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -398,7 +398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 58096238}
-  - component: {fileID: 58096237}
+  - component: {fileID: 58096239}
   m_Layer: 0
   m_Name: LevelMenuContainer
   m_TagString: Untagged
@@ -406,18 +406,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &58096237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58096236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db94fba613aa2004bb3bef561211030c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &58096238
 Transform:
   m_ObjectHideFlags: 0
@@ -433,6 +421,32 @@ Transform:
   m_Father: {fileID: 1659212688}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &58096239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58096236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fae742eb549534409f44a433967f01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrimalText: {fileID: 955749024}
+  SpeedText: {fileID: 2038180013}
+  SentienceText: {fileID: 1857055270}
+  VitalityText: {fileID: 60229033}
+  UIenable: {fileID: 1315202506}
+  PrimalLevelUp: {fileID: 1621558940}
+  PrimalLevelDown: {fileID: 1884951462}
+  SpeedLevelUp: {fileID: 889157989}
+  SpeedLevelDown: {fileID: 1109988178}
+  SentienceLevelUp: {fileID: 1663767978}
+  SentienceLevelDown: {fileID: 1367007440}
+  VitalityLevelUp: {fileID: 1924969074}
+  VitalityLevelDown: {fileID: 1283184545}
+  currentstats: {fileID: 0}
 --- !u!1 &60229032
 GameObject:
   m_ObjectHideFlags: 0
@@ -2527,7 +2541,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684116588}
-  m_LocalRotation: {x: -0.036324933, y: -0, z: 0.000000014901161, w: 0.99934006}
+  m_LocalRotation: {x: -0.036324963, y: 0.00000008940697, z: -0.000000044703484, w: 0.99934006}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -3102,6 +3116,95 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736897611}
   m_CullTransparentMesh: 1
+--- !u!1 &768786177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 768786180}
+  - component: {fileID: 768786179}
+  - component: {fileID: 768786178}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &768786178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768786177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+--- !u!114 &768786179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768786177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 1621558938}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &768786180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768786177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &771667716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3394,8 +3497,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: SpeedUP
         m_Mode: 1
         m_Arguments:
@@ -3583,7 +3686,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899852328}
-  m_LocalRotation: {x: -0.01818952, y: -0.000000059604645, z: 0.000000059604645, w: 0.99983466}
+  m_LocalRotation: {x: -0.01818955, y: 0.000000059604645, z: 0.000000059604645, w: 0.9998346}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -3968,8 +4071,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.2768053, y: 0.63205135, z: -0.25883207, w: 0.6759408}
-  m_LocalPosition: {x: -5.872525, y: 7.2158365, z: 0.5054278}
+  m_LocalRotation: {x: 0.27677435, y: 0.6321627, z: -0.2588927, w: 0.6758261}
+  m_LocalPosition: {x: -5.8719788, y: 7.2156343, z: 0.50750166}
   m_LocalScale: {x: 1, y: 0.8099726, z: 1.3800554}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4592,7 +4695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac47566b2c711b1478eff6d5b1e86a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentNutrients: 0
+  currentNutrients: 100000
 --- !u!4 &1065580881
 Transform:
   m_ObjectHideFlags: 0
@@ -4788,8 +4891,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: SpeedDown
         m_Mode: 1
         m_Arguments:
@@ -5448,7 +5551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1232855518
 Transform:
   m_ObjectHideFlags: 0
@@ -5662,8 +5765,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: VitalityDown
         m_Mode: 1
         m_Arguments:
@@ -5873,7 +5976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80.00001, y: -148.00002}
+  m_AnchoredPosition: {x: 80.00001, y: -187}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1316091765
@@ -5920,8 +6023,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: Commit
         m_Mode: 1
         m_Arguments:
@@ -5994,7 +6097,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316634475}
-  m_LocalRotation: {x: -0.000000029802322, y: -0.000000059604645, z: 0.000000074505806,
+  m_LocalRotation: {x: -0.000000044703484, y: 0.00000011920929, z: -0.000000074505806,
     w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
@@ -6259,8 +6362,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: SentienceDown
         m_Mode: 1
         m_Arguments:
@@ -7244,8 +7347,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: PrimalUP
         m_Mode: 1
         m_Arguments:
@@ -7311,7 +7414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1659212688
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7335,7 +7438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.5787, y: 31.736}
+  m_AnchoredPosition: {x: 10.5787, y: 88}
   m_SizeDelta: {x: 1422.334, y: 851.0861}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1659212689
@@ -7439,8 +7542,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: SentienceUP
         m_Mode: 1
         m_Arguments:
@@ -8432,8 +8535,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: PrimalDown
         m_Mode: 1
         m_Arguments:
@@ -9128,8 +9231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74229627ff1dc0e439a87143e57f72d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelupmenu: {fileID: 1659212687}
-  firstbutton: {fileID: 1884951462}
+  levelupmenu: {fileID: 1315202506}
+  firstbutton: {fileID: 1621558940}
 --- !u!1001 &1919866549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9312,8 +9415,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 58096237}
-        m_TargetAssemblyTypeName: LevelUpMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 58096239}
+        m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
         m_MethodName: VitalityUP
         m_Mode: 1
         m_Arguments:
