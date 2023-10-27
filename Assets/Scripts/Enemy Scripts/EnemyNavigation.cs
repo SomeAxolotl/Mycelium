@@ -5,13 +5,14 @@ using UnityEngine.AI;
 
 public class EnemyNavigation : MonoBehaviour
 {
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     private bool playerSeen;
     private bool patrolStart = false;
     private float patrolCooldown = 1f;
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
+    private bool canChase = true;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
@@ -21,12 +22,14 @@ public class EnemyNavigation : MonoBehaviour
     [SerializeField] private float detectionBuffer = 2f;
     IEnumerator patrol;
     IEnumerator restartPatrol;
+    IEnumerator chasePlayer;
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         patrol = this.Patrol();
         restartPatrol = this.RestartPatrol();
+        chasePlayer = this.ChasePlayer();
     }
 
     // Update is called once per frame
@@ -51,11 +54,17 @@ public class EnemyNavigation : MonoBehaviour
                 patrolStart = false;
                 patrolCooldown = 1f;
                 navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(player.position);
+                if(canChase)
+                {
+                    StartCoroutine(ChasePlayer());
+                }
                 transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
             }
             else
             {
+                StopCoroutine(ChasePlayer());
+                chasePlayer = ChasePlayer();
+                canChase = true;
                 playerSeen = false;
                 navMeshAgent.isStopped = true;
                 navMeshAgent.ResetPath();
@@ -92,6 +101,14 @@ public class EnemyNavigation : MonoBehaviour
                 StartCoroutine("RestartPatrol");
             }
         }
+    }
+    IEnumerator ChasePlayer()
+    {
+        canChase = false;
+        navMeshAgent.SetDestination(player.position);
+        Debug.Log("chasing");
+        yield return new WaitForSeconds(0.5f);
+        canChase = true;
     }
     IEnumerator Patrol()
     {
