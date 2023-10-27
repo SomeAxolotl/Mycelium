@@ -14,7 +14,6 @@ public class NewPlayerAttack : MonoBehaviour
     float atkCooldown;
 
     private Animator animator;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +22,7 @@ public class NewPlayerAttack : MonoBehaviour
         swapCharacter = GetComponent<SwapCharacter>();
         attack = playerActionsAsset.Player.Attack;
 
-        animator = gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,14 +51,13 @@ public class NewPlayerAttack : MonoBehaviour
         attacking = true;
         curWeapon.GetComponent<Collider>().enabled = true;
 
-        // current weapon class == slash
-        if(animator.tag == "slash")
+        if(gameObject.tag == "currentWeapon" && gameObject.name == "BoneSlash")
         {
             animator.Play("Slash");
+            Debug.Log("Animation is playing");
         }
-        
+
         yield return new WaitForSeconds(.6f); //THIS IS WHERE THE ANIMATION WILL GO
-        animator.SetBool("Slash", false);
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
     }

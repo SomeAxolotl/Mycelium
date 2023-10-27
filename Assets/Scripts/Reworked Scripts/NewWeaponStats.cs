@@ -7,8 +7,6 @@ public class NewWeaponStats : MonoBehaviour
     [Header("Weapon Stats")]
     public float wpnCooldown;
     public float wpnDamage;
-    public 
-    
 
     // Start is called before the first frame update
     void Start()
