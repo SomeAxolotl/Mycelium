@@ -45,20 +45,28 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
     }
-    void SwitchToNextCharacter()
+    public void SwitchToNextCharacter()
     {
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         int nextCharacterIndex = (currentCharacterIndex + 1) % characters.Count;
+        if (currentCharacterIndex==characters.Count)
+        {
+            currentCharacterIndex = 0;
+        }
         SwitchCharacter(nextCharacterIndex);
     }
-    void SwitchToLastCharacter()
+    public void SwitchToLastCharacter()
     {
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         int lastCharacterIndex = (currentCharacterIndex - 1) % characters.Count;
+        if (currentCharacterIndex==characters.Count)
+        {
+            currentCharacterIndex = 0;
+        }
         SwitchCharacter(lastCharacterIndex);
     }
 }
