@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7078465087138295032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155835054515378669}
+  - component: {fileID: 6553304138401485637}
+  - component: {fileID: 2481639652768287271}
+  m_Layer: 0
+  m_Name: SoundEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1155835054515378669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078465087138295032}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 673.6731, y: 602.4229, z: -3.1967282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6553304138401485637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078465087138295032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6f5682bf7c3ba46805334e436bdaee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactVolume: 1
+  impactSounds:
+  - {fileID: 8300000, guid: e913a60d14ccdec4a8dfdd64dc8c9429, type: 3}
+  - {fileID: 8300000, guid: 8875035e3eccafa489b37f4b5db6a6b1, type: 3}
+  - {fileID: 8300000, guid: 459e03b5ab7c02645847d52593dde01d, type: 3}
+  slashVolume: 1
+  slashSounds:
+  - {fileID: 8300000, guid: c6dca99817d2a0c4ab22184820774e97, type: 3}
+  - {fileID: 8300000, guid: d830d77a124c24043b38d7b1edc79f37, type: 3}
+  - {fileID: 8300000, guid: f5c1e56c9c5dae340b7691bba080b562, type: 3}
+  stabVolume: 1
+  stabSounds:
+  - {fileID: 8300000, guid: ea1248cfd77f85e459f9465135da8459, type: 3}
+  - {fileID: 8300000, guid: 3e2531d770529cc408c81bd106f8548d, type: 3}
+  - {fileID: 8300000, guid: e84eae939de83264ca1b1229ca8caf61, type: 3}
+  smashVolume: 1
+  smashSounds:
+  - {fileID: 8300000, guid: fdfe81df74601a64e83f06d870378daa, type: 3}
+  - {fileID: 8300000, guid: de666cd611149c9459ed9e4a2e45c8a5, type: 3}
+  - {fileID: 8300000, guid: 80f759df5f260e545aa2545ff59db2c1, type: 3}
+--- !u!114 &2481639652768287271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078465087138295032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7103de06a81a9745b5007d9e5cd79a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

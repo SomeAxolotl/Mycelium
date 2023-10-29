@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTesting : MonoBehaviour
+public class TestingManager : MonoBehaviour
 {
     private enum WeaponTiers
     {
