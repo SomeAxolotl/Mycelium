@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2865965005051588724
+--- !u!1 &7678291959513553873
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4664869405426330089}
-  - component: {fileID: 8152131710094287577}
-  m_Layer: 0
-  m_Name: GameplayTestManager
+  - component: {fileID: 5955003818981261060}
+  - component: {fileID: 7460443868891817280}
+  m_Layer: 3
+  m_Name: UnstablePuffball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4664869405426330089
+--- !u!4 &5955003818981261060
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2865965005051588724}
+  m_GameObject: {fileID: 7678291959513553873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.589859, y: 4.8669343, z: -19.715523}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8152131710094287577
+--- !u!114 &7460443868891817280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2865965005051588724}
+  m_GameObject: {fileID: 7678291959513553873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d606898977569684da111c1c44053ed3, type: 3}
+  m_Script: {fileID: 11500000, guid: 3635afda5e6b4b64880f241ebe0bf576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primalLevel: 0
-  sentienceLevel: 0
-  speedLevel: 0
-  vitalityLevel: 0
-  weaponTier: 0
-  weaponType: 0
-  skill1: 0
-  skill2: 0
-  skill3: 0
-  skillPrefabs:
-  - {fileID: 5745268188309084719, guid: 136ab3c9edff6b34292dcfba3a2bc13a, type: 3}
-  - {fileID: 5150063663384158485, guid: 980d093fd5559444b92b735141531cf4, type: 3}
+  canSkill: 1
+  baseSkillDamage: 10
+  sentienceDamageScalar: 1
+  baseSkillCooldown: 5

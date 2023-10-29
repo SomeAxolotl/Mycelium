@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamTracker : MonoBehaviour
+public class Mycotoxins : MonoBehaviour
 {
-    private GameObject currentPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +13,6 @@ public class CamTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentPlayer = GameObject.FindWithTag("currentPlayer");
-        transform.position = currentPlayer.transform.position;
+        
     }
 }

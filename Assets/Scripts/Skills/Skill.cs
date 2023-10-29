@@ -23,7 +23,7 @@ public class Skill : MonoBehaviour
 
     void Start()
     {
-        characterStats = GameObject.FindWithTag("Player").GetComponent<CharacterStats>();
+        characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
     }
 
@@ -51,8 +51,8 @@ public class Skill : MonoBehaviour
     public void ActivateSkill(int slot)
     {
         skillSlot = slot;
-        
-        Debug.Log("Casting " + this.GetType());
+        CalculateProperties();
+
         StartCooldown();
         DoSkill();
     }

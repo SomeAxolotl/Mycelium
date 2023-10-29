@@ -12,6 +12,8 @@ public class NewPlayerAttack : MonoBehaviour
     public bool attacking = false;
     public float dmgDealt;
     public float atkCooldown;
+
+    private HUDSkills hudSkills;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,8 @@ public class NewPlayerAttack : MonoBehaviour
         playerActionsAsset.Player.Enable();
         swapCharacter = GetComponent<SwapCharacter>();
         attack = playerActionsAsset.Player.Attack;
+
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
     }
 
     // Update is called once per frame
@@ -38,6 +42,8 @@ public class NewPlayerAttack : MonoBehaviour
     }
     private IEnumerator AttackCooldown()
     {
+        hudSkills.StartHitCooldownUI(atkCooldown);
+
         canAttack = false;
         yield return new WaitForSeconds(atkCooldown);
         canAttack = true;

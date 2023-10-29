@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TestingManager : MonoBehaviour
 {
+    [SerializeField] private bool testingEnabled = false;
+
     private enum WeaponTiers
     {
         Wood,
@@ -21,25 +23,25 @@ public class TestingManager : MonoBehaviour
     private enum StatSkills
     {
         Eruption,
-        LivingCycloneXXX,
-        RelentlessFuryXXX,
-        BlitzXXX,
-        TrophicCascadeXXX,
-        MycotoxinsXXX,
-        SpineshotXXX,
-        UnstablePuffballXXX,
-        UndergrowthXXX,
-        LeechingSporeXXX,
-        SporeburstXXX,
-        DefenseMechanismXXX
+        LivingCyclone,
+        RelentlessFury,
+        Blitz,
+        TrophicCascade,
+        Mycotoxins,
+        Spineshot,
+        UnstablePuffball,
+        Undergrowth,
+        LeechingSpore,
+        Sporeburst,
+        DefenseMechanism
     }
 
     private enum SpeciesSkills
     {
         FungalMight,
-        ZombifyXXX,
-        DeathBlossomXXX,
-        FairyRingXXX
+        Zombify,
+        DeathBlossom,
+        FairyRing
     }
 
     [Header("Stats")]
@@ -59,15 +61,39 @@ public class TestingManager : MonoBehaviour
     [Header("Species Skill")] 
     [SerializeField] private SpeciesSkills skill3;
 
-    [Header("Prefabs")] 
-    [SerializeField] private List<GameObject> skillPrefabs;
-
     private GameObject player;
-    private GameObject skillLoadout;
+    private CharacterStats playerStats;
+    private SkillManager skillManager;
 
     void Start()
     {
         player = GameObject.FindWithTag("currentPlayer");
-        skillLoadout = player.transform.Find("SkillLoadout").gameObject;
+        playerStats = player.GetComponent<CharacterStats>();
+        //weapon script
+        skillManager = player.transform.Find("SkillLoadout").gameObject.GetComponent<SkillManager>();
+
+        if (testingEnabled)
+        {
+            StartCoroutine(SetPlayerStuff());
+        }
+    }
+
+    IEnumerator SetPlayerStuff()
+    {
+        //Set Stats
+        playerStats.primalLevel = primalLevel;
+        playerStats.sentienceLevel = sentienceLevel;
+        playerStats.speedLevel = speedLevel;
+        playerStats.vitalityLevel = vitalityLevel;
+
+        //Set Weapon (WIP)
+
+        //Set Skills
+        yield return null;
+        skillManager.SetSkill(skill1.ToString(), 0);
+        yield return null;
+        skillManager.SetSkill(skill2.ToString(), 1);
+        yield return null;
+        skillManager.SetSkill(skill3.ToString(), 2);
     }
 }

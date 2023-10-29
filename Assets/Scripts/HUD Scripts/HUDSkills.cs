@@ -9,7 +9,6 @@ public class HUDSkills : MonoBehaviour
 {
     //Hit
 
-    private NewPlayerAttack newPlayerAttack;
     private float hitCooldown;
     private float hitCooldownCounter;
 
@@ -60,15 +59,16 @@ public class HUDSkills : MonoBehaviour
         skill3ButtonText = GameObject.Find("Skill3Button").GetComponent<TMP_Text>();
     }
 
-    public void StartHitCooldownUI()
+    public void StartHitCooldownUI(float cooldown)
     {
-        newPlayerAttack = GameObject.FindWithTag("Player").GetComponent<NewPlayerAttack>();
-        hitCooldown = newPlayerAttack.atkCooldown;
-        hitCooldownCounter = hitCooldown;
+        hitCooldown = cooldown;
+        hitCooldownCounter = cooldown;
     }
 
     public void StartSkillCooldownUI(int slot, float cooldown)
     {
+        Debug.Log("Cooldown: " + cooldown);
+
         switch (slot)
         {
             case 0:

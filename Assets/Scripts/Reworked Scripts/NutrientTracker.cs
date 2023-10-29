@@ -22,7 +22,7 @@ public class NutrientTracker : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            currentNutrients += 1000;
+            AddNutrients(100);
         }
     }
     public void SubtractNutrients(int cost)

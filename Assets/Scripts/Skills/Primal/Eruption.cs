@@ -22,8 +22,6 @@ public class Eruption : Skill
 
     public override void DoSkill()
     {
-        //do eruption
-        Debug.Log("Casting Eruption!");
-        StartCooldown();
+        //Skill specific stuff
     }
 }
