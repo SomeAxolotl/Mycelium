@@ -48,12 +48,4 @@ public class ParticleManager : MonoBehaviour
         }
 
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown("g"))
-        {
-            SpawnParticle("TestParticles", GameObject.FindWithTag("currentPlayer").transform.position, Vector3.zero);
-        }   
-    }
 }
