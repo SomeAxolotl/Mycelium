@@ -5,25 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class startRunTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Debug.Log("Start");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public PlayerController playerController;
+    [SerializeField]
+    GameObject UIEnable;
+    
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("HIT");
-
         if(other.CompareTag("currentPlayer"))
         {
-            SceneManager.LoadScene("CharacterSelect");
+           playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+           playerController.DisableController();
+           UIEnable.SetActive(true);
         }
     }
 }

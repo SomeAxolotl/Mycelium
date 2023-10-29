@@ -6,7 +6,7 @@ using TMPro;
 
 public class EnemyHealthBar : MonoBehaviour
 {
-    [SerializeField] private EnemyHealth enemyHealth;
+    private NewEnemyHealth newEnemyHealth;
 
     [SerializeField][Tooltip("Color of health bar when it's 66% to 100%")] private Color fullColor;
     [SerializeField][Tooltip("Color of health bar when it's 33% to 66%")] private Color halfColor;
@@ -27,15 +27,15 @@ public class EnemyHealthBar : MonoBehaviour
     {
         mainCamera = Camera.main;
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;
-
+        newEnemyHealth = GetComponentInParent<NewEnemyHealth>();
         enemyHealthBar = GetComponent<Image>();
         Debug.Log(enemyHealthBar.fillAmount);
     }
 
     public void UpdateEnemyHealth()
     {
-        currentHealth = enemyHealth.currentHealth;
-        maxHealth = enemyHealth.maxHealth;
+        currentHealth = newEnemyHealth.currentHealth;
+        maxHealth = newEnemyHealth.maxHealth;
 
         float healthRatio = currentHealth / maxHealth;
         Debug.Log("HealthBarRatio: " + healthRatio);

@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -11,26 +11,24 @@ public class LevelUpMenuManager : MonoBehaviour
     public TMP_Text SpeedText;
     public TMP_Text SentienceText;
     public TMP_Text VitalityText;
-  
-    public StatTracker currentstattracker;
     public GameObject UIenable;
     public GameObject HUD;
 
     private NutrientTracker nutrientTracker;
 
-    private PlayerController playerController;
-    private PlayerHealth playerHealth;
-    private MeleeAttack meleeAttack;
+    public CharacterStats currentstattracker;
+   public New Player Health playerHealth;
+  public New Player Attack meleeAttack;
 
     [SerializeField]
     private GameObject eruptionObject, fungalMightObject;
 
     void Start()
     {
-      playerController = GameObject.FindWithTag("currentPlayer").GetComponent<PlayerController>();
-      playerHealth = GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>();
-      meleeAttack = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>();
-      currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
+      playerController = GameObject.FindWithTag("PlayerParent").GetComponent<Player Controller>();
+      playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<New Player Health>();
+      meleeAttack = GameObject.FindWithTag("PlayerParent").GetComponent<New Player Attack>();
+      currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
       nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
     }
 
@@ -45,18 +43,12 @@ public class LevelUpMenuManager : MonoBehaviour
         PrimalText.text = currentstattracker.primalLevel.ToString(); 
         SpeedText.text = currentstattracker.speedLevel.ToString(); 
         SentienceText.text = currentstattracker.sentienceLevel.ToString();
-        VitalityText.text = currentstattracker.vitalityLevel.ToString(); 
+        VitalityText.text = currentstattracker.vitalityLevel.ToString();
     }
 
     public void PrimalUP()
     {
-      if (EnoughNutrients())
-       {
-         currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
-         currentstattracker.IncreaseStat("primal", 1);
-         nutrientTracker.SubtractNutrients(100);
-       }
-       
+      currentstattracker.LevelPrimal();  
     }
     public void PrimalDown()
     {
@@ -95,7 +87,7 @@ public class LevelUpMenuManager : MonoBehaviour
     {
       if (EnoughNutrients())
        {
-         currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
+        currentstattracker = GameObject.FindWithTag("currentPlayer").GetComponent<StatTracker>();
        currentstattracker.IncreaseStat("sentience", 1);
        nutrientTracker.SubtractNutrients(100);
        }
@@ -161,4 +153,4 @@ public class LevelUpMenuManager : MonoBehaviour
          Instantiate(eruptionObject, skillLoadout);
       }
     }
-}
+}*/

@@ -9,7 +9,7 @@ public class HUDSkills : MonoBehaviour
 {
     //Hit
 
-    private MeleeAttack meleeAttack;
+    private NewPlayerAttack newPlayerAttack;
     private float hitCooldown;
     private float hitCooldownCounter;
 
@@ -39,8 +39,8 @@ public class HUDSkills : MonoBehaviour
 
     public void StartHitCooldownUI()
     {
-        meleeAttack = GameObject.FindWithTag("currentPlayer").GetComponent<MeleeAttack>();
-        hitCooldown = meleeAttack.finalAtkCooldown;
+        newPlayerAttack = GameObject.FindWithTag("currentPlayer").GetComponent<NewPlayerAttack>();
+        hitCooldown = newPlayerAttack.atkCooldown;
         hitCooldownCounter = hitCooldown;
     }
 

@@ -9,7 +9,7 @@ public class LevelEnd : MonoBehaviour
     {
         if (other.tag == "currentPlayer")
         {
-            GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().Reset();
+            other.GetComponentInParent<NewPlayerHealth>().currentHealth = other.GetComponentInParent<NewPlayerHealth>().maxHealth;
             SceneManager.LoadScene("HubWorldPlaceholder");
 
         }

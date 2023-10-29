@@ -118,10 +118,10 @@ GameObject:
   - component: {fileID: 1180096509568550578}
   - component: {fileID: 1368255800999420466}
   - component: {fileID: 6717530278122845918}
-  - component: {fileID: 4153781944181940266}
   - component: {fileID: 7762884574111668434}
   - component: {fileID: 109012924813015673}
   - component: {fileID: 5316363761280411709}
+  - component: {fileID: 7285199689093252706}
   m_Layer: 6
   m_Name: PlaceholderRangedEnemy
   m_TagString: Enemy
@@ -246,22 +246,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4153781944181940266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2633798526890919984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04250da51b233040ae17eeb57c62b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 20
-  currentHealth: 0
-  nutrientDrop: 100
-  enemyHealthBar: {fileID: 1955374978606979899}
 --- !u!195 &7762884574111668434
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -272,7 +256,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
+  m_Speed: 3
   m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 500
@@ -296,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcea1462b3b1cc46add8f8e8a20204c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -325,6 +310,21 @@ MonoBehaviour:
     m_Bits: 256
   projectile: {fileID: 7771920069990623049, guid: 8694cfcf450277f4bbc922c0dcc6ef8c,
     type: 3}
+--- !u!114 &7285199689093252706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2633798526890919984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9777b89c4af1ab48bf608e665896ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  nutrientDrop: 100
 --- !u!1001 &4068168810054616951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,11 +338,6 @@ PrefabInstance:
       propertyPath: damageText
       value: 
       objectReference: {fileID: 743072280856259372}
-    - target: {fileID: 2546762311950883916, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
-        type: 3}
-      propertyPath: enemyHealth
-      value: 
-      objectReference: {fileID: 4153781944181940266}
     - target: {fileID: 6072017792861968677, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
         type: 3}
       propertyPath: m_Name
@@ -473,18 +468,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1955374978606979899 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2546762311950883916, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 4068168810054616951}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cf1d2933c9782242b97619c88751893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7934407638392808409 stripped
