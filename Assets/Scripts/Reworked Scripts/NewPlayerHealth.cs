@@ -8,6 +8,9 @@ public class NewPlayerHealth : MonoBehaviour
     public float currentHealth;
     float regenRate;
     private SwapCharacter swapCharacter;
+
+    private HUDHealth hudHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,8 @@ public class NewPlayerHealth : MonoBehaviour
         regenRate = swapCharacter.currentCharacterStats.baseRegen;
         currentHealth = maxHealth;
         InvokeRepeating("Regen", 1f, 1f);
+
+        hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
     }
 
     // Update is called once per frame
@@ -34,10 +39,12 @@ public class NewPlayerHealth : MonoBehaviour
     public void PlayerTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
     public void PlayerHeal(float healAmount)
     {
         currentHealth += healAmount;
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
     void Death()
     {
@@ -45,6 +52,6 @@ public class NewPlayerHealth : MonoBehaviour
     }
     void Regen()
     {
-        currentHealth += regenRate;
+        PlayerHeal(regenRate);
     }
 }

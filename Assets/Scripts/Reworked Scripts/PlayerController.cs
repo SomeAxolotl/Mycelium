@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     private ThirdPersonActionsAsset playerActionsAsset;
     private InputAction move;
     private InputAction dodge;
+    private InputAction stat_skill_1;
+    private InputAction stat_skill_2;
+    private InputAction subspecies_skill;
     bool canDodge = true;
     bool activeDodge = false;
     public bool isInvincible = false;
@@ -32,6 +35,9 @@ public class PlayerController : MonoBehaviour
         playerActionsAsset.Player.Enable();
         move = playerActionsAsset.Player.Move;
         dodge = playerActionsAsset.Player.Dodge;
+        stat_skill_1 = playerActionsAsset.Player.Stat_Skill_1;
+        stat_skill_2 = playerActionsAsset.Player.Stat_Skill_2;
+        subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -62,6 +68,33 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerActionsAsset.Player.Enable();
+        }
+
+        if (stat_skill_1.triggered)
+        {
+            Skill skill1 = GameObject.Find("SkillLoadout").transform.GetChild(0).gameObject.GetComponent<Skill>();
+            if (skill1.canSkill)
+            {
+                skill1.ActivateSkill(0);
+            }
+        }
+
+        if (stat_skill_2.triggered)
+        {
+            Skill skill2 = GameObject.Find("SkillLoadout").transform.GetChild(1).gameObject.GetComponent<Skill>();
+            if (skill2.canSkill)
+            {
+                skill2.ActivateSkill(1);
+            }
+        }
+
+        if (subspecies_skill.triggered)
+        {
+            Skill subskill = GameObject.Find("SkillLoadout").transform.GetChild(2).gameObject.GetComponent<Skill>();
+            if (subskill.canSkill)
+            {
+                subskill.ActivateSkill(2);
+            }
         }
     }
 

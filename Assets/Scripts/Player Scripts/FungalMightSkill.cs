@@ -89,7 +89,7 @@ public class FungalMightSkill : MonoBehaviour
         }*/
 
         //player.GetComponent<NewPlayerAttack>().ActivateFungalMight();
-        hudSkills.StartSkill1CooldownUI(finalSkillCooldown);
+        //hudSkills.StartSkill1CooldownUI(finalSkillCooldown);
         yield return new WaitForSeconds(finalSkillCooldown);
         canSkill = true;
     }

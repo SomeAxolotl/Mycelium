@@ -14,7 +14,7 @@ public class CamTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentPlayer = GameObject.FindWithTag("currentPlayer");
+        currentPlayer = GameObject.FindWithTag("Player");
         transform.position = currentPlayer.transform.position;
     }
 }

@@ -100,7 +100,7 @@ public class EruptionSkill : MonoBehaviour
         GameObject tempHitbox = Instantiate(aoeHitbox, player.transform.position, player.transform.rotation) as GameObject;
         yield return new WaitForSeconds(activeHitboxTime); //Animation will go here
         Destroy(tempHitbox);
-        hudSkills.StartSkill1CooldownUI(finalSkillCooldown);
+        //hudSkills.StartSkill1CooldownUI(finalSkillCooldown);
         yield return new WaitForSeconds(finalSkillCooldown - activeHitboxTime);
         canSkill = true;
     }

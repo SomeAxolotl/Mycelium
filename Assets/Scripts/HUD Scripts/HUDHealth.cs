@@ -10,10 +10,6 @@ public class HUDHealth : MonoBehaviour
     [SerializeField][Tooltip("Color of health bar when it's 33% to 66%")] private Color halfColor;
     [SerializeField][Tooltip("Color of health bar when it's 0% to 33%")] private Color lowColor;
 
-    private NewPlayerHealth playerHealth;
-    private float currentHealth;
-    private float maxHealth;
-
     private Image healthBar;
     private TMP_Text healthNumberText;
 
@@ -23,12 +19,8 @@ public class HUDHealth : MonoBehaviour
         healthNumberText = GameObject.Find("HPNumber").GetComponent<TMP_Text>();
     }
 
-    public void UpdateHealthUI()
+    public void UpdateHealthUI(float currentHealth, float maxHealth)
     {
-        playerHealth = GameObject.FindWithTag("currentPlayer").GetComponent<NewPlayerHealth>();
-        currentHealth = playerHealth.currentHealth;
-        maxHealth = playerHealth.maxHealth;
-
         float healthRatio = currentHealth / maxHealth;
         healthBar.fillAmount = healthRatio;
         if (healthRatio > 0.66)
@@ -45,34 +37,5 @@ public class HUDHealth : MonoBehaviour
         }
         
         healthNumberText.text = Mathf.FloorToInt(currentHealth) + "/" + Mathf.FloorToInt(maxHealth);
-    }
-
-    IEnumerator HealthTest()
-    {
-        currentHealth = 100;
-        maxHealth = 100;
-        yield return new WaitForSeconds(1.0f);
-        currentHealth -= 10;
-        UpdateHealthUI();
-        yield return new WaitForSeconds(1.0f);
-        currentHealth -= 25;
-        UpdateHealthUI();
-        yield return new WaitForSeconds(1.0f);
-        currentHealth -= 40;
-        UpdateHealthUI();
-        yield return new WaitForSeconds(1.0f);
-        currentHealth += 37;
-        UpdateHealthUI();
-        yield return new WaitForSeconds(1.0f);
-        currentHealth = 90;
-        UpdateHealthUI();
-        yield return new WaitForSeconds(1.0f);
-        maxHealth = 1000;
-        currentHealth = 789;
-        UpdateHealthUI();
-        yield return new WaitForSeconds(1.0f);
-        maxHealth = 100;
-        currentHealth = 100;
-        UpdateHealthUI();
     }
 }

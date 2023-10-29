@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5745268188309084719
+--- !u!1 &7678291959513553873
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4869948368087593599}
-  - component: {fileID: 6067131196592155400}
-  m_Layer: 0
-  m_Name: EruptionSkill
+  - component: {fileID: 5955003818981261060}
+  - component: {fileID: 8768952324675348990}
+  m_Layer: 3
+  m_Name: Eruption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4869948368087593599
+--- !u!4 &5955003818981261060
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5745268188309084719}
+  m_GameObject: {fileID: 7678291959513553873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.442373, y: -21.669935, z: 19.635277}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6067131196592155400
+--- !u!114 &8768952324675348990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5745268188309084719}
+  m_GameObject: {fileID: 7678291959513553873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c816c6df0c95cf448b46220a7e8cc3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0484036157f8f4b41bc5666cb7bd75f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aoeHitbox: {fileID: 595167309576842801, guid: 3a0eb430c52ff004690240da5c8ee832,
-    type: 3}
   canSkill: 1
-  finalEruptionDmg: 0
-  finalSkillCooldown: 0
+  baseSkillDamage: 10
+  sentienceDamageScalar: 1
+  baseSkillCooldown: 5
+  skillSlot: 0

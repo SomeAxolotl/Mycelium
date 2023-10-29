@@ -104,7 +104,7 @@ public class MenuManger : MonoBehaviour
         colourSwapScript.play2 = !colourSwapScript.play2;
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         nutrientTracker.SubtractNutrients(c.nutrientcost);
-        hudNutrients.UpdateNutrientsUI();
+        //hudNutrients.UpdateNutrientsUI();
         StartGamebutton.Select();
     }
     public void UpdateUI()
