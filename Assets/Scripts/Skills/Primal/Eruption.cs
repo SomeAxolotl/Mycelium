@@ -15,7 +15,7 @@ public class Eruption : Skill
     //    Blitz
     //    Fungal Might
     //
-    //pressing Stat_Skill_1 on player controller will get whatever script has the <Skill> class (which would be this script)
+    //pressing Stat_Skill_1 on player controller will get whatever script has the <Skill> class at the 1st child location (0th) (which would be this script)
 
     //the only fields required in THIS script are whatever is unique to eruption (aoe hitboxes / other shit)
     //stuff thats serialized in the base class AND this class will both be in the inspector for this (which is why the damages and cooldowns are in inspector)
