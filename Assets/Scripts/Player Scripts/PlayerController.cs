@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,6 +30,11 @@ public class PlayerController : MonoBehaviour
     bool playerSwapping;
     bool fetchedStats = false;
 
+    //Hold Button Inputs for Caches
+    
+    
+    
+    public LootCache lootCache;
     // Start is called before the first frame update
     private void Start()
     {
@@ -40,6 +47,8 @@ public class PlayerController : MonoBehaviour
         dodge = playerActionsAsset.Player.Dodge;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        lootCache = GetComponent<LootCache>();
     }
 
     // Update is called once per frame
@@ -69,6 +78,7 @@ public class PlayerController : MonoBehaviour
         {
             
         }*/
+        
     }
 
     public void UpdateStats()

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class DylanFucksAround : MonoBehaviour
+public class LevelGenerator : MonoBehaviour
 {
     [Header("Chunk Lists")]
     [SerializeField][Tooltip("Chunks which end branches.")] private List<GameObject> CapPrefabs = new List<GameObject>();
@@ -25,6 +25,8 @@ public class DylanFucksAround : MonoBehaviour
         List<Transform> attachPoints = new List<Transform>();
         foreach(Transform child in StartPiece.transform)
         {
+            if (child.tag.CompareTo("PlayerSpawn")==0)
+                spawnPlayer(child.transform);
             if (child.tag == "Attach")
                 attachPoints.Add(child);
         }
@@ -40,10 +42,10 @@ public class DylanFucksAround : MonoBehaviour
             GenerateEndcap(attachPoints[i]);
         }
 
-        GenerateSHIT(attachPoints[0]);
+        GenerateChunk(attachPoints[0]);
     }
 
-    private GameObject GenerateSHIT(Transform transform)
+    private GameObject GenerateChunk(Transform transform)
     {
         GameObject Piece = Instantiate(MiddleChunkPrefabs[Random.Range(0, MiddleChunkPrefabs.Count)], transform);
         NumberOfPieces++;
@@ -60,7 +62,7 @@ public class DylanFucksAround : MonoBehaviour
             if (i == selectedAttatchPoint)
             {
                 if(NumberOfPieces<=MaxNumberOfPieces)
-                    GenerateSHIT(attachPoints[i]);
+                    GenerateChunk(attachPoints[i]);
                 else
                     Instantiate(GoalChunkPrefabs[Random.Range(0, GoalChunkPrefabs.Count)], attachPoints[i]);
             }
@@ -75,14 +77,10 @@ public class DylanFucksAround : MonoBehaviour
         Instantiate(CapPrefabs[Random.Range(0,CapPrefabs.Count)], transform);
     }
 
-    /*private Transform NewTransform(Transform oldTransform)
+    private void spawnPlayer(Transform spawnpoint)
     {
-        oldTransform.localScale = Vector3.one;
-        Debug.Log("Name: "+ oldTransform);
-        Debug.Log("Position: "+ oldTransform.position);
-        Debug.Log("Rotation: "+ oldTransform.rotation);
-        Debug.Log("Scale: "+ oldTransform.localScale);
-        Debug.Log("_____________");
-        return oldTransform;
-    }*/
+        GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
+        player.transform.position = spawnpoint.position;
+        player.transform.rotation = spawnpoint.rotation;
+    }
 }
