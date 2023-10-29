@@ -74,10 +74,10 @@ public class EruptionSkill : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //The info below gets the stats from the StatTracker script and makes a final damage/cooldown value depending on which skill the player is using.
-        sentienceSkillDmg = player.GetComponent<StatTracker>().sentienceSkillDmg;
+        //sentienceSkillDmg = player.GetComponent<CharacterStats>().sentienceSkillDmg;
         finalEruptionDmg = sentienceSkillDmg + eruptionDmg;
 
-        skillCooldownBuff = player.GetComponent<StatTracker>().skillCooldownBuff;
+        //skillCooldownBuff = player.GetComponent<CharacterStats>().skillCooldownBuff;
         finalSkillCooldown = eruptionCooldown - skillCooldownBuff;
         
         fetchedStats = true;

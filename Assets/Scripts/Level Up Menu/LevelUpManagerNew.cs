@@ -27,6 +27,7 @@ public class LevelUpManagerNew : MonoBehaviour
     void Start()
     {
         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         PrimalCheck();
         SpeedCheck();
         VitalityCheck();

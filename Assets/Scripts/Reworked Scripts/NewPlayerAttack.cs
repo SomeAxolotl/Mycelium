@@ -11,7 +11,7 @@ public class NewPlayerAttack : MonoBehaviour
     bool canAttack = true;
     public bool attacking = false;
     public float dmgDealt;
-    float atkCooldown;
+    public float atkCooldown;
     // Start is called before the first frame update
     void Start()
     {

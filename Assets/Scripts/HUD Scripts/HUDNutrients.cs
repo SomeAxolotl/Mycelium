@@ -6,14 +6,14 @@ using TMPro;
 
 public class HUDNutrients : MonoBehaviour
 {
-    private NutrientTracker nutrientsTracker;
+    private NutrientTracker nutrientTracker;
     private int nutrientsNumber;
 
     private TMP_Text nutrientsNumberText;
 
     void Start()
     {
-        nutrientsTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+        nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         nutrientsNumberText = GameObject.Find("NutrientsNumber").GetComponent<TMP_Text>();
         UpdateNutrientsUI();
     }

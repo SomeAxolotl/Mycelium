@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NewPlayerHealth : MonoBehaviour
 {
-    float maxHealth;
+    public float maxHealth;
     public float currentHealth;
     float regenRate;
     private SwapCharacter swapCharacter;
@@ -34,6 +34,10 @@ public class NewPlayerHealth : MonoBehaviour
     public void PlayerTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
+    }
+    public void PlayerHeal(float healAmount)
+    {
+        currentHealth += healAmount;
     }
     void Death()
     {

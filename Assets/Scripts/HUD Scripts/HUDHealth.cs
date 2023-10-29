@@ -10,7 +10,7 @@ public class HUDHealth : MonoBehaviour
     [SerializeField][Tooltip("Color of health bar when it's 33% to 66%")] private Color halfColor;
     [SerializeField][Tooltip("Color of health bar when it's 0% to 33%")] private Color lowColor;
 
-    private PlayerHealth playerHealth;
+    private NewPlayerHealth playerHealth;
     private float currentHealth;
     private float maxHealth;
 
@@ -25,7 +25,7 @@ public class HUDHealth : MonoBehaviour
 
     public void UpdateHealthUI()
     {
-        playerHealth = GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>();
+        playerHealth = GameObject.FindWithTag("currentPlayer").GetComponent<NewPlayerHealth>();
         currentHealth = playerHealth.currentHealth;
         maxHealth = playerHealth.maxHealth;
 
