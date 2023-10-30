@@ -73,7 +73,7 @@ public class Skill : MonoBehaviour
         hudSkills.StartSkillCooldownUI(skillSlot, finalSkillCooldown);
 
         canSkill = false;
-        yield return new WaitForSeconds(finalSkillCooldown)
+        yield return new WaitForSeconds(finalSkillCooldown);
         canSkill = true;
     }
 }
