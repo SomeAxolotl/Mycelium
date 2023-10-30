@@ -14,7 +14,6 @@ public class Skill : MonoBehaviour
     [SerializeField] private float baseSkillCooldown = 5f;
     private float decreasingSkillCooldown;
     private float finalSkillCooldown;
-    private float cooldownCounter;
 
     private CharacterStats characterStats;
 
@@ -30,6 +29,8 @@ public class Skill : MonoBehaviour
     //this is called at the start of all the subclass skills. all stat math for skills can be done here and it should b fine
     public void CalculateProperties()
     {
+        characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+
         int sentienceLevel = characterStats.sentienceLevel;
 
         //Tentative damage math
@@ -71,13 +72,8 @@ public class Skill : MonoBehaviour
     {
         hudSkills.StartSkillCooldownUI(skillSlot, finalSkillCooldown);
 
-        cooldownCounter = 0;
         canSkill = false;
-        while (cooldownCounter < finalSkillCooldown)
-        {
-            yield return null;
-            cooldownCounter += Time.deltaTime;
-        }
+        yield return new WaitForSeconds(finalSkillCooldown)
         canSkill = true;
     }
 }
