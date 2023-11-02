@@ -34,7 +34,7 @@ public class NewEnemyHealth : MonoBehaviour
         {
             Death();
         }
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
     }
     void Death()
     {
