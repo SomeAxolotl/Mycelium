@@ -11,7 +11,7 @@ public class MeleeEnemyHitbox : MonoBehaviour
         if (collision.gameObject.tag == "currentPlayer" && GameObject.FindWithTag("currentPlayer").GetComponent<PlayerController>().isInvincible == false)
         {
             Debug.Log("Player Hit!");
-            GameObject.FindWithTag("currentPlayer").GetComponent<PlayerHealth>().Hurt(damage);
+            GameObject.FindWithTag("currentPlayer").GetComponent<NewPlayerHealth>().PlayerTakeDamage(damage);
         }
     }
 }

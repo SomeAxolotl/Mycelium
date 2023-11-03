@@ -49,6 +49,7 @@ public class SwapWeapon : MonoBehaviour
                 GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
                 weapon.position = weaponHolder.position;
                 GameObject.FindWithTag("currentWeapon").layer = LayerMask.NameToLayer("Weapon");
+                GameObject.FindWithTag("currentWeapon").transform.parent = null;
                 GameObject.FindWithTag("currentWeapon").tag = "Weapon";
                 weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
                 weapon.GetComponent<Collider>().enabled = false;

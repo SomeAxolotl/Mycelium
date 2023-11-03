@@ -37,7 +37,6 @@ public class RangedEnemyShoot : MonoBehaviour
     }
     IEnumerator Shoot()
     {
-        Debug.Log("Shooting");
         canShoot = false;
         Vector3 dirToPlayer = new Vector3(player.transform.position.x, player.transform.position.y + 0.5f, player.transform.position.z) - transform.position;
         GameObject tempProj = Instantiate(projectile, transform.position, transform.rotation);

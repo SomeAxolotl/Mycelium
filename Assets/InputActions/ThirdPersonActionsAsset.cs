@@ -309,7 +309,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                 {
                     ""name"": """",
                     ""id"": ""97fc51d3-2810-44cf-a26e-6165b554501d"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

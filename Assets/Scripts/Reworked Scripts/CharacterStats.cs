@@ -33,6 +33,7 @@ public class CharacterStats : MonoBehaviour
 
     void Start()
     {
+        levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = gameObject.GetComponent<DesignTracker>();
     }
@@ -63,17 +64,24 @@ public class CharacterStats : MonoBehaviour
     }
     public void LevelPrimal()
     {        
+        
         if(nutrientTracker.currentNutrients >= levelUpCost)
         {
             primalLevel++;
             primalDmg += 2f;
+            UpdateLevel();
             nutrientTracker.SubtractNutrients(levelUpCost);        
         }
-        else
-        {
-            Debug.Log("Not Enough Nutrients!");
-        }
-        UpdateLevel();
+        
+    }
+    public void DeLevelPrimal()
+    {        
+            
+            UpdateLevel();
+            primalLevel--;
+            primalDmg -= 2f;
+            nutrientTracker.AddNutrients(levelUpCost);        
+       
     }
     public void LevelSpeed()
     {
@@ -82,13 +90,18 @@ public class CharacterStats : MonoBehaviour
             speedLevel++;
             moveSpeed += .1f;
             atkCooldownBuff += .02f;
+            UpdateLevel();
             nutrientTracker.SubtractNutrients(levelUpCost);        
         }
-        else
-        {
-            Debug.Log("Not Enough Nutrients!");
-        }
-        UpdateLevel();
+
+    }
+    public void DeLevelSpeed()
+    {
+            UpdateLevel();
+            speedLevel--;
+            moveSpeed -= .1f;
+            atkCooldownBuff -= .02f;
+            nutrientTracker.AddNutrients(levelUpCost);        
     }
     public void LevelSentience()
     {
@@ -96,13 +109,16 @@ public class CharacterStats : MonoBehaviour
         { 
             sentienceLevel++;
             skillDmg += 2f;
+            UpdateLevel();
             nutrientTracker.SubtractNutrients(levelUpCost);        
         }
-        else
-        {
-            Debug.Log("Not Enough Nutrients!");
-        }
-        UpdateLevel();
+    }
+     public void DeLevelSentience()
+    {
+            UpdateLevel();
+            sentienceLevel--;
+            skillDmg -= 2f;
+            nutrientTracker.AddNutrients(levelUpCost);        
     }
     public void LevelVitality()
     {
@@ -111,15 +127,19 @@ public class CharacterStats : MonoBehaviour
             vitalityLevel++;
             baseHealth += 5f;
             baseRegen += .05f;
+            UpdateLevel();
             nutrientTracker.SubtractNutrients(levelUpCost);        
         }
-        else
-        {
-            Debug.Log("Not Enough Nutrients!");
-        }
-        UpdateLevel();
+        
     }
-
+    public void DeLevelVitality()
+    {
+            UpdateLevel();
+            vitalityLevel--;
+            baseHealth -= 5f;
+            baseRegen -= .05f;
+            nutrientTracker.AddNutrients(levelUpCost);        
+    }
     private void UpdateLevel()
     {
         totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;

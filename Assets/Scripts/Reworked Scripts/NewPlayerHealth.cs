@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class NewPlayerHealth : MonoBehaviour
 {
-    float maxHealth;
+    public float maxHealth;
     public float currentHealth;
     float regenRate;
     private SwapCharacter swapCharacter;
+
+    private HUDHealth hudHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,8 @@ public class NewPlayerHealth : MonoBehaviour
         regenRate = swapCharacter.currentCharacterStats.baseRegen;
         currentHealth = maxHealth;
         InvokeRepeating("Regen", 1f, 1f);
+
+        hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
     }
 
     // Update is called once per frame
@@ -29,17 +34,24 @@ public class NewPlayerHealth : MonoBehaviour
         {
             Death();
         }
+        //Debug.Log("Player Health: " +  currentHealth);
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+    }
+    public void PlayerHeal(float healAmount)
+    {
+        currentHealth += healAmount;
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
     void Death()
     {
-        //Debug.Log("you died!");
+        Debug.Log("you died!");
     }
     void Regen()
     {
-        currentHealth += regenRate;
+        PlayerHeal(regenRate);
     }
 }

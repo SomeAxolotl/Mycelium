@@ -68,7 +68,7 @@ public class FungalMightSkill : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        skillCooldownBuff = player.GetComponent<StatTracker>().skillCooldownBuff;
+        //skillCooldownBuff = player.GetComponent<CharacterStats>().skillCooldownBuff;
         finalSkillCooldown = fungalMightCooldown - skillCooldownBuff;
         
         fetchedStats = true;
@@ -88,8 +88,8 @@ public class FungalMightSkill : MonoBehaviour
             dstToEnemy = Vector3.Distance(transform.position, enemy.position);
         }*/
 
-        player.GetComponent<MeleeAttack>().ActivateFungalMight();
-        hudSkills.StartSkill1CooldownUI(finalSkillCooldown);
+        //player.GetComponent<NewPlayerAttack>().ActivateFungalMight();
+        //hudSkills.StartSkill1CooldownUI(finalSkillCooldown);
         yield return new WaitForSeconds(finalSkillCooldown);
         canSkill = true;
     }

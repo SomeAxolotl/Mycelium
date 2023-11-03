@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class startRunTrigger : MonoBehaviour
 {
+    public PlayerController playerController;
+    [SerializeField]
+    GameObject UIEnable;
+    
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("currentPlayer"))
         {
-            SceneManager.LoadScene("CharacterSelect");
+           playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+           playerController.DisableController();
+           UIEnable.SetActive(true);
         }
     }
 }
