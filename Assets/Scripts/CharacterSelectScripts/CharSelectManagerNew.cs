@@ -46,6 +46,11 @@ public class CharSelectManagerNew : MonoBehaviour
     public void StartGame()
     {
         playerController.EnableController();
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            Destroy(player);
+        }
         SceneManager.LoadScene("Prototype Level");
     }
 }

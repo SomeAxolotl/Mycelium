@@ -19,7 +19,7 @@ public class LevelUpInitiate : MonoBehaviour
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         //meleeAttack = GameObject.FindWithTag("PlayerParent").GetComponent<MeleeAttack>();
 
-        if (other.gameObject.CompareTag("currentPlayer"))
+        if (other.gameObject.tag == "currentPlayer")
         {
             levelupmenu.SetActive(true);
             playerController.DisableController();

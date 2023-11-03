@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     private Vector3 forceDirection = Vector3.zero;
     public float moveSpeed;
+    Vector3 gravity;
     [SerializeField] private Camera playerCamera;
 
     //Input fields
@@ -23,14 +24,14 @@ public class PlayerController : MonoBehaviour
     bool playerSwapping;
     SwapCharacter swapCharacter;
     NewPlayerAttack newPlayerAttack;
-
+    NewPlayerHealth newPlayerHealth;
     // Start is called before the first frame update
     private void Start()
     {
         swapCharacter = GetComponent<SwapCharacter>();
         newPlayerAttack = GetComponent<NewPlayerAttack>();
-        moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
-        rb = GetComponentInChildren<Rigidbody>();
+        newPlayerHealth = GetComponent<NewPlayerHealth>();
+        GetStats();
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
         move = playerActionsAsset.Player.Move;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         stat_skill_1 = playerActionsAsset.Player.Stat_Skill_1;
         stat_skill_2 = playerActionsAsset.Player.Stat_Skill_2;
         subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
+        gravity = new Vector3(0f, -20f, 0f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -45,9 +47,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        rb = GetComponentInChildren<Rigidbody>();
-        moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
-
         SpeedControl();
         
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -61,9 +60,10 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("IFrames");
         }
         
-        if(newPlayerAttack.attacking == true)
+        if(newPlayerHealth.currentHealth <= 0)
         {
-            //playerActionsAsset.Player.Disable();
+            //newPlayerAttack.attacking == true ||
+            playerActionsAsset.Player.Disable();
         }
         else
         {
@@ -106,7 +106,22 @@ public class PlayerController : MonoBehaviour
         forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * moveSpeed;
 
         rb.AddForce(forceDirection, ForceMode.Impulse);
+        rb.AddForce(gravity, ForceMode.Acceleration);
         forceDirection = Vector3.zero;
+
+        if (move.ReadValue<Vector2>() == Vector2.zero)
+        {
+            //Deceleration
+            Vector3 currentVelocity = rb.velocity;
+            currentVelocity.x *= 0.8f;
+            currentVelocity.z *= 0.8f;
+            rb.velocity = currentVelocity;
+        }
+    }
+    public void GetStats()
+    {
+        rb = GetComponentInChildren<Rigidbody>();
+        moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
     }
     IEnumerator Dodging()
     {
@@ -145,12 +160,13 @@ public class PlayerController : MonoBehaviour
 
         if(move.ReadValue<Vector2>().sqrMagnitude > 0.1f && direction.sqrMagnitude > 0.1f)
         {
-            this.rb.rotation = Quaternion.RotateTowards(this.rb.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 1000);
+            //this.rb.rotation = Quaternion.RotateTowards(this.rb.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 1000);
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 15f * Time.deltaTime);
         }
         else
         {
             rb.angularVelocity = Vector3.zero;
-            rb.Sleep();
         }
     }
     private void SpeedControl()

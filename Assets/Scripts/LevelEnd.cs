@@ -11,9 +11,8 @@ public class LevelEnd : MonoBehaviour
         {
             other.GetComponentInParent<NewPlayerHealth>().currentHealth = other.GetComponentInParent<NewPlayerHealth>().maxHealth;
             SceneManager.LoadScene("HubWorldPlaceholder");
-
         }
 
-        other.gameObject.transform.position = new Vector3(0, 1.5f, 1.0f);
+        other.gameObject.transform.position = new Vector3(0, 1.4f, 0f);
     }
 }

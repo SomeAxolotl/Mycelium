@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class SwapWeapon : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SwapWeapon : MonoBehaviour
     GameObject currentCharacter;
     Transform weaponHolder;
     SwapCharacter swapCharacter;
+    GameObject curWeapon;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,43 +22,48 @@ public class SwapWeapon : MonoBehaviour
         playerActionsAsset.Player.Enable();
         swapItem = playerActionsAsset.Player.SwapItem;
         swapCharacter = GetComponent<SwapCharacter>();
-        GameObject currentCharacter = swapCharacter.characters[swapCharacter.currentCharacterIndex];
-        Transform weaponHolder =  currentCharacter.transform.GetChild(0);
         if(GameObject.FindWithTag("currentWeapon") == null)
         {
-        Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);
-        GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
+            Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);
+            UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentCharacter = swapCharacter.characters[swapCharacter.currentCharacterIndex];
-        weaponHolder = currentCharacter.transform.GetChild(0);
-        GameObject.FindWithTag("currentWeapon").transform.position = weaponHolder.position;
-        GameObject.FindWithTag("currentWeapon").transform.rotation = currentCharacter.transform.rotation;
+        curWeapon.transform.position = weaponHolder.position;
+        curWeapon.transform.rotation = currentCharacter.transform.rotation;
+      
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
         {
             weapon = weaponCollider.transform;
             Vector3 dirToWeapon = (weapon.position - currentCharacter.transform.position).normalized;
-            if (Vector3.Angle(currentCharacter.transform.forward, dirToWeapon) <= 40 && swapItem.triggered)
+            if (Vector3.Angle(currentCharacter.transform.forward, dirToWeapon) <= 40 && swapItem.triggered || Vector3.Distance(currentCharacter.transform.position, weapon.position) <= 1f && swapItem.triggered)
             {
                 Debug.Log("swap");
-                GameObject.FindWithTag("currentWeapon").transform.position = weapon.position;
-                GameObject.FindWithTag("currentWeapon").transform.rotation = Quaternion.Euler(-25, 0, 0);
-                GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = true;
+                curWeapon.transform.position = weapon.position;
+                curWeapon.transform.rotation = Quaternion.Euler(-25, 0, 0);
+                curWeapon.GetComponent<Collider>().enabled = true;
                 weapon.position = weaponHolder.position;
-                GameObject.FindWithTag("currentWeapon").layer = LayerMask.NameToLayer("Weapon");
-                GameObject.FindWithTag("currentWeapon").transform.parent = null;
-                GameObject.FindWithTag("currentWeapon").tag = "Weapon";
+                curWeapon.layer = LayerMask.NameToLayer("Weapon");
+                curWeapon.transform.parent = null;
+                curWeapon.tag = "Weapon";
                 weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
                 weapon.GetComponent<Collider>().enabled = false;
                 weapon.tag = "currentWeapon";
                 transform.parent = GameObject.FindWithTag("currentPlayer").transform.parent;
+                curWeapon = GameObject.FindWithTag("currentWeapon");
             }
         }
+        Debug.Log(curWeapon);
+    }
+    public void UpdateCharacter(GameObject currentPlayer)
+    {
+        currentCharacter = currentPlayer;
+        weaponHolder = currentCharacter.transform.GetChild(0);
+        curWeapon = GameObject.FindWithTag("currentWeapon");
     }
     /*void OnDrawGizmos()
     {

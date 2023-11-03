@@ -11,9 +11,15 @@ public class SwapCharacter : MonoBehaviour
     public CharacterStats currentCharacterStats;
     private InputAction swapCharacter;
     private ThirdPersonActionsAsset playerActionsAsset;
+    private PlayerController playerController;
+    private SwapWeapon swapWeapon;
+    private NewPlayerHealth newPlayerHealth;
     // Start is called before the first frame update
     void Awake()
     {
+        playerController = GetComponent<PlayerController>();
+        swapWeapon = GetComponent<SwapWeapon>();
+        newPlayerHealth = GetComponent<NewPlayerHealth>();
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
         swapCharacter = playerActionsAsset.Player.SwapItem;
@@ -50,23 +56,31 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
+        characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
         int nextCharacterIndex = (currentCharacterIndex + 1) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {
             currentCharacterIndex = 0;
         }
         SwitchCharacter(nextCharacterIndex);
+        playerController.GetStats();
+        newPlayerHealth.GetHealthStats();
+        swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
     public void SwitchToLastCharacter()
     {
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
+        characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
         int lastCharacterIndex = (currentCharacterIndex - 1) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {
             currentCharacterIndex = 0;
         }
         SwitchCharacter(lastCharacterIndex);
+        playerController.GetStats();
+        newPlayerHealth.GetHealthStats();
+        swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
 }
