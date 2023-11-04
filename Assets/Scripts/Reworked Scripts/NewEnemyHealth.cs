@@ -58,6 +58,9 @@ public class NewEnemyHealth : MonoBehaviour
         StartCoroutine(Knockback(dirFromPlayer, 1f));
         enemyHealthBar.UpdateEnemyHealth();
         enemyHealthBar.DamageNumber(dmgTaken);
+
+        //Particle effect for blood
+        ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
     }
     IEnumerator Knockback(Vector3 direction, float force)
     {

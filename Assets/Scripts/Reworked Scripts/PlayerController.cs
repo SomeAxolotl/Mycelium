@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour
         canDodge = false;
         activeDodge = true;
         rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
+        //Dust Particle for Dodging
+        ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         yield return new WaitForSeconds(.15f);
         activeDodge = false;
         yield return new WaitForSeconds(1f);

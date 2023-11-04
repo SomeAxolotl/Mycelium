@@ -40,12 +40,8 @@ public class ParticleManager : MonoBehaviour
                 Destroy(spawnedParticle);
                 yield break;
             }
-            else
-            {
-                Debug.Log("PARTICLE NAME NOT FOUND");
-                yield break;
-            }
         }
-
+        Debug.Log("PARTICLE NAME NOT FOUND");
+        yield break;
     }
 }
