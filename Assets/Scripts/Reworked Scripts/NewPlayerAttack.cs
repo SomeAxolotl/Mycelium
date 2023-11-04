@@ -17,6 +17,7 @@ public class NewPlayerAttack : MonoBehaviour
     public GameObject characterPrefab;
 
     private HUDSkills hudSkills;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,7 @@ public class NewPlayerAttack : MonoBehaviour
             dmgDealt = swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<NewWeaponStats>().wpnDamage;
 
             StartCoroutine(AttackCooldown());
-            StartCoroutine(Attack(curWeapon));
+            StartCoroutine(Attack(curWeapon));            
         }
     }
     private IEnumerator AttackCooldown()
@@ -57,8 +58,15 @@ public class NewPlayerAttack : MonoBehaviour
     {
         attacking = true;
         curWeapon.GetComponent<Collider>().enabled = true;
-        
+
+        // play slash animation
         animator.Play("Slash");
+
+        // play smash animation
+        animator.Play("Smash");
+
+        // play stab animation
+        animator.Play("Stab");
         yield return new WaitForSeconds(.6f); //THIS IS WHERE THE ANIMATION WILL GO
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;

@@ -27,14 +27,12 @@ public class SwapWeapon : MonoBehaviour
             Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
             UpdateCharacter(GameObject.FindWithTag("WeaponSlot"));
         }
-
-        weaponHolder = GameObject.FindWithTag("WeaponSlot").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        curWeapon.transform.position = weaponHolder.position;
+        curWeapon.transform.position = GameObject.FindWithTag("WeaponSlot").transform.position;
         //curWeapon.transform.rotation = currentCharacter.transform.rotation;
       
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
@@ -55,7 +53,7 @@ public class SwapWeapon : MonoBehaviour
                 weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
                 weapon.GetComponent<Collider>().enabled = false;
                 weapon.tag = "currentWeapon";
-                transform.parent = GameObject.FindWithTag("currentPlayer").transform.parent;
+                transform.parent = GameObject.FindWithTag("WeaponSlot").transform;
                 curWeapon = GameObject.FindWithTag("currentWeapon");
             }
         }
