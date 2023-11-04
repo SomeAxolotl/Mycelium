@@ -24,16 +24,18 @@ public class SwapWeapon : MonoBehaviour
         swapCharacter = GetComponent<SwapCharacter>();
         if(GameObject.FindWithTag("currentWeapon") == null)
         {
-            Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);
-            UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
+            Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
+            UpdateCharacter(GameObject.FindWithTag("WeaponSlot"));
         }
+
+        weaponHolder = GameObject.FindWithTag("WeaponSlot").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         curWeapon.transform.position = weaponHolder.position;
-        curWeapon.transform.rotation = currentCharacter.transform.rotation;
+        //curWeapon.transform.rotation = currentCharacter.transform.rotation;
       
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
@@ -44,7 +46,7 @@ public class SwapWeapon : MonoBehaviour
             {
                 Debug.Log("swap");
                 curWeapon.transform.position = weapon.position;
-                curWeapon.transform.rotation = Quaternion.Euler(-25, 0, 0);
+                //curWeapon.transform.rotation = Quaternion.Euler(-25, 0, 50);
                 curWeapon.GetComponent<Collider>().enabled = true;
                 weapon.position = weaponHolder.position;
                 curWeapon.layer = LayerMask.NameToLayer("Weapon");

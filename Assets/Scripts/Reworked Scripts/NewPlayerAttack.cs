@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,8 @@ public class NewPlayerAttack : MonoBehaviour
     public bool attacking = false;
     public float dmgDealt;
     public float atkCooldown;
+    Animator animator;
+    public GameObject characterPrefab;
 
     private HUDSkills hudSkills;
     // Start is called before the first frame update
@@ -23,6 +26,8 @@ public class NewPlayerAttack : MonoBehaviour
         attack = playerActionsAsset.Player.Attack;
 
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+
+        animator = characterPrefab.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +57,8 @@ public class NewPlayerAttack : MonoBehaviour
     {
         attacking = true;
         curWeapon.GetComponent<Collider>().enabled = true;
+        
+        animator.Play("Slash");
         yield return new WaitForSeconds(.6f); //THIS IS WHERE THE ANIMATION WILL GO
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
