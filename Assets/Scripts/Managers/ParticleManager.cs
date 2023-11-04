@@ -21,18 +21,18 @@ public class ParticleManager : MonoBehaviour
         }
     }
 
-    public void SpawnParticle(string particleName, Vector3 particleSpawnPosition, Vector3 particleRotation)
+    public void SpawnParticles(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation)
     {
-        StartCoroutine(SpawnParticleCoroutine(particleName, particleSpawnPosition, particleRotation));
+        StartCoroutine(SpawnParticlesCoroutine(particleName, particleSpawnPosition, particleRotation));
     }
 
-    IEnumerator SpawnParticleCoroutine(string particleName, Vector3 particleSpawnPosition, Vector3 particleRotation)
+    IEnumerator SpawnParticlesCoroutine(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation)
     {
         foreach (GameObject particle in particlePrefabs)
         {
             if (particle.name == particleName)
             {
-                GameObject spawnedParticle = Instantiate(particle, particleSpawnPosition, Quaternion.Euler(particleRotation));
+                GameObject spawnedParticle = Instantiate(particle, particleSpawnPosition, particleRotation);
                 while (spawnedParticle.GetComponent<ParticleSystem>().isPlaying)
                 {
                     yield return null;

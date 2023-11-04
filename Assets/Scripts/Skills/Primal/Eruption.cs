@@ -4,24 +4,71 @@ using UnityEngine;
 
 public class Eruption : Skill
 {
-    //                    ^
-    //inherits the base <Skill> class. look at that class to see what fields and methods it already has
+    [SerializeField] private float sourSpotScalar = 0.5f;
+    [SerializeField] private GameObject eruptionParticlePrefab;
 
-    //player controller will call ActivateSkill() on whatever class of Type<Skill> is on the corresponding SkillLoadout child
-    //for example:
-    // 
-    // SkillLoadout
-    //    Eruption
-    //    Blitz
-    //    Fungal Might
-    //
-    //pressing Stat_Skill_1 on player controller will get whatever script has the <Skill> class at the 1st child location (0th) (which would be this script)
+    [SerializeField] private float smallRadius = 3f;
+    [SerializeField] private float largeRadius = 6f;
 
-    //the only fields required in THIS script are whatever is unique to eruption (aoe hitboxes / other shit)
-    //stuff thats serialized in the base class AND this class will both be in the inspector for this (which is why the damages and cooldowns are in inspector)
+    [SerializeField] private int particleSpacing = 36;
+    [SerializeField] private float particleHeight = 0f;
 
     public override void DoSkill()
     {
-        //Skill specific stuff
+        DamageEnemies();
+        SpawnParticles();
+    }
+
+    void DamageEnemies()
+    {
+        int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, largeRadius, enemyLayerMask);
+        
+        float damage = finalSkillDamage;
+        foreach (Collider collider in colliders)
+        {
+            float distanceToCollider = Vector3.Distance(transform.position, collider.transform.position);
+
+            if (distanceToCollider >= smallRadius)
+            {
+                damage *= sourSpotScalar;
+            }
+
+            NewEnemyHealth enemyHealth = collider.gameObject.GetComponent<NewEnemyHealth>();
+            enemyHealth.EnemyTakeDamage(damage);
+        }
+    }
+
+    void SpawnParticles()
+    {
+        int particlesPerCircle = 360 / particleSpacing;
+        
+        int currentSmalLSpacing = 0;
+        for (int i = 0; i < particlesPerCircle; i++)
+        {
+            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmalLSpacing) * smallRadius;
+            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmalLSpacing) * smallRadius;
+
+            InstantiateParticles(smallX, smallZ);
+            currentSmalLSpacing += particleSpacing;
+        }
+
+        int curentLargeSpacing = 0;
+        for (int i = 0; i < particlesPerCircle; i++)
+        {
+            float largeX = Mathf.Cos(Mathf.Deg2Rad * curentLargeSpacing) * largeRadius;
+            float largeZ = Mathf.Sin(Mathf.Deg2Rad * curentLargeSpacing) * largeRadius;
+
+            InstantiateParticles(largeX, largeZ);
+            curentLargeSpacing += particleSpacing;
+        }
+    }
+
+    void InstantiateParticles(float x, float z)
+    {
+        Vector3 circlePosition = new Vector3(x, particleHeight, z);
+        Vector3 spawnPosition = transform.position + circlePosition;
+        ParticleManager.Instance.SpawnParticles("EruptionParticles", spawnPosition, Quaternion.LookRotation(Vector3.up, Vector3.up));
     }
 }

@@ -8,7 +8,6 @@ public class startRunTrigger : MonoBehaviour
     public PlayerController playerController;
     [SerializeField]
     GameObject UIEnable;
-    
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("currentPlayer"))

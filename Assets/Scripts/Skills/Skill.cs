@@ -9,11 +9,11 @@ public class Skill : MonoBehaviour
     [SerializeField] private float baseSkillDamage = 10f;
     [SerializeField] private float sentienceDamageScalar = 1f; //How much the skill's damage scales off Sentience (is multiplied with bonus)
     private float bonusSkillDamage;
-    private float finalSkillDamage;
+    public float finalSkillDamage;
 
     [SerializeField] private float baseSkillCooldown = 5f;
     private float decreasingSkillCooldown;
-    private float finalSkillCooldown;
+    public float finalSkillCooldown;
 
     private CharacterStats characterStats;
 
@@ -52,8 +52,8 @@ public class Skill : MonoBehaviour
     public void ActivateSkill(int slot)
     {
         skillSlot = slot;
-        CalculateProperties();
 
+        CalculateProperties();
         StartCooldown();
         DoSkill();
     }
