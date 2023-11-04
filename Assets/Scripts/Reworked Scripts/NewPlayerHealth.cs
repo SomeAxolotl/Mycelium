@@ -36,7 +36,7 @@ public class NewPlayerHealth : MonoBehaviour
             Death();
         }
         //Debug.Log("Player Health: " +  currentHealth);
-        Debug.Log("timer" + deathTimer);
+        //Debug.Log("timer" + deathTimer);
     }
     public void GetHealthStats()
     {

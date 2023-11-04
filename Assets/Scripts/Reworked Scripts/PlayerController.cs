@@ -25,6 +25,12 @@ public class PlayerController : MonoBehaviour
     SwapCharacter swapCharacter;
     NewPlayerAttack newPlayerAttack;
     NewPlayerHealth newPlayerHealth;
+
+    public float dodgeCooldown = 1f;
+    public float dodgeIFrames = 0.15f;
+
+    private HUDSkills hudSkills;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -42,6 +48,9 @@ public class PlayerController : MonoBehaviour
         gravity = new Vector3(0f, -20f, 0f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //HUDSkills Reference
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
     }
 
     // Update is called once per frame
@@ -70,30 +79,30 @@ public class PlayerController : MonoBehaviour
             playerActionsAsset.Player.Enable();
         }
 
+        if (subspecies_skill.triggered)
+        {
+            Skill subskill = GameObject.Find("SkillLoadout").transform.GetChild(0).gameObject.GetComponent<Skill>();
+            if (subskill.canSkill)
+            {
+                subskill.ActivateSkill(0);
+            }
+        }
+
         if (stat_skill_1.triggered)
         {
-            Skill skill1 = GameObject.Find("SkillLoadout").transform.GetChild(0).gameObject.GetComponent<Skill>();
+            Skill skill1 = GameObject.Find("SkillLoadout").transform.GetChild(1).gameObject.GetComponent<Skill>();
             if (skill1.canSkill)
             {
-                skill1.ActivateSkill(0);
+                skill1.ActivateSkill(1);
             }
         }
 
         if (stat_skill_2.triggered)
         {
-            Skill skill2 = GameObject.Find("SkillLoadout").transform.GetChild(1).gameObject.GetComponent<Skill>();
+            Skill skill2 = GameObject.Find("SkillLoadout").transform.GetChild(2).gameObject.GetComponent<Skill>();
             if (skill2.canSkill)
             {
-                skill2.ActivateSkill(1);
-            }
-        }
-
-        if (subspecies_skill.triggered)
-        {
-            Skill subskill = GameObject.Find("SkillLoadout").transform.GetChild(2).gameObject.GetComponent<Skill>();
-            if (subskill.canSkill)
-            {
-                subskill.ActivateSkill(2);
+                skill2.ActivateSkill(2);
             }
         }
     }
@@ -130,15 +139,17 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
         //Dust Particle for Dodging
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
+        //HUD Dodge Cooldown
+        hudSkills.StartCooldownUI(4, dodgeCooldown);
         yield return new WaitForSeconds(.15f);
         activeDodge = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;
     }
     IEnumerator IFrames()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(dodgeIFrames);
         isInvincible = false;
     }
     private Vector3 GetCameraForward(Camera playerCamera)

@@ -5,10 +5,21 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     [SerializeField][Tooltip("Put ALL skill prefabs here")] List<GameObject> skillList = new List<GameObject>();
-    [SerializeField][Tooltip("Default skill if none is found")] GameObject noSkill;
+    [SerializeField][Tooltip("Default skill if there's no skill")] GameObject noSkill;
+
+    private GameObject skillLoadout;
+
+    private HUDSkills hudSkills;
+
+    void Start()
+    {
+        skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+    }
 
     public void SetSkill(string name, int slot)
     {   
+        skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
         bool skillFound = false;
 
         foreach (GameObject skillPrefab in skillList)
@@ -17,10 +28,12 @@ public class SkillManager : MonoBehaviour
             {
                 skillFound = true;
 
-                Destroy(transform.GetChild(slot).gameObject);
+                Destroy(skillLoadout.transform.GetChild(slot).gameObject);
 
-                GameObject newSkill = Instantiate(skillPrefab, this.gameObject.transform);
+                GameObject newSkill = Instantiate(skillPrefab, skillLoadout.transform);
                 newSkill.transform.SetSiblingIndex(slot);
+
+                hudSkills.ChangeSkillIcon(name, slot);
             }
         }
 
@@ -28,9 +41,9 @@ public class SkillManager : MonoBehaviour
         {
             Debug.Log("NO SKILL FOUND WITH THAT NAME");
 
-            Destroy(transform.GetChild(slot).gameObject);
+            Destroy(skillLoadout.transform.GetChild(slot).gameObject);
 
-            GameObject newSkill = Instantiate(noSkill, this.gameObject.transform);
+            GameObject newSkill = Instantiate(noSkill, skillLoadout.transform);
             newSkill.transform.SetSiblingIndex(slot);
         }
     }

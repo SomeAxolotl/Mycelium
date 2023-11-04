@@ -7,86 +7,130 @@ using UnityEngine.InputSystem;
 
 public class HUDSkills : MonoBehaviour
 {
+    //Dodge
+
+    private Image dodgeCooldownBackground;
+    private Image dodgeIcon;
+    private TMP_Text dodgeButtonText;
+
     //Hit
 
-    private float hitCooldown;
-    private float hitCooldownCounter;
-
     private Image hitCooldownBackground;
-    private TMP_Text hitText;
+    private Image hitIcon;
     private TMP_Text hitButtonText;
 
     //Skill 1
 
-    private float skill1Cooldown;
-    private float skill1CooldownCounter;
     private Image skill1CooldownBackground;
-    private TMP_Text skill1Text;
+    private Image skill1Icon;
     private TMP_Text skill1ButtonText;
 
     //Skill 2
 
-    private float skill2Cooldown;
-    private float skill2CooldownCounter;
     private Image skill2CooldownBackground;
-    private TMP_Text skill2Text;
+    private Image skill2Icon;
     private TMP_Text skill2ButtonText;
 
     //Skill 3
 
-    private float skill3Cooldown;
-    private float skill3CooldownCounter;
-    private Image skill3CooldownBackground;
-    private TMP_Text skill3Text;
-    private TMP_Text skill3ButtonText;
+    private Image speciesCooldownBackground;
+    private Image speciesIcon;
+    private TMP_Text speciesButtonText;
+
+    private List<Sprite> spriteList = new List<Sprite>();
+    private Sprite noSkillSprite;
 
     void Start()
     {
-        hitCooldownBackground = GameObject.Find("HitCooldownBackground").GetComponent<Image>();
-        hitText = GameObject.Find("HitText").GetComponent<TMP_Text>();
-        hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();
+        dodgeCooldownBackground = GameObject.Find("DodgeCooldownBackground").GetComponent<Image>();
+        dodgeIcon = GameObject.Find("DodgeIcon").GetComponent<Image>();
+        dodgeButtonText = GameObject.Find("DodgeButton").GetComponent<TMP_Text>();
+
+        speciesCooldownBackground = GameObject.Find("SpeciesCooldownBackground").GetComponent<Image>();
+        speciesIcon = GameObject.Find("SpeciesIcon").GetComponent<Image>();
+        speciesButtonText = GameObject.Find("SpeciesButton").GetComponent<TMP_Text>();
 
         skill1CooldownBackground = GameObject.Find("Skill1CooldownBackground").GetComponent<Image>();
-        skill1Text = GameObject.Find("Skill1Text").GetComponent<TMP_Text>();
+        skill1Icon = GameObject.Find("Skill1Icon").GetComponent<Image>();
         skill1ButtonText = GameObject.Find("Skill1Button").GetComponent<TMP_Text>();
 
         skill2CooldownBackground = GameObject.Find("Skill2CooldownBackground").GetComponent<Image>();
-        skill2Text = GameObject.Find("Skill2Text").GetComponent<TMP_Text>();
+        skill2Icon = GameObject.Find("Skill2Icon").GetComponent<Image>();
         skill2ButtonText = GameObject.Find("Skill2Button").GetComponent<TMP_Text>();
 
-        skill3CooldownBackground = GameObject.Find("Skill3CooldownBackground").GetComponent<Image>();
-        skill3Text = GameObject.Find("Skill3Text").GetComponent<TMP_Text>();
-        skill3ButtonText = GameObject.Find("Skill3Button").GetComponent<TMP_Text>();
+        hitCooldownBackground = GameObject.Find("HitCooldownBackground").GetComponent<Image>();
+        hitIcon = GameObject.Find("HitIcon").GetComponent<Image>();
+        hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();
+
+        spriteList.AddRange(Resources.LoadAll<Sprite>("PlaceholderIcons"));
+        noSkillSprite = Resources.Load<Sprite>("PlaceholderIcons/NoSkill");
     }
 
-    public void StartHitCooldownUI(float cooldown)
+    public void ChangeSkillIcon(string name, int slot)
     {
-        hitCooldown = cooldown;
-        hitCooldownCounter = cooldown;
-    }
-
-    public void StartSkillCooldownUI(int slot, float cooldown)
-    {
-        Debug.Log("Cooldown: " + cooldown);
-
+        Image skillIcon = speciesIcon;
         switch (slot)
         {
+            //Skills
             case 0:
-                skill1Cooldown = cooldown;
-                skill1CooldownCounter = cooldown;
+                skillIcon = speciesIcon;
                 break;
             case 1:
-                skill2Cooldown = cooldown;
-                skill2CooldownCounter = cooldown;
+                skillIcon = skill1Icon;
                 break;
             case 2:
-                skill3Cooldown = cooldown;
-                skill3CooldownCounter = cooldown;
+                skillIcon = skill2Icon;
                 break;
         }
+
+        int spriteIndex = spriteList.FindIndex(sprite => sprite.name == name);
+        Sprite skillSprite = spriteList[spriteIndex];
+
+        skillIcon.sprite = skillSprite;
     }
 
-    void Update()
+    public void StartCooldownUI(int slot, float cooldown)
+    {
+        StartCoroutine(SkillCooldown(slot, cooldown));
+    }
+
+    IEnumerator SkillCooldown(int slot, float cooldown)
+    {
+        Image cooldownBackground = speciesCooldownBackground;
+        switch (slot)
+        {
+            //Skills
+            case 0:
+                cooldownBackground = speciesCooldownBackground;
+                break;
+            case 1:
+                cooldownBackground = skill1CooldownBackground;
+                break;
+            case 2:
+                cooldownBackground = skill2CooldownBackground;
+                break;
+
+            //Attack and Dodge
+            case 3:
+                cooldownBackground = hitCooldownBackground;
+                break;
+            case 4:
+                cooldownBackground = dodgeCooldownBackground;
+                break;
+        }
+
+        float cooldownLeft = cooldown;
+        while (cooldownLeft >= 0)
+        {
+            cooldownLeft -= Time.deltaTime;
+            cooldownBackground.fillAmount = cooldownLeft / cooldown;
+            yield return null;
+        }
+
+        yield break;
+    }
+
+    /*void Update()
     {
         if (hitCooldownCounter > 0)
         {
@@ -106,12 +150,13 @@ public class HUDSkills : MonoBehaviour
             skill2CooldownBackground.fillAmount = skill2CooldownCounter / skill2Cooldown;
         }
 
-        if (skill3CooldownCounter > 0)
+        if (speciesCooldownCounter > 0)
         {
-            skill3CooldownCounter -= Time.deltaTime;
-            skill3CooldownBackground.fillAmount = skill3CooldownCounter / skill3Cooldown;
+            speciesCooldownCounter -= Time.deltaTime;
+            speciesCooldownBackground.fillAmount = speciesCooldownCounter / speciesCooldown;
         }
     }
+    */
 
     /*
     public void UpdateSkillButtons()

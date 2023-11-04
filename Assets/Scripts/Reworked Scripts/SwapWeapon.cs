@@ -42,7 +42,7 @@ public class SwapWeapon : MonoBehaviour
             Vector3 dirToWeapon = (weapon.position - currentCharacter.transform.position).normalized;
             if (Vector3.Angle(currentCharacter.transform.forward, dirToWeapon) <= 40 && swapItem.triggered || Vector3.Distance(currentCharacter.transform.position, weapon.position) <= 1f && swapItem.triggered)
             {
-                Debug.Log("swap");
+                //Debug.Log("swap");
                 curWeapon.transform.position = weapon.position;
                 curWeapon.transform.rotation = Quaternion.Euler(-25, 0, 0);
                 curWeapon.GetComponent<Collider>().enabled = true;
@@ -57,7 +57,7 @@ public class SwapWeapon : MonoBehaviour
                 curWeapon = GameObject.FindWithTag("currentWeapon");
             }
         }
-        Debug.Log(curWeapon);
+        //Debug.Log(curWeapon);
     }
     public void UpdateCharacter(GameObject currentPlayer)
     {

@@ -42,11 +42,8 @@ public class Skill : MonoBehaviour
         //at 5 it's -42.5% cdr
         //at 8 it's 62% cdr
         //at 10 it's 75% cdr
-        decreasingSkillCooldown = Mathf.Lerp(0.1f, 0.75f, sentienceLevel / 10f);
+        decreasingSkillCooldown = 1 - Mathf.Lerp(0.1f, 0.75f, sentienceLevel / 15f);
         finalSkillCooldown = baseSkillCooldown * decreasingSkillCooldown;
-
-        Debug.Log(this + " Damage: " + finalSkillDamage);
-        Debug.Log(this + " Cooldown: " + finalSkillCooldown);
     }
 
     public void ActivateSkill(int slot)
@@ -70,7 +67,7 @@ public class Skill : MonoBehaviour
 
     IEnumerator Cooldown()
     {
-        hudSkills.StartSkillCooldownUI(skillSlot, finalSkillCooldown);
+        hudSkills.StartCooldownUI(skillSlot, finalSkillCooldown);
 
         canSkill = false;
         yield return new WaitForSeconds(finalSkillCooldown);

@@ -54,23 +54,25 @@ public class TestingManager : MonoBehaviour
     [SerializeField] private WeaponTiers weaponTier;
     [SerializeField] private WeaponTypes weaponType;
 
+    [Header("Species Skill")] 
+    [SerializeField] private SpeciesSkills speciesSkill;
+
     [Header("Stat Skills")] 
     [SerializeField] private StatSkills skill1;
     [SerializeField] private StatSkills skill2;
 
-    [Header("Species Skill")] 
-    [SerializeField] private SpeciesSkills skill3;
-
+    private GameObject playerParent;
     private GameObject player;
     private CharacterStats playerStats;
     private SkillManager skillManager;
 
     void Start()
     {
+        playerParent = GameObject.Find("PlayerParent");
         player = GameObject.FindWithTag("currentPlayer");
         playerStats = player.GetComponent<CharacterStats>();
         //weapon script
-        skillManager = player.transform.Find("SkillLoadout").gameObject.GetComponent<SkillManager>();
+        skillManager = playerParent.GetComponent<SkillManager>();
 
         if (testingEnabled)
         {
@@ -90,10 +92,10 @@ public class TestingManager : MonoBehaviour
 
         //Set Skills
         yield return null;
-        skillManager.SetSkill(skill1.ToString(), 0);
+        skillManager.SetSkill(speciesSkill.ToString(), 0);
         yield return null;
-        skillManager.SetSkill(skill2.ToString(), 1);
+        skillManager.SetSkill(skill1.ToString(), 1);
         yield return null;
-        skillManager.SetSkill(skill3.ToString(), 2);
+        skillManager.SetSkill(skill2.ToString(), 2);
     }
 }

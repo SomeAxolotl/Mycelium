@@ -42,7 +42,7 @@ public class NewPlayerAttack : MonoBehaviour
     }
     private IEnumerator AttackCooldown()
     {
-        hudSkills.StartHitCooldownUI(atkCooldown);
+        hudSkills.StartCooldownUI(3, atkCooldown);
 
         canAttack = false;
         yield return new WaitForSeconds(atkCooldown);

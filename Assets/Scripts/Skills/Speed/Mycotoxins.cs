@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mycotoxins : MonoBehaviour
+public class Mycotoxins : Skill
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Skill specific fields
 
-    // Update is called once per frame
-    void Update()
+    public override void DoSkill()
     {
-        
+        //Skill specific stuff
     }
 }
