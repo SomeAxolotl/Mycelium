@@ -63,10 +63,10 @@ public class NewPlayerAttack : MonoBehaviour
         animator.Play("Slash");
 
         // play smash animation
-        animator.Play("Smash");
+        // animator.Play("Smash");
 
         // play stab animation
-        animator.Play("Stab");
+        // animator.Play("Stab");
         yield return new WaitForSeconds(.6f); //THIS IS WHERE THE ANIMATION WILL GO
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
