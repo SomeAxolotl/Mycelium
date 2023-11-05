@@ -11,6 +11,7 @@ public class CharSelectManagerNew : MonoBehaviour
     public SwapCharacter swapCharacter;
     public Button Test;
     public GameObject UIEnable;
+    public GameObject HUD;
 
     public PlayerController playerController;
     void Start()
@@ -52,5 +53,6 @@ public class CharSelectManagerNew : MonoBehaviour
             Destroy(player);
         }
         SceneManager.LoadScene("Prototype Level");
+        
     }
 }

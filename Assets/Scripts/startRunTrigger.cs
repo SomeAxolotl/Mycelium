@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class startRunTrigger : MonoBehaviour
 {
     public PlayerController playerController;
+  
     [SerializeField]
     GameObject UIEnable;
     private void OnTriggerEnter(Collider other)
