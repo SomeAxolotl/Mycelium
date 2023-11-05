@@ -7,6 +7,14 @@ using UnityEngine.TextCore.Text;
 
 public class LevelUpManagerNew : MonoBehaviour
 {
+    public TMP_Text skillcdr;
+    public TMP_Text primaldam;
+    public TMP_Text skilldam;
+    public TMP_Text movespeed;
+    public TMP_Text regen;
+    public TMP_Text health;
+    public TMP_Text Nutrients;
+    public TMP_Text LevelUpCost;
     public TMP_Text PrimalText;
     public TMP_Text SpeedText;
     public TMP_Text SentienceText;
@@ -20,10 +28,13 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button SentienceLevelDown;
      public Button VitalityLevelUp;
     public Button VitalityLevelDown;
+    public TMP_Text CurrentLevel;
     public GameObject HUD;
 
    public CharacterStats currentstats;
    private PlayerController playerController;
+   public NutrientTracker currentnutrients;
+   
   
     void Start()
     {
@@ -49,6 +60,15 @@ public class LevelUpManagerNew : MonoBehaviour
         SpeedText.text = currentstats.speedLevel.ToString(); 
         SentienceText.text = currentstats.sentienceLevel.ToString();
         VitalityText.text = currentstats.vitalityLevel.ToString(); 
+        LevelUpCost.text = currentstats.levelUpCost.ToString();
+        Nutrients.text = currentnutrients.currentNutrients.ToString();
+        CurrentLevel.text = currentstats.totalLevel.ToString();
+        health.text = currentstats.baseHealth.ToString();
+        regen.text = currentstats.baseRegen.ToString("0.00") + " HPS";
+        movespeed.text = currentstats.moveSpeed.ToString("0.0") + " m/s";
+        primaldam.text = currentstats.primalDmg.ToString();
+        skilldam.text = currentstats.skillDmg.ToString();
+        skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
     }
 
     public void PrimalUP()

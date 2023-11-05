@@ -27,7 +27,7 @@ public class CharacterStats : MonoBehaviour
     public float baseHealth = 100f;
     public float baseRegen = .2f;
     public int totalLevel;
-    int levelUpCost;
+    public int levelUpCost;
     private NutrientTracker nutrientTracker;
     private DesignTracker designTracker;
 
