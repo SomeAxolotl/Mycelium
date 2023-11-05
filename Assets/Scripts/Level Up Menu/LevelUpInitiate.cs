@@ -8,6 +8,7 @@ public class LevelUpInitiate : MonoBehaviour
 {
     [SerializeField]
     GameObject levelupmenu;
+    public GameObject HUD;
     public Button firstbutton;
 
     private PlayerController playerController;
@@ -23,6 +24,7 @@ public class LevelUpInitiate : MonoBehaviour
         {
             levelupmenu.SetActive(true);
             playerController.DisableController();
+            HUD.SetActive(false);
             
         }
     }
