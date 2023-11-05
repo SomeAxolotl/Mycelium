@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FungalMight : Skill
 {
+    [SerializeField] private float particleDistance;
+    [SerializeField] private float particleHeight;
+
     public override void DoSkill()
     {
         ClearFungalMight();
@@ -18,16 +21,21 @@ public class FungalMight : Skill
             }
         }
 
-        //FungalMightParticles();
+        FungalMightParticles();
     }
 
-    /*void FungalMightParticles()
+    void FungalMightParticles()
     {
         GameObject player = GameObject.FindWithTag("currentPlayer");
-        Vector3 leftParticlesPositionAdder = new Vector3(-0.5f, -0.5f, 0f);
-        Vector3 rightParticlesPositionAdder = new Vector3(0.5f, -0.5f, 0f);
+        //Positions
+        Vector3 rightParticlesPositionH = player.transform.position + (player.transform.right * particleDistance);
+        Vector3 leftParticlesPositionH = player.transform.position + (-player.transform.right * particleDistance);
+        Vector3 particlesPositionV = player.transform.up * particleHeight;
+        //Rotations
+        Quaternion rightParticleRotation = player.transform.rotation * Quaternion.Euler(50f, 80f, 90f);
+        Quaternion leftParticleRotation = player.transform.rotation * Quaternion.Euler(50f, -80f, -00f);
 
-        ParticleManager.Instance.SpawnParticles("FungalMightParticles", player.transform.position + leftParticlesPositionAdder, Quaternion.identity, player);
-        ParticleManager.Instance.SpawnParticles("FungalMightParticles", player.transform.position + rightParticlesPositionAdder, Quaternion.identity, player);
-    }*/
+        ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, player);
+        ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, player);
+    }
 }
