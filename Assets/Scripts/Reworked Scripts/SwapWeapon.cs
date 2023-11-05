@@ -14,7 +14,7 @@ public class SwapWeapon : MonoBehaviour
     GameObject currentCharacter;
     Transform weaponHolder;
     SwapCharacter swapCharacter;
-    GameObject curWeapon;
+    public GameObject curWeapon;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +64,7 @@ public class SwapWeapon : MonoBehaviour
         currentCharacter = currentPlayer;
         weaponHolder = currentCharacter.transform.GetChild(0);
         curWeapon = GameObject.FindWithTag("currentWeapon");
+        DontDestroyOnLoad(curWeapon);
     }
     /*void OnDrawGizmos()
     {

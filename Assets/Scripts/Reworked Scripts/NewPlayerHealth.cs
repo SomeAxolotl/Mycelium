@@ -8,19 +8,21 @@ public class NewPlayerHealth : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
     float regenRate;
-    private SwapCharacter swapCharacter;
-    private HUDHealth hudHealth;
+    SwapCharacter swapCharacter;
+    HUDHealth hudHealth;
+    SwapWeapon swapWeapon;
     float deathTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         swapCharacter = GetComponent<SwapCharacter>();
+        swapWeapon = GetComponent<SwapWeapon>();
         GetHealthStats();
         currentHealth = maxHealth;
         InvokeRepeating("Regen", 1f, 1f);
-
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
+
     }
 
     // Update is called once per frame
@@ -61,6 +63,12 @@ public class NewPlayerHealth : MonoBehaviour
         if (deathTimer >= 3f)
         {
             currentHealth = maxHealth;
+            swapWeapon.curWeapon.tag = "Weapon";
+            Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);
+            swapWeapon.UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
+            GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+            foreach (GameObject weapon in weapons)
+            Destroy(weapon);
             SceneManager.LoadScene(0);
             swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.rotation = Quaternion.identity;
             swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.position = new Vector3(0, 1.4f, 0);

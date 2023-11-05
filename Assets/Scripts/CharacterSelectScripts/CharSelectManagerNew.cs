@@ -52,5 +52,6 @@ public class CharSelectManagerNew : MonoBehaviour
             Destroy(player);
         }
         SceneManager.LoadScene("Prototype Level");
+        //SceneManager.LoadScene(2);
     }
 }
