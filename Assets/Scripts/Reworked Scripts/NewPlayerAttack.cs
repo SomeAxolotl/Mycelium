@@ -14,6 +14,10 @@ public class NewPlayerAttack : MonoBehaviour
     public float atkCooldown;
 
     private HUDSkills hudSkills;
+
+    Animator animator;
+    public GameObject characterPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,8 @@ public class NewPlayerAttack : MonoBehaviour
         attack = playerActionsAsset.Player.Attack;
 
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+
+        animator = characterPrefab.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +58,16 @@ public class NewPlayerAttack : MonoBehaviour
     {
         attacking = true;
         curWeapon.GetComponent<Collider>().enabled = true;
+
+        // play slash animation
+        animator.Play("Slash");
+
+        // play smash animation
+        // animator.Play("Smash");
+
+        // play stab animation
+        // animator.Play("Stab");
+
         yield return new WaitForSeconds(.6f); //THIS IS WHERE THE ANIMATION WILL GO
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
