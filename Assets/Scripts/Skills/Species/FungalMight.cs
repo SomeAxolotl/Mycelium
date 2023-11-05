@@ -9,8 +9,8 @@ public class FungalMight : Skill
 
     public override void DoSkill()
     {
-        ClearFungalMight();
-
+        ClearAllFungalMights();
+        
         GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
         foreach (Transform child in skillLoadout.transform)
         {
@@ -20,6 +20,9 @@ public class FungalMight : Skill
                 skill.ActivateFungalMight(finalSkillValue);
             }
         }
+
+        NewPlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerAttack>();
+        playerAttack.ActivateFungalMight(finalSkillValue);
 
         FungalMightParticles();
     }

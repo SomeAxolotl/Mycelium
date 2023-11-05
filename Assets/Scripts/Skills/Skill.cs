@@ -15,7 +15,7 @@ public class Skill : MonoBehaviour
     private float decreasingSkillCooldown;
     public float finalSkillCooldown;
 
-    public float fungalMightBonus = 0f;
+    private float fungalMightBonus = 1f;
 
     private CharacterStats characterStats;
 
@@ -37,13 +37,9 @@ public class Skill : MonoBehaviour
 
         //Tentative value math
         bonusSkillValue = (sentienceLevel - 1) * sentienceScalar;
-        finalSkillValue = baseSkillValue + bonusSkillValue + fungalMightBonus;
+        finalSkillValue = (baseSkillValue + bonusSkillValue) * fungalMightBonus;
 
         //Tentative cooldown math -- Lerps between -10% and -75% depending on what ur sentience lvl is
-        //at 0 it's -10% cdr
-        //at 5 it's -42.5% cdr
-        //at 8 it's 62% cdr
-        //at 10 it's 75% cdr
         decreasingSkillCooldown = 1 - Mathf.Lerp(0.1f, 0.75f, sentienceLevel / 15f);
         finalSkillCooldown = baseSkillCooldown * decreasingSkillCooldown;
     }
@@ -58,7 +54,7 @@ public class Skill : MonoBehaviour
 
         if (!this.name.Contains("FungalMight"))
         {
-            ClearFungalMight();
+            ClearAllFungalMights();
         }
     }
 
@@ -81,19 +77,18 @@ public class Skill : MonoBehaviour
         canSkill = true;
     }
 
-    //Fungal Might Stuff
-
+    //Fungal Might for Skills
     public void ActivateFungalMight(float fungalMightValue)
     {
-        fungalMightBonus += fungalMightValue;
+        fungalMightBonus = fungalMightValue;
     }
-
     public void DeactivateFungalMight()
     {
-        fungalMightBonus = 0;
+        fungalMightBonus = 1f;
     }
 
-    public void ClearFungalMight()
+    //Clears Fungal Might for attacking and skills
+    public void ClearAllFungalMights()
     {
         GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
         foreach (Transform child in skillLoadout.transform)
@@ -101,6 +96,9 @@ public class Skill : MonoBehaviour
             Skill skill = child.gameObject.GetComponent<Skill>();
             skill.DeactivateFungalMight();
         }
+
+        NewPlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerAttack>();
+        playerAttack.DeactivateFungalMight();
 
         GameObject[] fungalMightParticles = GameObject.FindGameObjectsWithTag("FungalMightParticles");
         foreach (GameObject particle in fungalMightParticles)
