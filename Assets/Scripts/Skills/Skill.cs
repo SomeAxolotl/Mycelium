@@ -6,14 +6,16 @@ public class Skill : MonoBehaviour
 {
     [HideInInspector] public bool canSkill = true;
 
-    [SerializeField] private float baseSkillDamage = 10f;
-    [SerializeField] private float sentienceDamageScalar = 1f; //How much the skill's damage scales off Sentience (is multiplied with bonus)
-    private float bonusSkillDamage;
-    public float finalSkillDamage;
+    [SerializeField] private float baseSkillValue = 10f;
+    [SerializeField] private float sentienceScalar = 1f; //How much the skill's damage scales off Sentience (is multiplied with bonus)
+    private float bonusSkillValue;
+    public float finalSkillValue;
 
     [SerializeField] private float baseSkillCooldown = 5f;
     private float decreasingSkillCooldown;
     public float finalSkillCooldown;
+
+    public float fungalMightBonus = 0f;
 
     private CharacterStats characterStats;
 
@@ -33,9 +35,9 @@ public class Skill : MonoBehaviour
 
         int sentienceLevel = characterStats.sentienceLevel;
 
-        //Tentative damage math
-        bonusSkillDamage = sentienceLevel * sentienceDamageScalar;
-        finalSkillDamage = baseSkillDamage + bonusSkillDamage;
+        //Tentative value math
+        bonusSkillValue = (sentienceLevel - 1) * sentienceScalar;
+        finalSkillValue = baseSkillValue + bonusSkillValue + fungalMightBonus;
 
         //Tentative cooldown math -- Lerps between -10% and -75% depending on what ur sentience lvl is
         //at 0 it's -10% cdr
@@ -53,6 +55,11 @@ public class Skill : MonoBehaviour
         CalculateProperties();
         StartCooldown();
         DoSkill();
+
+        if (!this.name.Contains("FungalMight"))
+        {
+            ClearFungalMight();
+        }
     }
 
     public virtual void DoSkill()
@@ -72,5 +79,33 @@ public class Skill : MonoBehaviour
         canSkill = false;
         yield return new WaitForSeconds(finalSkillCooldown);
         canSkill = true;
+    }
+
+    //Fungal Might Stuff
+
+    public void ActivateFungalMight(float fungalMightValue)
+    {
+        fungalMightBonus += fungalMightValue;
+    }
+
+    public void DeactivateFungalMight()
+    {
+        fungalMightBonus = 0;
+    }
+
+    public void ClearFungalMight()
+    {
+        GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+        foreach (Transform child in skillLoadout.transform)
+        {
+            Skill skill = child.gameObject.GetComponent<Skill>();
+            skill.DeactivateFungalMight();
+        }
+
+        GameObject[] fungalMightParticles = GameObject.FindGameObjectsWithTag("FungalMightParticles");
+        foreach (GameObject particle in fungalMightParticles)
+        {
+            particle.GetComponent<ParticleSystem>().Stop();
+        }
     }
 }

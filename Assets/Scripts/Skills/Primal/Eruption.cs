@@ -16,7 +16,7 @@ public class Eruption : Skill
     public override void DoSkill()
     {
         DamageEnemies();
-        SpawnParticles();
+        EruptionParticles();
     }
 
     void DamageEnemies()
@@ -25,7 +25,7 @@ public class Eruption : Skill
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, largeRadius, enemyLayerMask);
         
-        float damage = finalSkillDamage;
+        float damage = finalSkillValue;
         foreach (Collider collider in colliders)
         {
             float distanceToCollider = Vector3.Distance(transform.position, collider.transform.position);
@@ -40,7 +40,7 @@ public class Eruption : Skill
         }
     }
 
-    void SpawnParticles()
+    void EruptionParticles()
     {
         int particlesPerCircle = 360 / particleSpacing;
         
