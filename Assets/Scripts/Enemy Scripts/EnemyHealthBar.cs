@@ -18,9 +18,11 @@ public class EnemyHealthBar : MonoBehaviour
     private Image enemyHealthBar;
 
     [SerializeField] private Canvas enemyHealthCanvas;
-    [SerializeField] private TMP_Text damageText;
+    [SerializeField] private GameObject damageTextObject;
+    private TMP_Text damageText;
     [SerializeField] private RectTransform damageTextAnchorRectTransform;
     [SerializeField] [Tooltip("How high the damage text goes during the animation")] private float damageTextHeightScalar = 1.0f;
+    [SerializeField] [Tooltip("Duration of damage number floating")] private float floatingTime = 1.0f;
     private Camera mainCamera;
 
     void Start()
@@ -29,7 +31,6 @@ public class EnemyHealthBar : MonoBehaviour
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;
         newEnemyHealth = GetComponentInParent<NewEnemyHealth>();
         enemyHealthBar = GetComponent<Image>();
-        Debug.Log(enemyHealthBar.fillAmount);
     }
 
     public void UpdateEnemyHealth()
@@ -38,8 +39,6 @@ public class EnemyHealthBar : MonoBehaviour
         maxHealth = newEnemyHealth.maxHealth;
 
         float healthRatio = currentHealth / maxHealth;
-        Debug.Log("HealthBarRatio: " + healthRatio);
-
         enemyHealthBar.fillAmount = healthRatio;
         if (healthRatio > 0.66)
         {
@@ -62,6 +61,10 @@ public class EnemyHealthBar : MonoBehaviour
 
     IEnumerator DamageNumberAnimation(float damage)
     {
+        Transform parentTransform = this.gameObject.transform.parent;
+        GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, this.gameObject.transform.rotation, parentTransform);
+        TMP_Text damageText = damageTextInstance.GetComponent<TMP_Text>();
+
         damageText.text = damage.ToString();
         yield return null;
 
@@ -73,14 +76,17 @@ public class EnemyHealthBar : MonoBehaviour
         RectTransform damageTextRectTransform = damageText.GetComponent<RectTransform>();
         Vector3 startingPosition = damageTextRectTransform.position;
         Vector3 targetPosition = startingPosition + (Vector3.up * damageTextHeightScalar);
-        while (t < 1)
+        while (t < floatingTime)
         {
+            float normalizedTime = t / floatingTime;
+            float logT = Mathf.Lerp(0, 1, Mathf.Log(1 + normalizedTime * 9) / Mathf.Log(10));
+
             damageText.color = Color.Lerp(startColor, endColor, t);
-            damageTextRectTransform.position = Vector3.Lerp(startingPosition, targetPosition, t);
+            damageTextRectTransform.position = Vector3.Lerp(startingPosition, targetPosition, logT);
             t += Time.deltaTime;
             yield return null;
         }
-        damageTextRectTransform.position = damageTextAnchorRectTransform.position;
+        Destroy(damageTextInstance);
     }
 
     void Update()

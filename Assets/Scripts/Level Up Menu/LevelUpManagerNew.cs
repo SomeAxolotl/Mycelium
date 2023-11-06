@@ -30,16 +30,20 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button VitalityLevelDown;
     public TMP_Text CurrentLevel;
     public GameObject HUD;
+    private CanvasGroup HUDCanvasGroup;
 
    public CharacterStats currentstats;
    private PlayerController playerController;
    public NutrientTracker currentnutrients;
+
+
    
   
     void Start()
     {
         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
         PrimalCheck();
         SpeedCheck();
         VitalityCheck();
@@ -219,6 +223,6 @@ public class LevelUpManagerNew : MonoBehaviour
     {
          UIenable.SetActive(false);
          playerController.EnableController();
-         HUD.SetActive(true);
+         HUDCanvasGroup.alpha = 1;
     }
 }

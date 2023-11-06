@@ -9,11 +9,16 @@ public class LevelUpInitiate : MonoBehaviour
     [SerializeField]
     GameObject levelupmenu;
     public GameObject HUD;
+    private CanvasGroup HUDCanvasGroup;
     public Button firstbutton;
 
     private PlayerController playerController;
     //private New Player Attack meleeAttack;
 
+    void Start()
+    {
+        HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
+    }
 
     private void OnCollisionEnter(Collision other)
     {
@@ -24,8 +29,7 @@ public class LevelUpInitiate : MonoBehaviour
         {
             levelupmenu.SetActive(true);
             playerController.DisableController();
-            HUD.SetActive(false);
-            
+            HUDCanvasGroup.alpha = 0;
         }
     }
 }
