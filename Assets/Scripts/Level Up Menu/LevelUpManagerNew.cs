@@ -43,6 +43,7 @@ public class LevelUpManagerNew : MonoBehaviour
     private float cdrsave;
     private int totalLevelsave;
     private int levelupsave;
+    private CanvasGroup HUDCanvasGroup;
     
 
    public CharacterStats currentstats;
@@ -52,17 +53,13 @@ public class LevelUpManagerNew : MonoBehaviour
   
     void Start()
     {
-       
         
         PrimalCheck();
         SpeedCheck();
         VitalityCheck();
         SentienceCheck();
-        PrimalCap();
-        
-
-      
-        
+        PrimalCap(); 
+        HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
         
     }
     void OnEnable()
@@ -257,7 +254,8 @@ public class LevelUpManagerNew : MonoBehaviour
     {
          UIenable.SetActive(false);
          playerController.EnableController();
-         HUD.SetActive(true);
+         HUDCanvasGroup.alpha = 1;
+
          
     }
     public void Close()
@@ -277,6 +275,7 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
       UIenable.SetActive(false);
-      HUD.SetActive(true);
+      HUDCanvasGroup.alpha = 1;
+
     }
 }
