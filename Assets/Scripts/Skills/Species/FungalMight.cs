@@ -38,7 +38,22 @@ public class FungalMight : Skill
         Quaternion rightParticleRotation = player.transform.rotation * Quaternion.Euler(50f, 80f, 90f);
         Quaternion leftParticleRotation = player.transform.rotation * Quaternion.Euler(50f, -80f, -00f);
 
-        ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, player);
-        ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, player);
+        Transform[] allChildren = player.GetComponentsInChildren<Transform>();
+        GameObject rightHand;
+        GameObject leftHand;
+        foreach(Transform child in allChildren)
+        {
+            if (child.gameObject.CompareTag("RightHand"))
+            {
+                rightHand = child.gameObject;
+            }
+            if (child.gameObject.CompareTag("LeftHand"))
+            {
+                leftHand = child.gameObject;
+            }
+        }
+
+        ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, GameObject.FindWithTag("RightHand"));
+        ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, GameObject.FindWithTag("LeftHand"));
     }
 }
