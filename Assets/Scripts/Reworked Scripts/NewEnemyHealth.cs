@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class NewEnemyHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
     public int nutrientDrop;
+    public bool damaged;
     float deathTimer;
+    float groundedTimer;
     Rigidbody rb;
     EnemyHealthBar enemyHealthBar;
     Transform player;
@@ -19,6 +22,7 @@ public class NewEnemyHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        damaged = false;
         rb = GetComponent<Rigidbody>();
         enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
         player = GameObject.FindWithTag("currentPlayer").transform;
@@ -35,6 +39,20 @@ public class NewEnemyHealth : MonoBehaviour
             Death();
         }
         //Debug.Log(currentHealth);
+        Debug.DrawRay(transform.position, -transform.up * 1.05f, Color.red, 2f);
+        while(groundedTimer > 0f) 
+        {
+            groundedTimer += Time.deltaTime;
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -transform.up, out hit, 1.05f))
+            {
+                groundedTimer = 0;
+                damaged = false;
+                navMeshAgent.updatePosition = true;
+            }
+        }
+        Debug.Log("grounded timer: " + groundedTimer);
     }
     void Death()
     {
@@ -54,8 +72,11 @@ public class NewEnemyHealth : MonoBehaviour
     public void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
+        navMeshAgent.updatePosition = false;
+        damaged = true;
+        groundedTimer += Time.deltaTime;
         Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-        StartCoroutine(Knockback(dirFromPlayer, 1f));
+        StartCoroutine(Knockback(dirFromPlayer, 5f));
         enemyHealthBar.UpdateEnemyHealth();
         enemyHealthBar.DamageNumber(dmgTaken);
 
@@ -64,15 +85,9 @@ public class NewEnemyHealth : MonoBehaviour
     }
     IEnumerator Knockback(Vector3 direction, float force)
     {
-        Vector3 initialPosition = transform.position;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < 0.2f)
-        {
-            transform.position = Vector3.Lerp(initialPosition, initialPosition + direction * force, elapsedTime / 0.2f);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        transform.position = initialPosition + direction * force;
+        yield return new WaitUntil(() => !navMeshAgent.updatePosition);
+        Vector3 knockbackForce = direction * force;
+        knockbackForce += Vector3.up * 3f;
+        rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

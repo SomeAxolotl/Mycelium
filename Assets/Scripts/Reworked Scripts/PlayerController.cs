@@ -69,9 +69,8 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("IFrames");
         }
         
-        if(newPlayerHealth.currentHealth <= 0)
+        if (newPlayerAttack.attacking == true || newPlayerHealth.currentHealth <= 0)
         {
-            //newPlayerAttack.attacking == true ||
             playerActionsAsset.Player.Disable();
         }
         else
@@ -173,7 +172,6 @@ public class PlayerController : MonoBehaviour
 
         if(move.ReadValue<Vector2>().sqrMagnitude > 0.1f && direction.sqrMagnitude > 0.1f)
         {
-            //this.rb.rotation = Quaternion.RotateTowards(this.rb.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 1000);
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 15f * Time.deltaTime);
         }
