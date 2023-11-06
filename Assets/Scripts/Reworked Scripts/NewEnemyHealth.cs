@@ -11,7 +11,7 @@ public class NewEnemyHealth : MonoBehaviour
     public int nutrientDrop;
     public bool damaged;
     float deathTimer;
-    float groundedTimer;
+    float flightTimer;
     Rigidbody rb;
     EnemyHealthBar enemyHealthBar;
     Transform player;
@@ -29,6 +29,7 @@ public class NewEnemyHealth : MonoBehaviour
         enemyNavigation = GetComponent<EnemyNavigation>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         thisCollider = GetComponent<Collider>();
+        rb.isKinematic = true;
     }
 
     // Update is called once per frame
@@ -40,19 +41,20 @@ public class NewEnemyHealth : MonoBehaviour
         }
         //Debug.Log(currentHealth);
         Debug.DrawRay(transform.position, -transform.up * 1.05f, Color.red, 2f);
-        while(groundedTimer > 0f) 
+        if(damaged)
         {
-            groundedTimer += Time.deltaTime;
+            flightTimer += Time.deltaTime;
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, 1.05f))
+            if (Physics.Raycast(transform.position, -transform.up, out hit, 1.05f) && flightTimer > 0)
             {
-                groundedTimer = 0;
                 damaged = false;
+                flightTimer = 0;
                 navMeshAgent.updatePosition = true;
+                rb.isKinematic = true;
             }
         }
-        Debug.Log("grounded timer: " + groundedTimer);
+        Debug.Log("grounded timer: " + flightTimer);
     }
     void Death()
     {
@@ -72,11 +74,11 @@ public class NewEnemyHealth : MonoBehaviour
     public void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
-        navMeshAgent.updatePosition = false;
         damaged = true;
-        groundedTimer += Time.deltaTime;
+        navMeshAgent.updatePosition = false;
+        rb.isKinematic = false;
         Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-        StartCoroutine(Knockback(dirFromPlayer, 5f));
+        StartCoroutine(Knockback(dirFromPlayer, 2f));
         enemyHealthBar.UpdateEnemyHealth();
         enemyHealthBar.DamageNumber(dmgTaken);
 
@@ -87,7 +89,7 @@ public class NewEnemyHealth : MonoBehaviour
     {
         yield return new WaitUntil(() => !navMeshAgent.updatePosition);
         Vector3 knockbackForce = direction * force;
-        knockbackForce += Vector3.up * 3f;
+        knockbackForce += Vector3.up * 1.5f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

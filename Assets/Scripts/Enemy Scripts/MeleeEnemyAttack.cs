@@ -13,10 +13,10 @@ public class MeleeEnemyAttack : MonoBehaviour
     public LayerMask obstacleLayer;
     private Transform player;
     private bool canAttack = true;
-    [SerializeField] private float attackCooldown = 2f;
-    private float attackPause = 0.5f;
-    [SerializeField] float lungeDistance = 0.8f;
-    [SerializeField] float lungeDuration = 0.1f;
+    [SerializeField] private float attackCooldown = 1.8f;
+    private float attackWindup = 1f;
+    [SerializeField] float lungeDistance = 0.4f;
+    [SerializeField] float lungeDuration = 0.15f;
     IEnumerator attack;
 
     // Start is called before the first frame update
@@ -42,20 +42,23 @@ public class MeleeEnemyAttack : MonoBehaviour
             {
                 StopCoroutine(Attack());
                 attack = Attack();
+                transform.position = transform.position;
+                attackWindup = 1.2f;
+                canAttack = true;
             }
             else
             {
                 if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer) && (dstToPlayer - .1f) <= navMeshAgent.stoppingDistance && canAttack)
                 {
-                    attackPause -= Time.deltaTime;
-                    if (attackPause <= 0)
+                    attackWindup -= Time.deltaTime;
+                    if (attackWindup <= 0)
                     {
-                        StartCoroutine("Attack");
+                        StartCoroutine(Attack());
                     }
                 }
                 else
                 {
-                    attackPause = 0.5f;
+                    attackWindup = 1f;
                 }
             }
         }

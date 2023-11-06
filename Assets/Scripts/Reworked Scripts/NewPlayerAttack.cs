@@ -76,7 +76,10 @@ public class NewPlayerAttack : MonoBehaviour
         // play stab animation
         // animator.Play("Stab");
 
-        yield return new WaitForSeconds(.6f); //THIS IS WHERE THE ANIMATION WILL GO
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
+        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
+        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
