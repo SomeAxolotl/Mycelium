@@ -41,7 +41,7 @@ public class NewEnemyHealth : MonoBehaviour
             Death();
         }
         //Debug.Log(currentHealth);
-        Debug.DrawRay(transform.position, -transform.up * 1.05f, Color.red, 2f);
+        //Debug.DrawRay(transform.position, -transform.up * 1.05f, Color.red, 2f);
         if(damaged)
         {
             flightTimer += Time.deltaTime;
@@ -51,7 +51,9 @@ public class NewEnemyHealth : MonoBehaviour
             {
                 damaged = false;
                 flightTimer = 0;
-                navMeshAgent.updatePosition = true;
+                //navMeshAgent.updatePosition = true;
+                navMeshAgent.enabled = true;
+                enemyNavigation.enabled = true;
                 rb.isKinematic = true;
             }
         }
@@ -76,10 +78,12 @@ public class NewEnemyHealth : MonoBehaviour
     {
         currentHealth -= dmgTaken;
         damaged = true;
-        navMeshAgent.updatePosition = false;
+        //navMeshAgent.updatePosition = false;
+        enemyNavigation.enabled = false;
+        navMeshAgent.enabled = false;
         rb.isKinematic = false;
         Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-        StartCoroutine(Knockback(dirFromPlayer, 2f));
+        StartCoroutine(Knockback(dirFromPlayer, 6f));
         enemyHealthBar.UpdateEnemyHealth();
         enemyHealthBar.DamageNumber(dmgTaken);
 
@@ -91,9 +95,10 @@ public class NewEnemyHealth : MonoBehaviour
     }
     IEnumerator Knockback(Vector3 direction, float force)
     {
-        yield return new WaitUntil(() => !navMeshAgent.updatePosition);
+        //yield return new WaitUntil(() => !navMeshAgent.updatePosition);
+        yield return new WaitUntil(() => !enemyNavigation.enabled && !navMeshAgent.enabled);
         Vector3 knockbackForce = direction * force;
-        knockbackForce += Vector3.up * 1.5f;
+        knockbackForce += Vector3.up * 1.8f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

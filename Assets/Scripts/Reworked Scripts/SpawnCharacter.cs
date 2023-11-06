@@ -5,11 +5,13 @@ using UnityEngine;
 public class SpawnCharacter : MonoBehaviour
 {
     [SerializeField] private GameObject characterPrefab;
-    private SwapCharacter swapCharacter;
+    SwapCharacter swapCharacter;
+    SkillManager skillManager;
     // Start is called before the first frame update
     void Start()
     {
         swapCharacter = GetComponent<SwapCharacter>();
+        skillManager = GetComponent<SkillManager>();
     }
 
     // Update is called once per frame
@@ -26,6 +28,12 @@ public class SpawnCharacter : MonoBehaviour
     {
         GameObject newCharacter = Instantiate(characterPrefab); //WE HAVE TO EVENTUALLY BE ABLE TO SPAWN 4 DIFF TYPES OF SHROOMS, RIGHT NOW THIS IS JUST A SINGLE TYPE
         swapCharacter.characters.Add(newCharacter);
-        newCharacter.transform.position = new Vector3(0, 1.1f, 0); //WE CAN SET A SPAWNPOINT IN THE HUB SOMEWHERE
+        newCharacter.transform.position = new Vector3(0, 1.2f, 0); //WE CAN SET A SPAWNPOINT IN THE HUB SOMEWHERE
+        
+        //Temporary im too tired for this
+        skillManager.SetSkill(name, 0, newCharacter);
+        skillManager.SetSkill(name, 1, newCharacter);
+        skillManager.SetSkill(name, 2, newCharacter);
+
     }
 }

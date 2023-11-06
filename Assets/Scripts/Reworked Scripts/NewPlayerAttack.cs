@@ -18,7 +18,6 @@ public class NewPlayerAttack : MonoBehaviour
     private HUDSkills hudSkills;
 
     Animator animator;
-    public GameObject characterPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +29,7 @@ public class NewPlayerAttack : MonoBehaviour
 
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
 
-        animator = characterPrefab.GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -49,7 +48,7 @@ public class NewPlayerAttack : MonoBehaviour
 
         atkCooldown = curWeapon.GetComponent<NewWeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
         dmgDealt = (swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<NewWeaponStats>().wpnDamage) * fungalMightBonus;
-
+        animator = GetComponentInChildren<Animator>();
         StartCoroutine(AttackCooldown());
         StartCoroutine(Attack(curWeapon));
     }

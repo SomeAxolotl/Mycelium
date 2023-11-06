@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     SwapCharacter swapCharacter;
     NewPlayerAttack newPlayerAttack;
     NewPlayerHealth newPlayerHealth;
+    SkillManager skillManager;
 
     public float dodgeCooldown = 1f;
     public float dodgeIFrames = 0.15f;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         swapCharacter = GetComponent<SwapCharacter>();
         newPlayerAttack = GetComponent<NewPlayerAttack>();
         newPlayerHealth = GetComponent<NewPlayerHealth>();
+        skillManager = GetComponent<SkillManager>();
         GetStats();
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
@@ -80,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
         if (subspecies_skill.triggered)
         {
-            Skill subskill = GameObject.Find("SkillLoadout").transform.GetChild(0).gameObject.GetComponent<Skill>();
+            Skill subskill = skillManager.currentSkillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
             if (subskill.canSkill)
             {
                 subskill.ActivateSkill(0);
@@ -89,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
         if (stat_skill_1.triggered)
         {
-            Skill skill1 = GameObject.Find("SkillLoadout").transform.GetChild(1).gameObject.GetComponent<Skill>();
+            Skill skill1 = skillManager.currentSkillLoadout.transform.GetChild(1).gameObject.GetComponent<Skill>();
             if (skill1.canSkill)
             {
                 skill1.ActivateSkill(1);
@@ -98,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
         if (stat_skill_2.triggered)
         {
-            Skill skill2 = GameObject.Find("SkillLoadout").transform.GetChild(2).gameObject.GetComponent<Skill>();
+            Skill skill2 = skillManager.currentSkillLoadout.transform.GetChild(2).gameObject.GetComponent<Skill>();
             if (skill2.canSkill)
             {
                 skill2.ActivateSkill(2);

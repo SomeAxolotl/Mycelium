@@ -1422,6 +1422,7 @@ GameObject:
   - component: {fileID: 8843404254105194275}
   - component: {fileID: 4327881425648931258}
   - component: {fileID: 700066255584438882}
+  - component: {fileID: 3266873619224401234}
   m_Layer: 3
   m_Name: ReworkedCharPrefab
   m_TagString: Player
@@ -1441,10 +1442,10 @@ Transform:
   m_LocalScale: {x: 1.2373801, y: 1.3826487, z: 1.2373801}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8444002114557318086}
   - {fileID: 3574540140572935087}
   - {fileID: 1228060041555602034}
   - {fileID: 7566381353325263837}
-  - {fileID: 8444002114557318086}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1565,6 +1566,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3266873619224401234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862836875474729563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0e8a38ca15dfc4fa1a0b9c8a6226ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &9001969259945677230
 GameObject:
   m_ObjectHideFlags: 0
