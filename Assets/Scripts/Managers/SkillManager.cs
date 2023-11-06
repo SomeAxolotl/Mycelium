@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    [SerializeField][Tooltip("Put ALL skill prefabs here")] List<GameObject> skillList = new List<GameObject>();
+    [SerializeField][Tooltip("Put ALL skill prefabs here")] public List<GameObject> skillList = new List<GameObject>();
     [SerializeField][Tooltip("Default skill if there's no skill")] GameObject noSkill;
 
-    private GameObject skillLoadout;
+    public GameObject skillLoadout;
+    public GameObject currentSkillLoadout;
 
     private HUDSkills hudSkills;
 
     void Start()
     {
-        skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+        GetSkillLoadout(GameObject.FindWithTag("currentPlayer"));
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
     }
 
-    public void SetSkill(string name, int slot)
+    public void SetSkill(string name, int slot, GameObject player)
     {   
-        skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+        skillLoadout = player.transform.Find("SkillLoadout").gameObject;
         bool skillFound = false;
 
         foreach (GameObject skillPrefab in skillList)
@@ -46,5 +47,9 @@ public class SkillManager : MonoBehaviour
             GameObject newSkill = Instantiate(noSkill, skillLoadout.transform);
             newSkill.transform.SetSiblingIndex(slot);
         }
+    }
+    public void GetSkillLoadout(GameObject currentPlayer)
+    {
+        currentSkillLoadout = currentPlayer.transform.GetChild(0).gameObject;
     }
 }

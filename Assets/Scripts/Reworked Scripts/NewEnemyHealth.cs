@@ -2,29 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class NewEnemyHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
     public int nutrientDrop;
+    public bool damaged;
     float deathTimer;
+    float flightTimer;
     Rigidbody rb;
     EnemyHealthBar enemyHealthBar;
     Transform player;
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
     Collider thisCollider;
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+        damaged = false;
         rb = GetComponent<Rigidbody>();
         enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
         player = GameObject.FindWithTag("currentPlayer").transform;
         enemyNavigation = GetComponent<EnemyNavigation>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         thisCollider = GetComponent<Collider>();
+        rb.isKinematic = true;
     }
 
     // Update is called once per frame
@@ -35,6 +41,23 @@ public class NewEnemyHealth : MonoBehaviour
             Death();
         }
         //Debug.Log(currentHealth);
+        //Debug.DrawRay(transform.position, -transform.up * 1.05f, Color.red, 2f);
+        if(damaged)
+        {
+            flightTimer += Time.deltaTime;
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -transform.up, out hit, 1.05f) && flightTimer > 0)
+            {
+                damaged = false;
+                flightTimer = 0;
+                //navMeshAgent.updatePosition = true;
+                navMeshAgent.enabled = true;
+                enemyNavigation.enabled = true;
+                rb.isKinematic = true;
+            }
+        }
+        Debug.Log("grounded timer: " + flightTimer);
     }
     void Death()
     {
@@ -54,25 +77,28 @@ public class NewEnemyHealth : MonoBehaviour
     public void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
+        damaged = true;
+        //navMeshAgent.updatePosition = false;
+        enemyNavigation.enabled = false;
+        navMeshAgent.enabled = false;
+        rb.isKinematic = false;
         Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-        StartCoroutine(Knockback(dirFromPlayer, 1f));
+        StartCoroutine(Knockback(dirFromPlayer, 6f));
         enemyHealthBar.UpdateEnemyHealth();
         enemyHealthBar.DamageNumber(dmgTaken);
 
         //Particle effect for blood
         ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
+
+        //Sound effect
+        SoundEffectManager.Instance.PlaySound("impact", transform.position);
     }
     IEnumerator Knockback(Vector3 direction, float force)
     {
-        Vector3 initialPosition = transform.position;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < 0.2f)
-        {
-            transform.position = Vector3.Lerp(initialPosition, initialPosition + direction * force, elapsedTime / 0.2f);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        transform.position = initialPosition + direction * force;
+        //yield return new WaitUntil(() => !navMeshAgent.updatePosition);
+        yield return new WaitUntil(() => !enemyNavigation.enabled && !navMeshAgent.enabled);
+        Vector3 knockbackForce = direction * force;
+        knockbackForce += Vector3.up * 1.8f;
+        rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

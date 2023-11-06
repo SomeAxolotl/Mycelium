@@ -92,10 +92,10 @@ public class TestingManager : MonoBehaviour
 
         //Set Skills
         yield return null;
-        skillManager.SetSkill(speciesSkill.ToString(), 0);
+        skillManager.SetSkill(speciesSkill.ToString(), 0, player);
         yield return null;
-        skillManager.SetSkill(skill1.ToString(), 1);
+        skillManager.SetSkill(skill1.ToString(), 1, player);
         yield return null;
-        skillManager.SetSkill(skill2.ToString(), 2);
+        skillManager.SetSkill(skill2.ToString(), 2, player);
     }
 }

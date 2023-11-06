@@ -11,17 +11,14 @@ public class NewWeaponCollision : MonoBehaviour
         newPlayerAttack = GameObject.Find("PlayerParent").GetComponent<NewPlayerAttack>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && newPlayerAttack.attacking)
         {
             float dmgDealt = newPlayerAttack.dmgDealt;
             other.GetComponent<NewEnemyHealth>().EnemyTakeDamage(dmgDealt);
+            //HitStopManager.Instance.HitSlow(GameObject.FindWithTag("currentPlayer"), dmgDealt);
+            GetComponent<Collider>().enabled = false;
         }
     }
 }

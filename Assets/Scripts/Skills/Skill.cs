@@ -6,14 +6,16 @@ public class Skill : MonoBehaviour
 {
     [HideInInspector] public bool canSkill = true;
 
-    [SerializeField] private float baseSkillDamage = 10f;
-    [SerializeField] private float sentienceDamageScalar = 1f; //How much the skill's damage scales off Sentience (is multiplied with bonus)
-    private float bonusSkillDamage;
-    public float finalSkillDamage;
+    [SerializeField] private float baseSkillValue = 10f;
+    [SerializeField] private float sentienceScalar = 1f; //How much the skill's damage scales off Sentience (is multiplied with bonus)
+    private float bonusSkillValue;
+    public float finalSkillValue;
 
     [SerializeField] private float baseSkillCooldown = 5f;
     private float decreasingSkillCooldown;
     public float finalSkillCooldown;
+
+    private float fungalMightBonus = 1f;
 
     private CharacterStats characterStats;
 
@@ -33,15 +35,11 @@ public class Skill : MonoBehaviour
 
         int sentienceLevel = characterStats.sentienceLevel;
 
-        //Tentative damage math
-        bonusSkillDamage = sentienceLevel * sentienceDamageScalar;
-        finalSkillDamage = baseSkillDamage + bonusSkillDamage;
+        //Tentative value math
+        bonusSkillValue = (sentienceLevel - 1) * sentienceScalar;
+        finalSkillValue = (baseSkillValue + bonusSkillValue) * fungalMightBonus;
 
         //Tentative cooldown math -- Lerps between -10% and -75% depending on what ur sentience lvl is
-        //at 0 it's -10% cdr
-        //at 5 it's -42.5% cdr
-        //at 8 it's 62% cdr
-        //at 10 it's 75% cdr
         decreasingSkillCooldown = 1 - Mathf.Lerp(0.1f, 0.75f, sentienceLevel / 15f);
         finalSkillCooldown = baseSkillCooldown * decreasingSkillCooldown;
     }
@@ -53,6 +51,11 @@ public class Skill : MonoBehaviour
         CalculateProperties();
         StartCooldown();
         DoSkill();
+
+        if (!this.name.Contains("FungalMight"))
+        {
+            ClearAllFungalMights();
+        }
     }
 
     public virtual void DoSkill()
@@ -72,5 +75,35 @@ public class Skill : MonoBehaviour
         canSkill = false;
         yield return new WaitForSeconds(finalSkillCooldown);
         canSkill = true;
+    }
+
+    //Fungal Might for Skills
+    public void ActivateFungalMight(float fungalMightValue)
+    {
+        fungalMightBonus = fungalMightValue;
+    }
+    public void DeactivateFungalMight()
+    {
+        fungalMightBonus = 1f;
+    }
+
+    //Clears Fungal Might for attacking and skills
+    public void ClearAllFungalMights()
+    {
+        GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+        foreach (Transform child in skillLoadout.transform)
+        {
+            Skill skill = child.gameObject.GetComponent<Skill>();
+            skill.DeactivateFungalMight();
+        }
+
+        NewPlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerAttack>();
+        playerAttack.DeactivateFungalMight();
+
+        GameObject[] fungalMightParticles = GameObject.FindGameObjectsWithTag("FungalMightParticles");
+        foreach (GameObject particle in fungalMightParticles)
+        {
+            particle.GetComponent<ParticleSystem>().Stop();
+        }
     }
 }

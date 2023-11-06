@@ -76,7 +76,7 @@ public class EnemyNavigation : MonoBehaviour
             patrolCooldown -= Time.deltaTime;
             if(patrolCooldown <= 0)
             {
-                StartCoroutine("Patrol");
+                StartCoroutine(Patrol());
             }
         }
 
@@ -98,7 +98,7 @@ public class EnemyNavigation : MonoBehaviour
             }
             else
             {
-                StartCoroutine("RestartPatrol");
+                StartCoroutine(RestartPatrol());
             }
         }
     }

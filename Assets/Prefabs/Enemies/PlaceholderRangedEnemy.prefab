@@ -227,7 +227,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2633798526890919984}
   serializedVersion: 4
-  m_Mass: 100
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -325,6 +325,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   nutrientDrop: 100
+  damaged: 0
 --- !u!1001 &4068168810054616951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -333,11 +334,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7534587109133327016}
     m_Modifications:
-    - target: {fileID: 2546762311950883916, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
-        type: 3}
-      propertyPath: damageText
-      value: 
-      objectReference: {fileID: 743072280856259372}
     - target: {fileID: 6072017792861968677, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
         type: 3}
       propertyPath: m_Name
@@ -458,18 +454,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0df4eba4f355a174bb1a0f2c3c0338d8, type: 3}
---- !u!114 &743072280856259372 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3619457828567215195, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 4068168810054616951}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7934407638392808409 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6226688623256642734, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,

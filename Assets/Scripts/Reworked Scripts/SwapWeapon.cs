@@ -14,7 +14,7 @@ public class SwapWeapon : MonoBehaviour
     GameObject currentCharacter;
     Transform weaponHolder;
     SwapCharacter swapCharacter;
-    GameObject curWeapon;
+    public GameObject curWeapon;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,7 @@ public class SwapWeapon : MonoBehaviour
         swapCharacter = GetComponent<SwapCharacter>();
         if(GameObject.FindWithTag("currentWeapon") == null)
         {
-            Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);
+            Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
             UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
         }
     }
@@ -32,8 +32,8 @@ public class SwapWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        curWeapon.transform.position = weaponHolder.position;
-        curWeapon.transform.rotation = currentCharacter.transform.rotation;
+        curWeapon.transform.position = weaponHolder.transform.position;;
+        curWeapon.transform.rotation = weaponHolder.transform.rotation;
       
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
@@ -44,7 +44,7 @@ public class SwapWeapon : MonoBehaviour
             {
                 //Debug.Log("swap");
                 curWeapon.transform.position = weapon.position;
-                curWeapon.transform.rotation = Quaternion.Euler(-25, 0, 0);
+                // curWeapon.transform.rotation = Quaternion.Euler(-25, 0, 0);
                 curWeapon.GetComponent<Collider>().enabled = true;
                 weapon.position = weaponHolder.position;
                 curWeapon.layer = LayerMask.NameToLayer("Weapon");
@@ -53,17 +53,25 @@ public class SwapWeapon : MonoBehaviour
                 weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
                 weapon.GetComponent<Collider>().enabled = false;
                 weapon.tag = "currentWeapon";
-                transform.parent = GameObject.FindWithTag("currentPlayer").transform.parent;
+                transform.parent = weaponHolder.transform.parent;
                 curWeapon = GameObject.FindWithTag("currentWeapon");
             }
         }
-        //Debug.Log(curWeapon);
+        //Debug.Log(weaponHolder.name);
     }
     public void UpdateCharacter(GameObject currentPlayer)
     {
         currentCharacter = currentPlayer;
-        weaponHolder = currentCharacter.transform.GetChild(0);
+        Transform[] playerChildren = currentCharacter.GetComponentsInChildren<Transform>();
+        foreach (Transform child in playerChildren)
+        {
+            if(child.tag == "WeaponSlot")
+            {
+                weaponHolder = child;
+            }
+        }
         curWeapon = GameObject.FindWithTag("currentWeapon");
+        DontDestroyOnLoad(curWeapon);
     }
     /*void OnDrawGizmos()
     {

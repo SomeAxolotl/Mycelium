@@ -6,17 +6,22 @@ using UnityEngine.AI;
 public class RangedEnemyShoot : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
+    private NewEnemyHealth newEnemyHealth;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
     private Transform player;
     private bool canShoot = true;
-    private float fireRate = 2f;
+    [SerializeField] private float fireRate = 1.5f;
+    private float attackWindup = 0.8f;
     public GameObject projectile;
+    IEnumerator shoot;
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        newEnemyHealth = GetComponent<NewEnemyHealth>();
+        shoot = this.Shoot();
     }
 
     // Update is called once per frame
@@ -28,10 +33,28 @@ public class RangedEnemyShoot : MonoBehaviour
             player = playerCollider.transform;
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
             float dstToPlayer = Vector3.Distance(transform.position, player.position);
-            
-            if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer) && (dstToPlayer - .1f) <= navMeshAgent.stoppingDistance && canShoot)
+            if (newEnemyHealth.damaged)
             {
-                StartCoroutine("Shoot");
+                StopCoroutine(Shoot());
+                shoot = Shoot();
+                transform.position = transform.position;
+                attackWindup = 1.2f;
+                canShoot = true;
+            }
+            else
+            {
+                if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer) && (dstToPlayer - .1f) <= navMeshAgent.stoppingDistance && canShoot)
+                {
+                    attackWindup -= Time.deltaTime;
+                    if (attackWindup <= 0)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                }
+                else
+                {
+                    attackWindup = 0.8f;
+                }
             }
         }
     }
