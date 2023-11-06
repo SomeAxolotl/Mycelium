@@ -25,15 +25,15 @@ public class SwapWeapon : MonoBehaviour
         if(GameObject.FindWithTag("currentWeapon") == null)
         {
             Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
-            UpdateCharacter(GameObject.FindWithTag("WeaponSlot"));
+            UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        curWeapon.transform.position = GameObject.FindWithTag("WeaponSlot").transform.position;;
-        // curWeapon.transform.rotation = currentCharacter.transform.rotation;
+        curWeapon.transform.position = weaponHolder.transform.position;;
+        curWeapon.transform.rotation = weaponHolder.transform.rotation;
       
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
@@ -53,16 +53,23 @@ public class SwapWeapon : MonoBehaviour
                 weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
                 weapon.GetComponent<Collider>().enabled = false;
                 weapon.tag = "currentWeapon";
-                transform.parent = GameObject.FindWithTag("WeaponSlot").transform.parent;
+                transform.parent = weaponHolder.transform.parent;
                 curWeapon = GameObject.FindWithTag("currentWeapon");
             }
         }
-        //Debug.Log(curWeapon);
+        //Debug.Log(weaponHolder.name);
     }
     public void UpdateCharacter(GameObject currentPlayer)
     {
         currentCharacter = currentPlayer;
-        weaponHolder = currentCharacter.transform.GetChild(0);
+        Transform[] playerChildren = currentCharacter.GetComponentsInChildren<Transform>();
+        foreach (Transform child in playerChildren)
+        {
+            if(child.tag == "WeaponSlot")
+            {
+                weaponHolder = child;
+            }
+        }
         curWeapon = GameObject.FindWithTag("currentWeapon");
         DontDestroyOnLoad(curWeapon);
     }
