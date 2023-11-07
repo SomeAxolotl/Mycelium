@@ -13,8 +13,8 @@ public class NewPlayerAttack : MonoBehaviour
     public float dmgDealt;
     public float atkCooldown;
     private float fungalMightBonus = 1f;
-    private float lungeDuration = 0.5f;
-    private float lungeForce = 18f;
+    private float lungeDuration = 0.4f;
+    private float lungeForce = 20f;
     private HUDSkills hudSkills;
     Animator animator;
     GameObject player;

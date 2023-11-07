@@ -17,55 +17,55 @@ public class NewWeaponStats : MonoBehaviour
             wpnDamage = 0f;
         }
 
-        if (this.gameObject.name == "WoodSmash")
+        if (this.gameObject.name == "WoodSmash(Clone)")
         {
             wpnCooldown = Random.Range(1.8f, 1.9f);
             wpnDamage = Random.Range(25, 30);
         }
         
-        if (this.gameObject.name == "WoodSlash")
+        if (this.gameObject.name == "WoodSlash(Clone)")
         {
             wpnCooldown = Random.Range(1.5f, 1.6f);
             wpnDamage = Random.Range(15, 20);
         }
         
-        if (this.gameObject.name == "WoodStab")
+        if (this.gameObject.name == "WoodStab(Clone)")
         {
             wpnCooldown = Random.Range(1.3f, 1.4f);
             wpnDamage = Random.Range(5, 10);
         }
 
-        if (this.gameObject.name == "StoneSmash")
+        if (this.gameObject.name == "StoneSmash(Clone)")
         {
             wpnCooldown = Random.Range(1.6f, 1.7f);
             wpnDamage = Random.Range(35, 40);
         }
         
-        if (this.gameObject.name == "StoneSlash")
+        if (this.gameObject.name == "StoneSlash(Clone)")
         {
             wpnCooldown = Random.Range(1.3f, 1.4f);
             wpnDamage = Random.Range(25, 30);
         }
         
-        if (this.gameObject.name == "StoneStab")
+        if (this.gameObject.name == "StoneStab(Clone)")
         {
             wpnCooldown = Random.Range(1.1f, 1.2f);
             wpnDamage = Random.Range(15, 20);
         }
 
-        if (this.gameObject.name == "BoneSmash")
+        if (this.gameObject.name == "BoneSmash(Clone)")
         {
             wpnCooldown = Random.Range(1.4f, 1.5f);
             wpnDamage = Random.Range(45, 50);
         }
         
-        if (this.gameObject.name == "BoneSlash" )
+        if (this.gameObject.name == "BoneSlash(Clone)")
         {
             wpnCooldown = Random.Range(1.1f, 1.2f);
             wpnDamage = Random.Range(35, 40);
         }
         
-        if (this.gameObject.name == "BoneStab")
+        if (this.gameObject.name == "BoneStab(Clone)")
         {
             wpnCooldown = Random.Range(0.9f, 1.0f);
             wpnDamage = Random.Range(25, 30);
@@ -83,6 +83,7 @@ public class NewWeaponStats : MonoBehaviour
         if (gameObject.tag == "Weapon")
         {
             transform.Rotate(0, 0, 75 * Time.deltaTime);
+            transform.parent = null;
         }
     }
 }

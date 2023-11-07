@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEditor.Progress;
 
 
@@ -10,18 +11,26 @@ public class LootCache : MonoBehaviour
     float distance;
     float holdTime;
     [SerializeField] private List<GameObject> items;
-    PlayerController controller;
+    ThirdPersonActionsAsset playerActionsAsset;
+    private InputAction interact;
     GameObject player;
     private void Start()
     {
+        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset.Player.Enable();
+        interact = playerActionsAsset.Player.Interact;
         player = GameObject.FindWithTag("currentPlayer");
-        controller = player.GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        distance = Vector3.Distance(player.transform.position, transform.position);
-        if (Input.GetKey(KeyCode.E) && distance < 3)
+        distance = Vector3.Distance(player.transform.position, this.transform.position);
+        if (interact.triggered && distance < 3)
+        {
+            GetLoot();
+            Destroy(this.gameObject);
+        }
+        /*if (Input.GetKey(KeyCode.E) && distance < 3)
         {
             Debug.Log("Working");
             holdTime += Time.deltaTime;
@@ -35,7 +44,7 @@ public class LootCache : MonoBehaviour
         else
         {
             holdTime = 0f;
-        }
+        }*/
     }
     public void GetLoot()
     {

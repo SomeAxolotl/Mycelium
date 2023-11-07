@@ -17,7 +17,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private int MaxNumberOfPieces;
     private int NumberOfPieces = 0;
 
-    void Start()
+    void Awake()
     {
         GameObject StartPiece = Instantiate(StartChunkPrefabs[Random.Range(0,StartChunkPrefabs.Count)], transform);
         NumberOfPieces++;

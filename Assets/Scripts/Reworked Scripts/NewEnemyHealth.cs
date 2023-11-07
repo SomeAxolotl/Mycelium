@@ -31,6 +31,7 @@ public class NewEnemyHealth : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         thisCollider = GetComponent<Collider>();
         rb.isKinematic = true;
+        this.transform.parent = null;
     }
 
     // Update is called once per frame
@@ -40,8 +41,6 @@ public class NewEnemyHealth : MonoBehaviour
         {
             Death();
         }
-        //Debug.Log(currentHealth);
-        //Debug.DrawRay(transform.position, -transform.up * 1.05f, Color.red, 2f);
         if(damaged)
         {
             flightTimer += Time.deltaTime;
@@ -51,13 +50,13 @@ public class NewEnemyHealth : MonoBehaviour
             {
                 damaged = false;
                 flightTimer = 0;
-                //navMeshAgent.updatePosition = true;
                 navMeshAgent.enabled = true;
                 enemyNavigation.enabled = true;
                 rb.isKinematic = true;
+                Debug.Log("works");
+
             }
         }
-        Debug.Log("grounded timer: " + flightTimer);
     }
     void Death()
     {
@@ -68,9 +67,9 @@ public class NewEnemyHealth : MonoBehaviour
         navMeshAgent.enabled = false;
         rb.Sleep();
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
-        GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
         if(deathTimer >= 2f)
         {
+            GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
             this.gameObject.SetActive(false);
         }
     }
@@ -78,12 +77,11 @@ public class NewEnemyHealth : MonoBehaviour
     {
         currentHealth -= dmgTaken;
         damaged = true;
-        //navMeshAgent.updatePosition = false;
         enemyNavigation.enabled = false;
         navMeshAgent.enabled = false;
         rb.isKinematic = false;
         Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-        StartCoroutine(Knockback(dirFromPlayer, 6f));
+        StartCoroutine(Knockback(dirFromPlayer, 7f));
         enemyHealthBar.UpdateEnemyHealth();
         enemyHealthBar.DamageNumber(dmgTaken);
 
@@ -95,10 +93,9 @@ public class NewEnemyHealth : MonoBehaviour
     }
     IEnumerator Knockback(Vector3 direction, float force)
     {
-        //yield return new WaitUntil(() => !navMeshAgent.updatePosition);
         yield return new WaitUntil(() => !enemyNavigation.enabled && !navMeshAgent.enabled);
         Vector3 knockbackForce = direction * force;
-        knockbackForce += Vector3.up * 1.8f;
+        knockbackForce += Vector3.up * 2f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

@@ -53,7 +53,7 @@ public class SwapWeapon : MonoBehaviour
                 weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
                 weapon.GetComponent<Collider>().enabled = false;
                 weapon.tag = "currentWeapon";
-                transform.parent = weaponHolder.transform.parent;
+                curWeapon.transform.parent = weaponHolder.transform.parent;
                 curWeapon = GameObject.FindWithTag("currentWeapon");
             }
         }
@@ -71,6 +71,7 @@ public class SwapWeapon : MonoBehaviour
             }
         }
         curWeapon = GameObject.FindWithTag("currentWeapon");
+        curWeapon.transform.parent = weaponHolder.transform.parent;
         DontDestroyOnLoad(curWeapon);
     }
     /*void OnDrawGizmos()
