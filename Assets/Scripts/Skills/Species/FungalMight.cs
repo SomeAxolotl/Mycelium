@@ -36,7 +36,7 @@ public class FungalMight : Skill
         Vector3 particlesPositionV = player.transform.up * particleHeight;
         //Rotations
         Quaternion rightParticleRotation = player.transform.rotation * Quaternion.Euler(50f, 80f, 90f);
-        Quaternion leftParticleRotation = player.transform.rotation * Quaternion.Euler(50f, -80f, -00f);
+        Quaternion leftParticleRotation = player.transform.rotation * Quaternion.Euler(50f, -80f, 0f);
 
         Transform[] allChildren = player.GetComponentsInChildren<Transform>();
         GameObject rightHand;

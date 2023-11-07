@@ -38,7 +38,7 @@ public class HUDSkills : MonoBehaviour
     private TMP_Text speciesButtonText;
 
     private List<Sprite> spriteList = new List<Sprite>();
-    private Sprite noSkillSprite;
+    [SerializeField] private Sprite noSkillSprite;
 
     void Start()
     {
@@ -63,12 +63,10 @@ public class HUDSkills : MonoBehaviour
         hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();
 
         spriteList.AddRange(Resources.LoadAll<Sprite>("PlaceholderIcons"));
-        noSkillSprite = Resources.Load<Sprite>("PlaceholderIcons/NoSkill");
     }
 
     public void ChangeSkillIcon(string name, int slot)
     {
-        Debug.Log(name + slot);
         Image skillIcon = speciesIcon;
         switch (slot)
         {
@@ -84,9 +82,27 @@ public class HUDSkills : MonoBehaviour
                 break;
         }
 
-        int spriteIndex = spriteList.FindIndex(sprite => sprite.name == name);
-        Sprite skillSprite = spriteList[spriteIndex];
+        int spriteIndex = -1;
+        foreach(Sprite sprite in spriteList)
+        {
+            if (name.Contains(sprite.name))
+            {
 
+                spriteIndex = spriteList.IndexOf(sprite);
+            }
+        }
+
+        Debug.Log("Sprite Index: " + spriteIndex);
+        Sprite skillSprite;
+        if (spriteIndex == -1)
+        {
+            skillSprite = noSkillSprite;
+        }
+        else
+        {
+           skillSprite = spriteList[spriteIndex]; 
+        }
+        
         skillIcon.sprite = skillSprite;
     }
 
