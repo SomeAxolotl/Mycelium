@@ -12,13 +12,12 @@ public class NewPlayerAttack : MonoBehaviour
     public bool attacking = false;
     public float dmgDealt;
     public float atkCooldown;
-
     private float fungalMightBonus = 1f;
-
+    private float lungeDuration = 0.5f;
+    private float lungeForce = 18f;
     private HUDSkills hudSkills;
-
     Animator animator;
-
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +25,9 @@ public class NewPlayerAttack : MonoBehaviour
         playerActionsAsset.Player.Enable();
         swapCharacter = GetComponent<SwapCharacter>();
         attack = playerActionsAsset.Player.Attack;
-
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
-
         animator = GetComponentInChildren<Animator>();
+        player = GameObject.FindWithTag("currentPlayer");
     }
 
     // Update is called once per frame
@@ -38,26 +36,29 @@ public class NewPlayerAttack : MonoBehaviour
 
         if (attack.triggered && canAttack)
         {
+            canAttack = false;
             StartAttack();
         }
+        Debug.Log("lungeForce: " + lungeForce);
+
     }
 
     private void StartAttack()
     {
         GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
-
+        player = GameObject.FindWithTag("currentPlayer");
         atkCooldown = curWeapon.GetComponent<NewWeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
         dmgDealt = (swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<NewWeaponStats>().wpnDamage) * fungalMightBonus;
         animator = GetComponentInChildren<Animator>();
         StartCoroutine(AttackCooldown());
         StartCoroutine(Attack(curWeapon));
+        StartCoroutine(Lunge());
     }
 
     private IEnumerator AttackCooldown()
     {
         hudSkills.StartCooldownUI(3, atkCooldown);
 
-        canAttack = false;
         yield return new WaitForSeconds(atkCooldown);
         canAttack = true;
     }
@@ -82,6 +83,18 @@ public class NewPlayerAttack : MonoBehaviour
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
+    }
+    private IEnumerator Lunge()
+    {
+        Vector3 lungeDirection = player.transform.forward;
+        float forcePerSecond = lungeForce / lungeDuration;
+        float elapsedTime = 0f;
+        while (elapsedTime < lungeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            player.GetComponent<Rigidbody>().AddForce(lungeDirection * forcePerSecond * Time.deltaTime, ForceMode.Impulse);
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     //Fungal Might for Attacking

@@ -49,6 +49,10 @@ public class SwapCharacter : MonoBehaviour
         // Switch to the new character
         currentCharacterIndex = index;
         characters[currentCharacterIndex].tag = "currentPlayer";
+        if(characters[currentCharacterIndex].GetComponent<IdleWalking>().wander != null )
+        {
+            characters[currentCharacterIndex].GetComponent<IdleWalking>().StartCoroutine("StopWander");
+        }
         skillManager.GetSkillLoadout(characters[currentCharacterIndex]);
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;

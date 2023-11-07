@@ -11,7 +11,7 @@ public class NewWeaponStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (this.gameObject.name == "StartWeapon")
+        if (this.gameObject.name == "StartWeapon(Clone)")
         {
             wpnCooldown = 2f;
             wpnDamage = 0f;
