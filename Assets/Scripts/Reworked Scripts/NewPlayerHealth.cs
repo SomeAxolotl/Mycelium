@@ -79,4 +79,11 @@ public class NewPlayerHealth : MonoBehaviour
     {
         PlayerHeal(regenRate);
     }
+
+    public void ResetHealth()
+    {
+        GetHealthStats();
+        currentHealth = maxHealth;
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+    }
 }

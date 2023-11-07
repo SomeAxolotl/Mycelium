@@ -82,7 +82,8 @@ public class PlayerController : MonoBehaviour
 
         if (subspecies_skill.triggered)
         {
-            Skill subskill = skillManager.currentSkillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
+            GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+            Skill subskill = skillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
             if (subskill.canSkill)
             {
                 subskill.ActivateSkill(0);
@@ -91,7 +92,8 @@ public class PlayerController : MonoBehaviour
 
         if (stat_skill_1.triggered)
         {
-            Skill skill1 = skillManager.currentSkillLoadout.transform.GetChild(1).gameObject.GetComponent<Skill>();
+            GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+            Skill skill1 = skillLoadout.transform.GetChild(1).gameObject.GetComponent<Skill>();
             if (skill1.canSkill)
             {
                 skill1.ActivateSkill(1);
@@ -100,7 +102,8 @@ public class PlayerController : MonoBehaviour
 
         if (stat_skill_2.triggered)
         {
-            Skill skill2 = skillManager.currentSkillLoadout.transform.GetChild(2).gameObject.GetComponent<Skill>();
+            GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+            Skill skill2 = skillLoadout.transform.GetChild(2).gameObject.GetComponent<Skill>();
             if (skill2.canSkill)
             {
                 skill2.ActivateSkill(2);

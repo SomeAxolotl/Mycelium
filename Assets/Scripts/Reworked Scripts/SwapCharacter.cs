@@ -15,6 +15,9 @@ public class SwapCharacter : MonoBehaviour
     private SwapWeapon swapWeapon;
     private NewPlayerHealth newPlayerHealth;
     private SkillManager skillManager;
+
+    private HUDSkills hudSkills;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,6 +28,8 @@ public class SwapCharacter : MonoBehaviour
         skillManager = GetComponent<SkillManager>();
         playerActionsAsset.Player.Enable();
         swapCharacter = playerActionsAsset.Player.SwapItem;
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+
         SwitchCharacter(currentCharacterIndex);
     }
 
@@ -53,11 +58,29 @@ public class SwapCharacter : MonoBehaviour
         {
             characters[currentCharacterIndex].GetComponent<IdleWalking>().StartCoroutine("StopWander");
         }
-        skillManager.GetSkillLoadout(characters[currentCharacterIndex]);
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
+        currentCharacterStats.UpdateAnimatorSpeed();
+
+        StartCoroutine(UpdateHUDIcons());
     }
+
+    IEnumerator UpdateHUDIcons()
+    {
+        yield return new WaitForSeconds(0.1f);
+        GameObject player = GameObject.FindWithTag("currentPlayer");
+        Transform skillLoadout = player.transform.Find("SkillLoadout");
+        Debug.Log(skillLoadout.GetChild(0).gameObject.name);
+        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(0).gameObject.name, 0);
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log(skillLoadout.GetChild(1).gameObject.name);
+        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(1).gameObject.name, 1);
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log(skillLoadout.GetChild(2).gameObject.name);
+        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(2).gameObject.name, 2);
+    }
+
     public void SwitchToNextCharacter()
     {
         characters[currentCharacterIndex].tag = "Player";
