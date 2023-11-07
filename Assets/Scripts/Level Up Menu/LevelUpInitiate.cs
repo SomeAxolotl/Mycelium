@@ -17,7 +17,8 @@ public class LevelUpInitiate : MonoBehaviour
 
     void Start()
     {
-        HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
+        HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+        //HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
     }
 
     private void OnCollisionEnter(Collision other)

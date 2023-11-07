@@ -70,8 +70,8 @@ public class NewPlayerHealth : MonoBehaviour
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             SceneManager.LoadScene(0);
-            swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.rotation = Quaternion.identity;
-            swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.position = new Vector3(0, 1.4f, 0);
+            GameObject.FindWithTag("currentPlayer").transform.rotation = Quaternion.identity;
+            GameObject.FindWithTag("currentPlayer").transform.position = new Vector3(0, 1.4f, 0);
             deathTimer = 0;
         }
     }

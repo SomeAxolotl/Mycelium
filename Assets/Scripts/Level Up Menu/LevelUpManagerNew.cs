@@ -59,8 +59,10 @@ public class LevelUpManagerNew : MonoBehaviour
         VitalityCheck();
         SentienceCheck();
         PrimalCap(); 
-        HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
-        
+        HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+        //HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
+
+
     }
     void OnEnable()
     {
