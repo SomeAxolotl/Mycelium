@@ -16,11 +16,10 @@ public class DesignTracker : MonoBehaviour
     private void Start()
     {
         //foreach (Transform child in this.transform.Find("Model"))
-        Transform capTransform = transform.Find("Model").Find("Cap");
-        Transform torsoTransform = transform.Find("Model").Find("Torso");
+        Transform capTransform = transform.Find("Cap");
+        Transform torsoTransform = transform.Find("Torso");
 
         skinnedMeshRenderer = capTransform.gameObject.GetComponent<SkinnedMeshRenderer>();
-        Debug.Log(skinnedMeshRenderer);
         skinnedMesh = capTransform.gameObject.GetComponent<SkinnedMeshRenderer>().sharedMesh;
         capMaterial = capTransform.gameObject.GetComponent<Renderer>().material;
         torsoMaterial = torsoTransform.gameObject.GetComponent<Renderer>().material;
@@ -62,7 +61,6 @@ public class DesignTracker : MonoBehaviour
         float startingPrimal = skinnedMeshRenderer.GetBlendShapeWeight(1);
         float startingVitality = skinnedMeshRenderer.GetBlendShapeWeight(2);
         float startingSpeed = skinnedMeshRenderer.GetBlendShapeWeight(3);
-        Debug.Log("Initial Blendshape Weights:\nSentience: " + skinnedMeshRenderer.GetBlendShapeWeight(0) + "\nPrimal: " + skinnedMeshRenderer.GetBlendShapeWeight(1) + "\nVitality: " + skinnedMeshRenderer.GetBlendShapeWeight(2) + "\nSpeed: " + skinnedMeshRenderer.GetBlendShapeWeight(3));
         while(skinnedMeshRenderer.GetBlendShapeWeight(0) < sentience)
         {
             skinnedMeshRenderer.SetBlendShapeWeight(0, skinnedMeshRenderer.GetBlendShapeWeight(0) + (sentience-startingSentience)/10f);
@@ -83,8 +81,26 @@ public class DesignTracker : MonoBehaviour
             skinnedMeshRenderer.SetBlendShapeWeight(3, skinnedMeshRenderer.GetBlendShapeWeight(3) + (speed-startingSpeed)/10f);
             yield return new WaitForSeconds(0.02f);
         }
-        Debug.Log("Blendshape Weights:\nSentience: " + skinnedMeshRenderer.GetBlendShapeWeight(0) + "\nPrimal: " + skinnedMeshRenderer.GetBlendShapeWeight(1) + "\nVitality: " + skinnedMeshRenderer.GetBlendShapeWeight(2) + "\nSpeed: " + skinnedMeshRenderer.GetBlendShapeWeight(3));
         blendCoroutineRunning = false;
+    }
+
+    public void ForceUpdateBlendshaped(float sentienceLevel, float primalLevel, float vitalityLevel, float speedLevel)
+    {
+        //map the weight for Sentience
+        float sentienceWeight = sentienceLevel * 100f/15f;
+
+        //map the weight for Primal
+        float primalWeight = primalLevel * 100f/15f;
+
+        //map the weight for Vitality
+        float vitalityWeight = vitalityLevel * 100f/15f;
+
+        //map the weight for Speed
+        float speedWeight = speedLevel * 100f/15f;
+        skinnedMeshRenderer.SetBlendShapeWeight(0, sentienceWeight);
+        skinnedMeshRenderer.SetBlendShapeWeight(1, primalWeight);
+        skinnedMeshRenderer.SetBlendShapeWeight(2, vitalityWeight);
+        skinnedMeshRenderer.SetBlendShapeWeight(3, speedWeight);
     }
 
     private void UpdateCapColor(Color color)
@@ -94,5 +110,14 @@ public class DesignTracker : MonoBehaviour
     private void UpdateBodyColor(Color color)
     {
         torsoMaterial.SetColor("_Color", color);
+    }
+
+    public void SetCapColor(Color color)
+    {
+        capColor = color;
+    }
+    public void SetBodyColor(Color color)
+    {
+        bodyColor = color;
     }
 }

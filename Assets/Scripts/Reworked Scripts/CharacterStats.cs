@@ -83,7 +83,8 @@ public class CharacterStats : MonoBehaviour
             UpdateLevel();
             primalLevel--;
             primalDmg -= 2f;
-            nutrientTracker.AddNutrients(levelUpCost);        
+            nutrientTracker.AddNutrients(levelUpCost);
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);  
        
     }
     public void LevelSpeed()
@@ -104,7 +105,8 @@ public class CharacterStats : MonoBehaviour
             speedLevel--;
             moveSpeed -= .1f;
             atkCooldownBuff -= .02f;
-            nutrientTracker.AddNutrients(levelUpCost);        
+            nutrientTracker.AddNutrients(levelUpCost);     
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);    
     }
     public void LevelSentience()
     {
@@ -121,7 +123,8 @@ public class CharacterStats : MonoBehaviour
             UpdateLevel();
             sentienceLevel--;
             skillDmg -= 2f;
-            nutrientTracker.AddNutrients(levelUpCost);        
+            nutrientTracker.AddNutrients(levelUpCost);  
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);       
     }
     public void LevelVitality()
     {
@@ -141,7 +144,8 @@ public class CharacterStats : MonoBehaviour
             vitalityLevel--;
             baseHealth -= 5f;
             baseRegen -= .05f;
-            nutrientTracker.AddNutrients(levelUpCost);        
+            nutrientTracker.AddNutrients(levelUpCost);     
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);    
     }
     public void UpdateLevel()
     {

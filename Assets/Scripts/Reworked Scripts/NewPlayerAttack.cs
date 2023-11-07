@@ -33,14 +33,11 @@ public class NewPlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (attack.triggered && canAttack)
         {
             canAttack = false;
             StartAttack();
         }
-        Debug.Log("lungeForce: " + lungeForce);
-
     }
 
     private void StartAttack()
