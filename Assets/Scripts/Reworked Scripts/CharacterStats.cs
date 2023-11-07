@@ -140,7 +140,7 @@ public class CharacterStats : MonoBehaviour
             baseRegen -= .05f;
             nutrientTracker.AddNutrients(levelUpCost);        
     }
-    private void UpdateLevel()
+    public void UpdateLevel()
     {
         totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
