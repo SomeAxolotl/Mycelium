@@ -12,11 +12,13 @@ public class HUDHealth : MonoBehaviour
 
     private Image healthBar;
     private TMP_Text healthNumberText;
+    private TMP_Text sporeNameText;
 
     void Start()
     {
         healthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         healthNumberText = GameObject.Find("HPNumber").GetComponent<TMP_Text>();
+        sporeNameText = GameObject.Find("SporeName").GetComponent<TMP_Text>();
     }
 
     public void UpdateHealthUI(float currentHealth, float maxHealth)
@@ -37,5 +39,10 @@ public class HUDHealth : MonoBehaviour
         }
         
         healthNumberText.text = Mathf.FloorToInt(currentHealth) + "/" + Mathf.FloorToInt(maxHealth);
+    }
+
+    public void SetSporeName(string name)
+    {
+        sporeNameText.text = name;
     }
 }

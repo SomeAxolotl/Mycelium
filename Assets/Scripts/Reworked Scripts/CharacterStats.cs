@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    private enum Names
+    {
+        Gidego,
+        Gideo,
+        Shborb,
+        GidShbeeb,
+        Shbaybo,
+        Gidoof,
+        Gob,
+        Shbob,
+        Shbeeby,
+    }
+    private Names thisName;
+
     //Displaying current level
     [Header("Primal Level")]
     public int primalLevel;
@@ -34,11 +48,14 @@ public class CharacterStats : MonoBehaviour
     private NutrientTracker nutrientTracker;
     private DesignTracker designTracker;
 
+    private HUDHealth hudHealth;
+
     void Start()
     {
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = gameObject.GetComponent<DesignTracker>();
+        SetSporeName();
     }
 
     void Update()
@@ -154,6 +171,7 @@ public class CharacterStats : MonoBehaviour
 
         designTracker.UpdateBlendshape(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
         UpdateAnimatorSpeed();
+        UpdateSporeName();
     }
 
     public void UpdateAnimatorSpeed()
@@ -162,5 +180,19 @@ public class CharacterStats : MonoBehaviour
         Animator currentAnimator = currentPlayer.GetComponent<Animator>();
 
         currentAnimator.speed = Mathf.Lerp(baseAnimationSpeed, maxAnimationSpeed, speedLevel / 15f);
+    }
+
+    public void SetSporeName()
+    {
+        hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
+        int enumLength = System.Enum.GetValues(typeof(Names)).Length;
+        int randomIndex = Random.Range(0, enumLength);
+        thisName = (Names)randomIndex;
+    }
+
+    public void UpdateSporeName()
+    {
+        string thisNameString = thisName.ToString();
+        hudHealth.SetSporeName(thisNameString);
     }
 }
