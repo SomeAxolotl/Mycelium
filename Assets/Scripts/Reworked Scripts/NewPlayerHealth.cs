@@ -70,8 +70,8 @@ public class NewPlayerHealth : MonoBehaviour
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             SceneManager.LoadScene(0);
-            StartCoroutine(RespawnPlayer());
-            
+            GameObject.FindWithTag("currentPlayer").transform.rotation = Quaternion.identity;
+            GameObject.FindWithTag("currentPlayer").transform.position = new Vector3(0, 1.4f, 0);
             deathTimer = 0;
         }
     }
@@ -85,12 +85,5 @@ public class NewPlayerHealth : MonoBehaviour
         GetHealthStats();
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
-    }
-
-    IEnumerator RespawnPlayer()
-    {
-        yield return new WaitForEndOfFrame();
-        GameObject.FindWithTag("currentPlayer").transform.rotation = Quaternion.identity;
-        GameObject.FindWithTag("currentPlayer").transform.position = new Vector3(0, 1.4f, 0);
     }
 }

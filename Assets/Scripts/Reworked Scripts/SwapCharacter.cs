@@ -62,17 +62,11 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
         currentCharacterStats.UpdateAnimatorSpeed();
-        
-        StartCoroutine(UpdateHealth());
+
         StartCoroutine(UpdateName());
         StartCoroutine(UpdateHUDIcons());
     }
 
-    IEnumerator UpdateHealth()
-    {
-        yield return new WaitForSeconds(0.1f);
-        characters[currentCharacterIndex].GetComponentInParent<NewPlayerHealth>().ResetHealth();
-    }
     IEnumerator UpdateName()
     {
         yield return new WaitForSeconds(0.1f);
@@ -92,8 +86,8 @@ public class SwapCharacter : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Debug.Log(skillLoadout.GetChild(2).gameObject.name);
         hudSkills.ChangeSkillIcon(skillLoadout.GetChild(2).gameObject.name, 2);
+        
     }
-
 
     public void SwitchToNextCharacter()
     {
