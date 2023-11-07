@@ -44,6 +44,7 @@ public class LevelUpManagerNew : MonoBehaviour
     private int totalLevelsave;
     private int levelupsave;
     private CanvasGroup HUDCanvasGroup;
+    private NewPlayerHealth playerHealth;
     
 
    public CharacterStats currentstats;
@@ -60,6 +61,7 @@ public class LevelUpManagerNew : MonoBehaviour
         SentienceCheck();
         PrimalCap(); 
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         //HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
 
 
@@ -256,9 +258,8 @@ public class LevelUpManagerNew : MonoBehaviour
     {
          UIenable.SetActive(false);
          playerController.EnableController();
+         playerHealth.ResetHealth();
          HUDCanvasGroup.alpha = 1;
-
-         
     }
     public void Close()
     {
