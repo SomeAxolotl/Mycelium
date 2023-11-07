@@ -27,11 +27,11 @@ public class HitStopManager : MonoBehaviour
 
     IEnumerator HitStopCoroutine(GameObject obj, float damage)
     {
-        float stopDuration = GetHitStopDuration(damage);
+        /*float stopDuration = GetHitStopDuration(damage);
         Vector3 stopPosition = obj.transform.position;
 
         float stopCounter = 0f;
-        /*while (stopCounter <= stopDuration)
+        while (stopCounter <= stopDuration)
         {
             obj.transform.position = stopPosition;
             stopCounter += Time.deltaTime;
@@ -49,12 +49,13 @@ public class HitStopManager : MonoBehaviour
     IEnumerator HitSlowCoroutine(GameObject obj, float damage)
     {
         float slowDuration = GetHitStopDuration(damage);
-        float animatorSpeed = GetHitStopDuration(damage);
+        float newAnimatorSpeed = GetHitStopDuration(damage);
 
         Animator animator = obj.GetComponent<Animator>();
-        animator.speed = animatorSpeed;
+        float oldAnimatorSpeed = animator.speed;
+        animator.speed = newAnimatorSpeed;
         yield return new WaitForSeconds(slowDuration);
-        animator.speed = 1.0f;
+        animator.speed = oldAnimatorSpeed;
     }
 
     public float GetHitStopDuration(float damage)

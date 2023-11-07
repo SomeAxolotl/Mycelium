@@ -15,6 +15,9 @@ public class SwapCharacter : MonoBehaviour
     private SwapWeapon swapWeapon;
     private NewPlayerHealth newPlayerHealth;
     private SkillManager skillManager;
+
+    private HUDSkills hudSkills;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,6 +28,8 @@ public class SwapCharacter : MonoBehaviour
         skillManager = GetComponent<SkillManager>();
         playerActionsAsset.Player.Enable();
         swapCharacter = playerActionsAsset.Player.SwapItem;
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+
         SwitchCharacter(currentCharacterIndex);
     }
 
@@ -49,7 +54,7 @@ public class SwapCharacter : MonoBehaviour
         // Switch to the new character
         currentCharacterIndex = index;
         characters[currentCharacterIndex].tag = "currentPlayer";
-        skillManager.GetSkillLoadout(characters[currentCharacterIndex]);
+        //skillManager.SetSkillLoadout(characters[currentCharacterIndex]);
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();

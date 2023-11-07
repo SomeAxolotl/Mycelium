@@ -68,6 +68,7 @@ public class HUDSkills : MonoBehaviour
 
     public void ChangeSkillIcon(string name, int slot)
     {
+        Debug.Log(name + slot);
         Image skillIcon = speciesIcon;
         switch (slot)
         {
