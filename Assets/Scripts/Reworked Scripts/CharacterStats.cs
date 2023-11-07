@@ -15,6 +15,9 @@ public class CharacterStats : MonoBehaviour
     //Speed Base Stats
     public float moveSpeed = 5f;
     public float atkCooldownBuff = 0f;
+    public float baseAnimationSpeed = 1.5f;
+    public float animationScalar = 1f;
+    public float maxAnimationSpeed = 3f;
     
     [Header("Sentience Level")]
     public int sentienceLevel;
@@ -146,5 +149,14 @@ public class CharacterStats : MonoBehaviour
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
 
         designTracker.UpdateBlendshape(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
+        UpdateAnimatorSpeed();
+    }
+
+    public void UpdateAnimatorSpeed()
+    {
+        GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+        Animator currentAnimator = currentPlayer.GetComponent<Animator>();
+
+        currentAnimator.speed = Mathf.Lerp(baseAnimationSpeed, maxAnimationSpeed, speedLevel / 15f);
     }
 }
