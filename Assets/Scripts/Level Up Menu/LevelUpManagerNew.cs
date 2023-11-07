@@ -30,33 +30,64 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button VitalityLevelDown;
     public TMP_Text CurrentLevel;
     public GameObject HUD;
+    public int PrimalSave;
+    public int SpeedSave;
+    public int SentienceSave;
+    public int VitalitySave;
+    public int nutrientsSave;
+    private float healthsave;
+    private float regensave;
+    private float movespeedsave;
+    private float damagesave;
+    private float skilldmgsave;
+    private float cdrsave;
+    private int totalLevelsave;
+    private int levelupsave;
     private CanvasGroup HUDCanvasGroup;
+    
 
    public CharacterStats currentstats;
    private PlayerController playerController;
    public NutrientTracker currentnutrients;
-
-
    
   
     void Start()
     {
-        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
-        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
+        
         PrimalCheck();
         SpeedCheck();
         VitalityCheck();
         SentienceCheck();
-        PrimalCap();
+        PrimalCap(); 
+        HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
         
     }
-
+    void OnEnable()
+    {
+       currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+       playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+       PrimalSave = currentstats.primalLevel;
+       SpeedSave = currentstats.speedLevel;
+       SentienceSave = currentstats.sentienceLevel;
+       VitalitySave = currentstats.vitalityLevel;
+       nutrientsSave = currentnutrients.currentNutrients;
+       healthsave = currentstats.baseHealth;
+       regensave = currentstats.baseRegen;
+       movespeedsave = currentstats.moveSpeed;
+       damagesave = currentstats.primalDmg;
+       skilldmgsave = currentstats.skillDmg;
+       cdrsave = currentstats.atkCooldownBuff;
+       totalLevelsave = currentstats.totalLevel;
+       levelupsave = currentstats.levelUpCost;
+    }
+    
+ 
     void Update()
     {
         UpdateUI();
         
     }
+   
     void UpdateUI()
     {
         
@@ -224,5 +255,27 @@ public class LevelUpManagerNew : MonoBehaviour
          UIenable.SetActive(false);
          playerController.EnableController();
          HUDCanvasGroup.alpha = 1;
+
+         
+    }
+    public void Close()
+    {
+      currentstats.primalLevel = PrimalSave;
+      currentstats.speedLevel = SpeedSave;
+      currentstats.sentienceLevel = SentienceSave;
+      currentstats.vitalityLevel = VitalitySave;
+      currentnutrients.currentNutrients = nutrientsSave;
+      currentstats.baseHealth = healthsave;
+      currentstats.baseRegen = regensave;
+      currentstats.moveSpeed = movespeedsave;
+      currentstats.primalDmg = damagesave;
+      currentstats.skillDmg = skilldmgsave;
+      currentstats.atkCooldownBuff = cdrsave;
+      currentstats.totalLevel = totalLevelsave;
+      currentstats.levelUpCost = levelupsave;
+      currentstats.UpdateLevel();
+      UIenable.SetActive(false);
+      HUDCanvasGroup.alpha = 1;
+
     }
 }
