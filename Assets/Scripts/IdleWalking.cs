@@ -5,29 +5,32 @@ using UnityEngine.AI;
 
 public class IdleWalking : MonoBehaviour
 {
-    private bool canWander = true;
-    private float patrolCooldown = 1f;
-    private bool isRotatingLeft = false;
-    private bool isRotatingRight = false;
-    private bool isWalking = false;
+    bool canWander = true;
+    float wanderCooldown = 1f;
+    bool isRotatingLeft = false;
+    bool isRotatingRight = false;
+    bool isWalking = false;
+    int rotTime;
+    int walkTime;
     public LayerMask obstacleLayer;
-    IEnumerator wander;
+    public IEnumerator wander;
     IEnumerator restartWander;
+    IEnumerator stopWander;
     // Start is called before the first frame update
     void Start()
     {
         wander = this.Wander();
         restartWander = this.RestartWander();
+        stopWander = this.StopWander();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (gameObject.tag == "Player" && canWander)
         {
-            patrolCooldown -= Time.deltaTime;
-            if (patrolCooldown <= 0)
+            wanderCooldown -= Time.deltaTime;
+            if (wanderCooldown <= 0)
             {
                 StartCoroutine(Wander());
             }
@@ -55,16 +58,14 @@ public class IdleWalking : MonoBehaviour
             }
         }
     }
-
-
     IEnumerator Wander()
     {
         canWander = false;
-        int rotTime = Random.Range(1, 3);
+        rotTime = Random.Range(1, 3);
         int rotateWait = Random.Range(1, 3);
         int rotateLorR = Random.Range(1, 2);
         int walkWait = Random.Range(1, 3);
-        int walkTime = Random.Range(1, 4);
+        walkTime = Random.Range(1, 4);
 
         yield return new WaitForSeconds(walkWait);
         isWalking = true;
@@ -83,9 +84,9 @@ public class IdleWalking : MonoBehaviour
             yield return new WaitForSeconds(rotTime);
             isRotatingLeft = false;
         }
-        patrolCooldown = 1f;
+        wanderCooldown = 1f;
         canWander = true;
-}
+    }
     IEnumerator RestartWander()
     {
         StopCoroutine(wander);
@@ -93,6 +94,19 @@ public class IdleWalking : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + 180f * Time.deltaTime, transform.rotation.z);
         yield return new WaitForSeconds(1f);
         canWander = true;
-        patrolCooldown = 1f;
+        wanderCooldown = 1f;
+    }
+    public IEnumerator StopWander()
+    {
+        StopCoroutine(wander);
+        wander = Wander();
+        isWalking = false;
+        isRotatingLeft = false;
+        isRotatingRight = false;
+        rotTime = 0;
+        walkTime = 0;
+        canWander = true;
+        wanderCooldown = 1f;
+        yield return null;
     }
 }

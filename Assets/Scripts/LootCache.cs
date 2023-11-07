@@ -15,7 +15,7 @@ public class LootCache : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("currentPlayer");
-        controller = GetComponent<PlayerController>();
+        controller = player.GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -42,27 +42,27 @@ public class LootCache : MonoBehaviour
         int randomNumber = Random.Range(0, 100);
         if (randomNumber <= 34)
         {
-            Instantiate(items[0], transform.position, Quaternion.identity);
+            Instantiate(items[0], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
         }
         if (randomNumber >= 35 && randomNumber <= 39)
         {
-            Instantiate(items[1], transform.position, Quaternion.identity);
+            Instantiate(items[1], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
         }
         if (randomNumber >= 40 && randomNumber <= 54)
         {
-            Instantiate(items[2], transform.position, Quaternion.identity);
+            Instantiate(items[2], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
         }
         if (randomNumber >= 55 && randomNumber <= 69)
         {
-            Instantiate(items[3], transform.position, Quaternion.identity);
+            Instantiate(items[3], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
         }
         if (randomNumber >= 70 && randomNumber <= 79)
         {
-            Instantiate(items[4], transform.position, Quaternion.identity);
+            Instantiate(items[4], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
         }
         if (randomNumber >= 80 && randomNumber <= 99)
         {
-            Instantiate(items[5], transform.position, Quaternion.identity);
+            Instantiate(items[5], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
         }
     }
 
