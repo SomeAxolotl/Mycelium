@@ -28,6 +28,7 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button SentienceLevelDown;
      public Button VitalityLevelUp;
     public Button VitalityLevelDown;
+    public Button Commitbutton;
     public TMP_Text CurrentLevel;
     public GameObject HUD;
     public int PrimalSave;
@@ -46,6 +47,7 @@ public class LevelUpManagerNew : MonoBehaviour
     private CanvasGroup HUDCanvasGroup;
     private NewPlayerHealth playerHealth;
     
+    
 
    public CharacterStats currentstats;
    private PlayerController playerController;
@@ -55,11 +57,6 @@ public class LevelUpManagerNew : MonoBehaviour
     void Start()
     {
         
-        PrimalCheck();
-        SpeedCheck();
-        VitalityCheck();
-        SentienceCheck();
-        PrimalCap(); 
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         //HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
@@ -83,6 +80,11 @@ public class LevelUpManagerNew : MonoBehaviour
        cdrsave = currentstats.atkCooldownBuff;
        totalLevelsave = currentstats.totalLevel;
        levelupsave = currentstats.levelUpCost;
+       Commitbutton.Select();
+       PrimalStartCheck();
+       SpeedStartCheck();
+       VitalityStartCheck();
+       SentienceStartCheck();
     }
     
  
@@ -124,7 +126,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalCheck()
     {
-        if(currentstats.primalLevel == 0)
+        if(currentstats.primalLevel == 1)
         {
         PrimalLevelDown.interactable = false;
         PrimalLevelUp.Select();
@@ -160,7 +162,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SpeedCheck()
     {
-        if(currentstats.speedLevel == 0)
+        if(currentstats.speedLevel == 1)
         {
         SpeedLevelDown.interactable = false;
         SpeedLevelUp.Select();
@@ -196,7 +198,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SentienceCheck()
     {
-        if(currentstats.sentienceLevel == 0)
+        if(currentstats.sentienceLevel == 1)
         {
         SentienceLevelDown.interactable = false;
         SentienceLevelUp.Select();
@@ -232,7 +234,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void VitalityCheck()
     {
-        if(currentstats.vitalityLevel == 0)
+        if(currentstats.vitalityLevel == 1)
         {
         VitalityLevelDown.interactable = false;
         VitalityLevelUp.Select();
@@ -280,5 +282,49 @@ public class LevelUpManagerNew : MonoBehaviour
       UIenable.SetActive(false);
       HUDCanvasGroup.alpha = 1;
 
+    }
+    public void PrimalStartCheck()
+    {
+        if(currentstats.primalLevel == 1)
+        {
+        PrimalLevelDown.interactable = false;
+        }
+        else 
+        {
+        PrimalLevelDown.interactable = true;
+        }
+    }
+    public void SpeedStartCheck()
+    {
+        if(currentstats.speedLevel == 1)
+        {
+        SpeedLevelDown.interactable = false;
+        }
+        else 
+        {
+        SpeedLevelDown.interactable = true;
+        }
+    }
+    public void SentienceStartCheck()
+    {
+        if(currentstats.sentienceLevel == 1)
+        {
+        SentienceLevelDown.interactable = false;
+        }
+        else 
+        {
+        SentienceLevelDown.interactable = true;
+        }
+    }
+     public void VitalityStartCheck()
+    {
+        if(currentstats.vitalityLevel == 1)
+        {
+        VitalityLevelDown.interactable = false;
+        }
+        else 
+        {
+        VitalityLevelDown.interactable = true;
+        }
     }
 }

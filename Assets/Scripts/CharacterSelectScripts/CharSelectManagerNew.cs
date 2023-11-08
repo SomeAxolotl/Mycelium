@@ -18,12 +18,16 @@ public class CharSelectManagerNew : MonoBehaviour
     {
         swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        Test.Select();
+        
     }
 
     void Update()
     {
         playerController.DisableController();
+    }
+    void OnEnable()
+    {
+        Test.Select();
     }
     public void Nextcharacter ()
     {
