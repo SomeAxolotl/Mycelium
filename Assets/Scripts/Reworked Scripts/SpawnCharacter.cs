@@ -24,15 +24,11 @@ public class SpawnCharacter : MonoBehaviour
     [SerializeField] private List<Color> BodyColors;
     SwapCharacter swapCharacter;
     SkillManager skillManager;
-    public CharacterStats currentstats;
     // Start is called before the first frame update
     void Start()
     {
         swapCharacter = GetComponent<SwapCharacter>();
-        skillManager = GetComponent<SkillManager>();
-        
-        
-        
+        skillManager = GetComponent<SkillManager>();  
     }
 
     // Update is called once per frame
@@ -49,17 +45,11 @@ public class SpawnCharacter : MonoBehaviour
     {
         GameObject newCharacter = Instantiate(characterPrefab); //WE HAVE TO EVENTUALLY BE ABLE TO SPAWN 4 DIFF TYPES OF SHROOMS, RIGHT NOW THIS IS JUST A SINGLE TYPE
         DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
-        currentstats = newCharacter.GetComponent<CharacterStats>();
         int colorindex = Random.Range(0,BodyColors.Count);
         designTracker.SetBodyColor(GetRandomColor(BodyColors, colorindex));
         designTracker.SetCapColor(GetRandomColor(CapColors, colorindex));
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = new Vector3(0, 1.2f, 0); //WE CAN SET A SPAWNPOINT IN THE HUB SOMEWHERE
-        currentstats.primalLevel = 1;
-        currentstats.speedLevel = 1;
-        currentstats.sentienceLevel = 1;
-        currentstats.vitalityLevel = 1;
-
         StartCoroutine(SetTestSkills(newCharacter));
 
     }

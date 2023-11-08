@@ -26,7 +26,7 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button SpeedLevelDown;
     public Button SentienceLevelUp;
     public Button SentienceLevelDown;
-     public Button VitalityLevelUp;
+    public Button VitalityLevelUp;
     public Button VitalityLevelDown;
     public Button Commitbutton;
     public TMP_Text CurrentLevel;
@@ -46,12 +46,9 @@ public class LevelUpManagerNew : MonoBehaviour
     private int levelupsave;
     private CanvasGroup HUDCanvasGroup;
     private NewPlayerHealth playerHealth;
-    
-    
-
-   public CharacterStats currentstats;
-   private PlayerController playerController;
-   public NutrientTracker currentnutrients;
+    public CharacterStats currentstats;
+    private PlayerController playerController;
+    public NutrientTracker currentnutrients;
    
   
     void Start()
@@ -59,9 +56,6 @@ public class LevelUpManagerNew : MonoBehaviour
         
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
-        //HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
-
-
     }
     void OnEnable()
     {
