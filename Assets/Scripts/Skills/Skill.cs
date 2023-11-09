@@ -8,7 +8,7 @@ public class Skill : MonoBehaviour
 
     [SerializeField] private float baseSkillValue = 10f;
     [SerializeField] private float sentienceScalar = 1f; //How much the skill's damage scales off Sentience (is multiplied with bonus)
-    private float bonusSkillValue;
+    public float bonusSkillValue;
     public float finalSkillValue;
 
     [SerializeField] private float baseSkillCooldown = 5f;
@@ -44,6 +44,21 @@ public class Skill : MonoBehaviour
         finalSkillCooldown = baseSkillCooldown * decreasingSkillCooldown;
     }
 
+<<<<<<< Updated upstream
+=======
+    public float GetFinalCooldown()
+    {
+        CalculateProperties();
+        return finalSkillCooldown;
+    }
+
+    public float GetBonusDamage()
+    {
+        CalculateProperties();
+        return bonusSkillValue;
+    }
+
+>>>>>>> Stashed changes
     public void ActivateSkill(int slot)
     {
         skillSlot = slot;

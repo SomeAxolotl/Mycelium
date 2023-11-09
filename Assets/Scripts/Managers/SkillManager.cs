@@ -35,4 +35,36 @@ public class SkillManager : MonoBehaviour
             newSkill.transform.SetSiblingIndex(slot);
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    public List<float> GetAllSkillCooldowns(GameObject player)
+    {
+        Transform skillLoadout = player.transform.Find("SkillLoadout");
+
+        List<float> allSkillCooldowns = new List<float>();
+        foreach (Transform child in skillLoadout)
+        {
+            float cooldown = child.gameObject.GetComponent<Skill>().GetFinalCooldown();
+            allSkillCooldowns.Add(cooldown);
+        }
+
+        return allSkillCooldowns;
+    }
+
+    public List<float> GetAllSkillBonusDamage(GameObject player)
+    {
+        Transform skillLoadout = player.transform.Find("SkillLoadout");
+
+        List<float> allSkillDamage = new List<float>();
+        foreach (Transform child in skillLoadout)
+        {
+            float damage = child.gameObject.GetComponent<Skill>().GetBonusDamage();
+            allSkillDamage.Add(damage);
+            Debug.Log(damage);
+        }
+
+        return allSkillDamage;
+    }
+>>>>>>> Stashed changes
 }

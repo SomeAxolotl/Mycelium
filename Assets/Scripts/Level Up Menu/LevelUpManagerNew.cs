@@ -187,12 +187,35 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelSentience();
       SentienceCheck();
       SentienceCap();
+<<<<<<< Updated upstream
+=======
+
+      //Testing GetAllSkillCooldowns
+      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+      List<float> allDamages = skillManager.GetAllSkillBonusDamage(currentPlayer);
+      for (int i = 0; i < allDamages.Count; i++)
+      {
+        Debug.Log("Bonus Damages " + i + ": " + allDamages[i].ToString("F2"));
+      }
+>>>>>>> Stashed changes
     }
     public void SentienceDown()
     {
       currentstats.DeLevelSentience(); 
       SentienceCheck();
       SentienceCap();
+<<<<<<< Updated upstream
+=======
+
+      //Testing GetAllSkillCooldowns
+      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+      List<float> allDamages = skillManager.GetAllSkillBonusDamage(currentPlayer);
+      //Debug
+      for (int i = 0; i < allDamages.Count; i++)
+      {
+        Debug.Log("Bonus Damages " + i + ": " + allDamages[i].ToString("F2"));
+      }
+>>>>>>> Stashed changes
     }
     public void SentienceCheck()
     {
