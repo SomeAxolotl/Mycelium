@@ -30,7 +30,6 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button VitalityLevelDown;
     public Button Commitbutton;
     public TMP_Text CurrentLevel;
-    public GameObject HUD;
     public int PrimalSave;
     public int SpeedSave;
     public int SentienceSave;
@@ -49,13 +48,16 @@ public class LevelUpManagerNew : MonoBehaviour
     public CharacterStats currentstats;
     private PlayerController playerController;
     public NutrientTracker currentnutrients;
+    private SkillManager skillManager;
+    private HUDSkills hudSkills;
    
   
     void Start()
     {
-        
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
+        skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
     }
     void OnEnable()
     {
@@ -183,12 +185,29 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelSentience();
       SentienceCheck();
       SentienceCap();
+
+      //Testing GetAllSkillCooldowns
+      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+      List<float> allCooldowns = skillManager.GetAllSkillCooldowns(currentPlayer);
+      for (int i = 0; i < allCooldowns.Count; i++)
+      {
+        Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
+      }
     }
     public void SentienceDown()
     {
       currentstats.DeLevelSentience(); 
       SentienceCheck();
       SentienceCap();
+
+      //Testing GetAllSkillCooldowns
+      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+      List<float> allCooldowns = skillManager.GetAllSkillCooldowns(currentPlayer);
+      //Debug
+      for (int i = 0; i < allCooldowns.Count; i++)
+      {
+        Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
+      }
     }
     public void SentienceCheck()
     {

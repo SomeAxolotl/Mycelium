@@ -84,13 +84,13 @@ public class SwapCharacter : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         GameObject player = GameObject.FindWithTag("currentPlayer");
         Transform skillLoadout = player.transform.Find("SkillLoadout");
-        Debug.Log(skillLoadout.GetChild(0).gameObject.name);
+        //Debug.Log(skillLoadout.GetChild(0).gameObject.name);
         hudSkills.ChangeSkillIcon(skillLoadout.GetChild(0).gameObject.name, 0);
         yield return new WaitForSeconds(0.1f);
-        Debug.Log(skillLoadout.GetChild(1).gameObject.name);
+        //Debug.Log(skillLoadout.GetChild(1).gameObject.name);
         hudSkills.ChangeSkillIcon(skillLoadout.GetChild(1).gameObject.name, 1);
         yield return new WaitForSeconds(0.1f);
-        Debug.Log(skillLoadout.GetChild(2).gameObject.name);
+        //Debug.Log(skillLoadout.GetChild(2).gameObject.name);
         hudSkills.ChangeSkillIcon(skillLoadout.GetChild(2).gameObject.name, 2);
     }
 

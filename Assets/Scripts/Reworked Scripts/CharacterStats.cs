@@ -66,7 +66,7 @@ public class CharacterStats : MonoBehaviour
     void Update()
     {
         //TEMPORARY KEYCODES FOR TESTING ~ WILL BE TURNED INTO UI BUTTONS IN THE FUTURE
-        Debug.Log("levelupcost: " + levelUpCost);
+        //Debug.Log("levelupcost: " + levelUpCost);
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             LevelPrimal();

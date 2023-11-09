@@ -44,6 +44,12 @@ public class Skill : MonoBehaviour
         finalSkillCooldown = baseSkillCooldown * decreasingSkillCooldown;
     }
 
+    public float GetFinalCooldown()
+    {
+        CalculateProperties();
+        return finalSkillCooldown;
+    }
+
     public void ActivateSkill(int slot)
     {
         skillSlot = slot;

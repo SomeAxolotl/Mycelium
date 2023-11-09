@@ -92,7 +92,7 @@ public class HUDSkills : MonoBehaviour
             }
         }
 
-        Debug.Log("Sprite Index: " + spriteIndex);
+        //Debug.Log("Sprite Index: " + spriteIndex);
         Sprite skillSprite;
         if (spriteIndex == -1)
         {
@@ -145,6 +145,17 @@ public class HUDSkills : MonoBehaviour
         }
 
         yield break;
+    }
+
+    public List<Sprite> GetAllSkillSprites()
+    {
+        List<Sprite> allSprites = new List<Sprite>();
+
+        allSprites.Add(speciesIcon.sprite);
+        allSprites.Add(skill1Icon.sprite);
+        allSprites.Add(skill2Icon.sprite);
+
+        return allSprites;
     }
 
     /*void Update()
