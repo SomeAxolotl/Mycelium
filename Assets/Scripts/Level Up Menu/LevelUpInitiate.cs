@@ -12,24 +12,26 @@ public class LevelUpInitiate : MonoBehaviour
     private CanvasGroup HUDCanvasGroup;
     public Button firstbutton;
 
-    private PlayerController playerController;
+    public PlayerController playerController;
     //private New Player Attack meleeAttack;
 
     void Start()
     {
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         //HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        //playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         //meleeAttack = GameObject.FindWithTag("PlayerParent").GetComponent<MeleeAttack>();
 
         if (other.gameObject.tag == "currentPlayer")
         {
-            levelupmenu.SetActive(true);
             playerController.DisableController();
+            levelupmenu.SetActive(true);
+            
             HUDCanvasGroup.alpha = 0;
         }
     }
