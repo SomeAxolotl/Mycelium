@@ -7,9 +7,9 @@ using UnityEngine.TextCore.Text;
 
 public class LevelUpManagerNew : MonoBehaviour
 {
-    public TMP_Text skillcdr;
+    //public TMP_Text skillcdr;
     public TMP_Text primaldam;
-    public TMP_Text skilldam;
+    //public TMP_Text skilldam;
     public TMP_Text movespeed;
     public TMP_Text regen;
     public TMP_Text health;
@@ -39,8 +39,8 @@ public class LevelUpManagerNew : MonoBehaviour
     private float regensave;
     private float movespeedsave;
     private float damagesave;
-    private float skilldmgsave;
-    private float cdrsave;
+    //private float skilldmgsave;
+    //private float cdrsave;
     private int totalLevelsave;
     private int levelupsave;
     private CanvasGroup HUDCanvasGroup;
@@ -58,6 +58,7 @@ public class LevelUpManagerNew : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+        UpdateUI();
     }
     void OnEnable()
     {
@@ -72,8 +73,8 @@ public class LevelUpManagerNew : MonoBehaviour
        regensave = currentstats.baseRegen;
        movespeedsave = currentstats.moveSpeed;
        damagesave = currentstats.primalDmg;
-       skilldmgsave = currentstats.skillDmg;
-       cdrsave = currentstats.atkCooldownBuff;
+       //skilldmgsave = currentstats.skillDmg;
+       //cdrsave = currentstats.atkCooldownBuff;
        totalLevelsave = currentstats.totalLevel;
        levelupsave = currentstats.levelUpCost;
        Commitbutton.Select();
@@ -81,12 +82,13 @@ public class LevelUpManagerNew : MonoBehaviour
        SpeedStartCheck();
        VitalityStartCheck();
        SentienceStartCheck();
+       UpdateUI();
     }
     
  
     void Update()
     {
-        UpdateUI();
+    
         
     }
    
@@ -104,8 +106,8 @@ public class LevelUpManagerNew : MonoBehaviour
         regen.text = currentstats.baseRegen.ToString("0.00") + " HPS";
         movespeed.text = currentstats.moveSpeed.ToString("0.0") + " m/s";
         primaldam.text = currentstats.primalDmg.ToString();
-        skilldam.text = currentstats.skillDmg.ToString();
-        skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
+        //skilldam.text = currentstats.skillDmg.ToString();
+        //skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
     }
 
     public void PrimalUP()
@@ -113,12 +115,14 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelPrimal();
       PrimalCap();
       PrimalCheck();
+      UpdateUI();
     }
     public void PrimalDown()
     {
       currentstats.DeLevelPrimal(); 
       PrimalCheck();
       PrimalCap();
+      UpdateUI();
     }
     public void PrimalCheck()
     {
@@ -149,12 +153,14 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelSpeed();
       SpeedCheck();
       SpeedCap();
+      UpdateUI();
     }
     public void SpeedDown()
     {
       currentstats.DeLevelSpeed(); 
       SpeedCheck();
       SpeedCap();
+      UpdateUI();
     }
     public void SpeedCheck()
     {
@@ -185,6 +191,7 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelSentience();
       SentienceCheck();
       SentienceCap();
+      UpdateUI();
 
       //Testing GetAllSkillCooldowns
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
@@ -199,6 +206,7 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.DeLevelSentience(); 
       SentienceCheck();
       SentienceCap();
+      UpdateUI();
 
       //Testing GetAllSkillCooldowns
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
@@ -238,12 +246,14 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelVitality();
       VitalityCheck();
       VitalityCap();
+      UpdateUI();
     }
     public void VitalityDown()
     {
       currentstats.DeLevelVitality(); 
       VitalityCheck();
       VitalityCap();
+      UpdateUI();
     }
     public void VitalityCheck()
     {
@@ -287,8 +297,8 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.baseRegen = regensave;
       currentstats.moveSpeed = movespeedsave;
       currentstats.primalDmg = damagesave;
-      currentstats.skillDmg = skilldmgsave;
-      currentstats.atkCooldownBuff = cdrsave;
+      //currentstats.skillDmg = skilldmgsave;
+      //currentstats.atkCooldownBuff = cdrsave;
       currentstats.totalLevel = totalLevelsave;
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
