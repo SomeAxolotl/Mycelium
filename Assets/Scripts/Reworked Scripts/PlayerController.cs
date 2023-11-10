@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public float dodgeIFrames = 0.15f;
 
     private HUDSkills hudSkills;
+    public GameObject LevelUpMenu;
+    public GameObject SkillMenu;
 
     // Start is called before the first frame update
     private void Start()
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("IFrames");
         }
         
-        if (newPlayerAttack.attacking == true || newPlayerHealth.currentHealth <= 0)
+        if (newPlayerAttack.attacking == true || newPlayerHealth.currentHealth <= 0 || LevelUpMenu.activeInHierarchy == true || SkillMenu.activeInHierarchy == true)
         {
             playerActionsAsset.Player.Disable();
         }
