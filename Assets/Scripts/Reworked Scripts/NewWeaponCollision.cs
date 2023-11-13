@@ -17,7 +17,7 @@ public class NewWeaponCollision : MonoBehaviour
         {
             float dmgDealt = newPlayerAttack.dmgDealt;
             other.GetComponent<NewEnemyHealth>().EnemyTakeDamage(dmgDealt);
-            //HitStopManager.Instance.HitSlow(GameObject.FindWithTag("currentPlayer"), dmgDealt);
+            HitStopManager.Instance.HitStop(dmgDealt);
             GetComponent<Collider>().enabled = false;
         }
     }
