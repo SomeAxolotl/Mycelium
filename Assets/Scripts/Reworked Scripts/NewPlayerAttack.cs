@@ -66,6 +66,7 @@ public class NewPlayerAttack : MonoBehaviour
 
         // play slash animation
         animator.Play("Slash");
+        SoundEffectManager.Instance.PlaySound("slash", curWeapon.transform.position);
 
         // play smash animation
         // animator.Play("Smash");
