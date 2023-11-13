@@ -82,7 +82,7 @@ public class LevelUpManagerNew : MonoBehaviour
        SpeedStartCheck();
        VitalityStartCheck();
        SentienceStartCheck();
-       UpdateUI();
+       StartCoroutine(UpdateUI());
     }
    
     IEnumerator UpdateUI()
