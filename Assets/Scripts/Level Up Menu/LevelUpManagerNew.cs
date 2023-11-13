@@ -58,7 +58,7 @@ public class LevelUpManagerNew : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
-        UpdateUI();
+        StartCoroutine(UpdateUI());
     }
     void OnEnable()
     {
@@ -84,17 +84,10 @@ public class LevelUpManagerNew : MonoBehaviour
        SentienceStartCheck();
        UpdateUI();
     }
-    
- 
-    void Update()
-    {
-    
-        
-    }
    
-    void UpdateUI()
+    IEnumerator UpdateUI()
     {
-        
+        yield return null;
         PrimalText.text = currentstats.primalLevel.ToString();
         SpeedText.text = currentstats.speedLevel.ToString(); 
         SentienceText.text = currentstats.sentienceLevel.ToString();
@@ -115,14 +108,14 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelPrimal();
       PrimalCap();
       PrimalCheck();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
     }
     public void PrimalDown()
     {
       currentstats.DeLevelPrimal(); 
       PrimalCheck();
       PrimalCap();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
     }
     public void PrimalCheck()
     {
@@ -153,14 +146,14 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelSpeed();
       SpeedCheck();
       SpeedCap();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
     }
     public void SpeedDown()
     {
       currentstats.DeLevelSpeed(); 
       SpeedCheck();
       SpeedCap();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
     }
     public void SpeedCheck()
     {
@@ -191,31 +184,31 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelSentience();
       SentienceCheck();
       SentienceCap();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
 
       //Testing GetAllSkillCooldowns
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
       List<float> allCooldowns = skillManager.GetAllSkillCooldowns(currentPlayer);
-      for (int i = 0; i < allCooldowns.Count; i++)
+      /*for (int i = 0; i < allCooldowns.Count; i++)
       {
         Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
-      }
+      }*/
     }
     public void SentienceDown()
     {
       currentstats.DeLevelSentience(); 
       SentienceCheck();
       SentienceCap();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
 
       //Testing GetAllSkillCooldowns
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
       List<float> allCooldowns = skillManager.GetAllSkillCooldowns(currentPlayer);
       //Debug
-      for (int i = 0; i < allCooldowns.Count; i++)
+      /*for (int i = 0; i < allCooldowns.Count; i++)
       {
         Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
-      }
+      }*/
     }
     public void SentienceCheck()
     {
@@ -246,14 +239,14 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelVitality();
       VitalityCheck();
       VitalityCap();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
     }
     public void VitalityDown()
     {
       currentstats.DeLevelVitality(); 
       VitalityCheck();
       VitalityCap();
-      UpdateUI();
+      StartCoroutine(UpdateUI());
     }
     public void VitalityCheck()
     {

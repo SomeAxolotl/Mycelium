@@ -6,13 +6,12 @@ public class Skill : MonoBehaviour
 {
     [HideInInspector] public bool canSkill = true;
 
-    [SerializeField] private float baseSkillValue = 10f;
-    [SerializeField] private float sentienceScalar = 1f; //How much the skill's damage scales off Sentience (is multiplied with bonus)
-    private float bonusSkillValue;
+    [SerializeField][Tooltip("The value the skill does at 1 Sentience")] private float ValueAt1Sentience = 10f;
+    [SerializeField][Tooltip("The value the skill does at 15 Sentience")] private float ValueAt15Sentience = 100f;
     public float finalSkillValue;
 
-    [SerializeField] private float baseSkillCooldown = 5f;
-    private float decreasingSkillCooldown;
+    [SerializeField][Tooltip("The cooldown the skill has at 1 Sentience")] private float CooldownAt1Sentience = 6f;
+    [SerializeField][Tooltip("The cooldown the skill has at 15 Sentience")] private float CooldownAt15Sentience = 2f;
     public float finalSkillCooldown;
 
     private float fungalMightBonus = 1f;
@@ -33,15 +32,20 @@ public class Skill : MonoBehaviour
     {
         characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
 
-        int sentienceLevel = characterStats.sentienceLevel;
+        int t = characterStats.sentienceLevel;
+        float lerpValue = (-0.081365f) + (0.08f*t) + (Mathf.Pow(0.0015f*t, 2)) - (Mathf.Pow(0.000135f*t, 3));
 
-        //Tentative value math
-        bonusSkillValue = (sentienceLevel - 1) * sentienceScalar;
-        finalSkillValue = (baseSkillValue + bonusSkillValue) * fungalMightBonus;
+        //Tentative value math -- Lerps between ValueAt1Sentience and ValueAt15Sentience depending on what ur sentience lvl is
+        finalSkillValue = Mathf.RoundToInt(Mathf.Lerp(ValueAt1Sentience, ValueAt15Sentience, lerpValue));
 
-        //Tentative cooldown math -- Lerps between -10% and -75% depending on what ur sentience lvl is
-        decreasingSkillCooldown = 1 - Mathf.Lerp(0.1f, 0.75f, sentienceLevel / 15f);
-        finalSkillCooldown = baseSkillCooldown * decreasingSkillCooldown;
+        //Tentative cooldown math -- Lerps between CooldownAt1Sentience and CooldownAt15Sentience depending on what ur sentience lvl is
+        finalSkillCooldown = Mathf.Lerp(CooldownAt1Sentience, CooldownAt15Sentience, lerpValue);
+    }
+
+    public float GetFinalValue()
+    {
+        CalculateProperties();
+        return finalSkillValue;
     }
 
     public float GetFinalCooldown()

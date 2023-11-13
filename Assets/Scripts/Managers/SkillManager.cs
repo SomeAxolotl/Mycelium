@@ -36,6 +36,19 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public List<float> GetAllSkillValues(GameObject player)
+    {
+        Transform skillLoadout = player.transform.Find("SkillLoadout");
+
+        List<float> allSkillValues = new List<float>();
+        foreach (Transform child in skillLoadout)
+        {
+            allSkillValues.Add(child.gameObject.GetComponent<Skill>().GetFinalValue());
+        }
+
+        return allSkillValues;
+    }
+
     public List<float> GetAllSkillCooldowns(GameObject player)
     {
         Transform skillLoadout = player.transform.Find("SkillLoadout");

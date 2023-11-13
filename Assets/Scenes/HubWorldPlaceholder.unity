@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.1574991, g: 0.24216536, b: 0.16218798, a: 1}
+  m_IndirectSpecularColor: {r: 1.1574993, g: 0.2421654, b: 0.16218802, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2118,7 +2118,7 @@ GameObject:
   - component: {fileID: 352829688}
   - component: {fileID: 352829687}
   - component: {fileID: 352829686}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4259,7 +4259,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684116588}
-  m_LocalRotation: {x: -0, y: 0.00000008940696, z: 0.0000000046566124, w: 1}
+  m_LocalRotation: {x: 0.0000000074505797, y: -0.00000008940696, z: -0.0000000046566124,
+    w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -4298,7 +4299,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 0.01
+    NearClipPlane: 4
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -5715,8 +5716,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899852328}
-  m_LocalRotation: {x: 0.013374655, y: -0.000000029802322, z: -0.0000000018626451,
-    w: 0.9999106}
+  m_LocalRotation: {x: 0.013374655, y: -0.000000119209275, z: -0.0000000046566124,
+    w: 0.99991053}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -5755,7 +5756,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 0.01
+    NearClipPlane: 4
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -6217,7 +6218,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 4
   far clip plane: 1000
   field of view: 30
   orthographic: 0
@@ -6244,7 +6245,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.020911893, y: 0.6239542, z: 0.016706815, w: 0.7810024}
+  m_LocalRotation: {x: -0.02091189, y: 0.6239541, z: 0.016706811, w: 0.78100246}
   m_LocalPosition: {x: -7.8005457, y: 1.422, z: -0.8663242}
   m_LocalScale: {x: 1, y: 0.8099726, z: 1.3800554}
   m_ConstrainProportionsScale: 0
@@ -6375,7 +6376,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 0.01
+    NearClipPlane: 4
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -6482,12 +6483,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 4096
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_MinimumDistanceFromTarget: 4.5
+  m_MinimumDistanceFromTarget: 0.01
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
@@ -7390,7 +7391,7 @@ GameObject:
   - component: {fileID: 1119674667}
   - component: {fileID: 1119674666}
   - component: {fileID: 1119674665}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8898,8 +8899,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316634475}
-  m_LocalRotation: {x: 0.02676611, y: 0.000000029802322, z: -9.313226e-10, w: 0.9996418}
-  m_LocalPosition: {x: 0.00000010528768, y: -0.000000030725985, z: 0.00000033650937}
+  m_LocalRotation: {x: 0.026766118, y: -0.000000029802322, z: -9.313226e-10, w: 0.9996418}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8937,7 +8938,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 0.01
+    NearClipPlane: 4
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -11837,7 +11838,7 @@ GameObject:
   - component: {fileID: 1817087422}
   - component: {fileID: 1817087421}
   - component: {fileID: 1817087420}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13735,7 +13736,7 @@ GameObject:
   - component: {fileID: 2037117768}
   - component: {fileID: 2037117767}
   - component: {fileID: 2037117766}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
