@@ -67,34 +67,6 @@ public class SwapCharacter : MonoBehaviour
         StartCoroutine(UpdateName());
         StartCoroutine(UpdateHUDIcons());
     }
-
-    IEnumerator UpdateHealth()
-    {
-        yield return new WaitForSeconds(0.1f);
-        characters[currentCharacterIndex].GetComponentInParent<NewPlayerHealth>().ResetHealth();
-    }
-    IEnumerator UpdateName()
-    {
-        yield return new WaitForSeconds(0.1f);
-        currentCharacterStats.UpdateSporeName();
-    }
-
-    IEnumerator UpdateHUDIcons()
-    {
-        yield return new WaitForSeconds(0.1f);
-        GameObject player = GameObject.FindWithTag("currentPlayer");
-        Transform skillLoadout = player.transform.Find("SkillLoadout");
-        //Debug.Log(skillLoadout.GetChild(0).gameObject.name);
-        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(0).gameObject.name, 0);
-        yield return new WaitForSeconds(0.1f);
-        //Debug.Log(skillLoadout.GetChild(1).gameObject.name);
-        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(1).gameObject.name, 1);
-        yield return new WaitForSeconds(0.1f);
-        //Debug.Log(skillLoadout.GetChild(2).gameObject.name);
-        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(2).gameObject.name, 2);
-    }
-
-
     public void SwitchToNextCharacter()
     {
         characters[currentCharacterIndex].tag = "Player";
@@ -126,5 +98,31 @@ public class SwapCharacter : MonoBehaviour
         playerController.GetStats();
         newPlayerHealth.GetHealthStats();
         swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
+    }
+
+    IEnumerator UpdateHealth()
+    {
+        yield return new WaitForEndOfFrame();
+        characters[currentCharacterIndex].GetComponentInParent<NewPlayerHealth>().ResetHealth();
+    }
+    IEnumerator UpdateName()
+    {
+        yield return new WaitForEndOfFrame();
+        currentCharacterStats.UpdateSporeName();
+    }
+
+    IEnumerator UpdateHUDIcons()
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject player = GameObject.FindWithTag("currentPlayer");
+        Transform skillLoadout = player.transform.Find("SkillLoadout");
+        //Debug.Log(skillLoadout.GetChild(0).gameObject.name);
+        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(0).gameObject.name, 0);
+        yield return new WaitForEndOfFrame();
+        //Debug.Log(skillLoadout.GetChild(1).gameObject.name);
+        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(1).gameObject.name, 1);
+        yield return new WaitForEndOfFrame();
+        //Debug.Log(skillLoadout.GetChild(2).gameObject.name);
+        hudSkills.ChangeSkillIcon(skillLoadout.GetChild(2).gameObject.name, 2);
     }
 }
