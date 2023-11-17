@@ -71,6 +71,7 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       controls = new ThirdPersonActionsAsset();
       controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
