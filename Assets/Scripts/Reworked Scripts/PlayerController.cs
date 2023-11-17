@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SpeedControl();
-        Debug.Log("velocity: " + rb.velocity);
+        //Debug.Log("velocity: " + rb.velocity);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();

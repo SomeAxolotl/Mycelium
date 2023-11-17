@@ -74,7 +74,7 @@ public class NewPlayerHealth : MonoBehaviour
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             SceneManager.LoadScene(0);
-            StartCoroutine(RespawnPlayer());
+            //StartCoroutine(RespawnPlayer());
             
             deathTimer = 0;
         }
