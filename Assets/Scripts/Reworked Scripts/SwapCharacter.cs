@@ -61,7 +61,7 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
-        currentCharacterStats.UpdateAnimatorSpeed();
+        currentCharacterStats.StartCalculateAttributes();
         
         StartCoroutine(UpdateHealth());
         StartCoroutine(UpdateName());

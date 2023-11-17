@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1825983370598586317}
   - component: {fileID: 4282385786043701617}
+  - component: {fileID: 4855120389551145187}
   - component: {fileID: 6009664277457351295}
   - component: {fileID: 6731584925456757390}
   - component: {fileID: 6339953943085018612}
@@ -56,6 +57,28 @@ MonoBehaviour:
   isInvincible: 0
   dodgeCooldown: 1
   dodgeIFrames: 0.15
+--- !u!114 &4855120389551145187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6343755380867766084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3667adb7998406d4eb19068ebadc8384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamageAt1Primal: 10
+  attackDamageAt15Primal: 50
+  moveSpeedAt1Speed: 5
+  moveSpeedAt15Speed: 10
+  attackSpeedAt1Speed: 1
+  attackSpeedAt15Speed: 2.5
+  healthAt1Vitality: 50
+  healthAt15Vitality: 250
+  regenAt1Vitality: 1
+  regenAt15Vitality: 10
 --- !u!114 &6009664277457351295
 MonoBehaviour:
   m_ObjectHideFlags: 0

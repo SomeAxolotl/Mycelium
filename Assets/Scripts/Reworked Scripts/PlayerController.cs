@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SpeedControl();
-        
+        Debug.Log("velocity: " + rb.velocity);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = rb.velocity;
         direction.y = 0f;
 
-        if(move.ReadValue<Vector2>().sqrMagnitude > 0.1f && direction.sqrMagnitude > 0.1f)
+        if(move.ReadValue<Vector2>().sqrMagnitude != 0f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 15f * Time.deltaTime);

@@ -53,6 +53,10 @@ public class NewPlayerHealth : MonoBehaviour
     public void PlayerHeal(float healAmount)
     {
         currentHealth += healAmount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
     void Death()

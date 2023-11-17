@@ -29,14 +29,11 @@ public class CharacterStats : MonoBehaviour
     //Speed Base Stats
     public float moveSpeed = 5f;
     public float atkCooldownBuff = 0f;
-    public float baseAnimationSpeed = 1.5f;
-    public float animationScalar = 1f;
-    public float maxAnimationSpeed = 3f;
+    public float minAttackSpeed;
+    public float maxAttackSpeed;
     
     [Header("Sentience Level")]
     public int sentienceLevel;
-    //Sentience Base Stats
-    public float skillDmg = 10f;   
     
     [Header("Vitality Level")]
     public int vitalityLevel;
@@ -47,6 +44,8 @@ public class CharacterStats : MonoBehaviour
     public int levelUpCost;
     private NutrientTracker nutrientTracker;
     private DesignTracker designTracker;
+    private SporeAttributeRanges sporeAttributeRanges;
+    private PlayerController playerController;
 
     private HUDHealth hudHealth;
 
@@ -60,6 +59,7 @@ public class CharacterStats : MonoBehaviour
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = gameObject.GetComponent<DesignTracker>();
+        sporeAttributeRanges = GameObject.FindWithTag("PlayerParent").GetComponent<SporeAttributeRanges>();
         SetSporeName();
     }
 
@@ -94,7 +94,8 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
-            primalDmg += 2f;
+            
+            StartCalculateAttributes();
             UpdateLevel();
         }
         
@@ -102,7 +103,8 @@ public class CharacterStats : MonoBehaviour
     public void DeLevelPrimal()
     {
             primalLevel--;
-            primalDmg -= 2f;
+            
+            StartCalculateAttributes();
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);
             designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);  
@@ -113,8 +115,8 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             speedLevel++;
-            moveSpeed += .1f;
-            atkCooldownBuff += .02f;
+
+            StartCalculateAttributes();
             UpdateLevel();
         }
 
@@ -122,8 +124,8 @@ public class CharacterStats : MonoBehaviour
     public void DeLevelSpeed()
     {
             speedLevel--;
-            moveSpeed -= .1f;
-            atkCooldownBuff -= .02f;
+
+            StartCalculateAttributes();
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);     
             designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);    
@@ -134,14 +136,12 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             sentienceLevel++;
-            skillDmg += 2f;
             UpdateLevel();
         }
     }
      public void DeLevelSentience()
     {
             sentienceLevel--;
-            skillDmg -= 2f;
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);  
             designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);       
@@ -152,8 +152,8 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             vitalityLevel++;
-            baseHealth += 5f;
-            baseRegen += .05f;
+
+            StartCalculateAttributes();
             UpdateLevel();
         }
         
@@ -161,28 +161,64 @@ public class CharacterStats : MonoBehaviour
     public void DeLevelVitality()
     {
             vitalityLevel--;
-            baseHealth -= 5f;
-            baseRegen -= .05f;
+
+            StartCalculateAttributes();
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);     
             designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);    
     }
+
     public void UpdateLevel()
     {
         totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
 
         designTracker.UpdateBlendshape(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
-        UpdateAnimatorSpeed();
         UpdateSporeName();
     }
 
-    public void UpdateAnimatorSpeed()
+    public void StartCalculateAttributes()
     {
+        StartCoroutine(CalculateAttributes());
+    }
+
+    IEnumerator CalculateAttributes()
+    {
+        yield return null;
+
+        float minAttackDamage = sporeAttributeRanges.attackDamageAt1Primal;
+        float maxAttackDamage = sporeAttributeRanges.attackDamageAt15Primal;
+        primalDmg = Mathf.RoundToInt(LerpAttribute(minAttackDamage, maxAttackDamage, primalLevel));
+
+        float minHealth = sporeAttributeRanges.healthAt1Vitality;
+        float maxHealth = sporeAttributeRanges.healthAt15Vitality;
+        baseHealth = Mathf.RoundToInt(LerpAttribute(minHealth, maxHealth, vitalityLevel));
+
+        float minRegen = sporeAttributeRanges.regenAt1Vitality;
+        float maxRegen = sporeAttributeRanges.regenAt15Vitality;
+        baseRegen = LerpAttribute(minRegen, maxRegen, vitalityLevel);
+
+        float minSpeed = sporeAttributeRanges.moveSpeedAt1Speed;
+        float maxSpeed = sporeAttributeRanges.moveSpeedAt15Speed;
+        moveSpeed = LerpAttribute(minSpeed, maxSpeed, speedLevel);
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerController.GetStats();
+
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
         Animator currentAnimator = currentPlayer.GetComponent<Animator>();
+        float minAttackSpeed = sporeAttributeRanges.attackSpeedAt1Speed;
+        float maxAttackSpeed = sporeAttributeRanges.attackSpeedAt15Speed;
+        float animatorSpeed = LerpAttribute(minAttackSpeed, maxAttackSpeed, speedLevel);
+        currentAnimator.speed = animatorSpeed;
+    }
 
-        currentAnimator.speed = Mathf.Lerp(baseAnimationSpeed, maxAnimationSpeed, speedLevel / 15f);
+    public float LerpAttribute(float minValue, float maxValue, int level)
+    {
+        float t = (float)level;
+        float lerpValue = (-0.081365f) + (0.08f*t) + (0.0015f * Mathf.Pow(t, 2f)) - (0.000135f * Mathf.Pow(t, 3f));
+        
+        float attributeValue = Mathf.Lerp(minValue, maxValue, lerpValue);
+        return attributeValue;
     }
 
     public void SetSporeName()

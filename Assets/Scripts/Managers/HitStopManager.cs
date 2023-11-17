@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HitStopManager : MonoBehaviour
 {
-    [SerializeField] float stopDurationScalar = 0.05f;
+    [SerializeField] float slowestStopPoint = 0.1f;
+    [SerializeField] float damageToMillisecondsForSpeedUp = 15f;
 
     public static HitStopManager Instance;
 
@@ -20,46 +21,37 @@ public class HitStopManager : MonoBehaviour
         }
     }
 
-    public void HitStop(GameObject obj, float damage)
+    void Update()
     {
-        HitStopCoroutine(obj, damage);
-    }
-
-    IEnumerator HitStopCoroutine(GameObject obj, float damage)
-    {
-        /*float stopDuration = GetHitStopDuration(damage);
-        Vector3 stopPosition = obj.transform.position;
-
-        float stopCounter = 0f;
-        while (stopCounter <= stopDuration)
+        if (Input.GetKeyDown(KeyCode.H))
         {
-            obj.transform.position = stopPosition;
-            stopCounter += Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
-        }*/
-        yield return null;
+            HitStop(20);
+        }
     }
 
-    public void HitSlow(GameObject obj, float damage)
+    public void HitStop(float damage)
     {
-        Debug.Log("hitslow");
-        HitSlowCoroutine(obj, damage);
+        StartCoroutine(HitStopCoroutine(damage));
     }
 
-    IEnumerator HitSlowCoroutine(GameObject obj, float damage)
+    IEnumerator HitStopCoroutine(float damage)
     {
-        float slowDuration = GetHitStopDuration(damage);
-        float newAnimatorSpeed = GetHitStopDuration(damage);
+        float speedUpDuration = (damage * damageToMillisecondsForSpeedUp) / 1000f;
 
-        Animator animator = obj.GetComponent<Animator>();
-        float oldAnimatorSpeed = animator.speed;
-        animator.speed = newAnimatorSpeed;
-        yield return new WaitForSeconds(slowDuration);
-        animator.speed = oldAnimatorSpeed;
-    }
+        Time.timeScale = slowestStopPoint;
 
-    public float GetHitStopDuration(float damage)
-    {
-        return damage * stopDurationScalar;
+        //Speed Up
+        float t = 0f;
+        while (t < speedUpDuration)
+        {
+            //Debug.Log(t);
+            float easedT = Mathf.Pow((t/speedUpDuration), 2);
+            Time.timeScale = Mathf.Lerp(slowestStopPoint, 1.0f, easedT);
+
+            t += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = 1.0f;
     }
 }
