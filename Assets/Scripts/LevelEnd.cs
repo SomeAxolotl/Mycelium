@@ -16,6 +16,6 @@ public class LevelEnd : MonoBehaviour
             Destroy(weapon);
             SceneManager.LoadScene("HubWorldPlaceholder");
         }
-        other.gameObject.transform.position = new Vector3(0, 1.4f, 0f);
+        //other.gameObject.transform.position = new Vector3(0, 1.4f, 0f);
     }
 }
