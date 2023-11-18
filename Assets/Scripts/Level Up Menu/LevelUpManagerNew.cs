@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.TextCore.Text;
+using UnityEngine.InputSystem;
 
 public class LevelUpManagerNew : MonoBehaviour
 {
@@ -49,7 +50,9 @@ public class LevelUpManagerNew : MonoBehaviour
     private PlayerController playerController;
     public NutrientTracker currentnutrients;
     private SkillManager skillManager;
+    public GameObject SkillMenu;
     private HUDSkills hudSkills;
+    ThirdPersonActionsAsset controls;
    
   
     void Start()
@@ -60,8 +63,14 @@ public class LevelUpManagerNew : MonoBehaviour
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
         StartCoroutine(UpdateUI());
     }
+    void Awake()
+    {
+     
+    }
     void OnEnable()
     {
+      controls = new ThirdPersonActionsAsset();
+      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
@@ -83,11 +92,24 @@ public class LevelUpManagerNew : MonoBehaviour
        VitalityStartCheck();
        SentienceStartCheck();
        StartCoroutine(UpdateUI());
+       SkillMenu.SetActive(false);
+       controls.UI.Enable();   
     }
-   
+    void OnDisable()
+    {
+      controls.UI.Disable();
+    }
+    private void Update()
+    {
+        if (gameObject != null)
+        {
+            playerController.DisableController();
+        }
+    }
     IEnumerator UpdateUI()
     {
-        yield return null;
+        
+        yield return null;       
         PrimalText.text = currentstats.primalLevel.ToString();
         SpeedText.text = currentstats.speedLevel.ToString(); 
         SentienceText.text = currentstats.sentienceLevel.ToString();
@@ -101,6 +123,10 @@ public class LevelUpManagerNew : MonoBehaviour
         primaldam.text = currentstats.primalDmg.ToString();
         //skilldam.text = currentstats.skillDmg.ToString();
         //skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
+    }
+    void MenuSwap()
+    {
+      SkillMenu.SetActive(true);
     }
 
     public void PrimalUP()
@@ -189,10 +215,10 @@ public class LevelUpManagerNew : MonoBehaviour
       //Testing GetAllSkillCooldowns
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
       List<float> allCooldowns = skillManager.GetAllSkillCooldowns(currentPlayer);
-      /*for (int i = 0; i < allCooldowns.Count; i++)
+      for (int i = 0; i < allCooldowns.Count; i++)
       {
         Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
-      }*/
+      }
     }
     public void SentienceDown()
     {

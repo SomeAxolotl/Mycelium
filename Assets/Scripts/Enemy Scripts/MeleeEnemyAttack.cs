@@ -43,7 +43,7 @@ public class MeleeEnemyAttack : MonoBehaviour
                 StopCoroutine(Attack());
                 attack = Attack();
                 transform.position = transform.position;
-                attackWindup = 1.2f;
+                attackWindup = 1f;
                 canAttack = true;
             }
             else
@@ -58,7 +58,7 @@ public class MeleeEnemyAttack : MonoBehaviour
                 }
                 else
                 {
-                    attackWindup = 1f;
+                    attackWindup = .5f;
                 }
             }
         }
