@@ -9,8 +9,8 @@ public class DesignTracker : MonoBehaviour
     private Mesh skinnedMesh;
     private Material capMaterial;
     private Material torsoMaterial;
-    [SerializeField] Color capColor;
-    [SerializeField] Color bodyColor;
+    public Color capColor;
+    public Color bodyColor;
     private bool blendCoroutineRunning = false;
 
     private void Start()
@@ -44,13 +44,6 @@ public class DesignTracker : MonoBehaviour
 
         if(blendCoroutineRunning) StopAllCoroutines();
         StartCoroutine(fadeBlend(sentienceWeight, primalWeight, vitalityWeight, speedWeight));
-
-
-        /*for(int i=0;i<blendShapeCount;i++)
-            {
-            skinnedMeshRenderer.SetBlendShapeWeight(i,statLevelWeights[i]);
-            }*/
-
     }
 
     //BUG: CANNOT LOWER BLENDSHAPE VALUES: ONLY RAISES THEM

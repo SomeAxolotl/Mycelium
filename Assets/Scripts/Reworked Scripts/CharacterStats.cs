@@ -36,12 +36,12 @@ public class CharacterStats : MonoBehaviour
 
     //Displaying current level
     [Header("Primal Level")]
-    public int primalLevel;
+    public int primalLevel = 1;
     //Primal Base Stats
     public float primalDmg = 10f;
     
     [Header("Speed Level")]
-    public int speedLevel;
+    public int speedLevel = 1;
     //Speed Base Stats
     public float moveSpeed = 5f;
     public float atkCooldownBuff = 0f;
@@ -49,10 +49,10 @@ public class CharacterStats : MonoBehaviour
     public float maxAttackSpeed;
     
     [Header("Sentience Level")]
-    public int sentienceLevel;
+    public int sentienceLevel = 1;
     
     [Header("Vitality Level")]
-    public int vitalityLevel;
+    public int vitalityLevel = 1;
     //Vitality Base Stats
     public float baseHealth = 100f;
     public float baseRegen = .2f;
@@ -70,16 +70,13 @@ public class CharacterStats : MonoBehaviour
 
     void Start()
     {
-        primalLevel = 1;
-        speedLevel = 1;
-        sentienceLevel = 1;
-        vitalityLevel = 1;
         totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = gameObject.GetComponent<DesignTracker>();
         sporeAttributeRanges = GameObject.FindWithTag("PlayerParent").GetComponent<SporeAttributeRanges>();
         SetSporeName();
+        designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
     }
 
     void Update()
