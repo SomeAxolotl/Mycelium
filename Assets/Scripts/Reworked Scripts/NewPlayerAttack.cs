@@ -14,7 +14,8 @@ public class NewPlayerAttack : MonoBehaviour
     public float atkCooldown;
     private float fungalMightBonus = 1f;
     private float lungeDuration = 0.4f;
-    private float lungeForce = 20f;
+    [SerializeField] private float lungeForce = 20f;
+    [SerializeField][Tooltip("Is multiplied by the attack animation speed")] private float lungeDurationScalar = 0.25f;
     private HUDSkills hudSkills;
     Animator animator;
     GameObject player;
@@ -35,30 +36,35 @@ public class NewPlayerAttack : MonoBehaviour
     {
         if (attack.triggered && canAttack)
         {
-            canAttack = false;
             StartAttack();
         }
     }
 
     private void StartAttack()
     {
-        GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
-        player = GameObject.FindWithTag("currentPlayer");
-        atkCooldown = curWeapon.GetComponent<NewWeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
-        dmgDealt = (swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<NewWeaponStats>().wpnDamage) * fungalMightBonus;
-        animator = GetComponentInChildren<Animator>();
-        StartCoroutine(AttackCooldown());
-        StartCoroutine(Attack(curWeapon));
-        StartCoroutine(Lunge());
+        if (!attacking)
+        {
+            GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
+            NewWeaponCollision weaponCollision = curWeapon.GetComponent<NewWeaponCollision>();
+            weaponCollision.ClearEnemyList();
+            player = GameObject.FindWithTag("currentPlayer");
+            atkCooldown = curWeapon.GetComponent<NewWeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
+            dmgDealt = (swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<NewWeaponStats>().wpnDamage) * fungalMightBonus;
+            animator = GetComponentInChildren<Animator>();
+            //StartCoroutine(AttackCooldown());
+            StartCoroutine(Attack(curWeapon));
+            StartCoroutine(Lunge());
+        }
     }
 
-    private IEnumerator AttackCooldown()
+    /*private IEnumerator AttackCooldown()
     {
         hudSkills.StartCooldownUI(3, atkCooldown);
 
         yield return new WaitForSeconds(atkCooldown);
         canAttack = true;
-    }
+    }*/
+
     private IEnumerator Attack(GameObject curWeapon)
     {
         attacking = true;
@@ -68,11 +74,14 @@ public class NewPlayerAttack : MonoBehaviour
         animator.Play("Slash");
         SoundEffectManager.Instance.PlaySound("slash", curWeapon.transform.position);
 
+
         // play smash animation
         // animator.Play("Smash");
 
         // play stab animation
         // animator.Play("Stab");
+
+        lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
 
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
@@ -81,6 +90,9 @@ public class NewPlayerAttack : MonoBehaviour
         attacking = false;
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
+
+        //Clear the list of enemies struck
+
     }
     private IEnumerator Lunge()
     {
