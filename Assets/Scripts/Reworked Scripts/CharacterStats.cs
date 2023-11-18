@@ -18,6 +18,22 @@ public class CharacterStats : MonoBehaviour
     }
     private Names thisName;
 
+    public Dictionary<string, bool> skillUnlocks = new Dictionary<string, bool>()
+    {
+        {"Eruption", false},
+        {"LivingCyclone", false},
+        {"RelentlessFury", false},
+        {"Blitz", false},
+        {"TrophicCascade", false},
+        {"Mycotoxins", false},
+        {"Spineshot", false},
+        {"UnstablePuffball", false},
+        {"Undergrowth", false},
+        {"LeechingSpore", false},
+        {"Sporeburst", false},
+        {"DefenseMechanism", false}
+    };
+
     //Displaying current level
     [Header("Primal Level")]
     public int primalLevel;
@@ -40,6 +56,7 @@ public class CharacterStats : MonoBehaviour
     //Vitality Base Stats
     public float baseHealth = 100f;
     public float baseRegen = .2f;
+    
     public int totalLevel;
     public int levelUpCost;
     private NutrientTracker nutrientTracker;

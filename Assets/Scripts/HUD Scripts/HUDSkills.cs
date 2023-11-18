@@ -65,7 +65,7 @@ public class HUDSkills : MonoBehaviour
         spriteList.AddRange(Resources.LoadAll<Sprite>("PlaceholderIcons"));
     }
 
-    public void ChangeSkillIcon(string name, int slot)
+    public void ChangeSkillIcon(string skillName, int slot)
     {
         Image skillIcon = speciesIcon;
         switch (slot)
@@ -81,7 +81,12 @@ public class HUDSkills : MonoBehaviour
                 skillIcon = skill2Icon;
                 break;
         }
+        
+        skillIcon.sprite = NameToSkillSprite(skillName);
+    }
 
+    Sprite NameToSkillSprite(string name)
+    {
         int spriteIndex = -1;
         foreach(Sprite sprite in spriteList)
         {
@@ -102,8 +107,8 @@ public class HUDSkills : MonoBehaviour
         {
            skillSprite = spriteList[spriteIndex]; 
         }
-        
-        skillIcon.sprite = skillSprite;
+
+        return skillSprite;
     }
 
     public void StartCooldownUI(int slot, float cooldown)
@@ -156,6 +161,11 @@ public class HUDSkills : MonoBehaviour
         allSprites.Add(skill2Icon.sprite);
 
         return allSprites;
+    }
+
+    public Sprite GetSkillSprite(string skillName)
+    {
+        return NameToSkillSprite(skillName);
     }
 
     /*void Update()
