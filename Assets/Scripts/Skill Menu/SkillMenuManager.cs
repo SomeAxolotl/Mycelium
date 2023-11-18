@@ -19,7 +19,8 @@ public class SkillMenuManager : MonoBehaviour
     ThirdPersonActionsAsset controls;
     private CanvasGroup HUDCanvasGroup;
     private HUDSkills hudSkills;
-    
+    private PlayerController playerController;
+
     void Start()
     {
         
@@ -39,6 +40,8 @@ public class SkillMenuManager : MonoBehaviour
         Skill2ListEnable.SetActive(false);
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+
     }
     void OnDisable()
     {
@@ -48,11 +51,12 @@ public class SkillMenuManager : MonoBehaviour
     {
         LevelUI.SetActive(true);
     }
-
-   
-    void Update()
+    private void Update()
     {
-        
+        if (gameObject != null)
+        {
+            playerController.DisableController();
+        }
     }
     public void Skill1Select()
     {

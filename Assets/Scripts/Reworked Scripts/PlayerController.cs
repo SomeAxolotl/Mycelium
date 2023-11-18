@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rb;
+    public Rigidbody rb;
     private Vector3 forceDirection = Vector3.zero;
     public float moveSpeed;
     Vector3 gravity;
@@ -31,8 +32,6 @@ public class PlayerController : MonoBehaviour
     public float dodgeIFrames = 0.15f;
 
     private HUDSkills hudSkills;
-    public GameObject LevelUpMenu;
-    public GameObject SkillMenu;
 
     // Start is called before the first frame update
     private void Start()
@@ -73,7 +72,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("IFrames");
         }
         
-        if (newPlayerAttack.attacking == true || newPlayerHealth.currentHealth <= 0 || LevelUpMenu.activeInHierarchy == true || SkillMenu.activeInHierarchy == true)
+        if (newPlayerAttack.attacking == true || newPlayerHealth.currentHealth <= 0)
         {
             playerActionsAsset.Player.Disable();
         }

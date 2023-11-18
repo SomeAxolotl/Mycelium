@@ -40,6 +40,7 @@ public class CharacterStats : MonoBehaviour
     //Vitality Base Stats
     public float baseHealth = 100f;
     public float baseRegen = .2f;
+    
     public int totalLevel;
     public int levelUpCost;
     private NutrientTracker nutrientTracker;

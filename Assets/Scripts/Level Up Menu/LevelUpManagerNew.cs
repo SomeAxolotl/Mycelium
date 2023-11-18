@@ -99,7 +99,14 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       controls.UI.Disable();
     }
-     IEnumerator UpdateUI()
+    private void Update()
+    {
+        if (gameObject != null)
+        {
+            playerController.DisableController();
+        }
+    }
+    IEnumerator UpdateUI()
     {
         
         yield return null;       
