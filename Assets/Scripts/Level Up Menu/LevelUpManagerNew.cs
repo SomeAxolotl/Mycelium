@@ -53,6 +53,8 @@ public class LevelUpManagerNew : MonoBehaviour
     public GameObject SkillMenu;
     private HUDSkills hudSkills;
     ThirdPersonActionsAsset controls;
+    [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
+    List<string> newlyUnlockedSkills = new List<string>();
    
   
     void Start()
@@ -120,6 +122,20 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void MenuSwap()
     {
+      currentstats.primalLevel = PrimalSave;
+      currentstats.speedLevel = SpeedSave;
+      currentstats.sentienceLevel = SentienceSave;
+      currentstats.vitalityLevel = VitalitySave;
+      currentnutrients.currentNutrients = nutrientsSave;
+      currentstats.baseHealth = healthsave;
+      currentstats.baseRegen = regensave;
+      currentstats.moveSpeed = movespeedsave;
+      currentstats.primalDmg = damagesave;
+      //currentstats.skillDmg = skilldmgsave;
+      //currentstats.atkCooldownBuff = cdrsave;
+      currentstats.totalLevel = totalLevelsave;
+      currentstats.levelUpCost = levelupsave;
+      currentstats.UpdateLevel();
       SkillMenu.SetActive(true);
     }
 
@@ -302,6 +318,7 @@ public class LevelUpManagerNew : MonoBehaviour
       playerController.EnableController();
       playerHealth.ResetHealth();
       HUDCanvasGroup.alpha = 1;
+      UnlockSkills();
     }
     public void Close()
     {
@@ -366,5 +383,43 @@ public class LevelUpManagerNew : MonoBehaviour
         {
         VitalityLevelDown.interactable = true;
         }
+    }
+
+    
+    void UnlockSkills()
+    {
+      newlyUnlockedSkills.Clear();
+      int currentStat = currentstats.primalLevel;
+      UnlockConditional("Eruption", currentStat, 5);
+      UnlockConditional("LivingCyclone", currentStat, 10);
+      UnlockConditional("RelentlessFury", currentStat, 15);
+      currentStat = currentstats.speedLevel;
+      UnlockConditional("Blitz", currentStat, 5);
+      UnlockConditional("TrophicCascade", currentStat, 10);
+      UnlockConditional("Mycotoxins", currentStat, 15);
+      currentStat = currentstats.sentienceLevel;
+      UnlockConditional("Spineshot", currentStat, 5);
+      UnlockConditional("UnstablePuffball", currentStat, 10);
+      UnlockConditional("Undergrowth", currentStat, 15);
+      currentStat = currentstats.vitalityLevel;
+      UnlockConditional("LeechingSpore", currentStat, 5);
+      UnlockConditional("Sporeburst", currentStat, 10);
+      UnlockConditional("DefenseMechanism", currentStat, 15);
+      if (newlyUnlockedSkills.Count == 1)
+      {
+        skillUnlockNotifications.NotifySkillUnlock(newlyUnlockedSkills[0], hudSkills.GetSkillSprite(newlyUnlockedSkills[0]));
+      }
+      else if (newlyUnlockedSkills.Count > 1)
+      {
+        skillUnlockNotifications.NotifyMultipleSkillUnlocks(newlyUnlockedSkills.Count);
+      }
+    }
+    void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)
+    {
+      if (currentStatLevel >= targetStatLevel && currentstats.skillUnlocks[skillName] == false)
+      { 
+        newlyUnlockedSkills.Add(skillName);
+        currentstats.skillUnlocks[skillName] = true;
+      }
     }
 }
