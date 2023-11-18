@@ -116,6 +116,15 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""d9cd8e3f-9c0f-44c1-9bf2-bdadcb0c194b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -380,6 +389,28 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""GetStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a67ebf02-6cd7-400e-bf75-a3345c897f1d"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4164d95-f9db-4658-bb3c-02f6fa723586"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -976,6 +1007,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_Player_Stat_Skill_1 = m_Player.FindAction("Stat_Skill_1", throwIfNotFound: true);
         m_Player_Stat_Skill_2 = m_Player.FindAction("Stat_Skill_2", throwIfNotFound: true);
         m_Player_GetStats = m_Player.FindAction("GetStats", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1062,6 +1094,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_Player_Stat_Skill_1;
     private readonly InputAction m_Player_Stat_Skill_2;
     private readonly InputAction m_Player_GetStats;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -1076,6 +1109,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @Stat_Skill_1 => m_Wrapper.m_Player_Stat_Skill_1;
         public InputAction @Stat_Skill_2 => m_Wrapper.m_Player_Stat_Skill_2;
         public InputAction @GetStats => m_Wrapper.m_Player_GetStats;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1115,6 +1149,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @GetStats.started += instance.OnGetStats;
             @GetStats.performed += instance.OnGetStats;
             @GetStats.canceled += instance.OnGetStats;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1149,6 +1186,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @GetStats.started -= instance.OnGetStats;
             @GetStats.performed -= instance.OnGetStats;
             @GetStats.canceled -= instance.OnGetStats;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1320,6 +1360,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnStat_Skill_1(InputAction.CallbackContext context);
         void OnStat_Skill_2(InputAction.CallbackContext context);
         void OnGetStats(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

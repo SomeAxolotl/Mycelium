@@ -5,7 +5,9 @@ using UnityEngine;
 public class NewWeaponCollision : MonoBehaviour
 {
     NewPlayerAttack newPlayerAttack;
-    // Start is called before the first frame update
+
+    List<GameObject> enemiesHit = new List<GameObject>();
+
     void Start()
     {
         newPlayerAttack = GameObject.Find("PlayerParent").GetComponent<NewPlayerAttack>();
@@ -13,12 +15,17 @@ public class NewWeaponCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && newPlayerAttack.attacking)
+        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && newPlayerAttack.attacking && !enemiesHit.Contains(other.gameObject))
         {
             float dmgDealt = newPlayerAttack.dmgDealt;
             other.GetComponent<NewEnemyHealth>().EnemyTakeDamage(dmgDealt);
             HitStopManager.Instance.HitStop(dmgDealt);
-            GetComponent<Collider>().enabled = false;
+            enemiesHit.Add(other.gameObject);
         }
+    }
+
+    public void ClearEnemyList()
+    {
+        enemiesHit.Clear();
     }
 }
