@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     private Vector3 forceDirection = Vector3.zero;
     public float moveSpeed;
+    [SerializeField] float gravityForce = -20;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;
 
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
         stat_skill_1 = playerActionsAsset.Player.Stat_Skill_1;
         stat_skill_2 = playerActionsAsset.Player.Stat_Skill_2;
         subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
-        gravity = new Vector3(0f, -20f, 0f);
+        gravity = new Vector3(0f, gravityForce, 0f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
