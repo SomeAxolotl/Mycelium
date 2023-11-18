@@ -66,6 +66,8 @@ public class CharacterStats : MonoBehaviour
 
     private HUDHealth hudHealth;
 
+    public float animatorSpeed;
+
     void Start()
     {
         primalLevel = 1;
@@ -225,7 +227,7 @@ public class CharacterStats : MonoBehaviour
         Animator currentAnimator = currentPlayer.GetComponent<Animator>();
         float minAttackSpeed = sporeAttributeRanges.attackSpeedAt1Speed;
         float maxAttackSpeed = sporeAttributeRanges.attackSpeedAt15Speed;
-        float animatorSpeed = LerpAttribute(minAttackSpeed, maxAttackSpeed, speedLevel);
+        animatorSpeed = LerpAttribute(minAttackSpeed, maxAttackSpeed, speedLevel);
         currentAnimator.speed = animatorSpeed;
     }
 

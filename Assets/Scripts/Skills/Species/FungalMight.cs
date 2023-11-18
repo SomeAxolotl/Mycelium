@@ -25,6 +25,8 @@ public class FungalMight : Skill
         playerAttack.ActivateFungalMight(finalSkillValue);
 
         FungalMightParticles();
+        playerController.canAct = true;
+        playerController.EnableController();
     }
 
     void FungalMightParticles()

@@ -17,6 +17,8 @@ public class Eruption : Skill
     {
         DamageEnemies();
         EruptionParticles();
+        playerController.canAct = true;
+        playerController.EnableController();
     }
 
     void DamageEnemies()

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravityForce = -20;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;
+    public bool looking = true;
 
     //Input fields
     private ThirdPersonActionsAsset playerActionsAsset;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     NewPlayerAttack newPlayerAttack;
     NewPlayerHealth newPlayerHealth;
     SkillManager skillManager;
+    public bool canAct = true;
 
     public float dodgeCooldown = 1f;
     public float dodgeIFrames = 0.15f;
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("Dodging");
             StartCoroutine("IFrames");
         }
+<<<<<<< Updated upstream
         
         if (newPlayerAttack.attacking == true || newPlayerHealth.currentHealth <= 0)
         {
@@ -81,8 +84,10 @@ public class PlayerController : MonoBehaviour
         {
             playerActionsAsset.Player.Enable();
         }
+=======
+>>>>>>> Stashed changes
 
-        if (subspecies_skill.triggered)
+        if (subspecies_skill.triggered && canAct == true)
         {
             GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
             Skill subskill = skillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
@@ -92,7 +97,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (stat_skill_1.triggered)
+        if (stat_skill_1.triggered && canAct == true)
         {
             GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
             Skill skill1 = skillLoadout.transform.GetChild(1).gameObject.GetComponent<Skill>();
@@ -102,7 +107,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (stat_skill_2.triggered)
+        if (stat_skill_2.triggered && canAct == true)
         {
             GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
             Skill skill2 = skillLoadout.transform.GetChild(2).gameObject.GetComponent<Skill>();
@@ -174,17 +179,20 @@ public class PlayerController : MonoBehaviour
 
     private void LookAt()
     {
-        Vector3 direction = rb.velocity;
-        direction.y = 0f;
+        if (looking)
+        {
+            Vector3 direction = rb.velocity;
+            direction.y = 0f;
 
-        if(move.ReadValue<Vector2>().sqrMagnitude != 0f)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 15f * Time.deltaTime);
-        }
-        else
-        {
-            rb.angularVelocity = Vector3.zero;
+            if(move.ReadValue<Vector2>().sqrMagnitude != 0f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 15f * Time.deltaTime);
+            }
+            else
+            {
+                rb.angularVelocity = Vector3.zero;
+            }
         }
     }
     private void SpeedControl()

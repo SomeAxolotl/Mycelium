@@ -89,7 +89,7 @@ public class NewEnemyHealth : MonoBehaviour
         ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
 
         //Sound effect
-        SoundEffectManager.Instance.PlaySound("impact", transform.position);
+        SoundEffectManager.Instance.PlaySound("Impact", transform.position);
     }
     IEnumerator Knockback(Vector3 direction, float force)
     {

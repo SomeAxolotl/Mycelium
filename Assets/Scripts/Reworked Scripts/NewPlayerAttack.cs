@@ -8,8 +8,6 @@ public class NewPlayerAttack : MonoBehaviour
     private ThirdPersonActionsAsset playerActionsAsset;
     private InputAction attack;
     private SwapCharacter swapCharacter;
-    bool canAttack = true;
-    public bool attacking = false;
     public float dmgDealt;
     public float atkCooldown;
     private float fungalMightBonus = 1f;
@@ -19,6 +17,10 @@ public class NewPlayerAttack : MonoBehaviour
     private HUDSkills hudSkills;
     Animator animator;
     GameObject player;
+    PlayerController playerController;
+
+    public string attackAnimationName = "Slash";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +31,13 @@ public class NewPlayerAttack : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindWithTag("currentPlayer");
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attack.triggered && canAttack)
+        if (attack.triggered && playerController.canAct == true)
         {
             StartAttack();
         }
@@ -42,7 +45,11 @@ public class NewPlayerAttack : MonoBehaviour
 
     private void StartAttack()
     {
+<<<<<<< Updated upstream
         if (!attacking)
+=======
+        if (playerController.canAct == true)
+>>>>>>> Stashed changes
         {
             GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
             NewWeaponCollision weaponCollision = curWeapon.GetComponent<NewWeaponCollision>();
@@ -55,6 +62,10 @@ public class NewPlayerAttack : MonoBehaviour
             StartCoroutine(Attack(curWeapon));
             StartCoroutine(Lunge());
         }
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
     }
 
     /*private IEnumerator AttackCooldown()
@@ -62,32 +73,39 @@ public class NewPlayerAttack : MonoBehaviour
         hudSkills.StartCooldownUI(3, atkCooldown);
 
         yield return new WaitForSeconds(atkCooldown);
+<<<<<<< Updated upstream
         canAttack = true;
+=======
+        canAct = true;
+>>>>>>> Stashed changes
     }*/
 
     private IEnumerator Attack(GameObject curWeapon)
-    {
-        attacking = true;
+    {   
+        playerController.canAct = false;
+        playerController.DisableController();
         curWeapon.GetComponent<Collider>().enabled = true;
 
-        // play slash animation
-        animator.Play("Slash");
-        SoundEffectManager.Instance.PlaySound("slash", curWeapon.transform.position);
+        animator.Play(attackAnimationName);
+        SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
 
+<<<<<<< Updated upstream
 
         // play smash animation
         // animator.Play("Smash");
 
         // play stab animation
         // animator.Play("Stab");
+=======
+        lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
+>>>>>>> Stashed changes
 
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
 
         yield return new WaitForEndOfFrame();
-        yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
-        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
-        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));
-        attacking = false;
+        yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimationName));
+        playerController.canAct = true;
+        playerController.EnableController();
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
 

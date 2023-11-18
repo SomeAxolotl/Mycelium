@@ -53,6 +53,8 @@ public class LevelUpManagerNew : MonoBehaviour
     //public GameObject SkillMenu;
     private HUDSkills hudSkills;
     ThirdPersonActionsAsset controls;
+    [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
+    List<string> newlyUnlockedSkills = new List<string>();
    
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
@@ -63,16 +65,17 @@ public class LevelUpManagerNew : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
-        StartCoroutine(UpdateUI());
     }
-    void Awake()
-    {
-     
-    }
+
     void OnEnable()
     {
       controls = new ThirdPersonActionsAsset();
+<<<<<<< Updated upstream
       //controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+=======
+      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      controls.UI.Close.performed += ctx => Close();
+>>>>>>> Stashed changes
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
@@ -128,6 +131,20 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     /*void MenuSwap()
     {
+      currentstats.primalLevel = PrimalSave;
+      currentstats.speedLevel = SpeedSave;
+      currentstats.sentienceLevel = SentienceSave;
+      currentstats.vitalityLevel = VitalitySave;
+      currentnutrients.currentNutrients = nutrientsSave;
+      currentstats.baseHealth = healthsave;
+      currentstats.baseRegen = regensave;
+      currentstats.moveSpeed = movespeedsave;
+      currentstats.primalDmg = damagesave;
+      //currentstats.skillDmg = skilldmgsave;
+      //currentstats.atkCooldownBuff = cdrsave;
+      currentstats.totalLevel = totalLevelsave;
+      currentstats.levelUpCost = levelupsave;
+      currentstats.UpdateLevel();
       SkillMenu.SetActive(true);
     }*/
 
@@ -302,11 +319,30 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void Commit()
     {
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+      PrimalSave = currentstats.primalLevel;
+      SpeedSave = currentstats.speedLevel;
+      SentienceSave = currentstats.sentienceLevel;
+      VitalitySave = currentstats.vitalityLevel;
+      UIenable.SetActive(false);
+      playerController.EnableController();
+      playerHealth.ResetHealth();
+      HUDCanvasGroup.alpha = 1;
+      UnlockSkills();
+=======
+>>>>>>> Stashed changes
          UIenable.SetActive(false);
          playerController.EnableController();
          playerHealth.ResetHealth();
          HUDCanvasGroup.alpha = 1;
          UnlockSkills();
+<<<<<<< Updated upstream
+=======
+         hudSkills.UpdateHUDIcons();
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     }
     public void Close()
     {
@@ -373,30 +409,49 @@ public class LevelUpManagerNew : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     void UnlockSkills()
     {
       newlyUnlockedSkills.Clear();
 
+=======
+    
+    void UnlockSkills()
+    {
+      newlyUnlockedSkills.Clear();
+>>>>>>> Stashed changes
       int currentStat = currentstats.primalLevel;
       UnlockConditional("Eruption", currentStat, 5);
       UnlockConditional("LivingCyclone", currentStat, 10);
       UnlockConditional("RelentlessFury", currentStat, 15);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       currentStat = currentstats.speedLevel;
       UnlockConditional("Blitz", currentStat, 5);
       UnlockConditional("TrophicCascade", currentStat, 10);
       UnlockConditional("Mycotoxins", currentStat, 15);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       currentStat = currentstats.sentienceLevel;
       UnlockConditional("Spineshot", currentStat, 5);
       UnlockConditional("UnstablePuffball", currentStat, 10);
       UnlockConditional("Undergrowth", currentStat, 15);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       currentStat = currentstats.vitalityLevel;
       UnlockConditional("LeechingSpore", currentStat, 5);
       UnlockConditional("Sporeburst", currentStat, 10);
       UnlockConditional("DefenseMechanism", currentStat, 15);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       if (newlyUnlockedSkills.Count == 1)
       {
         skillUnlockNotifications.NotifySkillUnlock(newlyUnlockedSkills[0], hudSkills.GetSkillSprite(newlyUnlockedSkills[0]));
@@ -406,7 +461,10 @@ public class LevelUpManagerNew : MonoBehaviour
         skillUnlockNotifications.NotifyMultipleSkillUnlocks(newlyUnlockedSkills.Count);
       }
     }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)
     {
       if (currentStatLevel >= targetStatLevel && currentstats.skillUnlocks[skillName] == false)

@@ -14,6 +14,10 @@ public class SkillUnlockNotifications : MonoBehaviour
     [SerializeField] private GameObject skillUnlockHolder;
     [SerializeField] private TMP_Text skillUnlockText;
     [SerializeField] private Image skillUnlockIcon;
+<<<<<<< Updated upstream
+=======
+    [SerializeField] private GameObject skillUnlockPanel;
+>>>>>>> Stashed changes
 
     [SerializeField] private HUDSkills hudSkills;
 
@@ -71,6 +75,10 @@ public class SkillUnlockNotifications : MonoBehaviour
         skillUnlockText.text = unlockCount + " New Skills Unlocked";
 
         canvasGroup.alpha = 1f;
+<<<<<<< Updated upstream
+=======
+        skillUnlockPanel.SetActive(false);
+>>>>>>> Stashed changes
 
         float popCounter = 0f;
         while (popCounter < popDuration)
@@ -96,6 +104,10 @@ public class SkillUnlockNotifications : MonoBehaviour
 
         skillUnlockHolder.transform.localScale = Vector3.zero;
         canvasGroup.alpha = 1f;
+<<<<<<< Updated upstream
+=======
+        skillUnlockPanel.SetActive(true);
+>>>>>>> Stashed changes
     }
 
     float EaseOutQuart(float x)

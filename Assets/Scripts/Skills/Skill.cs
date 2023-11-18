@@ -16,21 +16,27 @@ public class Skill : MonoBehaviour
 
     private float fungalMightBonus = 1f;
 
-    private CharacterStats characterStats;
+    public CharacterStats characterStats;
+    public PlayerController playerController;
 
     private HUDSkills hudSkills;
     private int skillSlot;
+    
+    public Animator currentAnimator;
 
     void Start()
     {
         characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        currentAnimator = GameObject.FindWithTag("currentPlayer").GetComponent<Animator>();
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
     }
 
     //this is called at the start of all the subclass skills. all stat math for skills can be done here and it should b fine
     public void CalculateProperties()
     {
         characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        currentAnimator = GameObject.FindWithTag("currentPlayer").GetComponent<Animator>();
 
         int t = characterStats.sentienceLevel;
         float lerpValue = (-0.081365f) + (0.08f*t) + (Mathf.Pow(0.0015f*t, 2)) - (Mathf.Pow(0.000135f*t, 3));
@@ -56,6 +62,9 @@ public class Skill : MonoBehaviour
 
     public void ActivateSkill(int slot)
     {
+        playerController.canAct = false;
+        playerController.DisableController();
+
         skillSlot = slot;
 
         CalculateProperties();
