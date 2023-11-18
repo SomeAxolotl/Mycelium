@@ -22,6 +22,13 @@ public class NewWeaponCollision : MonoBehaviour
             HitStopManager.Instance.HitStop(dmgDealt);
             enemiesHit.Add(other.gameObject);
         }
+        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Boss" && newPlayerAttack.attacking && !enemiesHit.Contains(other.gameObject))
+        {
+            float dmgDealt = newPlayerAttack.dmgDealt;
+            other.GetComponent<BossHealth>().BossTakeDamage(dmgDealt);
+            HitStopManager.Instance.HitStop(dmgDealt);
+            enemiesHit.Add(other.gameObject);
+        }
     }
 
     public void ClearEnemyList()

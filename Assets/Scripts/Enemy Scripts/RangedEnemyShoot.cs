@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class RangedEnemyShoot : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    private NewEnemyHealth newEnemyHealth;
+    private BossHealth bossHealth;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
@@ -19,8 +19,8 @@ public class RangedEnemyShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        newEnemyHealth = GetComponent<NewEnemyHealth>();
+        navMeshAgent = GetComponentInParent<NavMeshAgent>();
+        bossHealth = GetComponentInParent<BossHealth>();
         shoot = this.Shoot();
     }
 
@@ -33,7 +33,7 @@ public class RangedEnemyShoot : MonoBehaviour
             player = playerCollider.transform;
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
             float dstToPlayer = Vector3.Distance(transform.position, player.position);
-            if (newEnemyHealth.damaged)
+            if (bossHealth.damaged)
             {
                 StopCoroutine(Shoot());
                 shoot = Shoot();
