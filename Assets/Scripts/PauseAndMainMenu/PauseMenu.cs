@@ -10,14 +10,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject confirmMenu;
 
-    GameObject HUD = null;
+    CanvasGroup HUD = null;
 
     private ThirdPersonActionsAsset playerInput = null;
 
     private void Awake()
     {
         playerInput = new ThirdPersonActionsAsset();
-        HUD = GameObject.FindGameObjectWithTag("HUD");
+        HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
         Resume();
     }
 
@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
         confirmMenu.SetActive(false);
-        HUD.SetActive(true);
+        HUD.alpha = 1f;
         Time.timeScale = 1f;
         PauseData.isGamePaused = false;
         Cursor.visible = false;
@@ -52,7 +52,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        HUD.SetActive(false);
+        HUD.alpha = 0f;
         Time.timeScale = 0f;
         PauseData.isGamePaused = true;
         Cursor.visible = true;
