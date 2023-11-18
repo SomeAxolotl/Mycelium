@@ -50,10 +50,12 @@ public class LevelUpManagerNew : MonoBehaviour
     private PlayerController playerController;
     public NutrientTracker currentnutrients;
     private SkillManager skillManager;
-    public GameObject SkillMenu;
+    //public GameObject SkillMenu;
     private HUDSkills hudSkills;
     ThirdPersonActionsAsset controls;
    
+    [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
+    List<string> newlyUnlockedSkills = new List<string>();
   
     void Start()
     {
@@ -70,7 +72,7 @@ public class LevelUpManagerNew : MonoBehaviour
     void OnEnable()
     {
       controls = new ThirdPersonActionsAsset();
-      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      //controls.UI.MenuSwapR.performed += ctx => MenuSwap();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
@@ -92,7 +94,7 @@ public class LevelUpManagerNew : MonoBehaviour
        VitalityStartCheck();
        SentienceStartCheck();
        StartCoroutine(UpdateUI());
-       SkillMenu.SetActive(false);
+       //SkillMenu.SetActive(false);
        controls.UI.Enable();   
     }
     void OnDisable()
@@ -124,10 +126,10 @@ public class LevelUpManagerNew : MonoBehaviour
         //skilldam.text = currentstats.skillDmg.ToString();
         //skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
     }
-    void MenuSwap()
+    /*void MenuSwap()
     {
       SkillMenu.SetActive(true);
-    }
+    }*/
 
     public void PrimalUP()
     {
@@ -304,6 +306,7 @@ public class LevelUpManagerNew : MonoBehaviour
          playerController.EnableController();
          playerHealth.ResetHealth();
          HUDCanvasGroup.alpha = 1;
+         UnlockSkills();
     }
     public void Close()
     {
@@ -368,5 +371,48 @@ public class LevelUpManagerNew : MonoBehaviour
         {
         VitalityLevelDown.interactable = true;
         }
+    }
+
+    void UnlockSkills()
+    {
+      newlyUnlockedSkills.Clear();
+
+      int currentStat = currentstats.primalLevel;
+      UnlockConditional("Eruption", currentStat, 5);
+      UnlockConditional("LivingCyclone", currentStat, 10);
+      UnlockConditional("RelentlessFury", currentStat, 15);
+
+      currentStat = currentstats.speedLevel;
+      UnlockConditional("Blitz", currentStat, 5);
+      UnlockConditional("TrophicCascade", currentStat, 10);
+      UnlockConditional("Mycotoxins", currentStat, 15);
+
+      currentStat = currentstats.sentienceLevel;
+      UnlockConditional("Spineshot", currentStat, 5);
+      UnlockConditional("UnstablePuffball", currentStat, 10);
+      UnlockConditional("Undergrowth", currentStat, 15);
+
+      currentStat = currentstats.vitalityLevel;
+      UnlockConditional("LeechingSpore", currentStat, 5);
+      UnlockConditional("Sporeburst", currentStat, 10);
+      UnlockConditional("DefenseMechanism", currentStat, 15);
+
+      if (newlyUnlockedSkills.Count == 1)
+      {
+        skillUnlockNotifications.NotifySkillUnlock(newlyUnlockedSkills[0], hudSkills.GetSkillSprite(newlyUnlockedSkills[0]));
+      }
+      else if (newlyUnlockedSkills.Count > 1)
+      {
+        skillUnlockNotifications.NotifyMultipleSkillUnlocks(newlyUnlockedSkills.Count);
+      }
+    }
+
+    void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)
+    {
+      if (currentStatLevel >= targetStatLevel && currentstats.skillUnlocks[skillName] == false)
+      { 
+        newlyUnlockedSkills.Add(skillName);
+        currentstats.skillUnlocks[skillName] = true;
+      }
     }
 }
