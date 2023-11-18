@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 public class LootCache : MonoBehaviour
 {
     float distance;
-    float holdTime;
     [SerializeField] private List<GameObject> items;
     ThirdPersonActionsAsset playerActionsAsset;
     private InputAction interact;
@@ -25,26 +24,11 @@ public class LootCache : MonoBehaviour
     private void Update()
     {
         distance = Vector3.Distance(player.transform.position, this.transform.position);
-        if (interact.triggered && distance < 3)
+        if (interact.triggered && distance < 2)
         {
             GetLoot();
             Destroy(this.gameObject);
         }
-        /*if (Input.GetKey(KeyCode.E) && distance < 3)
-        {
-            Debug.Log("Working");
-            holdTime += Time.deltaTime;
-            if (holdTime >= 1f)
-            {
-                holdTime = 0f;
-                GetLoot();
-                Destroy(this.gameObject);
-            }
-        }
-        else
-        {
-            holdTime = 0f;
-        }*/
     }
     public void GetLoot()
     {

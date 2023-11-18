@@ -49,7 +49,7 @@ public class SpawnCharacter : MonoBehaviour
         designTracker.SetBodyColor(GetRandomColor(BodyColors, colorindex));
         designTracker.SetCapColor(GetRandomColor(CapColors, colorindex));
         swapCharacter.characters.Add(newCharacter);
-        newCharacter.transform.position = new Vector3(0, 1.2f, 0); //WE CAN SET A SPAWNPOINT IN THE HUB SOMEWHERE
+        newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         StartCoroutine(SetTestSkills(newCharacter));
 
     }

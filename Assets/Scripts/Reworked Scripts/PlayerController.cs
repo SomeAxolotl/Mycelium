@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rb;
+    public Rigidbody rb;
     private Vector3 forceDirection = Vector3.zero;
     public float moveSpeed;
     Vector3 gravity;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SpeedControl();
-        Debug.Log("velocity: " + rb.velocity);
+        //Debug.Log("velocity: " + rb.velocity);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();

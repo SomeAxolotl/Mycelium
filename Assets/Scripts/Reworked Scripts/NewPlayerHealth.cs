@@ -11,6 +11,7 @@ public class NewPlayerHealth : MonoBehaviour
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
     SwapWeapon swapWeapon;
+    NutrientTracker nutrientTracker;
     float deathTimer;
 
     // Start is called before the first frame update
@@ -22,7 +23,7 @@ public class NewPlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         InvokeRepeating("Regen", 1f, 1f);
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
-
+        nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
     }
 
     // Update is called once per frame
@@ -73,9 +74,9 @@ public class NewPlayerHealth : MonoBehaviour
             GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
+            nutrientTracker.LoseMaterials();
             SceneManager.LoadScene(0);
-            StartCoroutine(RespawnPlayer());
-            
+            //StartCoroutine(RespawnPlayer());
             deathTimer = 0;
         }
     }

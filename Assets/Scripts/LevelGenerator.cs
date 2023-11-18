@@ -16,17 +16,17 @@ public class LevelGenerator : MonoBehaviour
     [Header("Level Configuration")]
     [SerializeField] private int MaxNumberOfPieces;
     private int NumberOfPieces = 0;
+    private int recentChunkIndex = 0;
 
     void Awake()
     {
         GameObject StartPiece = Instantiate(StartChunkPrefabs[Random.Range(0,StartChunkPrefabs.Count)], transform);
         NumberOfPieces++;
-        
         List<Transform> attachPoints = new List<Transform>();
         foreach(Transform child in StartPiece.transform)
         {
-            if (child.tag.CompareTo("PlayerSpawn")==0)
-                spawnPlayer(child.transform);
+            //if (child.tag.CompareTo("PlayerSpawn")==0)
+                //spawnPlayer(child.transform);
             if (child.tag == "Attach")
                 attachPoints.Add(child);
         }
@@ -47,7 +47,18 @@ public class LevelGenerator : MonoBehaviour
 
     private GameObject GenerateChunk(Transform transform)
     {
-        GameObject Piece = Instantiate(MiddleChunkPrefabs[Random.Range(0, MiddleChunkPrefabs.Count)], transform);
+        int chunkIndex = Random.Range(0, MiddleChunkPrefabs.Count);
+        if (MiddleChunkPrefabs.Count > 1)
+        {
+            while (chunkIndex == recentChunkIndex)
+            {
+                chunkIndex = Random.Range(0, MiddleChunkPrefabs.Count);
+            }
+        }
+        recentChunkIndex = chunkIndex;
+
+        Debug.Log("Chunk Index: " + chunkIndex);
+        GameObject Piece = Instantiate(MiddleChunkPrefabs[chunkIndex], transform);
         NumberOfPieces++;
 
         List<Transform> attachPoints = new List<Transform>();
