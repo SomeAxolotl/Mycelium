@@ -42,22 +42,22 @@ public class SoundEffectManager : MonoBehaviour
         float clipVolume = 1f;
         switch (clipName)
         {
-            case "impact":
+            case "Impact":
                 clipList = impactSounds;
                 clipVolume = impactVolume;
                 break;
 
-            case "slash":
+            case "Slash":
                 clipList = slashSounds;
                 clipVolume = slashVolume;
                 break;
 
-            case "stab":
+            case "Stab":
                 clipList = stabSounds;
                 clipVolume = stabVolume;
                 break;
 
-            case "smash":
+            case "Smash":
                 clipList = smashSounds;
                 clipVolume = smashVolume;
                 break;
@@ -98,12 +98,4 @@ public class SoundEffectManager : MonoBehaviour
         Debug.Log("NO AVAILABLE AUDIO SOURCES (ADD MORE)");
         return null;
     }*/
-
-    void Update()
-    {
-        if (Input.GetKeyDown("g"))
-        {
-            PlaySound("impact", GameObject.FindWithTag("currentPlayer").transform.position);
-        }   
-    }
 }

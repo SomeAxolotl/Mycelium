@@ -9,5 +9,7 @@ public class FairyRing : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
+
+        EndSkill();
     }
 }

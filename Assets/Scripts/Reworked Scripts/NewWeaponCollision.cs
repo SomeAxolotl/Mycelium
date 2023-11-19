@@ -15,12 +15,12 @@ public class NewWeaponCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && newPlayerAttack.attacking && !enemiesHit.Contains(other.gameObject))
+        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && !enemiesHit.Contains(other.gameObject))
         {
+            enemiesHit.Add(other.gameObject);
             float dmgDealt = newPlayerAttack.dmgDealt;
             other.GetComponent<NewEnemyHealth>().EnemyTakeDamage(dmgDealt);
             HitStopManager.Instance.HitStop(dmgDealt);
-            enemiesHit.Add(other.gameObject);
         }
     }
 

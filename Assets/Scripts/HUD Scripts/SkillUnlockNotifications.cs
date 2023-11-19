@@ -15,10 +15,13 @@ public class SkillUnlockNotifications : MonoBehaviour
     [SerializeField] private TMP_Text skillUnlockText;
     [SerializeField] private Image skillUnlockIcon;
 
-    [SerializeField] private HUDSkills hudSkills;
+    [SerializeField] private GameObject skillUnlockPanel;
+
+    private HUDSkills hudSkills;
 
     void Start()
     {
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         canvasGroup.alpha = 0f;
         skillUnlockHolder.transform.localScale = Vector3.zero;
     }
@@ -72,6 +75,8 @@ public class SkillUnlockNotifications : MonoBehaviour
 
         canvasGroup.alpha = 1f;
 
+        skillUnlockPanel.SetActive(false);
+
         float popCounter = 0f;
         while (popCounter < popDuration)
         {
@@ -96,6 +101,7 @@ public class SkillUnlockNotifications : MonoBehaviour
 
         skillUnlockHolder.transform.localScale = Vector3.zero;
         canvasGroup.alpha = 1f;
+        skillUnlockPanel.SetActive(true);
     }
 
     float EaseOutQuart(float x)

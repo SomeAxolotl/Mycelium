@@ -55,5 +55,7 @@ public class FungalMight : Skill
 
         ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, rightHand);
         ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, leftHand);
+
+        EndSkill();
     }
 }
