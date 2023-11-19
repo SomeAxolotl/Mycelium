@@ -65,7 +65,7 @@ public class EnemyHealthBar : MonoBehaviour
         GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, this.gameObject.transform.rotation, parentTransform);
         TMP_Text damageText = damageTextInstance.GetComponent<TMP_Text>();
 
-        damageText.text = damage.ToString();
+        damageText.text = Mathf.RoundToInt(damage).ToString();
         yield return null;
 
         float t = 0;

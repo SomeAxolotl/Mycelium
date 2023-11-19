@@ -45,9 +45,12 @@ public class LivingCyclone : Skill
 
     IEnumerator Spin()
     {
+        NewWeaponCollision weaponCollision = currentWeapon.GetComponent<NewWeaponCollision>();
+
         SoundEffectManager.Instance.PlaySound("Smash", player.transform.position);
-        currentWeapon.GetComponent<NewWeaponCollision>().ClearEnemyList();
+        weaponCollision.ClearEnemyList();
         currentWeapon.GetComponent<Collider>().enabled = true;
+        weaponCollision.sentienceBonusDamage = finalSkillValue;
 
         float spinCounter = 0f;
         float spinDuration = baseSpinDuration / (characterStats.animatorSpeed * speedAnimationScalar);
@@ -60,5 +63,6 @@ public class LivingCyclone : Skill
             yield return new WaitForFixedUpdate();
         }
         currentWeapon.GetComponent<Collider>().enabled = false;
+        weaponCollision.sentienceBonusDamage = 0f;
     }
 }

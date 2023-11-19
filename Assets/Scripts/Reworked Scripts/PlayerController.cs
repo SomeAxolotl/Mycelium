@@ -150,7 +150,9 @@ public class PlayerController : MonoBehaviour
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         //HUD Dodge Cooldown
         hudSkills.StartCooldownUI(4, dodgeCooldown);
+        newPlayerHealth.ActivateInvincibility();
         yield return new WaitForSeconds(.15f);
+        newPlayerHealth.DeactivateInvincibility();
         activeDodge = false;
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;

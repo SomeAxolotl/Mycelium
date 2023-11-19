@@ -7,12 +7,14 @@ public class NewPlayerHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
+    bool invincible;
     float regenRate;
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     float deathTimer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,8 +50,11 @@ public class NewPlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
-        currentHealth -= dmgTaken;
-        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        if (!invincible)
+        {
+            currentHealth -= dmgTaken;
+            hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        }
     }
     public void PlayerHeal(float healAmount)
     {
@@ -97,5 +102,15 @@ public class NewPlayerHealth : MonoBehaviour
         yield return new WaitForEndOfFrame();
         GameObject.FindWithTag("currentPlayer").transform.rotation = Quaternion.identity;
         GameObject.FindWithTag("currentPlayer").transform.position = new Vector3(0, 1.4f, 0);
+    }
+
+    public void ActivateInvincibility()
+    {
+        invincible = true;
+    }
+
+    public void DeactivateInvincibility()
+    {
+        invincible = false;
     }
 }
