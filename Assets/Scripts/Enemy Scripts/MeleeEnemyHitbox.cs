@@ -5,12 +5,13 @@ using UnityEngine;
 public class MeleeEnemyHitbox : MonoBehaviour
 {
     [SerializeField] private float damage = 25f;
+    [SerializeField] private float knockbackForce = 50f;
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "currentPlayer" && GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().isInvincible == false)
+        if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
-            Debug.Log("Player Hit!");
-            GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerTakeDamage(damage);
+            collision.GetComponentInParent<NewPlayerHealth>().PlayerTakeDamage(damage);
+            collision.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
         }
     }
 }

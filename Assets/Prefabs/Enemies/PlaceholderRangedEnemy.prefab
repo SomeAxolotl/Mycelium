@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 109012924813015673}
   - component: {fileID: 5316363761280411709}
   - component: {fileID: 7285199689093252706}
+  - component: {fileID: 3892193060019765224}
   m_Layer: 6
   m_Name: PlaceholderRangedEnemy
   m_TagString: Enemy
@@ -326,6 +327,20 @@ MonoBehaviour:
   maxHealth: 60
   currentHealth: 0
   nutrientDrop: 100
+  damaged: 0
+  dirFromPlayer: {x: 0, y: 0, z: 0}
+--- !u!114 &3892193060019765224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2633798526890919984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53546f80662858e4290e0bdebf3c7f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   damaged: 0
 --- !u!1001 &4068168810054616951
 PrefabInstance:
