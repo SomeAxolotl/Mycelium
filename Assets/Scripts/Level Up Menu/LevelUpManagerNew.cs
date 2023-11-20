@@ -30,6 +30,7 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button VitalityLevelUp;
     public Button VitalityLevelDown;
     public Button Commitbutton;
+    public Button Closebutton;
     public TMP_Text CurrentLevel;
     public int PrimalSave;
     public int SpeedSave;
@@ -70,7 +71,7 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       controls = new ThirdPersonActionsAsset();
       controls.UI.MenuSwapR.performed += ctx => MenuSwap();
-      controls.UI.Close.performed += ctx => Close();
+      controls.UI.Close.performed += ctx => CloseController();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
@@ -320,8 +321,13 @@ public class LevelUpManagerNew : MonoBehaviour
       UnlockSkills();
       hudSkills.UpdateHUDIcons();
     }
+    public void CloseController()
+    {
+      Closebutton.Select();
+    }
     public void Close()
     {
+      playerController.EnableController();
       currentstats.primalLevel = PrimalSave;
       currentstats.speedLevel = SpeedSave;
       currentstats.sentienceLevel = SentienceSave;
@@ -339,7 +345,7 @@ public class LevelUpManagerNew : MonoBehaviour
       UIenable.SetActive(false);
       HUDCanvasGroup.alpha = 1;
       hudSkills.UpdateHUDIcons();
-      playerController.EnableController();
+      
 
     }
     public void PrimalStartCheck()
