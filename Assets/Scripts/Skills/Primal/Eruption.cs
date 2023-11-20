@@ -17,6 +17,8 @@ public class Eruption : Skill
     {
         DamageEnemies();
         EruptionParticles();
+        SoundEffectManager.Instance.PlaySound("Smash", player.transform.position);
+        EndSkill();
     }
 
     void DamageEnemies()

@@ -65,10 +65,7 @@ public class LevelUpManagerNew : MonoBehaviour
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
         StartCoroutine(UpdateUI());
     }
-    void Awake()
-    {
-     
-    }
+
     void OnEnable()
     {
       controls = new ThirdPersonActionsAsset();
@@ -97,6 +94,8 @@ public class LevelUpManagerNew : MonoBehaviour
        StartCoroutine(UpdateUI());
        SkillMenu.SetActive(false);
        controls.UI.Enable();   
+
+
     }
     void OnDisable()
     {
@@ -319,6 +318,7 @@ public class LevelUpManagerNew : MonoBehaviour
       playerHealth.ResetHealth();
       HUDCanvasGroup.alpha = 1;
       UnlockSkills();
+      hudSkills.UpdateHUDIcons();
     }
     public void Close()
     {
@@ -338,6 +338,8 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.UpdateLevel();
       UIenable.SetActive(false);
       HUDCanvasGroup.alpha = 1;
+      hudSkills.UpdateHUDIcons();
+      playerController.EnableController();
 
     }
     public void PrimalStartCheck()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class NewWeaponCollision : MonoBehaviour
 {
     NewPlayerAttack newPlayerAttack;
+    public float sentienceBonusDamage = 0f;
 
     List<GameObject> enemiesHit = new List<GameObject>();
 
@@ -15,12 +16,14 @@ public class NewWeaponCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && newPlayerAttack.attacking && !enemiesHit.Contains(other.gameObject))
+        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && !enemiesHit.Contains(other.gameObject))
         {
-            float dmgDealt = newPlayerAttack.dmgDealt;
+            enemiesHit.Add(other.gameObject);
+            float dmgDealt = newPlayerAttack.dmgDealt + sentienceBonusDamage;
             other.GetComponent<NewEnemyHealth>().EnemyTakeDamage(dmgDealt);
             HitStopManager.Instance.HitStop(dmgDealt);
-            enemiesHit.Add(other.gameObject);
+            //Sound effect
+            SoundEffectManager.Instance.PlaySound("Impact", transform.position);
         }
     }
 

@@ -17,5 +17,7 @@ public class SpawnPoint : MonoBehaviour
 
         currentPlayer.transform.position = transform.position;
         currentPlayer.transform.rotation = transform.rotation;
+
+        GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().EnableController();
     }
 }
