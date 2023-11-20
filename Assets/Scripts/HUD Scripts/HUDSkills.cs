@@ -40,6 +40,10 @@ public class HUDSkills : MonoBehaviour
     private List<Sprite> spriteList = new List<Sprite>();
     [SerializeField] private Sprite noSkillSprite;
 
+    [SerializeField] float popSizeScalar = 1.5f;
+    [SerializeField] float popDuration = 0.5f;
+    [SerializeField] float deflateDuration = 0.5f;
+
     void Start()
     {
         dodgeCooldownBackground = GameObject.Find("DodgeCooldownBackground").GetComponent<Image>();
@@ -134,25 +138,31 @@ public class HUDSkills : MonoBehaviour
     IEnumerator SkillCooldown(int slot, float cooldown)
     {
         Image cooldownBackground = speciesCooldownBackground;
+        Image skillIcon = speciesIcon;
         switch (slot)
         {
             //Skills
             case 0:
                 cooldownBackground = speciesCooldownBackground;
+                skillIcon = speciesIcon;
                 break;
             case 1:
                 cooldownBackground = skill1CooldownBackground;
+                skillIcon = skill1Icon;
                 break;
             case 2:
                 cooldownBackground = skill2CooldownBackground;
+                skillIcon = skill2Icon;
                 break;
 
             //Attack and Dodge
             case 3:
                 cooldownBackground = hitCooldownBackground;
+                skillIcon = hitIcon;
                 break;
             case 4:
                 cooldownBackground = dodgeCooldownBackground;
+                skillIcon = dodgeIcon;
                 break;
         }
 
@@ -164,7 +174,35 @@ public class HUDSkills : MonoBehaviour
             yield return null;
         }
 
-        yield break;
+        StartCoroutine(SkillCooldownIconPop(skillIcon.gameObject));
+    }
+
+    IEnumerator SkillCooldownIconPop(GameObject icon)
+    {
+        Vector3 originalSize = icon.transform.localScale;
+        Vector3 popSize = originalSize * popSizeScalar;
+
+        float popCounter = 0f;
+        while (popCounter < popDuration)
+        {
+            float popLerp = EaseOutQuart(popCounter / popDuration);
+            icon.transform.localScale = Vector3.Lerp(originalSize, popSize, popLerp);
+
+            popCounter += Time.deltaTime;
+            yield return null;  
+        }
+        icon.transform.localScale = popSize;
+
+        float deflateCounter = 0f;
+        while (deflateCounter < deflateDuration)
+        {
+            float deflateLerp = deflateCounter / deflateDuration;
+            icon.transform.localScale = Vector3.Lerp(popSize, originalSize, deflateLerp);
+
+            deflateCounter += Time.deltaTime;
+            yield return null;  
+        }
+        icon.transform.localScale = originalSize;
     }
 
     public List<Sprite> GetAllSkillSprites()
@@ -181,6 +219,11 @@ public class HUDSkills : MonoBehaviour
     public Sprite GetSkillSprite(string skillName)
     {
         return NameToSkillSprite(skillName);
+    }
+
+    float EaseOutQuart(float x)
+    {
+        return 1f - Mathf.Pow(1f - x, 4);
     }
 
     /*void Update()
