@@ -80,7 +80,7 @@ public class NewPlayerHealth : MonoBehaviour
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             nutrientTracker.LoseMaterials();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
             //StartCoroutine(RespawnPlayer());
             deathTimer = 0;
         }
