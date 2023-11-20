@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -54,8 +55,6 @@ public class PlayerController : MonoBehaviour
         gravity = new Vector3(0f, gravityForce, 0f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        //HUDSkills Reference
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
     }
 
@@ -63,7 +62,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SpeedControl();
-        //Debug.Log("velocity: " + rb.velocity);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -74,16 +72,6 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("Dodging");
             StartCoroutine("IFrames");
         }
-        
-        //Enabling/Disabling controller on events instead of an update conditional
-        /*if (newPlayerAttack.attacking == true || newPlayerHealth.currentHealth <= 0)
-        {
-            playerActionsAsset.Player.Disable();
-        }
-        else
-        {
-            playerActionsAsset.Player.Enable();
-        }*/
 
         if (subspecies_skill.triggered && canAct == true)
         {
@@ -217,5 +205,21 @@ public class PlayerController : MonoBehaviour
     {
         canAct = false;
         playerActionsAsset.Player.Disable();
+    }
+    public void Knockback(GameObject obj, float knockbackForce)
+    {
+        isInvincible = true;
+        Vector3 dirFromobject = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(obj.transform.position.x, 0f, obj.transform.position.z)).normalized;
+        StartCoroutine(StartKnockback(dirFromobject, knockbackForce));
+    }
+    IEnumerator StartKnockback(Vector3 direction, float force)
+    {
+        Vector3 knockbackForce = direction * force;
+        knockbackForce += Vector3.up * 1.5f;
+        rb.AddForce(knockbackForce, ForceMode.Impulse);
+        DisableController();
+        yield return new WaitForSeconds(.15f);
+        EnableController();
+        isInvincible = false;
     }
 }

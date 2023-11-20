@@ -9,33 +9,25 @@ public class NewEnemyHealth : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
     public int nutrientDrop;
-    public bool damaged;
     float deathTimer;
-    float flightTimer;
     Rigidbody rb;
-    List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
+    EnemyHealthBar enemyHealthBar;
     Transform player;
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
     Collider thisCollider;
-
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
-        damaged = false;
         rb = GetComponent<Rigidbody>();
+        enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
         player = GameObject.FindWithTag("currentPlayer").transform;
         enemyNavigation = GetComponent<EnemyNavigation>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         thisCollider = GetComponent<Collider>();
         rb.isKinematic = true;
         this.transform.parent = null;
-
-        foreach (BaseEnemyHealthBar enemyHealthBar in GetComponentsInChildren<BaseEnemyHealthBar>())
-        {
-            enemyHealthBars.Add(enemyHealthBar);
-        }
     }
 
     // Update is called once per frame
@@ -45,30 +37,17 @@ public class NewEnemyHealth : MonoBehaviour
         {
             Death();
         }
-        if(damaged)
-        {
-            flightTimer += Time.deltaTime;
-
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, 1.05f) && flightTimer > 0)
-            {
-                damaged = false;
-                flightTimer = 0;
-                navMeshAgent.enabled = true;
-                enemyNavigation.enabled = true;
-                rb.isKinematic = true;
-                Debug.Log("works");
-
-            }
-        }
     }
     void Death()
     {
-        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+        if(gameObject.GetComponent<MeleeEnemyAttack>() != null)
         {
-            enemyHealthBar.DefeatEnemy();
+            gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
         }
-
+        else if (gameObject.GetComponent<RangedEnemyShoot>() != null)
+        {
+            gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
+        }
         deathTimer += Time.deltaTime;
         gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.black);
         thisCollider.enabled = false;
@@ -79,34 +58,16 @@ public class NewEnemyHealth : MonoBehaviour
         if(deathTimer >= 2f)
         {
             GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
-            //this.gameObject.SetActive(false);
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
     public void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
-        damaged = true;
-        enemyNavigation.enabled = false;
-        navMeshAgent.enabled = false;
-        rb.isKinematic = false;
-        Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-        StartCoroutine(Knockback(dirFromPlayer, 7f));
-
-        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
-        {
-            enemyHealthBar.UpdateEnemyHealth(currentHealth, maxHealth);
-            enemyHealthBar.DamageNumber(dmgTaken);
-        }
+        enemyHealthBar.UpdateEnemyHealth();
+        enemyHealthBar.DamageNumber(dmgTaken);
 
         //Particle effect for blood
         ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
-    }
-    IEnumerator Knockback(Vector3 direction, float force)
-    {
-        yield return new WaitUntil(() => !enemyNavigation.enabled && !navMeshAgent.enabled);
-        Vector3 knockbackForce = direction * force;
-        knockbackForce += Vector3.up * 2f;
-        rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

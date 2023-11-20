@@ -13,6 +13,7 @@ public class NewPlayerHealth : MonoBehaviour
     HUDHealth hudHealth;
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
+    PlayerController playerController;
     float deathTimer;
 
 
@@ -26,6 +27,7 @@ public class NewPlayerHealth : MonoBehaviour
         InvokeRepeating("Regen", 1f, 1f);
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -40,8 +42,6 @@ public class NewPlayerHealth : MonoBehaviour
             deathTimer += Time.deltaTime;
             Death();
         }
-        //Debug.Log("Player Health: " +  currentHealth);
-        //Debug.Log("timer" + deathTimer);
     }
     public void GetHealthStats()
     {
@@ -69,7 +69,8 @@ public class NewPlayerHealth : MonoBehaviour
     {
         //Debug.Log("you died!");
         swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.Rotate(new Vector3(0, 5f, 0));
-        
+        playerController.DisableController();
+        playerController.isInvincible = true;
         if (deathTimer >= 3f)
         {
             currentHealth = maxHealth;
@@ -83,6 +84,8 @@ public class NewPlayerHealth : MonoBehaviour
             SceneManager.LoadScene(1);
             //StartCoroutine(RespawnPlayer());
             deathTimer = 0;
+            playerController.isInvincible = false;
+            playerController.EnableController();
         }
     }
     void Regen()
