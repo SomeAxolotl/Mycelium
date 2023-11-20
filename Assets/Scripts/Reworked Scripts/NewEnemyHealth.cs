@@ -11,7 +11,7 @@ public class NewEnemyHealth : MonoBehaviour
     public int nutrientDrop;
     float deathTimer;
     Rigidbody rb;
-    EnemyHealthBar enemyHealthBar;
+    List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     Transform player;
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
@@ -21,13 +21,17 @@ public class NewEnemyHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
-        enemyHealthBar = GetComponentInChildren<EnemyHealthBar>();
         player = GameObject.FindWithTag("currentPlayer").transform;
         enemyNavigation = GetComponent<EnemyNavigation>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         thisCollider = GetComponent<Collider>();
         rb.isKinematic = true;
         this.transform.parent = null;
+
+        foreach (BaseEnemyHealthBar enemyHealthBar in GetComponentsInChildren<BaseEnemyHealthBar>())
+        {
+            enemyHealthBars.Add(enemyHealthBar);
+        }
     }
 
     // Update is called once per frame
@@ -40,6 +44,11 @@ public class NewEnemyHealth : MonoBehaviour
     }
     void Death()
     {
+        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+        {
+            enemyHealthBar.DefeatEnemy();
+        }
+
         if(gameObject.GetComponent<MeleeEnemyAttack>() != null)
         {
             gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
@@ -64,8 +73,12 @@ public class NewEnemyHealth : MonoBehaviour
     public void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
-        enemyHealthBar.UpdateEnemyHealth();
-        enemyHealthBar.DamageNumber(dmgTaken);
+
+        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+        {
+            enemyHealthBar.UpdateEnemyHealth(currentHealth, maxHealth);
+            enemyHealthBar.DamageNumber(dmgTaken);
+        }
 
         //Particle effect for blood
         ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
