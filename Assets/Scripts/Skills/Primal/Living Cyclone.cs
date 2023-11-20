@@ -13,6 +13,7 @@ public class LivingCyclone : Skill
     public override void DoSkill()
     {
         playerController.EnableController();
+        playerController.canAct = false;
         currentWeapon = GameObject.FindWithTag("currentWeapon");
 
         StartCoroutine(ExtendArm());
