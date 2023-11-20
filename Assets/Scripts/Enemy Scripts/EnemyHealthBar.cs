@@ -4,19 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class EnemyHealthBar : MonoBehaviour
+public class EnemyHealthBar : BaseEnemyHealthBar
 {
-    private NewEnemyHealth newEnemyHealth;
-
-    [SerializeField][Tooltip("Color of health bar when it's 66% to 100%")] private Color fullColor;
-    [SerializeField][Tooltip("Color of health bar when it's 33% to 66%")] private Color halfColor;
-    [SerializeField][Tooltip("Color of health bar when it's 0% to 33%")] private Color lowColor;
-
-    private float currentHealth;
-    private float maxHealth;
-
-    private Image enemyHealthBar;
-
     [SerializeField] private Canvas enemyHealthCanvas;
     [SerializeField] private GameObject damageTextObject;
     private TMP_Text damageText;
@@ -29,15 +18,10 @@ public class EnemyHealthBar : MonoBehaviour
     {
         mainCamera = Camera.main;
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;
-        newEnemyHealth = GetComponentInParent<NewEnemyHealth>();
-        enemyHealthBar = GetComponent<Image>();
     }
 
-    public void UpdateEnemyHealth()
+    public override void UpdateEnemyHealth(float currentHealth, float maxHealth)
     {
-        currentHealth = newEnemyHealth.currentHealth;
-        maxHealth = newEnemyHealth.maxHealth;
-
         float healthRatio = currentHealth / maxHealth;
         enemyHealthBar.fillAmount = healthRatio;
         if (healthRatio > 0.66)
@@ -54,15 +38,16 @@ public class EnemyHealthBar : MonoBehaviour
         }
     }
 
-    public void DamageNumber(float damage)
+    public override void DamageNumber(float damage)
     {
         StartCoroutine("DamageNumberAnimation", damage);
     }
 
     IEnumerator DamageNumberAnimation(float damage)
     {
-        Transform parentTransform = this.gameObject.transform.parent;
-        GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, this.gameObject.transform.rotation, parentTransform);
+        Debug.Log("damage number");
+        Transform parentTransform = transform.GetChild(0);
+        GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, transform.GetChild(0).rotation, parentTransform);
         TMP_Text damageText = damageTextInstance.GetComponent<TMP_Text>();
 
         damageText.text = Mathf.RoundToInt(damage).ToString();

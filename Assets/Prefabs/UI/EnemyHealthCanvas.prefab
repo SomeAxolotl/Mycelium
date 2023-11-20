@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 2379600572885794958}
   - component: {fileID: 7725002319572029577}
   - component: {fileID: 1523114323655028121}
+  - component: {fileID: 332478034938342554}
   m_Layer: 5
   m_Name: EnemyHealthCanvas
   m_TagString: Untagged
@@ -317,6 +318,28 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &332478034938342554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6072017792861968677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf1d2933c9782242b97619c88751893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fullColor: {r: 0.3019608, g: 0.7176471, b: 0.21960784, a: 1}
+  halfColor: {r: 0.7647059, g: 0.7058824, b: 0.1764706, a: 1}
+  lowColor: {r: 0.69803923, g: 0.1764706, b: 0.1764706, a: 1}
+  enemyHealthBar: {fileID: 1754235543454925252}
+  enemyHealthCanvas: {fileID: 2379600572885794958}
+  damageTextObject: {fileID: 3696308095157657404, guid: 9794835a2fb1c004d89023cdba1be3b9,
+    type: 3}
+  damageTextAnchorRectTransform: {fileID: 1305611293441578470}
+  damageTextHeightScalar: 0.75
+  floatingTime: 1
 --- !u!1 &9159057358606679835
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +351,6 @@ GameObject:
   - component: {fileID: 6235303671151599195}
   - component: {fileID: 369938250985309751}
   - component: {fileID: 1754235543454925252}
-  - component: {fileID: 2546762311950883916}
   m_Layer: 5
   m_Name: EnemyHealthBar
   m_TagString: Untagged
@@ -394,24 +416,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2546762311950883916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9159057358606679835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cf1d2933c9782242b97619c88751893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fullColor: {r: 0.3019608, g: 0.7176471, b: 0.21960784, a: 1}
-  halfColor: {r: 0.7647059, g: 0.7058824, b: 0.1764706, a: 1}
-  lowColor: {r: 0.69803923, g: 0.1764706, b: 0.1764706, a: 1}
-  enemyHealthCanvas: {fileID: 2379600572885794958}
-  damageTextObject: {fileID: 3696308095157657404, guid: 9794835a2fb1c004d89023cdba1be3b9,
-    type: 3}
-  damageTextAnchorRectTransform: {fileID: 1305611293441578470}
-  damageTextHeightScalar: 0.75
-  floatingTime: 1
