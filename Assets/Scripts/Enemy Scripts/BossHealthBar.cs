@@ -75,14 +75,6 @@ public class BossHealthBar : BaseEnemyHealthBar
         bossHealthHolder.transform.localScale = new Vector3(0f, bossHealthHolder.transform.localScale.y, bossHealthHolder.transform.localScale.z);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            EncounterEnemy();
-        }
-    }
-
     float EaseOutQuart(float x)
     {
         return 1f - Mathf.Pow(1f - x, 4);
