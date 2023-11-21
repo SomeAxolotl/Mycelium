@@ -8,8 +8,6 @@ public class NewPlayerAttack : MonoBehaviour
     private ThirdPersonActionsAsset playerActionsAsset;
     private InputAction attack;
     private SwapCharacter swapCharacter;
-    bool canAttack = true;
-    public bool attacking = false;
     public float dmgDealt;
     public float atkCooldown;
     private float fungalMightBonus = 1f;
@@ -19,6 +17,10 @@ public class NewPlayerAttack : MonoBehaviour
     private HUDSkills hudSkills;
     Animator animator;
     GameObject player;
+    PlayerController playerController;
+
+    public string attackAnimationName = "Slash";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +31,13 @@ public class NewPlayerAttack : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindWithTag("currentPlayer");
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attack.triggered && canAttack)
+        if (attack.triggered && playerController.canAct == true)
         {
             StartAttack();
         }
@@ -42,7 +45,7 @@ public class NewPlayerAttack : MonoBehaviour
 
     private void StartAttack()
     {
-        if (!attacking)
+        if (playerController.canAct == true)
         {
             GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
             NewWeaponCollision weaponCollision = curWeapon.GetComponent<NewWeaponCollision>();
@@ -67,12 +70,11 @@ public class NewPlayerAttack : MonoBehaviour
 
     private IEnumerator Attack(GameObject curWeapon)
     {
-        attacking = true;
+        playerController.DisableController();
         curWeapon.GetComponent<Collider>().enabled = true;
 
-        // play slash animation
-        animator.Play("Slash");
-        SoundEffectManager.Instance.PlaySound("slash", curWeapon.transform.position);
+        animator.Play(attackAnimationName);
+        SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
 
 
         // play smash animation
@@ -87,11 +89,9 @@ public class NewPlayerAttack : MonoBehaviour
         yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));
-        attacking = false;
+        playerController.EnableController();
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
-
-        //Clear the list of enemies struck
 
     }
     private IEnumerator Lunge()

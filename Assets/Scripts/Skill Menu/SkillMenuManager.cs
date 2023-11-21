@@ -19,8 +19,12 @@ public class SkillMenuManager : MonoBehaviour
     ThirdPersonActionsAsset controls;
     private CanvasGroup HUDCanvasGroup;
     private HUDSkills hudSkills;
+    public SkillManager skillmanager;
+    public GameObject Skill1Image;
+    public GameObject Skill2Image;
+    public GameObject Skill3Image;
     private PlayerController playerController;
-
+    
     void Start()
     {
         
@@ -41,7 +45,8 @@ public class SkillMenuManager : MonoBehaviour
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-
+        SpriteUpdate();
+        
     }
     void OnDisable()
     {
@@ -51,12 +56,11 @@ public class SkillMenuManager : MonoBehaviour
     {
         LevelUI.SetActive(true);
     }
-    private void Update()
+
+   
+    void Update()
     {
-        if (gameObject != null)
-        {
-            playerController.DisableController();
-        }
+        
     }
     public void Skill1Select()
     {
@@ -73,18 +77,193 @@ public class SkillMenuManager : MonoBehaviour
         if(Skill1ListEnable.activeInHierarchy == true)
         {
             Skill1ListEnable.SetActive(false);
-            Skill1.Select();
+            Skill2.Select();
         }
         else if (Skill2ListEnable.activeInHierarchy == true)
         {
             Skill2ListEnable.SetActive(false);
-            Skill2.Select();
+            Skill3.Select();
         }
         else
         {
             UIenable.SetActive(false);
-            HUDCanvasGroup.alpha = 1;
+            LevelUI.SetActive(true);
         }
     }
 
+    //Set Eruption Skill slot 1 or 2
+    public void EruptionsSlot1()
+    {
+        skillmanager.SetSkill("Eruption", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Eruption", 1);
+        SpriteUpdate();
+    }
+     public void EruptionsSlot2()
+    {
+        skillmanager.SetSkill("Eruption", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Eruption", 2);
+        SpriteUpdate();
+    }
+    
+    //Set Living Cyclone Skill slot 1 or 2
+    public void LivingCycloneSlot1()
+    {
+        skillmanager.SetSkill("Living Cyclone", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Living Cyclone", 1);
+        SpriteUpdate();
+    }
+     public void LivingCycloneSlot2()
+    {
+        skillmanager.SetSkill("Living Cyclone", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Living Cyclone", 2);
+        SpriteUpdate();
+    }
+    
+    //Set Relentless Fury Skill slot 1 or 2
+    public void RelentlessFurySlot1()
+    {
+        skillmanager.SetSkill("Relentless Fury", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Relentless Fury", 1);
+        SpriteUpdate();
+    }
+     public void RelentlessFurySlot2()
+    {
+        skillmanager.SetSkill("Relentless Fury", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Relentless Fury", 2);
+        SpriteUpdate();
+    }
+
+    //Set Spine Shot skill slot 1 or 2  
+    public void SpineShotSlot1()
+    {
+        skillmanager.SetSkill("Spineshot", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Spineshot", 1);
+        SpriteUpdate();
+    }
+    public void SpineShotSlot2()
+    {
+        skillmanager.SetSkill("Spineshot", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Spineshot", 2);
+        SpriteUpdate();
+    }
+
+    //Set Undergrowth Skill slot 1 or 2
+     public void UndergrowthSlot1()
+    {
+        skillmanager.SetSkill("Undergrowth", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Undergrowth", 1);
+        SpriteUpdate();
+    }
+     public void UndergrowthSlot2()
+    {
+        skillmanager.SetSkill("Undergrowth", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Undergrowth", 2);
+        SpriteUpdate();
+    }
+
+    //Set Unstable Puff Ball Skill slot 1 or 2
+     public void UnstablePuffballSlot1()
+    {
+        skillmanager.SetSkill("UnstablePuffball", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("UnstablePuffball", 1);
+        SpriteUpdate();
+    }
+      public void UnstablePuffballSlot2()
+    {
+        skillmanager.SetSkill("UnstablePuffball", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("UnstablePuffball", 2);
+        SpriteUpdate();
+    }
+
+    //Sets blitz skill for slot 1 or 2
+     public void BlitzSlot1()
+    {
+        skillmanager.SetSkill("Blitz", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Blitz", 1);
+        SpriteUpdate();
+    }
+    public void BlitzSlot2()
+    {
+        skillmanager.SetSkill("Blitz", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Blitz", 2);
+        SpriteUpdate();
+    }
+
+    //Sets Mycotoxin for slot 1 or 2
+     public void MycotoxinsSlot1()
+    {
+        skillmanager.SetSkill("Mycotoxins", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Mycotoxins", 1);
+        SpriteUpdate();
+    }
+     public void MycotoxinsSlot2()
+    {
+        skillmanager.SetSkill("Mycotoxins", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Mycotoxins", 2);
+        SpriteUpdate();
+    }
+
+    //Sets Trophic Cascade for slot 1 or 2
+    public void TrophicCascadeSlot1()
+    {
+        skillmanager.SetSkill("TrophicCascade", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("TrophicCascade", 1);
+        SpriteUpdate();
+    }
+    public void TrophicCascadeSlot2()
+    {
+        skillmanager.SetSkill("TrophicCascade", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("TrophicCascade", 2);
+        SpriteUpdate();
+    }
+
+    //Set Defense Mechanism for slot1 or 2
+     public void DefenseMechanismSlot1()
+    {
+        skillmanager.SetSkill("DefenseMechanism", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("DefenseMechanism", 1);
+        SpriteUpdate();
+    }
+         public void DefenseMechanismSlot2()
+    {
+        skillmanager.SetSkill("DefenseMechanism", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("DefenseMechanism", 2);
+        SpriteUpdate();
+    }
+
+    //Set leeching spores for slot 1 or 2
+    public void LeechingSporeSlot1()
+    {
+        skillmanager.SetSkill("LeechingSpore", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("LeechingSpore", 1);
+        SpriteUpdate();
+    }
+    public void LeechingSporeSlot2()
+    {
+        skillmanager.SetSkill("LeechingSpore", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("LeechingSpore", 2);
+        SpriteUpdate();
+    }
+
+    //Set Spore burst for slot 1 or 2
+    public void SporeBurstSlot1()
+    {
+        skillmanager.SetSkill("Sporeburst", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Sporeburst", 1);
+        SpriteUpdate();
+    }
+     public void SporeBurstSlot2()
+    {
+        skillmanager.SetSkill("Sporeburst", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("Sporeburst", 2);
+        SpriteUpdate();
+    }
+
+    public void SpriteUpdate()
+    {
+        List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
+        Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
+        Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
+        Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
+    }
 }

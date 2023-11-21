@@ -21,7 +21,7 @@ public class LevelEnd : MonoBehaviour
             Destroy(weapon);
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
-            SceneManager.LoadScene("HubWorldPlaceholder");
+            SceneManager.LoadScene(1);
         }
         //other.gameObject.transform.position = new Vector3(0, 1.4f, 0f);
     }

@@ -65,6 +65,21 @@ public class HUDSkills : MonoBehaviour
         spriteList.AddRange(Resources.LoadAll<Sprite>("PlaceholderIcons"));
     }
 
+    public void UpdateHUDIcons()
+    {
+        StartCoroutine(UpdateHUDIconsCoroutine());
+    }
+
+    IEnumerator UpdateHUDIconsCoroutine()
+    {
+        yield return new WaitForSeconds(0.25f);
+        GameObject player = GameObject.FindWithTag("currentPlayer");
+        Transform skillLoadout = player.transform.Find("SkillLoadout");
+        ChangeSkillIcon(skillLoadout.GetChild(0).gameObject.name, 0);
+        ChangeSkillIcon(skillLoadout.GetChild(1).gameObject.name, 1);
+        ChangeSkillIcon(skillLoadout.GetChild(2).gameObject.name, 2);
+    }
+
     public void ChangeSkillIcon(string skillName, int slot)
     {
         Image skillIcon = speciesIcon;

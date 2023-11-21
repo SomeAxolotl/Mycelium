@@ -9,5 +9,7 @@ public class Mycotoxins : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
+
+        EndSkill();
     }
 }

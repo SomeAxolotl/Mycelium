@@ -7,12 +7,15 @@ public class NewPlayerHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
+    bool invincible;
     float regenRate;
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
+    PlayerController playerController;
     float deathTimer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,7 @@ public class NewPlayerHealth : MonoBehaviour
         InvokeRepeating("Regen", 1f, 1f);
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -38,8 +42,6 @@ public class NewPlayerHealth : MonoBehaviour
             deathTimer += Time.deltaTime;
             Death();
         }
-        //Debug.Log("Player Health: " +  currentHealth);
-        //Debug.Log("timer" + deathTimer);
     }
     public void GetHealthStats()
     {
@@ -48,8 +50,11 @@ public class NewPlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
-        currentHealth -= dmgTaken;
-        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        if (!invincible)
+        {
+            currentHealth -= dmgTaken;
+            hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        }
     }
     public void PlayerHeal(float healAmount)
     {
@@ -64,7 +69,8 @@ public class NewPlayerHealth : MonoBehaviour
     {
         //Debug.Log("you died!");
         swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.Rotate(new Vector3(0, 5f, 0));
-        
+        playerController.DisableController();
+        playerController.isInvincible = true;
         if (deathTimer >= 3f)
         {
             currentHealth = maxHealth;
@@ -75,9 +81,11 @@ public class NewPlayerHealth : MonoBehaviour
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             nutrientTracker.LoseMaterials();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
             //StartCoroutine(RespawnPlayer());
             deathTimer = 0;
+            playerController.isInvincible = false;
+            playerController.EnableController();
         }
     }
     void Regen()
@@ -97,5 +105,15 @@ public class NewPlayerHealth : MonoBehaviour
         yield return new WaitForEndOfFrame();
         GameObject.FindWithTag("currentPlayer").transform.rotation = Quaternion.identity;
         GameObject.FindWithTag("currentPlayer").transform.position = new Vector3(0, 1.4f, 0);
+    }
+
+    public void ActivateInvincibility()
+    {
+        invincible = true;
+    }
+
+    public void DeactivateInvincibility()
+    {
+        invincible = false;
     }
 }

@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 15
+  knockbackForce: 25
 --- !u!1 &5761403436736989851
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +137,7 @@ GameObject:
   - component: {fileID: 7989141921853057626}
   - component: {fileID: 3326567239153519941}
   - component: {fileID: 5809918956106411819}
+  - component: {fileID: 3933151454412560280}
   m_Layer: 6
   m_Name: PlaceholderMeleeEnemy
   m_TagString: Enemy
@@ -341,6 +343,18 @@ MonoBehaviour:
   maxHealth: 80
   currentHealth: 0
   nutrientDrop: 100
+--- !u!114 &3933151454412560280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5761403436736989851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53546f80662858e4290e0bdebf3c7f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   damaged: 0
 --- !u!1 &6749607965155137778
 GameObject:

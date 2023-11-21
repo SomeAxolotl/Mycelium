@@ -30,6 +30,7 @@ public class LevelUpManagerNew : MonoBehaviour
     public Button VitalityLevelUp;
     public Button VitalityLevelDown;
     public Button Commitbutton;
+    public Button Closebutton;
     public TMP_Text CurrentLevel;
     public int PrimalSave;
     public int SpeedSave;
@@ -50,12 +51,12 @@ public class LevelUpManagerNew : MonoBehaviour
     private PlayerController playerController;
     public NutrientTracker currentnutrients;
     private SkillManager skillManager;
-    //public GameObject SkillMenu;
+    public GameObject SkillMenu;
     private HUDSkills hudSkills;
     ThirdPersonActionsAsset controls;
-   
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
+   
   
     void Start()
     {
@@ -65,14 +66,12 @@ public class LevelUpManagerNew : MonoBehaviour
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
         StartCoroutine(UpdateUI());
     }
-    void Awake()
-    {
-     
-    }
+
     void OnEnable()
     {
       controls = new ThirdPersonActionsAsset();
-      //controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      controls.UI.Close.performed += ctx => CloseController();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
@@ -94,21 +93,16 @@ public class LevelUpManagerNew : MonoBehaviour
        VitalityStartCheck();
        SentienceStartCheck();
        StartCoroutine(UpdateUI());
-       //SkillMenu.SetActive(false);
+       SkillMenu.SetActive(false);
        controls.UI.Enable();   
+
+
     }
     void OnDisable()
     {
       controls.UI.Disable();
     }
-    private void Update()
-    {
-        if (gameObject != null)
-        {
-            playerController.DisableController();
-        }
-    }
-    IEnumerator UpdateUI()
+     IEnumerator UpdateUI()
     {
         
         yield return null;       
@@ -126,10 +120,24 @@ public class LevelUpManagerNew : MonoBehaviour
         //skilldam.text = currentstats.skillDmg.ToString();
         //skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
     }
-    /*void MenuSwap()
+    void MenuSwap()
     {
+      currentstats.primalLevel = PrimalSave;
+      currentstats.speedLevel = SpeedSave;
+      currentstats.sentienceLevel = SentienceSave;
+      currentstats.vitalityLevel = VitalitySave;
+      currentnutrients.currentNutrients = nutrientsSave;
+      currentstats.baseHealth = healthsave;
+      currentstats.baseRegen = regensave;
+      currentstats.moveSpeed = movespeedsave;
+      currentstats.primalDmg = damagesave;
+      //currentstats.skillDmg = skilldmgsave;
+      //currentstats.atkCooldownBuff = cdrsave;
+      currentstats.totalLevel = totalLevelsave;
+      currentstats.levelUpCost = levelupsave;
+      currentstats.UpdateLevel();
       SkillMenu.SetActive(true);
-    }*/
+    }
 
     public void PrimalUP()
     {
@@ -147,7 +155,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalCheck()
     {
-        if(currentstats.primalLevel == 1)
+        if(currentstats.primalLevel == PrimalSave)
         {
         PrimalLevelDown.interactable = false;
         PrimalLevelUp.Select();
@@ -185,7 +193,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SpeedCheck()
     {
-        if(currentstats.speedLevel == 1)
+        if(currentstats.speedLevel == SpeedSave)
         {
         SpeedLevelDown.interactable = false;
         SpeedLevelUp.Select();
@@ -240,7 +248,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SentienceCheck()
     {
-        if(currentstats.sentienceLevel == 1)
+        if(currentstats.sentienceLevel == SentienceSave)
         {
         SentienceLevelDown.interactable = false;
         SentienceLevelUp.Select();
@@ -278,7 +286,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void VitalityCheck()
     {
-        if(currentstats.vitalityLevel == 1)
+        if(currentstats.vitalityLevel == VitalitySave)
         {
         VitalityLevelDown.interactable = false;
         VitalityLevelUp.Select();
@@ -302,14 +310,24 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void Commit()
     {
-         UIenable.SetActive(false);
-         playerController.EnableController();
-         playerHealth.ResetHealth();
-         HUDCanvasGroup.alpha = 1;
-         UnlockSkills();
+      PrimalSave = currentstats.primalLevel;
+      SpeedSave = currentstats.speedLevel;
+      SentienceSave = currentstats.sentienceLevel;
+      VitalitySave = currentstats.vitalityLevel;
+      UIenable.SetActive(false);
+      playerController.EnableController();
+      playerHealth.ResetHealth();
+      HUDCanvasGroup.alpha = 1;
+      UnlockSkills();
+      hudSkills.UpdateHUDIcons();
+    }
+    public void CloseController()
+    {
+      Closebutton.Select();
     }
     public void Close()
     {
+      playerController.EnableController();
       currentstats.primalLevel = PrimalSave;
       currentstats.speedLevel = SpeedSave;
       currentstats.sentienceLevel = SentienceSave;
@@ -326,11 +344,13 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.UpdateLevel();
       UIenable.SetActive(false);
       HUDCanvasGroup.alpha = 1;
+      hudSkills.UpdateHUDIcons();
+      
 
     }
     public void PrimalStartCheck()
     {
-        if(currentstats.primalLevel == 1)
+        if(currentstats.primalLevel == PrimalSave)
         {
         PrimalLevelDown.interactable = false;
         }
@@ -341,7 +361,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SpeedStartCheck()
     {
-        if(currentstats.speedLevel == 1)
+        if(currentstats.speedLevel == SpeedSave)
         {
         SpeedLevelDown.interactable = false;
         }
@@ -352,7 +372,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SentienceStartCheck()
     {
-        if(currentstats.sentienceLevel == 1)
+        if(currentstats.sentienceLevel == SentienceSave)
         {
         SentienceLevelDown.interactable = false;
         }
@@ -363,7 +383,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
      public void VitalityStartCheck()
     {
-        if(currentstats.vitalityLevel == 1)
+        if(currentstats.vitalityLevel == VitalitySave)
         {
         VitalityLevelDown.interactable = false;
         }
@@ -373,30 +393,26 @@ public class LevelUpManagerNew : MonoBehaviour
         }
     }
 
+    
     void UnlockSkills()
     {
       newlyUnlockedSkills.Clear();
-
       int currentStat = currentstats.primalLevel;
       UnlockConditional("Eruption", currentStat, 5);
       UnlockConditional("LivingCyclone", currentStat, 10);
       UnlockConditional("RelentlessFury", currentStat, 15);
-
       currentStat = currentstats.speedLevel;
       UnlockConditional("Blitz", currentStat, 5);
       UnlockConditional("TrophicCascade", currentStat, 10);
       UnlockConditional("Mycotoxins", currentStat, 15);
-
       currentStat = currentstats.sentienceLevel;
       UnlockConditional("Spineshot", currentStat, 5);
       UnlockConditional("UnstablePuffball", currentStat, 10);
       UnlockConditional("Undergrowth", currentStat, 15);
-
       currentStat = currentstats.vitalityLevel;
       UnlockConditional("LeechingSpore", currentStat, 5);
       UnlockConditional("Sporeburst", currentStat, 10);
       UnlockConditional("DefenseMechanism", currentStat, 15);
-
       if (newlyUnlockedSkills.Count == 1)
       {
         skillUnlockNotifications.NotifySkillUnlock(newlyUnlockedSkills[0], hudSkills.GetSkillSprite(newlyUnlockedSkills[0]));
@@ -406,7 +422,6 @@ public class LevelUpManagerNew : MonoBehaviour
         skillUnlockNotifications.NotifyMultipleSkillUnlocks(newlyUnlockedSkills.Count);
       }
     }
-
     void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)
     {
       if (currentStatLevel >= targetStatLevel && currentstats.skillUnlocks[skillName] == false)

@@ -56,7 +56,9 @@ MonoBehaviour:
   moveSpeed: 0
   gravityForce: -20
   playerCamera: {fileID: 0}
+  looking: 1
   isInvincible: 0
+  canAct: 1
   dodgeCooldown: 1
   dodgeIFrames: 0.15
 --- !u!114 &4855120389551145187
@@ -165,11 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93a4086992633f409e371ed59036a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacking: 0
   dmgDealt: 0
   atkCooldown: 0
   lungeForce: 50
   lungeDurationScalar: 0.1
+  attackAnimationName: Slash
 --- !u!114 &2120284731979701386
 MonoBehaviour:
   m_ObjectHideFlags: 0
