@@ -25,6 +25,12 @@ public class NewWeaponCollision : MonoBehaviour
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
             HitStopManager.Instance.HitStop(dmgDealt);
         }
+        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Boss")
+        {
+            float dmgDealt = newPlayerAttack.dmgDealt + sentienceBonusDamage;
+            other.GetComponentInParent<BossHealth>().EnemyTakeDamage(dmgDealt);
+            SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
+        }
     }
 
     public void ClearEnemyList()
