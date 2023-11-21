@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeEnemyHitbox : MonoBehaviour
 {
-    [SerializeField] private float damage = 25f;
+    [SerializeField] private float damage = 20f;
     [SerializeField] private float knockbackForce = 50f;
     private void OnTriggerEnter(Collider collision)
     {
