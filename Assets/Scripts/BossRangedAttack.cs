@@ -1,28 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossMeleeAttack : MonoBehaviour
+public class BossRangedAttack : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    private GameObject hitbox;
     private Collider[] playerColliders;
     private Transform player;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
+    public GameObject projectile;
     private bool canAttack = true;
     private bool windupStarted = false;
-    private float attackWindup = .8f;
-    [SerializeField] float lungeDistance = 0.4f;
-    [SerializeField] float lungeDuration = 0.15f;
-    [SerializeField] private float attackCooldown = 2.5f;
+    private float attackWindup = .5f;
+    [SerializeField] private float attackCooldown = 2f;
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        hitbox = this.transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
@@ -43,8 +39,6 @@ public class BossMeleeAttack : MonoBehaviour
     IEnumerator AttackWindup()
     {
         windupStarted = true;
-        hitbox.GetComponent<Collider>().enabled = false;
-        hitbox.GetComponent<Renderer>().enabled = false;
         navMeshAgent.speed = 0f;
         yield return new WaitForSeconds(attackWindup);
         StartCoroutine(Attack());
@@ -53,34 +47,14 @@ public class BossMeleeAttack : MonoBehaviour
     {
         canAttack = false;
         windupStarted = false;
-        navMeshAgent.speed = 4f;
+        navMeshAgent.speed = 3f;
         attackWindup = .8f;
-        Vector3 startPosition = transform.position;
 
-        //Lunge Forwards
-        for (float t = 0; t < lungeDuration; t += Time.deltaTime)
-        {
-            float progress = t / lungeDuration;
-            transform.position = Vector3.Lerp(startPosition, startPosition + transform.forward * lungeDistance, progress);
-            yield return null;
-        }
+        Vector3 dirToPlayer = new Vector3(player.transform.position.x, player.transform.position.y + 0.5f, player.transform.position.z) - transform.position;
+        GameObject tempProj = Instantiate(projectile, transform.position, transform.rotation);
+        tempProj.transform.right = dirToPlayer;
+        tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer.normalized * 18f;
 
-        hitbox.GetComponent<Collider>().enabled = true;
-        hitbox.GetComponent<Renderer>().enabled = true;
-
-        yield return new WaitForSeconds(0.2f); //Attack animation will go here!
-
-        hitbox.GetComponent<Collider>().enabled = false;
-        hitbox.GetComponent<Renderer>().enabled = false;
-
-        //Lunge Backwards
-        for (float t = 0; t < lungeDuration; t += Time.deltaTime)
-        {
-            float progress = t / lungeDuration;
-            transform.position = Vector3.Lerp(startPosition + transform.forward * lungeDistance, startPosition, progress);
-            yield return null;
-        }
-        transform.position = startPosition;
         yield return new WaitForSeconds(attackCooldown);
         windupStarted = false;
         canAttack = true;

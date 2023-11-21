@@ -8,6 +8,8 @@ public class BossNavigation : MonoBehaviour
     public NavMeshAgent meleeAgent;
     public NavMeshAgent rangedAgent;
     private NavMeshAgent activeAgent;
+    public GameObject meleeSide;
+    public GameObject rangedSide;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
@@ -40,8 +42,24 @@ public class BossNavigation : MonoBehaviour
                 {
                     StartCoroutine(ChasePlayer());
                 }
-                transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
-                transform.position = activeAgent.transform.position;
+
+                //Keeps childrens position back to back
+                Vector3 relativePosition = new Vector3(0f, 0f, -1f);
+                rangedSide.transform.localPosition = meleeSide.transform.TransformPoint(relativePosition) - transform.position;
+
+                //Keeps childrens rotation back to back
+                Vector3 directiontoBack = (meleeSide.transform.position - rangedSide.transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(-directiontoBack, Vector3.up);
+                rangedSide.transform.rotation = lookRotation;
+
+                if (activeAgent == meleeAgent)
+                {
+
+                }
+                else if(activeAgent == rangedAgent)
+                { 
+                    
+                }
             }
         }
     }
