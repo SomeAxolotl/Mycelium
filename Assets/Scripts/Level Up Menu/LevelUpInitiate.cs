@@ -29,6 +29,7 @@ public class LevelUpInitiate : MonoBehaviour
 
         if (other.gameObject.tag == "currentPlayer")
         {
+            playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
             playerController.DisableController();
             levelupmenu.SetActive(true);
             

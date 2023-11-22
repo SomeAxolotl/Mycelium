@@ -9,5 +9,7 @@ public class DefenseMechanism : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
+
+        EndSkill();
     }
 }

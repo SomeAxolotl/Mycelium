@@ -9,5 +9,7 @@ public class DeathBlossom : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
+
+        EndSkill();
     }
 }

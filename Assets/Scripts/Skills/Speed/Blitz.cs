@@ -9,5 +9,7 @@ public class Blitz : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
+
+        EndSkill();
     }
 }
