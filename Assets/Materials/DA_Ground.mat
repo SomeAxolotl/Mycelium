@@ -45,8 +45,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DirtTexture:
+        m_Texture: {fileID: 2800000, guid: cd912e5f64da6fb4e9df39a6d05e5ff0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GrassTexture:
+        m_Texture: {fileID: 2800000, guid: cd912e5f64da6fb4e9df39a6d05e5ff0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -99,17 +107,19 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Disable_Fresnel: 0
+    - _Disable_Fresnel: 1
     - _Disable_Specular: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Falloff_Amount: 0.05
+    - _Falloff_Amount: 0
     - _Fresnel_Size: 0.001
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LightingCutoff: 0
+    - _GrassBlendLength: 3.06
+    - _GrassHeightBlend: 2.92
+    - _LightingCutoff: 0.211
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
     - _Metallic: 0
@@ -120,7 +130,7 @@ Material:
     - _ReceiveShadows: 1
     - _SOFT_SHADOWS: 1
     - _Shadow_Brightness: 0.1
-    - _Smoothness: 0.2
+    - _Smoothness: 0.152
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -134,12 +144,15 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _DirtAdjustmentColor: {r: 0.7882353, g: 0.85540235, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Offset: {r: 0.15, g: 0, b: 0, a: 0}
+    - _GrassAdjustmentColor: {r: 0.5057494, g: 0.55536413, b: 0.9339623, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowColor: {r: 0.80058396, g: 0.76600003, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Tiling: {r: 10, g: 10, b: 0, a: 0}
+    - _Tiling: {r: 15, g: 15, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7244540777705807072
 MonoBehaviour:

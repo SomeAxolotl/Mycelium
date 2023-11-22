@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RangedEnemyProjectile : MonoBehaviour
 {
-    [SerializeField] private float damage = 20f;
+    [SerializeField] private float damage = 10f;
     [SerializeField] private float knockbackForce = 30f;
     private void OnTriggerEnter(Collider collision)
     {

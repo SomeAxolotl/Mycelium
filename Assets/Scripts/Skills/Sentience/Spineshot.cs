@@ -5,11 +5,21 @@ using UnityEngine;
 public class Spineshot : Skill
 {
     //Skill specific fields
+    [SerializeField] private GameObject spineshotPrefab;
+    [SerializeField] private Transform spineshotLaunch;
 
     public override void DoSkill()
     {
         //Skill specific stuff
+        DoSpineshot();
 
         EndSkill();
+    }
+
+    public void DoSpineshot()
+    {
+        finalSkillCooldown = 3;
+        spineshotLaunch = GameObject.FindWithTag("spineshotLaunch").transform;
+        Instantiate(spineshotPrefab, spineshotLaunch.position, transform.rotation);
     }
 }
