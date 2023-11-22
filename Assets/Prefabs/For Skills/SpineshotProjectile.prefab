@@ -101,7 +101,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -146,10 +146,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913d4e449ade2c046ab709e0fc87a99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  destroyTime: 1
-  spineshotObj: {fileID: 7678291959513553873, guid: cacc4c2eb6a995b4d8549b740a3e84a2,
-    type: 3}
-  spineshot: {fileID: -7620119731061647497, guid: cacc4c2eb6a995b4d8549b740a3e84a2,
-    type: 3}
-  spineshotDamage: 0
+  canSkill: 1
+  ValueAt1Sentience: 10
+  ValueAt15Sentience: 100
+  finalSkillValue: 0
+  CooldownAt1Sentience: 6
+  CooldownAt15Sentience: 2
+  finalSkillCooldown: 0
+  player: {fileID: 0}
+  characterStats: {fileID: 0}
+  playerController: {fileID: 0}
+  currentAnimator: {fileID: 0}
+  spineshotPrefab: {fileID: 0}
+  spineshotLaunch: {fileID: 0}
+  speed: 8
+  destroyTime: 5
