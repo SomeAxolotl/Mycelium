@@ -18,7 +18,6 @@ public class Spineshot : Skill
 
     public void DoSpineshot()
     {
-        finalSkillCooldown = 3;
         spineshotLaunch = GameObject.FindWithTag("spineshotLaunch").transform;
         Instantiate(spineshotPrefab, spineshotLaunch.position, transform.rotation);
     }

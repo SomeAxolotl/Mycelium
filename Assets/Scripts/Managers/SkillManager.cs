@@ -36,7 +36,58 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public List<float> GetAllSkillValues(GameObject player)
+    /*void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Dictionary<string, float> testValues = GetAllSkillCooldowns();
+
+            foreach (string skillName in testValues.Keys)
+            {
+                float skillValue = testValues[skillName];
+        
+                Debug.Log($"Skill: {skillName}, Cooldown: {skillValue}");
+            }
+        }
+    }*/
+
+    public Dictionary<string, float> GetAllSkillValues()
+    {
+        Dictionary<string, float> allSkillValues = new Dictionary<string, float>();
+
+        foreach (GameObject skill in skillList)
+        {
+            GameObject skillObject = Instantiate(skill);
+
+            string skillName = skill.name;
+            float skillValue = skill.GetComponent<Skill>().GetFinalValue();
+            allSkillValues.Add(skillName, skillValue);
+
+            Destroy(skillObject);
+        }
+
+        return allSkillValues;
+    }
+
+    public Dictionary<string, float> GetAllSkillCooldowns()
+    {
+        Dictionary<string, float> allSkillCooldowns = new Dictionary<string, float>();
+
+        foreach (GameObject skill in skillList)
+        {
+            GameObject skillObject = Instantiate(skill);
+
+            string skillName = skill.name;
+            float skillCooldown = skill.GetComponent<Skill>().GetFinalCooldown();
+            allSkillCooldowns.Add(skillName, skillCooldown);
+
+            Destroy(skillObject);
+        }
+
+        return allSkillCooldowns;
+    }
+
+    public List<float> GetEquippedSkillValues(GameObject player)
     {
         Transform skillLoadout = player.transform.Find("SkillLoadout");
 
@@ -49,7 +100,7 @@ public class SkillManager : MonoBehaviour
         return allSkillValues;
     }
 
-    public List<float> GetAllSkillCooldowns(GameObject player)
+    public List<float> GetEquippedSkillCooldowns(GameObject player)
     {
         Transform skillLoadout = player.transform.Find("SkillLoadout");
 

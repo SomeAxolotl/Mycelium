@@ -7,7 +7,7 @@ public class Blitz : Skill
 {
     //Skill specific fields
     [SerializeField] private float maxDistance = 5f;
-    [SerializeField] private GameObject enemy;
+    private GameObject enemy;
 
     public override void DoSkill()
     { 
@@ -18,7 +18,6 @@ public class Blitz : Skill
 
     void DoDash()
     {
-        finalSkillCooldown = 8;
         playerController.StartCoroutine("Dodging");
         playerController.StartCoroutine("IFrames");
     }
@@ -32,7 +31,6 @@ public class Blitz : Skill
             // enemyHealth.EnemyTakeDamage(finalSkillCooldown);
             enemy = GameObject.FindWithTag("Enemy");
             enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(finalSkillValue);
-            finalSkillCooldown *= 0.5f;
         }
     }
 
