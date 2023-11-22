@@ -5,19 +5,17 @@ using Cinemachine;
 
 public class CamTracker : MonoBehaviour
 {
-    private GameObject currentPlayer;
+    private Transform currentPlayer;
     public CinemachineFreeLook freeLookCamera;
+    public CinemachineTargetGroup targetGroup;
     private Transform currentTarget;
     private bool isLockedOn = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
     void Update()
     {
-        currentPlayer = GameObject.FindWithTag("currentPlayer");
-        transform.position = currentPlayer.transform.position;
+        currentPlayer = GameObject.FindWithTag("currentPlayer").transform;
+        transform.position = currentPlayer.position;
+
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             ToggleLockOn();
@@ -29,17 +27,22 @@ public class CamTracker : MonoBehaviour
         {
             // Unlock the camera
             isLockedOn = false;
-            freeLookCamera.LookAt = currentPlayer.transform;
+            targetGroup.m_Targets = new CinemachineTargetGroup.Target[0];
+            targetGroup.enabled = false;
+            freeLookCamera.LookAt = transform;
+            freeLookCamera.Follow = transform;
         }
         else
         {
-            FindClosestEnemy();
-            // Lock onto the nearest enemy
+
             currentTarget = FindClosestEnemy();
             if (currentTarget != null)
             {
                 isLockedOn = true;
-                freeLookCamera.LookAt = currentTarget; // Stop following the player
+                targetGroup.enabled = true;
+                targetGroup.AddMember(currentPlayer, 1f, 0f);
+                targetGroup.AddMember(currentTarget, 1f, 0f);
+                freeLookCamera.LookAt = targetGroup.transform;
             }
         }
     }
