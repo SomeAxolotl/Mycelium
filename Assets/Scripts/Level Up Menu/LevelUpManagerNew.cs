@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 
 public class LevelUpManagerNew : MonoBehaviour
 {
+    [SerializeField] private int maxStatLevel = 15;
+
     //public TMP_Text skillcdr;
     public TMP_Text primaldam;
     //public TMP_Text skilldam;
@@ -167,7 +169,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
      public void PrimalCap()
     {
-      if(currentstats.primalLevel == 25)
+      if(currentstats.primalLevel == maxStatLevel)
         {
         PrimalLevelUp.interactable = false;
         PrimalLevelDown.Select();
@@ -205,7 +207,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
      public void SpeedCap()
     {
-      if(currentstats.speedLevel == 25)
+      if(currentstats.speedLevel == maxStatLevel)
         {
         SpeedLevelUp.interactable = false;
         SpeedLevelDown.Select();
@@ -222,13 +224,13 @@ public class LevelUpManagerNew : MonoBehaviour
       SentienceCap();
       StartCoroutine(UpdateUI());
 
-      //Testing GetAllSkillCooldowns
+      //Testing GetEquippedSkillValues
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
-      List<float> allCooldowns = skillManager.GetAllSkillCooldowns(currentPlayer);
-      for (int i = 0; i < allCooldowns.Count; i++)
+      List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
+      /*for (int i = 0; i < allCooldowns.Count; i++)
       {
         Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
-      }
+      }*/
     }
     public void SentienceDown()
     {
@@ -237,9 +239,9 @@ public class LevelUpManagerNew : MonoBehaviour
       SentienceCap();
       StartCoroutine(UpdateUI());
 
-      //Testing GetAllSkillCooldowns
+      //Testing GetEquippedSkillCooldowns
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
-      List<float> allCooldowns = skillManager.GetAllSkillCooldowns(currentPlayer);
+      List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
       //Debug
       /*for (int i = 0; i < allCooldowns.Count; i++)
       {
@@ -260,7 +262,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
      public void SentienceCap()
     {
-      if(currentstats.sentienceLevel == 25)
+      if(currentstats.sentienceLevel == maxStatLevel)
         {
         SentienceLevelUp.interactable = false;
         SentienceLevelDown.Select();
@@ -298,7 +300,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void VitalityCap()
     {
-      if(currentstats.vitalityLevel == 25)
+      if(currentstats.vitalityLevel == maxStatLevel)
         {
         VitalityLevelUp.interactable = false;
         VitalityLevelDown.Select();
