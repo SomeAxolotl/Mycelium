@@ -24,7 +24,8 @@ public class SkillMenuManager : MonoBehaviour
     public GameObject Skill2Image;
     public GameObject Skill3Image;
     private PlayerController playerController;
-    
+    public GameObject SkillDescription;
+
     void Start()
     {
         
@@ -45,6 +46,7 @@ public class SkillMenuManager : MonoBehaviour
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        SkillDescription.SetActive(false);
         SpriteUpdate();
         
     }
@@ -77,11 +79,13 @@ public class SkillMenuManager : MonoBehaviour
         if(Skill1ListEnable.activeInHierarchy == true)
         {
             Skill1ListEnable.SetActive(false);
+            SkillDescription.SetActive(false);
             Skill2.Select();
         }
         else if (Skill2ListEnable.activeInHierarchy == true)
         {
             Skill2ListEnable.SetActive(false);
+            SkillDescription.SetActive(false);
             Skill3.Select();
         }
         else
