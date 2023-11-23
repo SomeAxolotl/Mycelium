@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class CamTracker : MonoBehaviour
 {
@@ -11,17 +12,25 @@ public class CamTracker : MonoBehaviour
     private Transform currentTarget;
     private bool isLockedOn = false;
 
-    void Update()
+    private ThirdPersonActionsAsset playerActionsAsset;
+    private InputAction lockon;
+    private void Start()
+    {
+        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset.Player.Enable();
+        lockon = playerActionsAsset.Player.LockOn;
+    }
+    private void Update()
     {
         currentPlayer = GameObject.FindWithTag("currentPlayer").transform;
         transform.position = currentPlayer.position;
 
-        if (Input.GetKeyDown(KeyCode.Alpha8))
+        if (lockon.triggered)
         {
             ToggleLockOn();
         }
     }
-    void ToggleLockOn()
+    public void ToggleLockOn()
     {
         if (isLockedOn)
         {
@@ -48,16 +57,35 @@ public class CamTracker : MonoBehaviour
     }
     Transform FindClosestEnemy()
     {
-        // Raycast from the center of the screen
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        // Define the area in the viewport
+        float startX = 0.3f; // Adjust these values based on your desired area
+        float startY = 0.3f;
+        float endX = 0.7f;
+        float endY = 0.7f;
+
+        int rayCountX = 8; // Adjust the number of rays in the X direction
+        int rayCountY = 8; // Adjust the number of rays in the Y direction
+
+        for (int i = 0; i < rayCountX; i++)
         {
-            // Check if the hit object is an enemy (you may need to adjust the tag or layer)
-            if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Boss"))
+            for (int j = 0; j < rayCountY; j++)
             {
-                return hit.transform;
+                // Calculate the current viewport point
+                float viewportX = Mathf.Lerp(startX, endX, (float)i / (rayCountX - 1));
+                float viewportY = Mathf.Lerp(startY, endY, (float)j / (rayCountY - 1));
+
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(viewportX, viewportY, 0));
+
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.CompareTag("Enemy") && Vector3.Distance(currentPlayer.position, hit.collider.transform.position) < 25f || hit.collider.CompareTag("Boss") && Vector3.Distance(currentPlayer.position, hit.collider.transform.position) < 25f)
+                    {
+                        return hit.transform;
+                    }
+                }
             }
         }
         return null;

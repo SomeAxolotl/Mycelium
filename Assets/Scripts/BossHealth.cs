@@ -13,18 +13,21 @@ public class BossHealth : MonoBehaviour
     List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     Transform player;
     EnemyNavigation enemyNavigation;
+    CamTracker camTracker;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         player = GameObject.FindWithTag("currentPlayer").transform;
         enemyNavigation = GetComponent<EnemyNavigation>();
+        camTracker = GameObject.FindWithTag("Camtracker").GetComponent<CamTracker>();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        Debug.Log("boss health: " + currentHealth);
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
     }
     void Death()
     {
@@ -37,16 +40,14 @@ public class BossHealth : MonoBehaviour
         if (deathTimer >= 2f)
         {
             GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
+            camTracker.ToggleLockOn();
             this.gameObject.SetActive(false);
         }
     }
     public void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
-        if (currentHealth <= 0)
-        {
-            Death();
-        }
+
         //Particle effect for blood
         ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
     }
