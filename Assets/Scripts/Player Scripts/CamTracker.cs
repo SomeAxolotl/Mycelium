@@ -29,6 +29,15 @@ public class CamTracker : MonoBehaviour
         {
             ToggleLockOn();
         }
+        
+        if(isLockedOn)
+        {
+            Vector3 directionToTarget = currentTarget.position - currentPlayer.position;
+            directionToTarget.y = 0f;
+
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            currentPlayer.rotation = Quaternion.Slerp(currentPlayer.rotation, targetRotation, 15f * Time.deltaTime);
+        }
     }
     public void ToggleLockOn()
     {
