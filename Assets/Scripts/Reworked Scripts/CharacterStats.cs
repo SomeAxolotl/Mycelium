@@ -18,7 +18,24 @@ public class CharacterStats : MonoBehaviour
     }
     private Names thisName;
 
+    //Able to be purchased
     public Dictionary<string, bool> skillUnlocks = new Dictionary<string, bool>()
+    {
+        {"Eruption", false},
+        {"LivingCyclone", false},
+        {"RelentlessFury", false},
+        {"Blitz", false},
+        {"TrophicCascade", false},
+        {"Mycotoxins", false},
+        {"Spineshot", false},
+        {"UnstablePuffball", false},
+        {"Undergrowth", false},
+        {"LeechingSpore", false},
+        {"Sporeburst", false},
+        {"DefenseMechanism", false}
+    };
+    //Able to be equipped
+    public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
     {
         {"Eruption", false},
         {"LivingCyclone", false},
@@ -249,5 +266,18 @@ public class CharacterStats : MonoBehaviour
     {
         string thisNameString = thisName.ToString();
         hudHealth.SetSporeName(thisNameString);
+    }
+
+    public void UnlockSkill(string skillName)
+    {
+        skillUnlocks[skillName] = true;
+    }
+    public void RelockSkill(string skillName)
+    {
+        skillUnlocks[skillName] = false;
+    }
+    public void PurchaseSkill(string skillName)
+    {
+        skillEquippables[skillName] = true;
     }
 }

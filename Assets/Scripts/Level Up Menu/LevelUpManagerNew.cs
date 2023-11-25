@@ -429,7 +429,10 @@ public class LevelUpManagerNew : MonoBehaviour
       if (currentStatLevel >= targetStatLevel && currentstats.skillUnlocks[skillName] == false)
       { 
         newlyUnlockedSkills.Add(skillName);
-        currentstats.skillUnlocks[skillName] = true;
+        currentstats.UnlockSkill(skillName);
+
+        //Debug.Log("Unlocked: " + currentstats.skillUnlocks[skillName]);
+        //Debug.Log("Equippable: " + currentstats.skillEquippables[skillName]);
       }
     }
 }
