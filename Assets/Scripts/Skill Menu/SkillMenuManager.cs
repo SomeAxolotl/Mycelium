@@ -112,28 +112,28 @@ public class SkillMenuManager : MonoBehaviour
     //Set Living Cyclone Skill slot 1 or 2
     public void LivingCycloneSlot1()
     {
-        skillmanager.SetSkill("Living Cyclone", 1, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Living Cyclone", 1);
+        skillmanager.SetSkill("LivingCyclone", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("LivingCyclone", 1);
         SpriteUpdate();
     }
      public void LivingCycloneSlot2()
     {
-        skillmanager.SetSkill("Living Cyclone", 2, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Living Cyclone", 2);
+        skillmanager.SetSkill("LivingCyclone", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("LivingCyclone", 2);
         SpriteUpdate();
     }
     
     //Set Relentless Fury Skill slot 1 or 2
     public void RelentlessFurySlot1()
     {
-        skillmanager.SetSkill("Relentless Fury", 1, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Relentless Fury", 1);
+        skillmanager.SetSkill("RelentlessFury", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("RelentlessFury", 1);
         SpriteUpdate();
     }
      public void RelentlessFurySlot2()
     {
-        skillmanager.SetSkill("Relentless Fury", 2, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Relentless Fury", 2);
+        skillmanager.SetSkill("RelentlessFury", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("RelentlessFury", 2);
         SpriteUpdate();
     }
 
