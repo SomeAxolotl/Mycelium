@@ -15,12 +15,14 @@ public class NewEnemyHealth : MonoBehaviour
     Transform player;
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
+    CamTracker camTracker;
     Collider thisCollider;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
+        camTracker = GameObject.FindWithTag("Camtracker").GetComponent<CamTracker>();
         player = GameObject.FindWithTag("currentPlayer").transform;
         enemyNavigation = GetComponent<EnemyNavigation>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -67,6 +69,7 @@ public class NewEnemyHealth : MonoBehaviour
         if(deathTimer >= 2f)
         {
             GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
+            camTracker.ToggleLockOn();
             this.gameObject.SetActive(false);
         }
     }
@@ -79,7 +82,6 @@ public class NewEnemyHealth : MonoBehaviour
             enemyHealthBar.UpdateEnemyHealth(currentHealth, maxHealth);
             enemyHealthBar.DamageNumber(dmgTaken);
         }
-
         //Particle effect for blood
         ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
     }

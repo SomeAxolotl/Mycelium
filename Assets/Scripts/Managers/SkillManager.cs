@@ -7,21 +7,24 @@ public class SkillManager : MonoBehaviour
     [SerializeField][Tooltip("Put ALL skill prefabs here")] public List<GameObject> skillList = new List<GameObject>();
     [SerializeField][Tooltip("Default skill if there's no skill")] GameObject noSkill;
 
-    public void SetSkill(string name, int slot, GameObject player)
+    public void SetSkill(string skillName, int slot, GameObject player)
     {   
         GameObject skillLoadout = player.transform.Find("SkillLoadout").gameObject;
         bool skillFound = false;
 
+        GameObject newSkill;
         foreach (GameObject skillPrefab in skillList)
         {
-            if (skillPrefab.name == name)
+            if (skillPrefab.name == skillName)
             {
                 skillFound = true;
 
                 Destroy(skillLoadout.transform.GetChild(slot).gameObject);
 
-                GameObject newSkill = Instantiate(skillPrefab, skillLoadout.transform);
+                newSkill = Instantiate(skillPrefab, skillLoadout.transform);
                 newSkill.transform.SetSiblingIndex(slot);
+
+                SetEquippedCharacterSkill(skillName, slot, player);
             }
         }
 
@@ -31,14 +34,56 @@ public class SkillManager : MonoBehaviour
 
             Destroy(skillLoadout.transform.GetChild(slot).gameObject);
 
-            GameObject newSkill = Instantiate(noSkill, skillLoadout.transform);
+            newSkill = Instantiate(noSkill, skillLoadout.transform);
             newSkill.transform.SetSiblingIndex(slot);
         }
     }
 
-    public List<float> GetAllSkillValues(GameObject player)
+    public void SetEquippedCharacterSkill(string skillString, int slot, GameObject character)
     {
-        Transform skillLoadout = player.transform.Find("SkillLoadout");
+        CharacterStats currentStats = character.GetComponent<CharacterStats>();
+        currentStats.SetEquippedSkill(skillString, slot);
+    }
+
+    public Dictionary<string, float> GetAllSkillValues()
+    {
+        Dictionary<string, float> allSkillValues = new Dictionary<string, float>();
+
+        foreach (GameObject skill in skillList)
+        {
+            GameObject skillObject = Instantiate(skill);
+
+            string skillName = skill.name;
+            float skillValue = skill.GetComponent<Skill>().GetFinalValue();
+            allSkillValues.Add(skillName, skillValue);
+
+            Destroy(skillObject);
+        }
+
+        return allSkillValues;
+    }
+
+    public Dictionary<string, float> GetAllSkillCooldowns()
+    {
+        Dictionary<string, float> allSkillCooldowns = new Dictionary<string, float>();
+
+        foreach (GameObject skill in skillList)
+        {
+            GameObject skillObject = Instantiate(skill);
+
+            string skillName = skill.name;
+            float skillCooldown = skill.GetComponent<Skill>().GetFinalCooldown();
+            allSkillCooldowns.Add(skillName, skillCooldown);
+
+            Destroy(skillObject);
+        }
+
+        return allSkillCooldowns;
+    }
+
+    public List<float> GetEquippedSkillValues(GameObject character)
+    {
+        Transform skillLoadout = character.transform.Find("SkillLoadout");
 
         List<float> allSkillValues = new List<float>();
         foreach (Transform child in skillLoadout)
@@ -49,9 +94,9 @@ public class SkillManager : MonoBehaviour
         return allSkillValues;
     }
 
-    public List<float> GetAllSkillCooldowns(GameObject player)
+    public List<float> GetEquippedSkillCooldowns(GameObject character)
     {
-        Transform skillLoadout = player.transform.Find("SkillLoadout");
+        Transform skillLoadout = character.transform.Find("SkillLoadout");
 
         List<float> allSkillCooldowns = new List<float>();
         foreach (Transform child in skillLoadout)
