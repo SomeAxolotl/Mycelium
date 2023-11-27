@@ -42,7 +42,7 @@ public class ParticleManager : MonoBehaviour
         {
            spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation);
         }
-        DestroyParticlesWhenDone(spawnedParticle);
+        StartCoroutine(DestroyParticlesWhenDone(spawnedParticle));
 
         yield return null;
     }
@@ -71,7 +71,7 @@ public class ParticleManager : MonoBehaviour
             {
                spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation);
             }
-            DestroyParticlesWhenDone(spawnedParticle);
+            StartCoroutine(DestroyParticlesWhenDone(spawnedParticle));
 
             flurryCounter++;
             yield return new WaitForSeconds(flurryInterval);

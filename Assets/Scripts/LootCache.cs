@@ -31,7 +31,6 @@ public class LootCache : MonoBehaviour
             TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Open");
             if (interact.triggered)
             {
-                Debug.Log("triggered cache");
                 TooltipManager.Instance.DestroyTooltip();
                 GetLoot();
                 Destroy(this.gameObject);

@@ -32,9 +32,6 @@ public class NutrientParticles : MonoBehaviour
                 particles[i].position = Vector3.Lerp(particles[i].position, targetObject.transform.position, t);
                 particleSystem.SetParticles(particles, particleCount);
 
-                Debug.Log("ParticlePosition: " + particles[0].position);
-                Debug.Log("PlayerPosition: " + targetObject.transform.position);
-
                 if (Vector3.Distance(particles[i].position, targetObject.transform.position) < 0.1f)
                 {
                     particles[i].remainingLifetime = 0f;
