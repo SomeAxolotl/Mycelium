@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject confirmMenu;
+    [SerializeField] Button resumeButton;
 
     CanvasGroup HUD = null;
 
@@ -72,6 +74,7 @@ public class PauseMenu : MonoBehaviour
     private void OnEnable()
     {
         playerInput.Enable();
+        resumeButton.Select();
     }
 
     private void OnDisable()
