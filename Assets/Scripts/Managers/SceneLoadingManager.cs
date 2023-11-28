@@ -35,11 +35,11 @@ public class SceneLoadingManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        StartCoroutine(LoadPop());
+        //StartCoroutine(LoadPop());
         StartCoroutine(LoadAsynchronously(sceneName));
     }
 
-    IEnumerator LoadPop()
+    /*IEnumerator LoadPop()
     {
         float popCounter = 0f;
         while (popCounter < popDuration)
@@ -50,7 +50,7 @@ public class SceneLoadingManager : MonoBehaviour
             popCounter += Time.deltaTime;
             yield return null;  
         }
-    }
+    }*/
 
     IEnumerator LoadAsynchronously(string sceneName)
     {

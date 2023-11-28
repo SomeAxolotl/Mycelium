@@ -44,7 +44,10 @@ public class LootCache : MonoBehaviour
     public void GetLoot()
     {
         int randomDropIndex = Random.Range(0, possibleDrops.Count);
-        Instantiate(possibleDrops[randomDropIndex], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
+        if (possibleDrops[randomDropIndex] != null)
+        {
+        	Instantiate(possibleDrops[randomDropIndex], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
+        }
 
         int randomNutrientValue = Random.Range(nutrientMin, nutrientMax);
         GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(randomNutrientValue);
