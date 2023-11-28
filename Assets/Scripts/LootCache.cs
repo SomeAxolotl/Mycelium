@@ -48,6 +48,6 @@ public class LootCache : MonoBehaviour
 
         int randomNutrientValue = Random.Range(nutrientMin, nutrientMax);
         GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(randomNutrientValue);
-        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", randomNutrientValue / 10, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", randomNutrientValue / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
     }
 }
