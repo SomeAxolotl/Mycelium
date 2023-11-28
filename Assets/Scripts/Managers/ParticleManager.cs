@@ -13,7 +13,7 @@ public class ParticleManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -33,29 +33,68 @@ public class ParticleManager : MonoBehaviour
 
     IEnumerator SpawnParticlesCoroutine(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
     {
+        GameObject spawnedParticle;
+        if (particleParent != null)
+        {
+            spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation, particleParent.transform);
+        }
+        else
+        {
+           spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation);
+        }
+        StartCoroutine(DestroyParticlesWhenDone(spawnedParticle));
+
+        yield return null;
+    }
+
+    public void SpawnParticleFlurry(string particleName, int flurryCount, float flurryInterval, Vector3 particleSpawnPosition, Quaternion particleRotation)
+    {
+        StartCoroutine(SpawnParticleFlurryCoroutine(particleName, flurryCount, flurryInterval, particleSpawnPosition, particleRotation));
+    }
+
+    public void SpawnParticleFlurry(string particleName, int flurryCount, float flurryInterval, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent)
+    {
+        StartCoroutine(SpawnParticleFlurryCoroutine(particleName, flurryCount, flurryInterval, particleSpawnPosition, particleRotation, particleParent));
+    }
+
+    IEnumerator SpawnParticleFlurryCoroutine(string particleName, int flurryCount, float flurryInterval, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
+    {
+        float flurryCounter = 0f;
+        while (flurryCounter < flurryCount)
+        {
+            GameObject spawnedParticle;
+            if (particleParent != null)
+            {
+                spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation, particleParent.transform);
+            }
+            else
+            {
+               spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation);
+            }
+            StartCoroutine(DestroyParticlesWhenDone(spawnedParticle));
+
+            flurryCounter++;
+            yield return new WaitForSeconds(flurryInterval);
+        }
+    }
+
+    GameObject FindParticlePrefab(string particleName)
+    {
         foreach (GameObject particle in particlePrefabs)
         {
-            if (particle.name == particleName)
+            if (particle.name.Contains(particleName))
             {
-                GameObject spawnedParticle;
-                if (particleParent != null)
-                {
-                    spawnedParticle = Instantiate(particle, particleSpawnPosition, particleRotation, particleParent.transform);
-                }
-                else
-                {
-                   spawnedParticle = Instantiate(particle, particleSpawnPosition, particleRotation);
-                }
-
-                while (spawnedParticle.GetComponent<ParticleSystem>().isPlaying)
-                {
-                    yield return null;
-                }
-                Destroy(spawnedParticle);
-                yield break;
+                return particle;
             }
         }
+
         Debug.Log("PARTICLE NAME NOT FOUND");
-        yield break;
+        return null;
+    }
+
+    IEnumerator DestroyParticlesWhenDone(GameObject particles)
+    {
+        yield return new WaitUntil(() => !particles.GetComponent<ParticleSystem>().isPlaying);
+        Destroy(particles);
     }
 }
