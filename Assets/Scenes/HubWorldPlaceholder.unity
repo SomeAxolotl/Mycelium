@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.1574991, g: 0.24216536, b: 0.16218798, a: 1}
+  m_IndirectSpecularColor: {r: 1.1575038, g: 0.2421673, b: 0.16218911, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3343,8 +3343,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684116588}
-  m_LocalRotation: {x: -0.026766103, y: 0.000000051372194, z: -0.000000023989402,
-    w: 0.9996417}
+  m_LocalRotation: {x: -0.026766103, y: 0.00000001063808, z: -0.000000004967691, w: 0.9996417}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -4401,7 +4400,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899852328}
-  m_LocalRotation: {x: -0.013393864, y: -0.000000038408068, z: 0.000000018565213,
+  m_LocalRotation: {x: -0.013393864, y: 0.000000038408075, z: -0.000000018565215,
     w: 0.9999103}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
@@ -4658,7 +4657,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.22975293, y: -0.00000003511011, z: 0.000000008288372, w: 0.973249}
+  m_LocalRotation: {x: 0.22975293, y: 0.000000035110112, z: -0.000000008288373, w: 0.973249}
   m_LocalPosition: {x: 0.002, y: 5.422, z: -7.0998898}
   m_LocalScale: {x: 1, y: 0.8099726, z: 1.3800554}
   m_ConstrainProportionsScale: 0
@@ -6103,7 +6102,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316634475}
-  m_LocalRotation: {x: -0.000000014901161, y: -0.0000000446341, z: 0.00000002231705,
+  m_LocalRotation: {x: -0.000000014901161, y: 0.000000044634106, z: -0.000000022317051,
     w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
@@ -10238,21 +10237,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!4 &1907958275648161845
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3385986597854544337}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.331, y: -0.285, z: 1.137}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7088058616722806356}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2097241209004500819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10609,29 +10593,9 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2355799387711452763, guid: 8c837db76bc03ea4cac433038b92c2e0, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2648883738716527455, guid: 8c837db76bc03ea4cac433038b92c2e0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1907958275648161845}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c837db76bc03ea4cac433038b92c2e0, type: 3}
---- !u!1 &3385986597854544337
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1907958275648161845}
-  m_Layer: 3
-  m_Name: LaunchForSpineskill
-  m_TagString: spineshotLaunch
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!23 &3500091589398909981
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10877,6 +10841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   freeLookCamera: {fileID: 963194232}
   targetGroup: {fileID: 1720974405}
+  isLockedOn: 0
 --- !u!114 &5285373290412555853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11016,12 +10981,6 @@ MeshRenderer:
 --- !u!1 &7088058616722806348 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8862836875474729563, guid: 8c837db76bc03ea4cac433038b92c2e0,
-    type: 3}
-  m_PrefabInstance: {fileID: 3214518819253628748}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7088058616722806356 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2648883738716527455, guid: 8c837db76bc03ea4cac433038b92c2e0,
     type: 3}
   m_PrefabInstance: {fileID: 3214518819253628748}
   m_PrefabAsset: {fileID: 0}
@@ -11601,7 +11560,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spineshotLaunch
       value: 
-      objectReference: {fileID: 1907958275648161845}
+      objectReference: {fileID: 0}
     - target: {fileID: 4282385786043701617, guid: 24310ac69aee55e48ab5455c7596c3e7,
         type: 3}
       propertyPath: spineshotPrefab

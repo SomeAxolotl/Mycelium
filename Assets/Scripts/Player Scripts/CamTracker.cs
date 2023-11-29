@@ -10,7 +10,7 @@ public class CamTracker : MonoBehaviour
     public CinemachineFreeLook freeLookCamera;
     public CinemachineTargetGroup targetGroup;
     private Transform currentTarget;
-    private bool isLockedOn = false;
+    public bool isLockedOn = false;
 
     private ThirdPersonActionsAsset playerActionsAsset;
     private InputAction lockon;
