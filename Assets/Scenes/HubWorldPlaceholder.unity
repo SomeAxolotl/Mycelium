@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.1575038, g: 0.2421673, b: 0.16218911, a: 1}
+  m_IndirectSpecularColor: {r: 1.1574991, g: 0.24216536, b: 0.16218798, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1947,12 +1947,12 @@ PrefabInstance:
     - target: {fileID: -1067859460915137601, guid: 9438f3385f7b65649935d1eaaa9c32fd,
         type: 3}
       propertyPath: slowestStopPoint
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -1067859460915137601, guid: 9438f3385f7b65649935d1eaaa9c32fd,
         type: 3}
       propertyPath: damageToMillisecondsForSpeedUp
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -1067859460915137601, guid: 9438f3385f7b65649935d1eaaa9c32fd,
         type: 3}
@@ -3343,7 +3343,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684116588}
-  m_LocalRotation: {x: -0.026766103, y: 0.00000001052969, z: -0.000000004917075, w: 0.9996417}
+  m_LocalRotation: {x: -0.026766103, y: 0.000000051372194, z: -0.000000023989402,
+    w: 0.9996417}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -3382,7 +3383,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 1.5
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -4235,7 +4236,7 @@ PrefabInstance:
     - target: {fileID: 8152131710094287577, guid: 8601ce3cc3a21c743b3764e1de0f720c,
         type: 3}
       propertyPath: skill2
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8152131710094287577, guid: 8601ce3cc3a21c743b3764e1de0f720c,
         type: 3}
@@ -4400,7 +4401,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899852328}
-  m_LocalRotation: {x: -0.013393864, y: -0.000000038408075, z: 0.000000018565215,
+  m_LocalRotation: {x: -0.013393864, y: -0.000000038408068, z: 0.000000018565213,
     w: 0.9999103}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
@@ -4440,7 +4441,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 1.5
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -4630,7 +4631,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 1.5
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 30
   orthographic: 0
@@ -4657,7 +4658,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.22975293, y: -0.000000035110112, z: 0.000000008288373, w: 0.973249}
+  m_LocalRotation: {x: 0.22975293, y: -0.00000003511011, z: 0.000000008288372, w: 0.973249}
   m_LocalPosition: {x: 0.002, y: 5.422, z: -7.0998898}
   m_LocalScale: {x: 1, y: 0.8099726, z: 1.3800554}
   m_ConstrainProportionsScale: 0
@@ -4789,7 +4790,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 1.5
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -6102,7 +6103,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316634475}
-  m_LocalRotation: {x: -0.000000014901161, y: -0.000000044634106, z: 0.000000022317051,
+  m_LocalRotation: {x: -0.000000014901161, y: -0.0000000446341, z: 0.00000002231705,
     w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
@@ -6142,7 +6143,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 1.5
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -11631,7 +11632,7 @@ PrefabInstance:
     - target: {fileID: 4855120389551145187, guid: 24310ac69aee55e48ab5455c7596c3e7,
         type: 3}
       propertyPath: regenAt15Vitality
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4855120389551145187, guid: 24310ac69aee55e48ab5455c7596c3e7,
         type: 3}
