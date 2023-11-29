@@ -48,8 +48,10 @@ public class SwapWeapon : MonoBehaviour
         {
             weapon = weaponCollider.transform;
             Vector3 dirToWeapon = (weapon.position - currentCharacter.transform.position).normalized;
+            float angleToWeapon = Vector3.Angle(currentCharacter.transform.forward, dirToWeapon);
+            float distanceToWeapon = Vector3.Distance(currentCharacter.transform.position, weapon.position);
             //nesting so i can use tooltips
-            if (Vector3.Angle(currentCharacter.transform.forward, dirToWeapon) <= 40 && playerController.canAct == true || Vector3.Distance(currentCharacter.transform.position, weapon.position) <= 1f && playerController.canAct == true)
+            if ((angleToWeapon <= 40 && playerController.canAct == true) || (distanceToWeapon <= 1f && playerController.canAct == true))
             {
                 string damageComparisonText;
                 //[TYLER ELP]
@@ -109,7 +111,7 @@ public class SwapWeapon : MonoBehaviour
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
-            else
+            else if ((angleToWeapon <= 40 && playerController.canAct == true) || (distanceToWeapon <= 10f && playerController.canAct == true))
             {
                 TooltipManager.Instance.DestroyTooltip();
             }
