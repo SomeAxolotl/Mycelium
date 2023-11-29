@@ -73,4 +73,20 @@ public class NutrientTracker : MonoBehaviour
             storedFlesh++;
         }
     }
+    public void SpendLog(int cost)
+    {
+        storedLog -= cost;
+    }
+    public void SpendExoskeleton(int cost)
+    {
+        storedExoskeleton -= cost;
+    }
+    public void SpendCalcite(int cost)
+    {
+        storedCalcite -= cost;
+    }
+    public void SpendFlesh(int cost)
+    {
+        storedFlesh -= cost;
+    }
 }
