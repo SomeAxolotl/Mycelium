@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class DesignTracker : MonoBehaviour
@@ -9,8 +10,8 @@ public class DesignTracker : MonoBehaviour
     private Mesh skinnedMesh;
     private Material capMaterial;
     private Material torsoMaterial;
-    public Color capColor;
-    public Color bodyColor;
+    public UnityEngine.Color capColor;
+    public UnityEngine.Color bodyColor;
     private bool blendCoroutineRunning = false;
 
     private void Start()
@@ -24,8 +25,7 @@ public class DesignTracker : MonoBehaviour
         capMaterial = capTransform.gameObject.GetComponent<Renderer>().material;
         torsoMaterial = torsoTransform.gameObject.GetComponent<Renderer>().material;
 
-        UpdateCapColor(capColor);
-        UpdateBodyColor(bodyColor);
+        RefreshColors();
     }
 
     public void UpdateBlendshape(int sentienceLevel, int primalLevel, int vitalityLevel, int speedLevel)
@@ -96,20 +96,17 @@ public class DesignTracker : MonoBehaviour
         skinnedMeshRenderer.SetBlendShapeWeight(3, speedWeight);
     }
 
-    private void UpdateCapColor(Color color)
+    public void RefreshColors()
     {
-        capMaterial.SetColor("_Color", color);
-    }
-    private void UpdateBodyColor(Color color)
-    {
-        torsoMaterial.SetColor("_Color", color);
+        capMaterial.SetColor("_Color", capColor);
+        torsoMaterial.SetColor("_Color", bodyColor);
     }
 
-    public void SetCapColor(Color color)
+    public void SetCapColor(UnityEngine.Color color)
     {
         capColor = color;
     }
-    public void SetBodyColor(Color color)
+    public void SetBodyColor(UnityEngine.Color color)
     {
         bodyColor = color;
     }

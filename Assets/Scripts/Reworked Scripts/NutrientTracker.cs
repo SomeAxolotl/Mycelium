@@ -56,9 +56,21 @@ public class NutrientTracker : MonoBehaviour
     }
     public void KeepMaterials()
     {
-        storedLog = heldLog;
-        storedExoskeleton = heldExoskeleton;
-        storedCalcite = heldCalcite;
-        storedFlesh = heldFlesh;
+        if (heldLog != 0)
+        {
+            storedLog++;
+        }
+        else if (heldExoskeleton != 0)
+        {
+            storedExoskeleton++;
+        }
+        else if (heldCalcite != 0)
+        {
+            storedCalcite++;
+        }
+        else if (heldFlesh != 0)
+        {
+            storedFlesh++;
+        }
     }
 }

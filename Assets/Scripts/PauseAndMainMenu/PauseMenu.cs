@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject confirmMenu;
+    [SerializeField] Button resumeButton;
 
     CanvasGroup HUD = null;
 
@@ -45,8 +47,8 @@ public class PauseMenu : MonoBehaviour
         HUD.alpha = 1f;
         Time.timeScale = 1f;
         PauseData.isGamePaused = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Pause()
@@ -55,8 +57,8 @@ public class PauseMenu : MonoBehaviour
         HUD.alpha = 0f;
         Time.timeScale = 0f;
         PauseData.isGamePaused = true;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
     }
 
     public void GoToMainMenu()
@@ -72,6 +74,7 @@ public class PauseMenu : MonoBehaviour
     private void OnEnable()
     {
         playerInput.Enable();
+        resumeButton.Select();
     }
 
     private void OnDisable()

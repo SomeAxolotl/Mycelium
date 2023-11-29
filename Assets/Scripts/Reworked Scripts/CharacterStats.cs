@@ -98,12 +98,11 @@ public class CharacterStats : MonoBehaviour
         totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
-        designTracker = gameObject.GetComponent<DesignTracker>();
+        designTracker = GetComponent<DesignTracker>();
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
         sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
         SetSporeName();
-        designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
     }
 
     void Update()

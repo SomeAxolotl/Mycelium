@@ -9,7 +9,9 @@ using UnityEngine.InputSystem;
 public class LootCache : MonoBehaviour
 {
     float distance;
-    [SerializeField] private List<GameObject> items;
+    [SerializeField] private List<GameObject> possibleDrops;
+    [SerializeField] private int nutrientMin = 50;
+    [SerializeField] private int nutrientMax = 200;
     ThirdPersonActionsAsset playerActionsAsset;
     private InputAction interact;
     GameObject player;
@@ -29,7 +31,6 @@ public class LootCache : MonoBehaviour
             TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Open");
             if (interact.triggered)
             {
-                Debug.Log("triggered cache");
                 TooltipManager.Instance.DestroyTooltip();
                 GetLoot();
                 Destroy(this.gameObject);
@@ -42,32 +43,14 @@ public class LootCache : MonoBehaviour
     }
     public void GetLoot()
     {
-        int randomNumber = Random.Range(0, 100);
-        if (randomNumber <= 34)
+        int randomDropIndex = Random.Range(0, possibleDrops.Count);
+        if (possibleDrops[randomDropIndex] != null)
         {
-            Instantiate(items[0], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
+        	Instantiate(possibleDrops[randomDropIndex], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
         }
-        if (randomNumber >= 35 && randomNumber <= 39)
-        {
-            Instantiate(items[1], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
-        }
-        if (randomNumber >= 40 && randomNumber <= 54)
-        {
-            Instantiate(items[2], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
-        }
-        if (randomNumber >= 55 && randomNumber <= 69)
-        {
-            Instantiate(items[3], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
-        }
-        if (randomNumber >= 70 && randomNumber <= 79)
-        {
-            Instantiate(items[4], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
-        }
-        if (randomNumber >= 80 && randomNumber <= 99)
-        {
-            Instantiate(items[5], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
-        }
-    }
 
-   
+        int randomNutrientValue = Random.Range(nutrientMin, nutrientMax);
+        GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(randomNutrientValue);
+        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", randomNutrientValue / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+    }
 }

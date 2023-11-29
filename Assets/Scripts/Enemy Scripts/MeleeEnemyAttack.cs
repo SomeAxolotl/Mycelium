@@ -17,7 +17,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     private bool isAttacking = false;
     private bool windupStarted = false;
     [SerializeField] private float attackCooldown = 2f;
-    private float attackWindup = .5f;
+    private float attackWindup = 1f;
     [SerializeField] float lungeDistance = 0.4f;
     [SerializeField] float lungeDuration = 0.15f;
     IEnumerator attack;
@@ -73,7 +73,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         canAttack = false;
         isAttacking = true;
         navMeshAgent.speed = 5f;
-        attackWindup = .5f;
+        attackWindup = 1f;
         Vector3 startPosition = transform.position;
 
         //Lunge Forwards

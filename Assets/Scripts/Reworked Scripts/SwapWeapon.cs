@@ -14,6 +14,7 @@ public class SwapWeapon : MonoBehaviour
     GameObject currentCharacter;
     Transform weaponHolder;
     SwapCharacter swapCharacter;
+    PlayerController playerController;
     public GameObject curWeapon;
 
     [SerializeField] private Color betterStatColor;
@@ -27,7 +28,8 @@ public class SwapWeapon : MonoBehaviour
         playerActionsAsset.Player.Enable();
         swapItem = playerActionsAsset.Player.SwapItem;
         swapCharacter = GetComponent<SwapCharacter>();
-        if(GameObject.FindWithTag("currentWeapon") == null)
+        playerController = GetComponent<PlayerController>();
+        if (GameObject.FindWithTag("currentWeapon") == null)
         {
             GameObject startingWeapon = Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
@@ -47,7 +49,7 @@ public class SwapWeapon : MonoBehaviour
             weapon = weaponCollider.transform;
             Vector3 dirToWeapon = (weapon.position - currentCharacter.transform.position).normalized;
             //nesting so i can use tooltips
-            if (Vector3.Angle(currentCharacter.transform.forward, dirToWeapon) <= 40 || Vector3.Distance(currentCharacter.transform.position, weapon.position) <= 1f)
+            if (Vector3.Angle(currentCharacter.transform.forward, dirToWeapon) <= 40 && playerController.canAct == true || Vector3.Distance(currentCharacter.transform.position, weapon.position) <= 1f && playerController.canAct == true)
             {
                 string damageComparisonText;
                 //[TYLER ELP]
@@ -93,7 +95,6 @@ public class SwapWeapon : MonoBehaviour
     
                     //Debug.Log("swap");
                     curWeapon.transform.position = weapon.position;
-                    // curWeapon.transform.rotation = Quaternion.Euler(-25, 0, 0);
                     curWeapon.GetComponent<Collider>().enabled = true;
                     weapon.position = weaponHolder.position;
                     curWeapon.layer = LayerMask.NameToLayer("Weapon");
@@ -113,7 +114,6 @@ public class SwapWeapon : MonoBehaviour
                 TooltipManager.Instance.DestroyTooltip();
             }
         }
-        //Debug.Log(weaponHolder.name);
     }
     public void UpdateCharacter(GameObject currentPlayer)
     {
