@@ -15,13 +15,22 @@ public class GrowMenuButtonList : MonoBehaviour
     private GrowMenuButtonController buttoncontroller;
 
     private string TextString;
+    public SwapCharacter swapCharacterscript;
 
+    void OnEnable()
+    {
+        swapCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
+    }
     public void SetText(string textString)
     {
         TextString = textString;
         mytext.text = textString;
     }
 
+    public void OnClick()
+    {
+     swapCharacterscript.SwitchCharacter(swapCharacterscript.currentCharacterIndex);
+    }
 
 
 
