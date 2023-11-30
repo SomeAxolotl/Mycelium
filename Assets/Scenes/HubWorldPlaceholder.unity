@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 1.1575038, g: 0.2421673, b: 0.16218911, a: 1}
+  m_IndirectSpecularColor: {r: 1.1574991, g: 0.24216536, b: 0.16218798, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1947,12 +1947,12 @@ PrefabInstance:
     - target: {fileID: -1067859460915137601, guid: 9438f3385f7b65649935d1eaaa9c32fd,
         type: 3}
       propertyPath: slowestStopPoint
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -1067859460915137601, guid: 9438f3385f7b65649935d1eaaa9c32fd,
         type: 3}
       propertyPath: damageToMillisecondsForSpeedUp
-      value: 25
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -1067859460915137601, guid: 9438f3385f7b65649935d1eaaa9c32fd,
         type: 3}
@@ -3343,7 +3343,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684116588}
-  m_LocalRotation: {x: -0.026766103, y: 0.00000001063808, z: -0.000000004967691, w: 0.9996417}
+  m_LocalRotation: {x: -0.026766103, y: 0.000000054731537, z: -0.000000025558123,
+    w: 0.9996417}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9839317, y: 0.97405535, z: 0.87179273}
   m_ConstrainProportionsScale: 0
@@ -4807,7 +4808,7 @@ MonoBehaviour:
   m_YAxis:
     Value: 1
     m_SpeedMode: 0
-    m_MaxSpeed: 2
+    m_MaxSpeed: 5
     m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -4832,7 +4833,7 @@ MonoBehaviour:
     Value: 0
     m_SpeedMode: 0
     m_MaxSpeed: 300
-    m_AccelTime: 0.1
+    m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
@@ -4856,8 +4857,8 @@ MonoBehaviour:
     m_RecenteringTime: 2
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
-  m_BindingMode: 1
-  m_SplineCurvature: 0.2
+  m_BindingMode: 5
+  m_SplineCurvature: 0.5
   m_Orbits:
   - m_Height: 4
     m_Radius: 8
@@ -4897,7 +4898,7 @@ MonoBehaviour:
   m_CollideAgainst:
     serializedVersion: 2
     m_Bits: 4352
-  m_IgnoreTag: 
+  m_IgnoreTag: InvisibleWalls
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4907,9 +4908,9 @@ MonoBehaviour:
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 0.1
   m_Strategy: 0
-  m_MaximumEffort: 4
+  m_MaximumEffort: 2
   m_SmoothingTime: 0
-  m_Damping: 1
+  m_Damping: 0
   m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!1 &971406276
@@ -4962,8 +4963,8 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0
-  m_VerticalDamping: 0
+  m_HorizontalDamping: 0.5
+  m_VerticalDamping: 0.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
@@ -4985,7 +4986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 5
   m_FollowOffset: {x: 0, y: 4, z: -8}
   m_XDamping: 1
   m_YDamping: 1
@@ -5069,7 +5070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac47566b2c711b1478eff6d5b1e86a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentNutrients: 100000
+  currentNutrients: 0
   heldItem: {fileID: 0}
   heldLog: 0
   heldExoskeleton: 0
@@ -7807,7 +7808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 5
   m_FollowOffset: {x: 0, y: 4, z: -8}
   m_XDamping: 1
   m_YDamping: 1
@@ -8663,7 +8664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 5
   m_FollowOffset: {x: 0, y: 4, z: -8}
   m_XDamping: 1
   m_YDamping: 1
@@ -11554,7 +11555,7 @@ PrefabInstance:
     - target: {fileID: 4282385786043701617, guid: 24310ac69aee55e48ab5455c7596c3e7,
         type: 3}
       propertyPath: dodgeCooldown
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4282385786043701617, guid: 24310ac69aee55e48ab5455c7596c3e7,
         type: 3}
