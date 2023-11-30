@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
             if (PauseData.isGamePaused == true)
             {
                 Resume();
+                SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
             }
             else
             {
@@ -53,6 +54,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
         pauseMenu.SetActive(true);
         HUD.alpha = 0f;
         Time.timeScale = 0f;
