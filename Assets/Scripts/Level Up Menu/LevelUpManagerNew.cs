@@ -67,6 +67,7 @@ public class LevelUpManagerNew : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+        currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
         StartCoroutine(UpdateUI());
     }
 
@@ -75,7 +76,7 @@ public class LevelUpManagerNew : MonoBehaviour
       controls = new ThirdPersonActionsAsset();
       controls.UI.MenuSwapR.started += ctx => MenuSwap();
       controls.UI.MenuSwapL.started += ctx => MenuSwapL();
-      controls.UI.Close.performed += ctx => CloseController();
+      controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
@@ -342,16 +343,15 @@ public class LevelUpManagerNew : MonoBehaviour
       SentienceSave = currentstats.sentienceLevel;
       VitalitySave = currentstats.vitalityLevel;
       UIenable.SetActive(false);
-      playerController.EnableController();
-      playerHealth.ResetHealth();
       HUDCanvasGroup.alpha = 1;
-      UnlockSkills();
       hudSkills.UpdateHUDIcons();
+      currentstats.UpdateLevel();
+      playerController.EnableController();
     }
-    public void CloseController()
+    /*public void CloseController()
     {
       Closebutton.Select();
-    }
+    }*/
     public void Close()
     {
       playerController.EnableController();

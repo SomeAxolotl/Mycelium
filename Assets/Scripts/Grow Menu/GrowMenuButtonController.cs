@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.TextCore.Text;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class GrowMenuButtonController : MonoBehaviour
 {
@@ -19,16 +20,26 @@ public class GrowMenuButtonController : MonoBehaviour
     public GameObject SkillMenu;
     ThirdPersonActionsAsset controls;
     public Button button;
-    
-    
-    
+    public Button closebutton;
+    private HUDSkills hudSkills;
+    private CanvasGroup HUDCanvasGroup;
+    private NewPlayerHealth playerHealth;
+    private SkillManager skillManager;
+    public GameObject UIenable;
+    private PlayerController playerController;
+
+
+
+
     void OnEnable()
     {
         ClearList();
         controls = new ThirdPersonActionsAsset();
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
+        controls.UI.Close.performed += ctx => Close();
         swapCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         Invoke("ControlEnable", 0.25f);
         SkillMenu.SetActive(false);
         buttons = new List<GameObject>();
@@ -38,8 +49,11 @@ public class GrowMenuButtonController : MonoBehaviour
     }
    void Start()
    {
-    
-   }
+        HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
+        skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+    }
    void MenuSwapLeft()
    {
     SkillMenu.SetActive(true);
@@ -80,5 +94,19 @@ public class GrowMenuButtonController : MonoBehaviour
         }
         buttons.Clear();
        }
+    }
+    void Close()
+    {
+        playerController.EnableController();
+        UIenable.SetActive(false);
+        HUDCanvasGroup.alpha = 1;
+        hudSkills.UpdateHUDIcons();
+    }
+    public void OnClickClose()
+    {
+        playerController.EnableController();
+        UIenable.SetActive(false);
+        HUDCanvasGroup.alpha = 1;
+        hudSkills.UpdateHUDIcons();
     }
 }
