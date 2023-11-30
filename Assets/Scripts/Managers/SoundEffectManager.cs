@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundEffectManager : MonoBehaviour
 {
     public static SoundEffectManager Instance;
+
+    [SerializeField] private AudioMixerGroup audioMixerGroup;
 
     void Awake()
     {
@@ -34,8 +37,6 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private float smashVolume = 1f;
     [SerializeField] private List<AudioClip> smashSounds = new List<AudioClip>();
 
-    private List<AudioSource> audioSources = new List<AudioSource>();
-
     public void PlaySound(string clipName, Vector3 position)
     {   
         List<AudioClip> clipList = new List<AudioClip>();
@@ -64,7 +65,21 @@ public class SoundEffectManager : MonoBehaviour
         }
 
         int randomNumber = Random.Range(0, clipList.Count);
-        AudioSource.PlayClipAtPoint(clipList[randomNumber], position, clipVolume);
+        AudioSource audioSource = PlayClipAtPointAndGetSource(clipList[randomNumber], position, clipVolume);
+        audioSource.outputAudioMixerGroup = audioMixerGroup;
+    }
+
+    AudioSource PlayClipAtPointAndGetSource(AudioClip clip, Vector3 position, float volume)
+    {
+      GameObject gameObject = new GameObject("One shot audio");
+      gameObject.transform.position = position;
+      AudioSource audioSource = (AudioSource) gameObject.AddComponent(typeof (AudioSource));
+      audioSource.clip = clip;
+      audioSource.spatialBlend = 1f;
+      audioSource.volume = volume;
+      audioSource.Play();
+      Object.Destroy((Object) gameObject, clip.length * ((double) Time.timeScale < 0.009999999776482582 ? 0.01f : Time.timeScale));
+      return audioSource;
     }
 
     //These are from when I was trying to use Reflection to dynamically change variable references
