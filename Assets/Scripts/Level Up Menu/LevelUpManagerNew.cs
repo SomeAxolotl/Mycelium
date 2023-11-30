@@ -58,6 +58,7 @@ public class LevelUpManagerNew : MonoBehaviour
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
+    public GameObject GrowMenu;
    
   
     void Start()
@@ -72,7 +73,8 @@ public class LevelUpManagerNew : MonoBehaviour
     void OnEnable()
     {
       controls = new ThirdPersonActionsAsset();
-      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      controls.UI.MenuSwapR.started += ctx => MenuSwap();
+      controls.UI.MenuSwapL.started += ctx => MenuSwapL();
       controls.UI.Close.performed += ctx => CloseController();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
@@ -96,9 +98,14 @@ public class LevelUpManagerNew : MonoBehaviour
        SentienceStartCheck();
        StartCoroutine(UpdateUI());
        SkillMenu.SetActive(false);
-       controls.UI.Enable();   
+       GrowMenu.SetActive(false);
+       Invoke("ControlEnable", 0.25f); 
 
 
+    }
+    void ControlEnable()
+    {
+       controls.UI.Enable();  
     }
     void OnDisable()
     {
@@ -139,6 +146,24 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
       SkillMenu.SetActive(true);
+    }
+    void MenuSwapL()
+    {
+      currentstats.primalLevel = PrimalSave;
+      currentstats.speedLevel = SpeedSave;
+      currentstats.sentienceLevel = SentienceSave;
+      currentstats.vitalityLevel = VitalitySave;
+      currentnutrients.currentNutrients = nutrientsSave;
+      currentstats.baseHealth = healthsave;
+      currentstats.baseRegen = regensave;
+      currentstats.moveSpeed = movespeedsave;
+      currentstats.primalDmg = damagesave;
+      //currentstats.skillDmg = skilldmgsave;
+      //currentstats.atkCooldownBuff = cdrsave;
+      currentstats.totalLevel = totalLevelsave;
+      currentstats.levelUpCost = levelupsave;
+      currentstats.UpdateLevel();
+      GrowMenu.SetActive(true); 
     }
 
     public void PrimalUP()

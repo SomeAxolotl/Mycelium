@@ -25,28 +25,27 @@ public class SkillMenuManager : MonoBehaviour
     public GameObject Skill3Image;
     private PlayerController playerController;
     public GameObject SkillDescription;
+    public GameObject GrowMenu;
 
-    void Start()
-    {
-        
-    }
-    void Awake()
-    {
-      controls = new ThirdPersonActionsAsset();
-      controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
-      controls.UI.Close.performed += ctx => CloseSkill();
-    }
+    
+    
     void OnEnable()
     {
         LevelUI.SetActive(false);
+        controls = new ThirdPersonActionsAsset();
+        controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
+        controls.UI.Close.performed += ctx => CloseSkill();
+        controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
         Skill1.Select();
-        controls.UI.Enable(); 
         Skill1ListEnable.SetActive(false);  
         Skill2ListEnable.SetActive(false);
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         SpriteUpdate();
+        Invoke("ControlEnable", 0.25f);
+        GrowMenu.SetActive(false);
+        
         
     }
     void OnDisable()
@@ -57,12 +56,15 @@ public class SkillMenuManager : MonoBehaviour
     {
         LevelUI.SetActive(true);
     }
-
-   
-    void Update()
+     void MenuSwapRight()
     {
-        
+        GrowMenu.SetActive(true);
     }
+    void ControlEnable()
+    {
+       controls.UI.Enable();  
+    }
+   
     public void Skill1Select()
     {
         Skill1ListEnable.SetActive(true);

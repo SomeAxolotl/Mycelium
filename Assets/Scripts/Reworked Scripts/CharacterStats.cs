@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    private enum Names
+    public enum Names
     {
         Gidego,
         Gideo,
@@ -16,7 +16,7 @@ public class CharacterStats : MonoBehaviour
         Shbob,
         Shbeeby,
     }
-    private Names thisName;
+    public Names thisName;
 
     public List<string> equippedSkills = new List<string>()
     {
