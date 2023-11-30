@@ -61,6 +61,24 @@ public class PauseMenu : MonoBehaviour
         //Cursor.lockState = CursorLockMode.None;
     }
 
+    public void PlayUIMoveSound()
+    {
+        Time.timeScale = 1f;
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
+        Time.timeScale = 0f;
+
+        //Debug.Log("UI Move");
+    }
+
+    public void PlayUISelectSound()
+    {
+        Time.timeScale = 1f;
+        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
+        Time.timeScale = 0f;
+
+        //Debug.Log("UI Select");
+    }
+
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");

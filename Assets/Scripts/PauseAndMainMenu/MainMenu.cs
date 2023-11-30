@@ -38,4 +38,12 @@ public class MainMenu : MonoBehaviour
     {
         playerInput.Disable();
     }
+
+    private void Update()
+    {
+        if(Time.timeScale == 0f)
+        {
+            Time.timeScale = 1f;
+        }
+    }
 }
