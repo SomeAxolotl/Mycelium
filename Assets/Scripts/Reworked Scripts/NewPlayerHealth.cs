@@ -14,6 +14,7 @@ public class NewPlayerHealth : MonoBehaviour
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     PlayerController playerController;
+    CamTracker camTracker;
     float deathTimer;
 
 
@@ -28,6 +29,7 @@ public class NewPlayerHealth : MonoBehaviour
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
+        camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
     }
 
     // Update is called once per frame
@@ -40,6 +42,10 @@ public class NewPlayerHealth : MonoBehaviour
             currentHealth = -100;
             hudHealth.UpdateHealthUI(0, maxHealth);
             deathTimer += Time.deltaTime;
+            if (camTracker.isLockedOn)
+            {
+                camTracker.ToggleLockOn();
+            }
             Death();
         }
     }
@@ -73,6 +79,10 @@ public class NewPlayerHealth : MonoBehaviour
         playerController.isInvincible = true;
         if (deathTimer >= 3f)
         {
+            if(camTracker.isLockedOn)
+            {
+                camTracker.ToggleLockOn();
+            }
             currentHealth = maxHealth;
             swapWeapon.curWeapon.tag = "Weapon";
             Instantiate(Resources.Load("StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);

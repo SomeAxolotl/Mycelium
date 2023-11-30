@@ -36,7 +36,7 @@ public class LootCache : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        else
+        else if (distance < 5)
         {
             TooltipManager.Instance.DestroyTooltip();
         }
