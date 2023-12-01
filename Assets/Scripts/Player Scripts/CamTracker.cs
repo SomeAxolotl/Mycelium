@@ -11,6 +11,7 @@ public class CamTracker : MonoBehaviour
     public CinemachineFreeLook freeLookCamera;
     public CinemachineTargetGroup targetGroup;
     private Transform currentTarget;
+    public Crosshair crosshair;
     public bool isLockedOn = false;
 
     private ThirdPersonActionsAsset playerActionsAsset;
@@ -35,6 +36,8 @@ public class CamTracker : MonoBehaviour
         {
             freeLookCamera.Follow = null;
             freeLookCamera.LookAt = transform;
+            crosshair.crosshairImage.enabled = true;
+            crosshair.target = currentTarget;
 
             Vector3 directionToTarget = currentTarget.position - currentPlayer.position;
             directionToTarget.y = 0f;
@@ -58,6 +61,7 @@ public class CamTracker : MonoBehaviour
             isLockedOn = false;
             targetGroup.m_Targets = new CinemachineTargetGroup.Target[0];
             targetGroup.enabled = false;
+            crosshair.crosshairImage.enabled = false;
             freeLookCamera.LookAt = transform;
             freeLookCamera.Follow = transform;
         }
