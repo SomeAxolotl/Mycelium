@@ -37,6 +37,14 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private float smashVolume = 1f;
     [SerializeField] private List<AudioClip> smashSounds = new List<AudioClip>();
 
+    [Header("UIMove SFX")]
+    [SerializeField] private float uiMoveVolume = 1f;
+    [SerializeField] private List<AudioClip> uiMoveSounds = new List<AudioClip>();
+
+    [Header("UISelect SFX")]
+    [SerializeField] private float uiSelectVolume = 1f;
+    [SerializeField] private List<AudioClip> uiSelectSounds = new List<AudioClip>();
+
     public void PlaySound(string clipName, Vector3 position)
     {   
         List<AudioClip> clipList = new List<AudioClip>();
@@ -62,6 +70,15 @@ public class SoundEffectManager : MonoBehaviour
                 clipList = smashSounds;
                 clipVolume = smashVolume;
                 break;
+            case "UIMove":
+                clipList = uiMoveSounds;
+                clipVolume = uiMoveVolume;
+                break;
+            case "UISelect":
+                clipList = uiSelectSounds;
+                clipVolume = uiSelectVolume;
+                break;
+
         }
 
         int randomNumber = Random.Range(0, clipList.Count);

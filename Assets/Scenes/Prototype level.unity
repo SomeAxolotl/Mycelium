@@ -288,11 +288,16 @@ PrefabInstance:
     - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
@@ -302,12 +307,27 @@ PrefabInstance:
       objectReference: {fileID: 1795484507}
     - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1795484507}
+    - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayUISelectSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: GoToHubWorld
       objectReference: {fileID: 0}
     - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
@@ -317,7 +337,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297272239461384030, guid: b95213fd1237de644a21ec00b6594d2c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6011513795222037672, guid: b95213fd1237de644a21ec00b6594d2c,
@@ -767,12 +797,14 @@ MonoBehaviour:
   CapPrefabs:
   - {fileID: 8908605278592504652, guid: b477c82551324ba49b14241b333be664, type: 3}
   MiddleChunkPrefabs:
-  - {fileID: 1898268650797664598, guid: 68e75a52982acf44786eb36c9a7c2d5d, type: 3}
-  - {fileID: 7305588824542037781, guid: d2731a324dcd92248b80b7f45782bc72, type: 3}
-  - {fileID: 6415430088466125259, guid: 74d9a11f6cfcf5344838828b50708b45, type: 3}
-  - {fileID: 5997432244541887471, guid: 9e851d8d090d24e42ab978dba08e9d6c, type: 3}
-  - {fileID: 5374897725336273301, guid: bf53c310a82003f449f7900d22ab47b7, type: 3}
-  - {fileID: 1705519504704246422, guid: b111060569c52c54491df0604efad4c9, type: 3}
+  - {fileID: 7186679286465953132, guid: 68e75a52982acf44786eb36c9a7c2d5d, type: 3}
+  - {fileID: 7633582363373864418, guid: d2731a324dcd92248b80b7f45782bc72, type: 3}
+  - {fileID: 2120317656639477885, guid: 74d9a11f6cfcf5344838828b50708b45, type: 3}
+  - {fileID: 14616747109960137, guid: e89627774dc3d3f4aa8a1fd57f82c60a, type: 3}
+  - {fileID: 6098837844935502841, guid: 9e851d8d090d24e42ab978dba08e9d6c, type: 3}
+  - {fileID: 7698083616650599663, guid: bf53c310a82003f449f7900d22ab47b7, type: 3}
+  - {fileID: 1155811421883495182, guid: b111060569c52c54491df0604efad4c9, type: 3}
+  - {fileID: 8297665832781995938, guid: 312b5339b1570174bb2ea7616b8578f4, type: 3}
   StartChunkPrefabs:
   - {fileID: 5653264933207774017, guid: 8d38e334ef8221d4a9eeed1f4eef4432, type: 3}
   GoalChunkPrefabs:

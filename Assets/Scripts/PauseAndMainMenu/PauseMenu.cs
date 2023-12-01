@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
             if (PauseData.isGamePaused == true)
             {
                 Resume();
+                SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
             }
             else
             {
@@ -53,12 +54,31 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
         pauseMenu.SetActive(true);
         HUD.alpha = 0f;
         Time.timeScale = 0f;
         PauseData.isGamePaused = true;
         //Cursor.visible = true;
         //Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void PlayUIMoveSound()
+    {
+        Time.timeScale = 1f;
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
+        Time.timeScale = 0f;
+
+        //Debug.Log("UI Move");
+    }
+
+    public void PlayUISelectSound()
+    {
+        Time.timeScale = 1f;
+        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
+        Time.timeScale = 0f;
+
+        //Debug.Log("UI Select");
     }
 
     public void GoToMainMenu()
