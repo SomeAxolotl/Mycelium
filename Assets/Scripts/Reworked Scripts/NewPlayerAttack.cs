@@ -31,7 +31,7 @@ public class NewPlayerAttack : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindWithTag("currentPlayer");
-        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame

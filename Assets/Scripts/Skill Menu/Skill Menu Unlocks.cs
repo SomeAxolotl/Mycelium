@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class SkillMenuUnlocks : MonoBehaviour
 {
     //Eruption Buttons
-    public Button EruptionUnlocked;    
+    public Button EruptionUnlocked;
     //LC Buttons
     public Button LivingCycloneUnlocked;
     //RF Buttons
@@ -38,16 +38,17 @@ public class SkillMenuUnlocks : MonoBehaviour
     public Button DefenseMechanismUnlocked;
 
     public CharacterStats currentstats;
-    public SkillMenuManager skillmenumanager;  
+    public SkillMenuManager skillmenumanager;
+    public NutrientTracker nutrientTracker;
     void Start()
     {
         
     }
-    void OnEnable()
+    void Update()
     {
         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         //Primal Unlock Statements
-        if(currentstats.primalLevel >= 5)
+        if(currentstats.primalLevel >= 5 && currentstats.skillEquippables["Eruption"] == true)
         {
             EruptionUnlocked.onClick.AddListener(skillmenumanager.EruptionsSlot1);
         }
@@ -56,8 +57,8 @@ public class SkillMenuUnlocks : MonoBehaviour
             EruptionUnlocked.onClick.RemoveListener(skillmenumanager.EruptionsSlot1);
         }
 
-        
-        if(currentstats.primalLevel >= 10)
+
+        if (currentstats.primalLevel >= 10 && currentstats.skillEquippables["LivingCyclone"] == true)
         {
             LivingCycloneUnlocked.onClick.AddListener(skillmenumanager.LivingCycloneSlot1);
         }
@@ -67,7 +68,7 @@ public class SkillMenuUnlocks : MonoBehaviour
         }
 
         
-        if(currentstats.primalLevel >= 15)
+        if(currentstats.primalLevel >= 15 && currentstats.skillEquippables["RelentlessFury"] == true)
         {
             RelentlessFuryUnlocked.onClick.AddListener(skillmenumanager.RelentlessFurySlot1);
         }
@@ -78,7 +79,7 @@ public class SkillMenuUnlocks : MonoBehaviour
 
         
         //Speed Unlock Statements
-        if(currentstats.speedLevel >= 5)
+        if(currentstats.speedLevel >= 5 && currentstats.skillEquippables["Blitz"] == true)
         {
             BlitzUnlocked.onClick.AddListener(skillmenumanager.BlitzSlot1);
         }
@@ -88,7 +89,7 @@ public class SkillMenuUnlocks : MonoBehaviour
         }
 
         
-        if(currentstats.speedLevel >= 10)
+        if(currentstats.speedLevel >= 10 && currentstats.skillEquippables["TrophicCascade"] == true)
         {
             TrophicCascadeUnlocked.onClick.AddListener(skillmenumanager.TrophicCascadeSlot1);
         }
@@ -98,7 +99,7 @@ public class SkillMenuUnlocks : MonoBehaviour
         }
 
 
-        if(currentstats.speedLevel >= 15)
+        if(currentstats.speedLevel >= 15 && currentstats.skillEquippables["Mycotoxins"] == true)
         {
             MycotoxinsUnlocked.onClick.AddListener(skillmenumanager.MycotoxinsSlot1);
         }
@@ -109,7 +110,7 @@ public class SkillMenuUnlocks : MonoBehaviour
 
 
         //Sentience Unlock Statements
-        if(currentstats.sentienceLevel >= 5)
+        if(currentstats.sentienceLevel >= 5 && currentstats.skillEquippables["Spineshot"] == true)
         {
             SpineshotUnlocked.onClick.AddListener(skillmenumanager.SpineShotSlot1);
         }
@@ -118,7 +119,7 @@ public class SkillMenuUnlocks : MonoBehaviour
             SpineshotUnlocked.onClick.RemoveListener(skillmenumanager.SpineShotSlot1);
         }
 
-        if(currentstats.sentienceLevel >= 10)
+        if(currentstats.sentienceLevel >= 10 && currentstats.skillEquippables["UnstablePuffball"] == true)
         {
             UnstablePuffBallUnlocked.onClick.AddListener(skillmenumanager.UnstablePuffballSlot1);
         }
@@ -127,7 +128,7 @@ public class SkillMenuUnlocks : MonoBehaviour
             UnstablePuffBallUnlocked.onClick.RemoveListener(skillmenumanager.UnstablePuffballSlot1);
         }
 
-        if(currentstats.sentienceLevel >= 15)
+        if(currentstats.sentienceLevel >= 15 && currentstats.skillEquippables["Undergrowth"] == true)
         {
             UndergrowthUnlocked.onClick.AddListener(skillmenumanager.UndergrowthSlot1);
         }
@@ -138,7 +139,7 @@ public class SkillMenuUnlocks : MonoBehaviour
 
         
         //Vitality unlock statements
-        if(currentstats.vitalityLevel >= 5)
+        if(currentstats.vitalityLevel >= 5 && currentstats.skillEquippables["LeechingSpore"] == true)
         {
             LeechingSporesUnlocked.onClick.AddListener(skillmenumanager.LeechingSporeSlot1);
         }
@@ -147,7 +148,7 @@ public class SkillMenuUnlocks : MonoBehaviour
             LeechingSporesUnlocked.onClick.RemoveListener(skillmenumanager.LeechingSporeSlot1);
         }
 
-        if(currentstats.vitalityLevel >= 10)
+        if(currentstats.vitalityLevel >= 10 && currentstats.skillEquippables["Sporeburst"] == true)
         {
             SporeburstUnlocked.onClick.AddListener(skillmenumanager.SporeBurstSlot1);
         }
@@ -156,7 +157,7 @@ public class SkillMenuUnlocks : MonoBehaviour
             SporeburstUnlocked.onClick.RemoveListener(skillmenumanager.SporeBurstSlot1);
         }
 
-        if(currentstats.vitalityLevel >= 15)
+        if(currentstats.vitalityLevel >= 15 && currentstats.skillEquippables["DefenseMechanism"] == true)
         {
             DefenseMechanismUnlocked.onClick.AddListener(skillmenumanager.DefenseMechanismSlot1);
         }

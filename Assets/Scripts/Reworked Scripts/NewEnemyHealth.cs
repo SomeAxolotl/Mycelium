@@ -69,6 +69,7 @@ public class NewEnemyHealth : MonoBehaviour
         if(deathTimer >= 2f)
         {
             GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
+            ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
             camTracker.ToggleLockOn();
             this.gameObject.SetActive(false);
         }

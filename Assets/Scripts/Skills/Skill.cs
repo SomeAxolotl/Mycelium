@@ -19,6 +19,7 @@ public class Skill : MonoBehaviour
     public GameObject player;
     public CharacterStats characterStats;
     public PlayerController playerController;
+    public NewPlayerHealth playerHealth;
 
     private HUDSkills hudSkills;
     private int skillSlot;
@@ -32,6 +33,7 @@ public class Skill : MonoBehaviour
         currentAnimator = player.GetComponent<Animator>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
     }
 
     //this is called at the start of all the subclass skills. all stat math for skills can be done here and it should b fine

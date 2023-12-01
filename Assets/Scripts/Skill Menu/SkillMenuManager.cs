@@ -25,29 +25,27 @@ public class SkillMenuManager : MonoBehaviour
     public GameObject Skill3Image;
     private PlayerController playerController;
     public GameObject SkillDescription;
+    public GameObject GrowMenu;
 
-    void Start()
-    {
-        
-    }
-    void Awake()
-    {
-      controls = new ThirdPersonActionsAsset();
-      controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
-      controls.UI.Close.performed += ctx => CloseSkill();
-    }
+    
+    
     void OnEnable()
     {
         LevelUI.SetActive(false);
+        controls = new ThirdPersonActionsAsset();
+        controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
+        controls.UI.Close.performed += ctx => CloseSkill();
+        controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
         Skill1.Select();
-        controls.UI.Enable(); 
         Skill1ListEnable.SetActive(false);  
         Skill2ListEnable.SetActive(false);
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        SkillDescription.SetActive(false);
         SpriteUpdate();
+        Invoke("ControlEnable", 0.25f);
+        GrowMenu.SetActive(false);
+        
         
     }
     void OnDisable()
@@ -58,12 +56,15 @@ public class SkillMenuManager : MonoBehaviour
     {
         LevelUI.SetActive(true);
     }
-
-   
-    void Update()
+     void MenuSwapRight()
     {
-        
+        GrowMenu.SetActive(true);
     }
+    void ControlEnable()
+    {
+       controls.UI.Enable();  
+    }
+   
     public void Skill1Select()
     {
         Skill1ListEnable.SetActive(true);
@@ -79,13 +80,11 @@ public class SkillMenuManager : MonoBehaviour
         if(Skill1ListEnable.activeInHierarchy == true)
         {
             Skill1ListEnable.SetActive(false);
-            SkillDescription.SetActive(false);
             Skill2.Select();
         }
         else if (Skill2ListEnable.activeInHierarchy == true)
         {
             Skill2ListEnable.SetActive(false);
-            SkillDescription.SetActive(false);
             Skill3.Select();
         }
         else
@@ -112,28 +111,28 @@ public class SkillMenuManager : MonoBehaviour
     //Set Living Cyclone Skill slot 1 or 2
     public void LivingCycloneSlot1()
     {
-        skillmanager.SetSkill("Living Cyclone", 1, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Living Cyclone", 1);
+        skillmanager.SetSkill("LivingCyclone", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("LivingCyclone", 1);
         SpriteUpdate();
     }
      public void LivingCycloneSlot2()
     {
-        skillmanager.SetSkill("Living Cyclone", 2, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Living Cyclone", 2);
+        skillmanager.SetSkill("LivingCyclone", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("LivingCyclone", 2);
         SpriteUpdate();
     }
     
     //Set Relentless Fury Skill slot 1 or 2
     public void RelentlessFurySlot1()
     {
-        skillmanager.SetSkill("Relentless Fury", 1, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Relentless Fury", 1);
+        skillmanager.SetSkill("RelentlessFury", 1, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("RelentlessFury", 1);
         SpriteUpdate();
     }
      public void RelentlessFurySlot2()
     {
-        skillmanager.SetSkill("Relentless Fury", 2, GameObject.FindWithTag("currentPlayer"));
-        hudSkills.ChangeSkillIcon("Relentless Fury", 2);
+        skillmanager.SetSkill("RelentlessFury", 2, GameObject.FindWithTag("currentPlayer"));
+        hudSkills.ChangeSkillIcon("RelentlessFury", 2);
         SpriteUpdate();
     }
 

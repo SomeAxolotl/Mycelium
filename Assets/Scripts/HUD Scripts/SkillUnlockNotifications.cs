@@ -33,7 +33,7 @@ public class SkillUnlockNotifications : MonoBehaviour
 
     IEnumerator NotifySkillUnlockCoroutine(string skillName, Sprite skillSprite)
     {
-        skillUnlockText.text = skillName + " Unlocked";
+        skillUnlockText.text = "Skill Unlocked - " + skillName;
         skillUnlockIcon.sprite = hudSkills.GetSkillSprite(skillName);
 
         canvasGroup.alpha = 1f;
