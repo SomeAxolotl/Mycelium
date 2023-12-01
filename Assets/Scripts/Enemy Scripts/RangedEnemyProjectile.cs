@@ -5,13 +5,11 @@ using UnityEngine;
 public class RangedEnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float damage = 10f;
-    [SerializeField] private float knockbackForce = 30f;
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
             collision.GetComponentInParent<NewPlayerHealth>().PlayerTakeDamage(damage);
-            collision.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             Destroy(gameObject);
         }
         if (collision.gameObject.tag != "currentPlayer")

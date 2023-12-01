@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class CamTracker : MonoBehaviour
 {
     private Transform currentPlayer;
+    public Camera mainCam;
     public CinemachineFreeLook freeLookCamera;
     public CinemachineTargetGroup targetGroup;
     private Transform currentTarget;
@@ -32,11 +33,21 @@ public class CamTracker : MonoBehaviour
         
         if(isLockedOn)
         {
+            freeLookCamera.Follow = null;
+            freeLookCamera.LookAt = transform;
+
             Vector3 directionToTarget = currentTarget.position - currentPlayer.position;
             directionToTarget.y = 0f;
 
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
             currentPlayer.rotation = Quaternion.Slerp(currentPlayer.rotation, targetRotation, 15f * Time.deltaTime);
+
+            Vector3 relativePosition = -currentPlayer.forward * 10f + currentPlayer.up * 3.5f;
+            Vector3 targetPosition = currentPlayer.position + relativePosition;
+            mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, targetPosition, 10f * Time.deltaTime);
+
+            Quaternion targetCameraRotation = Quaternion.Euler(20f, currentPlayer.rotation.eulerAngles.y, 0f);
+            mainCam.transform.rotation = Quaternion.Slerp(mainCam.transform.rotation, targetCameraRotation, 100f * Time.deltaTime);
         }
     }
     public void ToggleLockOn()
@@ -60,7 +71,6 @@ public class CamTracker : MonoBehaviour
                 targetGroup.enabled = true;
                 targetGroup.AddMember(currentPlayer, 1f, 0f);
                 targetGroup.AddMember(currentTarget, 1f, 0f);
-                freeLookCamera.LookAt = targetGroup.transform;
             }
         }
     }
@@ -73,8 +83,8 @@ public class CamTracker : MonoBehaviour
         float endX = 0.7f;
         float endY = 0.7f;
 
-        int rayCountX = 8; // Adjust the number of rays in the X direction
-        int rayCountY = 8; // Adjust the number of rays in the Y direction
+        int rayCountX = 12; // Adjust the number of rays in the X direction
+        int rayCountY = 12; // Adjust the number of rays in the Y direction
 
         for (int i = 0; i < rayCountX; i++)
         {
