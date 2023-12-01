@@ -5,12 +5,6 @@ using UnityEngine;
 public class LeechingSpore : Skill
 {
     //Skill specific fields
-    /* damagee = 5
-    Duration = 5 sec
-    Range = 5
-    nearest enemy im 5m range spore gets attached
-    drains enemy for 5 seconds at a damage of 5 per second
-    heals player for 5 seonds at 5 HP per second*/
     [SerializeField] private float detectRange = 5f;
     [SerializeField] private float durationTime = 5f;
     [SerializeField] private GameObject sporeObj;
@@ -33,22 +27,10 @@ public class LeechingSpore : Skill
         {
             GameObject enemyAttach = GameObject.FindWithTag("EnemySporeAttach");
             GameObject theSpore = Instantiate(sporeObj, enemyAttach.transform);
-
             StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
             StartCoroutine(HealingPlayer());
             StartCoroutine(DestroySpore(theSpore));
-            
-            Debug.Log("Enemy within range.");
         }
-        else
-        {
-            // No enemies within range
-            Debug.Log("No enemies within range.");
-        }
-
-        // destroy spore here
-        // sporeObj = GameObject.FindWithTag("Spore");
-        // Destroy(sporeObj);
     }
 
     Transform ClosestEnemy()
@@ -92,8 +74,6 @@ public class LeechingSpore : Skill
             yield return null;
             timer += Time.deltaTime;
         }
-
-        Debug.Log("Damage complete!");
     }
 
     IEnumerator HealingPlayer()
@@ -114,8 +94,6 @@ public class LeechingSpore : Skill
             yield return null;
             timer += Time.deltaTime;
         }
-
-        Debug.Log("Healing complete!");
     }
 
     IEnumerator DestroySpore(GameObject theSpore)
