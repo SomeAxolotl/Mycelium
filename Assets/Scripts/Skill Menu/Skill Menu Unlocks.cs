@@ -44,7 +44,7 @@ public class SkillMenuUnlocks : MonoBehaviour
     {
         
     }
-    void OnEnable()
+    void Update()
     {
         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         //Primal Unlock Statements

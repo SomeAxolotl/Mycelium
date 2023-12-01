@@ -58,6 +58,7 @@ public class LevelUpManagerNew : MonoBehaviour
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
+    public GameObject GrowMenu;
    
   
     void Start()
@@ -66,14 +67,16 @@ public class LevelUpManagerNew : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+        currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
         StartCoroutine(UpdateUI());
     }
 
     void OnEnable()
     {
       controls = new ThirdPersonActionsAsset();
-      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
-      controls.UI.Close.performed += ctx => CloseController();
+      controls.UI.MenuSwapR.started += ctx => MenuSwap();
+      controls.UI.MenuSwapL.started += ctx => MenuSwapL();
+      controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
        PrimalSave = currentstats.primalLevel;
@@ -96,9 +99,14 @@ public class LevelUpManagerNew : MonoBehaviour
        SentienceStartCheck();
        StartCoroutine(UpdateUI());
        SkillMenu.SetActive(false);
-       controls.UI.Enable();   
+       GrowMenu.SetActive(false);
+       Invoke("ControlEnable", 0.25f); 
 
 
+    }
+    void ControlEnable()
+    {
+       controls.UI.Enable();  
     }
     void OnDisable()
     {
@@ -139,6 +147,24 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
       SkillMenu.SetActive(true);
+    }
+    void MenuSwapL()
+    {
+      currentstats.primalLevel = PrimalSave;
+      currentstats.speedLevel = SpeedSave;
+      currentstats.sentienceLevel = SentienceSave;
+      currentstats.vitalityLevel = VitalitySave;
+      currentnutrients.currentNutrients = nutrientsSave;
+      currentstats.baseHealth = healthsave;
+      currentstats.baseRegen = regensave;
+      currentstats.moveSpeed = movespeedsave;
+      currentstats.primalDmg = damagesave;
+      //currentstats.skillDmg = skilldmgsave;
+      //currentstats.atkCooldownBuff = cdrsave;
+      currentstats.totalLevel = totalLevelsave;
+      currentstats.levelUpCost = levelupsave;
+      currentstats.UpdateLevel();
+      GrowMenu.SetActive(true); 
     }
 
     public void PrimalUP()
@@ -317,16 +343,15 @@ public class LevelUpManagerNew : MonoBehaviour
       SentienceSave = currentstats.sentienceLevel;
       VitalitySave = currentstats.vitalityLevel;
       UIenable.SetActive(false);
-      playerController.EnableController();
-      playerHealth.ResetHealth();
       HUDCanvasGroup.alpha = 1;
-      UnlockSkills();
       hudSkills.UpdateHUDIcons();
+      currentstats.UpdateLevel();
+      playerController.EnableController();
     }
-    public void CloseController()
+    /*public void CloseController()
     {
       Closebutton.Select();
-    }
+    }*/
     public void Close()
     {
       playerController.EnableController();

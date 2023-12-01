@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    private enum Names
+    public enum Names
     {
         Gidego,
         Gideo,
@@ -16,7 +16,7 @@ public class CharacterStats : MonoBehaviour
         Shbob,
         Shbeeby,
     }
-    private Names thisName;
+    public Names thisName;
 
     public List<string> equippedSkills = new List<string>()
     {
@@ -95,8 +95,8 @@ public class CharacterStats : MonoBehaviour
 
     void Start()
     {
-        totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
-        levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
+        //totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
+        //levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = GetComponent<DesignTracker>();
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
@@ -128,6 +128,8 @@ public class CharacterStats : MonoBehaviour
         {
             LevelVitality();
         }
+        totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
+        levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
     }
     public void LevelPrimal()
     {        

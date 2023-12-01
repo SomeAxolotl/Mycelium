@@ -44,6 +44,9 @@ public class SpeciesSkill : MonoBehaviour, ISelectHandler
             case "FairyRing":
                 SkillDesc.text = "A ring of coral sprouts around you. Enemies standing in the ring are slowed and take additional damage over time.";
                 break;
+            default:
+                SkillDesc.text = "No Skill Currently Equipped.";
+                break;
         }
          
     }
