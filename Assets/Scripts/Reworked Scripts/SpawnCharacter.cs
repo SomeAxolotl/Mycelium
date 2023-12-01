@@ -51,6 +51,7 @@ public class SpawnCharacter : MonoBehaviour
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         StartCoroutine(SetTestSkills(newCharacter));
+        newCharacter.GetComponent<NewSporeAnimation>().StartGrowAnimation();
 
     }
 
