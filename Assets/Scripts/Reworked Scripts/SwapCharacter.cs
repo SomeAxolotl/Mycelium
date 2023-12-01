@@ -67,6 +67,30 @@ public class SwapCharacter : MonoBehaviour
         StartCoroutine(UpdateName());
         hudSkills.UpdateHUDIcons();
     }
+    public void SwitchCharacterGrowMenu(int index)
+    {
+        characters[currentCharacterIndex].tag = "Player";
+        characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
+        transform.DetachChildren();
+        characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        currentCharacterIndex = index;
+        characters[currentCharacterIndex].tag = "currentPlayer";
+        if(characters[currentCharacterIndex].GetComponent<IdleWalking>().wander != null )
+        {
+            characters[currentCharacterIndex].GetComponent<IdleWalking>().StartCoroutine("StopWander");
+        }
+        characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
+        characters[currentCharacterIndex].transform.parent = gameObject.transform;
+        currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
+        currentCharacterStats.StartCalculateAttributes();
+        
+        StartCoroutine(UpdateHealth());
+        StartCoroutine(UpdateName());
+        hudSkills.UpdateHUDIcons();
+        playerController.GetStats();
+        newPlayerHealth.GetHealthStats();
+        swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
+    }
     public void SwitchToNextCharacter()
     {
         characters[currentCharacterIndex].tag = "Player";

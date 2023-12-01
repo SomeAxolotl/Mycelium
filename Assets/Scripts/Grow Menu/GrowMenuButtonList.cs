@@ -31,7 +31,7 @@ public class GrowMenuButtonList : MonoBehaviour
     {
      int buttonIndex = buttoncontroller.buttons.IndexOf(this.gameObject);
      Debug.Log(buttonIndex);
-     swapCharacterscript.SwitchCharacter(buttonIndex);
+     swapCharacterscript.SwitchCharacterGrowMenu(buttonIndex);
     }
 
 

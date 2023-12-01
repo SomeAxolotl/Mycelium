@@ -45,6 +45,7 @@ public class GrowMenuButtonController : MonoBehaviour
         buttons = new List<GameObject>();
         button.Select();
         GenerateList();
+        LevelUI.SetActive(false);
 
     }
    void Start()
