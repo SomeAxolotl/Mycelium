@@ -11,7 +11,10 @@ public class LeechingSpore : Skill
     nearest enemy im 5m range spore gets attached
     drains enemy for 5 seconds at a damage of 5 per second
     heals player for 5 seonds at 5 HP per second*/
-    [SerializeField] private float smallRadius = 5f;
+    [SerializeField] private float detectRange = 5f;
+    [SerializeField] private float durationTime = 5f;
+    [SerializeField] private GameObject sporeObj;
+    //[SerializeField] private GameObject playerParent;
 
     public override void DoSkill()
     {
@@ -24,19 +27,104 @@ public class LeechingSpore : Skill
 
     public void DoLeech()
     {
+        // get closest enemy with 5m
+        Transform closestEnemyObj = ClosestEnemy();
+
+        if (closestEnemyObj != null)
+        {
+            // instantate spore here
+            GameObject spawnedSpore = Instantiate(sporeObj, closestEnemyObj.position, Quaternion.identity);
+            spawnedSpore.transform.parent = closestEnemyObj.transform;
+
+            StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
+            
+            StartCoroutine(HealingPlayer());
+
+            StartCoroutine(DestroySpore(spawnedSpore));
+            
+            Debug.Log("Enemy within range.");
+        }
+        else
+        {
+            // No enemies within range
+            Debug.Log("No enemies within range.");
+        }
+
+        // destroy spore here
+        // sporeObj = GameObject.FindWithTag("Spore");
+        // Destroy(sporeObj);
+    }
+
+    Transform ClosestEnemy()
+    {
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, smallRadius, enemyLayerMask);
-        
-        finalSkillValue = 5;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectRange, enemyLayerMask);
+
+        Transform theTarget = null;
+        float closestDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
         foreach (Collider collider in colliders)
         {
-            float distanceToCollider = Vector3.Distance(transform.position, collider.transform.position);
+            Transform enemyTargets = collider.transform;
 
-            if (distanceToCollider >= smallRadius)
+            Vector3 directionTarget = enemyTargets.position - currentPosition;
+            float dSqrTarget = directionTarget.sqrMagnitude;
+
+            if (dSqrTarget < closestDistance)
             {
-                
+                closestDistance = dSqrTarget;
+                theTarget = enemyTargets;
             }
         }
+
+        return theTarget;
+    }
+
+    IEnumerator DrainEnemy(GameObject enemy)
+    {
+        float timer = 0f;
+
+        while (timer < durationTime)
+        {  
+            float damageThisFrame = 5.0f * Time.deltaTime;
+            enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(damageThisFrame);
+
+            Debug.Log($"Draining enemy: {damageThisFrame} damage | Time remaining: {durationTime - timer}");
+
+            yield return null;
+            timer += Time.deltaTime;
+        }
+
+        Debug.Log("Damage complete!");
+    }
+
+    IEnumerator HealingPlayer()
+    {
+        float timer = 0f;
+
+        while (timer < durationTime)
+        {  
+            float damage = finalSkillValue;
+            Debug.Log("Final Damage: " + damage);
+            float healthThisFrame = damage * Time.deltaTime;
+
+            //playerParent = GameObject.FindWithTag("PlayerParent");
+            GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerHeal(healthThisFrame);
+
+            Debug.Log($"Healing player: {healthThisFrame} health | Time remaining: {durationTime - timer}");
+
+            yield return null;
+            timer += Time.deltaTime;
+        }
+
+        Debug.Log("Healing complete!");
+    }
+
+    IEnumerator DestroySpore(GameObject spore)
+    {
+        yield return new WaitForSeconds(durationTime);
+        Destroy(spore);
     }
 }
