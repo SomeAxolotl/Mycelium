@@ -69,9 +69,6 @@ public class LeechingSpore : Skill
             float damage = finalSkillValue;  
             if (enemy != null)          ;
                 enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(damage);
-
-            Debug.Log($"Draining enemy: {damage} damage | Time remaining: {durationTime - timer}");
-
             yield return new WaitForSeconds(1);;
             timer++;
         }
@@ -84,12 +81,8 @@ public class LeechingSpore : Skill
         while (timer < durationTime)
         {  
             float damage = finalSkillValue;
-
-            Debug.Log($"Draining enemy: {damage} damage | Time remaining: {durationTime - timer}");
-
             if (enemy != null) 
                 GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerHeal(damage);
-
             yield return new WaitForSeconds(1);
             timer++;
         }

@@ -102,6 +102,8 @@ public class PlayerController : MonoBehaviour
                 skill2.ActivateSkill(2);
             }
         }
+
+        Debug.Log("Invinvcible: " + isInvincible);
     }
 
     private void FixedUpdate()

@@ -7,45 +7,40 @@ public class Blitz : Skill
 {
     //Skill specific fields
     [SerializeField] private float maxDistance = 5f;
-    private GameObject enemy;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private GameObject BlitzParticle; 
 
     public override void DoSkill()
     { 
         DoDash();
         DamageEnemies();
+        playerController.isInvincible = false;
+        player.GetComponent<Collider>().isTrigger = false;
         EndSkill();
     }
 
     void DoDash()
     {
-        playerController.StartCoroutine("Dodging");
-        playerController.StartCoroutine("IFrames");
+        playerController.rb.AddForce(player.transform.forward * dashSpeed, ForceMode.Impulse);
+        ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
+        playerController.isInvincible = true;
+        player.GetComponent<Collider>().isTrigger = true;
     }
 
     void DamageEnemies()
     {
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, playerController.transform.forward, out hit, maxDistance, enemyLayerMask))
-        {
-            // enemyHealth.EnemyTakeDamage(finalSkillCooldown);
-            enemy = GameObject.FindWithTag("Enemy");
-            enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(/*finalSkillValue*/10);
-        }
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Debug.DrawRay(transform.position, forward * maxDistance, Color.green);
+
+        RaycastHit raycastHit;
+        if(Physics.Raycast(transform.position, forward, out raycastHit, maxDistance))
+		{
+			if(raycastHit.collider.tag == "Enemy" || raycastHit.collider.tag == "Boss")
+			{
+                NewEnemyHealth enemyHealth = raycastHit.collider.GetComponent<NewEnemyHealth>();
+                enemyHealth.EnemyTakeDamage(finalSkillValue);
+			}
+		}
     }
-
-    // void DamageEnemies()
-    // {
-    //     int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
-
-    //     Collider[] colliders = Physics.OverlapSphere(transform.position, maxDistance, enemyLayerMask);
-        
-    //     float damage = finalSkillValue;
-    //     foreach (Collider collider in colliders)
-    //     {
-    //         NewEnemyHealth enemyHealth = collider.gameObject.GetComponent<NewEnemyHealth>();
-    //         enemyHealth.EnemyTakeDamage(damage);
-    //         finalSkillCooldown *= 0.5f;
-    //     }
-    // }
 }
