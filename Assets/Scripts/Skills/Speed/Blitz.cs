@@ -30,7 +30,7 @@ public class Blitz : Skill
         {
             // enemyHealth.EnemyTakeDamage(finalSkillCooldown);
             enemy = GameObject.FindWithTag("Enemy");
-            enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(finalSkillValue);
+            enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(/*finalSkillValue*/10);
         }
     }
 

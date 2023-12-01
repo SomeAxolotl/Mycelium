@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TempSpineshot : Spineshot
+public class SpineshotProjectile : MonoBehaviour
 {
     [SerializeField] private float speed = 4;
+    public float damage;
     [SerializeField] private float destroyTime = 5;
     Rigidbody rb;
     
@@ -26,9 +27,7 @@ public class TempSpineshot : Spineshot
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
         {
-            NewEnemyHealth enemyHealth = collision.gameObject.GetComponent<NewEnemyHealth>();
-            enemyHealth.EnemyTakeDamage(10);
-            //collision.GetComponent<NewEnemyHealth>().EnemyTakeDamage(finalSkillValue);
+            collision.GetComponent<NewEnemyHealth>().EnemyTakeDamage(damage);
             Destroy(gameObject);
         }
     }

@@ -7,6 +7,7 @@ public class Spineshot : Skill
     //Skill specific fields
     [SerializeField] private GameObject spineshotPrefab;
     [SerializeField] private Transform spineshotLaunch;
+    SpineshotProjectile spineshotProjectile;
 
     public override void DoSkill()
     {
@@ -19,6 +20,8 @@ public class Spineshot : Skill
     public void DoSpineshot()
     {
         spineshotLaunch = GameObject.FindWithTag("spineshotLaunch").transform;
+        spineshotProjectile = spineshotPrefab.GetComponent<SpineshotProjectile>();
         Instantiate(spineshotPrefab, spineshotLaunch.position, transform.rotation);
+        spineshotProjectile.damage = finalSkillValue;
     }
 }

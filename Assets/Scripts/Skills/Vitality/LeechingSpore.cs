@@ -28,7 +28,7 @@ public class LeechingSpore : Skill
             GameObject enemyAttach = GameObject.FindWithTag("EnemySporeAttach");
             GameObject theSpore = Instantiate(sporeObj, enemyAttach.transform);
             StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
-            StartCoroutine(HealingPlayer());
+            StartCoroutine(HealingPlayer(closestEnemyObj.gameObject));
             StartCoroutine(DestroySpore(theSpore));
         }
     }
@@ -66,33 +66,32 @@ public class LeechingSpore : Skill
 
         while (timer < durationTime)
         {  
-            float damageThisFrame = 5.0f * Time.deltaTime;
-            enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(damageThisFrame);
+            float damage = finalSkillValue;  
+            if (enemy != null)          ;
+                enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(damage);
 
-            Debug.Log($"Draining enemy: {damageThisFrame} damage | Time remaining: {durationTime - timer}");
+            Debug.Log($"Draining enemy: {damage} damage | Time remaining: {durationTime - timer}");
 
-            yield return null;
-            timer += Time.deltaTime;
+            yield return new WaitForSeconds(1);;
+            timer++;
         }
     }
 
-    IEnumerator HealingPlayer()
+    IEnumerator HealingPlayer(GameObject enemy)
     {
         float timer = 0f;
 
         while (timer < durationTime)
         {  
             float damage = finalSkillValue;
-            Debug.Log("Final Damage: " + damage);
-            float healthThisFrame = damage * Time.deltaTime;
 
-            //playerParent = GameObject.FindWithTag("PlayerParent");
-            GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerHeal(healthThisFrame);
+            Debug.Log($"Draining enemy: {damage} damage | Time remaining: {durationTime - timer}");
 
-            Debug.Log($"Healing player: {healthThisFrame} health | Time remaining: {durationTime - timer}");
+            if (enemy != null) 
+                GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerHeal(damage);
 
-            yield return null;
-            timer += Time.deltaTime;
+            yield return new WaitForSeconds(1);
+            timer++;
         }
     }
 

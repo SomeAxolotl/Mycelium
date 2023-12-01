@@ -5,24 +5,25 @@ using UnityEngine;
 public class UnstablePuffball : Skill
 {
     //Skill specific fields
-    /*
-    damage = 20
-    range = 10
-    AoE radius = 2
-    speed = 3
-    gravity = yes
-
-    shot projectile in an arc
-    collision with enemy/terrain:
-        explosion (AoE)
-    travels at 3m per second for max of 10m
-    explodes with a 2m radius of damage
-    */
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform projectileLaunch;
+    [SerializeField] private float launchVel = 6.5f;
+    UPProjectile uPProjectile;
 
     public override void DoSkill()
     {
         //Skill specific stuff
+        DoProjectile();
 
         EndSkill();
+    }
+
+    public void DoProjectile()
+    {
+        projectileLaunch = GameObject.FindWithTag("spineshotLaunch").transform;
+        uPProjectile = projectilePrefab.GetComponent<UPProjectile>();
+        var shoot = Instantiate(projectilePrefab, projectileLaunch.position, transform.rotation);
+        shoot.GetComponent<Rigidbody>().velocity = projectileLaunch.up * launchVel;
+        uPProjectile.damage = finalSkillValue;
     }
 }
