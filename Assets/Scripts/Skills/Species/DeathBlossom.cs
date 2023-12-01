@@ -6,8 +6,6 @@ public class DeathBlossom : Skill
 {
     [SerializeField] private GameObject deathBlossomPrefab;
     [SerializeField] private float distanceInFront = 2.0f;
-
-
     public override void DoSkill()
     {
 
@@ -21,6 +19,5 @@ public class DeathBlossom : Skill
         GameObject deathBlossomInstance = Instantiate(deathBlossomPrefab, spawnPosition, Quaternion.identity);
 
     }
-
 }
 

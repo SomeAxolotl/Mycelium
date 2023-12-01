@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeathBlossomPlant : DeathBlossom
 {
-    [SerializeField] private float destroyTime = 5f;
+    [SerializeField] private float destroyTime = 2f;
     [SerializeField] private float burstRadius = 10f;
     [SerializeField] private float damageOverTimeDuration = 7f;
     // Start is called before the first frame update
