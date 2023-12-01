@@ -3037,6 +3037,7 @@ GameObject:
   - component: {fileID: 4327881425648931258}
   - component: {fileID: 700066255584438882}
   - component: {fileID: 3266873619224401234}
+  - component: {fileID: -4763900865617074851}
   m_Layer: 3
   m_Name: ReworkedCharPrefab
   m_TagString: Player
@@ -3136,6 +3137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06141820242049b42b0777d6806dc014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisName: 0
+  equippedSkills:
+  - NoSkill
+  - NoSkill
+  - NoSkill
   primalLevel: 0
   primalDmg: 10
   speedLevel: 0
@@ -3149,6 +3155,7 @@ MonoBehaviour:
   baseRegen: 0.2
   totalLevel: 0
   levelUpCost: 0
+  animatorSpeed: 0
 --- !u!114 &4327881425648931258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,6 +3206,20 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &-4763900865617074851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862836875474729563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4734c15fd2ee443459e53d4754708836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growDuration: 2
+  spinSpeed: 2
 --- !u!1 &9029324067298766773
 GameObject:
   m_ObjectHideFlags: 0
