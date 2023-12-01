@@ -14,7 +14,6 @@ public class LeechingSpore : Skill
     [SerializeField] private float detectRange = 5f;
     [SerializeField] private float durationTime = 5f;
     [SerializeField] private GameObject sporeObj;
-    //[SerializeField] private GameObject playerParent;
 
     public override void DoSkill()
     {
@@ -32,15 +31,12 @@ public class LeechingSpore : Skill
 
         if (closestEnemyObj != null)
         {
-            // instantate spore here
-            GameObject spawnedSpore = Instantiate(sporeObj, closestEnemyObj.position, Quaternion.identity);
-            spawnedSpore.transform.parent = closestEnemyObj.transform;
+            GameObject enemyAttach = GameObject.FindWithTag("EnemySporeAttach");
+            GameObject theSpore = Instantiate(sporeObj, enemyAttach.transform);
 
             StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
-            
             StartCoroutine(HealingPlayer());
-
-            StartCoroutine(DestroySpore(spawnedSpore));
+            StartCoroutine(DestroySpore(theSpore));
             
             Debug.Log("Enemy within range.");
         }
@@ -122,9 +118,9 @@ public class LeechingSpore : Skill
         Debug.Log("Healing complete!");
     }
 
-    IEnumerator DestroySpore(GameObject spore)
+    IEnumerator DestroySpore(GameObject theSpore)
     {
         yield return new WaitForSeconds(durationTime);
-        Destroy(spore);
+        Destroy(theSpore);
     }
 }
