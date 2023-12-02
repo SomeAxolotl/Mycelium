@@ -23,6 +23,8 @@ public class EnemyNavigation : MonoBehaviour
     IEnumerator patrol;
     IEnumerator restartPatrol;
     IEnumerator chasePlayer;
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,7 @@ public class EnemyNavigation : MonoBehaviour
         patrol = this.Patrol();
         restartPatrol = this.RestartPatrol();
         chasePlayer = this.ChasePlayer();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -60,6 +63,7 @@ public class EnemyNavigation : MonoBehaviour
                     StartCoroutine(ChasePlayer());
                 }
                 transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
+                animator.SetBool("Walk", true);
             }
             else
             {
@@ -69,6 +73,7 @@ public class EnemyNavigation : MonoBehaviour
                 playerSeen = false;
                 navMeshAgent.isStopped = true;
                 navMeshAgent.ResetPath();
+                animator.SetBool("Walk", false);
             }
         }
         
