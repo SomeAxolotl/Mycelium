@@ -15,6 +15,7 @@ public class SceneLoadingManager : MonoBehaviour
     [SerializeField] private TMP_Text funText;
     [SerializeField] private float popDuration = 0.25f;
     public bool isLoading = false;
+    public GameObject LoadScreen;
 
     void Awake()
     {
@@ -55,6 +56,7 @@ public class SceneLoadingManager : MonoBehaviour
     IEnumerator LoadAsynchronously(string sceneName)
     {
         isLoading = true;
+        
         Application.backgroundLoadingPriority = ThreadPriority.Low;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);

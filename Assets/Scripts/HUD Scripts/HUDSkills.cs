@@ -66,7 +66,7 @@ public class HUDSkills : MonoBehaviour
         hitIcon = GameObject.Find("HitIcon").GetComponent<Image>();
         hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();
 
-        spriteList.AddRange(Resources.LoadAll<Sprite>("PlaceholderIcons"));
+        spriteList.AddRange(Resources.LoadAll<Sprite>("SkillIcons"));
     }
 
     public void UpdateHUDIcons()

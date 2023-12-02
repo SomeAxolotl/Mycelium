@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.TextCore.Text;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class CharSelectManagerNew : MonoBehaviour
 {
@@ -12,37 +13,32 @@ public class CharSelectManagerNew : MonoBehaviour
     public Button Test;
     public GameObject UIEnable;
     public GameObject HUD;
+    ThirdPersonActionsAsset controls;
+    
 
     public PlayerController playerController;
+
     void Start()
     {
         swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
-        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        
         
     }
 
     void Update()
     {
-        playerController.DisableController();
+        
     }
     void OnEnable()
     {
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerController.DisableController();
+        controls = new ThirdPersonActionsAsset();
         Test.Select();
+        controls.UI.Close.performed += ctx => Close();
+        
     }
-    public void Nextcharacter ()
-    {
-        if(swapCharacter.currentCharacterIndex < swapCharacter.characters.Count - 1)
-        {
-            swapCharacter.SwitchToNextCharacter();
-        }
-    }
-    public void LastCharacter()
-    {
-         if (swapCharacter.currentCharacterIndex != 0)
-        {
-           swapCharacter.SwitchToLastCharacter();
-        }
-    }
+
     public void Close()
     {
         playerController.EnableController();
