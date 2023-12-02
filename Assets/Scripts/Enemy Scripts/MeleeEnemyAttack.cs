@@ -23,6 +23,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     IEnumerator attack;
     IEnumerator windup;
     Rigidbody rb;
+    Animator animator;
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         attack = this.Attack();
         windup = this.AttackWindup();
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -91,6 +93,8 @@ public class MeleeEnemyAttack : MonoBehaviour
         hitbox.GetComponent<Collider>().enabled = true;
         hitbox.GetComponent<Renderer>().enabled = true;
 
+        animator.SetBool("Attack", true);
+
         yield return new WaitForSeconds(0.2f); //Attack animation will go here!
 
         hitbox.GetComponent<Collider>().enabled = false;
@@ -107,6 +111,9 @@ public class MeleeEnemyAttack : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition + transform.forward * lungeDistance, startPosition, progress);
             yield return null;
         }
+        
+        animator.SetBool("Attack", true);
+
         transform.position = startPosition;
         yield return new WaitForSeconds(attackCooldown);
         windupStarted = false;

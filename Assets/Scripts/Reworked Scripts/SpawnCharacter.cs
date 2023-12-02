@@ -41,7 +41,7 @@ public class SpawnCharacter : MonoBehaviour
             SpawnNewCharacter();
         }
     }
-    void SpawnNewCharacter()
+    public void SpawnNewCharacter()
     {
         GameObject newCharacter = Instantiate(characterPrefab); //WE HAVE TO EVENTUALLY BE ABLE TO SPAWN 4 DIFF TYPES OF SHROOMS, RIGHT NOW THIS IS JUST A SINGLE TYPE
         DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();

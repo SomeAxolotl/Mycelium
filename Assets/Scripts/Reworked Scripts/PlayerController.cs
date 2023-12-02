@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public float dodgeIFrames = 0.15f;
 
     private HUDSkills hudSkills;
+    Animator animator;
 
     // Start is called before the first frame update
     private void Start()
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -102,8 +104,6 @@ public class PlayerController : MonoBehaviour
                 skill2.ActivateSkill(2);
             }
         }
-
-        Debug.Log("Invinvcible: " + isInvincible);
     }
 
     private void FixedUpdate()
@@ -113,6 +113,8 @@ public class PlayerController : MonoBehaviour
         forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * moveSpeed;
         forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * moveSpeed;
 
+        animator.SetBool("Walk", forceDirection.magnitude > 0f);
+        
         rb.AddForce(forceDirection, ForceMode.Impulse);
         rb.AddForce(gravity, ForceMode.Acceleration);
         forceDirection = Vector3.zero;

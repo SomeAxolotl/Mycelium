@@ -67,12 +67,12 @@ public class LevelUpManagerNew : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
-        currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
         StartCoroutine(UpdateUI());
     }
 
     void OnEnable()
     {
+      currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
       controls = new ThirdPersonActionsAsset();
       controls.UI.MenuSwapR.started += ctx => MenuSwap();
       controls.UI.MenuSwapL.started += ctx => MenuSwapL();
@@ -132,6 +132,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void MenuSwap()
     {
+      SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
       currentstats.primalLevel = PrimalSave;
       currentstats.speedLevel = SpeedSave;
       currentstats.sentienceLevel = SentienceSave;
@@ -150,6 +151,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void MenuSwapL()
     {
+      SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
       currentstats.primalLevel = PrimalSave;
       currentstats.speedLevel = SpeedSave;
       currentstats.sentienceLevel = SentienceSave;
