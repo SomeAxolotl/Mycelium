@@ -8,6 +8,7 @@ public class LeechingSpore : Skill
     [SerializeField] private float detectRange = 5f;
     [SerializeField] private float durationTime = 5f;
     [SerializeField] private GameObject sporeObj;
+    [SerializeField] private float percentOfDamageHealed = 0.5f;
 
     public override void DoSkill()
     {
@@ -44,8 +45,7 @@ public class LeechingSpore : Skill
         Vector3 currentPosition = transform.position;
 
         foreach (Collider collider in colliders)
-        {
-            Transform enemyTargets = collider.transform;
+        {            Transform enemyTargets = collider.transform;
 
             Vector3 directionTarget = enemyTargets.position - currentPosition;
             float dSqrTarget = directionTarget.sqrMagnitude;
@@ -67,7 +67,7 @@ public class LeechingSpore : Skill
         while (timer < durationTime)
         {  
             float damage = finalSkillValue;  
-            if (enemy != null)          ;
+            if (enemy != null)
                 enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(damage);
             yield return new WaitForSeconds(1);;
             timer++;
@@ -82,7 +82,7 @@ public class LeechingSpore : Skill
         {  
             float damage = finalSkillValue;
             if (enemy != null) 
-                GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerHeal(damage);
+                GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerHeal(damage * percentOfDamageHealed);
             yield return new WaitForSeconds(1);
             timer++;
         }

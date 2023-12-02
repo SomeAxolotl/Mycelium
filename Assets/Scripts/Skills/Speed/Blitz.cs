@@ -8,7 +8,8 @@ public class Blitz : Skill
     //Skill specific fields
     [SerializeField] private float maxDistance = 5f;
     [SerializeField] private float dashSpeed;
-    [SerializeField] private GameObject BlitzParticle; 
+    [SerializeField] private int particleCount = 10;
+    [SerializeField] private float timeBetweenParticles = 0.05f;
 
     public override void DoSkill()
     { 
@@ -22,7 +23,6 @@ public class Blitz : Skill
     void DoDash()
     {
         playerController.rb.AddForce(player.transform.forward * dashSpeed, ForceMode.Impulse);
-        ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         playerController.isInvincible = true;
         player.GetComponent<Collider>().isTrigger = true;
     }
@@ -30,11 +30,10 @@ public class Blitz : Skill
     void DamageEnemies()
     {
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(transform.position, forward * maxDistance, Color.green);
+        Vector3 forward = player.transform.TransformDirection(Vector3.forward);
 
         RaycastHit raycastHit;
-        if(Physics.Raycast(transform.position, forward, out raycastHit, maxDistance))
+        if(Physics.Raycast(player.transform.position, forward, out raycastHit, maxDistance))
 		{
 			if(raycastHit.collider.tag == "Enemy" || raycastHit.collider.tag == "Boss")
 			{
@@ -42,5 +41,17 @@ public class Blitz : Skill
                 enemyHealth.EnemyTakeDamage(finalSkillValue);
 			}
 		}
+    }
+
+    IEnumerator BlitzParticles()
+    {
+        for (int i = 0; i < particleCount; i++)
+        {
+            float t = i / (particleCount - 1);
+
+            Vector3 spawnPosition = Vector3.Lerp(player.transform.position, (player.transform.position + player.transform.forward) * maxDistance, t);
+            ParticleManager.Instance.SpawnParticles("BlitzParticles", spawnPosition, Quaternion.identity);
+            yield return new WaitForSeconds(timeBetweenParticles);
+        }
     }
 }
