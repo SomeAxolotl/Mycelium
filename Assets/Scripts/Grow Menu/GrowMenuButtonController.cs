@@ -27,6 +27,7 @@ public class GrowMenuButtonController : MonoBehaviour
     private SkillManager skillManager;
     public GameObject UIenable;
     private PlayerController playerController;
+    private SpawnCharacter spawnCharacterscript;
 
 
 
@@ -54,13 +55,16 @@ public class GrowMenuButtonController : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+        spawnCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>();
     }
    void MenuSwapLeft()
    {
+    SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
     SkillMenu.SetActive(true);
    }
    void MenuSwapRight()
    {
+    SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
     LevelUI.SetActive(true);
    }
    void ControlEnable()
@@ -105,6 +109,14 @@ public class GrowMenuButtonController : MonoBehaviour
     }
     public void OnClickClose()
     {
+        playerController.EnableController();
+        UIenable.SetActive(false);
+        HUDCanvasGroup.alpha = 1;
+        hudSkills.UpdateHUDIcons();
+    }
+    public void Grow()
+    {
+        spawnCharacterscript.SpawnNewCharacter();
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
