@@ -5,25 +5,17 @@ using UnityEngine;
 public class UnstablePuffball : Skill
 {
     //Skill specific fields
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform projectileLaunch;
-    [SerializeField] private float launchVel = 6.5f;
-    UPProjectile uPProjectile;
-
+    [SerializeField] private GameObject puffballPrefab;
     public override void DoSkill()
     {
         //Skill specific stuff
-        DoProjectile();
-
+        DoPuffball();
         EndSkill();
     }
 
-    public void DoProjectile()
+    public void DoPuffball()
     {
-        projectileLaunch = GameObject.FindWithTag("spineshotLaunch").transform;
-        uPProjectile = projectilePrefab.GetComponent<UPProjectile>();
-        var shoot = Instantiate(projectilePrefab, projectileLaunch.position, transform.rotation);
-        shoot.GetComponent<Rigidbody>().velocity = projectileLaunch.up * launchVel;
-        uPProjectile.damage = finalSkillValue;
+        GameObject player = GameObject.FindWithTag("currentPlayer");
+        Instantiate(puffballPrefab, new Vector3(player.transform.position.x, player.transform.position.y + 0.8f, player.transform.position.z), transform.rotation);
     }
 }

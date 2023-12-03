@@ -6,27 +6,27 @@ using UnityEngine;
 public class UPProjectile : MonoBehaviour
 {
     Rigidbody rb;
-    public float damage;
-    [SerializeField] private float range = 10;
     [SerializeField] private float AoERange = 2;
     [SerializeField] private float speed = 3;
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
-    [SerializeField] private GameObject UPParticlePrefab;    
+    UnstablePuffball unstablePuffball;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        unstablePuffball = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<UnstablePuffball>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        Vector3 launchDirection = (transform.up * 0.2f + transform.forward).normalized;
+        transform.position += launchDirection * speed * Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
         {
@@ -36,7 +36,8 @@ public class UPProjectile : MonoBehaviour
         }
 
         int enviornmentLayer = 8;
-        if (collision.gameObject.layer == enviornmentLayer)
+        int wallLayer = 12;
+        if (collision.gameObject.layer == enviornmentLayer || collision.gameObject.layer == wallLayer)
         {
             speed = 0;
             DamageEnemies();
@@ -56,8 +57,14 @@ public class UPProjectile : MonoBehaviour
         // float damage = finalSkillValue;
         foreach (Collider collider in colliders)
         {
-            NewEnemyHealth enemyHealth = collider.gameObject.GetComponent<NewEnemyHealth>();
-            enemyHealth.EnemyTakeDamage(damage);
+            if (collider.GetComponent<NewEnemyHealth>() != null)
+            {
+                collider.GetComponent<NewEnemyHealth>().EnemyTakeDamage(unstablePuffball.finalSkillValue);
+            }
+            else if (collider.GetComponent<BossHealth>() != null)
+            {
+                collider.GetComponent<BossHealth>().EnemyTakeDamage(unstablePuffball.finalSkillValue);
+            }
         }
         Destroy(gameObject);
     }
@@ -66,14 +73,14 @@ public class UPProjectile : MonoBehaviour
     {
         int particlesPerCircle = 360 / particleSpacing;
         
-        int currentSmalLSpacing = 0;
+        int currentSmallSpacing = 0;
         for (int i = 0; i < particlesPerCircle; i++)
         {
-            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmalLSpacing) * AoERange;
-            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmalLSpacing) * AoERange;
+            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmallSpacing) * AoERange;
+            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmallSpacing) * AoERange;
 
             InstantiateParticles(smallX, smallZ);
-            currentSmalLSpacing += particleSpacing;
+            currentSmallSpacing += particleSpacing;
         }
     }
 
