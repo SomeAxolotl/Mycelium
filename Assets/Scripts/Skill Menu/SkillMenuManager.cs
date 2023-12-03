@@ -48,6 +48,17 @@ public class SkillMenuManager : MonoBehaviour
         
         
     }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftBracket))
+      {
+        MenuSwapLeft();
+      }
+      if(Input.GetKeyDown(KeyCode.RightBracket))
+      {
+        MenuSwapRight();
+      }
+    }
     void OnDisable()
     {
       controls.UI.Disable();

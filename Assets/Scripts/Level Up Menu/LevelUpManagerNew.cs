@@ -104,6 +104,17 @@ public class LevelUpManagerNew : MonoBehaviour
 
 
     }
+    void Update()
+    {
+      if(Input.GetKeyDown(KeyCode.LeftBracket))
+      {
+        MenuSwapL();
+      }
+      if(Input.GetKeyDown(KeyCode.RightBracket))
+      {
+        MenuSwap();
+      }
+    }
     void ControlEnable()
     {
        controls.UI.Enable();  

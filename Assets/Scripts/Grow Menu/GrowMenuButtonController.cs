@@ -49,6 +49,17 @@ public class GrowMenuButtonController : MonoBehaviour
         LevelUI.SetActive(false);
 
     }
+    void Update()
+    {
+         if(Input.GetKeyDown(KeyCode.LeftBracket))
+      {
+        MenuSwapLeft();
+      }
+      if(Input.GetKeyDown(KeyCode.RightBracket))
+      {
+        MenuSwapRight();
+      }
+    }
    void Start()
    {
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
