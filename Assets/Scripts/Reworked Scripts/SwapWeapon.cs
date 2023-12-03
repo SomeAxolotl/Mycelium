@@ -47,6 +47,8 @@ public class SwapWeapon : MonoBehaviour
         foreach (var weaponCollider in weaponColliders)
         {
             weapon = weaponCollider.transform;
+            NewWeaponStats oldStats = curWeapon.GetComponent<NewWeaponStats>();
+            NewWeaponStats newStats = weapon.gameObject.GetComponent<NewWeaponStats>();
             Vector3 dirToWeapon = (weapon.position - currentCharacter.transform.position).normalized;
             float angleToWeapon = Vector3.Angle(currentCharacter.transform.forward, dirToWeapon);
             float distanceToWeapon = Vector3.Distance(currentCharacter.transform.position, weapon.position);
@@ -54,15 +56,11 @@ public class SwapWeapon : MonoBehaviour
             if ((angleToWeapon <= 40 && playerController.canAct == true) || (distanceToWeapon <= 1f && playerController.canAct == true))
             {
                 string damageComparisonText;
-                //[TYLER ELP]
-                //if newWeaponDamage > oldWeaponDamage
-                if (10 > 5)
+                if (newStats.wpnDamage > oldStats.wpnDamage)
                 {
                     damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +</color>";
                 }
-                //[TYLER ELP]
-                //if newWeaponDamage < oldWeaponDamage
-                else if (10 < 5)
+                else if (newStats.wpnDamage < oldStats.wpnDamage)
                 {
                     damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -</color>";
                 }
@@ -70,27 +68,22 @@ public class SwapWeapon : MonoBehaviour
                 {
                     damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(evenStatColor) + "> +-</color>";
                 }
-                string speedComparisonText;
-                //[TYLER ELP]
-                //if newWeaponSpeed > oldWeaponSpeed
-                if (2 > 4)
+                string knockbackComparisonText;
+                if (newStats.wpnKnockback > oldStats.wpnKnockback)
                 {
-                    speedComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +</color>";
+                    knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +</color>";
                 }
-                //[TYLER ELP]
-                //if newWeaponSpeed < oldWeaponSpeed
-                else if (2 < 4)
+                else if (newStats.wpnKnockback < oldStats.wpnKnockback)
                 {
-                    speedComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -</color>";
+                    knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -</color>";
                 }
                 else
                 {
-                    speedComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(evenStatColor) + "> +-</color>";
+                    knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(evenStatColor) + "> +-</color>";
                 }
 
-                //[TYLER ELP]
-                string weaponName = "[WeaponName]";
-                TooltipManager.Instance.CreateTooltip(weapon.gameObject, weaponName, "Damage: " + 5 + damageComparisonText + "\nSpeed: " + 10 + speedComparisonText, "Swap");
+                string weaponName = newStats.wpnName;
+                TooltipManager.Instance.CreateTooltip(weapon.gameObject, weaponName, "Damage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, "Press [BUTTON] to Swap");
 
                 if (swapItem.triggered)
                 {

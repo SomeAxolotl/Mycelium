@@ -53,7 +53,7 @@ public class NewPlayerAttack : MonoBehaviour
             NewWeaponCollision weaponCollision = curWeapon.GetComponent<NewWeaponCollision>();
             weaponCollision.ClearEnemyList();
             player = GameObject.FindWithTag("currentPlayer");
-            atkCooldown = curWeapon.GetComponent<NewWeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
+            //atkCooldown = curWeapon.GetComponent<NewWeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
             dmgDealt = (swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<NewWeaponStats>().wpnDamage) * fungalMightBonus;
             animator = GetComponentInChildren<Animator>();
             //StartCoroutine(AttackCooldown());

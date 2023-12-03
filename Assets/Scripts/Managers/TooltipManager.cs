@@ -21,7 +21,7 @@ public class TooltipManager : MonoBehaviour
         }
     }
 
-    public void CreateTooltip(GameObject parent, string title, string description, string interactKeyword)
+    public void CreateTooltip(GameObject parent, string title, string description, string interactString)
     {
         if (currentTooltip == null)
         {
@@ -30,7 +30,7 @@ public class TooltipManager : MonoBehaviour
             Tooltip tooltip = currentTooltip.GetComponent<Tooltip>();
             tooltip.tooltipTitle.text = title;
             tooltip.tooltipDescription.text = description;
-            tooltip.tooltipInteract.text = "[X] to " + interactKeyword;
+            tooltip.tooltipInteract.text = interactString;
         }
     }
 

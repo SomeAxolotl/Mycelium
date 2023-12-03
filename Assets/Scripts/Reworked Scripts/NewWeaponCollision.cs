@@ -21,7 +21,7 @@ public class NewWeaponCollision : MonoBehaviour
             enemiesHit.Add(other.gameObject);
             float dmgDealt = newPlayerAttack.dmgDealt + sentienceBonusDamage;
             other.GetComponent<NewEnemyHealth>().EnemyTakeDamage(dmgDealt);
-            other.GetComponent<EnemyKnockback>().Knockback(newWeaponStats.knockback);
+            other.GetComponent<EnemyKnockback>().Knockback(newWeaponStats.wpnKnockback);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
             HitStopManager.Instance.HitStop(dmgDealt);
         }
