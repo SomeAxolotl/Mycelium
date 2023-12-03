@@ -60,7 +60,6 @@ public class NewEnemyHealth : MonoBehaviour
             gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
         }
         deathTimer += Time.deltaTime;
-        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.black);
         thisCollider.enabled = false;
         enemyNavigation.enabled = false;
         navMeshAgent.enabled = false;

@@ -45,7 +45,7 @@ public class CamTracker : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
             currentPlayer.rotation = Quaternion.Slerp(currentPlayer.rotation, targetRotation, 15f * Time.deltaTime);
 
-            Vector3 relativePosition = -currentPlayer.forward * 10f + currentPlayer.up * 3.5f;
+            Vector3 relativePosition = -currentPlayer.forward * 12f + currentPlayer.up * 4.5f;
             Vector3 targetPosition = currentPlayer.position + relativePosition;
             mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, targetPosition, 10f * Time.deltaTime);
 
