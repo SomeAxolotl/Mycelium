@@ -70,7 +70,7 @@ public class NewWeaponStats : MonoBehaviour
         if (this.gameObject.name == "BoneSlash(Clone)")
         {
             wpnCooldown = Random.Range(1.1f, 1.2f);
-            wpnDamage = Random.Range(35, 40);
+            wpnDamage = Random.Range(20, 25);
             knockback = 5f;
         }
 
