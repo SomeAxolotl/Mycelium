@@ -9,7 +9,8 @@ public class MeleeEnemyAttack : MonoBehaviour
     private EnemyNavigation enemyNavigation;
     private EnemyKnockback enemyKnockback;
     private Collider[] playerColliders;
-    private GameObject hitbox;
+    private Transform hitbox;
+    private GameObject thisHitbox;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
     private Transform player;
@@ -31,7 +32,8 @@ public class MeleeEnemyAttack : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyKnockback = GetComponent<EnemyKnockback>();
         enemyNavigation = GetComponent<EnemyNavigation>();
-        hitbox = this.transform.GetChild(1).gameObject;
+        hitbox = transform.Find("MeleeHitbox");
+        thisHitbox = hitbox.gameObject;
         attack = this.Attack();
         windup = this.AttackWindup();
         rb = GetComponent<Rigidbody>();
@@ -90,15 +92,13 @@ public class MeleeEnemyAttack : MonoBehaviour
             yield return null;
         }
 
-        hitbox.GetComponent<Collider>().enabled = true;
-        hitbox.GetComponent<Renderer>().enabled = true;
+        thisHitbox.GetComponent<Collider>().enabled = true;
 
         animator.SetBool("Attack", true);
 
         yield return new WaitForSeconds(0.2f); //Attack animation will go here!
 
-        hitbox.GetComponent<Collider>().enabled = false;
-        hitbox.GetComponent<Renderer>().enabled = false;
+        thisHitbox.GetComponent<Collider>().enabled = false;
 
         //Lunge Backwards
         for (float t = 0; t < lungeDuration; t += Time.deltaTime)
