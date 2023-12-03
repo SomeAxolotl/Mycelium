@@ -7,5 +7,6 @@ public class NoSkill : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
+        EndSkill();
     }
 }

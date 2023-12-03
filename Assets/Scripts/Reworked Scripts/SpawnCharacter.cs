@@ -38,34 +38,39 @@ public class SpawnCharacter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SpawnNewCharacter();
+            SpawnNewCharacter("Poison");
         }
     }
-    public void SpawnNewCharacter()
+    public void SpawnNewCharacter(string subspecies)
     {
-        GameObject newCharacter = Instantiate(characterPrefab); //WE HAVE TO EVENTUALLY BE ABLE TO SPAWN 4 DIFF TYPES OF SHROOMS, RIGHT NOW THIS IS JUST A SINGLE TYPE
-        /*DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
-        int colorindex = Random.Range(0,BodyColors.Count);
-        designTracker.SetBodyColor(GetRandomColor(BodyColors, colorindex));
-        designTracker.SetCapColor(GetRandomColor(CapColors, colorindex));*/
+        GameObject newCharacter = Instantiate(characterPrefab);
+
+        string subspeciesSkill = "FungalMight";
+        switch (subspecies)
+        {
+            case "Default":
+                subspeciesSkill = "FungalMight";
+                break;
+
+            case "Poison":
+                subspeciesSkill = "DeathBlossom";
+                break;
+
+            case "Coral":
+                subspeciesSkill = "FairyRing";
+                break;
+
+            case "Cordyceps":
+                subspeciesSkill = "Zombify";
+                break;
+        }
+        newCharacter.GetComponent<DesignTracker>().CreateSpeciesPalette(subspecies);
+        skillManager.SetSkill(subspeciesSkill, 0, newCharacter);
+
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
-        StartCoroutine(SetTestSkills(newCharacter));
         newCharacter.GetComponent<NewSporeAnimation>().StartGrowAnimation();
 
-    }
-
-    IEnumerator SetTestSkills(GameObject newCharacter)
-    {
-        TestSkills randomSkill = (TestSkills)Random.Range(0, 10);
-        string randomSkillString = randomSkill.ToString();
-
-        skillManager.SetSkill("FungalMight", 0, newCharacter);
-        yield return null;
-        skillManager.SetSkill("Eruption", 1, newCharacter);
-        yield return null;
-        skillManager.SetSkill(randomSkillString, 2, newCharacter);
-        yield return null;
     }
 
     Color GetRandomColor(List<Color> colors, int colorindex)
