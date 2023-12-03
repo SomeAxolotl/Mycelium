@@ -18,6 +18,8 @@ public class NewPlayerAttack : MonoBehaviour
     Animator animator;
     GameObject player;
     PlayerController playerController;
+    [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider enables at")] float percentUntilWindupDone = 0.5f;
+    [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider disables at")] float percentUntilSwingDone = 0.9f;
 
     public string attackAnimationName = "Slash";
 
@@ -71,7 +73,6 @@ public class NewPlayerAttack : MonoBehaviour
     private IEnumerator Attack(GameObject curWeapon)
     {
         playerController.DisableController();
-        curWeapon.GetComponent<Collider>().enabled = true;
 
         animator.Play(attackAnimationName);
         SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
@@ -85,12 +86,16 @@ public class NewPlayerAttack : MonoBehaviour
 
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
 
+        yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
+        curWeapon.GetComponent<Collider>().enabled = true;
+        yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
+        curWeapon.GetComponent<Collider>().enabled = false;
+
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));
         playerController.EnableController();
-        curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
 
     }

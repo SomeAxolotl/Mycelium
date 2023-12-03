@@ -26,10 +26,7 @@ public class LivingCyclone : Skill
 
         yield return null;
 
-        while (currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < extendFreezePoint)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil (() => currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > extendFreezePoint);
 
         currentAnimator.speed = 0;
         playerController.looking = false;

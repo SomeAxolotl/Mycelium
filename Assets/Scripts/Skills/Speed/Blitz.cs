@@ -10,21 +10,28 @@ public class Blitz : Skill
     [SerializeField] private float dashSpeed;
     [SerializeField] private int particleCount = 10;
     [SerializeField] private float timeBetweenParticles = 0.05f;
+    [SerializeField] private float timeBeforeFall = 0.25f;
+    [SerializeField] private float particleHeight = 0f;
 
     public override void DoSkill()
     { 
-        DoDash();
+        StartCoroutine(BlitzParticles(player.transform.position, player.transform.forward));
+        StartCoroutine(DoDash());
         DamageEnemies();
         playerController.isInvincible = false;
         player.GetComponent<Collider>().isTrigger = false;
         EndSkill();
     }
 
-    void DoDash()
+    IEnumerator DoDash()
     {
         playerController.rb.AddForce(player.transform.forward * dashSpeed, ForceMode.Impulse);
+        playerController.rb.constraints |= RigidbodyConstraints.FreezePositionY;
         playerController.isInvincible = true;
         player.GetComponent<Collider>().isTrigger = true;
+
+        yield return new WaitForSeconds(timeBeforeFall);
+        playerController.rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
     }
 
     void DamageEnemies()
@@ -43,14 +50,16 @@ public class Blitz : Skill
 		}
     }
 
-    IEnumerator BlitzParticles()
+    IEnumerator BlitzParticles(Vector3 startPosition, Vector3 startingForwardVector)
     {
         for (int i = 0; i < particleCount; i++)
         {
-            float t = i / (particleCount - 1);
+            float t = (float)i / (float)(particleCount - 1);
 
-            Vector3 spawnPosition = Vector3.Lerp(player.transform.position, (player.transform.position + player.transform.forward) * maxDistance, t);
-            ParticleManager.Instance.SpawnParticles("BlitzParticles", spawnPosition, Quaternion.identity);
+            Vector3 spawnPosition = Vector3.Lerp(startPosition, startPosition + (startingForwardVector * maxDistance), t);
+            Vector3 heightAdder = new Vector3(0f, particleHeight, 0f);
+            Vector3 spawnPositionWithHeight = spawnPosition + heightAdder;
+            ParticleManager.Instance.SpawnParticles("BlitzParticles", spawnPositionWithHeight, Quaternion.identity);
             yield return new WaitForSeconds(timeBetweenParticles);
         }
     }

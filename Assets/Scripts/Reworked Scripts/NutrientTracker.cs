@@ -25,6 +25,7 @@ public class NutrientTracker : MonoBehaviour
     void Start()
     {
         hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
+        hudNutrients.UpdateNutrientsUI(currentNutrients);
     }
 
     // Update is called once per frame

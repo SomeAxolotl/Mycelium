@@ -33,7 +33,8 @@ public class TestingManager : MonoBehaviour
         Undergrowth,
         LeechingSpore,
         Sporeburst,
-        DefenseMechanism
+        DefenseMechanism,
+        NoSkill
     }
 
     private enum SpeciesSkills
@@ -94,8 +95,10 @@ public class TestingManager : MonoBehaviour
         yield return null;
         skillManager.SetSkill(speciesSkill.ToString(), 0, player);
         yield return null;
-        skillManager.SetSkill(skill1.ToString(), 1, player);
+        if (skill1.ToString() != "NoSkill")
+            skillManager.SetSkill(skill1.ToString(), 1, player);
         yield return null;
-        skillManager.SetSkill(skill2.ToString(), 2, player);
+        if (skill2.ToString() != "NoSkill")
+            skillManager.SetSkill(skill2.ToString(), 2, player);
     }
 }
