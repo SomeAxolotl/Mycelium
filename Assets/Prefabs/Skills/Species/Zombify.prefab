@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8842228777849338112
 MonoBehaviour:
@@ -45,8 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  baseSkillDamage: 10
-  sentienceDamageScalar: 1
-  finalSkillDamage: 0
-  baseSkillCooldown: 20
+  ValueAt1Sentience: 10
+  ValueAt15Sentience: 100
+  finalSkillValue: 50
+  CooldownAt1Sentience: 6
+  CooldownAt15Sentience: 2
   finalSkillCooldown: 0
+  player: {fileID: 0}
+  characterStats: {fileID: 0}
+  playerController: {fileID: 0}
+  playerHealth: {fileID: 0}
+  currentAnimator: {fileID: 0}
+  destroyTime: 5
+  burstRadius: 10

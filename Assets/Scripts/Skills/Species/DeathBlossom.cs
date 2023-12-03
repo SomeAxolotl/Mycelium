@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class DeathBlossom : Skill
 {
-    //Skill specific fields
-
+    [SerializeField] private GameObject deathBlossomPrefab;
+    [SerializeField] private float distanceInFront = 2.0f;
     public override void DoSkill()
     {
-        //Skill specific stuff
 
+        SpawnDeathBlossom();
         EndSkill();
     }
+    void SpawnDeathBlossom()
+    {
+        Vector3 playerPosition = transform.position;
+        Vector3 spawnPosition = playerPosition + transform.forward * distanceInFront;
+        GameObject deathBlossomInstance = Instantiate(deathBlossomPrefab, spawnPosition, Quaternion.identity);
+
+    }
 }
+

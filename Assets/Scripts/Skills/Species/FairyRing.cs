@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class FairyRing : Skill
 {
-    //Skill specific fields
-
+    [SerializeField] private GameObject fairyRingPrefab;
     public override void DoSkill()
     {
-        //Skill specific stuff
 
+        SpawnFairyRing();
         EndSkill();
+    }
+    void SpawnFairyRing()
+    {
+        Vector3 playerPosition = transform.position;
+        Vector3 spawnPosition = playerPosition;
+        GameObject fairyRingInstance = Instantiate(fairyRingPrefab, spawnPosition, Quaternion.identity);
+
     }
 }
