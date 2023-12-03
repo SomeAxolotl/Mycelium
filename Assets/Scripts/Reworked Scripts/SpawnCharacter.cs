@@ -44,10 +44,10 @@ public class SpawnCharacter : MonoBehaviour
     public void SpawnNewCharacter()
     {
         GameObject newCharacter = Instantiate(characterPrefab); //WE HAVE TO EVENTUALLY BE ABLE TO SPAWN 4 DIFF TYPES OF SHROOMS, RIGHT NOW THIS IS JUST A SINGLE TYPE
-        DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
+        /*DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
         int colorindex = Random.Range(0,BodyColors.Count);
         designTracker.SetBodyColor(GetRandomColor(BodyColors, colorindex));
-        designTracker.SetCapColor(GetRandomColor(CapColors, colorindex));
+        designTracker.SetCapColor(GetRandomColor(CapColors, colorindex));*/
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         StartCoroutine(SetTestSkills(newCharacter));
