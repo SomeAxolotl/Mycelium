@@ -4,19 +4,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    public enum Names
-    {
-        Gidego,
-        Gideo,
-        Shborb,
-        GidShbeeb,
-        Shbaybo,
-        Gidoof,
-        Gob,
-        Shbob,
-        Shbeeby,
-    }
-    public Names thisName;
+    public string sporeName = "Gob";
 
     public List<string> equippedSkills = new List<string>()
     {
@@ -102,7 +90,6 @@ public class CharacterStats : MonoBehaviour
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
         sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
-        SetSporeName();
     }
 
     void Update()
@@ -271,18 +258,10 @@ public class CharacterStats : MonoBehaviour
         return attributeValue;
     }
 
-    public void SetSporeName()
-    {
-        hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
-        int enumLength = System.Enum.GetValues(typeof(Names)).Length;
-        int randomIndex = Random.Range(0, enumLength);
-        thisName = (Names)randomIndex;
-    }
-
     public void UpdateSporeName()
     {
-        string thisNameString = thisName.ToString();
-        hudHealth.SetSporeName(thisNameString);
+        hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
+        hudHealth.SetSporeName(sporeName);
     }
 
     public void UnlockSkill(string skillName)

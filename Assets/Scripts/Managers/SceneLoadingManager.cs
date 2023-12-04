@@ -13,7 +13,7 @@ public class SceneLoadingManager : MonoBehaviour
     [SerializeField] private GameObject loadPanelHolder;
     [SerializeField] private Image loadBar;
     [SerializeField] private TMP_Text funText;
-    [SerializeField] private float popDuration = 0.25f;
+    //[SerializeField] private float popDuration = 0.25f;
     public bool isLoading = false;
     public GameObject LoadScreen;
 

@@ -95,7 +95,7 @@ public class GrowMenuButtonController : MonoBehaviour
         buttons.Add(button);
         button.SetActive(true);
 
-        string name = i.GetComponent<CharacterStats>().thisName.ToString();
+        string name = i.GetComponent<CharacterStats>().sporeName;
         button.GetComponent<GrowMenuButtonList>().SetText(name);
         button.transform.SetParent(buttonBase.transform.parent, false);
     }
@@ -131,7 +131,6 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
-        hudSkills.UpdateHUDIcons();
     }
     public void GrowDefault()
     {
@@ -139,6 +138,5 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
-        hudSkills.UpdateHUDIcons();
     }
 }

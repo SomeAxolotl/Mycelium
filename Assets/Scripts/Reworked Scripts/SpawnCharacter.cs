@@ -19,6 +19,12 @@ public class SpawnCharacter : MonoBehaviour
         DefenseMechanism
     }
 
+    [SerializeField] private List<string> sporeNames = new List<string>()
+    {
+        "Gob"
+    };
+
+
     [SerializeField] private GameObject characterPrefab;
 
     [Header("Default Colors")]
@@ -88,6 +94,8 @@ public class SpawnCharacter : MonoBehaviour
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         newCharacter.GetComponent<NewSporeAnimation>().StartGrowAnimation();
 
+        int randomNameIndex = Random.Range(0, sporeNames.Count - 1);
+        newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
     }
 
     void CreateSpeciesPalette(GameObject character, string subspecies)
