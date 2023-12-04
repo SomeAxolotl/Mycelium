@@ -61,28 +61,28 @@ public class DesignTracker : MonoBehaviour
     IEnumerator fadeBlend(float sentience, float primal, float vitality, float speed)
     {   
         blendCoroutineRunning =  true;
-        float startingSentience = skinnedMeshRenderer.GetBlendShapeWeight(0);
-        float startingPrimal = skinnedMeshRenderer.GetBlendShapeWeight(1);
-        float startingVitality = skinnedMeshRenderer.GetBlendShapeWeight(2);
-        float startingSpeed = skinnedMeshRenderer.GetBlendShapeWeight(3);
-        while(skinnedMeshRenderer.GetBlendShapeWeight(0) < sentience)
+        float startingSentience = skinnedMeshRenderer.GetBlendShapeWeight(2);
+        float startingPrimal = skinnedMeshRenderer.GetBlendShapeWeight(3);
+        float startingVitality = skinnedMeshRenderer.GetBlendShapeWeight(1);
+        float startingSpeed = skinnedMeshRenderer.GetBlendShapeWeight(0);
+        while(skinnedMeshRenderer.GetBlendShapeWeight(2) < sentience)
         {
-            skinnedMeshRenderer.SetBlendShapeWeight(0, skinnedMeshRenderer.GetBlendShapeWeight(0) + (sentience-startingSentience)/10f);
+            skinnedMeshRenderer.SetBlendShapeWeight(2, skinnedMeshRenderer.GetBlendShapeWeight(2) + (sentience-startingSentience)/10f);
             yield return new WaitForSeconds(0.02f);
         }
-        while(skinnedMeshRenderer.GetBlendShapeWeight(1) < primal)
+        while(skinnedMeshRenderer.GetBlendShapeWeight(3) < primal)
         {
-            skinnedMeshRenderer.SetBlendShapeWeight(1, skinnedMeshRenderer.GetBlendShapeWeight(1) + (primal-startingPrimal)/10f);
+            skinnedMeshRenderer.SetBlendShapeWeight(3, skinnedMeshRenderer.GetBlendShapeWeight(3) + (primal-startingPrimal)/10f);
             yield return new WaitForSeconds(0.02f);
         }
-        while(skinnedMeshRenderer.GetBlendShapeWeight(2) < vitality)
+        while(skinnedMeshRenderer.GetBlendShapeWeight(1) < vitality)
         {
-            skinnedMeshRenderer.SetBlendShapeWeight(2, skinnedMeshRenderer.GetBlendShapeWeight(2) + (vitality-startingVitality)/10f);
+            skinnedMeshRenderer.SetBlendShapeWeight(1, skinnedMeshRenderer.GetBlendShapeWeight(1) + (vitality-startingVitality)/10f);
             yield return new WaitForSeconds(0.02f);
         }
-        while(skinnedMeshRenderer.GetBlendShapeWeight(3) < speed)
+        while(skinnedMeshRenderer.GetBlendShapeWeight(0) < speed)
         {
-            skinnedMeshRenderer.SetBlendShapeWeight(3, skinnedMeshRenderer.GetBlendShapeWeight(3) + (speed-startingSpeed)/10f);
+            skinnedMeshRenderer.SetBlendShapeWeight(0, skinnedMeshRenderer.GetBlendShapeWeight(0) + (speed-startingSpeed)/10f);
             yield return new WaitForSeconds(0.02f);
         }
         blendCoroutineRunning = false;
@@ -101,10 +101,10 @@ public class DesignTracker : MonoBehaviour
 
         //map the weight for Speed
         float speedWeight = speedLevel * 100f/15f;
-        skinnedMeshRenderer.SetBlendShapeWeight(0, sentienceWeight);
-        skinnedMeshRenderer.SetBlendShapeWeight(1, primalWeight);
-        skinnedMeshRenderer.SetBlendShapeWeight(2, vitalityWeight);
-        skinnedMeshRenderer.SetBlendShapeWeight(3, speedWeight);
+        skinnedMeshRenderer.SetBlendShapeWeight(2, sentienceWeight);
+        skinnedMeshRenderer.SetBlendShapeWeight(3, primalWeight);
+        skinnedMeshRenderer.SetBlendShapeWeight(1, vitalityWeight);
+        skinnedMeshRenderer.SetBlendShapeWeight(0, speedWeight);
     }
 
     public void UpdateColors()
