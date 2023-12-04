@@ -12,28 +12,6 @@ public class DesignTracker : MonoBehaviour
     public UnityEngine.Color bodyColor;
     private bool blendCoroutineRunning = false;
 
-    [SerializeField] private List<UnityEngine.Color> defaultColors = new List<UnityEngine.Color>
-    {
-        UnityEngine.Color.gray, //add more
-        UnityEngine.Color.magenta //add more
-    };
-    [SerializeField] private List<UnityEngine.Color> poisonColors = new List<UnityEngine.Color>
-    {
-        UnityEngine.Color.green, //add more
-        UnityEngine.Color.magenta //add more
-    };
-    [SerializeField] private List<UnityEngine.Color> coralColors = new List<UnityEngine.Color>
-    {
-        UnityEngine.Color.red, //add more
-        UnityEngine.Color.magenta //add more
-    };
-    [SerializeField] private List<UnityEngine.Color> cordycepsColors = new List<UnityEngine.Color>
-    {
-        UnityEngine.Color.blue, //add more
-        UnityEngine.Color.magenta //add more
-    };
-
-
     private void Start()
     {
         UpdateColors();
@@ -121,44 +99,5 @@ public class DesignTracker : MonoBehaviour
     public void SetBodyColor(UnityEngine.Color color)
     {
         bodyColor = color;
-    }
-
-    public void CreateSpeciesPalette(string subspecies)
-    {
-        UnityEngine.Color capColor = UnityEngine.Color.black;
-        UnityEngine.Color bodyColor = UnityEngine.Color.black;
-        int randomColorIndex = 0;
-        switch (subspecies)
-        {
-            case "Default":
-                randomColorIndex = UnityEngine.Random.Range(0, defaultColors.Count);
-                SetCapColor(defaultColors[randomColorIndex]);
-                randomColorIndex = UnityEngine.Random.Range(0, defaultColors.Count);
-                SetBodyColor(defaultColors[randomColorIndex]);
-                break;
-
-            case "Poison":
-                randomColorIndex = UnityEngine.Random.Range(0, poisonColors.Count);
-                SetCapColor(poisonColors[randomColorIndex]);
-                randomColorIndex = UnityEngine.Random.Range(0, poisonColors.Count);
-                SetBodyColor(poisonColors[randomColorIndex]);
-                break;
-
-            case "Coral":
-                randomColorIndex = UnityEngine.Random.Range(0, coralColors.Count);
-                SetCapColor(coralColors[randomColorIndex]);
-                randomColorIndex = UnityEngine.Random.Range(0, coralColors.Count);
-                SetBodyColor(coralColors[randomColorIndex]);
-                break;
-
-            case "Cordyceps":
-                randomColorIndex = UnityEngine.Random.Range(0, cordycepsColors.Count);
-                SetCapColor(cordycepsColors[randomColorIndex]);
-                randomColorIndex = UnityEngine.Random.Range(0, cordycepsColors.Count);
-                SetBodyColor(cordycepsColors[randomColorIndex]);
-                break;
-        }
-
-        UpdateColors();
     }
 }

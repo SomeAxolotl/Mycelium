@@ -20,8 +20,21 @@ public class SpawnCharacter : MonoBehaviour
     }
 
     [SerializeField] private GameObject characterPrefab;
-    [SerializeField] private List<Color> CapColors;
-    [SerializeField] private List<Color> BodyColors;
+
+    [Header("Default Colors")]
+    [SerializeField] private List<UnityEngine.Color> defaultCapColors;
+    [SerializeField] private List<UnityEngine.Color> defaultBodyColors;
+    [Header("Poison Colors")]
+    [SerializeField] private List<UnityEngine.Color> poisonCapColors;
+    [SerializeField] private List<UnityEngine.Color> poisonBodyColors;
+    [Header("Coral Colors")]
+    [SerializeField] private List<UnityEngine.Color> coralCapColors;
+    [SerializeField] private List<UnityEngine.Color> coralBodyColors;
+    [Header("Cordyceps Colors")]
+    [SerializeField] private List<UnityEngine.Color> cordycepsCapColors;
+    [SerializeField] private List<UnityEngine.Color> cordycepsBodyColors;
+
+
     SwapCharacter swapCharacter;
     SkillManager skillManager;
     // Start is called before the first frame update
@@ -64,7 +77,7 @@ public class SpawnCharacter : MonoBehaviour
                 subspeciesSkill = "Zombify";
                 break;
         }
-        newCharacter.GetComponent<DesignTracker>().CreateSpeciesPalette(subspecies);
+        CreateSpeciesPalette(newCharacter, subspecies);
         skillManager.SetSkill(subspeciesSkill, 0, newCharacter);
 
         swapCharacter.characters.Add(newCharacter);
@@ -73,11 +86,40 @@ public class SpawnCharacter : MonoBehaviour
 
     }
 
-    Color GetRandomColor(List<Color> colors, int colorindex)
+    void CreateSpeciesPalette(GameObject character, string subspecies)
     {
-        if (colors.Count == 0 || colorindex >= colors.Count)
-            return new Color(255,255,255);
-        Color retColor = colors[colorindex];
-        return retColor;
+        UnityEngine.Color capColor = UnityEngine.Color.black;
+        UnityEngine.Color bodyColor = UnityEngine.Color.black;
+        int randomColorIndex = 0;
+        switch (subspecies)
+        {
+            case "Default":
+                randomColorIndex = UnityEngine.Random.Range(0, defaultCapColors.Count);
+                character.GetComponent<DesignTracker>().SetCapColor(defaultCapColors[randomColorIndex]);
+                randomColorIndex = UnityEngine.Random.Range(0, defaultBodyColors.Count);
+                character.GetComponent<DesignTracker>().SetBodyColor(defaultBodyColors[randomColorIndex]);
+                break;
+
+            case "Poison":
+                randomColorIndex = UnityEngine.Random.Range(0, poisonCapColors.Count);
+                character.GetComponent<DesignTracker>().SetCapColor(poisonCapColors[randomColorIndex]);
+                randomColorIndex = UnityEngine.Random.Range(0, poisonBodyColors.Count);
+                character.GetComponent<DesignTracker>().SetBodyColor(poisonBodyColors[randomColorIndex]);
+                break;
+
+            case "Coral":
+                randomColorIndex = UnityEngine.Random.Range(0, coralCapColors.Count);
+                character.GetComponent<DesignTracker>().SetCapColor(coralCapColors[randomColorIndex]);
+                randomColorIndex = UnityEngine.Random.Range(0, coralBodyColors.Count);
+                character.GetComponent<DesignTracker>().SetBodyColor(coralBodyColors[randomColorIndex]);
+                break;
+
+            case "Cordyceps":
+                randomColorIndex = UnityEngine.Random.Range(0, cordycepsCapColors.Count);
+                character.GetComponent<DesignTracker>().SetCapColor(cordycepsCapColors[randomColorIndex]);
+                randomColorIndex = UnityEngine.Random.Range(0, cordycepsBodyColors.Count);
+                character.GetComponent<DesignTracker>().SetBodyColor(cordycepsBodyColors[randomColorIndex]);
+                break;
+        }
     }
 }
