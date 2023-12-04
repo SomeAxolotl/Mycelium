@@ -53,6 +53,10 @@ public class SpawnCharacter : MonoBehaviour
         {
             SpawnNewCharacter("Poison");
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SpawnNewCharacter("Default");
+        }
     }
     public void SpawnNewCharacter(string subspecies)
     {
