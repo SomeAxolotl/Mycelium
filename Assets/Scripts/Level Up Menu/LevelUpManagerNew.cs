@@ -52,6 +52,15 @@ public class LevelUpManagerNew : MonoBehaviour
     public CharacterStats currentstats;
     private PlayerController playerController;
     public NutrientTracker currentnutrients;
+    public GameObject Skill1Image;
+    public GameObject Skill2Image;
+    public GameObject Skill3Image;
+    public TMP_Text Skill1CD;
+    public TMP_Text Skill1Dam;
+    public TMP_Text Skill2CD;
+    public TMP_Text Skill2Dam;
+    public TMP_Text Skill3CD;
+    public TMP_Text Skill3Dam;
     private SkillManager skillManager;
     public GameObject SkillMenu;
     private HUDSkills hudSkills;
@@ -79,6 +88,7 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+       hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
        PrimalSave = currentstats.primalLevel;
        SpeedSave = currentstats.speedLevel;
        SentienceSave = currentstats.sentienceLevel;
@@ -97,9 +107,15 @@ public class LevelUpManagerNew : MonoBehaviour
        SpeedStartCheck();
        VitalityStartCheck();
        SentienceStartCheck();
+       SkillCD();
+       SkillDam();
        StartCoroutine(UpdateUI());
        SkillMenu.SetActive(false);
        GrowMenu.SetActive(false);
+       List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
+        Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
+        Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
+        Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
        Invoke("ControlEnable", 0.25f); 
 
 
@@ -261,6 +277,8 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.LevelSentience();
       SentienceCheck();
       SentienceCap();
+      SkillCD();
+      SkillDam();
       StartCoroutine(UpdateUI());
 
       //Testing GetEquippedSkillValues
@@ -276,6 +294,8 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.DeLevelSentience(); 
       SentienceCheck();
       SentienceCap();
+      SkillCD();
+      SkillDam();
       StartCoroutine(UpdateUI());
 
       //Testing GetEquippedSkillCooldowns
@@ -473,5 +493,21 @@ public class LevelUpManagerNew : MonoBehaviour
         //Debug.Log("Unlocked: " + currentstats.skillUnlocks[skillName]);
         //Debug.Log("Equippable: " + currentstats.skillEquippables[skillName]);
       }
+    }
+    void SkillCD()
+    {
+      skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+      List<float> CDList = skillManager.GetEquippedSkillCooldowns(GameObject.FindWithTag("currentPlayer"));
+      Skill1CD.text = "Cooldown: <br>" + CDList[0].ToString("0.0") + " Seconds";
+      Skill2CD.text = "Cooldown: <br>" + CDList[1].ToString("0.0") + " Seconds";
+      Skill3CD.text = "Cooldown: <br>" + CDList[2].ToString("0.0") + " Seconds";
+    }
+    void SkillDam()
+    {
+      skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+      List<float> DamList = skillManager.GetEquippedSkillValues(GameObject.FindWithTag("currentPlayer"));
+      Skill1Dam.text = "Damage: " + DamList[0].ToString();
+      Skill2Dam.text =  "Damage: " + DamList[1].ToString();
+      Skill3Dam.text =  "Damage: " + DamList[2].ToString();
     }
 }
