@@ -16,6 +16,9 @@ public class GetMaterial : MonoBehaviour
     private InputAction interact;
     GameObject player;
     NutrientTracker nutrientTracker;
+
+    private HUDItem hudItem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,7 @@ public class GetMaterial : MonoBehaviour
         interact = playerActionsAsset.Player.Interact;
         player = GameObject.FindWithTag("currentPlayer");
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+        hudItem = GameObject.Find("HUD").GetComponent<HUDItem>();
     }
     private void Update()
     {
@@ -49,6 +53,7 @@ public class GetMaterial : MonoBehaviour
                 nutrientTracker.heldItem.SetActive(true);
                 nutrientTracker.heldItem = log;
             }
+            hudItem.PickUpItem("RottenLog");
         }
 
         if (gameObject.name == "Exoskeleton" || gameObject.name == "Exoskeleton(Clone)")
@@ -64,6 +69,7 @@ public class GetMaterial : MonoBehaviour
                 nutrientTracker.heldItem.SetActive(true);
                 nutrientTracker.heldItem = exoskeleton;
             }
+            hudItem.PickUpItem("FreshExoskeleton");
         }
 
         if (gameObject.name == "Calcite" || gameObject.name == "Calcite(Clone)")
@@ -79,6 +85,7 @@ public class GetMaterial : MonoBehaviour
                 nutrientTracker.heldItem.SetActive(true);
                 nutrientTracker.heldItem = calcite;
             }
+            hudItem.PickUpItem("CalciteDeposit");
         }
 
         if (gameObject.name == "Flesh" || gameObject.name == "Flesh(Clone)")
@@ -94,6 +101,7 @@ public class GetMaterial : MonoBehaviour
                 nutrientTracker.heldItem.SetActive(true);
                 nutrientTracker.heldItem = flesh;
             }
+            hudItem.PickUpItem("Flesh");
         }
         gameObject.SetActive(false);
     }

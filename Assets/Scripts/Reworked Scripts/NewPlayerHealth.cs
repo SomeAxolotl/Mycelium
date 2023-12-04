@@ -11,6 +11,7 @@ public class NewPlayerHealth : MonoBehaviour
     float regenRate;
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
+    HUDItem hudItem;
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     PlayerController playerController;
@@ -27,6 +28,7 @@ public class NewPlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         InvokeRepeating("Regen", 1f, 1f);
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
+        hudItem = GameObject.Find("HUD").GetComponent<HUDItem>();
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
@@ -91,6 +93,7 @@ public class NewPlayerHealth : MonoBehaviour
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             nutrientTracker.LoseMaterials();
+            hudItem.LostItem();
             SceneManager.LoadScene(1);
             //StartCoroutine(RespawnPlayer());
             deathTimer = 0;

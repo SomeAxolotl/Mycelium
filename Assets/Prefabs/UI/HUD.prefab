@@ -281,12 +281,12 @@ GameObject:
   - component: {fileID: 3760061131292005501}
   - component: {fileID: 8343937381690896642}
   m_Layer: 5
-  m_Name: WeaponIcon
+  m_Name: MaterialIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4399417956279538431
 RectTransform:
   m_ObjectHideFlags: 0
@@ -304,8 +304,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.031601, y: 0.048}
-  m_SizeDelta: {x: 35.8415, y: 17.638}
+  m_AnchoredPosition: {x: 0.031538, y: 0.047901}
+  m_SizeDelta: {x: 43.534, y: 43.307}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2136566143518433089
 CanvasRenderer:
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 75c15078f5782de488cdbbd6b374c4db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6a129a619c983c4e821a1624023f8ed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -794,7 +794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &991606995045547601
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1991,6 +1991,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fbd5766076f7994592e9be7056e7ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemPanel: {fileID: 2095237390144391655}
+  itemSprites:
+  - {fileID: 21300000, guid: 46452f87326eb6a419c70b96875db43a, type: 3}
+  - {fileID: 21300000, guid: 2137b8c86db94f7418a96c0dbb3647aa, type: 3}
+  - {fileID: 21300000, guid: 0e229b4088789a94591910563e7b0e2f, type: 3}
+  - {fileID: 21300000, guid: 171d85cfbefa9a248b060ce1d1134a8e, type: 3}
+  itemImage: {fileID: 3760061131292005501}
 --- !u!114 &5702132062068062686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2921,7 +2928,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -55.112, y: 46.729996}
+  m_AnchoredPosition: {x: 69, y: 56.086}
   m_SizeDelta: {x: 110.224, y: 92.906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5513422757463158229
@@ -3412,7 +3419,7 @@ GameObject:
   - component: {fileID: 5290375822861639765}
   - component: {fileID: 936320667690673974}
   m_Layer: 5
-  m_Name: WeaponBackground
+  m_Name: MaterialBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
