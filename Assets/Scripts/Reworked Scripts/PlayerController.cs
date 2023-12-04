@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
-        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -132,6 +131,7 @@ public class PlayerController : MonoBehaviour
     public void GetStats()
     {
         rb = GetComponentInChildren<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
         moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
     }
     IEnumerator Dodging()

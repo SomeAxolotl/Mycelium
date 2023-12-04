@@ -79,10 +79,13 @@ public class NewEnemyHealth : MonoBehaviour
 
         foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
         {
-            enemyHealthBar.UpdateEnemyHealth(currentHealth, maxHealth);
-            enemyHealthBar.DamageNumber(dmgTaken);
+            if(enemyHealthBar != null && currentHealth + dmgTaken > 0) 
+            {
+                enemyHealthBar.UpdateEnemyHealth(currentHealth, maxHealth);
+                enemyHealthBar.DamageNumber(dmgTaken);
+                ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
+            }
+
         }
-        //Particle effect for blood
-        ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
     }
 }

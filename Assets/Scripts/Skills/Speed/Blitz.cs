@@ -6,7 +6,7 @@ using UnityEngine;
 public class Blitz : Skill
 {
     //Skill specific fields
-    private float blitzForce = 8f;
+    private float blitzForce = 12f;
     private float blitzTime = .3f;
     [SerializeField] private float raycastDistance = 1f;
     [SerializeField] private int particleCount = 10;
