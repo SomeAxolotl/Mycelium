@@ -125,9 +125,17 @@ public class GrowMenuButtonController : MonoBehaviour
         HUDCanvasGroup.alpha = 1;
         hudSkills.UpdateHUDIcons();
     }
-    public void Grow()
+    public void GrowPoison()
     {
         spawnCharacterscript.SpawnNewCharacter("Poison");
+        playerController.EnableController();
+        UIenable.SetActive(false);
+        HUDCanvasGroup.alpha = 1;
+        hudSkills.UpdateHUDIcons();
+    }
+    public void GrowDefault()
+    {
+        spawnCharacterscript.SpawnNewCharacter("Default");
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
