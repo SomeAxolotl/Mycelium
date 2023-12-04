@@ -8,6 +8,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private EnemyNavigation enemyNavigation;
     private EnemyKnockback enemyKnockback;
+    private MeleeEnemyHitbox meleeEnemyHitbox;
     private Collider[] playerColliders;
     private Transform hitbox;
     private GameObject thisHitbox;
@@ -32,6 +33,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyKnockback = GetComponent<EnemyKnockback>();
         enemyNavigation = GetComponent<EnemyNavigation>();
+        meleeEnemyHitbox = GetComponentInChildren<MeleeEnemyHitbox>();
         hitbox = transform.Find("MeleeHitbox");
         thisHitbox = hitbox.gameObject;
         attack = this.Attack();
@@ -115,6 +117,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         animator.SetBool("Attack", true);
 
         transform.position = startPosition;
+        meleeEnemyHitbox.ClearPlayerList();
         yield return new WaitForSeconds(attackCooldown);
         windupStarted = false;
         canAttack = true;
@@ -126,6 +129,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         attack = Attack();
         windup = AttackWindup();
         transform.position = transform.position;
+        meleeEnemyHitbox.ClearPlayerList();
         attackWindup = .75f;
         navMeshAgent.speed = 5f;
         canAttack = true;

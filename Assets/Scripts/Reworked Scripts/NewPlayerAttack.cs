@@ -91,16 +91,18 @@ public class NewPlayerAttack : MonoBehaviour
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;
 
-        yield return new WaitForEndOfFrame();
+        /*yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
-        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));
+        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));*/
         playerController.EnableController();
         ClearAllFungalMights();
 
     }
     private IEnumerator Lunge()
     {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
         Vector3 lungeDirection = player.transform.forward;
         float forcePerSecond = lungeForce / lungeDuration;
         float elapsedTime = 0f;

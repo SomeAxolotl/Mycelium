@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor.Experimental.GraphView;
@@ -8,7 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
-    private Vector3 forceDirection = Vector3.zero;
+    public Vector3 forceDirection = Vector3.zero;
     public float moveSpeed;
     [SerializeField] float gravityForce = -20;
     Vector3 gravity;
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private InputAction stat_skill_2;
     private InputAction subspecies_skill;
     bool canDodge = true;
-    bool activeDodge = false;
+    public bool activeDodge = false;
     public bool isInvincible = false;
     bool playerSwapping;
     SwapCharacter swapCharacter;
@@ -68,8 +69,8 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
-
-        if(dodge.triggered && canDodge == true)
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.forward, Color.red);
+        if (dodge.triggered && canDodge == true)
         {
             StartCoroutine("Dodging");
             StartCoroutine("IFrames");
@@ -137,18 +138,19 @@ public class PlayerController : MonoBehaviour
     {
         canDodge = false;
         activeDodge = true;
-        rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
+        rb.AddForce(forceDirection * 6f, ForceMode.Impulse);
         //Dust Particle for Dodging
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         //HUD Dodge Cooldown
         hudSkills.StartCooldownUI(4, dodgeCooldown);
         newPlayerHealth.ActivateInvincibility();
-        yield return new WaitForSeconds(.15f);
+        yield return new WaitForSeconds(.2f);
         newPlayerHealth.DeactivateInvincibility();
         activeDodge = false;
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;
     }
+
     IEnumerator IFrames()
     {
         isInvincible = true;

@@ -6,48 +6,60 @@ using UnityEngine;
 public class Blitz : Skill
 {
     //Skill specific fields
-    [SerializeField] private float maxDistance = 5f;
-    [SerializeField] private float dashSpeed;
+    private float blitzForce = 8f;
+    private float blitzTime = .3f;
+    [SerializeField] private float raycastDistance = 1f;
     [SerializeField] private int particleCount = 10;
     [SerializeField] private float timeBetweenParticles = 0.05f;
-    [SerializeField] private float timeBeforeFall = 0.25f;
     [SerializeField] private float particleHeight = 0f;
-
+    [SerializeField] private LayerMask enemyLayer;
+    private Collider[] enemyColliders;
+    List<GameObject> enemiesHit = new List<GameObject>();
     public override void DoSkill()
     { 
         StartCoroutine(BlitzParticles(player.transform.position, player.transform.forward));
-        StartCoroutine(DoDash());
-        DamageEnemies();
-        playerController.isInvincible = false;
-        player.GetComponent<Collider>().isTrigger = false;
+        StartCoroutine(Blitzing());
         EndSkill();
     }
-
-    IEnumerator DoDash()
+    IEnumerator Blitzing()
     {
-        playerController.rb.AddForce(player.transform.forward * dashSpeed, ForceMode.Impulse);
-        playerController.rb.constraints |= RigidbodyConstraints.FreezePositionY;
+        playerController.activeDodge = true;
+        playerController.rb.AddForce(playerController.forceDirection * blitzForce, ForceMode.Impulse);
         playerController.isInvincible = true;
-        player.GetComponent<Collider>().isTrigger = true;
-
-        yield return new WaitForSeconds(timeBeforeFall);
-        playerController.rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+        enemyColliders = Physics.OverlapSphere(transform.position, 5f, enemyLayer);
+        foreach (var enemyCollider in enemyColliders)
+        {
+            Vector3 dirToEnemy = (enemyCollider.gameObject.transform.position - playerController.forceDirection).normalized;
+            float angleToEnemy = Vector3.Angle(playerController.forceDirection, enemyCollider.gameObject.transform.position);
+            float distanceToEnemy = Vector3.Distance(transform.position, enemyCollider.gameObject.transform.position);
+            if (enemyCollider.GetComponent<NewEnemyHealth>() != null && !enemiesHit.Contains(enemyCollider.gameObject) && angleToEnemy <= 25f && distanceToEnemy <= 5f)
+            {
+                yield return new WaitForSeconds(blitzTime / 2f);
+                enemiesHit.Add(enemyCollider.gameObject);
+                enemyCollider.GetComponent<NewEnemyHealth>().EnemyTakeDamage(finalSkillValue);
+            }
+        }
+        yield return new WaitForSeconds(blitzTime/2f);
+        playerController.activeDodge = false;
+        playerController.isInvincible = false;
+        ClearEnemyList();
     }
-
-    void DamageEnemies()
+    IEnumerator DamageEnemies()
     {
-        int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
-        Vector3 forward = player.transform.TransformDirection(Vector3.forward);
-
-        RaycastHit raycastHit;
-        if(Physics.Raycast(player.transform.position, forward, out raycastHit, maxDistance))
-		{
-			if(raycastHit.collider.tag == "Enemy" || raycastHit.collider.tag == "Boss")
-			{
-                NewEnemyHealth enemyHealth = raycastHit.collider.GetComponent<NewEnemyHealth>();
-                enemyHealth.EnemyTakeDamage(finalSkillValue);
-			}
-		}
+        enemyColliders = Physics.OverlapSphere(transform.position, 2f, enemyLayer);
+        foreach (var enemyCollider in enemyColliders)
+        {
+            if (enemyCollider.GetComponent<NewEnemyHealth>() != null && !enemiesHit.Contains(enemyCollider.gameObject))
+            {
+                enemiesHit.Add(enemyCollider.gameObject);
+                enemyCollider.GetComponent<NewEnemyHealth>().EnemyTakeDamage(finalSkillValue);
+            }
+        }
+        yield return new WaitForSeconds(blitzTime + .05f);
+    }
+    private void ClearEnemyList()
+    {
+        enemiesHit.Clear();
     }
 
     IEnumerator BlitzParticles(Vector3 startPosition, Vector3 startingForwardVector)
@@ -56,7 +68,7 @@ public class Blitz : Skill
         {
             float t = (float)i / (float)(particleCount - 1);
 
-            Vector3 spawnPosition = Vector3.Lerp(startPosition, startPosition + (startingForwardVector * maxDistance), t);
+            Vector3 spawnPosition = Vector3.Lerp(startPosition, startPosition + (startingForwardVector * raycastDistance), t);
             Vector3 heightAdder = new Vector3(0f, particleHeight, 0f);
             Vector3 spawnPositionWithHeight = spawnPosition + heightAdder;
             ParticleManager.Instance.SpawnParticles("BlitzParticles", spawnPositionWithHeight, Quaternion.identity);
