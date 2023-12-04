@@ -360,6 +360,7 @@ public class LevelUpManagerNew : MonoBehaviour
       hudSkills.UpdateHUDIcons();
       currentstats.UpdateLevel();
       playerController.EnableController();
+      UnlockSkills();
     }
     /*public void CloseController()
     {
