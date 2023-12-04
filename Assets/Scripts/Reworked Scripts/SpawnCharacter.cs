@@ -88,8 +88,6 @@ public class SpawnCharacter : MonoBehaviour
 
     void CreateSpeciesPalette(GameObject character, string subspecies)
     {
-        UnityEngine.Color capColor = UnityEngine.Color.black;
-        UnityEngine.Color bodyColor = UnityEngine.Color.black;
         int randomColorIndex = 0;
         switch (subspecies)
         {
