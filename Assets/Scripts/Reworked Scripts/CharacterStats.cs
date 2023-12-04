@@ -76,6 +76,7 @@ public class CharacterStats : MonoBehaviour
     private SporeAttributeRanges sporeAttributeRanges;
     private PlayerController playerController;
     private SkillManager skillManager;
+    [SerializeField] private Nametag nametag;
 
     private HUDHealth hudHealth;
 
@@ -262,6 +263,21 @@ public class CharacterStats : MonoBehaviour
     {
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
         hudHealth.SetSporeName(sporeName);
+        UpdateNametagText();
+    }
+    public void UpdateNametagText()
+    {
+        nametag.SetSporeNametagText(sporeName);
+    }
+    public void ShowNametag()
+    {
+        Debug.Log(sporeName + " showing nametag");
+        nametag.ShowNametag();
+    }
+    public void HideNametag()
+    {
+        nametag.HideNametag();
+        Debug.Log(sporeName + " hiding nametag");
     }
 
     public void UnlockSkill(string skillName)

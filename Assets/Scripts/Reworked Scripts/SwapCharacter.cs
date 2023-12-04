@@ -69,11 +69,13 @@ public class SwapCharacter : MonoBehaviour
     }
     public void SwitchCharacterGrowMenu(int index)
     {
+        characters[currentCharacterIndex].GetComponent<CharacterStats>().ShowNametag();
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
         currentCharacterIndex = index;
+        characters[currentCharacterIndex].GetComponent<CharacterStats>().HideNametag();
         characters[currentCharacterIndex].tag = "currentPlayer";
         if(characters[currentCharacterIndex].GetComponent<IdleWalking>().wander != null )
         {
