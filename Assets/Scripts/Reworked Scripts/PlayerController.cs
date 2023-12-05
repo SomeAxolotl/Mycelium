@@ -223,9 +223,9 @@ public class PlayerController : MonoBehaviour
         Vector3 knockbackForce = direction * force;
         knockbackForce += Vector3.up * 1.5f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
-        DisableController();
+        //DisableController();
         yield return new WaitForSeconds(.15f);
-        EnableController();
+        //EnableController();
         isInvincible = false;
     }
 }

@@ -11,6 +11,7 @@ public class DesignTracker : MonoBehaviour
     public UnityEngine.Color capColor;
     public UnityEngine.Color bodyColor;
     private bool blendCoroutineRunning = false;
+    private List<int> UpdateTypes;
 
     private void Start()
     {
@@ -20,16 +21,18 @@ public class DesignTracker : MonoBehaviour
     public void UpdateBlendshape(int sentienceLevel, int primalLevel, int vitalityLevel, int speedLevel)
     {
         //map the weight for Sentience
-        float sentienceWeight = sentienceLevel * 100f/15f;
+        float sentienceWeight = sentienceLevel * 100f/10f;
 
         //map the weight for Primal
-        float primalWeight = primalLevel * 100f/15f;
+        float primalWeight = primalLevel * 100f/10f;
 
         //map the weight for Vitality
-        float vitalityWeight = vitalityLevel * 100f/15f;
+        float vitalityWeight = vitalityLevel * 100f/10f;
 
         //map the weight for Speed
-        float speedWeight = speedLevel * 100f/15f;
+        float speedWeight = speedLevel * 100f/10f;
+
+        int totalLevel = sentienceLevel + primalLevel + vitalityLevel + speedLevel;
 
         if(blendCoroutineRunning) StopAllCoroutines();
         StartCoroutine(fadeBlend(sentienceWeight, primalWeight, vitalityWeight, speedWeight));

@@ -126,7 +126,7 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
-            
+            Debug.Log("Leveled Primal");
             StartCalculateAttributes();
             UpdateLevel();
         }
