@@ -14,12 +14,15 @@ public class PauseMenu : MonoBehaviour
 
     CanvasGroup HUD = null;
 
+    HUDItem hudItem;
+
     private ThirdPersonActionsAsset playerInput = null;
 
     private void Awake()
     {
         playerInput = new ThirdPersonActionsAsset();
         HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
+        hudItem = HUD.GetComponent<HUDItem>();
         Resume();
     }
 
