@@ -19,13 +19,15 @@ public class RangedEnemyShoot : MonoBehaviour
     private float attackWindup = .6f;
     public GameObject projectile;
     IEnumerator attack;
-    
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyKnockback = GetComponent<EnemyKnockback>();
         attack = this.Attack();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -72,6 +74,8 @@ public class RangedEnemyShoot : MonoBehaviour
             yield break;
         }
         GameObject tempProj = Instantiate(projectile, transform.position, transform.rotation);
+        animator.SetBool("Attack", true);
+        Debug.Log("Is Attacking!");
         tempProj.transform.right = dirToPlayer;
         tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer.normalized * 18f;
         yield return new WaitForSeconds(attackCooldown);
