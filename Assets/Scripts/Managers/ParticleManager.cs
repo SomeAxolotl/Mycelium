@@ -97,7 +97,8 @@ public class ParticleManager : MonoBehaviour
         if(particles != null)
         {
             yield return new WaitUntil(() => !particles.GetComponent<ParticleSystem>().isPlaying);
-            Destroy(particles);
+            if (particles != null)
+                Destroy(particles);
         }
     }
 }

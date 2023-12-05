@@ -6,15 +6,11 @@ using TMPro;
 
 public class HUDNutrients : MonoBehaviour
 {
-    private TMP_Text nutrientsNumberText;
-
-    void Start()
-    {
-        nutrientsNumberText = GameObject.Find("NutrientsNumber").GetComponent<TMP_Text>();
-    }
+    [SerializeField] private TMP_Text nutrientsNumberText;
 
     public void UpdateNutrientsUI(int currentNutrients)
     {
+        Debug.Log("Nutrients: " + currentNutrients);
         nutrientsNumberText.text = currentNutrients.ToString();
     }
 }

@@ -41,11 +41,13 @@ public class NutrientTracker : MonoBehaviour
     public void SubtractNutrients(int cost)
     {
         currentNutrients -= cost;
+        hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
         hudNutrients.UpdateNutrientsUI(currentNutrients);
     }
     public void AddNutrients(int amount)
     {
         currentNutrients += amount;
+        hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
         hudNutrients.UpdateNutrientsUI(currentNutrients);
     }
     public void LoseMaterials()
