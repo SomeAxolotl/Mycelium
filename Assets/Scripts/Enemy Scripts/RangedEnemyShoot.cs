@@ -68,7 +68,7 @@ public class RangedEnemyShoot : MonoBehaviour
         isAttacking = true;
         navMeshAgent.speed = 3f;
         attackWindup = .6f;
-        Vector3 dirToPlayer = new Vector3(player.transform.position.x, player.transform.position.y + 0.5f, player.transform.position.z) - transform.position;
+        Vector3 dirToPlayer = new Vector3(player.transform.position.x, player.transform.position.y + 2f, player.transform.position.z) - transform.position;
         if (!isAttacking)
         {
             yield break;
