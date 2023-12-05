@@ -62,6 +62,9 @@ public class PauseMenu : MonoBehaviour
         HUD.alpha = 0f;
         Time.timeScale = 0f;
         PauseData.isGamePaused = true;
+
+        resumeButton.Select();
+
         //Cursor.visible = true;
         //Cursor.lockState = CursorLockMode.None;
     }
