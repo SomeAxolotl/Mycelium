@@ -82,7 +82,7 @@ public class Zombify : Skill
         float damage = finalSkillValue * 5;
         foreach (Collider collider in colliders)
         {
-            NewEnemyHealth enemyHealth = collider.gameObject.GetComponent<NewEnemyHealth>();
+            EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 if (collider.gameObject != gameObject)
@@ -95,7 +95,7 @@ public class Zombify : Skill
         }
         foreach (Collider collider in pcolliders)
         {
-            NewPlayerHealth playerHealth = player.GetComponent<NewPlayerHealth>();
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
                 if (collider.gameObject != gameObject)

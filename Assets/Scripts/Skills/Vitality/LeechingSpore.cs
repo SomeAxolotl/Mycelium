@@ -68,7 +68,7 @@ public class LeechingSpore : Skill
         {  
             float damage = finalSkillValue;  
             if (enemy != null)
-                enemy.GetComponent<NewEnemyHealth>().EnemyTakeDamage(damage);
+                enemy.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
             yield return new WaitForSeconds(1);;
             timer++;
         }
@@ -82,7 +82,7 @@ public class LeechingSpore : Skill
         {  
             float damage = finalSkillValue;
             if (enemy != null) 
-                GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>().PlayerHeal(damage * percentOfDamageHealed);
+                GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(damage * percentOfDamageHealed);
             yield return new WaitForSeconds(1);
             timer++;
         }

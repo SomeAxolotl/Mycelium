@@ -29,29 +29,15 @@ public class SceneLoadingManager : MonoBehaviour
         }
     }
 
-    public void LoadSceneTest(string sceneName)
-    {
-        loadCanvas.SetActive(true);
-    }
-
     public void LoadScene(string sceneName)
     {
-        //StartCoroutine(LoadPop());
         StartCoroutine(LoadAsynchronously(sceneName));
     }
 
-    /*IEnumerator LoadPop()
+    public void LoadScene(int sceneIndex)
     {
-        float popCounter = 0f;
-        while (popCounter < popDuration)
-        {
-            float popLerp = EaseOutQuart(popCounter / popDuration);
-            loadPanelHolder.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, popLerp);
-
-            popCounter += Time.deltaTime;
-            yield return null;  
-        }
-    }*/
+        StartCoroutine(LoadAsynchronously(sceneIndex));
+    }
 
     IEnumerator LoadAsynchronously(string sceneName)
     {
@@ -60,6 +46,32 @@ public class SceneLoadingManager : MonoBehaviour
         Application.backgroundLoadingPriority = ThreadPriority.Low;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        loadCanvas.SetActive(true);
+
+        do
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            loadBar.fillAmount = progress;
+            ChangeFunText(progress);
+
+            yield return null;
+        } 
+        while (!operation.isDone);
+
+        loadCanvas.SetActive(false);
+
+        Application.backgroundLoadingPriority = ThreadPriority.Normal;
+        isLoading = false;
+    }
+
+    IEnumerator LoadAsynchronously(int sceneIndex)
+    {
+        isLoading = true;
+        
+        Application.backgroundLoadingPriority = ThreadPriority.Low;
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
         loadCanvas.SetActive(true);
 

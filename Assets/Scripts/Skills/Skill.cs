@@ -19,7 +19,7 @@ public class Skill : MonoBehaviour
     public GameObject player;
     public CharacterStats characterStats;
     public PlayerController playerController;
-    public NewPlayerHealth playerHealth;
+    public PlayerHealth playerHealth;
 
     private HUDSkills hudSkills;
     private int skillSlot;
@@ -33,7 +33,7 @@ public class Skill : MonoBehaviour
         currentAnimator = player.GetComponent<Animator>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
+        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
     }
 
     //this is called at the start of all the subclass skills. all stat math for skills can be done here and it should b fine
@@ -120,7 +120,7 @@ public class Skill : MonoBehaviour
             skill.DeactivateFungalMight();
         }
 
-        NewPlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerAttack>();
+        PlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerAttack>();
         playerAttack.DeactivateFungalMight();
 
         GameObject[] fungalMightParticles = GameObject.FindGameObjectsWithTag("FungalMightParticles");

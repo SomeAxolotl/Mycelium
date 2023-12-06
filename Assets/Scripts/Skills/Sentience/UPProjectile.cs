@@ -57,9 +57,9 @@ public class UPProjectile : MonoBehaviour
         // float damage = finalSkillValue;
         foreach (Collider collider in colliders)
         {
-            if (collider.GetComponent<NewEnemyHealth>() != null)
+            if (collider.GetComponent<EnemyHealth>() != null)
             {
-                collider.GetComponent<NewEnemyHealth>().EnemyTakeDamage(unstablePuffball.finalSkillValue);
+                collider.GetComponent<EnemyHealth>().EnemyTakeDamage(unstablePuffball.finalSkillValue);
             }
             else if (collider.GetComponent<BossHealth>() != null)
             {
