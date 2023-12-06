@@ -21,7 +21,7 @@ public class FungalMight : Skill
             }
         }
 
-        NewPlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerAttack>();
+        PlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerAttack>();
         playerAttack.ActivateFungalMight(finalSkillValue);
 
         FungalMightParticles();

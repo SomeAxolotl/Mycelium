@@ -22,7 +22,7 @@ public class Sporeburst : Skill
         float damage = finalSkillValue;
         foreach (Collider collider in colliders)
         {
-            NewEnemyHealth enemyHealth = collider.gameObject.GetComponent<NewEnemyHealth>();
+            EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 NavMeshAgent navMeshAgent = collider.gameObject.GetComponent<NavMeshAgent>();
@@ -40,7 +40,7 @@ public class Sporeburst : Skill
     }
     void HealPlayer(float healingAmount)
     {
-        NewPlayerHealth playerHealth = player.GetComponent<NewPlayerHealth>();
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
             playerHealth.PlayerHeal(healingAmount);

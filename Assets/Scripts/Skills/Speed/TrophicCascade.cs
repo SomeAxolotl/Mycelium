@@ -17,7 +17,7 @@ public class TrophicCascade : Skill
     IEnumerator Vanish()
     {
         Renderer[] childRenderers = player.GetComponentsInChildren<Renderer>();
-        NewPlayerHealth playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<NewPlayerHealth>();
+        PlayerHealth playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
 
         playerHealth.ActivateInvincibility();
         foreach (Renderer renderer in childRenderers)
@@ -74,7 +74,7 @@ public class TrophicCascade : Skill
         float damagePerEnemy = finalSkillValue / enemies.Count;
         foreach (GameObject enemy in enemies)
         {
-            NewEnemyHealth enemyHealth = enemy.GetComponent<NewEnemyHealth>();
+            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             enemyHealth.EnemyTakeDamage(damagePerEnemy);
         }
 

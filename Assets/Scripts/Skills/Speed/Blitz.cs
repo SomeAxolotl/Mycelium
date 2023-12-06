@@ -32,11 +32,11 @@ public class Blitz : Skill
             Vector3 dirToEnemy = (enemyCollider.gameObject.transform.position - playerController.forceDirection).normalized;
             float angleToEnemy = Vector3.Angle(playerController.forceDirection, enemyCollider.gameObject.transform.position);
             float distanceToEnemy = Vector3.Distance(transform.position, enemyCollider.gameObject.transform.position);
-            if (enemyCollider.GetComponent<NewEnemyHealth>() != null && !enemiesHit.Contains(enemyCollider.gameObject) && angleToEnemy <= 25f && distanceToEnemy <= 5f)
+            if (enemyCollider.GetComponent<EnemyHealth>() != null && !enemiesHit.Contains(enemyCollider.gameObject) && angleToEnemy <= 25f && distanceToEnemy <= 5f)
             {
                 yield return new WaitForSeconds(blitzTime / 2f);
                 enemiesHit.Add(enemyCollider.gameObject);
-                enemyCollider.GetComponent<NewEnemyHealth>().EnemyTakeDamage(finalSkillValue);
+                enemyCollider.GetComponent<EnemyHealth>().EnemyTakeDamage(finalSkillValue);
             }
         }
         yield return new WaitForSeconds(blitzTime/2f);
@@ -49,10 +49,10 @@ public class Blitz : Skill
         enemyColliders = Physics.OverlapSphere(transform.position, 2f, enemyLayer);
         foreach (var enemyCollider in enemyColliders)
         {
-            if (enemyCollider.GetComponent<NewEnemyHealth>() != null && !enemiesHit.Contains(enemyCollider.gameObject))
+            if (enemyCollider.GetComponent<EnemyHealth>() != null && !enemiesHit.Contains(enemyCollider.gameObject))
             {
                 enemiesHit.Add(enemyCollider.gameObject);
-                enemyCollider.GetComponent<NewEnemyHealth>().EnemyTakeDamage(finalSkillValue);
+                enemyCollider.GetComponent<EnemyHealth>().EnemyTakeDamage(finalSkillValue);
             }
         }
         yield return new WaitForSeconds(blitzTime + .05f);

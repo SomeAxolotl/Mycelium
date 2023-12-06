@@ -43,7 +43,7 @@ public class LivingCyclone : Skill
 
     IEnumerator Spin()
     {
-        NewWeaponCollision weaponCollision = currentWeapon.GetComponent<NewWeaponCollision>();
+        WeaponCollision weaponCollision = currentWeapon.GetComponent<WeaponCollision>();
 
         SoundEffectManager.Instance.PlaySound("Smash", player.transform.position);
         weaponCollision.ClearEnemyList();
