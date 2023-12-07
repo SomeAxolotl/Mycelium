@@ -71,6 +71,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         windupStarted = true;
         navMeshAgent.speed = 0f;
+        animator.SetTrigger("Attack");
         yield return new WaitForSeconds(attackWindup);
         StartCoroutine(Attack());
     }
@@ -96,8 +97,6 @@ public class MeleeEnemyAttack : MonoBehaviour
 
         thisHitbox.GetComponent<Collider>().enabled = true;
 
-        animator.SetBool("Attack", true);
-
         yield return new WaitForSeconds(0.2f); //Attack animation will go here!
 
         thisHitbox.GetComponent<Collider>().enabled = false;
@@ -113,8 +112,6 @@ public class MeleeEnemyAttack : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition + transform.forward * lungeDistance, startPosition, progress);
             yield return null;
         }
-        
-        animator.SetBool("Attack", true);
 
         transform.position = startPosition;
         meleeEnemyHitbox.ClearPlayerList();

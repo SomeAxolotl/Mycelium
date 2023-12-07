@@ -74,7 +74,7 @@ public class RangedEnemyShoot : MonoBehaviour
             yield break;
         }
         GameObject tempProj = Instantiate(projectile, transform.position, transform.rotation);
-        animator.SetBool("Attack", true);
+        animator.SetTrigger("Attack");
         Debug.Log("Is Attacking!");
         tempProj.transform.right = dirToPlayer;
         tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer.normalized * 18f;

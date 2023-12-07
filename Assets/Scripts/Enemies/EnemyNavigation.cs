@@ -63,7 +63,7 @@ public class EnemyNavigation : MonoBehaviour
                     StartCoroutine(ChasePlayer());
                 }
                 transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
-                //animator.SetBool("Walk", true);
+                animator.SetBool("IsMoving", true);
             }
             else
             {
@@ -73,7 +73,7 @@ public class EnemyNavigation : MonoBehaviour
                 playerSeen = false;
                 navMeshAgent.isStopped = true;
                 navMeshAgent.ResetPath();
-                //animator.SetBool("Walk", false);
+                animator.SetBool("IsMoving", false);
             }
         }
         
