@@ -87,7 +87,7 @@ public class PlayerHealth : MonoBehaviour
             }
             currentHealth = maxHealth;
             swapWeapon.curWeapon.tag = "Weapon";
-            Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("currentPlayer").transform);
+            Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
             swapWeapon.UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
             GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
             foreach (GameObject weapon in weapons)
