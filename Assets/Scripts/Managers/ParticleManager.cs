@@ -94,11 +94,17 @@ public class ParticleManager : MonoBehaviour
 
     IEnumerator DestroyParticlesWhenDone(GameObject particles)
     {
-        if(particles != null)
+        while (particles != null)
         {
-            yield return new WaitUntil(() => !particles.GetComponent<ParticleSystem>().isPlaying);
-            if (particles != null)
+            if (particles.GetComponent<ParticleSystem>().isPlaying)
+            {
+                yield return null;
+            }
+            else
+            {
                 Destroy(particles);
+                yield return null;
+            }
         }
     }
 }
