@@ -5,26 +5,27 @@ using Cinemachine;
 
 public class NewSporeCam : MonoBehaviour
 {
-    public List<CinemachineFreeLook> cameras = new List<CinemachineFreeLook>();
+    private List<CinemachineFreeLook> cameras = new List<CinemachineFreeLook>();
 
+    private void Start()
+    {
+        cameras.Add(GameObject.FindWithTag("MainCamera").GetComponent<CinemachineFreeLook>());
+        cameras.Add(GameObject.FindWithTag("GrowCamera").GetComponent<CinemachineFreeLook>());
+    }
     public void SwitchCamera(string cameraName)
     {
         //CameraName
         foreach (CinemachineFreeLook cam in cameras)
         {
-            Debug.Log(cam.name);
             if (cam.name == cameraName)
             {
                 cam.Priority = 10;
             }
             else
             {
-                Debug.Log("running");
                 cam.Priority = 0;
             }
         }
-
-      
     }
     
     void Update()

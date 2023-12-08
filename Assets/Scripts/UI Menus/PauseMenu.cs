@@ -15,12 +15,16 @@ public class PauseMenu : MonoBehaviour
     CanvasGroup HUD = null;
 
     HUDItem hudItem;
+    NutrientTracker nutrientTracker;
+    GameObject playerParent;
 
     private ThirdPersonActionsAsset playerInput = null;
 
     private void Awake()
     {
         playerInput = new ThirdPersonActionsAsset();
+        nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
+        playerParent = GameObject.FindWithTag("PlayerParent");
         HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
         hudItem = HUD.GetComponent<HUDItem>();
         Resume();
@@ -83,8 +87,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
         Time.timeScale = 0f;
-
-        //Debug.Log("UI Select");
     }
 
     public void GoToMainMenu()
@@ -94,7 +96,17 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToHubWorld()
     {
-        SceneManager.LoadScene(1); //this is assuming the hubworld scene is index 1
+        nutrientTracker.LoseMaterials();
+        playerParent.GetComponent<SwapWeapon>().curWeapon.tag = "Weapon";
+        Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
+        playerParent.GetComponent<SwapWeapon>().UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
+        GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+        foreach (GameObject weapon in weapons)
+        Destroy(weapon);
+        if(playerParent.GetComponent<SwapWeapon>().curWeapon != null)
+        {
+            SceneManager.LoadScene(1); //this is assuming the hubworld scene is index 1
+        }
     }
 
     private void OnEnable()

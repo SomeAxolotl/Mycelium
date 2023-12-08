@@ -29,9 +29,6 @@ public class GrowMenuButtonController : MonoBehaviour
     private PlayerController playerController;
     private SpawnCharacter spawnCharacterscript;
 
-
-
-
     void OnEnable()
     {
         ClearList();
@@ -45,7 +42,11 @@ public class GrowMenuButtonController : MonoBehaviour
         SkillMenu.SetActive(false);
         buttons = new List<GameObject>();
         button.Select();
-        GenerateList();
+        if (swapCharacterscript != null)
+        {
+            swapCharacterscript.characters.RemoveAll(item => item == null);
+            GenerateList();
+        }
         LevelUI.SetActive(false);
 
     }

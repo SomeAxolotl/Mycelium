@@ -40,9 +40,12 @@ public class SwapWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        curWeapon.transform.position = weaponHolder.transform.position;
-        curWeapon.transform.rotation = weaponHolder.transform.rotation;
-      
+        if(curWeapon != null) 
+        {
+            curWeapon.transform.position = weaponHolder.transform.position;
+            curWeapon.transform.rotation = weaponHolder.transform.rotation;
+        }
+
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
         {
@@ -87,8 +90,6 @@ public class SwapWeapon : MonoBehaviour
 
                 if (swapItem.triggered)
                 {
-    
-                    //Debug.Log("swap");
                     curWeapon.transform.position = weapon.position;
                     curWeapon.GetComponent<Collider>().enabled = true;
                     weapon.position = weaponHolder.position;
@@ -125,8 +126,4 @@ public class SwapWeapon : MonoBehaviour
         curWeapon.transform.parent = weaponHolder.transform.parent;
         DontDestroyOnLoad(curWeapon);
     }
-    /*void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(currentCharacter.transform.position, 5f);
-    }*/
 }

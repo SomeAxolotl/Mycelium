@@ -9,7 +9,6 @@ public class PlayerAttack : MonoBehaviour
     private InputAction attack;
     private SwapCharacter swapCharacter;
     public float dmgDealt;
-    public float atkCooldown;
     private float fungalMightBonus = 1f;
     private float lungeDuration = 0.4f;
     [SerializeField] private float lungeForce = 20f;
@@ -53,23 +52,12 @@ public class PlayerAttack : MonoBehaviour
             WeaponCollision weaponCollision = curWeapon.GetComponent<WeaponCollision>();
             weaponCollision.ClearEnemyList();
             player = GameObject.FindWithTag("currentPlayer");
-            //atkCooldown = curWeapon.GetComponent<WeaponStats>().wpnCooldown - swapCharacter.currentCharacterStats.atkCooldownBuff;
             dmgDealt = (swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<WeaponStats>().wpnDamage) * fungalMightBonus;
             animator = GetComponentInChildren<Animator>();
-            //StartCoroutine(AttackCooldown());
             StartCoroutine(Attack(curWeapon));
             StartCoroutine(Lunge());
         }
     }
-
-    /*private IEnumerator AttackCooldown()
-    {
-        hudSkills.StartCooldownUI(3, atkCooldown);
-
-        yield return new WaitForSeconds(atkCooldown);
-        canAttack = true;
-    }*/
-
     private IEnumerator Attack(GameObject curWeapon)
     {
         playerController.DisableController();

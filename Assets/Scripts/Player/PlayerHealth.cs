@@ -75,7 +75,6 @@ public class PlayerHealth : MonoBehaviour
     }
     void Death()
     {
-        //Debug.Log("you died!");
         swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.Rotate(new Vector3(0, 5f, 0));
         playerController.DisableController();
         playerController.isInvincible = true;
@@ -93,8 +92,10 @@ public class PlayerHealth : MonoBehaviour
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             nutrientTracker.LoseMaterials();
-            SceneManager.LoadScene(1);
-            //StartCoroutine(RespawnPlayer());
+            if(swapWeapon.curWeapon != null)
+            {
+                SceneManager.LoadScene(1);
+            }
             deathTimer = 0;
             playerController.isInvincible = false;
             playerController.EnableController();
@@ -111,14 +112,6 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
-
-    IEnumerator RespawnPlayer()
-    {
-        yield return new WaitForEndOfFrame();
-        GameObject.FindWithTag("currentPlayer").transform.rotation = Quaternion.identity;
-        GameObject.FindWithTag("currentPlayer").transform.position = new Vector3(0, 1.4f, 0);
-    }
-
     public void ActivateInvincibility()
     {
         invincible = true;
