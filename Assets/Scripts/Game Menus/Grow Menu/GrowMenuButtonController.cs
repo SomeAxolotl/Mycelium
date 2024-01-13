@@ -45,6 +45,7 @@ public class GrowMenuButtonController : MonoBehaviour
         if (swapCharacterscript != null)
         {
             swapCharacterscript.characters.RemoveAll(item => item == null);
+            swapCharacterscript.currentCharacterIndex = swapCharacterscript.characters.IndexOf(GameObject.FindWithTag("currentPlayer"));
             GenerateList();
         }
         LevelUI.SetActive(false);
