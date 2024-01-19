@@ -53,6 +53,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_885b67fc3d22478c82e2790b7898892d_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ea81dd4b3f8386f4dbbb0d5e30e5fe10, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_caa56143586740889ba62093f1365085_Out_0_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -90,6 +94,9 @@ Material:
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
+    - _Day_Height_Reduction: 1.71
+    - _Day_Intensity: 0.5
+    - _Daylight_Gradient: 0.02
     - _DepthOffsetEnable: 0
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
@@ -97,6 +104,9 @@ Material:
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
+    - _NightCutoff: 0
+    - _NightGradientFade: 0.333
+    - _NightHeight: 1
     - _OpaqueCullMode: 1
     - _QueueControl: 1
     - _QueueOffset: 0
@@ -113,6 +123,7 @@ Material:
     - _SunIsSmooth: 0
     - _SunSmoothing: 0.211
     - _SurfaceType: 1
+    - _TEMP_ROTATE: 226
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
     - _TransparentDepthPostpassEnable: 0
@@ -120,16 +131,22 @@ Material:
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
+    - _UseDay_NightGradient: 1
     - _UseShadowThreshold: 0
     - _UseTextureForSky: 0
+    - _Use_Day_Night_Gradient: 1
     - _WindSpeed: 1
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestTransparent: 4
     - _ZWrite: 0
+    - _temprotate: 0
     m_Colors:
+    - _Daylight_Center: {r: 0.5, g: -0.18, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _HorizonColor: {r: 0.938, g: 0.5259318, b: 0.45868203, a: 1}
+    - _NightColor: {r: 0.10475001, g: 0, b: 0.41900003, a: 1}
+    - _Night_Color: {r: 0.14579344, g: 0, b: 0.5, a: 0}
     - _SkyColor: {r: 0.57051986, g: 0, b: 0.66800004, a: 0}
     - _SunDirection: {r: 0.78, g: -0.33, b: 0.55, a: 0}
   m_BuildTextureStacks: []

@@ -90,6 +90,9 @@ Material:
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
+    - _Day_Height_Reduction: 2.11
+    - _Day_Intensity: 0.212
+    - _Daylight_Gradient: 0.02
     - _DepthOffsetEnable: 0
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
@@ -97,6 +100,9 @@ Material:
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
+    - _NightCutoff: 0.063
+    - _NightGradientFade: 0.452
+    - _NightHeight: 0.51
     - _OpaqueCullMode: 1
     - _QueueControl: 1
     - _QueueOffset: 0
@@ -113,6 +119,7 @@ Material:
     - _SunIsSmooth: 0
     - _SunSmoothing: 0.211
     - _SurfaceType: 1
+    - _TEMP_ROTATE: 289.5
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
     - _TransparentDepthPostpassEnable: 0
@@ -120,16 +127,22 @@ Material:
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
+    - _UseDay_NightGradient: 0
     - _UseShadowThreshold: 0
     - _UseTextureForSky: 0
+    - _Use_Day_Night_Gradient: 0
     - _WindSpeed: 1
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestTransparent: 4
     - _ZWrite: 0
+    - _temprotate: 0
     m_Colors:
+    - _Daylight_Center: {r: 0.5, g: 0.42, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _HorizonColor: {r: 0, g: 0.16889688, b: 0.24705882, a: 1}
+    - _NightColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Night_Color: {r: 0.046617977, g: 0.16200995, b: 0.25471696, a: 0}
     - _SkyColor: {r: 0, g: 0.6886792, b: 0.33094287, a: 0}
     - _SunDirection: {r: 0.78, g: -0.33, b: 0.55, a: 0}
   m_BuildTextureStacks: []
