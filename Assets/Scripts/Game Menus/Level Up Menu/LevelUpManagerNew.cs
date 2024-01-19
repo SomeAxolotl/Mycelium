@@ -64,6 +64,7 @@ public class LevelUpManagerNew : MonoBehaviour
     private SkillManager skillManager;
     public GameObject SkillMenu;
     private HUDSkills hudSkills;
+    private HUDNutrients hudNutrients;
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
@@ -74,6 +75,7 @@ public class LevelUpManagerNew : MonoBehaviour
     {
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
         StartCoroutine(UpdateUI());
@@ -406,8 +408,7 @@ public class LevelUpManagerNew : MonoBehaviour
       UIenable.SetActive(false);
       HUDCanvasGroup.alpha = 1;
       hudSkills.UpdateHUDIcons();
-      
-
+      hudNutrients.UpdateNutrientsUI(nutrientsSave);
     }
     public void PrimalStartCheck()
     {

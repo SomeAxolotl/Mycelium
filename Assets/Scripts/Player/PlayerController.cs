@@ -159,9 +159,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         playerHealth.DeactivateInvincibility();
         activeDodge = false;
-        yield return new WaitForSeconds(dodgeCooldown);
         canUseDodge = true;
         canUseAttack = true;
+        yield return new WaitForSeconds(dodgeCooldown);
         canUseSkill = true;
     }
 
