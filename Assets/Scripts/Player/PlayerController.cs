@@ -23,7 +23,10 @@ public class PlayerController : MonoBehaviour
     private InputAction stat_skill_1;
     private InputAction stat_skill_2;
     private InputAction subspecies_skill;
-    bool canDodge = true;
+    public bool canUseDodge = true;
+    public bool canUseAttack = true;
+    public bool canUseSkill = true;
+    public bool canAct = true;
     public bool activeDodge = false;
     public bool isInvincible = false;
     bool playerSwapping;
@@ -31,7 +34,6 @@ public class PlayerController : MonoBehaviour
     PlayerAttack playerAttack;
     PlayerHealth playerHealth;
     SkillManager skillManager;
-    public bool canAct = true;
 
     public float dodgeCooldown = 1f;
     public float dodgeIFrames = 0.15f;
@@ -69,13 +71,21 @@ public class PlayerController : MonoBehaviour
             Application.Quit();
         }
         Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.forward, Color.red);
-        if (dodge.triggered && canDodge == true)
+        if (dodge.triggered && canUseDodge == true)
         {
+            if (canUseAttack == false)
+            {
+                StopCoroutine(playerAttack.attackstart);
+                StopCoroutine(playerAttack.lunge);
+                moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
+                playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
+            }
+
             StartCoroutine("Dodging");
             StartCoroutine("IFrames");
         }
 
-        if (subspecies_skill.triggered && canAct == true)
+        if (subspecies_skill.triggered && canUseSkill == true)
         {
             GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
             Skill subskill = skillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
@@ -85,7 +95,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (stat_skill_1.triggered && canAct == true)
+        if (stat_skill_1.triggered && canUseSkill == true)
         {
             GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
             Skill skill1 = skillLoadout.transform.GetChild(1).gameObject.GetComponent<Skill>();
@@ -95,7 +105,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (stat_skill_2.triggered && canAct == true)
+        if (stat_skill_2.triggered && canUseSkill == true)
         {
             GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
             Skill skill2 = skillLoadout.transform.GetChild(2).gameObject.GetComponent<Skill>();
@@ -136,7 +146,9 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator Dodging()
     {
-        canDodge = false;
+        canUseDodge = false;
+        canUseAttack = false;
+        canUseSkill = false;
         activeDodge = true;
         rb.AddForce(forceDirection * 6f, ForceMode.Impulse);
         //Dust Particle for Dodging
@@ -148,7 +160,9 @@ public class PlayerController : MonoBehaviour
         playerHealth.DeactivateInvincibility();
         activeDodge = false;
         yield return new WaitForSeconds(dodgeCooldown);
-        canDodge = true;
+        canUseDodge = true;
+        canUseAttack = true;
+        canUseSkill = true;
     }
 
     IEnumerator IFrames()

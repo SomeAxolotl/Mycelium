@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public GameObject curWeapon;
     private ThirdPersonActionsAsset playerActionsAsset;
     private InputAction attack;
     private SwapCharacter swapCharacter;
@@ -14,13 +15,16 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float lungeForce = 20f;
     [SerializeField][Tooltip("Is multiplied by the attack animation speed")] private float lungeDurationScalar = 0.25f;
     private HUDSkills hudSkills;
-    Animator animator;
+    public Animator animator;
     GameObject player;
     PlayerController playerController;
     [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider enables at")] float percentUntilWindupDone = 0.5f;
     [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider disables at")] float percentUntilSwingDone = 0.9f;
 
     public string attackAnimationName = "Slash";
+
+    public IEnumerator attackstart;
+    public IEnumerator lunge;
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +37,14 @@ public class PlayerAttack : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindWithTag("currentPlayer");
         playerController = GetComponent<PlayerController>();
+        attackstart = this.Attack(curWeapon);
+        lunge = this.Lunge();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attack.triggered && playerController.canAct == true)
+        if (attack.triggered && playerController.canUseAttack == true)
         {
             StartAttack();
         }
@@ -46,9 +52,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void StartAttack()
     {
-        if (playerController.canAct == true)
+        if (playerController.canUseAttack == true)
         {
-            GameObject curWeapon = GameObject.FindWithTag("currentWeapon");
+            curWeapon = GameObject.FindWithTag("currentWeapon");
             WeaponCollision weaponCollision = curWeapon.GetComponent<WeaponCollision>();
             weaponCollision.ClearEnemyList();
             player = GameObject.FindWithTag("currentPlayer");
@@ -60,9 +66,11 @@ public class PlayerAttack : MonoBehaviour
     }
     private IEnumerator Attack(GameObject curWeapon)
     {
-        playerController.DisableController();
-
+        playerController.canUseSkill = false;
+        playerController.canUseAttack = false;
+        playerController.moveSpeed = 2f;
         animator.Play(attackAnimationName);
+        yield return null;
         SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
 
 
@@ -76,6 +84,7 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
         curWeapon.GetComponent<Collider>().enabled = true;
+        playerController.moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;
 
@@ -83,7 +92,9 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));*/
-        playerController.EnableController();
+
+        playerController.canUseSkill = true;
+        playerController.canUseAttack = true;
         ClearAllFungalMights();
 
     }
@@ -96,6 +107,7 @@ public class PlayerAttack : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < lungeDuration)
         {
+            yield return null;
             elapsedTime += Time.deltaTime;
             player.GetComponent<Rigidbody>().AddForce(lungeDirection * forcePerSecond * Time.deltaTime, ForceMode.Impulse);
             yield return new WaitForFixedUpdate();
