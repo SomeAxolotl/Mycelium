@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
             {
                 StopCoroutine(playerAttack.attackstart);
                 StopCoroutine(playerAttack.lunge);
+                playerAttack.animator.Rebind();
                 moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
                 playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
             }

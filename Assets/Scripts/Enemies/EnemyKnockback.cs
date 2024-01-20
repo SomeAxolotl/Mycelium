@@ -58,6 +58,6 @@ public class EnemyKnockback : MonoBehaviour
         yield return new WaitUntil(() => !enemyNavigation.enabled && !navMeshAgent.enabled && !animator.enabled);
         Vector3 knockbackForce = direction * force;
         knockbackForce += Vector3.up * 2f;
-        rb.AddForce(knockbackForce * 1.5f, ForceMode.Impulse);
+        rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

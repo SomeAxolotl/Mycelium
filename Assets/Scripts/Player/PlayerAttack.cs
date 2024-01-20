@@ -83,7 +83,10 @@ public class PlayerAttack : MonoBehaviour
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
-        curWeapon.GetComponent<Collider>().enabled = true;
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone && animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimationName))
+        {
+            curWeapon.GetComponent<Collider>().enabled = true;
+        }
         playerController.moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;

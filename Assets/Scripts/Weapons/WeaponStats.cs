@@ -17,7 +17,7 @@ public class WeaponStats : MonoBehaviour
     void Start()
     {
         wpnDamage = Mathf.RoundToInt(Random.Range(wpnDamageMin, wpnDamageMax));
-        wpnKnockback = Mathf.RoundToInt(Random.Range(wpnKnockbackMin, wpnKnockbackMax));
+        wpnKnockback = Random.Range(wpnKnockbackMin, wpnKnockbackMax);
     }
 
     // Update is called once per frame
