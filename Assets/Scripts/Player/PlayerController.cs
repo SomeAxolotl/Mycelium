@@ -82,8 +82,8 @@ public class PlayerController : MonoBehaviour
                 playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
             }
 
-            StartCoroutine("Dodging");
-            StartCoroutine("IFrames");
+            StartCoroutine(Dodging());
+            StartCoroutine(IFrames());
         }
 
         if (subspecies_skill.triggered && canUseSkill == true)
@@ -219,12 +219,18 @@ public class PlayerController : MonoBehaviour
     public void EnableController()
     {
         canAct = true;
+        canUseAttack = true;
+        canUseDodge = true;
+        canUseSkill = true;
         playerActionsAsset.Player.Enable();
     }
 
     public void DisableController()
     {
         canAct = false;
+        canUseAttack = false;
+        canUseDodge = false;
+        canUseSkill = false;
         playerActionsAsset.Player.Disable();
     }
     public void Knockback(GameObject obj, float knockbackForce)

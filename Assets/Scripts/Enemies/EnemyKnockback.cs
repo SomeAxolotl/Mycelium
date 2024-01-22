@@ -32,7 +32,7 @@ public class EnemyKnockback : MonoBehaviour
             flightTimer += Time.deltaTime;
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, .2f) && flightTimer > .3)
+            if (Physics.Raycast(transform.position, -transform.up, out hit, .25f) && flightTimer > .3)
             {
                 damaged = false;
                 flightTimer = 0;

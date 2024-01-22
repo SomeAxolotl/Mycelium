@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
     GameObject player;
     PlayerController playerController;
     [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider enables at")] float percentUntilWindupDone = 0.5f;
-    [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider disables at")] float percentUntilSwingDone = 0.9f;
+    [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider disables at")] float percentUntilSwingDone = 0.8f;
 
     public string attackAnimationName = "Slash";
 
@@ -83,13 +83,15 @@ public class PlayerAttack : MonoBehaviour
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone && animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimationName))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimationName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone)
         {
             curWeapon.GetComponent<Collider>().enabled = true;
+            playerController.DisableController();
         }
         playerController.moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;
+        playerController.EnableController();
 
         /*yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
@@ -99,7 +101,6 @@ public class PlayerAttack : MonoBehaviour
         playerController.canUseSkill = true;
         playerController.canUseAttack = true;
         ClearAllFungalMights();
-
     }
     private IEnumerator Lunge()
     {
