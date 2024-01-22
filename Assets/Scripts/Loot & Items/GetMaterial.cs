@@ -36,6 +36,11 @@ public class GetMaterial : MonoBehaviour
         {
             AddMaterial();
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            nutrientTracker.KeepMaterials();
+        }
     }
     private void AddMaterial()
     {
