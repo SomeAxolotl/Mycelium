@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.forward, Color.red);
         if (dodge.triggered && canUseDodge == true)
         {
-            if (canUseAttack == false)
+            if (canUseAttack == false && playerAttack.animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimationName))
             {
                 StopCoroutine(playerAttack.attackstart);
                 StopCoroutine(playerAttack.lunge);
@@ -160,10 +160,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         playerHealth.DeactivateInvincibility();
         activeDodge = false;
-        canUseDodge = true;
         canUseAttack = true;
-        yield return new WaitForSeconds(dodgeCooldown);
         canUseSkill = true;
+        yield return new WaitForSeconds(dodgeCooldown);
+        canUseDodge = true;
     }
 
     IEnumerator IFrames()
