@@ -31,7 +31,11 @@ public class UPProjectile : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, camTracker.currentTarget.position, speed * Time.deltaTime);
+            Vector3 targetDir = camTracker.currentTarget.position - transform.position;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, speed * Time.deltaTime, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+            Vector3 launchDirection = (transform.up * 0.2f + transform.forward).normalized;
+            transform.position += launchDirection * speed * Time.deltaTime;
         }
     }
 
