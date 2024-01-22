@@ -8,6 +8,7 @@ public class SpineshotProjectile : MonoBehaviour
     [SerializeField] private float destroyTime = 5;
     Rigidbody rb;
     Spineshot spineshot;
+    CamTracker camTracker;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +16,18 @@ public class SpineshotProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, destroyTime);
         spineshot = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<Spineshot>();
+        camTracker = GameObject.FindWithTag("Camtracker").GetComponentInChildren<CamTracker>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        if (!camTracker.isLockedOn)
+            transform.position += transform.forward * speed * Time.deltaTime;
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, camTracker.currentTarget.position, speed * Time.deltaTime);
+        }
     }
 
     void OnTriggerEnter(Collider collision)

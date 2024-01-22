@@ -10,7 +10,7 @@ public class CamTracker : MonoBehaviour
     public Camera mainCam;
     public CinemachineFreeLook freeLookCamera;
     public CinemachineTargetGroup targetGroup;
-    private Transform currentTarget;
+    public Transform currentTarget;
     public Crosshair crosshair;
     public bool isLockedOn = false;
 
