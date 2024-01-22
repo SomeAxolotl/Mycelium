@@ -11,19 +11,28 @@ public class UPProjectile : MonoBehaviour
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
     UnstablePuffball unstablePuffball;
+    CamTracker camTracker;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         unstablePuffball = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<UnstablePuffball>();
+        camTracker = GameObject.FindWithTag("Camtracker").GetComponentInChildren<CamTracker>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 launchDirection = (transform.up * 0.2f + transform.forward).normalized;
-        transform.position += launchDirection * speed * Time.deltaTime;
+        if (!camTracker.isLockedOn)
+        {
+            Vector3 launchDirection = (transform.up * 0.2f + transform.forward).normalized;
+            transform.position += launchDirection * speed * Time.deltaTime;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, camTracker.currentTarget.position, speed * Time.deltaTime);
+        }
     }
 
     void OnTriggerEnter(Collider collision)
