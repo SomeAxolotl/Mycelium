@@ -17,6 +17,8 @@ public class SceneLoadingManager : MonoBehaviour
     public bool isLoading = false;
     public GameObject LoadScreen;
 
+    private CanvasGroup loadCanvasGroup;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,6 +29,8 @@ public class SceneLoadingManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        loadCanvasGroup = loadCanvas.GetComponent<CanvasGroup>();
     }
 
     public void LoadScene(string sceneName)
@@ -42,12 +46,14 @@ public class SceneLoadingManager : MonoBehaviour
     IEnumerator LoadAsynchronously(string sceneName)
     {
         isLoading = true;
-        
+
+        loadCanvas.SetActive(true);
+
+        yield return StartCoroutine(FadeCanvasIn());
+
         Application.backgroundLoadingPriority = ThreadPriority.Low;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-
-        loadCanvas.SetActive(true);
 
         do
         {
@@ -68,12 +74,14 @@ public class SceneLoadingManager : MonoBehaviour
     IEnumerator LoadAsynchronously(int sceneIndex)
     {
         isLoading = true;
-        
+
+        loadCanvas.SetActive(true);
+
+        yield return StartCoroutine(FadeCanvasIn());
+
         Application.backgroundLoadingPriority = ThreadPriority.Low;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-
-        loadCanvas.SetActive(true);
 
         do
         {
@@ -109,5 +117,19 @@ public class SceneLoadingManager : MonoBehaviour
     float EaseOutQuart(float x)
     {
         return 1f - Mathf.Pow(1f - x, 4);
+    }
+
+    IEnumerator FadeCanvasIn()
+    {
+        float canvasGroupAlpha = 0f;
+
+        while (canvasGroupAlpha < 1)
+        {
+            canvasGroupAlpha += 0.02f;
+            loadCanvasGroup.alpha = canvasGroupAlpha;
+            yield return null;
+        }
+
+        yield break;
     }
 }
