@@ -16,6 +16,9 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         playerInput = new ThirdPersonActionsAsset();
+
+        //NOTE TO SELF: Probably eventually find a way to detect if someone is using a controller
+        Cursor.visible = false;
     }
 
     public void QuitTheGame()
