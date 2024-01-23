@@ -65,6 +65,7 @@ public class LevelUpManagerNew : MonoBehaviour
     public GameObject SkillMenu;
     private HUDSkills hudSkills;
     private HUDNutrients hudNutrients;
+    private PlayerHealth playerhealth;
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
@@ -90,6 +91,7 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+       playerhealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
        PrimalSave = currentstats.primalLevel;
        SpeedSave = currentstats.speedLevel;
@@ -377,6 +379,8 @@ public class LevelUpManagerNew : MonoBehaviour
       SpeedSave = currentstats.speedLevel;
       SentienceSave = currentstats.sentienceLevel;
       VitalitySave = currentstats.vitalityLevel;
+      playerhealth.GetHealthStats();
+      playerhealth.currentHealth = playerhealth.maxHealth;
       UIenable.SetActive(false);
       HUDCanvasGroup.alpha = 1;
       hudSkills.UpdateHUDIcons();

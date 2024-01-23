@@ -39,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth, -100, maxHealth);
         
+        
         if(currentHealth <= 0)
         {
             currentHealth = -100;
