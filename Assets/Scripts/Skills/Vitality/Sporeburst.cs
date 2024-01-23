@@ -31,19 +31,20 @@ public class Sporeburst : Skill
                     navMeshAgent.enabled = false;
                     StartCoroutine(ReactivateNavMeshAfterDelay(navMeshAgent, 2f));
                 }
-                float healingAmount = 0.5f * damage;
+
                 enemyHealth.EnemyTakeDamage(damage);
-                HealPlayer(healingAmount);
+                HealPlayer(collider.gameObject);
                 Debug.Log("Sporeburst hit!");
             }
         }
     }
-    void HealPlayer(float healingAmount)
+    void HealPlayer(GameObject enemy)
     {
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+        float damage = finalSkillValue;
+        float healingAmount = 0.5f * damage;
+        if (enemy != null)
         {
-            playerHealth.PlayerHeal(healingAmount);
+            GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(healingAmount);
         }
     }
 
