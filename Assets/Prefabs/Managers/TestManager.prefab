@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4664869405426330089}
-  - component: {fileID: 8152131710094287577}
+  - component: {fileID: 1529405591876867154}
   - component: {fileID: 7502848302186411017}
   m_Layer: 0
   m_Name: TestManager
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8152131710094287577
+--- !u!114 &1529405591876867154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,19 +42,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2865965005051588724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d606898977569684da111c1c44053ed3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8168f0a8b245d7048a117de1fe672b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testingEnabled: 0
-  primalLevel: 0
-  sentienceLevel: 0
-  speedLevel: 0
-  vitalityLevel: 0
+  nutrients: 0
+  logs: 0
+  exoskeletons: 0
+  calcites: 0
+  fleshes: 0
+  primalLevel: 1
+  sentienceLevel: 1
+  speedLevel: 1
+  vitalityLevel: 1
+  skill1: 7
+  skill2: 0
   weaponTier: 0
   weaponType: 0
-  speciesSkill: 0
-  skill1: 12
-  skill2: 5
+  sporeSubspecies: 0
+  weaponPrefabs:
+  - {fileID: 4139194183223825244, guid: 3f05a87bc7e697c4ba4d6898299f7358, type: 3}
+  - {fileID: 4139194183223825244, guid: 742c6a2b7467d00468bcbf8c10c1c790, type: 3}
 --- !u!114 &7502848302186411017
 MonoBehaviour:
   m_ObjectHideFlags: 0

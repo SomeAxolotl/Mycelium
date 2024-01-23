@@ -4,7 +4,22 @@ using UnityEngine;
 
 public class TestingManager : MonoBehaviour
 {
-    [SerializeField] private bool testingEnabled = false;
+    private enum StatSkills
+    {
+        NoSkill,
+        Eruption,
+        LivingCyclone,
+        RelentlessFury,
+        Blitz,
+        TrophicCascade,
+        Mycotoxins,
+        Spineshot,
+        UnstablePuffball,
+        Undergrowth,
+        LeechingSpore,
+        Sporeburst,
+        DefenseMechanism
+    }
 
     private enum WeaponTiers
     {
@@ -20,85 +35,159 @@ public class TestingManager : MonoBehaviour
         Stab
     }
 
-    private enum StatSkills
+    private enum SporeSubspecies
     {
-        Eruption,
-        LivingCyclone,
-        RelentlessFury,
-        Blitz,
-        TrophicCascade,
-        Mycotoxins,
-        Spineshot,
-        UnstablePuffball,
-        Undergrowth,
-        LeechingSpore,
-        Sporeburst,
-        DefenseMechanism,
-        NoSkill
+        Default,
+        Poison,
+        Coral,
+        Cordyceps
     }
 
-    private enum SpeciesSkills
-    {
-        FungalMight,
-        Zombify,
-        DeathBlossom,
-        FairyRing
-    }
+    [Header("Nutrients - Alpha1")]
+    [SerializeField][Tooltip("Alpha1 - Add Nutrients")] private int nutrients;
 
-    [Header("Stats")]
-    [SerializeField] private int primalLevel;
-    [SerializeField] private int sentienceLevel;
-    [SerializeField] private int speedLevel;
-    [SerializeField] private int vitalityLevel;
+    [Header("Materials - Alpha2")]
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int logs;
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int exoskeletons;
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int calcites;
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int fleshes;
 
-    [Header("Weapon")]
-    [SerializeField] private WeaponTiers weaponTier;
-    [SerializeField] private WeaponTypes weaponType;
+    [Header("Stats - Alpha3")]
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int primalLevel = 1;
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int sentienceLevel = 1;
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int speedLevel = 1;
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int vitalityLevel = 1;
 
-    [Header("Species Skill")] 
-    [SerializeField] private SpeciesSkills speciesSkill;
+    [Header("Stat Skills - Alpha4")] 
+    [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill1;
+    [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill2;
 
-    [Header("Stat Skills")] 
-    [SerializeField] private StatSkills skill1;
-    [SerializeField] private StatSkills skill2;
+    [Header("Weapon - Alpha5")]
+    [SerializeField][Tooltip("Alpha5 - Set Weapon")] private WeaponTiers weaponTier;
+    [SerializeField][Tooltip("Alpha5 - Set Weapon")] private WeaponTypes weaponType;
+
+    [Header("New Spore Subspecies - Alpha6")]
+    [SerializeField][Tooltip("Alpha6 - Grow New Spore")] private SporeSubspecies sporeSubspecies;
+
+    [Header("References")]
+    [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
 
     private GameObject playerParent;
     private GameObject player;
-    private CharacterStats playerStats;
-    private SkillManager skillManager;
 
-    void Start()
+    private NutrientTracker nutrientTracker; //Alpha1 and Alpha2
+    private CharacterStats playerStats; //Alpha3
+    private SkillManager skillManager; //Alpha4
+    private HUDSkills hudSkills; //Alpha4
+    private SpawnCharacter spawnCharacter; //Alpha6
+
+    void Update()
     {
-        playerParent = GameObject.Find("PlayerParent");
-        player = GameObject.FindWithTag("currentPlayer");
-        playerStats = player.GetComponent<CharacterStats>();
-        //weapon script
-        skillManager = playerParent.GetComponent<SkillManager>();
-
-        if (testingEnabled)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            StartCoroutine(SetPlayerStuff());
+            StartCoroutine(SetPlayerNutrients());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            StartCoroutine(SetPlayerMaterials());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            StartCoroutine(SetPlayerStats());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            StartCoroutine(SetPlayerSkills());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            StartCoroutine(SetPlayerWeapon());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            StartCoroutine(GrowNewSpore());
         }
     }
 
-    IEnumerator SetPlayerStuff()
+    IEnumerator SetPlayerNutrients()
     {
-        //Set Stats
+        GetCurrentPlayer();
+
+        yield return null;
+        nutrientTracker.SetNutrients(nutrients);
+    }
+
+    IEnumerator SetPlayerMaterials()
+    {
+        GetCurrentPlayer();
+
+        yield return null;
+        nutrientTracker.storedLog = logs;
+        nutrientTracker.storedExoskeleton = exoskeletons;
+        nutrientTracker.storedCalcite = calcites;
+        nutrientTracker.storedFlesh = fleshes;
+    }
+
+    IEnumerator SetPlayerStats()
+    {
+        GetCurrentPlayer();
+
+        yield return null;
         playerStats.primalLevel = primalLevel;
         playerStats.sentienceLevel = sentienceLevel;
         playerStats.speedLevel = speedLevel;
         playerStats.vitalityLevel = vitalityLevel;
+    }
 
-        //Set Weapon (WIP)
+    IEnumerator SetPlayerSkills()
+    {
+        GetCurrentPlayer();
 
-        //Set Skills
         yield return null;
-        skillManager.SetSkill(speciesSkill.ToString(), 0, player);
+        skillManager.SetSkill(skill1.ToString(), 1, player);
+        hudSkills.ChangeSkillIcon(skill1.ToString(), 1);
         yield return null;
-        if (skill1.ToString() != "NoSkill")
-            skillManager.SetSkill(skill1.ToString(), 1, player);
+        skillManager.SetSkill(skill2.ToString(), 2, player);
+        hudSkills.ChangeSkillIcon(skill2.ToString(), 2);
+    }
+
+    IEnumerator SetPlayerWeapon()
+    {
+        GetCurrentPlayer();
+
         yield return null;
-        if (skill2.ToString() != "NoSkill")
-            skillManager.SetSkill(skill2.ToString(), 2, player);
+        string weaponString = weaponTier.ToString() + weaponType.ToString();
+        foreach (GameObject weapon in weaponPrefabs)
+        {
+            if (weapon.name == weaponString)
+            {
+                Instantiate(weapon, player.transform.position, Quaternion.identity);
+            }
+        }
+    }
+
+    IEnumerator GrowNewSpore()
+    {
+        GetCurrentPlayer();
+
+        yield return null;
+        spawnCharacter.SpawnNewCharacter(sporeSubspecies.ToString());
+    }
+
+    void GetCurrentPlayer()
+    {
+        playerParent = GameObject.Find("PlayerParent");
+        player = GameObject.FindWithTag("currentPlayer");
+        
+        nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>(); //Alpha1 and Alpha2
+        playerStats = player.GetComponent<CharacterStats>(); //Alpha3
+        skillManager = playerParent.GetComponent<SkillManager>(); //Alpha4
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        spawnCharacter = playerParent.GetComponent<SpawnCharacter>(); //Alpha6
     }
 }

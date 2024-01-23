@@ -33,7 +33,7 @@ public class NutrientTracker : MonoBehaviour
     {
         //FOR TESTING
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             AddNutrients(1000);
         }
@@ -47,6 +47,13 @@ public class NutrientTracker : MonoBehaviour
     public void AddNutrients(int amount)
     {
         currentNutrients += amount;
+        hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
+        hudNutrients.UpdateNutrientsUI(currentNutrients);
+    }
+    public void SetNutrients(int amount)
+    {
+        currentNutrients = amount;
+        Debug.Log("test");
         hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
         hudNutrients.UpdateNutrientsUI(currentNutrients);
     }
