@@ -19,7 +19,7 @@ public class Crosshair : MonoBehaviour
     {
         if(target != null)
         {
-            transform.position = Camera.main.WorldToScreenPoint(target.position);
+            transform.position = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + .5f, target.position.z));
         }
     }
 }

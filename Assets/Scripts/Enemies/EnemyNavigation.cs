@@ -46,8 +46,8 @@ public class EnemyNavigation : MonoBehaviour
             float dstToPlayer = Vector3.Distance(transform.position, player.position);
             var newRotation = Quaternion.LookRotation(dirToPlayer);
             
-            if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer) || 
-                dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer) && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer))
+            if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer) || 
+                dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer) && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer))
             {
                 //Debug.Log("Spotted!");
                 playerSeen = true;

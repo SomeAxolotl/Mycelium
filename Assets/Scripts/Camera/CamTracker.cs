@@ -51,13 +51,16 @@ public class CamTracker : MonoBehaviour
 
             Quaternion targetCameraRotation = Quaternion.Euler(20f, currentPlayer.rotation.eulerAngles.y, 0f);
             mainCam.transform.rotation = Quaternion.Slerp(mainCam.transform.rotation, targetCameraRotation, 100f * Time.deltaTime);
+            if (Vector3.Distance(currentPlayer.position, currentTarget.position) > 25f)
+            {
+                ToggleLockOn();
+            }
         }
     }
     public void ToggleLockOn()
     {
         if (isLockedOn)
         {
-            // Unlock the camera
             isLockedOn = false;
             targetGroup.m_Targets = new CinemachineTargetGroup.Target[0];
             targetGroup.enabled = false;
@@ -80,21 +83,20 @@ public class CamTracker : MonoBehaviour
     }
     Transform FindClosestEnemy()
     {
-
-        // Define the area in the viewport
-        float startX = 0.3f; // Adjust these values based on your desired area
+        //Bounds on the screen of where to search for enemies
+        float startX = 0.3f;
         float startY = 0.3f;
         float endX = 0.7f;
         float endY = 0.7f;
 
-        int rayCountX = 12; // Adjust the number of rays in the X direction
-        int rayCountY = 12; // Adjust the number of rays in the Y direction
+        int rayCountX = 20; //The number of rays in the X direction
+        int rayCountY = 20; //The number of rays in the Y direction
 
         for (int i = 0; i < rayCountX; i++)
         {
             for (int j = 0; j < rayCountY; j++)
             {
-                // Calculate the current viewport point
+                //Calculate the current viewport point
                 float viewportX = Mathf.Lerp(startX, endX, (float)i / (rayCountX - 1));
                 float viewportY = Mathf.Lerp(startY, endY, (float)j / (rayCountY - 1));
 
