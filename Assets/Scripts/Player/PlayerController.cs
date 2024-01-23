@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     PlayerHealth playerHealth;
     SkillManager skillManager;
 
-    public float dodgeCooldown = 1f;
+    public float dodgeCooldown = 3f;
     public float dodgeIFrames = 0.15f;
 
     private HUDSkills hudSkills;
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
             Application.Quit();
         }
         Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.forward, Color.red);
-        if (dodge.triggered && canUseDodge == true)
+        if (dodge.triggered && canUseDodge == true && canAct == true)
         {
             if (canUseAttack == false && playerAttack.animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimationName))
             {
@@ -220,7 +220,6 @@ public class PlayerController : MonoBehaviour
     {
         canAct = true;
         canUseAttack = true;
-        canUseDodge = true;
         canUseSkill = true;
         playerActionsAsset.Player.Enable();
     }
@@ -229,7 +228,6 @@ public class PlayerController : MonoBehaviour
     {
         canAct = false;
         canUseAttack = false;
-        canUseDodge = false;
         canUseSkill = false;
         playerActionsAsset.Player.Disable();
     }
