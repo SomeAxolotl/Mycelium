@@ -5,4 +5,5 @@ using UnityEngine;
 public static class PauseData
 {
     public static bool isGamePaused { get; set; }
+    public static bool isAbleToPause { get; set; }
 }

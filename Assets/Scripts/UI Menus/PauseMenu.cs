@@ -33,7 +33,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerInput.Player.Pause.WasPressedThisFrame())
+        if(playerInput.Player.Pause.WasPressedThisFrame() && PauseData.isAbleToPause == true)
         {
             if (PauseData.isGamePaused == true)
             {

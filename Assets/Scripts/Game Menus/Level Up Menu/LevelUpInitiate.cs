@@ -34,6 +34,9 @@ public class LevelUpInitiate : MonoBehaviour
             levelupmenu.SetActive(true);
             
             HUDCanvasGroup.alpha = 0;
+
+            //This helps fix the bug where you could pause in the shop
+            PauseData.isAbleToPause = false;
         }
     }
 }

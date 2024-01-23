@@ -387,6 +387,9 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.UpdateLevel();
       playerController.EnableController();
       UnlockSkills();
+
+      //This helps fix the bug where you could pause in the shop
+      PauseData.isAbleToPause = true;
     }
     /*public void CloseController()
     {
@@ -413,6 +416,9 @@ public class LevelUpManagerNew : MonoBehaviour
       HUDCanvasGroup.alpha = 1;
       hudSkills.UpdateHUDIcons();
       hudNutrients.UpdateNutrientsUI(nutrientsSave);
+
+      //This helps fix the bug where you could pause in the shop
+      PauseData.isAbleToPause = true;
     }
     public void PrimalStartCheck()
     {
