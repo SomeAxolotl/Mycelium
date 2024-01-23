@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyNavigation : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
-    private bool playerSeen;
+    public bool playerSeen;
     private bool patrolStart = false;
     private float patrolCooldown = 1f;
     private bool isRotatingLeft = false;
