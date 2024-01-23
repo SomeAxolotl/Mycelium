@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour
         playerParent = GameObject.FindWithTag("PlayerParent");
         HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
         hudItem = HUD.GetComponent<HUDItem>();
+        PauseData.isAbleToPause = true;
         Resume();
     }
 
