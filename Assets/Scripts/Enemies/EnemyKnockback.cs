@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyKnockback : MonoBehaviour
 {
     public bool damaged;
-    public float flightTimer;
+    [HideInInspector] public float flightTimer;
     Rigidbody rb;
     Transform player;
     EnemyNavigation enemyNavigation;
@@ -32,7 +32,7 @@ public class EnemyKnockback : MonoBehaviour
             flightTimer += Time.deltaTime;
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, .25f) && flightTimer > .3)
+            if (Physics.Raycast(transform.position, -transform.up, out hit, .35f) && flightTimer > .3)
             {
                 damaged = false;
                 flightTimer = 0;

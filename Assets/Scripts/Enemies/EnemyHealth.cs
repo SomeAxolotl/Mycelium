@@ -13,6 +13,7 @@ public class EnemyHealth : MonoBehaviour
     Rigidbody rb;
     List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     Transform player;
+    public Transform centerPoint;
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
     CamTracker camTracker;
@@ -76,6 +77,7 @@ public class EnemyHealth : MonoBehaviour
     public void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
+        ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
 
         foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
         {
@@ -83,7 +85,6 @@ public class EnemyHealth : MonoBehaviour
             {
                 enemyHealthBar.UpdateEnemyHealth(currentHealth, maxHealth);
                 enemyHealthBar.DamageNumber(dmgTaken);
-                ParticleManager.Instance.SpawnParticles("Blood", transform.position, Quaternion.identity);
             }
 
         }

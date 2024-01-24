@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 6153356887962201537}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8853785035251352524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8634755480951926640}
+  m_Layer: 6
+  m_Name: CenterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8634755480951926640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8853785035251352524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6153356887962201537}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4605833415290106669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -279,6 +310,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6037116954983157402}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a723ed0383d878c4c9ba293283d4d794,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8634755480951926640}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a723ed0383d878c4c9ba293283d4d794,
         type: 3}
@@ -433,6 +468,7 @@ MonoBehaviour:
   maxHealth: 20
   currentHealth: 0
   nutrientDrop: 200
+  centerPoint: {fileID: 8634755480951926640}
 --- !u!114 &8670599742647639839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damaged: 0
+  flightTimer: 0
 --- !u!65 &8757100050234377853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -465,8 +502,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.95257074, z: 3.6695642}
-  m_Center: {x: 0, y: 0.5052212, z: 0.08226061}
+  m_Size: {x: 0.71645117, y: 0.7336191, z: 3.325561}
+  m_Center: {x: 0, y: 0.40000004, z: 0}
 --- !u!114 &4942160677122019285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +522,6 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackCooldown: 2
+  attackCooldown: 3
   projectile: {fileID: 7771920069990623049, guid: 8694cfcf450277f4bbc922c0dcc6ef8c,
     type: 3}
