@@ -56,7 +56,7 @@ public class SwapWeapon : MonoBehaviour
             float angleToWeapon = Vector3.Angle(currentCharacter.transform.forward, dirToWeapon);
             float distanceToWeapon = Vector3.Distance(currentCharacter.transform.position, weapon.position);
             //nesting so i can use tooltips
-            if ((angleToWeapon <= 40 && playerController.canAct == true) || (distanceToWeapon <= 1f && playerController.canAct == true))
+            if (distanceToWeapon <= 3f && playerController.canAct == true)
             {
                 string damageComparisonText;
                 if (newStats.wpnDamage > oldStats.wpnDamage)
@@ -105,7 +105,7 @@ public class SwapWeapon : MonoBehaviour
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
-            else if ((angleToWeapon <= 40 && playerController.canAct == true) || (distanceToWeapon <= 10f && playerController.canAct == true))
+            else if (distanceToWeapon > 3f)
             {
                 TooltipManager.Instance.DestroyTooltip();
             }

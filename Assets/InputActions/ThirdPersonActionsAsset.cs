@@ -427,7 +427,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""name"": """",
                     ""id"": ""8580fa89-a79b-495d-bb25-cb4fb7007e17"",
                     ""path"": ""<Gamepad>/rightStickPress"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": ""Press(pressPoint=1,behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LockOn"",

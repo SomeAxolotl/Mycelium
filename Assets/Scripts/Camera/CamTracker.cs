@@ -29,7 +29,7 @@ public class CamTracker : MonoBehaviour
 
         if (lockon.triggered)
         {
-            ToggleLockOn();
+            //ToggleLockOn();
         }
         
         if(isLockedOn)
@@ -53,7 +53,7 @@ public class CamTracker : MonoBehaviour
             mainCam.transform.rotation = Quaternion.Slerp(mainCam.transform.rotation, targetCameraRotation, 100f * Time.deltaTime);
             if (Vector3.Distance(currentPlayer.position, currentTarget.position) > 25f)
             {
-                ToggleLockOn();
+                //ToggleLockOn();
             }
         }
     }
