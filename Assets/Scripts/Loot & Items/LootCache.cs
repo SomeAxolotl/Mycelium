@@ -26,7 +26,7 @@ public class LootCache : MonoBehaviour
     private void Update()
     {
         distance = Vector3.Distance(player.transform.position, this.transform.position);
-        if (distance <= 3)
+        if (distance < 3)
         {
             TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Press [BUTTON] to Open");
             if (interact.triggered)
@@ -36,7 +36,7 @@ public class LootCache : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        else if (distance > 3)
+        else if (distance >= 3)
         {
             TooltipManager.Instance.DestroyTooltip();
         }
