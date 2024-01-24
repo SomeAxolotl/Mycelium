@@ -4946,6 +4946,7 @@ GameObject:
   - component: {fileID: 7777186011833524147}
   - component: {fileID: 1895019040994995593}
   - component: {fileID: 4253084404520747}
+  - component: {fileID: 8148191803813417362}
   m_Layer: 0
   m_Name: Cache
   m_TagString: Untagged
@@ -5055,8 +5056,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleDrops:
   - {fileID: 4139194183223825244, guid: 742c6a2b7467d00468bcbf8c10c1c790, type: 3}
-  - {fileID: 4139194183223825244, guid: 742c6a2b7467d00468bcbf8c10c1c790, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 521584253019113794, guid: 94cfe7cd10e412b49a1b21fb2eacdf74, type: 3}
+  - {fileID: 1032490669488020437, guid: 7c868e9125cef6d4e857d2cd3172a46f, type: 3}
   nutrientMin: 50
   nutrientMax: 200
+--- !u!208 &8148191803813417362
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758742650448097434}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

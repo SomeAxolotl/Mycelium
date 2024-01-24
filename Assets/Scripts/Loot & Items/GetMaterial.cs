@@ -32,7 +32,7 @@ public class GetMaterial : MonoBehaviour
     private void Update()
     {
         distance = Vector3.Distance(player.transform.position, this.transform.position);
-        if (interact.triggered && distance < 2)
+        if (interact.triggered && distance < 3)
         {
             AddMaterial();
         }

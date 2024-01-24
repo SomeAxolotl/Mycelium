@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyKnockback : MonoBehaviour
 {
     public bool damaged;
-    float flightTimer;
+    public float flightTimer;
     Rigidbody rb;
     Transform player;
     EnemyNavigation enemyNavigation;
