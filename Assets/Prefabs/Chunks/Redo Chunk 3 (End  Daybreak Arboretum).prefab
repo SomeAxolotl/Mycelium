@@ -47128,7 +47128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3891307869926137853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Decoration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60980,7 +60980,7 @@ GameObject:
   m_Layer: 0
   m_Name: Redo Chunk 3 (End  Daybreak Arboretum)
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -60996,6 +60996,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7174980905696982499}
   - {fileID: 8175872538376537083}
   - {fileID: 8992117477739468530}
   - {fileID: 846779492660346878}
@@ -61003,7 +61004,6 @@ Transform:
   - {fileID: 5874857768713268668}
   - {fileID: 5667105544925378320}
   - {fileID: 3868611583014845413}
-  - {fileID: 7174980905696982499}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -78797,7 +78797,6 @@ GameObject:
   - component: {fileID: 2059729346998812537}
   - component: {fileID: 3620000270774646758}
   - component: {fileID: 1006077873123365030}
-  - component: {fileID: 3141079943371155744}
   m_Layer: 12
   m_Name: Terrain
   m_TagString: Untagged
@@ -78895,12 +78894,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
+  m_CollectObjects: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4096
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -78911,22 +78910,8 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: f03ffb407e0f39d43a27b9143151b24e, type: 2}
   m_BuildHeightMesh: 0
---- !u!114 &3141079943371155744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6181144154734286527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0d831686ac2c2d4b9b16b5e8781bed0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshSurfaces:
-  - {fileID: 1006077873123365030}
 --- !u!1 &6201809645294470019
 GameObject:
   m_ObjectHideFlags: 0
@@ -117752,7 +117737,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8847010801885943275}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -1, z: 0.013}
+  m_LocalPosition: {x: 2.91, y: -1, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

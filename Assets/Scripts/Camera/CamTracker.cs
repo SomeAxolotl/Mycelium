@@ -26,9 +26,11 @@ public class CamTracker : MonoBehaviour
     {
         currentPlayer = GameObject.FindWithTag("currentPlayer").transform;
         transform.position = currentPlayer.position;
+        isLockedOn = false;
 
         if (lockon.triggered)
         {
+            Debug.Log("Lockon triggered!");
             //ToggleLockOn();
         }
         

@@ -3747,7 +3747,6 @@ GameObject:
   - component: {fileID: 2109240269701519939}
   - component: {fileID: 2131472061529912875}
   - component: {fileID: 8552491157757681389}
-  - component: {fileID: 2579733326752054041}
   m_Layer: 12
   m_Name: Terrain
   m_TagString: Untagged
@@ -3843,12 +3842,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
+  m_CollectObjects: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4096
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -3859,22 +3858,8 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: e71d373e3e0d03e4c88d99907414d563, type: 2}
   m_BuildHeightMesh: 0
---- !u!114 &2579733326752054041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 491172373890948891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0d831686ac2c2d4b9b16b5e8781bed0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshSurfaces:
-  - {fileID: 8552491157757681389}
 --- !u!1 &495193833300958051
 GameObject:
   m_ObjectHideFlags: 0
@@ -29594,13 +29579,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2566161401876825661}
+  - {fileID: 1513723017891797809}
+  - {fileID: 4573740799199851152}
   - {fileID: 8825637793433071500}
   - {fileID: 7244228220149951842}
+  - {fileID: 2566161401876825661}
   - {fileID: 4426851949569781809}
   - {fileID: 5869629367124963051}
-  - {fileID: 4573740799199851152}
-  - {fileID: 1513723017891797809}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76998,7 +76983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4573740799199851152}
   m_Layer: 0
-  m_Name: Attach (2)
+  m_Name: Attach
   m_TagString: Attach
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -77012,7 +76997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8210001328965791762}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.001, z: -44.813}
+  m_LocalPosition: {x: 0, y: 0.001, z: -44.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
