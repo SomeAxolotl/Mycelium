@@ -7,12 +7,10 @@ public class EnemyNavigation : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
     public bool playerSeen;
-    private bool patrolStart = false;
-    private float patrolCooldown = 1f;
-    private bool isRotatingLeft = false;
-    private bool isRotatingRight = false;
-    private bool isWalking = false;
     private bool canChase = true;
+    private bool startedPatrol = false;
+    private float patrolRadius = 10f;
+    private Vector3 previousPosition;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
@@ -20,24 +18,24 @@ public class EnemyNavigation : MonoBehaviour
     [SerializeField] private float fieldOfView = 60f;
     [SerializeField] private float detectionRange = 25f;
     [SerializeField] private float detectionBuffer = 2f;
-    IEnumerator patrol;
-    IEnumerator restartPatrol;
-    IEnumerator chasePlayer;
     Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        patrol = this.Patrol();
-        restartPatrol = this.RestartPatrol();
-        chasePlayer = this.ChasePlayer();
         animator = GetComponent<Animator>();
+        animator.SetBool("IsMoving", true);
+        previousPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 currentVelocity = (transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = transform.position;
+        float speed = currentVelocity.magnitude;
+
         playerColliders = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
         foreach (var playerCollider in playerColliders)
         {
@@ -49,109 +47,65 @@ public class EnemyNavigation : MonoBehaviour
             if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer) || 
                 dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer) && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer))
             {
-                //Debug.Log("Spotted!");
                 playerSeen = true;
-                StopCoroutine(patrol);
-                patrol = Patrol();
-                StopCoroutine(restartPatrol);
-                restartPatrol = RestartPatrol();
-                patrolStart = false;
-                patrolCooldown = 1f;
-                navMeshAgent.isStopped = false;
+                startedPatrol = false;
                 if(canChase)
                 {
                     StartCoroutine(ChasePlayer());
                 }
                 transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
-                animator.SetBool("IsMoving", true);
             }
             else
             {
-                StopCoroutine(ChasePlayer());
-                chasePlayer = ChasePlayer();
                 canChase = true;
                 playerSeen = false;
-                navMeshAgent.isStopped = true;
-                navMeshAgent.ResetPath();
-                animator.SetBool("IsMoving", false);
-            }
-        }
-        
-        if(playerSeen == false && patrolStart == false)
-        {
-            patrolCooldown -= Time.deltaTime;
-            if(patrolCooldown <= 0)
-            {
-                StartCoroutine(Patrol());
             }
         }
 
-        if (isRotatingRight == true)
+        if (!startedPatrol && !playerSeen)
         {
-            transform.Rotate(transform.up * Time.deltaTime * 100f);
+            SetRandomDestination();
         }
-
-        if (isRotatingLeft == true)
+        if (!playerSeen && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + 1f || startedPatrol && speed < .25f)
         {
-            transform.Rotate(transform.up * Time.deltaTime * -100f);
-        }
-
-        if (isWalking == true)
-        {
-            if(!Physics.Raycast(transform.position, transform.forward, 2f, obstacleLayer))
-            {
-                transform.position += transform.forward * 5f * Time.deltaTime;
-            }
-            else
-            {
-                StartCoroutine(RestartPatrol());
-            }
+            startedPatrol = false;
         }
     }
     IEnumerator ChasePlayer()
     {
         canChase = false;
         navMeshAgent.SetDestination(player.position);
-        Debug.Log("chasing");
         yield return new WaitForSeconds(0.5f);
         canChase = true;
     }
-    IEnumerator Patrol()
+    
+    void SetRandomDestination()
     {
-        patrolStart = true;
-        int rotTime = Random.Range(1, 3);
-        int rotateWait = Random.Range(1, 3);
-        int rotateLorR = Random.Range(1, 2);
-        int walkWait = Random.Range(1, 3);
-        int walkTime = Random.Range(1, 4);
-
-        yield return new WaitForSeconds(walkWait);
-        isWalking = true;
-        yield return new WaitForSeconds(walkTime);
-        isWalking = false;
-        yield return new WaitForSeconds(rotateWait);
-        if (rotateLorR == 1)
+        Vector3 point;
+        if (RandomPoint(transform.position, patrolRadius, out point) == true)
         {
-            isRotatingRight = true;
-            yield return new WaitForSeconds(rotTime);
-            isRotatingRight = false;
+            navMeshAgent.SetDestination(point);
+            startedPatrol = true;
         }
-        if (rotateLorR == 2)
-        {
-            isRotatingLeft = true;
-            yield return new WaitForSeconds(rotTime);
-            isRotatingLeft = false;
-        }
-        patrolStart = false;
-        patrolCooldown = 1f;
     }
-    IEnumerator RestartPatrol()
+
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
-        StopCoroutine(patrol);
-        patrol = Patrol();
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + 180f * Time.deltaTime, transform.rotation.z);
-        yield return new WaitForSeconds(1f);
-        patrolStart = false;
-        patrolCooldown = 1f;
+        Vector2 randomPoint = Random.insideUnitCircle * patrolRadius;
+        Vector3 worldPoint = transform.position + new Vector3(randomPoint.x, 0, randomPoint.y);
+        NavMeshHit hit;
+
+        if(NavMesh.SamplePosition(worldPoint, out hit, 10f, NavMesh.AllAreas))
+        {
+            Debug.Log("true" + hit.position);
+            result = hit.position;
+            return true;
+        }
+        else
+        {
+            Debug.Log("false" + hit.position);
+            result = Vector3.zero;
+            return false;
+        }
     }
 }

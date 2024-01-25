@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 //using UnityEditor.EditorTools;
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class LevelGenerator : MonoBehaviour
 
     void Awake()
     {
+        NavMesh.RemoveAllNavMeshData();
         GameObject StartPiece = Instantiate(StartChunkPrefabs[Random.Range(0,StartChunkPrefabs.Count)], transform);
         NumberOfPieces++;
         List<Transform> attachPoints = new List<Transform>();
