@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class GetMaterial : MonoBehaviour
 {
+    [SerializeField] private string materialName = "Rotten Log";
+
     float distance;
     [SerializeField] private GameObject log;
     [SerializeField] private GameObject exoskeleton;
@@ -34,7 +36,7 @@ public class GetMaterial : MonoBehaviour
         distance = Vector3.Distance(player.transform.position, this.transform.position);
         if (distance < 3f)
         {
-            TooltipManager.Instance.CreateTooltip(gameObject, gameObject.name, "A material found throughout the world", "Press [BUTTON] to pick up");
+            TooltipManager.Instance.CreateTooltip(gameObject, materialName, "A material used to grow and upgrade Spores", "Press A to Pick Up");
             if (interact.triggered)
             {
                 AddMaterial();

@@ -87,7 +87,7 @@ public class SwapWeapon : MonoBehaviour
                 }
 
                 string weaponName = newStats.wpnName;
-                TooltipManager.Instance.CreateTooltip(weapon.gameObject, weaponName, "Damage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, "Press [BUTTON] to Swap");
+                TooltipManager.Instance.CreateTooltip(weapon.gameObject, weaponName, "Damage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, "Press Y to Swap");
 
                 if (swapItem.triggered)
                 {
