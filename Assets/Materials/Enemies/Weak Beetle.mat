@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8471521051786733337
+--- !u!114 &-2761163468484208485
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stickbug
+  m_Name: Weak Beetle
   m_Shader: {fileID: -6465566751694194690, guid: e5e0545853cbd964eb326b68c47e38f7,
     type: 3}
   m_Parent: {fileID: 0}
@@ -66,7 +66,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 78a37f49908d4f3499174ea6fe4ef753, type: 3}
+        m_Texture: {fileID: 2800000, guid: d0d58b47f0c54594b87fbc780f861450, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -79,6 +79,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Secondary_Texture:
+        m_Texture: {fileID: 2800000, guid: 9859f082703f4964fa4a3c4b20943e0b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -120,7 +124,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Hue: 0
+    - _Hue: -60
+    - _HueControl: 0
     - _LightingCutoff: 0.1
     - _Metallic: 0
     - _OcclusionStrength: 1
@@ -128,7 +133,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Saturation: 1
+    - _Saturation: 4
     - _Shadow_Brightness: 0.1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -140,12 +145,18 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.032075405, g: 1, b: 0.23532207, a: 1}
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Hue: {r: 1, g: 0, b: 0.5, a: 1}
+    - _MainOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _MainTiling: {r: 1, g: 1, b: 0, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Shadow_Color: {r: 0.373247, g: 0.40518326, b: 0.497, a: 1}
+    - _SecondaryOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _SecondaryTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Secondary_Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Shadow_Color: {r: 0.28238758, g: 0.7924528, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
