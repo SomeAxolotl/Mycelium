@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
 
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
         GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
+        Debug.Log("Player: " + currentPlayer);
+        Debug.Log("SpawnPoint: " + spawnPoint);
 
         currentPlayer.transform.position = spawnPoint.transform.position;
         currentPlayer.transform.rotation = spawnPoint.transform.rotation;

@@ -26,6 +26,8 @@ public class PlayerAttack : MonoBehaviour
     public IEnumerator attackstart;
     public IEnumerator lunge;
 
+    [SerializeField] private float windupMoveSpeed = 2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +70,7 @@ public class PlayerAttack : MonoBehaviour
     {
         playerController.canUseSkill = false;
         playerController.canUseAttack = false;
-        playerController.moveSpeed = 2f;
+        playerController.moveSpeed = windupMoveSpeed;
         animator.Play(attackAnimationName);
         yield return null;
         SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
