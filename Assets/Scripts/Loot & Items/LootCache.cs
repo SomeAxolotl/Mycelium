@@ -28,8 +28,8 @@ public class LootCache : MonoBehaviour
         distance = Vector3.Distance(player.transform.position, this.transform.position);
         if (distance < 3)
         {
+            Debug.Log("SPAWNING TOOLTIP FOR WEAPON");
             TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Press [BUTTON] to Open");
-            Debug.Log("distance =" + distance);
             if (interact.triggered)
             {
                 TooltipManager.Instance.DestroyTooltip();

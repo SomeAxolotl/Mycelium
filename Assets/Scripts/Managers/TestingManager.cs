@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TestingManager : MonoBehaviour
 {
+    public static TestingManager Instance;
+
     private enum StatSkills
     {
         NoSkill,
@@ -80,6 +82,18 @@ public class TestingManager : MonoBehaviour
     private SkillManager skillManager; //Alpha4
     private HUDSkills hudSkills; //Alpha4
     private SpawnCharacter spawnCharacter; //Alpha6
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void Update()
     {

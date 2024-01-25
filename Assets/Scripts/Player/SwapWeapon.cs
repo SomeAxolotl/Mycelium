@@ -17,6 +17,7 @@ public class SwapWeapon : MonoBehaviour
     PlayerController playerController;
     public GameObject curWeapon;
 
+    [SerializeField] private float proximityRadius = 5f;
     [SerializeField] private Color betterStatColor;
     [SerializeField] private Color worseStatColor;
     [SerializeField] private Color evenStatColor;
@@ -46,7 +47,7 @@ public class SwapWeapon : MonoBehaviour
             curWeapon.transform.rotation = weaponHolder.transform.rotation;
         }
 
-        weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, 4f, weaponLayer);
+        weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, proximityRadius, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
         {
             weapon = weaponCollider.transform;
