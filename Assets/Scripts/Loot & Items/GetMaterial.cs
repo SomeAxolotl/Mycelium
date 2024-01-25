@@ -32,9 +32,18 @@ public class GetMaterial : MonoBehaviour
     private void Update()
     {
         distance = Vector3.Distance(player.transform.position, this.transform.position);
-        if (interact.triggered && distance < 3)
+        if (distance < 3f)
         {
-            AddMaterial();
+            TooltipManager.Instance.CreateTooltip(gameObject, gameObject.name, "A material found throughout the world", "Press [BUTTON] to pick up");
+            if (interact.triggered)
+            {
+                AddMaterial();
+                TooltipManager.Instance.DestroyTooltip();
+            }
+        }
+        else if (distance > 3f)
+        {
+            TooltipManager.Instance.DestroyTooltip();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha9))

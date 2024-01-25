@@ -101,7 +101,6 @@ public class SwapWeapon : MonoBehaviour
                     weapon.tag = "currentWeapon";
                     curWeapon.transform.parent = weaponHolder.transform.parent;
                     curWeapon = GameObject.FindWithTag("currentWeapon");
-
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
