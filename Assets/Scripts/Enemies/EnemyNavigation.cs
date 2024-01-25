@@ -10,6 +10,8 @@ public class EnemyNavigation : MonoBehaviour
     private bool canChase = true;
     private bool startedPatrol = false;
     private float patrolRadius = 10f;
+    private float rerouteTimer;
+    [SerializeField] private float attackStopdistance;
     private Vector3 previousPosition;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
@@ -49,6 +51,7 @@ public class EnemyNavigation : MonoBehaviour
             {
                 playerSeen = true;
                 startedPatrol = false;
+                navMeshAgent.stoppingDistance = attackStopdistance;
                 if(canChase)
                 {
                     StartCoroutine(ChasePlayer());
@@ -59,14 +62,25 @@ public class EnemyNavigation : MonoBehaviour
             {
                 canChase = true;
                 playerSeen = false;
+                navMeshAgent.stoppingDistance = 1f;
             }
+        }
+
+        if(speed < .25f && !playerSeen)
+        {
+            rerouteTimer += Time.deltaTime;
+        }
+        else
+        {
+            rerouteTimer = 0;
         }
 
         if (!startedPatrol && !playerSeen)
         {
             SetRandomDestination();
         }
-        if (!playerSeen && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + 1f || startedPatrol && speed < .25f)
+
+        if (!playerSeen && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + .5f || rerouteTimer > 1.5f)
         {
             startedPatrol = false;
         }
@@ -97,13 +111,13 @@ public class EnemyNavigation : MonoBehaviour
 
         if(NavMesh.SamplePosition(worldPoint, out hit, 10f, NavMesh.AllAreas))
         {
-            Debug.Log("true" + hit.position);
+            //Debug.Log("true" + hit.position);
             result = hit.position;
             return true;
         }
         else
         {
-            Debug.Log("false" + hit.position);
+            //Debug.Log("false" + hit.position);
             result = Vector3.zero;
             return false;
         }
