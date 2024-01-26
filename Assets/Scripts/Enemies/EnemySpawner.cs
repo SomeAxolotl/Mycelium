@@ -9,10 +9,20 @@ public class EnemySpawner : MonoBehaviour
     public int maxEnemies = 5;
     public int enemiesSpawnedLimit = 20;
     private int enemiesSpawnedCount = 0;
-
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    public bool spawnAll = false;
     private void Start()
     {
-        StartCoroutine(SpawnEnemies());
+        if (spawnAll)
+        {
+            SpawnAllEnemies();
+            Destroy(gameObject);
+        }
+        else
+        {
+            StartCoroutine(SpawnEnemies());
+        }
+        
     }
 
     IEnumerator SpawnEnemies()
@@ -21,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnInterval);
 
-            if (GameObject.FindGameObjectsWithTag("Enemy").Length < maxEnemies)
+            if (spawnedEnemies.Count < maxEnemies)
             {
                 SpawnEnemy();
                 enemiesSpawnedCount++;
@@ -36,7 +46,17 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        GameObject newEnemy= Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+
+        spawnedEnemies.Add(newEnemy);
+    }
+
+    void SpawnAllEnemies()
+    {
+        for (int i = 0; i < enemiesSpawnedLimit; i++)
+        {
+            SpawnEnemy();
+        }
     }
 
 }
