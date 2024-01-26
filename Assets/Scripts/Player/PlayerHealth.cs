@@ -39,9 +39,8 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         currentHealth = Mathf.Clamp(currentHealth, -100, maxHealth);
-        
-        
-        if(currentHealth <= 0)
+
+            if (currentHealth <= 0)
         {
             currentHealth = -100;
             hudHealth.UpdateHealthUI(0, maxHealth);
@@ -65,11 +64,24 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
+        playerAnim = GetComponentInChildren<Animator>();
         if (!invincible)
         {
+            if(playerAnim.GetBool("Hurt") == false)
+            {
+                playerAnim.SetBool("Hurt", true);
+                Debug.Log("that hurt is true yo");
+            }
             currentHealth -= dmgTaken;
             hudHealth.UpdateHealthUI(currentHealth, maxHealth);
         }
+
+        /*if (playerAnim.GetBool("Hurt") == true)
+        {
+            playerAnim.SetBool("Hurt", false);
+            Debug.Log("no more hurty");
+        }*/
+
     }
     public void PlayerHeal(float healAmount)
     {
