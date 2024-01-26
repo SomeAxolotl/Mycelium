@@ -105,7 +105,7 @@ public class SwapWeapon : MonoBehaviour
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
-            else if (distanceToWeapon > 3f)
+            else if (distanceToWeapon > 3f && distanceToWeapon < 5f)
             {
                 TooltipManager.Instance.DestroyTooltip();
             }

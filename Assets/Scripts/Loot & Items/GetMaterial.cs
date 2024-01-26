@@ -8,6 +8,8 @@ public class GetMaterial : MonoBehaviour
 {
     [SerializeField] private string materialName = "Rotten Log";
 
+    [SerializeField] private Color descriptionColor;
+
     float distance;
     [SerializeField] private GameObject log;
     [SerializeField] private GameObject exoskeleton;
@@ -36,14 +38,32 @@ public class GetMaterial : MonoBehaviour
         distance = Vector3.Distance(player.transform.position, this.transform.position);
         if (distance < 3f)
         {
-            TooltipManager.Instance.CreateTooltip(gameObject, materialName, "A material used to grow and upgrade Spores", "Press A to Pick Up");
+            string subspeciesText = "N/A";
+            switch (materialName)
+            {
+                case "Rotten Log":
+                    subspeciesText = "basic";
+                    break;
+                case "Fresh Exoskeleton":
+                    subspeciesText = "poisonous";
+                    break;
+                case "Calcite Deposit":
+                    subspeciesText = "coral";
+                    break;
+                case "Flesh":
+                    subspeciesText = "cordyceps";
+                    break;
+            }
+            string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";
+
+            TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press A to Pick Up");
             if (interact.triggered)
             {
                 AddMaterial();
                 TooltipManager.Instance.DestroyTooltip();
             }
         }
-        else if (distance > 3f)
+        else if (distance > 3f && distance < 5f)
         {
             TooltipManager.Instance.DestroyTooltip();
         }
