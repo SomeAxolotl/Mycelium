@@ -188,19 +188,19 @@ public class PlayerController : MonoBehaviour
 
     private void LookAt()
     {
-        if (looking)
+        if(looking)
         {
-            Vector3 direction = rb.velocity;
-            direction.y = 0f;
+            Vector2 moveInput = move.ReadValue<Vector2>();
 
-            if(move.ReadValue<Vector2>().sqrMagnitude != 0f)
+            if (moveInput.magnitude != 0f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 15f * Time.deltaTime);
-            }
-            else
-            {
-                rb.angularVelocity = Vector3.zero;
+                Vector3 lookDirection = GetCameraForward(playerCamera) * moveInput.y + GetCameraRight(playerCamera) * moveInput.x;
+
+                if (lookDirection != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                    rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, 12f * Time.deltaTime));
+                }
             }
         }
     }
