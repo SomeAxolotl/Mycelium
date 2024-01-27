@@ -12,27 +12,16 @@ public class EnemySpawner : MonoBehaviour
     public float proximity = 10f;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     public bool spawnAll = false;
-    public bool spawnIfPlayerNearby = false;
+    private bool hasSpawned = false;
+    [SerializeField] private bool spawnOnStart = false;
     private void Start()
     {
-        if (spawnAll)
+       if(!hasSpawned && spawnOnStart)
         {
-            if(spawnIfPlayerNearby && PlayerNearby())
+            if(spawnAll)
             {
                 SpawnAllEnemies();
                 Destroy(gameObject);
-            }
-            else
-            {
-                SpawnAllEnemies();
-                Destroy(gameObject);
-            }
-        }
-        else
-        {
-            if(spawnIfPlayerNearby && PlayerNearby())
-            {
-                StartCoroutine(SpawnEnemies());
             }
             else
             {
@@ -45,21 +34,19 @@ public class EnemySpawner : MonoBehaviour
     {
         while (enemiesSpawnedCount < enemiesSpawnedLimit)
         {
-            if(!spawnIfPlayerNearby || PlayerNearby())
+            if (spawnedEnemies.Count < maxEnemies)
             {
-                if (spawnedEnemies.Count < maxEnemies)
-                {
-                    SpawnEnemy();
-                    enemiesSpawnedCount++;
+                SpawnEnemy();
+                enemiesSpawnedCount++;
 
-                    if(enemiesSpawnedCount >= enemiesSpawnedLimit)
-                    {
-                        Destroy(gameObject);
-                    }
+                if(enemiesSpawnedCount >= enemiesSpawnedLimit)
+                {
+                    Destroy(gameObject);
                 }
             }
             yield return new WaitForSeconds(spawnInterval);
         }
+        hasSpawned = true;
         Destroy(gameObject);
     }
 
@@ -76,6 +63,7 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnEnemy();
         }
+        hasSpawned = true;
     }
 
     bool PlayerNearby()
@@ -90,5 +78,24 @@ public class EnemySpawner : MonoBehaviour
 
         return false;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
+        if(other.gameObject == player)
+        {
+            if(!hasSpawned)
+            {
+                if(spawnAll)
+                {
+                    SpawnAllEnemies();
+                }
+                else
+                {
+                    StartCoroutine(SpawnEnemies());
+                }
+            }            
+        }
+    }   
 
 }

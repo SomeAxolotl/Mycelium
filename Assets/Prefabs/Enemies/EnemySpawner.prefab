@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2749206655855574446}
   - component: {fileID: 1710457778544223438}
+  - component: {fileID: -7614317663710555383}
   m_Layer: 6
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1710457778544223438
 MonoBehaviour:
@@ -51,4 +52,24 @@ MonoBehaviour:
   enemiesSpawnedLimit: 5
   proximity: 5
   spawnAll: 0
-  spawnIfPlayerNearby: 0
+--- !u!135 &-7614317663710555383
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604063039961748169}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
