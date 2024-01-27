@@ -58,9 +58,12 @@ MonoBehaviour:
   gravityForce: -20
   playerCamera: {fileID: 0}
   looking: 1
+  canUseDodge: 1
+  canUseAttack: 1
+  canUseSkill: 1
+  canAct: 1
   activeDodge: 0
   isInvincible: 0
-  canAct: 1
   dodgeCooldown: 1
   dodgeIFrames: 0.15
 --- !u!114 &4855120389551145187
@@ -210,13 +213,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93a4086992633f409e371ed59036a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curWeapon: {fileID: 0}
   dmgDealt: 0
-  atkCooldown: 0
   lungeForce: 50
-  lungeDurationScalar: 0.1
-  percentUntilWindupDone: 0.5
-  percentUntilSwingDone: 0.9
+  lungeDurationScalar: 0.05
+  animator: {fileID: 0}
+  percentUntilWindupDone: 0.3
+  percentUntilSwingDone: 0.8
   attackAnimationName: Slash
+  windupMoveSpeed: 0
 --- !u!114 &2120284731979701386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +238,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   curWeapon: {fileID: 0}
+  proximityRadius: 5
   betterStatColor: {r: 0.22031003, g: 0.8584906, b: 0.20652366, a: 0}
   worseStatColor: {r: 0.7830189, g: 0.2031417, b: 0.2031417, a: 0}
   evenStatColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
