@@ -15,28 +15,36 @@ public class EnemySpawner : MonoBehaviour
     public bool spawnIfPlayerNearby = false;
     private void Start()
     {
-        if (spawnIfPlayerNearby && !PlayerNearby())
+        if (spawnAll)
         {
-            Destroy(gameObject);
-        }
-        else if (spawnAll)
-        {
-            SpawnAllEnemies();
-            Destroy(gameObject);
+            if(spawnIfPlayerNearby && PlayerNearby())
+            {
+                SpawnAllEnemies();
+                Destroy(gameObject);
+            }
+            else
+            {
+                SpawnAllEnemies();
+                Destroy(gameObject);
+            }
         }
         else
         {
-            StartCoroutine(SpawnEnemies());
+            if(spawnIfPlayerNearby && PlayerNearby())
+            {
+                StartCoroutine(SpawnEnemies());
+            }
+            else
+            {
+                StartCoroutine(SpawnEnemies());
+            }
         }
-        
     }
 
     IEnumerator SpawnEnemies()
     {
         while (enemiesSpawnedCount < enemiesSpawnedLimit)
         {
-            yield return new WaitForSeconds(spawnInterval);
-
             if(!spawnIfPlayerNearby || PlayerNearby())
             {
                 if (spawnedEnemies.Count < maxEnemies)
@@ -50,7 +58,9 @@ public class EnemySpawner : MonoBehaviour
                     }
                 }
             }
+            yield return new WaitForSeconds(spawnInterval);
         }
+        Destroy(gameObject);
     }
 
     void SpawnEnemy()
@@ -70,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
 
     bool PlayerNearby()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
 
         if(player != null)
         {
