@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerController playerController;
     CamTracker camTracker;
     float deathTimer;
-    private Animator playerAnim;
+    private Animator animator;
 
 
     // Start is called before the first frame update
@@ -49,10 +49,10 @@ public class PlayerHealth : MonoBehaviour
             {
                 camTracker.ToggleLockOn();
             }
-            playerAnim = GetComponentInChildren<Animator>();
-            if (playerAnim.GetBool("Death") == false)
+            animator = GetComponentInChildren<Animator>();
+            if (animator.GetBool("Death") == false)
             {
-                playerAnim.SetBool("Death", true);
+                animator.SetBool("Death", true);
             }
             Death();
         }
@@ -64,12 +64,12 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
-        playerAnim = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
         if (!invincible)
         {
-            if(playerAnim.GetBool("Hurt") == false)
+            if(animator.GetBool("Hurt") == false)
             {
-                playerAnim.SetBool("Hurt", true);
+                animator.SetBool("Hurt", true);
                 Debug.Log("that hurt is true yo");
             }
             currentHealth -= dmgTaken;
@@ -116,9 +116,9 @@ public class PlayerHealth : MonoBehaviour
                 SceneManager.LoadScene(1);
             }
             deathTimer = 0;
-            if (playerAnim.GetBool("Death") == true)
+            if (animator.GetBool("Death") == true)
             {
-                playerAnim.SetBool("Death", false);
+                animator.SetBool("Death", false);
             }
                 playerController.isInvincible = false;
             playerController.EnableController();

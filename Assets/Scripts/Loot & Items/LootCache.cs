@@ -47,7 +47,7 @@ public class LootCache : MonoBehaviour
         int randomDropIndex = Random.Range(0, possibleDrops.Count);
         if (possibleDrops[randomDropIndex] != null)
         {
-        	Instantiate(possibleDrops[randomDropIndex], new Vector3(transform.position.x, transform.position.y + .8f, transform.position.z), Quaternion.identity);
+        	Instantiate(possibleDrops[randomDropIndex], new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
         }
 
         int randomNutrientValue = Random.Range(nutrientMin, nutrientMax);

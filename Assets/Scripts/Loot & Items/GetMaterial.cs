@@ -35,6 +35,8 @@ public class GetMaterial : MonoBehaviour
     }
     private void Update()
     {
+        transform.Rotate(0, 60 * Time.deltaTime, 0);
+
         distance = Vector3.Distance(player.transform.position, this.transform.position);
         if (distance < 3f)
         {

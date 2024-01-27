@@ -14,10 +14,16 @@ public class WeaponStats : MonoBehaviour
     [SerializeField] float wpnKnockbackMax = 50f;
     public float wpnKnockback {get; private set;}
 
+    float rotationSpeed = 30f;
+    float tiltAngle = 45f;
+
+    private Quaternion initialRotation;
+
     void Start()
     {
         wpnDamage = Mathf.RoundToInt(Random.Range(wpnDamageMin, wpnDamageMax));
         wpnKnockback = Random.Range(wpnKnockbackMin, wpnKnockbackMax);
+        initialRotation = Quaternion.Euler(0f, 0f, tiltAngle);
     }
 
     // Update is called once per frame
@@ -25,8 +31,11 @@ public class WeaponStats : MonoBehaviour
     {
         if (gameObject.tag == "Weapon")
         {
-            transform.Rotate(0, 0, 75 * Time.deltaTime);
             transform.parent = null;
+
+            Quaternion targetRotation = Quaternion.Euler(0f, rotationSpeed * Time.deltaTime, 0f) * transform.rotation;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, tiltAngle);
         }
     }
 }
