@@ -24,7 +24,7 @@ public class CamTracker : MonoBehaviour
     }
     private void Update()
     {
-        currentPlayer = GameObject.FindWithTag("currentPlayer").transform;
+        currentPlayer = GameObject.FindWithTag("currentPlayer").transform.Find("CenterPoint");
         transform.position = currentPlayer.position;
         isLockedOn = false;
 
