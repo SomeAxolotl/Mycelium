@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class LevelEnd : MonoBehaviour
 {
     NutrientTracker nutrientTracker;
-    SceneLoader levelLoaderScript;
+    SceneLoader sceneLoaderScript;
     void Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
-        levelLoaderScript = GameObject.Find("LevelLoader").GetComponent<SceneLoader>();
+        sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -24,7 +24,7 @@ public class LevelEnd : MonoBehaviour
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
             //SceneManager.LoadScene(1);
-            levelLoaderScript.BeginLoadScene(1, true);
+            sceneLoaderScript.BeginLoadScene(1, true);
         }
     }
 }

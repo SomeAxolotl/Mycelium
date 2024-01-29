@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Button playButton;
-    [SerializeField] SceneLoader levelLoaderScript;
+    [SerializeField] SceneLoader sceneLoaderScript;
 
     ThirdPersonActionsAsset playerInput;
 
@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
 
     public void GoToHubWorld()
     {
-        levelLoaderScript.BeginLoadScene(SceneManager.GetActiveScene().buildIndex + 1, true);
+        sceneLoaderScript.BeginLoadScene(SceneManager.GetActiveScene().buildIndex + 1, true);
     }
 
     private void OnEnable()
