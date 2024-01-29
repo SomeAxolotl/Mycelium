@@ -72,22 +72,27 @@ public class PlayerHealth : MonoBehaviour
             if(animator.GetBool("Hurt") == false)
             {
                 animator.SetBool("Hurt", true);
+                animator.Play("Hurt");
                 Debug.Log("that hurt is true yo");
             }
             currentHealth -= dmgTaken;
             hudHealth.UpdateHealthUI(currentHealth, maxHealth);
         }
-
-        /*if (playerAnim.GetBool("Hurt") == true)
-        {
-            playerAnim.SetBool("Hurt", false);
-            Debug.Log("no more hurty");
-        }*/
+        // if (animator.GetBool("Hurt") == true)
+        // {
+        //     animator.SetBool("Hurt", false);
+        //     Debug.Log("no more hurty");
+        // }
 
     }
     public void PlayerHeal(float healAmount)
     {
         currentHealth += healAmount;
+        if (animator.GetBool("Hurt") == true)
+        {
+            animator.SetBool("Hurt", false);
+            Debug.Log("no more hurty");
+        }
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
