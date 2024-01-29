@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2305949568598637793
+--- !u!1 &7575719325483512896
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3144857043522663913}
-  - component: {fileID: 5764065501722311425}
-  - component: {fileID: 3831186876156281905}
-  - component: {fileID: 3676750245803025764}
-  - component: {fileID: 7302407615872698496}
-  - component: {fileID: 237524759065514304}
-  - component: {fileID: 8829476713566779368}
-  m_Layer: 10
+  - component: {fileID: 2419575640288631523}
+  - component: {fileID: 1466496842361442500}
+  - component: {fileID: 2298538606055242039}
+  - component: {fileID: 1699579819012682671}
+  - component: {fileID: 277184972781744099}
+  - component: {fileID: 8497271546373807497}
+  - component: {fileID: 5509257560214259368}
+  m_Layer: 7
   m_Name: WoodSmash
   m_TagString: currentWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3144857043522663913
+--- !u!4 &2419575640288631523
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305949568598637793}
+  m_GameObject: {fileID: 7575719325483512896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.206, y: 1.044, z: 0}
-  m_LocalScale: {x: 0.36453164, y: 1.8366677, z: 0.19735}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 2.226, y: 0, z: 0}
+  m_LocalScale: {x: 18, y: 47.999996, z: 18}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 37
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5764065501722311425
+--- !u!33 &1466496842361442500
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305949568598637793}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3831186876156281905
+  m_GameObject: {fileID: 7575719325483512896}
+  m_Mesh: {fileID: -5076798556035486163, guid: 6fcddbb173492e84787c810c9d4e364c, type: 3}
+--- !u!23 &2298538606055242039
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305949568598637793}
+  m_GameObject: {fileID: 7575719325483512896}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -87,13 +87,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3676750245803025764
+--- !u!65 &1699579819012682671
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305949568598637793}
+  m_GameObject: {fileID: 7575719325483512896}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -102,49 +102,50 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7302407615872698496
+  m_Size: {x: 0.023500977, y: 0.042000614, z: 0.01443838}
+  m_Center: {x: 0.005812158, y: 0.011000305, z: -0.0013502005}
+--- !u!114 &277184972781744099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305949568598637793}
+  m_GameObject: {fileID: 7575719325483512896}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc81fed59e093044692620bd80000dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sentienceBonusDamage: 0
---- !u!114 &237524759065514304
+--- !u!114 &8497271546373807497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305949568598637793}
+  m_GameObject: {fileID: 7575719325483512896}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2ab41b7723205f4e97b4697fa6bcb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 1
   wpnName: Wooden Smash
   wpnDamageMin: 25
   wpnDamageMax: 30
-  wpnKnockbackMin: 10
-  wpnKnockbackMax: 50
---- !u!114 &8829476713566779368
+  wpnKnockbackMin: 3
+  wpnKnockbackMax: 5
+--- !u!114 &5509257560214259368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305949568598637793}
+  m_GameObject: {fileID: 7575719325483512896}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 911a1f87e9ff8854393e4a862244fccc, type: 3}

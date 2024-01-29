@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class WeaponStats : MonoBehaviour
 {
+    public enum WeaponTypes
+    {
+        Slash,
+        Smash,
+        Stab
+    }
+
+    public WeaponTypes weaponType;
+
     [SerializeField] public string wpnName = "Wooden Sword";
 
     [SerializeField] float wpnDamageMin = 10f;

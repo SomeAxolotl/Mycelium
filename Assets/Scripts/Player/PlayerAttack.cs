@@ -72,13 +72,35 @@ public class PlayerAttack : MonoBehaviour
         playerController.canUseAttack = false;
         playerController.canAct = false;
         playerController.moveSpeed = windupMoveSpeed;
-        animator.Play(attackAnimationName);
+        if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Slash)
+        {
+            animator.Play("Slash");
+        }
+        if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Smash)
+        {
+            animator.Play("Smash");
+        }
+        if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Stab)
+        {
+            animator.Play("Stab");
+        }
+        //animator.Play(attackAnimationName);
         yield return null;
         SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
 
+        if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Slash)
+        {
+            animator.Play("Slash");
+        }
 
-        // play smash animation
-        // animator.Play("Smash");
+
+        /* play smash animation
+        animator.Play("Smash");
+        if current weapon = weapon type
+        player that animation
+        ex current weapon type = stab
+        play stab animation
+        */
 
         // play stab animation
         // animator.Play("Stab");
