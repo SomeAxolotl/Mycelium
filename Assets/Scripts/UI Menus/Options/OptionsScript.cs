@@ -17,6 +17,7 @@ public class OptionsScript : MonoBehaviour
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider gammaSlider;
+    [SerializeField] Slider renderSlider;
 
     ColorAdjustments colorAdjust;
 
@@ -53,17 +54,26 @@ public class OptionsScript : MonoBehaviour
         colorAdjust.postExposure.value = sliderValue;
     }
 
+    public void SetRenderValue(float sliderValue)
+    {
+        CameraCulling cameraCulling = Camera.main.GetComponent<CameraCulling>();
+
+        cameraCulling.SetCameraRenderDistance(sliderValue);
+    }
+
     public void SaveOptionValues()
     {
         float masterValue = masterSlider.value;
         float bgmValue = bgmSlider.value;
         float sfxValue = sfxSlider.value;
         float gammaValue = gammaSlider.value;
+        float renderValue = renderSlider.value;
 
         PlayerPrefs.SetFloat("MasterVolumeValue", masterValue);
         PlayerPrefs.SetFloat("BGMVolumeValue", bgmValue);
         PlayerPrefs.SetFloat("SFXVolumeValue", sfxValue);
         PlayerPrefs.SetFloat("GammaValue", gammaValue);
+        PlayerPrefs.SetFloat("RenderValue", renderValue);
 
         LoadOptionValues();
     }
@@ -74,15 +84,18 @@ public class OptionsScript : MonoBehaviour
         float bgmValue = PlayerPrefs.GetFloat("BGMVolumeValue", 1);
         float sfxValue = PlayerPrefs.GetFloat("SFXVolumeValue", 1);
         float gammaValue = PlayerPrefs.GetFloat("GammaValue", 0);
+        float renderValue = PlayerPrefs.GetFloat("RenderValue", 550f);
 
         masterSlider.value = masterValue;
         bgmSlider.value = bgmValue;
         sfxSlider.value = sfxValue;
         gammaSlider.value = gammaValue;
+        renderSlider.value = renderValue;
 
         SetMasterVolume(masterValue);
         SetBGMVolume(bgmValue);
         SetSFXVolume(sfxValue);
         SetGammaValue(gammaValue);
+        SetRenderValue(renderValue);
     }
 }
