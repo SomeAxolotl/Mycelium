@@ -134,6 +134,15 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Salvage"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1817591-6b4f-478f-b2c0-24c90b21aec9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -431,6 +440,28 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36b12b6b-94e3-4988-8081-5cb817006601"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Hold(duration=2),Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Salvage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d3ace4a-4fe2-49f4-bc4b-d894f529d85a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Hold(duration=3)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Salvage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1029,6 +1060,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_Player_GetStats = m_Player.FindAction("GetStats", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_LockOn = m_Player.FindAction("LockOn", throwIfNotFound: true);
+        m_Player_Salvage = m_Player.FindAction("Salvage", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1117,6 +1149,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_Player_GetStats;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_LockOn;
+    private readonly InputAction m_Player_Salvage;
     public struct PlayerActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -1133,6 +1166,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @GetStats => m_Wrapper.m_Player_GetStats;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @LockOn => m_Wrapper.m_Player_LockOn;
+        public InputAction @Salvage => m_Wrapper.m_Player_Salvage;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1178,6 +1212,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @LockOn.started += instance.OnLockOn;
             @LockOn.performed += instance.OnLockOn;
             @LockOn.canceled += instance.OnLockOn;
+            @Salvage.started += instance.OnSalvage;
+            @Salvage.performed += instance.OnSalvage;
+            @Salvage.canceled += instance.OnSalvage;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1218,6 +1255,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @LockOn.started -= instance.OnLockOn;
             @LockOn.performed -= instance.OnLockOn;
             @LockOn.canceled -= instance.OnLockOn;
+            @Salvage.started -= instance.OnSalvage;
+            @Salvage.performed -= instance.OnSalvage;
+            @Salvage.canceled -= instance.OnSalvage;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1391,6 +1431,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnGetStats(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
+        void OnSalvage(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Salvage",
+                    "type": "Button",
+                    "id": "b1817591-6b4f-478f-b2c0-24c90b21aec9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -409,6 +418,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "LockOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36b12b6b-94e3-4988-8081-5cb817006601",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Hold(duration=2),Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Salvage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d3ace4a-4fe2-49f4-bc4b-d894f529d85a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold(duration=3)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Salvage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
