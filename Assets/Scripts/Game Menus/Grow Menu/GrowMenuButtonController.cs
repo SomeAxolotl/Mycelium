@@ -119,6 +119,8 @@ public class GrowMenuButtonController : MonoBehaviour
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
         hudSkills.UpdateHUDIcons();
+
+        PauseData.isAbleToPause = true;
     }
     public void OnClickClose()
     {
@@ -126,6 +128,8 @@ public class GrowMenuButtonController : MonoBehaviour
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
         hudSkills.UpdateHUDIcons();
+
+        PauseData.isAbleToPause = true;
     }
     public void GrowPoison()
     {
@@ -133,6 +137,8 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
+
+        PauseData.isAbleToPause = true;
     }
     public void GrowDefault()
     {
@@ -140,5 +146,7 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
+
+        PauseData.isAbleToPause = true;
     }
 }
