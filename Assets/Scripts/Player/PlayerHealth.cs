@@ -34,7 +34,6 @@ public class PlayerHealth : MonoBehaviour
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
-        sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
     }
 
     // Update is called once per frame
@@ -120,8 +119,10 @@ public class PlayerHealth : MonoBehaviour
             nutrientTracker.LoseMaterials();
             if(swapWeapon.curWeapon != null)
             {
-                SceneManager.LoadScene(1);
-                //sceneLoaderScript.BeginLoadScene(1, true);
+                //SceneManager.LoadScene(1);
+
+                sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+                sceneLoaderScript.BeginLoadScene(1, true);
             }
             deathTimer = 0;
             if (animator.GetBool("Death") == true)
