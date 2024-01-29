@@ -55,7 +55,7 @@ public class CharacterStats : MonoBehaviour
     [Header("Speed Level")]
     public int speedLevel = 1;
     //Speed Base Stats
-    public float moveSpeed = 5f;
+    public float moveSpeed = 4f;
     public float atkCooldownBuff = 0f;
     public float minAttackSpeed;
     public float maxAttackSpeed;

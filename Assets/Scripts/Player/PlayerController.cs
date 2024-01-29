@@ -10,14 +10,14 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
     public Vector3 forceDirection = Vector3.zero;
-    public float moveSpeed;
+    [HideInInspector] public float moveSpeed;
     [SerializeField] float gravityForce = -20;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;
     public bool looking = true;
 
     //Input fields
-    private ThirdPersonActionsAsset playerActionsAsset;
+    [HideInInspector]public ThirdPersonActionsAsset playerActionsAsset;
     private InputAction move;
     private InputAction dodge;
     private InputAction stat_skill_1;
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         LookAt();
-        
+
         forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * moveSpeed;
         forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * moveSpeed;
 
@@ -145,6 +145,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
     }
+    
     IEnumerator Dodging()
     {
         canUseDodge = false;
@@ -165,7 +166,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dodgeCooldown);
         canUseDodge = true;
     }
-
     IEnumerator IFrames()
     {
         isInvincible = true;

@@ -5,13 +5,15 @@ using UnityEngine.AI;
 
 public class EnemyNavigation : MonoBehaviour
 {
-    public NavMeshAgent navMeshAgent;
+    [HideInInspector] public NavMeshAgent navMeshAgent;
     public bool playerSeen;
     private bool canChase = true;
+    public bool attacking = false;
     private bool startedPatrol = false;
     private float patrolRadius = 10f;
+    [HideInInspector] public float speed;
     private float rerouteTimer;
-    [SerializeField] private float attackStopdistance;
+    [HideInInspector] public float attackStopdistance;
     private Vector3 previousPosition;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
@@ -19,8 +21,8 @@ public class EnemyNavigation : MonoBehaviour
     private Transform player;
     [SerializeField] private float fieldOfView = 60f;
     [SerializeField] private float detectionRange = 25f;
-    [SerializeField] private float detectionBuffer = 2f;
-    Animator animator;
+    [SerializeField] private float detectionBuffer = 12f;
+    [HideInInspector]public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +38,7 @@ public class EnemyNavigation : MonoBehaviour
     {
         Vector3 currentVelocity = (transform.position - previousPosition) / Time.deltaTime;
         previousPosition = transform.position;
-        float speed = currentVelocity.magnitude;
+        speed = currentVelocity.magnitude;
 
         playerColliders = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
         foreach (var playerCollider in playerColliders)
@@ -47,22 +49,19 @@ public class EnemyNavigation : MonoBehaviour
             var newRotation = Quaternion.LookRotation(dirToPlayer);
             
             if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer) || 
-                dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer) && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer))
+                dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer))
             {
                 playerSeen = true;
                 startedPatrol = false;
-                navMeshAgent.stoppingDistance = attackStopdistance;
-                if(canChase)
+                if(!attacking)
                 {
-                    StartCoroutine(ChasePlayer());
+                    transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
                 }
-                transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
             }
             else
             {
                 canChase = true;
                 playerSeen = false;
-                navMeshAgent.stoppingDistance = 1f;
             }
         }
 
@@ -85,13 +84,13 @@ public class EnemyNavigation : MonoBehaviour
             startedPatrol = false;
         }
     }
-    IEnumerator ChasePlayer()
+    /*IEnumerator ChasePlayer()
     {
         canChase = false;
         navMeshAgent.SetDestination(player.position);
         yield return new WaitForSeconds(0.5f);
         canChase = true;
-    }
+    }*/
     
     void SetRandomDestination()
     {
@@ -111,13 +110,11 @@ public class EnemyNavigation : MonoBehaviour
 
         if(NavMesh.SamplePosition(worldPoint, out hit, 10f, NavMesh.AllAreas))
         {
-            //Debug.Log("true" + hit.position);
             result = hit.position;
             return true;
         }
         else
         {
-            //Debug.Log("false" + hit.position);
             result = Vector3.zero;
             return false;
         }

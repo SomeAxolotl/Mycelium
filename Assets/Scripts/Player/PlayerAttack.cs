@@ -70,6 +70,7 @@ public class PlayerAttack : MonoBehaviour
     {
         playerController.canUseSkill = false;
         playerController.canUseAttack = false;
+        playerController.canAct = false;
         playerController.moveSpeed = windupMoveSpeed;
         animator.Play(attackAnimationName);
         yield return null;
@@ -88,21 +89,21 @@ public class PlayerAttack : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimationName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone)
         {
             curWeapon.GetComponent<Collider>().enabled = true;
-            playerController.DisableController();
+            playerController.playerActionsAsset.Player.Disable();
         }
         playerController.moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;
-        playerController.EnableController();
+        ClearAllFungalMights();
 
         /*yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));*/
 
-        playerController.canUseSkill = true;
-        playerController.canUseAttack = true;
-        ClearAllFungalMights();
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f);
+        animator.Rebind();
+        playerController.EnableController();
     }
     private IEnumerator Lunge()
     {

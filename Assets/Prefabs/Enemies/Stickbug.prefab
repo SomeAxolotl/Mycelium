@@ -444,6 +444,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   playerSeen: 0
+  attacking: 0
+  speed: 0
   attackStopdistance: 6
   playerLayer:
     serializedVersion: 2
@@ -453,7 +455,8 @@ MonoBehaviour:
     m_Bits: 4352
   fieldOfView: 80
   detectionRange: 20
-  detectionBuffer: 2
+  detectionBuffer: 15
+  animator: {fileID: 0}
 --- !u!114 &6294662400520187078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,7 +494,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6786587982829778811}
-  m_Material: {fileID: 13400000, guid: 082f2052b59822c45bd1ba3a044dd23b, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

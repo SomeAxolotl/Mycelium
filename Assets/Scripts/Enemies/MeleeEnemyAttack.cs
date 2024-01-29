@@ -10,23 +10,22 @@ public class MeleeEnemyAttack : MonoBehaviour
     private EnemyKnockback enemyKnockback;
     private MeleeEnemyHitbox meleeEnemyHitbox;
     private Collider[] playerColliders;
-    private Transform hitbox;
-    private GameObject thisHitbox;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
     private Transform player;
     private bool canAttack = true;
     private bool isAttacking = false;
-    private bool windupStarted = false;
-    [SerializeField] private float attackCooldown = 2f;
-    private float attackWindup = .75f;
-    [SerializeField] float lungeDistance = 0.4f;
-    [SerializeField] float lungeDuration = 0.15f;
+    private bool attackStarted = false;
+    private float attackCooldown = 1.5f;
+    private float attackStartup;
+    private float resetAttack;
+    [SerializeField] private float damage = 20f;
+    [SerializeField] private float knockbackForce = 50f;
     IEnumerator attack;
-    IEnumerator windup;
     Rigidbody rb;
     Animator animator;
-    
+    List<GameObject> playerHit = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +33,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         enemyKnockback = GetComponent<EnemyKnockback>();
         enemyNavigation = GetComponent<EnemyNavigation>();
         meleeEnemyHitbox = GetComponentInChildren<MeleeEnemyHitbox>();
-        hitbox = transform.Find("MeleeHitbox");
-        thisHitbox = hitbox.gameObject;
         attack = this.Attack();
-        windup = this.AttackWindup();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
     }
@@ -51,7 +47,7 @@ public class MeleeEnemyAttack : MonoBehaviour
             player = playerCollider.transform;
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
             float dstToPlayer = Vector3.Distance(transform.position, player.position);
-            if(enemyKnockback.damaged)
+            if(enemyKnockback.damaged || (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f) || resetAttack >= 2f)
             {
                 CancelAttack();
             }
@@ -59,78 +55,84 @@ public class MeleeEnemyAttack : MonoBehaviour
             {
                 if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer))
                 {
-                    if((dstToPlayer - 1f) <= navMeshAgent.stoppingDistance && canAttack && !windupStarted)
-                    {
-                        StartCoroutine(AttackWindup());
+                    attackStartup += Time.deltaTime;
+                    if (canAttack && attackStartup >= 0.5f)
+                    {     
+                        StartCoroutine(Attack());
                     }
+                }
+                else
+                {
+                    attackStartup = 0f;
                 }
             }
         }
-    }
-    IEnumerator AttackWindup()
-    {
-        windupStarted = true;
-        navMeshAgent.speed = 0f;
-        animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(attackWindup);
-        StartCoroutine(Attack());
+        if (attackStarted)
+        {
+            resetAttack += Time.deltaTime;
+        }
+        else
+        {
+            resetAttack = 0;
+        }
     }
     IEnumerator Attack()
     {
         canAttack = false;
+        attackStarted = true;
+        enemyNavigation.attacking = true;
+        navMeshAgent.speed = 0f;
+        navMeshAgent.angularSpeed = 0f;
+        navMeshAgent.stoppingDistance = 0f;
+        enemyNavigation.animator.speed = 0f;
+        Vector3 chargeTarget = player.position;
+        Vector3 dirToPlayer = (chargeTarget - transform.position);
+        var newRotation = Quaternion.LookRotation(dirToPlayer);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
+        yield return new WaitForSeconds(.2f);
+        navMeshAgent.SetDestination(chargeTarget);
+        enemyNavigation.animator.speed = 5f;
+        navMeshAgent.speed = 25f;
+        navMeshAgent.acceleration = 25f;
         isAttacking = true;
-        navMeshAgent.speed = 5f;
-        attackWindup = .75f;
-        Vector3 startPosition = transform.position;
-
-        //Lunge Forwards
-        for (float t = 0; t < lungeDuration; t += Time.deltaTime)
-        {
-            if(!isAttacking)
-            {
-                yield break;
-            }
-            float progress = t / lungeDuration;
-            transform.position = Vector3.Lerp(startPosition, startPosition + transform.forward * lungeDistance, progress);
-            yield return null;
-        }
-
-        thisHitbox.GetComponent<Collider>().enabled = true;
-
-        yield return new WaitForSeconds(0.2f); //Attack animation will go here!
-
-        thisHitbox.GetComponent<Collider>().enabled = false;
-
-        //Lunge Backwards
-        for (float t = 0; t < lungeDuration; t += Time.deltaTime)
-        {
-            if (!isAttacking)
-            {
-                yield break;
-            }
-            float progress = t / lungeDuration;
-            transform.position = Vector3.Lerp(startPosition + transform.forward * lungeDistance, startPosition, progress);
-            yield return null;
-        }
-
-        transform.position = startPosition;
-        meleeEnemyHitbox.ClearPlayerList();
-        yield return new WaitForSeconds(attackCooldown);
-        windupStarted = false;
-        canAttack = true;
+        yield return new WaitUntil(() => Vector3.Distance(transform.position, chargeTarget) < 2f);
+        animator.SetTrigger("Attack");
         isAttacking = false;
+        yield return new WaitUntil(() => Vector3.Distance(transform.position, chargeTarget) < 1f);
+        navMeshAgent.speed = 6f;
+        navMeshAgent.angularSpeed = 500f;
+        enemyNavigation.animator.speed = 1f;
+        navMeshAgent.acceleration = 7f;
+        enemyNavigation.attacking = false;
+        navMeshAgent.stoppingDistance = 1f;
+        playerHit.Clear();
+        attackStarted = false;
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
     void CancelAttack()
     {
         StopAllCoroutines();
         attack = Attack();
-        windup = AttackWindup();
         transform.position = transform.position;
-        meleeEnemyHitbox.ClearPlayerList();
-        attackWindup = .75f;
-        navMeshAgent.speed = 5f;
+        playerHit.Clear();
+        navMeshAgent.speed = 6f;
+        navMeshAgent.angularSpeed = 500f;
+        navMeshAgent.acceleration = 7f;
+        enemyNavigation.animator.speed = 1f;
+        attackStartup = -0.25f;
         canAttack = true;
         isAttacking = false;
-        windupStarted = false;
+        enemyNavigation.attacking = false;
+        attackStarted = false;
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "currentPlayer" && other.gameObject.GetComponentInParent<PlayerController>().isInvincible == false && !playerHit.Contains(other.gameObject) && isAttacking)
+        {
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
+            other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
+            playerHit.Add(other.gameObject);
+        }
     }
 }
