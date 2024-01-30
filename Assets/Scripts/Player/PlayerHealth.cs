@@ -34,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth, -100, maxHealth);
 
-            if (currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             currentHealth = -100;
             hudHealth.UpdateHealthUI(0, maxHealth);
@@ -50,7 +51,6 @@ public class PlayerHealth : MonoBehaviour
             {
                 camTracker.ToggleLockOn();
             }
-            animator = GetComponentInChildren<Animator>();
             if (animator.GetBool("Death") == false)
             {
                 animator.SetBool("Death", true);
@@ -86,6 +86,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerHeal(float healAmount)
     {
+        animator = GetComponentInChildren<Animator>();
         currentHealth += healAmount;
         if (animator.GetBool("Hurt") == true)
         {
@@ -129,7 +130,7 @@ public class PlayerHealth : MonoBehaviour
             {
                 animator.SetBool("Death", false);
             }
-                playerController.isInvincible = false;
+            playerController.isInvincible = false;
             playerController.EnableController();
         }
     }
