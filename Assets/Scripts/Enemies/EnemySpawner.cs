@@ -9,7 +9,6 @@ public class EnemySpawner : MonoBehaviour
     public int maxEnemies = 5;
     public int enemiesSpawnedLimit = 20;
     private int enemiesSpawnedCount = 0;
-    public float proximity = 10f;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     public bool spawnAll = false;
     private bool hasSpawned = false;
@@ -65,20 +64,7 @@ public class EnemySpawner : MonoBehaviour
         }
         hasSpawned = true;
     }
-
-    bool PlayerNearby()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
-
-        if(player != null)
-        {
-            float distance = Vector3.Distance(transform.position, player.transform.position);
-            return distance <= proximity;
-        }
-
-        return false;
-    }
-
+    
     void OnTriggerEnter(Collider other)
     {
         GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
