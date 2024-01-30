@@ -36,7 +36,7 @@ public class SceneLoader : MonoBehaviour
         goodExitLevelTransition.SetTrigger("Start");
 
         //Wait
-        yield return new WaitForSeconds(transitionTime);
+        yield return new WaitForSecondsRealtime(transitionTime);
 
         //Load Scene
         SceneManager.LoadScene(sceneIndex);
@@ -48,7 +48,7 @@ public class SceneLoader : MonoBehaviour
         badExitLevelTransition.SetTrigger("Start");
 
         //Wait
-        yield return new WaitForSeconds(transitionTime);
+        yield return new WaitForSecondsRealtime(transitionTime);
 
         //Load Scene
         SceneManager.LoadScene(sceneIndex);

@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour
     HUDItem hudItem;
     NutrientTracker nutrientTracker;
     GameObject playerParent;
+    SceneLoader sceneLoaderScript;
 
     private ThirdPersonActionsAsset playerInput = null;
 
@@ -27,6 +28,7 @@ public class PauseMenu : MonoBehaviour
         playerParent = GameObject.FindWithTag("PlayerParent");
         HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
         hudItem = HUD.GetComponent<HUDItem>();
+        sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
         PauseData.isAbleToPause = true;
         Resume();
     }
@@ -92,7 +94,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        sceneLoaderScript.BeginLoadScene(0, true);
     }
 
     public void GoToHubWorld()
@@ -106,7 +108,7 @@ public class PauseMenu : MonoBehaviour
         Destroy(weapon);
         if(playerParent.GetComponent<SwapWeapon>().curWeapon != null)
         {
-            SceneManager.LoadScene(1); //this is assuming the hubworld scene is index 1
+            sceneLoaderScript.BeginLoadScene(1, true); //this is assuming the hubworld scene is index 1
         }
     }
 
