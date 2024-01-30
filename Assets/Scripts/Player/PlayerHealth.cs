@@ -66,7 +66,6 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
-        animator = GetComponentInChildren<Animator>();
         if (!invincible)
         {
             if(animator.GetBool("Hurt") == false)
@@ -87,7 +86,6 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerHeal(float healAmount)
     {
-        animator = GetComponentInChildren<Animator>();
         currentHealth += healAmount;
         if (animator.GetBool("Hurt") == true)
         {
