@@ -34,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
+        animator = GameObject.Find("Spore").GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -50,7 +52,6 @@ public class PlayerHealth : MonoBehaviour
             {
                 camTracker.ToggleLockOn();
             }
-            animator = GetComponentInChildren<Animator>();
             if (animator.GetBool("Death") == false)
             {
                 animator.SetBool("Death", true);
