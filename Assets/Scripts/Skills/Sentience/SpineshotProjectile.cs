@@ -34,9 +34,6 @@ public class SpineshotProjectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
         {
-            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
-            enemyHealth.EnemyTakeDamage(10);
-            //collision.GetComponent<EnemyHealth>().EnemyTakeDamage(finalSkillValue);
             if (collision.GetComponent<EnemyHealth>() != null)
             {
                 collision.GetComponent<EnemyHealth>().EnemyTakeDamage(spineshot.finalSkillValue);
