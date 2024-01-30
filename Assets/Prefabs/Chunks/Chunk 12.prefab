@@ -3274,10 +3274,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7944719615574166679, guid: 4804b3ce171805548951c5eb6082ad12,
     type: 3}
+  EnemyList:
+  - name: Cyan Beetle
+    EnemyPrefab: {fileID: 7944719615574166679, guid: 4804b3ce171805548951c5eb6082ad12,
+      type: 3}
+    weight: 3
+  - name: Green Beetle
+    EnemyPrefab: {fileID: 7944719615574166679, guid: ae3aa481956fcb14e802747a09531d3c,
+      type: 3}
+    weight: 2
+  - name: Blue Beetle
+    EnemyPrefab: {fileID: 7944719615574166679, guid: 83077b85e8e63e1468a49c15d14ece54,
+      type: 3}
+    weight: 1
   spawnInterval: 5
   maxEnemies: 2
   enemiesSpawnedLimit: 5
-  proximity: 5
   spawnAll: 0
   spawnOnStart: 0
 --- !u!135 &3887363863149919482
@@ -110776,6 +110788,43 @@ PrefabInstance:
       propertyPath: enemyPrefab
       value: 
       objectReference: {fileID: 6786587982829778811, guid: 2b39cb9d718c0364fad87b3552c2f1cd,
+        type: 3}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[0].name
+      value: Green Stickbug
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[1].name
+      value: Brown Stickbug
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[0].weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[1].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[0].EnemyPrefab
+      value: 
+      objectReference: {fileID: 6786587982829778811, guid: 2b39cb9d718c0364fad87b3552c2f1cd,
+        type: 3}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[1].EnemyPrefab
+      value: 
+      objectReference: {fileID: 6786587982829778811, guid: 2f798d456eefb434183b309e9668f9b7,
         type: 3}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
