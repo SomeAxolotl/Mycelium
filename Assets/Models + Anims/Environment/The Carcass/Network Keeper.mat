@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Network Keeper
-  m_Shader: {fileID: -6465566751694194690, guid: e5e0545853cbd964eb326b68c47e38f7,
+  m_Shader: {fileID: -6465566751694194690, guid: 57c8c203a86a7cc4db720dbcd8a0ac22,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -46,6 +46,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Glow_Occlusion:
+        m_Texture: {fileID: 2800000, guid: 35e99aeca940aa7469e3e65bf8623f8e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -107,13 +111,17 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Hue: 13
     - _LightingCutoff: 0.1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _Pulse_Glow: 1
+    - _Pulse_Speed: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Saturation: 1.97
     - _Shadow_Brightness: 0.1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -125,12 +133,13 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.9041828, g: 1, b: 0.3433962, a: 1}
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Glow_Color: {r: 1.0592737, g: 0.3220569, b: 0.5130251, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Shadow_Color: {r: 0.32075468, g: 0.30986118, b: 0.30986118, a: 1}
+    - _Shadow_Color: {r: 0.78800005, g: 0.78800005, b: 0.78800005, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
