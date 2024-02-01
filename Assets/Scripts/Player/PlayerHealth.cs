@@ -46,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = -100;
+            GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
             hudHealth.UpdateHealthUI(0, maxHealth);
             deathTimer += Time.deltaTime;
             if (camTracker.isLockedOn)
@@ -74,6 +75,7 @@ public class PlayerHealth : MonoBehaviour
                 animator.SetBool("Hurt", true);
                 animator.Play("Hurt");
                 Debug.Log("that hurt is true yo");
+                GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
             }
             currentHealth -= dmgTaken;
             hudHealth.UpdateHealthUI(currentHealth, maxHealth);
