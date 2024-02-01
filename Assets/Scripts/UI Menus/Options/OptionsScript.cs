@@ -56,9 +56,9 @@ public class OptionsScript : MonoBehaviour
 
     public void SetRenderValue(float sliderValue)
     {
-        CameraCulling cameraCulling = Camera.main.GetComponent<CameraCulling>();
+        CameraCulldistance cameraCulling = Camera.main.GetComponent<CameraCulldistance>();
 
-        cameraCulling.SetCameraRenderDistance(sliderValue);
+        cameraCulling.SetRenderDistance(sliderValue);
     }
 
     public void SaveOptionValues()
