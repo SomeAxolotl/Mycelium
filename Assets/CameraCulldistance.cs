@@ -6,15 +6,23 @@ public class CameraCulldistance : MonoBehaviour
 {
     public float renderDistance = 150;
     private float[] distances = new float[32];
-    private Camera camera;
+
     void Start()
     {
-        camera = GetComponent<Camera>();
+        RefreshRenderDistance();
+    }
+
+    public void SetRenderDistance(float newRenderDistance)
+    {
+        renderDistance = newRenderDistance;
+
         RefreshRenderDistance();
     }
 
     public void RefreshRenderDistance()
     {
+        Camera camera = GetComponent<Camera>();
+
         for(int i = 0; i<15; i++)
             distances[i] = renderDistance;
         //Skip Layer 15 (IgnoreFog Layer)
