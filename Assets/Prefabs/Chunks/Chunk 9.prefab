@@ -2724,7 +2724,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: e71d373e3e0d03e4c88d99907414d563, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: a2becd463f1b54741bcf3a42f12ef4c5, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &495193833300958051
 GameObject:
@@ -10113,8 +10113,8 @@ GameObject:
   - component: {fileID: 6690418865625379241}
   - component: {fileID: 1918902053730508908}
   - component: {fileID: 7340007914064213301}
-  - component: {fileID: 3005921711681649495}
   - component: {fileID: 9067050321029698772}
+  - component: {fileID: 3760138236483573617}
   m_Layer: 8
   m_Name: pPlatonic1
   m_TagString: Untagged
@@ -10187,8 +10187,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3005921711681649495
-SphereCollider:
+--- !u!208 &9067050321029698772
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539272336228835111}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.019000001, y: 0.013, z: 0.019000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.013, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!64 &3760138236483573617
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10205,25 +10221,10 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.009513286
-  m_Center: {x: -0.00076071854, y: 0.0017513906, z: -0.00078517554}
---- !u!208 &9067050321029698772
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1539272336228835111}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.010000001, y: 0.008, z: 0.010000001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.002, z: 0}
-  m_TimeToStationary: 0.5
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5958362384829529401, guid: 75ec127ef7e9f35438b2da9e56a0072e, type: 3}
 --- !u!1 &1540872155457651669
 GameObject:
   m_ObjectHideFlags: 0
@@ -26963,7 +26964,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -4162253513501663206, guid: 708e328c2f83f0e4492dea35e0d7f026, type: 3}
+  m_Mesh: {fileID: -293502825896984990, guid: 708e328c2f83f0e4492dea35e0d7f026, type: 3}
 --- !u!208 &6097052595807738565
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -35409,7 +35410,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -4162253513501663206, guid: 708e328c2f83f0e4492dea35e0d7f026, type: 3}
+  m_Mesh: {fileID: -293502825896984990, guid: 708e328c2f83f0e4492dea35e0d7f026, type: 3}
 --- !u!208 &8318040964555569616
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -52039,8 +52040,8 @@ GameObject:
   - component: {fileID: 5650656474104080533}
   - component: {fileID: 4993274418171660424}
   - component: {fileID: 7512670454428705568}
-  - component: {fileID: 3223380312208637171}
   - component: {fileID: 2866893560974814212}
+  - component: {fileID: 6823097942456798667}
   m_Layer: 8
   m_Name: pPlatonic1
   m_TagString: Untagged
@@ -52113,8 +52114,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3223380312208637171
-SphereCollider:
+--- !u!208 &2866893560974814212
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271848226798935197}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.019000001, y: 0.013, z: 0.019000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.013, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!64 &6823097942456798667
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -52131,25 +52148,10 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.009513286
-  m_Center: {x: -0.00076071854, y: 0.0017513906, z: -0.00078517554}
---- !u!208 &2866893560974814212
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7271848226798935197}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.010000001, y: 0.008, z: 0.010000001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.002, z: 0}
-  m_TimeToStationary: 0.5
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5958362384829529401, guid: 75ec127ef7e9f35438b2da9e56a0072e, type: 3}
 --- !u!1 &7280256863486211852
 GameObject:
   m_ObjectHideFlags: 0
@@ -57978,8 +57980,8 @@ GameObject:
   - component: {fileID: 2112469035464613243}
   - component: {fileID: 2645005921933869293}
   - component: {fileID: 3411310292678100566}
-  - component: {fileID: 8296618620016236443}
   - component: {fileID: 5668919099826299139}
+  - component: {fileID: 1322239360393044208}
   m_Layer: 8
   m_Name: pPlatonic1
   m_TagString: Untagged
@@ -58052,8 +58054,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8296618620016236443
-SphereCollider:
+--- !u!208 &5668919099826299139
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115434895157596430}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.019000001, y: 0.013, z: 0.019000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.013, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!64 &1322239360393044208
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -58070,25 +58088,10 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.009513286
-  m_Center: {x: -0.00076071854, y: 0.0017513906, z: -0.00078517554}
---- !u!208 &5668919099826299139
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8115434895157596430}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.010000001, y: 0.008, z: 0.010000001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.002, z: 0}
-  m_TimeToStationary: 0.5
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5958362384829529401, guid: 75ec127ef7e9f35438b2da9e56a0072e, type: 3}
 --- !u!1 &8117578995571470283
 GameObject:
   m_ObjectHideFlags: 0
@@ -61117,8 +61120,8 @@ GameObject:
   - component: {fileID: 330689676591062500}
   - component: {fileID: 1045453130014465671}
   - component: {fileID: 32539955202029262}
-  - component: {fileID: 2391849419582932972}
   - component: {fileID: 1793006824645231559}
+  - component: {fileID: 96652649009614397}
   m_Layer: 8
   m_Name: pPlatonic1
   m_TagString: Untagged
@@ -61191,8 +61194,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2391849419582932972
-SphereCollider:
+--- !u!208 &1793006824645231559
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8514084009174941308}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.019000001, y: 0.013, z: 0.019000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.013, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!64 &96652649009614397
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -61209,25 +61228,10 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.009513286
-  m_Center: {x: -0.00076071854, y: 0.0017513906, z: -0.00078517554}
---- !u!208 &1793006824645231559
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8514084009174941308}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.010000001, y: 0.008, z: 0.010000001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.002, z: 0}
-  m_TimeToStationary: 0.5
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5958362384829529401, guid: 75ec127ef7e9f35438b2da9e56a0072e, type: 3}
 --- !u!1 &8541617667048196515
 GameObject:
   m_ObjectHideFlags: 0
@@ -65341,8 +65345,8 @@ GameObject:
   - component: {fileID: 5881758347811099323}
   - component: {fileID: 8792376101512716027}
   - component: {fileID: 5224704469272545095}
-  - component: {fileID: 6987058187953420226}
   - component: {fileID: 4105703990593527672}
+  - component: {fileID: 5979554590651115637}
   m_Layer: 8
   m_Name: pPlatonic1
   m_TagString: Untagged
@@ -65415,8 +65419,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6987058187953420226
-SphereCollider:
+--- !u!208 &4105703990593527672
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9165850272256049021}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.019000001, y: 0.013, z: 0.019000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.013, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!64 &5979554590651115637
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -65433,25 +65453,10 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.009513286
-  m_Center: {x: -0.00076071854, y: 0.0017513906, z: -0.00078517554}
---- !u!208 &4105703990593527672
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9165850272256049021}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.010000001, y: 0.008, z: 0.010000001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.002, z: 0}
-  m_TimeToStationary: 0.5
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5958362384829529401, guid: 75ec127ef7e9f35438b2da9e56a0072e, type: 3}
 --- !u!1 &9170733820587507648
 GameObject:
   m_ObjectHideFlags: 0
