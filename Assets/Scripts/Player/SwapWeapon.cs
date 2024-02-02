@@ -35,6 +35,7 @@ public class SwapWeapon : MonoBehaviour
             GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
+            startingWeapon.GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -57,7 +58,7 @@ public class SwapWeapon : MonoBehaviour
             float angleToWeapon = Vector3.Angle(currentCharacter.transform.forward, dirToWeapon);
             float distanceToWeapon = Vector3.Distance(currentCharacter.transform.position, weapon.position);
             //nesting so i can use tooltips
-            if (distanceToWeapon <= 3f && playerController.canAct == true)
+            if (distanceToWeapon <= 3f && playerController.canAct)
             {
                 string damageComparisonText;
                 if (newStats.wpnDamage > oldStats.wpnDamage)
@@ -105,7 +106,7 @@ public class SwapWeapon : MonoBehaviour
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
-            else if (distanceToWeapon > 3f && distanceToWeapon < 5f)
+            else if (distanceToWeapon > 3f && distanceToWeapon < 5f || !playerController.canAct)
             {
                 TooltipManager.Instance.DestroyTooltip();
             }

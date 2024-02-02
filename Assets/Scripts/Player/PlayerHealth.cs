@@ -20,7 +20,6 @@ public class PlayerHealth : MonoBehaviour
     private Animator animator;
     private SceneLoader sceneLoaderScript;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +34,6 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
         animator = GameObject.Find("Spore").GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -80,12 +78,6 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= dmgTaken;
             hudHealth.UpdateHealthUI(currentHealth, maxHealth);
         }
-        // if (animator.GetBool("Hurt") == true)
-        // {
-        //     animator.SetBool("Hurt", false);
-        //     Debug.Log("no more hurty");
-        // }
-
     }
     public void PlayerHeal(float healAmount)
     {
@@ -104,7 +96,6 @@ public class PlayerHealth : MonoBehaviour
     }
     void Death()
     {
-        //swapCharacter.characters[swapCharacter.currentCharacterIndex].transform.Rotate(new Vector3(0, 5f, 0));  
         playerController.DisableController();
         playerController.isInvincible = true;
         if (deathTimer >= 3f)
@@ -123,10 +114,9 @@ public class PlayerHealth : MonoBehaviour
             nutrientTracker.LoseMaterials();
             if(swapWeapon.curWeapon != null)
             {
-                //SceneManager.LoadScene(1);
-
                 sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
                 sceneLoaderScript.BeginLoadScene(1, true);
+                swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
             }
             deathTimer = 0;
             if (animator.GetBool("Death") == true)
