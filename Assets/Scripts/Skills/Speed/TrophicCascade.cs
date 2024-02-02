@@ -19,7 +19,7 @@ public class TrophicCascade : Skill
         Renderer[] childRenderers = player.GetComponentsInChildren<Renderer>();
         PlayerHealth playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
 
-        playerHealth.ActivateInvincibility();
+        playerController.isInvincible = true;
         foreach (Renderer renderer in childRenderers)
         {
             renderer.enabled = false;
@@ -27,7 +27,7 @@ public class TrophicCascade : Skill
 
         yield return StartCoroutine(Cascade());
 
-        playerHealth.DeactivateInvincibility();
+        playerController.isInvincible = false;
         foreach (Renderer renderer in childRenderers)
         {
             if (!(renderer is ParticleSystemRenderer))

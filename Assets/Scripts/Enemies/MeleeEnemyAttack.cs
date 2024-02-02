@@ -8,7 +8,6 @@ public class MeleeEnemyAttack : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private EnemyNavigation enemyNavigation;
     private EnemyKnockback enemyKnockback;
-    private MeleeEnemyHitbox meleeEnemyHitbox;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
@@ -32,7 +31,6 @@ public class MeleeEnemyAttack : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyKnockback = GetComponent<EnemyKnockback>();
         enemyNavigation = GetComponent<EnemyNavigation>();
-        meleeEnemyHitbox = GetComponentInChildren<MeleeEnemyHitbox>();
         attack = this.Attack();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -91,7 +89,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
         yield return new WaitForSeconds(.2f);
         navMeshAgent.SetDestination(chargeTarget);
-        enemyNavigation.animator.speed = 5f;
+        enemyNavigation.animator.speed = 3f;
         navMeshAgent.speed = 25f;
         navMeshAgent.acceleration = 25f;
         isAttacking = true;

@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class SceneLoader : MonoBehaviour
 {
 
-    [SerializeField] Animator enterLevelTransition;
-    [SerializeField] Animator goodExitLevelTransition;
-    [SerializeField] Animator badExitLevelTransition;
+    [SerializeField] public Animator enterLevelTransition;
+    [SerializeField] public Animator goodExitLevelTransition;
+    [SerializeField] public Animator badExitLevelTransition;
 
-    [SerializeField] float transitionTime;
+    [SerializeField] public float transitionTime;
 
     private void Start()
     {

@@ -7,7 +7,6 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
-    bool invincible;
     float regenRate;
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
@@ -43,8 +42,10 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            currentHealth = -100;
-            GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
+            playerController.DisableController();
+            playerController.isInvincible = true;
+            swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
+            CancelInvoke("Regen");
             hudHealth.UpdateHealthUI(0, maxHealth);
             deathTimer += Time.deltaTime;
             if (camTracker.isLockedOn)
@@ -55,7 +56,12 @@ public class PlayerHealth : MonoBehaviour
             {
                 animator.SetBool("Death", true);
             }
-            Death();
+            if (deathTimer >= 3f)
+            {
+                sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+                sceneLoaderScript.BeginLoadScene(1, true);
+                StartCoroutine(Death());
+            }
         }
     }
     public void GetHealthStats()
@@ -66,18 +72,13 @@ public class PlayerHealth : MonoBehaviour
     public void PlayerTakeDamage(float dmgTaken)
     {
         animator = GetComponentInChildren<Animator>();
-        if (!invincible)
+        if(animator.GetBool("Hurt") == true)
         {
-            if(animator.GetBool("Hurt") == false)
-            {
-                animator.SetBool("Hurt", true);
-                animator.Play("Hurt");
-                Debug.Log("that hurt is true yo");
-                GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
-            }
-            currentHealth -= dmgTaken;
-            hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+            Debug.Log("that hurt is true yo");
+            GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
         }
+        currentHealth -= dmgTaken;
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
     public void PlayerHeal(float healAmount)
     {
@@ -94,38 +95,24 @@ public class PlayerHealth : MonoBehaviour
         }
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
-    void Death()
+    IEnumerator Death()
     {
-        playerController.DisableController();
-        playerController.isInvincible = true;
-        if (deathTimer >= 3f)
-        {
-            if(camTracker.isLockedOn)
-            {
-                camTracker.ToggleLockOn();
-            }
-            currentHealth = maxHealth;
-            swapWeapon.curWeapon.tag = "Weapon";
-            Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
-            swapWeapon.UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
-            GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
-            foreach (GameObject weapon in weapons)
-            Destroy(weapon);
-            nutrientTracker.LoseMaterials();
-            if(swapWeapon.curWeapon != null)
-            {
-                sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-                sceneLoaderScript.BeginLoadScene(1, true);
-                swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
-            }
-            deathTimer = 0;
-            if (animator.GetBool("Death") == true)
-            {
-                animator.SetBool("Death", false);
-            }
-            playerController.isInvincible = false;
-            playerController.EnableController();
-        }
+        deathTimer = 0;
+        yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(1).isLoaded);
+        currentHealth = maxHealth;
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        animator.Rebind();
+        animator.SetBool("Death", false);
+        InvokeRepeating("Regen", 1f, 1f);
+        swapWeapon.curWeapon.tag = "Weapon";
+        Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
+        swapWeapon.UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
+        GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+        foreach (GameObject weapon in weapons)
+        Destroy(weapon);
+        nutrientTracker.LoseMaterials();
+        playerController.isInvincible = false;
+        playerController.EnableController();
     }
     void Regen()
     {
@@ -137,14 +124,5 @@ public class PlayerHealth : MonoBehaviour
         GetHealthStats();
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
-    }
-    public void ActivateInvincibility()
-    {
-        invincible = true;
-    }
-
-    public void DeactivateInvincibility()
-    {
-        invincible = false;
     }
 }

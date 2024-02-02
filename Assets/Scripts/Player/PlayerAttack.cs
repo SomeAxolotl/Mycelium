@@ -46,7 +46,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attack.triggered && playerController.canUseAttack == true)
+        if (attack.triggered && playerController.canUseAttack && !animator.GetBool("Hurt") && !animator.GetBool("Death"))
         {
             StartAttack();
         }
@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void StartAttack()
     {
-        if (playerController.canUseAttack == true)
+        if(GameObject.FindWithTag("currentWeapon") != null)
         {
             curWeapon = GameObject.FindWithTag("currentWeapon");
             WeaponCollision weaponCollision = curWeapon.GetComponent<WeaponCollision>();
@@ -64,6 +64,10 @@ public class PlayerAttack : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
             StartCoroutine(Attack(curWeapon));
             StartCoroutine(Lunge());
+        }
+        else
+        {
+            return;
         }
     }
     private IEnumerator Attack(GameObject curWeapon)
