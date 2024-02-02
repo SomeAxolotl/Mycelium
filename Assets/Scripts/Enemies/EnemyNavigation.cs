@@ -56,6 +56,10 @@ public class EnemyNavigation : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
                 }
+                else if(attacking)
+                {
+                    transform.rotation = transform.rotation;
+                }
             }
             else
             {

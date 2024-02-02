@@ -79,6 +79,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         canAttack = false;
         attackStarted = true;
         enemyNavigation.attacking = true;
+        navMeshAgent.updateRotation = false;
         navMeshAgent.speed = 0f;
         navMeshAgent.angularSpeed = 0f;
         navMeshAgent.stoppingDistance = 0f;
@@ -94,12 +95,15 @@ public class MeleeEnemyAttack : MonoBehaviour
         navMeshAgent.acceleration = 25f;
         isAttacking = true;
         yield return new WaitUntil(() => Vector3.Distance(transform.position, chargeTarget) < 2f);
+        enemyNavigation.animator.speed = 1f;
         animator.SetTrigger("Attack");
+        navMeshAgent.acceleration = 15f;
+        navMeshAgent.speed = 2f;
+        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
         isAttacking = false;
-        yield return new WaitUntil(() => Vector3.Distance(transform.position, chargeTarget) < 1f);
+        navMeshAgent.updateRotation = true;
         navMeshAgent.speed = 6f;
         navMeshAgent.angularSpeed = 500f;
-        enemyNavigation.animator.speed = 1f;
         navMeshAgent.acceleration = 7f;
         enemyNavigation.attacking = false;
         navMeshAgent.stoppingDistance = 1f;

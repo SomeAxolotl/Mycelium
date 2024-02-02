@@ -236,8 +236,8 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         animator.SetBool("Hurt", true);
         animator.Play("Hurt");
-        yield return new WaitUntil(() => !animator.GetBool("Hurt"));
-        //yield return new WaitForSeconds(.5f);
+        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt"));
+        animator.SetBool("Hurt", false);
         EnableController();
         isInvincible = false;
     }

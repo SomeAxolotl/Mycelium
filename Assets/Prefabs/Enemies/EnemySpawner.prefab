@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7604063039961748169}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -37.18, y: 2.897, z: -2.36}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7b77e900f852440aa74583c346e435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7944719615574166679, guid: 4804b3ce171805548951c5eb6082ad12,
-    type: 3}
+  EnemyList: []
   spawnInterval: 5
+  spawnRange: 0.4
   maxEnemies: 2
   enemiesSpawnedLimit: 5
-  proximity: 5
   spawnAll: 0
+  spawnOnStart: 0
 --- !u!135 &-7614317663710555383
 SphereCollider:
   m_ObjectHideFlags: 0
