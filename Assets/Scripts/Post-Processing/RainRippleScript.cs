@@ -9,6 +9,8 @@ public class RainRippleScript : MonoBehaviour
 
     float frameIndex = 0;
 
+    bool doRippleRandomize = false;
+
 
     // Update is called once per frame
     void Update()
@@ -21,6 +23,10 @@ public class RainRippleScript : MonoBehaviour
         {
             frameIndex = 0;
         }
-        
+
+        if (frameIndex > 0 && frameIndex < 2)
+        {
+            Shader.SetGlobalFloat("_RippleScale", Random.Range(2.0f, 5.0f));
+        }
     }
 }
