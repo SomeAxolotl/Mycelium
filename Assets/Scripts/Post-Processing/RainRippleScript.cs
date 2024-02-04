@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -7,35 +9,80 @@ public class RainRippleScript : MonoBehaviour
 {
     [SerializeField] float speedOfAnimation = 16;
 
-    float frameIndex = 0;
-    float numOfFrames = 15;
-    float delay = 2.0f;
+    List<float> frameIndex = new List<float>();
+    List<float> delay = new List<float>();
+    List<float> timer = new List<float>();
 
-    bool doRippleRandomize = false;
+    int seed;
 
-
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        Shader.SetGlobalFloat("_RippleArrayFrame", Mathf.Floor(frameIndex));
+        seed = -2147483648;
 
-        frameIndex = AdvanceFramesAndWait(frameIndex, "_RippleScale"); 
+        //Reset Frame Index
+        frameIndex.Clear();
+
+        frameIndex.Add(0);
+        frameIndex.Add(0);
+        frameIndex.Add(0);
+
+        //Reset Delay
+        delay.Clear();
+
+        delay.Add(UnityEngine.Random.Range(0.0f, 1.0f));
+        delay.Add(UnityEngine.Random.Range(1.0f, 2.0f));
+        delay.Add(UnityEngine.Random.Range(2.0f, 3.0f));
+
+        //Reset Timer
+        timer.Clear();
+
+        timer.Add(0f);
+        timer.Add(0f);
+        timer.Add(0f);
+
+        Debug.Log("Reset Ripple Lists");
     }
 
-    private float AdvanceFramesAndWait(float index, string shaderVariableName)
+    void Update()
     {
-        index += speedOfAnimation * Time.deltaTime;
+        AdvanceFramesAndWait(0);
+        //UnityEngine.Random.InitState(seed);
+        //seed += 1;
 
-        if (index >= 16)
+        AdvanceFramesAndWait(1);
+        //UnityEngine.Random.InitState(seed);
+        //seed += 1;
+
+        AdvanceFramesAndWait(2);
+        //UnityEngine.Random.InitState(seed);
+        //seed += 1;
+    }
+
+    private void AdvanceFramesAndWait(int i)
+    {
+        //Debug.Log("Timer: " + timer[i] + "\tDelay: " + delay[i]);
+        //Debug.Log("Delay for " + i + " is: " + delay[i]);
+
+        if (timer[i] >= delay[0])
         {
-            index = 0;
+            frameIndex[i] += speedOfAnimation * Time.deltaTime;
         }
 
-        if (index > 0 && index < 2)
+        if (frameIndex[i] >= 16)
         {
-            Shader.SetGlobalFloat(shaderVariableName, Random.Range(2.0f, 5.0f));
+            
+            frameIndex[i] = 0;
+            timer[i] = 0;
+            //delay[i] = UnityEngine.Random.Range(2.0f + i, i * 2 + 3f);
+            delay[i] = UnityEngine.Random.Range(2f * i, 2f * i + 2f);
         }
 
-        return index;
+        if (frameIndex[i] > 0 && frameIndex[i] < 2)
+        {
+            Shader.SetGlobalFloat("_RippleScale" + i, UnityEngine.Random.Range(2.0f, 5.0f));
+        }
+
+        timer[i] += Time.deltaTime;
+        Shader.SetGlobalFloat("_RippleArrayFrame" + i, Mathf.Floor(frameIndex[i]));
     }
 }
