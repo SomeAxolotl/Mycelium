@@ -5,9 +5,11 @@ using UnityEngine;
 [ExecuteAlways]
 public class RainRippleScript : MonoBehaviour
 {
-    [SerializeField] float speedOfAnimation;
+    [SerializeField] float speedOfAnimation = 16;
 
     float frameIndex = 0;
+    float numOfFrames = 15;
+    float delay = 2.0f;
 
     bool doRippleRandomize = false;
 
@@ -17,16 +19,23 @@ public class RainRippleScript : MonoBehaviour
     {
         Shader.SetGlobalFloat("_RippleArrayFrame", Mathf.Floor(frameIndex));
 
-        frameIndex += speedOfAnimation * Time.deltaTime;
+        frameIndex = AdvanceFramesAndWait(frameIndex, "_RippleScale"); 
+    }
 
-        if (frameIndex >= 16)
+    private float AdvanceFramesAndWait(float index, string shaderVariableName)
+    {
+        index += speedOfAnimation * Time.deltaTime;
+
+        if (index >= 16)
         {
-            frameIndex = 0;
+            index = 0;
         }
 
-        if (frameIndex > 0 && frameIndex < 2)
+        if (index > 0 && index < 2)
         {
-            Shader.SetGlobalFloat("_RippleScale", Random.Range(2.0f, 5.0f));
+            Shader.SetGlobalFloat(shaderVariableName, Random.Range(2.0f, 5.0f));
         }
+
+        return index;
     }
 }
