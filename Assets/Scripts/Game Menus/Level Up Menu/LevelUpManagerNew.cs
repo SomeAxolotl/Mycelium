@@ -66,6 +66,8 @@ public class LevelUpManagerNew : MonoBehaviour
     private HUDSkills hudSkills;
     private HUDNutrients hudNutrients;
     private PlayerHealth playerhealth;
+    public GameObject[] PrimalPoints;
+    
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
@@ -116,6 +118,7 @@ public class LevelUpManagerNew : MonoBehaviour
        StartCoroutine(UpdateUI());
        SkillMenu.SetActive(false);
        GrowMenu.SetActive(false);
+       PrimalBarFill();
        List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
@@ -158,6 +161,7 @@ public class LevelUpManagerNew : MonoBehaviour
         regen.text = currentstats.baseRegen.ToString("0.00") + " HPS";
         movespeed.text = currentstats.moveSpeed.ToString("0.0") + " m/s";
         primaldam.text = currentstats.primalDmg.ToString();
+        PrimalBarFill();
         //skilldam.text = currentstats.skillDmg.ToString();
         //skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
     }
@@ -200,6 +204,18 @@ public class LevelUpManagerNew : MonoBehaviour
       GrowMenu.SetActive(true); 
     }
 
+    public void PrimalBarFill()
+    {
+      for (int i = 0; i < PrimalPoints.Length; i++)
+      {
+        PrimalPoints[i].SetActive(i == (currentstats.primalLevel - 1));
+      }
+    }
+    /*bool DisplayPrimalLevel(float primalmax, int primalnumber)
+    {
+      //primalnumber = currentstats.primalLevel;
+      return ((primalnumber * 15) >= primalmax);
+    }*/
     public void PrimalUP()
     {
       currentstats.LevelPrimal();
