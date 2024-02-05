@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool looking = true;
 
     //Input fields
-    [HideInInspector]public ThirdPersonActionsAsset playerActionsAsset;
+    [HideInInspector] public ThirdPersonActionsAsset playerActionsAsset;
     private InputAction move;
     private InputAction dodge;
     private InputAction stat_skill_1;
@@ -29,14 +29,12 @@ public class PlayerController : MonoBehaviour
     public bool canAct = true;
     public bool activeDodge = false;
     public bool isInvincible = false;
-    bool playerSwapping;
     SwapCharacter swapCharacter;
     PlayerAttack playerAttack;
     PlayerHealth playerHealth;
     SkillManager skillManager;
 
     public float dodgeCooldown = 3f;
-    public float dodgeIFrames = 0.15f;
 
     private HUDSkills hudSkills;
     Animator animator;
@@ -83,7 +81,6 @@ public class PlayerController : MonoBehaviour
             }
 
             StartCoroutine(Dodging());
-            StartCoroutine(IFrames());
         }
 
         if (subspecies_skill.triggered && canUseSkill == true)
@@ -157,20 +154,14 @@ public class PlayerController : MonoBehaviour
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         //HUD Dodge Cooldown
         hudSkills.StartCooldownUI(4, dodgeCooldown);
-        playerHealth.ActivateInvincibility();
+        isInvincible = true;
         yield return new WaitForSeconds(.2f);
-        playerHealth.DeactivateInvincibility();
+        isInvincible = false;
         activeDodge = false;
         canUseAttack = true;
         canUseSkill = true;
         yield return new WaitForSeconds(dodgeCooldown);
         canUseDodge = true;
-    }
-    IEnumerator IFrames()
-    {
-        isInvincible = true;
-        yield return new WaitForSeconds(dodgeIFrames);
-        isInvincible = false;
     }
     private Vector3 GetCameraForward(Camera playerCamera)
     {
@@ -234,17 +225,20 @@ public class PlayerController : MonoBehaviour
     public void Knockback(GameObject obj, float knockbackForce)
     {
         isInvincible = true;
+        DisableController();
         Vector3 dirFromobject = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(obj.transform.position.x, 0f, obj.transform.position.z)).normalized;
         StartCoroutine(StartKnockback(dirFromobject, knockbackForce));
     }
     IEnumerator StartKnockback(Vector3 direction, float force)
     {
         Vector3 knockbackForce = direction * force;
-        knockbackForce += Vector3.up * 1.5f;
+        knockbackForce += Vector3.up * 1f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
-        //DisableController();
-        yield return new WaitForSeconds(.15f);
-        //EnableController();
+        animator.SetBool("Hurt", true);
+        animator.Play("Hurt");
+        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt"));
+        animator.SetBool("Hurt", false);
+        EnableController();
         isInvincible = false;
     }
 }

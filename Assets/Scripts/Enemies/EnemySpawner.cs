@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using UnityEditor.EditorTools;
+//using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -67,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         //Selects a random enemy from the weightedEnemyList, and spawns it
-        GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0,weightedEnemyList.Count-1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
+        GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0,weightedEnemyList.Count)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
         spawnedEnemies.Add(newEnemy);
     }
 

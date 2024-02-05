@@ -7,24 +7,30 @@ public class LevelEnd : MonoBehaviour
 {
     NutrientTracker nutrientTracker;
     SceneLoader sceneLoaderScript;
+    SwapWeapon swapWeapon;
     void Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+        swapWeapon = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "currentPlayer")
         {
             other.GetComponentInParent<PlayerHealth>().currentHealth = other.GetComponentInParent<PlayerHealth>().maxHealth;
-            DontDestroyOnLoad(other.GetComponentInParent<SwapWeapon>().curWeapon);
+            swapWeapon.curWeapon.tag = "Weapon";
+            Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
+            swapWeapon.UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
             GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
             foreach (GameObject weapon in weapons)
             Destroy(weapon);
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
-            //SceneManager.LoadScene(1);
-            sceneLoaderScript.BeginLoadScene(1, true);
+            if (swapWeapon.curWeapon != null)
+            {
+                sceneLoaderScript.BeginLoadScene(1, true);
+            }
         }
     }
 }

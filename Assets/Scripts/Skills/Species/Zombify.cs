@@ -8,8 +8,8 @@ public class Zombify : Skill
     [SerializeField] private float destroyTime = 5f;
     [SerializeField] private float burstRadius = 10f;
     [SerializeField] private float zombifyRange = 7f;
-    [SerializeField] private int particleSpacing = 36;
-    [SerializeField] private float particleHeight = 0f;
+    //[SerializeField] private int particleSpacing = 36;
+    //[SerializeField] private float particleHeight = 0f;
     public Material zombifyMaterial;
     //Skill specific fields
 

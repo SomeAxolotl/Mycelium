@@ -22,6 +22,13 @@ public class LevelGenerator : MonoBehaviour
     void Awake()
     {
         NavMesh.RemoveAllNavMeshData();
+
+        GameObject[] tooltips = GameObject.FindGameObjectsWithTag("Tooltip");
+        foreach (GameObject tooltip in tooltips)
+        {
+            Destroy(tooltip);
+        }
+
         GameObject StartPiece = Instantiate(StartChunkPrefabs[Random.Range(0,StartChunkPrefabs.Count)], transform);
         NumberOfPieces++;
         List<Transform> attachPoints = new List<Transform>();

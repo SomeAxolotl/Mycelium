@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class LootSalvage : MonoBehaviour
 {
-    [SerializeField] private int nutrientMin = 50;
-    [SerializeField] private int nutrientMax = 200;
+    [SerializeField] private int nutrientsSalvaged = 200;
+    float distance;
     ThirdPersonActionsAsset playerActionsAsset;
-    private InputAction salvage;
-    private SwapWeapon swapWeapon;
+    InputAction salvage;
+    NutrientTracker nutrientTracker;
     GameObject player;
-    GameObject currentWeapon;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,31 +21,26 @@ public class LootSalvage : MonoBehaviour
         playerActionsAsset.Player.Enable();
         salvage = playerActionsAsset.Player.Salvage;
         player = GameObject.FindWithTag("currentPlayer");
-        currentWeapon = GameObject.FindWithTag("currentWeapon");
+        nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (salvage.triggered)
+        distance = Vector3.Distance(player.transform.position, this.transform.position);
+
+        if (distance < 3f && salvage.triggered)
         {
-            TooltipManager.Instance.DestroyTooltip();
-            
-            if (GameObject.FindWithTag("currentWeapon") != null && currentWeapon) 
-            {
-                return;
-            }
-          
-             Destroy(this.gameObject);
-             SalvageNutrients();
-            
+            Debug.Log("Salvaged!");
+            SalvageNutrients(nutrientsSalvaged);
         }
     }
 
-    public void SalvageNutrients()
+    void SalvageNutrients(int nutrientAmount)
     {
-        int randomNutrientValue = Random.Range(nutrientMin, nutrientMax);
-        GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(randomNutrientValue);
-        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", randomNutrientValue / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        nutrientTracker.AddNutrients(nutrientAmount);
+        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientAmount / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        TooltipManager.Instance.DestroyTooltip();
+        Destroy(this.gameObject);
     }
 }

@@ -7,7 +7,6 @@ public class EnemyNavigation : MonoBehaviour
 {
     [HideInInspector] public NavMeshAgent navMeshAgent;
     public bool playerSeen;
-    private bool canChase = true;
     public bool attacking = false;
     private bool startedPatrol = false;
     private float patrolRadius = 10f;
@@ -22,7 +21,7 @@ public class EnemyNavigation : MonoBehaviour
     [SerializeField] private float fieldOfView = 60f;
     [SerializeField] private float detectionRange = 25f;
     [SerializeField] private float detectionBuffer = 12f;
-    [HideInInspector]public Animator animator;
+    [HideInInspector] public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -57,10 +56,13 @@ public class EnemyNavigation : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
                 }
+                else if(attacking)
+                {
+                    transform.rotation = transform.rotation;
+                }
             }
             else
             {
-                canChase = true;
                 playerSeen = false;
             }
         }
@@ -84,14 +86,7 @@ public class EnemyNavigation : MonoBehaviour
             startedPatrol = false;
         }
     }
-    /*IEnumerator ChasePlayer()
-    {
-        canChase = false;
-        navMeshAgent.SetDestination(player.position);
-        yield return new WaitForSeconds(0.5f);
-        canChase = true;
-    }*/
-    
+
     void SetRandomDestination()
     {
         Vector3 point;

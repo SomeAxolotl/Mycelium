@@ -35,6 +35,7 @@ public class SwapWeapon : MonoBehaviour
             GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
+            startingWeapon.GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -46,6 +47,10 @@ public class SwapWeapon : MonoBehaviour
             curWeapon.transform.position = weaponHolder.transform.position;
             curWeapon.transform.rotation = weaponHolder.transform.rotation;
         }
+        else
+        {
+            return;
+        }
 
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, proximityRadius, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
@@ -56,8 +61,9 @@ public class SwapWeapon : MonoBehaviour
             Vector3 dirToWeapon = (weapon.position - currentCharacter.transform.position).normalized;
             float angleToWeapon = Vector3.Angle(currentCharacter.transform.forward, dirToWeapon);
             float distanceToWeapon = Vector3.Distance(currentCharacter.transform.position, weapon.position);
+            Scene currentScene = SceneManager.GetActiveScene();
             //nesting so i can use tooltips
-            if (distanceToWeapon <= 3f && playerController.canAct == true)
+            if (distanceToWeapon <= 3f && playerController.canAct && currentScene.buildIndex != 1)
             {
                 string damageComparisonText;
                 if (newStats.wpnDamage > oldStats.wpnDamage)
@@ -105,7 +111,7 @@ public class SwapWeapon : MonoBehaviour
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
-            else if (distanceToWeapon > 3f && distanceToWeapon < 5f)
+            else if (distanceToWeapon > 3f && distanceToWeapon < 5f || !playerController.canAct)
             {
                 TooltipManager.Instance.DestroyTooltip();
             }
