@@ -208,7 +208,7 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       for (int i = 0; i < PrimalPoints.Length; i++)
       {
-        PrimalPoints[i].SetActive(i == (currentstats.primalLevel - 1));
+        PrimalPoints[i].SetActive(i <= (currentstats.primalLevel - 1));
       }
     }
     /*bool DisplayPrimalLevel(float primalmax, int primalnumber)
