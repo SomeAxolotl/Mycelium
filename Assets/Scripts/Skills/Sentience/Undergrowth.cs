@@ -6,8 +6,6 @@ public class Undergrowth : Skill
 {
     //Skill specific fields
     [SerializeField] private GameObject undergrowthPrefab;
-    // [SerializeField] private GameObject undergrowthParticles;
-    // UndergrowthProjectile undergrowthProjectile;
 
     public override void DoSkill()
     {
@@ -26,7 +24,6 @@ public class Undergrowth : Skill
     public void DoUndergrowth()
     {
         GameObject player = GameObject.FindWithTag("currentPlayer");
-        //Instantiate(undergrowthParticles, new Vector3(player.transform.position.x, player.transform.position.y + 0.7f, player.transform.position.z), transform.rotation);
         Instantiate(undergrowthPrefab, new Vector3(player.transform.position.x, player.transform.position.y + 0.7f, player.transform.position.z), transform.rotation);
     }
 }
