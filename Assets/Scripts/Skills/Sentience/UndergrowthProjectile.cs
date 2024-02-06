@@ -19,7 +19,8 @@ public class UndergrowthProjectile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        StartCoroutine(Remove());
+        Destroy(gameObject, destroyTime);
+        //StartCoroutine(Remove());
         undergrowth = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<Undergrowth>();
     }
 
@@ -41,17 +42,11 @@ public class UndergrowthProjectile : MonoBehaviour
                 enemy.GetComponent<Animator>().SetBool("IsMoving", false);
                 enemy.GetComponent<NavMeshAgent>().enabled = false;
                 enemy.GetComponent<EnemyNavigation>().enabled = false;
-                //enemy.GetComponent<MeleeEnemyAttack>().enabled = false;
                 Instantiate(undergrowthCaughtParticles, enemy.transform.position, transform.rotation);
-            }
-            //Instantiate(undergrowthCaughtParticles, collision.transform.position, transform.rotation);
-            if (collision.GetComponent<EnemyHealth>() != null)
-            {
-                collision.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
-            }
-            else if (collision.GetComponent<BossHealth>() != null)
-            {
-                collision.GetComponent<BossHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
+                enemy.GetComponent<MeleeEnemyAttack>().enabled = false;
+                enemy.GetComponent<RangedEnemyShoot>().enabled = false;
+                enemy.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
+                enemy.GetComponent<BossHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
             }
         }
     }
@@ -66,12 +61,13 @@ public class UndergrowthProjectile : MonoBehaviour
             enemy.GetComponent<NavMeshAgent>().enabled = true;
             enemy.GetComponent<EnemyNavigation>().enabled = true;
             enemy.GetComponent<MeleeEnemyAttack>().enabled = true;
+            enemy.GetComponent<RangedEnemyShoot>().enabled = true;
         }
         hitEnemy.Clear();
     }
-    IEnumerator Remove()
-    {
-        yield return new WaitForSeconds(destroyTime);
-        gameObject.SetActive(false);
-    }
+    // IEnumerator Remove()
+    // {
+    //     yield return new WaitForSeconds(destroyTime);
+    //     gameObject.SetActive(false);
+    // }
 }
