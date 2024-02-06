@@ -412,7 +412,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!195 &1283479448408459720
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -449,6 +449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
   playerSeen: 0
+  attacking: 0
+  speed: 0
   attackStopdistance: 6
   playerLayer:
     serializedVersion: 2
@@ -459,6 +461,7 @@ MonoBehaviour:
   fieldOfView: 80
   detectionRange: 20
   detectionBuffer: 2
+  animator: {fileID: 0}
 --- !u!114 &6294662400520187078
 MonoBehaviour:
   m_ObjectHideFlags: 0
