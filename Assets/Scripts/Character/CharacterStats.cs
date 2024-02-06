@@ -99,7 +99,7 @@ public class CharacterStats : MonoBehaviour
     public void LevelPrimal()
     {        
         
-        if(nutrientTracker.currentNutrients >= levelUpCost)
+        if(nutrientTracker.currentNutrients >= levelUpCost && primalLevel < 15)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
@@ -111,16 +111,23 @@ public class CharacterStats : MonoBehaviour
     }
     public void DeLevelPrimal()
     {
+            if(primalLevel == 1)
+            {
+                return;
+            }
+            else
+            {
             primalLevel--;
             
             StartCalculateAttributes();
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);
-            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);  
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel); 
+            } 
     }
     public void LevelSpeed()
     {
-        if(nutrientTracker.currentNutrients >= levelUpCost)
+        if(nutrientTracker.currentNutrients >= levelUpCost && speedLevel < 15)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             speedLevel++;
@@ -132,16 +139,23 @@ public class CharacterStats : MonoBehaviour
     }
     public void DeLevelSpeed()
     {
+            if(speedLevel == 1)
+            {
+                return;
+            }
+            else
+            {
             speedLevel--;
 
             StartCalculateAttributes();
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);     
-            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);    
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
+            }    
     }
     public void LevelSentience()
     {
-        if(nutrientTracker.currentNutrients >= levelUpCost)
+        if(nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel < 15)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             sentienceLevel++;
@@ -150,14 +164,21 @@ public class CharacterStats : MonoBehaviour
     }
      public void DeLevelSentience()
     {
+            if(sentienceLevel == 1)
+            {
+                return;
+            }
+            else
+            {
             sentienceLevel--;
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);  
             designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);       
+            }    
     }
     public void LevelVitality()
     {
-        if(nutrientTracker.currentNutrients >= levelUpCost)
+        if(nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel < 15)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             vitalityLevel++;
@@ -169,12 +190,18 @@ public class CharacterStats : MonoBehaviour
     }
     public void DeLevelVitality()
     {
+            if(vitalityLevel == 1)
+            {
+                return;
+            }
+            else
+            {
             vitalityLevel--;
-
             StartCalculateAttributes();
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);     
-            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);    
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel); 
+            }   
     }
 
     public void SetEquippedSkill(string skillName, int slot)

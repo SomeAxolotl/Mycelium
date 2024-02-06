@@ -587,6 +587,150 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primal Level Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""730907e3-983e-4157-a5dd-1e1f6f0e0d17"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primal Level Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""05aedd4d-e31c-4011-998e-49ab8ee63450"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primal Level Left Stick"",
+                    ""type"": ""Button"",
+                    ""id"": ""67e0e8ff-8d2c-4df7-ab7e-c59b59ec33c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primal Level Right Stick"",
+                    ""type"": ""Button"",
+                    ""id"": ""b5cda9c1-4eea-4a33-b227-e155fe41db86"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VitalityLevelRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""c48872d9-aeb2-444e-b70b-0c04fd5f4cca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VitalityLevelLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f558181-50c7-4dcb-a42d-820cb5bc0aef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VitalityLevelRightStick"",
+                    ""type"": ""Button"",
+                    ""id"": ""069791b9-2b33-4207-bf92-87bdb829f7a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""VitalityLevelLeftStick"",
+                    ""type"": ""Button"",
+                    ""id"": ""bbcc8be7-8246-4b24-a99a-7116574cb713"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedLevelRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""7bb19632-c742-400f-9759-f57c89860eb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedLevelLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""93d03f00-30b3-4759-844a-449c0175df37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedLevelRightStick"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5d3d4f6-b19e-4f16-a661-2d0dd3c38442"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedLevelLeftStick"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e488beb-8a5f-442f-b0ca-5958b9d771d4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SentienceLevelRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""75acc541-5138-48de-ade2-2f0bb0c2b42f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SentienceLevelLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""3cc2921e-bb75-4d35-9772-048a4ba5bf13"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SentienceLevelRightStick"",
+                    ""type"": ""Button"",
+                    ""id"": ""fd7d0b2b-74a7-4b80-9a17-e0d9fe111072"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SentienceLevelLeftStick"",
+                    ""type"": ""Button"",
+                    ""id"": ""29ba32ab-36f9-48cd-96b6-d7d7a6b709bb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1040,6 +1184,182 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""Close"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""155ed899-8466-4350-8d95-60596a0d6e1b"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Primal Level Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63f23680-1f8e-43f6-af9b-9663f32fc101"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Primal Level Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a175273a-dd10-49c1-9147-5e967e6b00eb"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Primal Level Left Stick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f5c5d83-444a-43d8-b804-4dd554445d6b"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Primal Level Right Stick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5bc30396-16c2-40e3-bb49-2b8d40be07da"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VitalityLevelRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dea0a01a-93ae-40dc-9eb1-8f588046afe0"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VitalityLevelLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""247c741d-ac7b-4201-a1d1-377a4f1a7ea1"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VitalityLevelRightStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89fb82ec-3832-4928-b8aa-7feba17fde75"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VitalityLevelLeftStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47ea34c2-af7f-4a8b-b8e6-29176f808281"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedLevelRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0920022-a70f-4715-8947-e986ee541922"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedLevelLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d4b9f5e-edf9-47cd-a353-07ddc0f28201"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedLevelRightStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c28e2b23-169f-4d69-a0dc-02a063738d37"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedLevelLeftStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97fb15b5-32c0-432c-9dd9-e34398e200d7"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SentienceLevelRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cca3694c-cd86-4529-9580-ffb9f06d431c"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SentienceLevelLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84380b46-74b4-4f6f-8489-6df22f7ca5c7"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SentienceLevelRightStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""baf9379d-3c7d-4bd8-8527-aa7c6fc65631"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SentienceLevelLeftStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1076,6 +1396,22 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UI_MenuSwapL = m_UI.FindAction("Menu Swap L", throwIfNotFound: true);
         m_UI_MenuSwapR = m_UI.FindAction("Menu Swap R", throwIfNotFound: true);
         m_UI_Close = m_UI.FindAction("Close", throwIfNotFound: true);
+        m_UI_PrimalLevelLeft = m_UI.FindAction("Primal Level Left", throwIfNotFound: true);
+        m_UI_PrimalLevelRight = m_UI.FindAction("Primal Level Right", throwIfNotFound: true);
+        m_UI_PrimalLevelLeftStick = m_UI.FindAction("Primal Level Left Stick", throwIfNotFound: true);
+        m_UI_PrimalLevelRightStick = m_UI.FindAction("Primal Level Right Stick", throwIfNotFound: true);
+        m_UI_VitalityLevelRight = m_UI.FindAction("VitalityLevelRight", throwIfNotFound: true);
+        m_UI_VitalityLevelLeft = m_UI.FindAction("VitalityLevelLeft", throwIfNotFound: true);
+        m_UI_VitalityLevelRightStick = m_UI.FindAction("VitalityLevelRightStick", throwIfNotFound: true);
+        m_UI_VitalityLevelLeftStick = m_UI.FindAction("VitalityLevelLeftStick", throwIfNotFound: true);
+        m_UI_SpeedLevelRight = m_UI.FindAction("SpeedLevelRight", throwIfNotFound: true);
+        m_UI_SpeedLevelLeft = m_UI.FindAction("SpeedLevelLeft", throwIfNotFound: true);
+        m_UI_SpeedLevelRightStick = m_UI.FindAction("SpeedLevelRightStick", throwIfNotFound: true);
+        m_UI_SpeedLevelLeftStick = m_UI.FindAction("SpeedLevelLeftStick", throwIfNotFound: true);
+        m_UI_SentienceLevelRight = m_UI.FindAction("SentienceLevelRight", throwIfNotFound: true);
+        m_UI_SentienceLevelLeft = m_UI.FindAction("SentienceLevelLeft", throwIfNotFound: true);
+        m_UI_SentienceLevelRightStick = m_UI.FindAction("SentienceLevelRightStick", throwIfNotFound: true);
+        m_UI_SentienceLevelLeftStick = m_UI.FindAction("SentienceLevelLeftStick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1292,6 +1628,22 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UI_MenuSwapL;
     private readonly InputAction m_UI_MenuSwapR;
     private readonly InputAction m_UI_Close;
+    private readonly InputAction m_UI_PrimalLevelLeft;
+    private readonly InputAction m_UI_PrimalLevelRight;
+    private readonly InputAction m_UI_PrimalLevelLeftStick;
+    private readonly InputAction m_UI_PrimalLevelRightStick;
+    private readonly InputAction m_UI_VitalityLevelRight;
+    private readonly InputAction m_UI_VitalityLevelLeft;
+    private readonly InputAction m_UI_VitalityLevelRightStick;
+    private readonly InputAction m_UI_VitalityLevelLeftStick;
+    private readonly InputAction m_UI_SpeedLevelRight;
+    private readonly InputAction m_UI_SpeedLevelLeft;
+    private readonly InputAction m_UI_SpeedLevelRightStick;
+    private readonly InputAction m_UI_SpeedLevelLeftStick;
+    private readonly InputAction m_UI_SentienceLevelRight;
+    private readonly InputAction m_UI_SentienceLevelLeft;
+    private readonly InputAction m_UI_SentienceLevelRightStick;
+    private readonly InputAction m_UI_SentienceLevelLeftStick;
     public struct UIActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -1309,6 +1661,22 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @MenuSwapL => m_Wrapper.m_UI_MenuSwapL;
         public InputAction @MenuSwapR => m_Wrapper.m_UI_MenuSwapR;
         public InputAction @Close => m_Wrapper.m_UI_Close;
+        public InputAction @PrimalLevelLeft => m_Wrapper.m_UI_PrimalLevelLeft;
+        public InputAction @PrimalLevelRight => m_Wrapper.m_UI_PrimalLevelRight;
+        public InputAction @PrimalLevelLeftStick => m_Wrapper.m_UI_PrimalLevelLeftStick;
+        public InputAction @PrimalLevelRightStick => m_Wrapper.m_UI_PrimalLevelRightStick;
+        public InputAction @VitalityLevelRight => m_Wrapper.m_UI_VitalityLevelRight;
+        public InputAction @VitalityLevelLeft => m_Wrapper.m_UI_VitalityLevelLeft;
+        public InputAction @VitalityLevelRightStick => m_Wrapper.m_UI_VitalityLevelRightStick;
+        public InputAction @VitalityLevelLeftStick => m_Wrapper.m_UI_VitalityLevelLeftStick;
+        public InputAction @SpeedLevelRight => m_Wrapper.m_UI_SpeedLevelRight;
+        public InputAction @SpeedLevelLeft => m_Wrapper.m_UI_SpeedLevelLeft;
+        public InputAction @SpeedLevelRightStick => m_Wrapper.m_UI_SpeedLevelRightStick;
+        public InputAction @SpeedLevelLeftStick => m_Wrapper.m_UI_SpeedLevelLeftStick;
+        public InputAction @SentienceLevelRight => m_Wrapper.m_UI_SentienceLevelRight;
+        public InputAction @SentienceLevelLeft => m_Wrapper.m_UI_SentienceLevelLeft;
+        public InputAction @SentienceLevelRightStick => m_Wrapper.m_UI_SentienceLevelRightStick;
+        public InputAction @SentienceLevelLeftStick => m_Wrapper.m_UI_SentienceLevelLeftStick;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1357,6 +1725,54 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Close.started += instance.OnClose;
             @Close.performed += instance.OnClose;
             @Close.canceled += instance.OnClose;
+            @PrimalLevelLeft.started += instance.OnPrimalLevelLeft;
+            @PrimalLevelLeft.performed += instance.OnPrimalLevelLeft;
+            @PrimalLevelLeft.canceled += instance.OnPrimalLevelLeft;
+            @PrimalLevelRight.started += instance.OnPrimalLevelRight;
+            @PrimalLevelRight.performed += instance.OnPrimalLevelRight;
+            @PrimalLevelRight.canceled += instance.OnPrimalLevelRight;
+            @PrimalLevelLeftStick.started += instance.OnPrimalLevelLeftStick;
+            @PrimalLevelLeftStick.performed += instance.OnPrimalLevelLeftStick;
+            @PrimalLevelLeftStick.canceled += instance.OnPrimalLevelLeftStick;
+            @PrimalLevelRightStick.started += instance.OnPrimalLevelRightStick;
+            @PrimalLevelRightStick.performed += instance.OnPrimalLevelRightStick;
+            @PrimalLevelRightStick.canceled += instance.OnPrimalLevelRightStick;
+            @VitalityLevelRight.started += instance.OnVitalityLevelRight;
+            @VitalityLevelRight.performed += instance.OnVitalityLevelRight;
+            @VitalityLevelRight.canceled += instance.OnVitalityLevelRight;
+            @VitalityLevelLeft.started += instance.OnVitalityLevelLeft;
+            @VitalityLevelLeft.performed += instance.OnVitalityLevelLeft;
+            @VitalityLevelLeft.canceled += instance.OnVitalityLevelLeft;
+            @VitalityLevelRightStick.started += instance.OnVitalityLevelRightStick;
+            @VitalityLevelRightStick.performed += instance.OnVitalityLevelRightStick;
+            @VitalityLevelRightStick.canceled += instance.OnVitalityLevelRightStick;
+            @VitalityLevelLeftStick.started += instance.OnVitalityLevelLeftStick;
+            @VitalityLevelLeftStick.performed += instance.OnVitalityLevelLeftStick;
+            @VitalityLevelLeftStick.canceled += instance.OnVitalityLevelLeftStick;
+            @SpeedLevelRight.started += instance.OnSpeedLevelRight;
+            @SpeedLevelRight.performed += instance.OnSpeedLevelRight;
+            @SpeedLevelRight.canceled += instance.OnSpeedLevelRight;
+            @SpeedLevelLeft.started += instance.OnSpeedLevelLeft;
+            @SpeedLevelLeft.performed += instance.OnSpeedLevelLeft;
+            @SpeedLevelLeft.canceled += instance.OnSpeedLevelLeft;
+            @SpeedLevelRightStick.started += instance.OnSpeedLevelRightStick;
+            @SpeedLevelRightStick.performed += instance.OnSpeedLevelRightStick;
+            @SpeedLevelRightStick.canceled += instance.OnSpeedLevelRightStick;
+            @SpeedLevelLeftStick.started += instance.OnSpeedLevelLeftStick;
+            @SpeedLevelLeftStick.performed += instance.OnSpeedLevelLeftStick;
+            @SpeedLevelLeftStick.canceled += instance.OnSpeedLevelLeftStick;
+            @SentienceLevelRight.started += instance.OnSentienceLevelRight;
+            @SentienceLevelRight.performed += instance.OnSentienceLevelRight;
+            @SentienceLevelRight.canceled += instance.OnSentienceLevelRight;
+            @SentienceLevelLeft.started += instance.OnSentienceLevelLeft;
+            @SentienceLevelLeft.performed += instance.OnSentienceLevelLeft;
+            @SentienceLevelLeft.canceled += instance.OnSentienceLevelLeft;
+            @SentienceLevelRightStick.started += instance.OnSentienceLevelRightStick;
+            @SentienceLevelRightStick.performed += instance.OnSentienceLevelRightStick;
+            @SentienceLevelRightStick.canceled += instance.OnSentienceLevelRightStick;
+            @SentienceLevelLeftStick.started += instance.OnSentienceLevelLeftStick;
+            @SentienceLevelLeftStick.performed += instance.OnSentienceLevelLeftStick;
+            @SentienceLevelLeftStick.canceled += instance.OnSentienceLevelLeftStick;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1400,6 +1816,54 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Close.started -= instance.OnClose;
             @Close.performed -= instance.OnClose;
             @Close.canceled -= instance.OnClose;
+            @PrimalLevelLeft.started -= instance.OnPrimalLevelLeft;
+            @PrimalLevelLeft.performed -= instance.OnPrimalLevelLeft;
+            @PrimalLevelLeft.canceled -= instance.OnPrimalLevelLeft;
+            @PrimalLevelRight.started -= instance.OnPrimalLevelRight;
+            @PrimalLevelRight.performed -= instance.OnPrimalLevelRight;
+            @PrimalLevelRight.canceled -= instance.OnPrimalLevelRight;
+            @PrimalLevelLeftStick.started -= instance.OnPrimalLevelLeftStick;
+            @PrimalLevelLeftStick.performed -= instance.OnPrimalLevelLeftStick;
+            @PrimalLevelLeftStick.canceled -= instance.OnPrimalLevelLeftStick;
+            @PrimalLevelRightStick.started -= instance.OnPrimalLevelRightStick;
+            @PrimalLevelRightStick.performed -= instance.OnPrimalLevelRightStick;
+            @PrimalLevelRightStick.canceled -= instance.OnPrimalLevelRightStick;
+            @VitalityLevelRight.started -= instance.OnVitalityLevelRight;
+            @VitalityLevelRight.performed -= instance.OnVitalityLevelRight;
+            @VitalityLevelRight.canceled -= instance.OnVitalityLevelRight;
+            @VitalityLevelLeft.started -= instance.OnVitalityLevelLeft;
+            @VitalityLevelLeft.performed -= instance.OnVitalityLevelLeft;
+            @VitalityLevelLeft.canceled -= instance.OnVitalityLevelLeft;
+            @VitalityLevelRightStick.started -= instance.OnVitalityLevelRightStick;
+            @VitalityLevelRightStick.performed -= instance.OnVitalityLevelRightStick;
+            @VitalityLevelRightStick.canceled -= instance.OnVitalityLevelRightStick;
+            @VitalityLevelLeftStick.started -= instance.OnVitalityLevelLeftStick;
+            @VitalityLevelLeftStick.performed -= instance.OnVitalityLevelLeftStick;
+            @VitalityLevelLeftStick.canceled -= instance.OnVitalityLevelLeftStick;
+            @SpeedLevelRight.started -= instance.OnSpeedLevelRight;
+            @SpeedLevelRight.performed -= instance.OnSpeedLevelRight;
+            @SpeedLevelRight.canceled -= instance.OnSpeedLevelRight;
+            @SpeedLevelLeft.started -= instance.OnSpeedLevelLeft;
+            @SpeedLevelLeft.performed -= instance.OnSpeedLevelLeft;
+            @SpeedLevelLeft.canceled -= instance.OnSpeedLevelLeft;
+            @SpeedLevelRightStick.started -= instance.OnSpeedLevelRightStick;
+            @SpeedLevelRightStick.performed -= instance.OnSpeedLevelRightStick;
+            @SpeedLevelRightStick.canceled -= instance.OnSpeedLevelRightStick;
+            @SpeedLevelLeftStick.started -= instance.OnSpeedLevelLeftStick;
+            @SpeedLevelLeftStick.performed -= instance.OnSpeedLevelLeftStick;
+            @SpeedLevelLeftStick.canceled -= instance.OnSpeedLevelLeftStick;
+            @SentienceLevelRight.started -= instance.OnSentienceLevelRight;
+            @SentienceLevelRight.performed -= instance.OnSentienceLevelRight;
+            @SentienceLevelRight.canceled -= instance.OnSentienceLevelRight;
+            @SentienceLevelLeft.started -= instance.OnSentienceLevelLeft;
+            @SentienceLevelLeft.performed -= instance.OnSentienceLevelLeft;
+            @SentienceLevelLeft.canceled -= instance.OnSentienceLevelLeft;
+            @SentienceLevelRightStick.started -= instance.OnSentienceLevelRightStick;
+            @SentienceLevelRightStick.performed -= instance.OnSentienceLevelRightStick;
+            @SentienceLevelRightStick.canceled -= instance.OnSentienceLevelRightStick;
+            @SentienceLevelLeftStick.started -= instance.OnSentienceLevelLeftStick;
+            @SentienceLevelLeftStick.performed -= instance.OnSentienceLevelLeftStick;
+            @SentienceLevelLeftStick.canceled -= instance.OnSentienceLevelLeftStick;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1448,5 +1912,21 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnMenuSwapL(InputAction.CallbackContext context);
         void OnMenuSwapR(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
+        void OnPrimalLevelLeft(InputAction.CallbackContext context);
+        void OnPrimalLevelRight(InputAction.CallbackContext context);
+        void OnPrimalLevelLeftStick(InputAction.CallbackContext context);
+        void OnPrimalLevelRightStick(InputAction.CallbackContext context);
+        void OnVitalityLevelRight(InputAction.CallbackContext context);
+        void OnVitalityLevelLeft(InputAction.CallbackContext context);
+        void OnVitalityLevelRightStick(InputAction.CallbackContext context);
+        void OnVitalityLevelLeftStick(InputAction.CallbackContext context);
+        void OnSpeedLevelRight(InputAction.CallbackContext context);
+        void OnSpeedLevelLeft(InputAction.CallbackContext context);
+        void OnSpeedLevelRightStick(InputAction.CallbackContext context);
+        void OnSpeedLevelLeftStick(InputAction.CallbackContext context);
+        void OnSentienceLevelRight(InputAction.CallbackContext context);
+        void OnSentienceLevelLeft(InputAction.CallbackContext context);
+        void OnSentienceLevelRightStick(InputAction.CallbackContext context);
+        void OnSentienceLevelLeftStick(InputAction.CallbackContext context);
     }
 }

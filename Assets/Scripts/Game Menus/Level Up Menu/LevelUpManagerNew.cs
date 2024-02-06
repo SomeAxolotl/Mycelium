@@ -18,17 +18,8 @@ public class LevelUpManagerNew : MonoBehaviour
     public TMP_Text health;
     public TMP_Text Nutrients;
     public TMP_Text LevelUpCost;
-    public TMP_Text PrimalText;
-    public TMP_Text SpeedText;
-    public TMP_Text SentienceText;
     public TMP_Text VitalityText;
     public GameObject UIenable;
-    public Button PrimalLevelUp;
-    public Button PrimalLevelDown;
-    public Button SpeedLevelUp;
-    public Button SpeedLevelDown;
-    public Button SentienceLevelUp;
-    public Button SentienceLevelDown;
     public Button VitalityLevelUp;
     public Button VitalityLevelDown;
     public Button Commitbutton;
@@ -67,6 +58,9 @@ public class LevelUpManagerNew : MonoBehaviour
     private HUDNutrients hudNutrients;
     private PlayerHealth playerhealth;
     public GameObject[] PrimalPoints;
+    public GameObject [] SpeedPoints;
+    public GameObject[] SentiencePoints;
+    public GameObject[] VitalityPoints;
     
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
@@ -109,16 +103,15 @@ public class LevelUpManagerNew : MonoBehaviour
        totalLevelsave = currentstats.totalLevel;
        levelupsave = currentstats.levelUpCost;
        Commitbutton.Select();
-       PrimalStartCheck();
-       SpeedStartCheck();
-       VitalityStartCheck();
-       SentienceStartCheck();
        SkillCD();
        SkillDam();
        StartCoroutine(UpdateUI());
        SkillMenu.SetActive(false);
        GrowMenu.SetActive(false);
        PrimalBarFill();
+       SpeedBarFill();
+       SentienceBarFill();
+       VitalityBarFill();
        List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
@@ -150,10 +143,6 @@ public class LevelUpManagerNew : MonoBehaviour
     {
         
         yield return null;       
-        PrimalText.text = currentstats.primalLevel.ToString();
-        SpeedText.text = currentstats.speedLevel.ToString(); 
-        SentienceText.text = currentstats.sentienceLevel.ToString();
-        VitalityText.text = currentstats.vitalityLevel.ToString(); 
         LevelUpCost.text = currentstats.levelUpCost.ToString();
         Nutrients.text = currentnutrients.currentNutrients.ToString();
         CurrentLevel.text = currentstats.totalLevel.ToString();
@@ -162,6 +151,9 @@ public class LevelUpManagerNew : MonoBehaviour
         movespeed.text = currentstats.moveSpeed.ToString("0.0") + " m/s";
         primaldam.text = currentstats.primalDmg.ToString();
         PrimalBarFill();
+        SpeedBarFill();
+        SentienceBarFill();
+        VitalityBarFill();
         //skilldam.text = currentstats.skillDmg.ToString();
         //skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
     }
@@ -211,183 +203,175 @@ public class LevelUpManagerNew : MonoBehaviour
         PrimalPoints[i].SetActive(i <= (currentstats.primalLevel - 1));
       }
     }
-    /*bool DisplayPrimalLevel(float primalmax, int primalnumber)
+    public void PrimalBarLevelUp()
     {
-      //primalnumber = currentstats.primalLevel;
-      return ((primalnumber * 15) >= primalmax);
-    }*/
+       controls.UI.PrimalLevelRight.Enable();
+      controls.UI.PrimalLevelLeft.Enable();
+      controls.UI.PrimalLevelRightStick.Enable();
+      controls.UI.PrimalLevelLeftStick.Enable();
+       controls.UI.PrimalLevelRight.started += ctx => PrimalUP();
+       controls.UI.PrimalLevelRightStick.started += ctx => PrimalUP(); 
+       controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
+       controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
+    }
     public void PrimalUP()
     {
       currentstats.LevelPrimal();
-      PrimalCap();
-      PrimalCheck();
       StartCoroutine(UpdateUI());
     }
     public void PrimalDown()
     {
+      if(currentstats.primalLevel == PrimalSave)
+      {
+        return;
+      }
+      else
+      {
       currentstats.DeLevelPrimal(); 
-      PrimalCheck();
-      PrimalCap();
       StartCoroutine(UpdateUI());
+      }
     }
-    public void PrimalCheck()
+    public void PrimalDeselect()
     {
-        if(currentstats.primalLevel == PrimalSave)
-        {
-        PrimalLevelDown.interactable = false;
-        PrimalLevelUp.Select();
-        }
-        else 
-        {
-        PrimalLevelDown.interactable = true;
-        }
+      controls.UI.PrimalLevelRight.Disable();
+      controls.UI.PrimalLevelLeft.Disable();
+      controls.UI.PrimalLevelRightStick.Disable();
+      controls.UI.PrimalLevelLeftStick.Disable();
     }
-     public void PrimalCap()
+       public void SpeedBarFill()
     {
-      if(currentstats.primalLevel == maxStatLevel)
-        {
-        PrimalLevelUp.interactable = false;
-        PrimalLevelDown.Select();
-        }
-        else 
-        {
-        PrimalLevelUp.interactable = true;
-        }
+      for (int i = 0; i < SpeedPoints.Length; i++)
+      {
+        SpeedPoints[i].SetActive(i <= (currentstats.speedLevel - 1));
+      }
     }
+    public void SpeedBarLevelUp()
+    {
+       controls.UI.SpeedLevelRight.Enable();
+      controls.UI.SpeedLevelLeft.Enable();
+      controls.UI.SpeedLevelRightStick.Enable();
+      controls.UI.SpeedLevelLeftStick.Enable();
+       controls.UI.SpeedLevelRight.started += ctx => SpeedUP();
+       controls.UI.SpeedLevelRightStick.started += ctx => SpeedUP(); 
+       controls.UI.SpeedLevelLeft.started += ctx => SpeedDown(); 
+       controls.UI.SpeedLevelLeftStick.started += ctx => SpeedDown();
+    }
+  
     public void SpeedUP()
     {
       currentstats.LevelSpeed();
-      SpeedCheck();
-      SpeedCap();
       StartCoroutine(UpdateUI());
     }
     public void SpeedDown()
     {
+      if(currentstats.speedLevel == SpeedSave)
+      {
+        return;
+      }
+      else
+      {
       currentstats.DeLevelSpeed(); 
-      SpeedCheck();
-      SpeedCap();
       StartCoroutine(UpdateUI());
+      }
     }
-    public void SpeedCheck()
+     public void SpeedDeselect()
     {
-        if(currentstats.speedLevel == SpeedSave)
-        {
-        SpeedLevelDown.interactable = false;
-        SpeedLevelUp.Select();
-        }
-        else 
-        {
-        SpeedLevelDown.interactable = true;
-        }
+      controls.UI.SpeedLevelRight.Disable();
+      controls.UI.SpeedLevelLeft.Disable();
+      controls.UI.SpeedLevelRightStick.Disable();
+      controls.UI.SpeedLevelLeftStick.Disable();
     }
-     public void SpeedCap()
+    
+     public void SentienceBarFill()
     {
-      if(currentstats.speedLevel == maxStatLevel)
-        {
-        SpeedLevelUp.interactable = false;
-        SpeedLevelDown.Select();
-        }
-        else 
-        {
-        SpeedLevelUp.interactable = true;
-        }
+      for (int i = 0; i < SentiencePoints.Length; i++)
+      {
+        SentiencePoints[i].SetActive(i <= (currentstats.sentienceLevel - 1));
+      }
+    }
+      public void SentienceBarLevelUp()
+    {
+      controls.UI.SentienceLevelRight.Enable();
+      controls.UI.SentienceLevelLeft.Enable();
+      controls.UI.SentienceLevelRightStick.Enable();
+      controls.UI.SentienceLevelLeftStick.Enable();
+       controls.UI.SentienceLevelRight.started += ctx => SentienceUP();
+       controls.UI.SentienceLevelRightStick.started += ctx => SentienceUP(); 
+       controls.UI.SentienceLevelLeft.started += ctx => SentienceDown(); 
+       controls.UI.SentienceLevelLeftStick.started += ctx => SentienceDown();
     }
     public void SentienceUP()
     {
       currentstats.LevelSentience();
-      SentienceCheck();
-      SentienceCap();
       SkillCD();
       SkillDam();
       StartCoroutine(UpdateUI());
-
-      //Testing GetEquippedSkillValues
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
       List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
-      /*for (int i = 0; i < allCooldowns.Count; i++)
-      {
-        Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
-      }*/
     }
     public void SentienceDown()
     {
+      if(currentstats.sentienceLevel == SentienceSave)
+      {
+        return;
+      }
+      else
+      {
       currentstats.DeLevelSentience(); 
-      SentienceCheck();
-      SentienceCap();
       SkillCD();
       SkillDam();
       StartCoroutine(UpdateUI());
-
-      //Testing GetEquippedSkillCooldowns
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
       List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
-      //Debug
-      /*for (int i = 0; i < allCooldowns.Count; i++)
+      }
+    }
+    public void SentienceDeselect()
+    {
+      controls.UI.SentienceLevelRight.Disable();
+      controls.UI.SentienceLevelLeft.Disable();
+      controls.UI.SentienceLevelRightStick.Disable();
+      controls.UI.SentienceLevelLeftStick.Disable();
+    }
+    public void VitalityBarFill()
+    {
+      for (int i = 0; i < VitalityPoints.Length; i++)
       {
-        Debug.Log("Cooldown " + i + ": " + allCooldowns[i].ToString("F2"));
-      }*/
+        VitalityPoints[i].SetActive(i <= (currentstats.vitalityLevel - 1));
+      }
     }
-    public void SentienceCheck()
+      public void VitalityBarLevelUp()
     {
-        if(currentstats.sentienceLevel == SentienceSave)
-        {
-        SentienceLevelDown.interactable = false;
-        SentienceLevelUp.Select();
-        }
-        else 
-        {
-        SentienceLevelDown.interactable = true;
-        }
+      controls.UI.VitalityLevelRight.Enable();
+      controls.UI.VitalityLevelLeft.Enable();
+      controls.UI.VitalityLevelRightStick.Enable();
+      controls.UI.VitalityLevelLeftStick.Enable();
+       controls.UI.VitalityLevelRight.started += ctx => VitalityUP();
+       controls.UI.VitalityLevelRightStick.started += ctx => VitalityUP(); 
+       controls.UI.VitalityLevelLeft.started += ctx => VitalityDown(); 
+       controls.UI.VitalityLevelLeftStick.started += ctx => VitalityDown();
     }
-     public void SentienceCap()
+    public void VitalityDeselect()
     {
-      if(currentstats.sentienceLevel == maxStatLevel)
-        {
-        SentienceLevelUp.interactable = false;
-        SentienceLevelDown.Select();
-        }
-        else 
-        {
-        SentienceLevelUp.interactable = true;
-        }
+      controls.UI.VitalityLevelRight.Disable();
+      controls.UI.VitalityLevelLeft.Disable();
+      controls.UI.VitalityLevelRightStick.Disable();
+      controls.UI.VitalityLevelLeftStick.Disable();
     }
     public void VitalityUP()
     {
       currentstats.LevelVitality();
-      VitalityCheck();
-      VitalityCap();
       StartCoroutine(UpdateUI());
     }
     public void VitalityDown()
     {
+      if(currentstats.vitalityLevel == VitalitySave)
+      {
+        return;
+      }
+      else{
       currentstats.DeLevelVitality(); 
-      VitalityCheck();
-      VitalityCap();
       StartCoroutine(UpdateUI());
-    }
-    public void VitalityCheck()
-    {
-        if(currentstats.vitalityLevel == VitalitySave)
-        {
-        VitalityLevelDown.interactable = false;
-        VitalityLevelUp.Select();
-        }
-        else 
-        {
-        VitalityLevelDown.interactable = true;
-        }
-    }
-    public void VitalityCap()
-    {
-      if(currentstats.vitalityLevel == maxStatLevel)
-        {
-        VitalityLevelUp.interactable = false;
-        VitalityLevelDown.Select();
-        }
-        else 
-        {
-        VitalityLevelUp.interactable = true;
-        }
+      }
     }
     public void Commit()
     {
@@ -436,52 +420,6 @@ public class LevelUpManagerNew : MonoBehaviour
       //This helps fix the bug where you could pause in the shop
       PauseData.isAbleToPause = true;
     }
-    public void PrimalStartCheck()
-    {
-        if(currentstats.primalLevel == PrimalSave)
-        {
-        PrimalLevelDown.interactable = false;
-        }
-        else 
-        {
-        PrimalLevelDown.interactable = true;
-        }
-    }
-    public void SpeedStartCheck()
-    {
-        if(currentstats.speedLevel == SpeedSave)
-        {
-        SpeedLevelDown.interactable = false;
-        }
-        else 
-        {
-        SpeedLevelDown.interactable = true;
-        }
-    }
-    public void SentienceStartCheck()
-    {
-        if(currentstats.sentienceLevel == SentienceSave)
-        {
-        SentienceLevelDown.interactable = false;
-        }
-        else 
-        {
-        SentienceLevelDown.interactable = true;
-        }
-    }
-     public void VitalityStartCheck()
-    {
-        if(currentstats.vitalityLevel == VitalitySave)
-        {
-        VitalityLevelDown.interactable = false;
-        }
-        else 
-        {
-        VitalityLevelDown.interactable = true;
-        }
-    }
-
-    
     void UnlockSkills()
     {
       newlyUnlockedSkills.Clear();
