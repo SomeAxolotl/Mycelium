@@ -104,7 +104,7 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator Death()
     {
         deathTimer = 0;
-        yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(1).isLoaded);
+        yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
         animator.Rebind();

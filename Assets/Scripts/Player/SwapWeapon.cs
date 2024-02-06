@@ -63,7 +63,7 @@ public class SwapWeapon : MonoBehaviour
             float distanceToWeapon = Vector3.Distance(currentCharacter.transform.position, weapon.position);
             Scene currentScene = SceneManager.GetActiveScene();
             //nesting so i can use tooltips
-            if (distanceToWeapon <= 3f && playerController.canAct && currentScene.buildIndex != 1)
+            if (distanceToWeapon <= 3f && playerController.canAct && currentScene.buildIndex != 2)
             {
                 string damageComparisonText;
                 if (newStats.wpnDamage > oldStats.wpnDamage)
