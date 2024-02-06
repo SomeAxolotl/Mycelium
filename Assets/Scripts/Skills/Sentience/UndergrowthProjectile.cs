@@ -41,7 +41,7 @@ public class UndergrowthProjectile : MonoBehaviour
                 enemy.GetComponent<Animator>().SetBool("IsMoving", false);
                 enemy.GetComponent<NavMeshAgent>().enabled = false;
                 enemy.GetComponent<EnemyNavigation>().enabled = false;
-                enemy.GetComponent<MeleeEnemyAttack>().enabled = false;
+                //enemy.GetComponent<MeleeEnemyAttack>().enabled = false;
                 Instantiate(undergrowthCaughtParticles, enemy.transform.position, transform.rotation);
             }
             //Instantiate(undergrowthCaughtParticles, collision.transform.position, transform.rotation);
