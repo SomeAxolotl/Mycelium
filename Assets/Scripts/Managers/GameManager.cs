@@ -28,12 +28,22 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StartCoroutine(PlacePlayer());
-        StartCoroutine(EnableController());
-        RemoveHUDMaterial();
-        StartCoroutine(UpdateHUDNutrients());
-
         Debug.Log("Game Manager: Scene Loaded - " + scene.name);
+
+        if (scene.buildIndex == 0)
+        {
+            FreezePlayer();
+            StartCoroutine(DisableController());
+            DestroyMenuCamera();
+        }
+        else
+        {
+            UnfreezePlayer();
+            StartCoroutine(PlacePlayer());
+            StartCoroutine(EnableController());
+            RemoveHUDMaterial();
+            StartCoroutine(UpdateHUDNutrients());
+        }
     }
 
     IEnumerator PlacePlayer()
@@ -42,18 +52,32 @@ public class GameManager : MonoBehaviour
 
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
         GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
-        Debug.Log("Player: " + currentPlayer);
-        Debug.Log("SpawnPoint: " + spawnPoint);
 
-        currentPlayer.transform.position = spawnPoint.transform.position;
-        currentPlayer.transform.rotation = spawnPoint.transform.rotation;
+        if (spawnPoint != null)
+        {
+            currentPlayer.transform.position = spawnPoint.transform.position;
+            currentPlayer.transform.rotation = spawnPoint.transform.rotation;
+        }
     }
 
     IEnumerator EnableController()
     {
         yield return new WaitForEndOfFrame();
 
-        GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().EnableController();
+        if (GameObject.FindWithTag("PlayerParent") != null)
+        {
+            GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().EnableController();
+        }
+    }
+
+    IEnumerator DisableController()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (GameObject.FindWithTag("PlayerParent") != null)
+        {
+            GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().DisableController();
+        }
     }
 
     void RemoveHUDMaterial()
@@ -67,5 +91,30 @@ public class GameManager : MonoBehaviour
         yield return null;
 
         GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(0);
+    }
+
+    void FreezePlayer()
+    {
+        Rigidbody playerRB = GameObject.FindWithTag("currentPlayer").GetComponent<Rigidbody>();
+
+        if (playerRB != null)
+        {
+            playerRB.constraints = RigidbodyConstraints.FreezePosition;
+        }
+    }
+
+    void UnfreezePlayer()
+    {
+        Rigidbody playerRB = GameObject.FindWithTag("currentPlayer").GetComponent<Rigidbody>();
+
+        if (playerRB != null)
+        {
+            playerRB.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+    }
+
+    void DestroyMenuCamera()
+    {
+        Destroy(GameObject.Find("Menu Camera"));
     }
 }
