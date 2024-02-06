@@ -22,6 +22,7 @@ public class EnemyNavigation : MonoBehaviour
     [SerializeField] private float detectionRange = 25f;
     [SerializeField] private float detectionBuffer = 12f;
     [HideInInspector] public Animator animator;
+    public bool undergrowthSpeed;
 
     // Start is called before the first frame update
     void Start()
