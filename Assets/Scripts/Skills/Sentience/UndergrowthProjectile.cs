@@ -33,15 +33,18 @@ public class UndergrowthProjectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
         {
-            Invoke("UnFreeze", 5);
+            Invoke("UnFreeze", 15);
             hitEnemy.Add(collision.gameObject);
             foreach(GameObject enemy in hitEnemy)
             {
                 enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 enemy.GetComponent<Animator>().SetBool("IsMoving", false);
                 enemy.GetComponent<NavMeshAgent>().enabled = false;
+                enemy.GetComponent<EnemyNavigation>().enabled = false;
+                enemy.GetComponent<MeleeEnemyAttack>().enabled = false;
+                Instantiate(undergrowthCaughtParticles, enemy.transform.position, transform.rotation);
             }
-            Instantiate(undergrowthCaughtParticles, collision.transform.position, transform.rotation);
+            //Instantiate(undergrowthCaughtParticles, collision.transform.position, transform.rotation);
             if (collision.GetComponent<EnemyHealth>() != null)
             {
                 collision.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
@@ -61,6 +64,8 @@ public class UndergrowthProjectile : MonoBehaviour
             enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             enemy.GetComponent<Animator>().SetBool("IsMoving", true);
             enemy.GetComponent<NavMeshAgent>().enabled = true;
+            enemy.GetComponent<EnemyNavigation>().enabled = true;
+            enemy.GetComponent<MeleeEnemyAttack>().enabled = true;
         }
         hitEnemy.Clear();
     }
