@@ -8,6 +8,9 @@ public class WeaponCollision : MonoBehaviour
     public float sentienceBonusDamage = 0f;
     List<GameObject> enemiesHit = new List<GameObject>();
     WeaponStats newWeaponStats;
+
+    [SerializeField] private float secondsTilHitstopSpeedup = 0.25f;
+
     void Start()
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
@@ -23,7 +26,8 @@ public class WeaponCollision : MonoBehaviour
             other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
             other.GetComponent<EnemyKnockback>().Knockback(newWeaponStats.wpnKnockback);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
-            HitStopManager.Instance.HitStop(dmgDealt);
+            //HitStopManager.Instance.HitStop();
+            StartCoroutine(HitStop());
         }
         if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Boss")
         {
@@ -31,6 +35,23 @@ public class WeaponCollision : MonoBehaviour
             other.GetComponentInParent<BossHealth>().EnemyTakeDamage(dmgDealt);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
         }
+    }
+
+    IEnumerator HitStop()
+    {
+        Animator animator = GameObject.FindWithTag("currentPlayer").GetComponent<Animator>();
+
+        animator.speed = 0f;
+
+        //Speed Up
+        float t = 0f;
+        while (t < secondsTilHitstopSpeedup)
+        {
+            t += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        animator.speed = 1f;
     }
 
     public void ClearEnemyList()

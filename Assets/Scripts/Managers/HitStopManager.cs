@@ -5,7 +5,7 @@ using UnityEngine;
 public class HitStopManager : MonoBehaviour
 {
     [SerializeField] float slowestStopPoint = 0.1f;
-    [SerializeField] float damageToMillisecondsForSpeedUp = 15f;
+    [SerializeField] float secondsTilSpeedup = 0.1f;
 
     public static HitStopManager Instance;
 
@@ -25,28 +25,26 @@ public class HitStopManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            HitStop(20);
+            HitStop();
         }
     }
 
-    public void HitStop(float damage)
+    public void HitStop()
     {
-        StartCoroutine(HitStopCoroutine(damage));
+        StartCoroutine(HitStopCoroutine());
     }
 
-    IEnumerator HitStopCoroutine(float damage)
+    IEnumerator HitStopCoroutine()
     {
-        float speedUpDuration = (damage * damageToMillisecondsForSpeedUp) / 1000f;
-
         Time.timeScale = slowestStopPoint;
 
         //Speed Up
         float t = 0f;
-        while (t < speedUpDuration)
+        while (t < secondsTilSpeedup)
         {
             //Debug.Log(t);
-            float easedT = Mathf.Pow((t/speedUpDuration), 2);
-            Time.timeScale = Mathf.Lerp(slowestStopPoint, 1.0f, easedT);
+            //float easedT = Mathf.Pow((t/secondsTilSpeedup), 2);
+            //Time.timeScale = Mathf.Lerp(slowestStopPoint, 1.0f, easedT);
 
             t += Time.unscaledDeltaTime;
             yield return null;
