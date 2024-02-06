@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -71,6 +72,13 @@ public class EnemyHealth : MonoBehaviour
             GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
             ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
             camTracker.ToggleLockOn();
+
+            if (gameObject.name == "Giga Beetle")
+            {
+                PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
+                GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
+            }
+
             this.gameObject.SetActive(false);
         }
     }
@@ -83,7 +91,7 @@ public class EnemyHealth : MonoBehaviour
         {
             if(enemyHealthBar != null && currentHealth + dmgTaken > 0) 
             {
-                enemyHealthBar.UpdateEnemyHealth(currentHealth, maxHealth);
+                enemyHealthBar.UpdateEnemyHealthUI();
                 enemyHealthBar.DamageNumber(dmgTaken);
             }
 

@@ -11,7 +11,7 @@ public class BaseEnemyHealthBar : MonoBehaviour
 
     [SerializeField] public Image enemyHealthBar;
 
-    public virtual void UpdateEnemyHealth(float currentHealth, float maxHealth)
+    public virtual void UpdateEnemyHealthUI()
     {
         //Overridden by child
     }

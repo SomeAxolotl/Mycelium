@@ -5,6 +5,7 @@ using UnityEngine.InputSystem.HID;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class MainMenu : MonoBehaviour
 {
@@ -27,9 +28,16 @@ public class MainMenu : MonoBehaviour
         Debug.Log("QUIT THE GAME");
     }
 
-    public void GoToHubWorld()
+    public void StartGame()
     {
-        sceneLoaderScript.BeginLoadScene(SceneManager.GetActiveScene().buildIndex + 1, true);
+        if (Convert.ToBoolean(PlayerPrefs.GetInt("IsTutorialFinished")))
+        {
+            sceneLoaderScript.BeginLoadScene(SceneManager.GetActiveScene().buildIndex + 2, true);
+        }
+        else
+        {
+            sceneLoaderScript.BeginLoadScene(SceneManager.GetActiveScene().buildIndex + 1, true);
+        }
     }
 
     private void OnEnable()

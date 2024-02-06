@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -58,8 +59,13 @@ public class PlayerHealth : MonoBehaviour
             }
             if (deathTimer >= 3f)
             {
+                Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
+                if (SceneManager.GetActiveScene().buildIndex == 1)
+                {
+                    PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
+                }
                 sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-                sceneLoaderScript.BeginLoadScene(1, true);
+                sceneLoaderScript.BeginLoadScene(2, false);
                 StartCoroutine(Death());
             }
         }

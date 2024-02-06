@@ -20,8 +20,10 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;
     }
 
-    public override void UpdateEnemyHealth(float currentHealth, float maxHealth)
+    public override void UpdateEnemyHealthUI()
     {
+        float currentHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().currentHealth;
+        float maxHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().maxHealth;
         float healthRatio = currentHealth / maxHealth;
         enemyHealthBar.fillAmount = healthRatio;
         if (healthRatio > 0.66)

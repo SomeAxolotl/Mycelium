@@ -691,7 +691,7 @@ PrefabInstance:
     - target: {fileID: 8077986990906685669, guid: a4abf4925c6549644bb2bbcd7ad80499,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoToHubWorld
+      value: StartGame
       objectReference: {fileID: 0}
     - target: {fileID: 8077986990906685669, guid: a4abf4925c6549644bb2bbcd7ad80499,
         type: 3}
@@ -1544,12 +1544,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 1215820583}
   sceneLoaderScript: {fileID: 4028372807452683361}
---- !u!95 &932848635 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6184287256960224978, guid: 6f227a676860fa941be10a12ad688119,
-    type: 3}
-  m_PrefabInstance: {fileID: 4028372807452683360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &987811163 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6850001720268264792, guid: a4abf4925c6549644bb2bbcd7ad80499,
@@ -1753,12 +1747,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078778810}
   m_CullTransparentMesh: 1
---- !u!95 &1109923051 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1370030876163943000, guid: 6f227a676860fa941be10a12ad688119,
-    type: 3}
-  m_PrefabInstance: {fileID: 4028372807452683360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1135749710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3725,26 +3713,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneLoader
       objectReference: {fileID: 0}
-    - target: {fileID: 8105105074511532305, guid: 6f227a676860fa941be10a12ad688119,
-        type: 3}
-      propertyPath: BadExitLevelTransition
-      value: 
-      objectReference: {fileID: 932848635}
-    - target: {fileID: 8105105074511532305, guid: 6f227a676860fa941be10a12ad688119,
-        type: 3}
-      propertyPath: DeadExitLevelTransition
-      value: 
-      objectReference: {fileID: 932848635}
-    - target: {fileID: 8105105074511532305, guid: 6f227a676860fa941be10a12ad688119,
-        type: 3}
-      propertyPath: GoodExitLevelTransition
-      value: 
-      objectReference: {fileID: 1109923051}
-    - target: {fileID: 8105105074511532305, guid: 6f227a676860fa941be10a12ad688119,
-        type: 3}
-      propertyPath: SafeExitLevelTransition
-      value: 
-      objectReference: {fileID: 1109923051}
     - target: {fileID: 8269757080067514162, guid: 6f227a676860fa941be10a12ad688119,
         type: 3}
       propertyPath: m_RootOrder
@@ -3799,21 +3767,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8468174658719801260, guid: 6f227a676860fa941be10a12ad688119,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8468174658719801260, guid: 6f227a676860fa941be10a12ad688119,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8468174658719801260, guid: 6f227a676860fa941be10a12ad688119,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

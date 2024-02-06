@@ -19,8 +19,10 @@ public class BossHealthBar : BaseEnemyHealthBar
         bossHealthHolder.transform.localScale = new Vector3(0f, bossHealthHolder.transform.localScale.y, bossHealthHolder.transform.localScale.z);
     }
 
-    public override void UpdateEnemyHealth(float currentHealth, float maxHealth)
+    public override void UpdateEnemyHealthUI()
     {
+        float currentHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().currentHealth;
+        float maxHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().maxHealth;
         float healthRatio = currentHealth / maxHealth;
         enemyHealthBar.fillAmount = healthRatio;
         if (healthRatio > 0.66)
@@ -43,6 +45,7 @@ public class BossHealthBar : BaseEnemyHealthBar
     {
         hasPopped = true;
 
+        UpdateEnemyHealthUI();
         StartCoroutine(EncounterEnemyCoroutine());
     }
 

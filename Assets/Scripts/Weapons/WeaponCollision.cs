@@ -19,7 +19,7 @@ public class WeaponCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && !enemiesHit.Contains(other.gameObject))
+        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && other.GetType() != typeof(SphereCollider) && !enemiesHit.Contains(other.gameObject))
         {
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage;
@@ -29,7 +29,7 @@ public class WeaponCollision : MonoBehaviour
             //HitStopManager.Instance.HitStop();
             StartCoroutine(HitStop());
         }
-        if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Boss")
+        if (this.gameObject.tag == "currentWeapon" && other.GetType() != typeof(SphereCollider) && other.gameObject.tag == "Boss")
         {
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage;
             other.GetComponentInParent<BossHealth>().EnemyTakeDamage(dmgDealt);

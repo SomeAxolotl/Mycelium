@@ -55,7 +55,7 @@ public class CharSelectManagerNew : MonoBehaviour
         //SceneManager.LoadScene("Prototype Level");
         playerController.EnableController();
         UIEnable.SetActive(false);
-        SceneLoadingManager.Instance.LoadScene(2);
+        SceneLoadingManager.Instance.LoadScene(3);
         
     }
 }

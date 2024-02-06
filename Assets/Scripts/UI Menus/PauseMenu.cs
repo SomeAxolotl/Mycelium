@@ -109,7 +109,7 @@ public class PauseMenu : MonoBehaviour
         Destroy(weapon);
         if(playerParent.GetComponent<SwapWeapon>().curWeapon != null)
         {
-            sceneLoaderScript.BeginLoadScene(1, true); //this is assuming the hubworld scene is index 1
+            sceneLoaderScript.BeginLoadScene(2, true); //this is assuming the hubworld scene is index 1
         }
     }
 
