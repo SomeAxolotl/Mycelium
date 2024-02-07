@@ -15,7 +15,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool attackStarted = false;
-    private float attackCooldown = 1.5f;
+    [SerializeField] private float attackCooldown = 1.5f;
     private float attackStartup;
     private float resetAttack;
     [SerializeField] private float damage = 20f;

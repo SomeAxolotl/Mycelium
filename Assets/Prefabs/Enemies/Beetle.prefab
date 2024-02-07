@@ -625,6 +625,7 @@ MonoBehaviour:
   detectionRange: 20
   detectionBuffer: 12
   animator: {fileID: 0}
+  undergrowthSpeed: 0
 --- !u!114 &8162784301421615109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +644,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
-  damage: 20
+  attackCooldown: 1.5
+  attackStartup: 0
+  damage: 15
   knockbackForce: 50
 --- !u!114 &1143851786751607643
 MonoBehaviour:

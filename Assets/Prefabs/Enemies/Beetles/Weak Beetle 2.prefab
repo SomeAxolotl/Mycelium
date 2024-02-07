@@ -720,6 +720,7 @@ MonoBehaviour:
   detectionRange: 20
   detectionBuffer: 4
   animator: {fileID: 0}
+  undergrowthSpeed: 0
 --- !u!114 &8162784301421615109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,8 +739,10 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
-  damage: 20
-  knockbackForce: 50
+  attackCooldown: 1.5
+  attackStartup: 0
+  damage: 5
+  knockbackForce: 25
 --- !u!114 &1143851786751607643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,7 +755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9777b89c4af1ab48bf608e665896ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  maxHealth: 10
   currentHealth: 0
   nutrientDrop: 100
   centerPoint: {fileID: 6296229058357458674}
