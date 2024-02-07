@@ -25,6 +25,7 @@ public class RelentlessFuryEnd : MonoBehaviour
     void Update()
     {
         Invoke("DisableStuff", 5);
+        Invoke("DisableAfter", 10);
     }
 
     void DisableStuff()
@@ -39,6 +40,17 @@ public class RelentlessFuryEnd : MonoBehaviour
                 relentlessFury.durationTime = 0;
                 relentlessFury.EndSkill();
             }
+        }
+    }
+
+    void DisableAfter()
+    {
+        if (GameObject.FindWithTag("RelentlessFury").activeSelf)
+        {
+            playerController.canUseDodge = true;
+            Destroy(GameObject.FindWithTag("RelentlessFuryParticles"));
+            relentlessFury.isFrenzied = false;
+            relentlessFury.durationTime = 0;
         }
     }
 }
