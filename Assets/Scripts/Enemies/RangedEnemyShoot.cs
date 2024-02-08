@@ -13,9 +13,12 @@ public class RangedEnemyShoot : MonoBehaviour
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
     private Transform player;
+    public Transform centerPoint;
+    public Transform launchPoint;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool stunned = false;
+    private float attackDistance = 15f;
     [SerializeField] private float attackCooldown = 3f;
     public GameObject projectile;
     Coroutine attackCoroutine;
@@ -33,12 +36,12 @@ public class RangedEnemyShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerColliders = Physics.OverlapSphere(transform.position, 25f, playerLayer);
+        playerColliders = Physics.OverlapSphere(centerPoint.position, 25f, playerLayer);
         foreach (var playerCollider in playerColliders)
         {
-            player = playerCollider.transform;
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            float dstToPlayer = Vector3.Distance(transform.position, player.position);
+            player = playerCollider.transform.Find("CenterPoint");
+            Vector3 dirToPlayer = (player.position - launchPoint.position).normalized;
+            float dstToPlayer = Vector3.Distance(launchPoint.position, player.position);
             if (enemyKnockback.damaged && !stunned)
             {
                 StartCoroutine(CancelAttack());
@@ -46,7 +49,7 @@ public class RangedEnemyShoot : MonoBehaviour
             }
             else
             {
-                if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer) && (dstToPlayer - .5f) <= navMeshAgent.stoppingDistance && canAttack)
+                if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(launchPoint.position, dirToPlayer, dstToPlayer, obstacleLayer) && dstToPlayer <= attackDistance && canAttack)
                 {
                     StartCoroutine(Attack());
                     Debug.Log("attackkk");
@@ -77,9 +80,9 @@ public class RangedEnemyShoot : MonoBehaviour
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .6f);
         if(enemyHealth.currentHealth > 0 && isAttacking)
         {
-            Vector3 dirToPlayer = new Vector3(player.transform.position.x, player.transform.position.y + 2f, player.transform.position.z) - transform.position;
-            GameObject tempProj = Instantiate(projectile, transform.position, transform.rotation);
-            tempProj.transform.right = dirToPlayer;
+            Vector3 dirToPlayer = player.position - launchPoint.position;
+            GameObject tempProj = Instantiate(projectile, launchPoint.position, transform.rotation);
+            tempProj.transform.right = new Vector3(dirToPlayer.x, dirToPlayer.y + 1f, dirToPlayer.z);
             tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer.normalized * 18f;
         }
         isAttacking = false;
