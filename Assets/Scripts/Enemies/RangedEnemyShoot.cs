@@ -36,7 +36,7 @@ public class RangedEnemyShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerColliders = Physics.OverlapSphere(centerPoint.position, 25f, playerLayer);
+        playerColliders = Physics.OverlapSphere(transform.position, 25f, playerLayer);
         foreach (var playerCollider in playerColliders)
         {
             player = playerCollider.transform.Find("CenterPoint");
