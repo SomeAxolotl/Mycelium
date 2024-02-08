@@ -22,6 +22,7 @@ public class EnemyKnockback : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb.isKinematic = true;
+        rb.useGravity = false;
     }
 
     // Update is called once per frame
@@ -36,10 +37,12 @@ public class EnemyKnockback : MonoBehaviour
             {
                 damaged = false;
                 flightTimer = 0;
+                navMeshAgent.Warp(transform.position);
                 navMeshAgent.enabled = true;
                 animator.enabled = true;
                 enemyNavigation.enabled = true;
                 rb.isKinematic = true;
+                rb.useGravity = false;
             }
         }
     }
@@ -50,6 +53,7 @@ public class EnemyKnockback : MonoBehaviour
         navMeshAgent.enabled = false;
         animator.enabled = false;
         rb.isKinematic = false;
+        rb.useGravity = true;
         Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
         StartCoroutine(StartKnockback(dirFromPlayer, knockbackForce));
     }
