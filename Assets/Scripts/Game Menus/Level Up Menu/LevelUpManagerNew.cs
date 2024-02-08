@@ -10,9 +10,7 @@ public class LevelUpManagerNew : MonoBehaviour
 {
     [SerializeField] private int maxStatLevel = 15;
 
-    //public TMP_Text skillcdr;
     public TMP_Text primaldam;
-    //public TMP_Text skilldam;
     public TMP_Text movespeed;
     public TMP_Text regen;
     public TMP_Text health;
@@ -34,8 +32,6 @@ public class LevelUpManagerNew : MonoBehaviour
     private float regensave;
     private float movespeedsave;
     private float damagesave;
-    //private float skilldmgsave;
-    //private float cdrsave;
     private int totalLevelsave;
     private int levelupsave;
     private CanvasGroup HUDCanvasGroup;
@@ -98,8 +94,6 @@ public class LevelUpManagerNew : MonoBehaviour
        regensave = currentstats.baseRegen;
        movespeedsave = currentstats.moveSpeed;
        damagesave = currentstats.primalDmg;
-       //skilldmgsave = currentstats.skillDmg;
-       //cdrsave = currentstats.atkCooldownBuff;
        totalLevelsave = currentstats.totalLevel;
        levelupsave = currentstats.levelUpCost;
        Commitbutton.Select();
@@ -154,8 +148,6 @@ public class LevelUpManagerNew : MonoBehaviour
         SpeedBarFill();
         SentienceBarFill();
         VitalityBarFill();
-        //skilldam.text = currentstats.skillDmg.ToString();
-        //skillcdr.text = currentstats.atkCooldownBuff.ToString("0.00") + " seconds";
     }
     void MenuSwap()
     {
@@ -169,8 +161,6 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.baseRegen = regensave;
       currentstats.moveSpeed = movespeedsave;
       currentstats.primalDmg = damagesave;
-      //currentstats.skillDmg = skilldmgsave;
-      //currentstats.atkCooldownBuff = cdrsave;
       currentstats.totalLevel = totalLevelsave;
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
@@ -188,8 +178,6 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.baseRegen = regensave;
       currentstats.moveSpeed = movespeedsave;
       currentstats.primalDmg = damagesave;
-      //currentstats.skillDmg = skilldmgsave;
-      //currentstats.atkCooldownBuff = cdrsave;
       currentstats.totalLevel = totalLevelsave;
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
@@ -205,14 +193,18 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalBarLevelUp()
     {
-       controls.UI.PrimalLevelRight.Enable();
+        controls.UI.KeyLevelUpPrimal.Enable();
+      controls.UI.KeyLevelDownPrimal.Enable();
+      controls.UI.PrimalLevelRight.Enable();
       controls.UI.PrimalLevelLeft.Enable();
       controls.UI.PrimalLevelRightStick.Enable();
       controls.UI.PrimalLevelLeftStick.Enable();
-       controls.UI.PrimalLevelRight.started += ctx => PrimalUP();
-       controls.UI.PrimalLevelRightStick.started += ctx => PrimalUP(); 
-       controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
-       controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
+      controls.UI.KeyLevelUpPrimal.started += ctx => PrimalUP();
+      controls.UI.KeyLevelDownPrimal.started += ctx => PrimalDown();
+      controls.UI.PrimalLevelRight.started += ctx => PrimalUP();
+      controls.UI.PrimalLevelRightStick.started += ctx => PrimalUP(); 
+      controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
+      controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
     }
     public void PrimalUP()
     {
@@ -233,6 +225,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalDeselect()
     {
+        controls.UI.KeyLevelDownPrimal.Disable();
+        controls.UI.KeyLevelUpPrimal.Disable();
       controls.UI.PrimalLevelRight.Disable();
       controls.UI.PrimalLevelLeft.Disable();
       controls.UI.PrimalLevelRightStick.Disable();
@@ -247,14 +241,18 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SpeedBarLevelUp()
     {
-       controls.UI.SpeedLevelRight.Enable();
+      controls.UI.KeyLevelUpSpeed.Enable();
+      controls.UI.KeyLevelDownSpeed.Enable();
+      controls.UI.SpeedLevelRight.Enable();
       controls.UI.SpeedLevelLeft.Enable();
       controls.UI.SpeedLevelRightStick.Enable();
       controls.UI.SpeedLevelLeftStick.Enable();
-       controls.UI.SpeedLevelRight.started += ctx => SpeedUP();
-       controls.UI.SpeedLevelRightStick.started += ctx => SpeedUP(); 
-       controls.UI.SpeedLevelLeft.started += ctx => SpeedDown(); 
-       controls.UI.SpeedLevelLeftStick.started += ctx => SpeedDown();
+      controls.UI.KeyLevelUpSpeed.started += ctx => SpeedUP();
+      controls.UI.KeyLevelDownSpeed.started += ctx => SpeedDown();
+      controls.UI.SpeedLevelRight.started += ctx => SpeedUP();
+     controls.UI.SpeedLevelRightStick.started += ctx => SpeedUP(); 
+     controls.UI.SpeedLevelLeft.started += ctx => SpeedDown(); 
+      controls.UI.SpeedLevelLeftStick.started += ctx => SpeedDown();
     }
   
     public void SpeedUP()
@@ -276,6 +274,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
      public void SpeedDeselect()
     {
+      controls.UI.KeyLevelDownSpeed.Disable();
+      controls.UI.KeyLevelUpSpeed.Disable();
       controls.UI.SpeedLevelRight.Disable();
       controls.UI.SpeedLevelLeft.Disable();
       controls.UI.SpeedLevelRightStick.Disable();
@@ -291,11 +291,15 @@ public class LevelUpManagerNew : MonoBehaviour
     }
       public void SentienceBarLevelUp()
     {
-      controls.UI.SentienceLevelRight.Enable();
+       controls.UI.KeyLevelUpSentience.Enable();
+       controls.UI.KeyLevelDownSentience.Enable();
+       controls.UI.SentienceLevelRight.Enable();
       controls.UI.SentienceLevelLeft.Enable();
       controls.UI.SentienceLevelRightStick.Enable();
       controls.UI.SentienceLevelLeftStick.Enable();
-       controls.UI.SentienceLevelRight.started += ctx => SentienceUP();
+      controls.UI.KeyLevelUpSentience.started += ctx => SentienceUP();
+      controls.UI.KeyLevelDownSentience.started += ctx => SentienceDown();
+      controls.UI.SentienceLevelRight.started += ctx => SentienceUP();
        controls.UI.SentienceLevelRightStick.started += ctx => SentienceUP(); 
        controls.UI.SentienceLevelLeft.started += ctx => SentienceDown(); 
        controls.UI.SentienceLevelLeftStick.started += ctx => SentienceDown();
@@ -327,6 +331,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SentienceDeselect()
     {
+      controls.UI.KeyLevelDownSentience.Disable();
+      controls.UI.KeyLevelUpSentience.Disable();
       controls.UI.SentienceLevelRight.Disable();
       controls.UI.SentienceLevelLeft.Disable();
       controls.UI.SentienceLevelRightStick.Disable();
@@ -341,17 +347,23 @@ public class LevelUpManagerNew : MonoBehaviour
     }
       public void VitalityBarLevelUp()
     {
+      controls.UI.KeyLevelUpVitality.Enable();
+      controls.UI.KeyLevelDownVitality.Enable();
       controls.UI.VitalityLevelRight.Enable();
       controls.UI.VitalityLevelLeft.Enable();
       controls.UI.VitalityLevelRightStick.Enable();
       controls.UI.VitalityLevelLeftStick.Enable();
+       controls.UI.KeyLevelUpVitality.started += ctx => VitalityUP();
+       controls.UI.KeyLevelDownVitality.started += ctx => VitalityDown();
        controls.UI.VitalityLevelRight.started += ctx => VitalityUP();
-       controls.UI.VitalityLevelRightStick.started += ctx => VitalityUP(); 
-       controls.UI.VitalityLevelLeft.started += ctx => VitalityDown(); 
-       controls.UI.VitalityLevelLeftStick.started += ctx => VitalityDown();
+      controls.UI.VitalityLevelRightStick.started += ctx => VitalityUP(); 
+      controls.UI.VitalityLevelLeft.started += ctx => VitalityDown(); 
+      controls.UI.VitalityLevelLeftStick.started += ctx => VitalityDown();
     }
     public void VitalityDeselect()
     {
+      controls.UI.KeyLevelDownVitality.Disable();
+      controls.UI.KeyLevelUpVitality.Disable();
       controls.UI.VitalityLevelRight.Disable();
       controls.UI.VitalityLevelLeft.Disable();
       controls.UI.VitalityLevelRightStick.Disable();

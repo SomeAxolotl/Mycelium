@@ -731,6 +731,78 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Up Primal"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9539b56-bf8e-47c5-aad7-be7bdeceb2a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Down Primal"",
+                    ""type"": ""Button"",
+                    ""id"": ""8a41c7f6-6d60-48fc-b4a9-a3ec63884819"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Up Speed"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2527669-8f1e-424d-aa29-45c021a347ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Down Speed"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4c41e37-2889-44a5-aff6-f8de49d3dd09"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Up Sentience"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d0d953a-c049-4edb-b3e0-766acc115efa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Down Sentience"",
+                    ""type"": ""Button"",
+                    ""id"": ""9abad4e9-3758-4c55-8a00-cbe70e15962c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Up Vitality"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebaf28e4-c091-4c89-b72b-d8748424127b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Key Level Down Vitality"",
+                    ""type"": ""Button"",
+                    ""id"": ""75602a6d-9076-4435-956f-0fc446b860da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1360,6 +1432,94 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""SentienceLevelLeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3ea2c47-2503-44ec-90d7-58a60880eeaa"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Up Primal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c30d0f0-032b-460f-993d-9a156c100a79"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Down Primal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1801a0d0-24d7-490c-9267-fd6a1b6801b4"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Up Speed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ac23a29-016d-4ff0-8401-5a6064867a3d"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Down Speed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce907f63-d07f-46da-ae18-df6f75452a50"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Up Sentience"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d741b8e4-a916-4bd2-8c3f-c8492fb893ea"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Down Sentience"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""538cb148-1886-415f-899d-f59249ae2d9d"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Up Vitality"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbdc6853-857e-41d6-81ca-8b8c81b27867"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Key Level Down Vitality"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1412,6 +1572,14 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UI_SentienceLevelLeft = m_UI.FindAction("SentienceLevelLeft", throwIfNotFound: true);
         m_UI_SentienceLevelRightStick = m_UI.FindAction("SentienceLevelRightStick", throwIfNotFound: true);
         m_UI_SentienceLevelLeftStick = m_UI.FindAction("SentienceLevelLeftStick", throwIfNotFound: true);
+        m_UI_KeyLevelUpPrimal = m_UI.FindAction("Key Level Up Primal", throwIfNotFound: true);
+        m_UI_KeyLevelDownPrimal = m_UI.FindAction("Key Level Down Primal", throwIfNotFound: true);
+        m_UI_KeyLevelUpSpeed = m_UI.FindAction("Key Level Up Speed", throwIfNotFound: true);
+        m_UI_KeyLevelDownSpeed = m_UI.FindAction("Key Level Down Speed", throwIfNotFound: true);
+        m_UI_KeyLevelUpSentience = m_UI.FindAction("Key Level Up Sentience", throwIfNotFound: true);
+        m_UI_KeyLevelDownSentience = m_UI.FindAction("Key Level Down Sentience", throwIfNotFound: true);
+        m_UI_KeyLevelUpVitality = m_UI.FindAction("Key Level Up Vitality", throwIfNotFound: true);
+        m_UI_KeyLevelDownVitality = m_UI.FindAction("Key Level Down Vitality", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1644,6 +1812,14 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UI_SentienceLevelLeft;
     private readonly InputAction m_UI_SentienceLevelRightStick;
     private readonly InputAction m_UI_SentienceLevelLeftStick;
+    private readonly InputAction m_UI_KeyLevelUpPrimal;
+    private readonly InputAction m_UI_KeyLevelDownPrimal;
+    private readonly InputAction m_UI_KeyLevelUpSpeed;
+    private readonly InputAction m_UI_KeyLevelDownSpeed;
+    private readonly InputAction m_UI_KeyLevelUpSentience;
+    private readonly InputAction m_UI_KeyLevelDownSentience;
+    private readonly InputAction m_UI_KeyLevelUpVitality;
+    private readonly InputAction m_UI_KeyLevelDownVitality;
     public struct UIActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -1677,6 +1853,14 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @SentienceLevelLeft => m_Wrapper.m_UI_SentienceLevelLeft;
         public InputAction @SentienceLevelRightStick => m_Wrapper.m_UI_SentienceLevelRightStick;
         public InputAction @SentienceLevelLeftStick => m_Wrapper.m_UI_SentienceLevelLeftStick;
+        public InputAction @KeyLevelUpPrimal => m_Wrapper.m_UI_KeyLevelUpPrimal;
+        public InputAction @KeyLevelDownPrimal => m_Wrapper.m_UI_KeyLevelDownPrimal;
+        public InputAction @KeyLevelUpSpeed => m_Wrapper.m_UI_KeyLevelUpSpeed;
+        public InputAction @KeyLevelDownSpeed => m_Wrapper.m_UI_KeyLevelDownSpeed;
+        public InputAction @KeyLevelUpSentience => m_Wrapper.m_UI_KeyLevelUpSentience;
+        public InputAction @KeyLevelDownSentience => m_Wrapper.m_UI_KeyLevelDownSentience;
+        public InputAction @KeyLevelUpVitality => m_Wrapper.m_UI_KeyLevelUpVitality;
+        public InputAction @KeyLevelDownVitality => m_Wrapper.m_UI_KeyLevelDownVitality;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1773,6 +1957,30 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @SentienceLevelLeftStick.started += instance.OnSentienceLevelLeftStick;
             @SentienceLevelLeftStick.performed += instance.OnSentienceLevelLeftStick;
             @SentienceLevelLeftStick.canceled += instance.OnSentienceLevelLeftStick;
+            @KeyLevelUpPrimal.started += instance.OnKeyLevelUpPrimal;
+            @KeyLevelUpPrimal.performed += instance.OnKeyLevelUpPrimal;
+            @KeyLevelUpPrimal.canceled += instance.OnKeyLevelUpPrimal;
+            @KeyLevelDownPrimal.started += instance.OnKeyLevelDownPrimal;
+            @KeyLevelDownPrimal.performed += instance.OnKeyLevelDownPrimal;
+            @KeyLevelDownPrimal.canceled += instance.OnKeyLevelDownPrimal;
+            @KeyLevelUpSpeed.started += instance.OnKeyLevelUpSpeed;
+            @KeyLevelUpSpeed.performed += instance.OnKeyLevelUpSpeed;
+            @KeyLevelUpSpeed.canceled += instance.OnKeyLevelUpSpeed;
+            @KeyLevelDownSpeed.started += instance.OnKeyLevelDownSpeed;
+            @KeyLevelDownSpeed.performed += instance.OnKeyLevelDownSpeed;
+            @KeyLevelDownSpeed.canceled += instance.OnKeyLevelDownSpeed;
+            @KeyLevelUpSentience.started += instance.OnKeyLevelUpSentience;
+            @KeyLevelUpSentience.performed += instance.OnKeyLevelUpSentience;
+            @KeyLevelUpSentience.canceled += instance.OnKeyLevelUpSentience;
+            @KeyLevelDownSentience.started += instance.OnKeyLevelDownSentience;
+            @KeyLevelDownSentience.performed += instance.OnKeyLevelDownSentience;
+            @KeyLevelDownSentience.canceled += instance.OnKeyLevelDownSentience;
+            @KeyLevelUpVitality.started += instance.OnKeyLevelUpVitality;
+            @KeyLevelUpVitality.performed += instance.OnKeyLevelUpVitality;
+            @KeyLevelUpVitality.canceled += instance.OnKeyLevelUpVitality;
+            @KeyLevelDownVitality.started += instance.OnKeyLevelDownVitality;
+            @KeyLevelDownVitality.performed += instance.OnKeyLevelDownVitality;
+            @KeyLevelDownVitality.canceled += instance.OnKeyLevelDownVitality;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1864,6 +2072,30 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @SentienceLevelLeftStick.started -= instance.OnSentienceLevelLeftStick;
             @SentienceLevelLeftStick.performed -= instance.OnSentienceLevelLeftStick;
             @SentienceLevelLeftStick.canceled -= instance.OnSentienceLevelLeftStick;
+            @KeyLevelUpPrimal.started -= instance.OnKeyLevelUpPrimal;
+            @KeyLevelUpPrimal.performed -= instance.OnKeyLevelUpPrimal;
+            @KeyLevelUpPrimal.canceled -= instance.OnKeyLevelUpPrimal;
+            @KeyLevelDownPrimal.started -= instance.OnKeyLevelDownPrimal;
+            @KeyLevelDownPrimal.performed -= instance.OnKeyLevelDownPrimal;
+            @KeyLevelDownPrimal.canceled -= instance.OnKeyLevelDownPrimal;
+            @KeyLevelUpSpeed.started -= instance.OnKeyLevelUpSpeed;
+            @KeyLevelUpSpeed.performed -= instance.OnKeyLevelUpSpeed;
+            @KeyLevelUpSpeed.canceled -= instance.OnKeyLevelUpSpeed;
+            @KeyLevelDownSpeed.started -= instance.OnKeyLevelDownSpeed;
+            @KeyLevelDownSpeed.performed -= instance.OnKeyLevelDownSpeed;
+            @KeyLevelDownSpeed.canceled -= instance.OnKeyLevelDownSpeed;
+            @KeyLevelUpSentience.started -= instance.OnKeyLevelUpSentience;
+            @KeyLevelUpSentience.performed -= instance.OnKeyLevelUpSentience;
+            @KeyLevelUpSentience.canceled -= instance.OnKeyLevelUpSentience;
+            @KeyLevelDownSentience.started -= instance.OnKeyLevelDownSentience;
+            @KeyLevelDownSentience.performed -= instance.OnKeyLevelDownSentience;
+            @KeyLevelDownSentience.canceled -= instance.OnKeyLevelDownSentience;
+            @KeyLevelUpVitality.started -= instance.OnKeyLevelUpVitality;
+            @KeyLevelUpVitality.performed -= instance.OnKeyLevelUpVitality;
+            @KeyLevelUpVitality.canceled -= instance.OnKeyLevelUpVitality;
+            @KeyLevelDownVitality.started -= instance.OnKeyLevelDownVitality;
+            @KeyLevelDownVitality.performed -= instance.OnKeyLevelDownVitality;
+            @KeyLevelDownVitality.canceled -= instance.OnKeyLevelDownVitality;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1928,5 +2160,13 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnSentienceLevelLeft(InputAction.CallbackContext context);
         void OnSentienceLevelRightStick(InputAction.CallbackContext context);
         void OnSentienceLevelLeftStick(InputAction.CallbackContext context);
+        void OnKeyLevelUpPrimal(InputAction.CallbackContext context);
+        void OnKeyLevelDownPrimal(InputAction.CallbackContext context);
+        void OnKeyLevelUpSpeed(InputAction.CallbackContext context);
+        void OnKeyLevelDownSpeed(InputAction.CallbackContext context);
+        void OnKeyLevelUpSentience(InputAction.CallbackContext context);
+        void OnKeyLevelDownSentience(InputAction.CallbackContext context);
+        void OnKeyLevelUpVitality(InputAction.CallbackContext context);
+        void OnKeyLevelDownVitality(InputAction.CallbackContext context);
     }
 }
