@@ -10,10 +10,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<EnemySpawn> EnemyList;
     public float spawnInterval = 2f;
     [SerializeField][Tooltip("The radius around the EnemySpawner that the Enemy will randomly spawn in")][Min(0)] private float spawnRange = 0.4f;
-    [SerializeField][Tooltip("Functions the same as enemiesSpawnedLimit???")] private int maxEnemies = 5;
     [SerializeField][Tooltip("The number of enemies spawned before this spawner destructs")] private int enemiesSpawnedLimit = 20;
     private int enemiesSpawnedCount = 0;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    [SerializeField]private GameObject particleEffect;
     [SerializeField][Tooltip("Spawns the enemiesSpawnedLimit at once")] private bool spawnAll = false;
     private bool hasSpawned = false;
     [SerializeField][Tooltip("Spawns enemies on Start()")] private bool spawnOnStart = false;
@@ -39,27 +39,20 @@ public class EnemySpawner : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(SpawnEnemies());
+                    StartCoroutine(SpawnEnemiesWithInterval());
                 }
             }
     }
-
-    IEnumerator SpawnEnemies()
+    IEnumerator SpawnEnemiesWithInterval()
     {
         while (enemiesSpawnedCount < enemiesSpawnedLimit)
         {
-            if (spawnedEnemies.Count < maxEnemies)
-            {
-                SpawnEnemy();
-                enemiesSpawnedCount++;
-
-                if(enemiesSpawnedCount >= enemiesSpawnedLimit)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            SpawnEnemy();
+            enemiesSpawnedCount++;
+            Debug.Log("Spawn count: " + enemiesSpawnedCount);
             yield return new WaitForSeconds(spawnInterval);
         }
+            
         hasSpawned = true;
         Destroy(gameObject);
     }
@@ -76,6 +69,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < enemiesSpawnedLimit; i++)
         {
             SpawnEnemy();
+            Destroy(gameObject);
         }
         hasSpawned = true;
     }
@@ -93,7 +87,7 @@ public class EnemySpawner : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(SpawnEnemies());
+                    StartCoroutine(SpawnEnemiesWithInterval());
                 }
             }            
         }
