@@ -15,6 +15,7 @@ public class SwapWeapon : MonoBehaviour
     Transform weaponHolder;
     SwapCharacter swapCharacter;
     PlayerController playerController;
+    PlayerHealth playerHealth;
     public GameObject curWeapon;
 
     [SerializeField] private float proximityRadius = 5f;
@@ -30,6 +31,7 @@ public class SwapWeapon : MonoBehaviour
         swapItem = playerActionsAsset.Player.SwapItem;
         swapCharacter = GetComponent<SwapCharacter>();
         playerController = GetComponent<PlayerController>();
+        playerHealth = GetComponent<PlayerHealth>();
         if (GameObject.FindWithTag("currentWeapon") == null)
         {
             GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
@@ -108,6 +110,7 @@ public class SwapWeapon : MonoBehaviour
                     weapon.tag = "currentWeapon";
                     curWeapon.transform.parent = weaponHolder.transform.parent;
                     curWeapon = GameObject.FindWithTag("currentWeapon");
+                    playerHealth.weaponCollision = curWeapon.GetComponent<WeaponCollision>();
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }

@@ -6,6 +6,7 @@ public class WeaponCollision : MonoBehaviour
 {
     PlayerAttack playerAttack;
     public float sentienceBonusDamage = 0f;
+    public float reflectBonusDamage = 0f;
     List<GameObject> enemiesHit = new List<GameObject>();
     WeaponStats newWeaponStats;
 
@@ -22,16 +23,17 @@ public class WeaponCollision : MonoBehaviour
         if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && other.GetType() != typeof(SphereCollider) && !enemiesHit.Contains(other.gameObject))
         {
             enemiesHit.Add(other.gameObject);
-            float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage;
+            float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
             other.GetComponent<EnemyKnockback>().Knockback(newWeaponStats.wpnKnockback);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
             //HitStopManager.Instance.HitStop();
             StartCoroutine(HitStop());
+            reflectBonusDamage = 0f;
         }
         if (this.gameObject.tag == "currentWeapon" && other.GetType() != typeof(SphereCollider) && other.gameObject.tag == "Boss")
         {
-            float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage;
+            float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponentInParent<BossHealth>().EnemyTakeDamage(dmgDealt);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
         }

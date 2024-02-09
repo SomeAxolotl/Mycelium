@@ -9,12 +9,15 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
     float regenRate;
+    public bool isDefending;
+    float realDmgTaken;
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
     HUDItem hudItem;
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     PlayerController playerController;
+    [HideInInspector] public WeaponCollision weaponCollision;
     CamTracker camTracker;
     float deathTimer;
     private Animator animator;
@@ -34,6 +37,8 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
         animator = GameObject.Find("Spore").GetComponent<Animator>();
+        weaponCollision = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>();
+        isDefending = false;
     }
 
     // Update is called once per frame
@@ -83,7 +88,16 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("that hurt is true yo");
             GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
         }
-        currentHealth -= dmgTaken;
+        if(isDefending)
+        {
+            realDmgTaken = dmgTaken/2f;
+            weaponCollision.reflectBonusDamage += realDmgTaken;
+        }
+        else
+        {
+            realDmgTaken = dmgTaken;
+        }
+        currentHealth -= realDmgTaken;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
     public void PlayerHeal(float healAmount)
