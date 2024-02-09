@@ -6,35 +6,48 @@ using UnityEngine.AI;
 public class Sporeburst : Skill
 {
     [SerializeField] private float burstRadius = 3f;
-
+    [SerializeField] private float stunDuration = 2f;
     public override void DoSkill()
     {
-        DamageEnemies();
+        DoSporeburst();
         EndSkill();
     }
 
-    void DamageEnemies()
+    void DoSporeburst()
     {
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);
-
+        Collider[] enemies = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);
         float damage = finalSkillValue;
-        foreach (Collider collider in colliders)
+        foreach (var enemy in enemies)
         {
-            EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            if (enemy.gameObject.GetComponent<EnemyHealth>() != null)
             {
-                NavMeshAgent navMeshAgent = collider.gameObject.GetComponent<NavMeshAgent>();
-                if (navMeshAgent != null)
-                {
-                    navMeshAgent.enabled = false;
-                    StartCoroutine(ReactivateNavMeshAfterDelay(navMeshAgent, 2f));
-                }
-
-                enemyHealth.EnemyTakeDamage(damage);
-                HealPlayer(collider.gameObject);
+                enemy.gameObject.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+                HealPlayer(enemy.gameObject);
                 Debug.Log("Sporeburst hit!");
+            }
+
+            if (enemy.gameObject.GetComponent<MeleeEnemyAttack>() != null)
+            {
+                enemy.gameObject.GetComponent<MeleeEnemyAttack>().CancelAttack();
+                StartCoroutine(ReactivateMelee(enemy.gameObject.GetComponent<MeleeEnemyAttack>()));
+                enemy.gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
+            }
+
+            if (enemy.gameObject.GetComponent<RangedEnemyShoot>() != null)
+            {
+                enemy.gameObject.GetComponent<RangedEnemyShoot>().StartCoroutine("CancelAttack");
+                StartCoroutine(ReactivateRanged(enemy.gameObject.GetComponent<RangedEnemyShoot>()));
+                enemy.gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
+            }
+
+            if (enemy.gameObject.GetComponent<EnemyNavigation>() != null)
+            {
+                StartCoroutine(ReactivateNavigation(enemy.gameObject.GetComponent<EnemyNavigation>(),enemy.gameObject.GetComponent<NavMeshAgent>()));
+                enemy.gameObject.GetComponent<EnemyNavigation>().enabled = false;
+                enemy.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                enemy.gameObject.GetComponent<Animator>().SetBool("IsMoving", false);
             }
         }
     }
@@ -47,14 +60,22 @@ public class Sporeburst : Skill
             GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(healingAmount);
         }
     }
-
-    IEnumerator ReactivateNavMeshAfterDelay(NavMeshAgent navMeshAgent, float delay)
+    IEnumerator ReactivateMelee(MeleeEnemyAttack meleeEnemyAttack)
     {
-        yield return new WaitForSeconds(delay);
-        if (navMeshAgent != null)
-        {
-            navMeshAgent.enabled = true;
-        }
+        yield return new WaitForSeconds(stunDuration);
+        meleeEnemyAttack.enabled = true;
+    }
+    IEnumerator ReactivateRanged(RangedEnemyShoot rangedEnemyShoot)
+    {
+        yield return new WaitForSeconds(stunDuration);
+        rangedEnemyShoot.enabled = true;
+    }
+    IEnumerator ReactivateNavigation(EnemyNavigation enemyNavigation, NavMeshAgent navMeshAgent)
+    {
+        yield return new WaitForSeconds(stunDuration);
+        enemyNavigation.gameObject.GetComponent<Animator>().SetBool("IsMoving", true);
+        navMeshAgent.enabled = true;
+        enemyNavigation.enabled = true;
     }
 }
 

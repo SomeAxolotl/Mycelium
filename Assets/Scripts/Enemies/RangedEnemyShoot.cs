@@ -90,7 +90,7 @@ public class RangedEnemyShoot : MonoBehaviour
         canAttack = true;
 
     }
-    IEnumerator CancelAttack()
+    public IEnumerator CancelAttack()
     {
         if(attackCoroutine != null)
         {

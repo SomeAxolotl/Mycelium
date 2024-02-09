@@ -12,6 +12,8 @@ public class EnemyKnockback : MonoBehaviour
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
     Animator animator;
+    MeleeEnemyAttack meleeEnemyAttack;
+    RangedEnemyShoot rangedEnemyShoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,13 +35,14 @@ public class EnemyKnockback : MonoBehaviour
             flightTimer += Time.deltaTime;
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, .35f) && flightTimer > .3)
+            if (Physics.Raycast(transform.position, -transform.up, out hit, .35f) && flightTimer > .2)
             {
                 damaged = false;
                 flightTimer = 0;
                 navMeshAgent.Warp(transform.position);
                 navMeshAgent.enabled = true;
                 animator.enabled = true;
+                animator.SetBool("IsMoving", true);
                 enemyNavigation.enabled = true;
                 rb.isKinematic = true;
                 rb.useGravity = false;

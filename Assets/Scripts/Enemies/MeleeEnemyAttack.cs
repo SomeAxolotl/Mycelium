@@ -54,7 +54,7 @@ public class MeleeEnemyAttack : MonoBehaviour
                 if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleLayer))
                 {
                     attackStartup += Time.deltaTime;
-                    if (canAttack && attackStartup >= 0.5f)
+                    if (canAttack && attackStartup >= 0.5f && navMeshAgent != null)
                     {     
                         StartCoroutine(Attack());
                     }
@@ -112,7 +112,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-    void CancelAttack()
+    public void CancelAttack()
     {
         StopAllCoroutines();
         attack = Attack();
