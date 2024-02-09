@@ -73,7 +73,7 @@ public class CharacterStats : MonoBehaviour
     public int levelUpCost;
     private NutrientTracker nutrientTracker;
     private DesignTracker designTracker;
-    private SporeAttributeRanges sporeAttributeRanges;
+    private SporeAttributeIncrements sporeAttributeIncrements;
     private PlayerController playerController;
     private SkillManager skillManager;
     [SerializeField] private Nametag nametag;
@@ -88,7 +88,7 @@ public class CharacterStats : MonoBehaviour
         designTracker = GetComponent<DesignTracker>();
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
-        sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
+        sporeAttributeIncrements = playerParent.GetComponent<SporeAttributeIncrements>();
     }
 
     void Update()
@@ -228,7 +228,20 @@ public class CharacterStats : MonoBehaviour
     {
         yield return null;
 
-        float minAttackDamage = sporeAttributeRanges.attackDamageAt1Primal;
+        primalDmg = Mathf.RoundToInt(sporeAttributeIncrements.attackDamageBase + ((primalLevel - 1) * sporeAttributeIncrements.attackDamageIncrement));
+        baseHealth = Mathf.RoundToInt(sporeAttributeIncrements.healthBase + ((vitalityLevel - 1) * sporeAttributeIncrements.healthIncrement));
+        baseRegen = sporeAttributeIncrements.regenBase + ((vitalityLevel - 1) * sporeAttributeIncrements.regenIncrement);
+        moveSpeed = sporeAttributeIncrements.moveSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.moveSpeedIncrement);
+        animatorSpeed = sporeAttributeIncrements.attackSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.attackSpeedIncrement);
+
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerController.GetStats();
+
+        GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+        Animator currentAnimator = currentPlayer.GetComponent<Animator>();
+        currentAnimator.speed = animatorSpeed;
+
+        /*float minAttackDamage = sporeAttributeRanges.attackDamageAt1Primal;
         float maxAttackDamage = sporeAttributeRanges.attackDamageAt15Primal;
         primalDmg = Mathf.RoundToInt(LerpAttribute(minAttackDamage, maxAttackDamage, primalLevel));
 
@@ -251,17 +264,17 @@ public class CharacterStats : MonoBehaviour
         float minAttackSpeed = sporeAttributeRanges.attackSpeedAt1Speed;
         float maxAttackSpeed = sporeAttributeRanges.attackSpeedAt15Speed;
         animatorSpeed = LerpAttribute(minAttackSpeed, maxAttackSpeed, speedLevel);
-        currentAnimator.speed = animatorSpeed;
+        currentAnimator.speed = animatorSpeed;*/
     }
 
-    public float LerpAttribute(float minValue, float maxValue, int level)
+    /*public float LerpAttribute(float minValue, float maxValue, int level)
     {
         float t = (float)level;
         float lerpValue = (-0.081365f) + (0.08f*t) + (0.0015f * Mathf.Pow(t, 2f)) - (0.000135f * Mathf.Pow(t, 3f));
         
         float attributeValue = Mathf.Lerp(minValue, maxValue, lerpValue);
         return attributeValue;
-    }
+    }*/
 
     public void UpdateSporeName()
     {

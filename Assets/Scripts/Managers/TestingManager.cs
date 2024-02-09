@@ -156,6 +156,8 @@ public class TestingManager : MonoBehaviour
         playerStats.sentienceLevel = sentienceLevel;
         playerStats.speedLevel = speedLevel;
         playerStats.vitalityLevel = vitalityLevel;
+
+        player.GetComponent<CharacterStats>().StartCalculateAttributes();
     }
 
     IEnumerator SetPlayerSkills()

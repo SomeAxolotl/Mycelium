@@ -77,16 +77,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3667adb7998406d4eb19068ebadc8384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageAt1Primal: 10
-  attackDamageAt15Primal: 50
-  moveSpeedAt1Speed: 5
-  moveSpeedAt15Speed: 10
-  attackSpeedAt1Speed: 1
-  attackSpeedAt15Speed: 2.5
-  healthAt1Vitality: 50
-  healthAt15Vitality: 250
-  regenAt1Vitality: 1
-  regenAt15Vitality: 10
+  attackDamageBase: 10
+  attackDamageIncrement: 2
+  moveSpeedBase: 3
+  moveSpeedIncrement: 0.2
+  attackSpeedBase: 1
+  attackSpeedIncrement: 0.2
+  healthBase: 100
+  healthIncrement: 20
+  regenBase: 0.2
+  regenIncrement: 0.1
 --- !u!114 &6009664277457351295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   currentHealth: 0
+  isDefending: 0
+  weaponCollision: {fileID: 0}
 --- !u!114 &6339953943085018612
 MonoBehaviour:
   m_ObjectHideFlags: 0
