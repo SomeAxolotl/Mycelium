@@ -4,30 +4,23 @@ using UnityEngine;
 
 public class SpineshotProjectile : MonoBehaviour
 {
-    [SerializeField] private float speed = 12;
-    [SerializeField] private float destroyTime = 5;
+    [SerializeField] private float speed = 12f;
+    [SerializeField] private float lifetime = 5f;
     Rigidbody rb;
     Spineshot spineshot;
-    CamTracker camTracker;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Destroy(gameObject, destroyTime);
+        Destroy(gameObject, lifetime);
         spineshot = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<Spineshot>();
-        camTracker = GameObject.FindWithTag("Camtracker").GetComponentInChildren<CamTracker>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!camTracker.isLockedOn)
-            transform.position += transform.forward * speed * Time.deltaTime;
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, camTracker.currentTarget.position, speed * Time.deltaTime);
-        }
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider collision)
@@ -42,6 +35,10 @@ public class SpineshotProjectile : MonoBehaviour
             {
                 collision.GetComponent<BossHealth>().EnemyTakeDamage(spineshot.finalSkillValue);
             }
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag != "Enemy" || collision.gameObject.tag != "Boss")
+        {
             Destroy(gameObject);
         }
     }

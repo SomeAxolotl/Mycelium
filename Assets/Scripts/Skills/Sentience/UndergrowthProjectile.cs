@@ -7,20 +7,19 @@ using UnityEngine.AI;
 
 public class UndergrowthProjectile : MonoBehaviour
 {
-    [SerializeField] private float speed = 5;
-    public float destroyTime = 1.8f;
-    [SerializeField] private GameObject undergrowthParticles;
-    [SerializeField] private GameObject undergrowthCaughtParticles;
+    private float speed = 12f;
+    private float lifetime = 5f;
     Rigidbody rb;
     Undergrowth undergrowth;
+    [SerializeField] private GameObject undergrowthParticles;
+    [SerializeField] private GameObject undergrowthCaughtParticles;
     List<GameObject> hitEnemy = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Destroy(gameObject, destroyTime);
-        //StartCoroutine(Remove());
+        Destroy(gameObject, lifetime);
         undergrowth = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<Undergrowth>();
     }
 
@@ -65,9 +64,4 @@ public class UndergrowthProjectile : MonoBehaviour
         }
         hitEnemy.Clear();
     }
-    // IEnumerator Remove()
-    // {
-    //     yield return new WaitForSeconds(destroyTime);
-    //     gameObject.SetActive(false);
-    // }
 }
