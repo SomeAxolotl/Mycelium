@@ -16,6 +16,6 @@ public class UnstablePuffball : Skill
     public void DoPuffball()
     {
         GameObject player = GameObject.FindWithTag("currentPlayer");
-        Instantiate(puffballPrefab, new Vector3(player.transform.position.x, player.transform.position.y + 0.8f, player.transform.position.z), transform.rotation);
+        Instantiate(puffballPrefab, player.transform.Find("CenterPoint").position, transform.rotation);
     }
 }

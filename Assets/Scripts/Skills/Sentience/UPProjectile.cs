@@ -7,7 +7,7 @@ public class UPProjectile : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] private float AoERange = 2;
-    [SerializeField] private float speed = 3;
+    [SerializeField] private float speed = 12f;
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
     UnstablePuffball unstablePuffball;
