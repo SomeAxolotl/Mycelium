@@ -5,9 +5,10 @@ using UnityEngine;
 public class LeechingSpore : Skill
 {
     //Skill specific fields
-    [SerializeField] private float detectRange = 5f;
-    [SerializeField] private float durationTime = 5f;
+    [SerializeField] private float attachRange = 5f;
+    [SerializeField] private float sporeDuration = 5f;
     [SerializeField] private GameObject sporeObj;
+    private GameObject currentSpore;
     [SerializeField] private float percentOfDamageHealed = 0.5f;
 
     public override void DoSkill()
@@ -15,7 +16,6 @@ public class LeechingSpore : Skill
         //Skill specific stuff
 
         DoLeech();
-
         EndSkill();
     }
 
@@ -27,10 +27,10 @@ public class LeechingSpore : Skill
         if (closestEnemyObj != null)
         {
             GameObject enemyAttach = GameObject.FindWithTag("EnemySporeAttach");
-            GameObject theSpore = Instantiate(sporeObj, enemyAttach.transform);
+            currentSpore = Instantiate(sporeObj, enemyAttach.transform);
             StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
             StartCoroutine(HealingPlayer(closestEnemyObj.gameObject));
-            StartCoroutine(DestroySpore(theSpore));
+            StartCoroutine(DestroySpore(currentSpore));
         }
     }
 
@@ -38,7 +38,7 @@ public class LeechingSpore : Skill
     {
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectRange, enemyLayerMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, attachRange, enemyLayerMask);
 
         Transform theTarget = null;
         float closestDistance = Mathf.Infinity;
@@ -56,7 +56,6 @@ public class LeechingSpore : Skill
                 theTarget = enemyTargets;
             }
         }
-
         return theTarget;
     }
 
@@ -64,12 +63,14 @@ public class LeechingSpore : Skill
     {
         float timer = 0f;
 
-        while (timer < durationTime)
+        while (timer < sporeDuration)
         {  
             float damage = finalSkillValue;  
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth > 0)
                 enemy.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
-            yield return new WaitForSeconds(1);;
+            else if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth <= 0)
+                Destroy(currentSpore);
+            yield return new WaitForSeconds(1f);;
             timer++;
         }
     }
@@ -78,19 +79,21 @@ public class LeechingSpore : Skill
     {
         float timer = 0f;
 
-        while (timer < durationTime)
+        while (timer < sporeDuration)
         {  
             float damage = finalSkillValue;
-            if (enemy != null) 
+            if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth > 0) 
                 GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(damage * percentOfDamageHealed);
-            yield return new WaitForSeconds(1);
+            else if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth <= 0)
+                Destroy(currentSpore);
+            yield return new WaitForSeconds(1f);
             timer++;
         }
     }
 
     IEnumerator DestroySpore(GameObject theSpore)
     {
-        yield return new WaitForSeconds(durationTime);
+        yield return new WaitForSeconds(sporeDuration);
         Destroy(theSpore);
     }
 }
