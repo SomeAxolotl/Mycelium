@@ -6,7 +6,7 @@ using UnityEngine;
 public class UPProjectile : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] private float AoERange = 2;
+    [SerializeField] private float AOERange = 2;
     [SerializeField] private float speed = 12f;
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
@@ -43,31 +43,28 @@ public class UPProjectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
         {
-            speed = 0;
+            ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
             DamageEnemies();
-            UnstablePuffballParticles();
+            //UnstablePuffballParticles();
         }
 
         int enviornmentLayer = 8;
         int wallLayer = 12;
         if (collision.gameObject.layer == enviornmentLayer || collision.gameObject.layer == wallLayer)
         {
-            speed = 0;
+            ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
             DamageEnemies();
-            UnstablePuffballParticles();
+            //UnstablePuffballParticles();
         }
     }
 
     void DamageEnemies()
     {
-        rb.velocity = Vector3.zero;
-
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
         int bossLayerMask = 1 << LayerMask.NameToLayer("Boss");
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, AoERange, enemyLayerMask | bossLayerMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, AOERange, enemyLayerMask | bossLayerMask);
         
-        // float damage = finalSkillValue;
         foreach (Collider collider in colliders)
         {
             if (collider.GetComponent<EnemyHealth>() != null)
@@ -82,15 +79,15 @@ public class UPProjectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void UnstablePuffballParticles()
+    /*void UnstablePuffballParticles()
     {
         int particlesPerCircle = 360 / particleSpacing;
         
         int currentSmallSpacing = 0;
         for (int i = 0; i < particlesPerCircle; i++)
         {
-            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmallSpacing) * AoERange;
-            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmallSpacing) * AoERange;
+            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmallSpacing) * AOERange;
+            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmallSpacing) * AOERange;
 
             InstantiateParticles(smallX, smallZ);
             currentSmallSpacing += particleSpacing;
@@ -102,5 +99,5 @@ public class UPProjectile : MonoBehaviour
         Vector3 circlePosition = new Vector3(x, particleHeight, z);
         Vector3 spawnPosition = transform.position + circlePosition;
         ParticleManager.Instance.SpawnParticles("EruptionParticles", spawnPosition, Quaternion.LookRotation(Vector3.up, Vector3.up));
-    }
+    }*/
 }

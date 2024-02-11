@@ -11,7 +11,7 @@ public class Eruption : Skill
     [SerializeField] private float largeRadius = 6f;
 
     [SerializeField] private int particleSpacing = 36;
-    [SerializeField] private float particleHeight = 0f;
+    [SerializeField] private float particleHeight = 1f;
 
     public override void DoSkill()
     {
