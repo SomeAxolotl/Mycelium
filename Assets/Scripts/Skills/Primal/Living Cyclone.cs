@@ -45,7 +45,7 @@ public class LivingCyclone : Skill
     {
         WeaponCollision weaponCollision = currentWeapon.GetComponent<WeaponCollision>();
 
-        SoundEffectManager.Instance.PlaySound("Smash", player.transform.position);
+        SoundEffectManager.Instance.PlaySound("Slash", player.transform.position);
         weaponCollision.ClearEnemyList();
         currentWeapon.GetComponent<Collider>().enabled = true;
         weaponCollision.sentienceBonusDamage = finalSkillValue;

@@ -37,6 +37,46 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private float smashVolume = 1f;
     [SerializeField] private List<AudioClip> smashSounds = new List<AudioClip>();
 
+    [Header("Projectile SFX")]
+    [SerializeField] private float projectileVolume = 1f;
+    [SerializeField] private List<AudioClip> projectileSounds = new List<AudioClip>();
+
+    [Header("Explosion SFX")]
+    [SerializeField] private float explosionVolume = 1f;
+    [SerializeField] private List<AudioClip> explosionSounds = new List<AudioClip>();
+
+    [Header("Beetle Charge SFX")]
+    [SerializeField] private float beetleChargeVolume = 1f;
+    [SerializeField] private List<AudioClip> beetleChargeSounds = new List<AudioClip>();
+
+    [Header("Stickbug Shoot SFX")]
+    [SerializeField] private float stickbugShootVolume = 1f;
+    [SerializeField] private List<AudioClip> stickbugShootSounds = new List<AudioClip>();
+
+    [Header("Footstep 1 SFX")]
+    [SerializeField] private float footstep1Volume = 1f;
+    [SerializeField] private List<AudioClip> footstep1Sounds = new List<AudioClip>();
+
+    [Header("Footstep 2 SFX")]
+    [SerializeField] private float footstep2Volume = 1f;
+    [SerializeField] private List<AudioClip> footstep2Sounds = new List<AudioClip>();
+
+    [Header("Panting SFX")]
+    [SerializeField] private float pantingVolume = 1f;
+    [SerializeField] private List<AudioClip> pantingSounds = new List<AudioClip>();
+
+    [Header("Pickup SFX")]
+    [SerializeField] private float pickupVolume = 1f;
+    [SerializeField] private List<AudioClip> pickupSounds = new List<AudioClip>();
+
+    [Header("Hurt SFX")]
+    [SerializeField] private float hurtVolume = 1f;
+    [SerializeField] private List<AudioClip> hurtSounds = new List<AudioClip>();
+
+    [Header("Damaged SFX")]
+    [SerializeField] private float damagedVolume = 1f;
+    [SerializeField] private List<AudioClip> damagedSounds = new List<AudioClip>();
+
     [Header("UIMove SFX")]
     [SerializeField] private float uiMoveVolume = 1f;
     [SerializeField] private List<AudioClip> uiMoveSounds = new List<AudioClip>();
@@ -57,6 +97,7 @@ public class SoundEffectManager : MonoBehaviour
                 break;
 
             case "Slash":
+                Debug.Log("slash sound");
                 clipList = slashSounds;
                 clipVolume = slashVolume;
                 break;
@@ -70,14 +111,70 @@ public class SoundEffectManager : MonoBehaviour
                 clipList = smashSounds;
                 clipVolume = smashVolume;
                 break;
+
             case "UIMove":
                 clipList = uiMoveSounds;
                 clipVolume = uiMoveVolume;
                 break;
+
             case "UISelect":
                 clipList = uiSelectSounds;
                 clipVolume = uiSelectVolume;
                 break;
+
+            case "Projectile":
+                clipList = projectileSounds;
+                clipVolume = projectileVolume;
+                break;
+
+            case "Explosion":
+                clipList = explosionSounds;
+                clipVolume = explosionVolume;
+                break;
+
+            case "Beetle Charge":
+                clipList = beetleChargeSounds;
+                clipVolume = beetleChargeVolume;
+                break;
+
+            case "Stickbug Shoot":
+                clipList = stickbugShootSounds;
+                clipVolume = stickbugShootVolume;
+                break;
+
+            case "Footstep 1":
+                clipList = footstep1Sounds;
+                clipVolume = footstep1Volume;
+                break;
+
+            case "Footstep 2":
+                clipList = footstep2Sounds;
+                clipVolume = footstep2Volume;
+                break;
+
+            case "Panting":
+                clipList = pantingSounds;
+                clipVolume = pantingVolume;
+                break;
+
+            case "Pickup":
+                clipList = pickupSounds;
+                clipVolume = pickupVolume;
+                break;
+
+            case "Hurt":
+                clipList = hurtSounds;
+                clipVolume = hurtVolume;
+                break;
+            
+            case "Damaged":
+                clipList = damagedSounds;
+                clipVolume = damagedVolume;
+                break;
+
+            default:
+                Debug.LogWarning($"PlaySound: Unrecognized clipName '{clipName}'");
+                return;
 
         }
 

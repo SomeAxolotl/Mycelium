@@ -60,6 +60,8 @@ public class UPProjectile : MonoBehaviour
 
     void DamageEnemies()
     {
+        SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
         int bossLayerMask = 1 << LayerMask.NameToLayer("Boss");
 

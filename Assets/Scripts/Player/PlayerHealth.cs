@@ -23,6 +23,8 @@ public class PlayerHealth : MonoBehaviour
     private Animator animator;
     private SceneLoader sceneLoaderScript;
 
+    [SerializeField] private float timeBetweenHurtSounds = 0.25f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +84,8 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
+        StartCoroutine(HurtSound());
+
         animator = GetComponentInChildren<Animator>();
         if(animator.GetBool("Hurt") == true)
         {
@@ -144,5 +148,16 @@ public class PlayerHealth : MonoBehaviour
         GetHealthStats();
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+    }
+
+    IEnumerator HurtSound()
+    {
+        GameObject player = GameObject.FindWithTag("currentPlayer");
+
+        SoundEffectManager.Instance.PlaySound("Damaged", player.transform.position);
+
+        yield return new WaitForSeconds(timeBetweenHurtSounds);
+
+        SoundEffectManager.Instance.PlaySound("Hurt", player.transform.position);
     }
 }

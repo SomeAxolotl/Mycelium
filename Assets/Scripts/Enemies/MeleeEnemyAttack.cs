@@ -76,6 +76,8 @@ public class MeleeEnemyAttack : MonoBehaviour
     }
     IEnumerator Attack()
     {
+        SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+
         canAttack = false;
         attackStarted = true;
         enemyNavigation.attacking = true;

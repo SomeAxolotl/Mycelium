@@ -16,6 +16,7 @@ public class Spineshot : Skill
     public void DoSpineshot()
     {
         GameObject player = GameObject.FindWithTag("currentPlayer");
+        SoundEffectManager.Instance.PlaySound("Projectile", player.transform.position);
         Instantiate(spineshotPrefab, player.transform.Find("CenterPoint").position, transform.rotation);
     }
 }
