@@ -462,7 +462,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)
     {
-      if (currentStatLevel >= targetStatLevel && currentstats.skillUnlocks[skillName] == false)
+      if (currentStatLevel >= targetStatLevel && currentstats.skillEquippables[skillName] == false)
       { 
         newlyUnlockedSkills.Add(skillName);
         currentstats.UnlockSkill(skillName);
