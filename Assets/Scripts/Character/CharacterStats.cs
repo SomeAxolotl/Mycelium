@@ -13,22 +13,6 @@ public class CharacterStats : MonoBehaviour
         {"NoSkill"}
     };
 
-    //Able to be purchased
-    public Dictionary<string, bool> skillUnlocks = new Dictionary<string, bool>()
-    {
-        {"Eruption", false},
-        {"LivingCyclone", false},
-        {"RelentlessFury", false},
-        {"Blitz", false},
-        {"TrophicCascade", false},
-        {"Mycotoxins", false},
-        {"Spineshot", false},
-        {"UnstablePuffball", false},
-        {"Undergrowth", false},
-        {"LeechingSpore", false},
-        {"Sporeburst", false},
-        {"DefenseMechanism", false}
-    };
     //Able to be equipped
     public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
     {
@@ -299,14 +283,10 @@ public class CharacterStats : MonoBehaviour
 
     public void UnlockSkill(string skillName)
     {
-        skillUnlocks[skillName] = true;
+        skillEquippables[skillName] = true;
     }
     public void RelockSkill(string skillName)
     {
-        skillUnlocks[skillName] = false;
-    }
-    public void PurchaseSkill(string skillName)
-    {
-        skillEquippables[skillName] = true;
+        skillEquippables[skillName] = false;
     }
 }
