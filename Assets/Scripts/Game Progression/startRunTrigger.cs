@@ -11,7 +11,7 @@ public class startRunTrigger : MonoBehaviour
     GameObject UIEnable;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("currentPlayer") && SceneLoadingManager.Instance.isLoading == false)
+        if(other.CompareTag("currentPlayer") && SceneLoader.Instance.isLoading == false)
         {
            playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
            playerController.DisableController();

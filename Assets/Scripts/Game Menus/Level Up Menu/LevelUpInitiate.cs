@@ -27,7 +27,7 @@ public class LevelUpInitiate : MonoBehaviour
         //playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         //meleeAttack = GameObject.FindWithTag("PlayerParent").GetComponent<MeleeAttack>();
 
-        if (other.gameObject.tag == "currentPlayer" && SceneLoadingManager.Instance.isLoading == false)
+        if (other.gameObject.tag == "currentPlayer" && SceneLoader.Instance.isLoading == false)
         {
             playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
             playerController.DisableController();
