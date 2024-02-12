@@ -74,8 +74,35 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    public void BeginLoadScene(string sceneName, bool doGoodTransition)
+    {
+        int sceneIndex = SceneManager.GetSceneByName(sceneName).buildIndex;
+
+        if (doGoodTransition == true)
+        {
+            StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneBad(sceneIndex, defaultTransitionTime));
+        }
+    }
+
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition, float transitionTime)
     {
+        if (doGoodTransition == true)
+        {
+            StartCoroutine(LoadSceneGood(sceneIndex, transitionTime));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneBad(sceneIndex, transitionTime));
+        }
+    }
+    public void BeginLoadScene(string sceneName, bool doGoodTransition, float transitionTime)
+    {
+        int sceneIndex = SceneManager.GetSceneByName(sceneName).buildIndex;
+
         if (doGoodTransition == true)
         {
             StartCoroutine(LoadSceneGood(sceneIndex, transitionTime));

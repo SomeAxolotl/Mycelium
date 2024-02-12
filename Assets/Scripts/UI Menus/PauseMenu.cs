@@ -18,35 +18,44 @@ public class PauseMenu : MonoBehaviour
     NutrientTracker nutrientTracker;
     GameObject playerParent;
     SceneLoader sceneLoaderScript;
+    bool isOnMainMenu;
 
     private ThirdPersonActionsAsset playerInput = null;
 
     private void Awake()
     {
-        playerInput = new ThirdPersonActionsAsset();
-        nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
-        playerParent = GameObject.FindWithTag("PlayerParent");
-        HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
-        hudItem = HUD.GetComponent<HUDItem>();
-        sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        PauseData.isAbleToPause = true;
-        Resume();
+        isOnMainMenu = SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0);
+
+        if (isOnMainMenu == false)
+        {
+            playerInput = new ThirdPersonActionsAsset();
+            nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
+            playerParent = GameObject.FindWithTag("PlayerParent");
+            HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
+            hudItem = HUD.GetComponent<HUDItem>();
+            sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+            PauseData.isAbleToPause = true;
+            Resume();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerInput.Player.Pause.WasPressedThisFrame() && PauseData.isAbleToPause == true)
+        if (isOnMainMenu == false)
         {
-            if (PauseData.isGamePaused == true)
+            if (playerInput.Player.Pause.WasPressedThisFrame() && PauseData.isAbleToPause == true)
             {
-                Resume();
-                SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
-            }
-            else
-            {
-                Pause();
-                resumeButton.Select();
+                if (PauseData.isGamePaused == true)
+                {
+                    Resume();
+                    SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
+                }
+                else
+                {
+                    Pause();
+                    resumeButton.Select();
+                }
             }
         }
     }
@@ -109,18 +118,24 @@ public class PauseMenu : MonoBehaviour
         Destroy(weapon);
         if(playerParent.GetComponent<SwapWeapon>().curWeapon != null)
         {
-            sceneLoaderScript.BeginLoadScene(2, true); //this is assuming the hubworld scene is index 1
+            sceneLoaderScript.BeginLoadScene(2, true);
         }
     }
 
     private void OnEnable()
     {
-        playerInput.Enable();
-        resumeButton.Select();
+        if (isOnMainMenu == false)
+        {
+            playerInput.Enable();
+            resumeButton.Select();
+        }
     }
 
     private void OnDisable()
     {
-        playerInput.Disable();
+        if (isOnMainMenu == false)
+        {
+            playerInput.Disable();
+        }
     }
 }
