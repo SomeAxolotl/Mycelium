@@ -12,6 +12,7 @@ public class RelentlessFury : Skill
     [SerializeField] private float increaseSpeedPercentage;
     public GameObject relentlessFuryParticles;
     public bool isFrenzied;
+    public float originalSpeed;
 
     public override void DoSkill()
     {
@@ -30,6 +31,7 @@ public class RelentlessFury : Skill
     {
         InstantiateParticles();
         isFrenzied = true;
+        originalSpeed = characterStats.moveSpeed;
         float increaseSpeed = characterStats.moveSpeed * increaseSpeedPercentage;
         characterStats.moveSpeed += increaseSpeed;
         StartCoroutine(HurtPlayer());

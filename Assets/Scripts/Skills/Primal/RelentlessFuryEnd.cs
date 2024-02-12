@@ -41,6 +41,7 @@ public class RelentlessFuryEnd : MonoBehaviour
             if (GameObject.FindWithTag("RelentlessFury").activeSelf)
             {
                 playerController.canUseDodge = true;
+                relentlessFury.characterStats.moveSpeed = relentlessFury.originalSpeed;
                 Destroy(GameObject.FindWithTag("RelentlessFuryParticles"));
                 relentlessFury.isFrenzied = false;
                 relentlessFury.durationTime = 0;
@@ -55,6 +56,7 @@ public class RelentlessFuryEnd : MonoBehaviour
         if (GameObject.FindWithTag("RelentlessFury").activeSelf)
         {
             playerController.canUseDodge = true;
+            relentlessFury.characterStats.moveSpeed = relentlessFury.originalSpeed;
             Destroy(GameObject.FindWithTag("RelentlessFuryParticles"));
             relentlessFury.isFrenzied = false;
             relentlessFury.durationTime = 0;
