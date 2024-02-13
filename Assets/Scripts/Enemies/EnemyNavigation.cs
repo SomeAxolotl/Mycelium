@@ -8,19 +8,19 @@ public class EnemyNavigation : MonoBehaviour
     [HideInInspector] public NavMeshAgent navMeshAgent;
     public bool playerSeen;
     public bool attacking = false;
-    private bool startedPatrol = false;
+    public bool startedPatrol = false;
     private float patrolRadius = 10f;
     [HideInInspector] public float speed;
     private float rerouteTimer;
-    [HideInInspector] public float attackStopdistance;
     private Vector3 previousPosition;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
     private Transform player;
+    private Transform center;
     [SerializeField] private float fieldOfView = 60f;
-    [SerializeField] private float detectionRange = 25f;
-    [SerializeField] private float detectionBuffer = 12f;
+    [SerializeField] private float forwardDetectionRange = 25f;
+    [SerializeField] private float backwardsDetectionRange = 15f;
     [HideInInspector] public Animator animator;
     public bool undergrowthSpeed;
 
@@ -31,6 +31,7 @@ public class EnemyNavigation : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("IsMoving", true);
         previousPosition = transform.position;
+        center = transform.Find("CenterPoint");
     }
 
     // Update is called once per frame
@@ -40,31 +41,24 @@ public class EnemyNavigation : MonoBehaviour
         previousPosition = transform.position;
         speed = currentVelocity.magnitude;
 
-        playerColliders = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
+        playerColliders = Physics.OverlapSphere(transform.position, forwardDetectionRange, playerLayer);
         foreach (var playerCollider in playerColliders)
         {
-            player = playerCollider.transform;
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            float dstToPlayer = Vector3.Distance(transform.position, player.position);
+            player = playerCollider.transform.Find("CenterPoint");
+            Vector3 dirToPlayer = (player.position - center.position).normalized;
+            float dstToPlayer = Vector3.Distance(center.position, player.position);
             var newRotation = Quaternion.LookRotation(dirToPlayer);
-            
-            if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer) || 
-                dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer))
+            if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView || dstToPlayer <= backwardsDetectionRange)
             {
-                playerSeen = true;
-                startedPatrol = false;
-                if(!attacking)
+                if(!Physics.Raycast(center.position, new Vector3(dirToPlayer.x, center.position.y, dirToPlayer.z), dstToPlayer, obstacleLayer))
                 {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
+                    playerSeen = true;
+                    startedPatrol = false;
                 }
-                else if(attacking)
+                else
                 {
-                    transform.rotation = transform.rotation;
+                    playerSeen = false;
                 }
-            }
-            else
-            {
-                playerSeen = false;
             }
         }
 

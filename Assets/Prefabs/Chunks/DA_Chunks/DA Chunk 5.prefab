@@ -1758,6 +1758,7 @@ GameObject:
   - component: {fileID: 3262008213438829418}
   - component: {fileID: 6646939798377807918}
   - component: {fileID: 2088674579766813041}
+  - component: {fileID: 8066815599357340961}
   m_Layer: 8
   m_Name: pCone1
   m_TagString: Untagged
@@ -1852,6 +1853,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2934717439318261032, guid: 6e27ab3cb8d80574b919fe6f34b47f9d, type: 3}
+--- !u!208 &8066815599357340961
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145550399454449718}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.010000001, y: 0.05, z: 0.010000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &145771943812534782
 GameObject:
   m_ObjectHideFlags: 0
@@ -69552,37 +69569,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2271310147155535479, guid: 6e27ab3cb8d80574b919fe6f34b47f9d, type: 3}
---- !u!1 &5651845729541929594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4103723036732080934}
-  m_Layer: 8
-  m_Name: Trees
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4103723036732080934
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651845729541929594}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.8, z: -3.52}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6681531056868875575}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5656912711115298811
 GameObject:
   m_ObjectHideFlags: 0
@@ -97670,7 +97656,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4103723036732080934}
   - {fileID: 2399470281874337693}
   - {fileID: 235000910907346596}
   - {fileID: 6587636013244244752}
@@ -109830,6 +109815,7 @@ GameObject:
   - component: {fileID: 5111516286241577132}
   - component: {fileID: 4011012417897893303}
   - component: {fileID: 7501413725179084370}
+  - component: {fileID: 6348037411198289824}
   m_Layer: 8
   m_Name: pCone1
   m_TagString: Untagged
@@ -109924,6 +109910,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2934717439318261032, guid: 6e27ab3cb8d80574b919fe6f34b47f9d, type: 3}
+--- !u!208 &6348037411198289824
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8837269464195882329}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.010000001, y: 0.04, z: 0.010000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8843184776626332410
 GameObject:
   m_ObjectHideFlags: 0

@@ -622,6 +622,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   playerSeen: 0
   attacking: 0
+  startedPatrol: 0
   speed: 0
   attackStopdistance: 2.5
   playerLayer:
@@ -631,8 +632,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4352
   fieldOfView: 60
-  detectionRange: 20
-  detectionBuffer: 4
+  forwardDetectionRange: 25
+  backwardsDetectionRange: 15
   animator: {fileID: 0}
   undergrowthSpeed: 0
 --- !u!114 &8162784301421615109
@@ -650,9 +651,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  canAttack: 1
+  isAttacking: 0
+  attackStarted: 0
+  playerDamaged: 0
   attackCooldown: 2
   damage: 10
   knockbackForce: 50
