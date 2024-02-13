@@ -72,6 +72,7 @@ public class PlayerHealth : MonoBehaviour
                     PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
                 }
                 sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+                GameManager.Instance.OnPlayerDeath();
                 sceneLoaderScript.BeginLoadScene(2, false);
                 StartCoroutine(Death());
             }

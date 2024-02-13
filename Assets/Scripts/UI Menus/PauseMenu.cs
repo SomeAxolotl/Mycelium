@@ -116,6 +116,7 @@ public class PauseMenu : MonoBehaviour
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         Destroy(weapon);
+        GameManager.Instance.OnExitToHub();
         if(playerParent.GetComponent<SwapWeapon>().curWeapon != null)
         {
             sceneLoaderScript.BeginLoadScene(2, true);

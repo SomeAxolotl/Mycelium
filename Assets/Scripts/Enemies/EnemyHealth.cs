@@ -68,6 +68,7 @@ public class EnemyHealth : MonoBehaviour
 
             if (gameObject.name == "Giga Beetle")
             {
+                GameManager.Instance.OnExitToHub();
                 PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
                 GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
             }

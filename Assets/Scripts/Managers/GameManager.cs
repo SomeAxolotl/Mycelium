@@ -46,6 +46,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnPlayerDeath()
+    {
+        GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
+    }
+
+    public void OnExitToHub()
+    {
+        GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
+    }
+
     IEnumerator PlacePlayer()
     {
         yield return new WaitForEndOfFrame();
