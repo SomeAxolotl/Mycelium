@@ -120,11 +120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  ValueAt1Sentience: 5
-  ValueAt15Sentience: 15
-  finalSkillValue: 0
-  CooldownAt1Sentience: 6
-  CooldownAt15Sentience: 2
+  valueBase: 15
+  valueIncrement: 1
+  finalSkillValue: 30
+  cooldownBase: 6
+  cooldownIncrement: -0.2
   finalSkillCooldown: 0
   player: {fileID: 0}
   characterStats: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   distanceInFront: 2
   destroyTime: 5
   burstRadius: 4
-  damageOverTimeDuration: 7
+  damageOverTimeDuration: 5
   particleSpacing: 36
   particleHeight: 0
 --- !u!54 &3614880863353378627
