@@ -18,6 +18,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private GameObject mainMenuStartupImage;
     [SerializeField] private GameObject defaultImage;
     [SerializeField] private GameObject defaultLoadPanel;
+    [SerializeField] float startupDelayTime;
 
     [Header("--Good Exit Section--")]
     [SerializeField] private Canvas goodExitSceneCanvas;
@@ -29,6 +30,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Canvas badExitSceneCanvasPart2;
     [SerializeField] private Image badExitSceneLoadBar;
     [SerializeField] private TMP_Text badExitSceneFunText;
+    [SerializeField] private float inbetweenTime;
 
     [Header("")]
     public bool isLoading = false;
@@ -92,6 +94,13 @@ public class SceneLoader : MonoBehaviour
         float t = 0f;
         float i = 0f;
 
+        enterSceneLoadBar.fillAmount = 1;
+        ChangeFunText(enterSceneFunText, 1);
+
+        enterSceneCanvasGroup.alpha = 1f;
+        enterSceneCanvasGroup.blocksRaycasts = true;
+        enterSceneCanvasGroup.interactable = true;
+
         if (isOnStartup == true)
         {
             mainMenuStartupImage.SetActive(true);
@@ -99,14 +108,8 @@ public class SceneLoader : MonoBehaviour
             defaultLoadPanel.SetActive(false);
 
             GlobalData.gameIsStarting = false;
+            yield return new WaitForSecondsRealtime(startupDelayTime);
         }
-
-        enterSceneLoadBar.fillAmount = 1;
-        ChangeFunText(enterSceneFunText, 1);
-
-        enterSceneCanvasGroup.alpha = 1f;
-        enterSceneCanvasGroup.blocksRaycasts = true;
-        enterSceneCanvasGroup.interactable = true;
 
         while (i < 0.5f)
         {
@@ -166,7 +169,7 @@ public class SceneLoader : MonoBehaviour
         yield return StartCoroutine(FadeCanvasIn(badExitSceneCanvasGroupPart1, transitionTime));
         Debug.Log("Bad Canvas Part 1 Faded In");
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(inbetweenTime);
 
         yield return StartCoroutine(FadeCanvasIn(badExitSceneCanvasGroupPart2, transitionTime));
         Debug.Log("Bad Canvas Part 2 Faded In");

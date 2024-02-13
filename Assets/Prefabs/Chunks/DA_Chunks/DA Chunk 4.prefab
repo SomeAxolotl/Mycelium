@@ -14726,6 +14726,7 @@ GameObject:
   - component: {fileID: 5228033298575851971}
   - component: {fileID: 7451595668075911003}
   - component: {fileID: 2025331690496029721}
+  - component: {fileID: 8888369420990543133}
   m_Layer: 8
   m_Name: pCylinder1
   m_TagString: Untagged
@@ -14820,6 +14821,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5076798556035486163, guid: 6e27ab3cb8d80574b919fe6f34b47f9d, type: 3}
+--- !u!208 &8888369420990543133
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571575956822479239}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.036000002, y: 0.010000001, z: 0.036000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.002, y: 0, z: 0.002}
+  m_TimeToStationary: 0.5
 --- !u!1 &1574651851949923870
 GameObject:
   m_ObjectHideFlags: 0
@@ -26816,6 +26833,7 @@ GameObject:
   - component: {fileID: 2616812840720805016}
   - component: {fileID: 1939446844087421023}
   - component: {fileID: 5509782805961753693}
+  - component: {fileID: 7976908612062634176}
   m_Layer: 8
   m_Name: pCylinder1
   m_TagString: Untagged
@@ -26910,6 +26928,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5076798556035486163, guid: 6e27ab3cb8d80574b919fe6f34b47f9d, type: 3}
+--- !u!208 &7976908612062634176
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897724529890344717}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.036000002, y: 0.010000001, z: 0.036000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.002, y: 0, z: 0.002}
+  m_TimeToStationary: 0.5
 --- !u!1 &2904844543937556990
 GameObject:
   m_ObjectHideFlags: 0
@@ -32527,6 +32561,7 @@ GameObject:
   - component: {fileID: 6804246620629141930}
   - component: {fileID: 1331949954635225452}
   - component: {fileID: 7284550266324216930}
+  - component: {fileID: 3265715859122113045}
   m_Layer: 8
   m_Name: pCylinder1
   m_TagString: Untagged
@@ -32621,6 +32656,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5076798556035486163, guid: 6e27ab3cb8d80574b919fe6f34b47f9d, type: 3}
+--- !u!208 &3265715859122113045
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343259903939495755}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.036000002, y: 0.010000001, z: 0.036000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.002, y: 0, z: 0.002}
+  m_TimeToStationary: 0.5
 --- !u!1 &3347872218746191499
 GameObject:
   m_ObjectHideFlags: 0
@@ -100906,7 +100957,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8721238219236192224, guid: 1ca268ef99fb9aa4689155a45ab2bccd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1982776011424637258}
   m_SourcePrefab: {fileID: 100100000, guid: 1ca268ef99fb9aa4689155a45ab2bccd, type: 3}
 --- !u!4 &7237097872859359411 stripped
 Transform:
@@ -100914,6 +100969,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1597803096922529257}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8008673953733423625 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8721238219236192224, guid: 1ca268ef99fb9aa4689155a45ab2bccd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1597803096922529257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &1982776011424637258
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8008673953733423625}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &6096846374371815636
 PrefabInstance:
   m_ObjectHideFlags: 0
