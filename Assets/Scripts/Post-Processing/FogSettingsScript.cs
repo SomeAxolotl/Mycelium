@@ -11,12 +11,16 @@ public class FogSettingsScript : MonoBehaviour
 
     [SerializeField] [Tooltip("Default color is White")] Color fogColor;
 
-    // Update is called once per frame
-    void Update()
+    [ContextMenu("UpdateFog")]
+    void UpdateFog()
     {
         Shader.SetGlobalFloat("_WhereFogStarts", whereFogStarts);
         Shader.SetGlobalFloat("_WhereFogReachesMax", whereFogReachesMax);
         Shader.SetGlobalFloat("_FogAlpha", fogAlpha);
         Shader.SetGlobalColor("_FogColor", fogColor);
+    }
+    private void OnValidate()
+    {
+        UpdateFog();
     }
 }
