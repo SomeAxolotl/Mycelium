@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  ValueAt1Sentience: 10
-  ValueAt15Sentience: 30
-  finalSkillValue: 0
-  CooldownAt1Sentience: 8
-  CooldownAt15Sentience: 4
+  valueBase: 5
+  valueIncrement: 1
+  finalSkillValue: 20
+  cooldownBase: 8
+  cooldownIncrement: -0.27
   finalSkillCooldown: 0
   player: {fileID: 0}
   characterStats: {fileID: 0}
@@ -57,6 +57,4 @@ MonoBehaviour:
   playerHealth: {fileID: 0}
   currentAnimator: {fileID: 0}
   undergrowthPrefab: {fileID: 3331909286658557998, guid: 180682d93dcea9f45b702deaaee21792,
-    type: 3}
-  undergrowthParticles: {fileID: 4274662660323452128, guid: f458583a56e640843becc26b3d903be1,
     type: 3}

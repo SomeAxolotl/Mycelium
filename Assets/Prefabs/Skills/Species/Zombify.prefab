@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  ValueAt1Sentience: 10
-  ValueAt15Sentience: 30
+  valueBase: 10
+  valueIncrement: 2
   finalSkillValue: 0
-  CooldownAt1Sentience: 6
-  CooldownAt15Sentience: 2
+  cooldownBase: 10
+  cooldownIncrement: -0.33
   finalSkillCooldown: 0
   player: {fileID: 0}
   characterStats: {fileID: 0}
@@ -58,3 +58,5 @@ MonoBehaviour:
   currentAnimator: {fileID: 0}
   destroyTime: 5
   burstRadius: 10
+  zombifyRange: 7
+  zombifyMaterial: {fileID: 0}
