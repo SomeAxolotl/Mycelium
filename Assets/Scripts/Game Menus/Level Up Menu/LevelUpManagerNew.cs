@@ -78,8 +78,6 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
       controls = new ThirdPersonActionsAsset();
-      controls.UI.MenuSwapR.started += ctx => MenuSwap();
-      controls.UI.MenuSwapL.started += ctx => MenuSwapL();
       controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
@@ -110,7 +108,8 @@ public class LevelUpManagerNew : MonoBehaviour
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
-
+      ControlEnable();
+      Invoke("MenuSwapDelay", 0.25f);
 
     }
     void Update()
@@ -127,6 +126,11 @@ public class LevelUpManagerNew : MonoBehaviour
     void ControlEnable()
     {
        controls.UI.Enable();  
+    }
+    void MenuSwapDelay()
+    {
+      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      controls.UI.MenuSwapL.performed += ctx => MenuSwapL();
     }
     void OnDisable()
     {
