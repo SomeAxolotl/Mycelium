@@ -28,20 +28,10 @@ public class SpineshotDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Spineshot: <br><br> <size=25>Fire out a spine damaging the first enemy hit.";
     }
-    else if (currentstats.sentienceLevel >= 5 && currentstats.skillEquippables["Spineshot"] == false && nutrientTracker.currentNutrients >= skillpurchase.spineshotNutrientCost && nutrientTracker.storedCalcite >= skillpurchase.spineshotMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Spineshot: <br><br> <size=25>Fire out a spine damaging the first enemy hit. <br><br> <color=#38BC0F>Cost: 2500 Nutrients and 1 Calcite";
-    }
-    else if (currentstats.sentienceLevel >= 5 && currentstats.skillEquippables["Spineshot"] == false)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Spineshot: <br><br> <size=25>Fire out a spine damaging the first enemy hit. <br><br> <color=#FF534C>Cost: 2500 Nutrients and 1 Calcite";
-    }
     else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Spineshot: <br><br> <size=25>Fire out a spine damaging the first enemy hit. <br><br> <color=#FF534C>Purchasable at Sentience Level 5";
+        SkillDesc.text ="Spineshot: <br><br> <size=25>Fire out a spine damaging the first enemy hit. <br><br> <color=#FF534C>Unlocks at Sentience Level 5";
     }
    }
 }

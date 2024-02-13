@@ -27,20 +27,10 @@ public class LeechingSporeDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Leeching Spores: <br><br> <size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.";
     }
-    else if(currentstats.vitalityLevel >= 5 && currentstats.skillEquippables["LeechingSpore"] == false && nutrientTracker.currentNutrients >= skillpurchase.leechingSporeNutrientCost && nutrientTracker.storedFlesh >= skillpurchase.leechingSporeMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Leeching Spores: <br><size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.<br> <color=#38BC0F>Cost: 2500 Nutrients and 1 Flesh";
-    }
-    else if(currentstats.vitalityLevel >= 5 && currentstats.skillEquippables["LeechingSpore"] == false)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Leeching Spores: <br><size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.<br> <color=#FF534C>Cost: 2500 Nutrients and 1 Flesh";
-    }
     else 
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Leeching Spores: <br><size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.<br> <color=#FF534C>Purchasable at Vitality Level 5";
+        SkillDesc.text ="Leeching Spores: <br><size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.<br> <color=#FF534C>Unlocks at Vitality Level 5";
     }
    }
 }

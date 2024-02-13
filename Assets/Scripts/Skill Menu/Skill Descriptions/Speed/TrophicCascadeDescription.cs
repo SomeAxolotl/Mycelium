@@ -28,20 +28,10 @@ public class TrophicCascadeDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Trophic Cascade: <br> <size=25>Release a flurry of attacks slashing<br> all enemies around you.";
     }
-    else if (currentstats.speedLevel >= 10 && currentstats.skillEquippables["TrophicCascade"] == false && nutrientTracker.currentNutrients >= skillpurchase.cascadeNutrientCost && nutrientTracker.storedExoskeleton >= skillpurchase.cascadeMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Trophic Cascade: <br> <size=25>Release a flurry of attacks slashing<br> all enemies around you.<br><br> <color=#38BC0F>Cost: 5000 Nutrients and 2 Exoskeletons";
-    }
-    else if (currentstats.speedLevel >= 10 && currentstats.skillEquippables["TrophicCascade"] == false)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Trophic Cascade: <br> <size=25>Release a flurry of attacks slashing<br> all enemies around you.<br><br> <color=#FF534C>Cost: 5000 Nutrients and 2 Exoskeletons";
-    }
     else 
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Trophic Cascade: <br> <size=25>Release a flurry of attacks slashing<br> all enemies around you.<br><br> <color=#FF534C>Purchasable at Speed Level 10";
+        SkillDesc.text = "Trophic Cascade: <br> <size=25>Release a flurry of attacks slashing<br> all enemies around you.<br><br> <color=#FF534C>Unlocks at Speed Level 10";
     }
    }
 }
