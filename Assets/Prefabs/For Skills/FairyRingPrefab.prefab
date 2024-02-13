@@ -119,11 +119,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  ValueAt1Sentience: 10
-  ValueAt15Sentience: 100
-  finalSkillValue: 140
-  CooldownAt1Sentience: 6
-  CooldownAt15Sentience: 2
+  valueBase: 10
+  valueIncrement: 2
+  finalSkillValue: 21
+  cooldownBase: 8
+  cooldownIncrement: -0.26
   finalSkillCooldown: 0
   player: {fileID: 0}
   characterStats: {fileID: 0}
@@ -131,7 +131,6 @@ MonoBehaviour:
   playerHealth: {fileID: 0}
   currentAnimator: {fileID: 0}
   fairyRingPrefab: {fileID: 0}
-  burstRadius: 10
   damageOverTimeDuration: 7
   speedReduction: 0.5
   timeElapsed: 0

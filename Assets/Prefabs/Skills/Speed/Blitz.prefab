@@ -45,17 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  ValueAt1Sentience: 10
-  ValueAt15Sentience: 30
-  finalSkillValue: 0
-  CooldownAt1Sentience: 10
-  CooldownAt15Sentience: 5
+  valueBase: 5
+  valueIncrement: 1
+  finalSkillValue: 20
+  cooldownBase: 6
+  cooldownIncrement: -0.2
   finalSkillCooldown: 0
   player: {fileID: 0}
   characterStats: {fileID: 0}
   playerController: {fileID: 0}
   playerHealth: {fileID: 0}
   currentAnimator: {fileID: 0}
+  blitzTime: 0.3
   raycastDistance: 1
   particleCount: 10
   timeBetweenParticles: 0.025

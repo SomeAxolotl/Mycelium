@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  ValueAt1Sentience: 10
-  ValueAt15Sentience: 30
+  valueBase: 10
+  valueIncrement: 2
   finalSkillValue: 0
-  CooldownAt1Sentience: 20
-  CooldownAt15Sentience: 10
+  cooldownBase: 12
+  cooldownIncrement: -0.34
   finalSkillCooldown: 0
   player: {fileID: 0}
   characterStats: {fileID: 0}
@@ -64,6 +64,7 @@ MonoBehaviour:
   relentlessFuryParticles: {fileID: 253226915323836960, guid: 24b64fd006eb4aa4f875be17f68e0a72,
     type: 3}
   isFrenzied: 0
+  originalSpeed: 0
 --- !u!114 &666924456857958037
 MonoBehaviour:
   m_ObjectHideFlags: 0

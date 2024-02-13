@@ -77,16 +77,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3667adb7998406d4eb19068ebadc8384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBase: 10
-  attackDamageIncrement: 2
+  attackDamageBase: 5
+  attackDamageIncrement: 1
   moveSpeedBase: 3
   moveSpeedIncrement: 0.2
   attackSpeedBase: 1
-  attackSpeedIncrement: 0.2
+  attackSpeedIncrement: 0.17
   healthBase: 100
-  healthIncrement: 20
-  regenBase: 0.2
-  regenIncrement: 0.1
+  healthIncrement: 10
+  regenBase: 0.25
+  regenIncrement: 0.14
 --- !u!114 &6009664277457351295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   currentHealth: 0
   isDefending: 0
   weaponCollision: {fileID: 0}
+  timeBetweenHurtSounds: 0.25
 --- !u!114 &6339953943085018612
 MonoBehaviour:
   m_ObjectHideFlags: 0
