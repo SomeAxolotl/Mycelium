@@ -8,6 +8,7 @@ public class SoundEffectManager : MonoBehaviour
     public static SoundEffectManager Instance;
 
     [SerializeField] private AudioMixerGroup audioMixerGroup;
+    //[SerializeField] private float minDistance = 5f;
 
     void Awake()
     {
@@ -181,6 +182,7 @@ public class SoundEffectManager : MonoBehaviour
         int randomNumber = Random.Range(0, clipList.Count);
         AudioSource audioSource = PlayClipAtPointAndGetSource(clipList[randomNumber], position, clipVolume);
         audioSource.outputAudioMixerGroup = audioMixerGroup;
+        //audioSource.minDistance = minDistance;
     }
 
     AudioSource PlayClipAtPointAndGetSource(AudioClip clip, Vector3 position, float volume)
