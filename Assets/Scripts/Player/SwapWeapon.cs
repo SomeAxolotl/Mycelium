@@ -99,6 +99,8 @@ public class SwapWeapon : MonoBehaviour
 
                 if (swapItem.triggered)
                 {
+                    SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+
                     curWeapon.transform.position = weapon.position;
                     curWeapon.GetComponent<Collider>().enabled = true;
                     weapon.position = weaponHolder.position;

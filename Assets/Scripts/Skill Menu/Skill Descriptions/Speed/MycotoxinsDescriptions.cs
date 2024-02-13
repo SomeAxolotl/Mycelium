@@ -28,20 +28,10 @@ public class MycotoxinsDescriptions : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Mycotoxins: <br> <size=25>Gain 50% bonus movement speed and release a trail of spores behind you. Enemies hit by these spores are damaged.";
     }
-    else if (currentstats.speedLevel >= 15 && currentstats.skillEquippables["Mycotoxins"] == false && nutrientTracker.currentNutrients >= skillpurchase.mycotoxinsNutrientCost && nutrientTracker.storedExoskeleton >= skillpurchase.mycotoxinsMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Mycotoxins: <br> <size=25>Gain 50% bonus movement speed and release a trail of spores behind you. Enemies hit by these spores are damaged. <br> <color=#38BC0F>Cost: 10000 Nutrients and 3 Exoskeletons";
-    }
-    else if (currentstats.speedLevel >= 15 && currentstats.skillEquippables["Mycotoxins"] == false )
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Mycotoxins: <br> <size=25>Gain 50% bonus movement speed and release a trail of spores behind you. Enemies hit by these spores are damaged. <br> <color=#FF534C>Cost: 10000 Nutrients and 3 Exoskeletons";
-    }
     else 
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Mycotoxins: <br> <size=25>Gain 50% bonus movement speed and release a trail of spores behind you. Enemies hit by these spores are damaged. <br> <color=#FF534C>Purchasable at Speed Level 15";
+        SkillDesc.text = "Mycotoxins: <br> <size=25>Gain 50% bonus movement speed and release a trail of spores behind you. Enemies hit by these spores are damaged. <br> <color=#FF534C>Unlocks at Speed Level 15";
     }
    }
 }

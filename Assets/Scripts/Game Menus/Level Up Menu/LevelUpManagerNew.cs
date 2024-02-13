@@ -78,8 +78,6 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
       controls = new ThirdPersonActionsAsset();
-      controls.UI.MenuSwapR.started += ctx => MenuSwap();
-      controls.UI.MenuSwapL.started += ctx => MenuSwapL();
       controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
@@ -110,8 +108,8 @@ public class LevelUpManagerNew : MonoBehaviour
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
-       Invoke("ControlEnable", 0.25f); 
-
+      ControlEnable();
+      Invoke("MenuSwapDelay", 0.25f);
 
     }
     void Update()
@@ -128,6 +126,11 @@ public class LevelUpManagerNew : MonoBehaviour
     void ControlEnable()
     {
        controls.UI.Enable();  
+    }
+    void MenuSwapDelay()
+    {
+      controls.UI.MenuSwapR.performed += ctx => MenuSwap();
+      controls.UI.MenuSwapL.performed += ctx => MenuSwapL();
     }
     void OnDisable()
     {
@@ -193,7 +196,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalBarLevelUp()
     {
-        controls.UI.KeyLevelUpPrimal.Enable();
+      
+      controls.UI.KeyLevelUpPrimal.Enable();
       controls.UI.KeyLevelDownPrimal.Enable();
       controls.UI.PrimalLevelRight.Enable();
       controls.UI.PrimalLevelLeft.Enable();
@@ -206,6 +210,7 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
       controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
     }
+    
     public void PrimalUP()
     {
       currentstats.LevelPrimal();
@@ -462,7 +467,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)
     {
-      if (currentStatLevel >= targetStatLevel && currentstats.skillUnlocks[skillName] == false)
+      if (currentStatLevel >= targetStatLevel && currentstats.skillEquippables[skillName] == false)
       { 
         newlyUnlockedSkills.Add(skillName);
         currentstats.UnlockSkill(skillName);

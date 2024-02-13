@@ -23,7 +23,14 @@ public class SporeManager : MonoBehaviour
     //    PlayerParent.SetActive(false);
 
     //Begin Reading SporeData.json
-    filePath = Application.persistentDataPath + "/SporeData.json";
+    if(Application.isEditor)
+        {
+            filePath = Application.dataPath + "/SporeData.json";
+        }
+        else
+        {
+            filePath = Application.persistentDataPath + "/SporeData.json";
+        }
     Debug.Log("File Path: " + filePath);
     Debug.Log(System.IO.File.ReadAllText(filePath));
     sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));

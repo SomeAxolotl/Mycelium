@@ -28,20 +28,10 @@ public class LivingCycloneDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Living Cyclone: <br> <size=25>Spin relentlessly striking all enemies<br> around you with your currently equipped weapon. <br> You are able to move while Living Cyclone is active.";
     }
-    else if (currentstats.primalLevel >= 10 && currentstats.skillEquippables["LivingCyclone"] == false && nutrientTracker.currentNutrients >= skillpurchase.cycloneNutrientCost && nutrientTracker.storedLog >= skillpurchase.cycloneMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Living Cyclone: <br> <size=25>Spin relentlessly striking all enemies<br> around you with your currently equipped weapon. <br> You are able to move while Living Cyclone is active.<br> <color=#38BC0F>Cost: 5000 Nutrients and 2 Logs";
-    }
-     else if (currentstats.primalLevel >= 10 && currentstats.skillEquippables["LivingCyclone"] == false)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Living Cyclone: <br> <size=25>Spin relentlessly striking all enemies<br> around you with your currently equipped weapon. <br> You are able to move while Living Cyclone is active.<br> <color=#FF534C>Cost: 5000 Nutrients and 2 Logs";
-    }
     else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Living Cyclone: <br> <size=25>Spin relentlessly striking all enemies<br> around you with your currently equipped weapon. <br> You are able to move while Living Cyclone is active.<br> <color=#FF534C>Purchasable at Primal Level 10";
+        SkillDesc.text = "Living Cyclone: <br> <size=25>Spin relentlessly striking all enemies<br> around you with your currently equipped weapon. <br> You are able to move while Living Cyclone is active.<br> <color=#FF534C>Unlocks at Primal Level 10";
     }
    }
 }

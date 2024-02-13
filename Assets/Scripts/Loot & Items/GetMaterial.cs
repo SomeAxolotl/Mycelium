@@ -61,6 +61,8 @@ public class GetMaterial : MonoBehaviour
             TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press A to Pick Up");
             if (interact.triggered)
             {
+                SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+
                 AddMaterial();
                 TooltipManager.Instance.DestroyTooltip();
             }

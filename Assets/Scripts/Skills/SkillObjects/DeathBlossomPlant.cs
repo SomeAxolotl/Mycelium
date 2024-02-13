@@ -43,6 +43,8 @@ public class DeathBlossomPlant : DeathBlossom
     }
     void DamageEnemies()
     {
+        SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);

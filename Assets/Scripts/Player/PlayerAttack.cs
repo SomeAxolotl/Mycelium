@@ -90,7 +90,7 @@ public class PlayerAttack : MonoBehaviour
         }
         //animator.Play(attackAnimationName);
         yield return null;
-        SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
+        //SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
 
         if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Slash)
         {

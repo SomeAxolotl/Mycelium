@@ -10,6 +10,8 @@ public class RelentlessFuryEnd : MonoBehaviour
     private InputAction stat_skill_2;
     public PlayerController playerController;
     public RelentlessFury relentlessFury;
+    public PlayerHealth playerHealth;
+    [SerializeField] private float skillDuration;
 
     // Start is called before the first frame update
     void Start()
@@ -19,22 +21,27 @@ public class RelentlessFuryEnd : MonoBehaviour
         stat_skill_1 = playerActionsAsset.Player.Stat_Skill_1;
         stat_skill_2 = playerActionsAsset.Player.Stat_Skill_2;
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Invoke("DisableStuff", 5);
-        Invoke("DisableAfter", 10);
+        if (relentlessFury.isFrenzied == true)
+        {
+            StartCoroutine(DisableStuff());
+            StartCoroutine(DisableAfter());
+        }
     }
 
-    void DisableStuff()
+    IEnumerator DisableStuff()
     {
-        if (relentlessFury.isFrenzied == true && (stat_skill_1.triggered || stat_skill_2.triggered))
+        yield return new WaitForSeconds(2);
+        if (stat_skill_1.triggered || stat_skill_2.triggered)
         {
             if (GameObject.FindWithTag("RelentlessFury").activeSelf)
             {
                 playerController.canUseDodge = true;
+                relentlessFury.characterStats.moveSpeed = relentlessFury.originalSpeed;
                 Destroy(GameObject.FindWithTag("RelentlessFuryParticles"));
                 relentlessFury.isFrenzied = false;
                 relentlessFury.durationTime = 0;
@@ -43,11 +50,13 @@ public class RelentlessFuryEnd : MonoBehaviour
         }
     }
 
-    void DisableAfter()
+    IEnumerator DisableAfter()
     {
+        yield return new WaitForSeconds(skillDuration);
         if (GameObject.FindWithTag("RelentlessFury").activeSelf)
         {
             playerController.canUseDodge = true;
+            relentlessFury.characterStats.moveSpeed = relentlessFury.originalSpeed;
             Destroy(GameObject.FindWithTag("RelentlessFuryParticles"));
             relentlessFury.isFrenzied = false;
             relentlessFury.durationTime = 0;

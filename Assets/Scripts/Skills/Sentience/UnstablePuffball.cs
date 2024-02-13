@@ -16,6 +16,7 @@ public class UnstablePuffball : Skill
     public void DoPuffball()
     {
         GameObject player = GameObject.FindWithTag("currentPlayer");
+        SoundEffectManager.Instance.PlaySound("Projectile", transform.position);
         Instantiate(puffballPrefab, player.transform.Find("CenterPoint").position, transform.rotation);
     }
 }

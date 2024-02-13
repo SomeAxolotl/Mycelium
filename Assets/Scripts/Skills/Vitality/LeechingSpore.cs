@@ -21,6 +21,8 @@ public class LeechingSpore : Skill
 
     public void DoLeech()
     {
+        SoundEffectManager.Instance.PlaySound("Projectile", player.transform.position);
+
         // get closest enemy with 5m
         Transform closestEnemyObj = ClosestEnemy();
 

@@ -19,6 +19,8 @@ public class EnemyHealth : MonoBehaviour
     NavMeshAgent navMeshAgent;
     CamTracker camTracker;
     Collider thisCollider;
+    private bool hasTakenDamage = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,5 +98,12 @@ public class EnemyHealth : MonoBehaviour
             }
 
         }
+
+        hasTakenDamage = true;
+    }
+
+    public bool HasTakenDamage()
+    {
+        return hasTakenDamage;
     }
 }

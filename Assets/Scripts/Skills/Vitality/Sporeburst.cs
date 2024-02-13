@@ -15,6 +15,8 @@ public class Sporeburst : Skill
 
     void DoSporeburst()
     {
+        SoundEffectManager.Instance.PlaySound("Explosion", player.transform.position);
+
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
         Collider[] enemies = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);
