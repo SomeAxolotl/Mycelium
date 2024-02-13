@@ -18,6 +18,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private GameObject mainMenuStartupImage;
     [SerializeField] private GameObject defaultImage;
     [SerializeField] private GameObject defaultLoadPanel;
+    [SerializeField] float startupDelayTime;
 
     [Header("--Good Exit Section--")]
     [SerializeField] private Canvas goodExitSceneCanvas;
@@ -93,6 +94,13 @@ public class SceneLoader : MonoBehaviour
         float t = 0f;
         float i = 0f;
 
+        enterSceneLoadBar.fillAmount = 1;
+        ChangeFunText(enterSceneFunText, 1);
+
+        enterSceneCanvasGroup.alpha = 1f;
+        enterSceneCanvasGroup.blocksRaycasts = true;
+        enterSceneCanvasGroup.interactable = true;
+
         if (isOnStartup == true)
         {
             mainMenuStartupImage.SetActive(true);
@@ -100,14 +108,8 @@ public class SceneLoader : MonoBehaviour
             defaultLoadPanel.SetActive(false);
 
             GlobalData.gameIsStarting = false;
+            yield return new WaitForSecondsRealtime(startupDelayTime);
         }
-
-        enterSceneLoadBar.fillAmount = 1;
-        ChangeFunText(enterSceneFunText, 1);
-
-        enterSceneCanvasGroup.alpha = 1f;
-        enterSceneCanvasGroup.blocksRaycasts = true;
-        enterSceneCanvasGroup.interactable = true;
 
         while (i < 0.5f)
         {
