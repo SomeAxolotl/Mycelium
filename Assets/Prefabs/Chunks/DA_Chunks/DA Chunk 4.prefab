@@ -77730,6 +77730,7 @@ GameObject:
   - component: {fileID: 8060217287798681432}
   - component: {fileID: 8538894368538719665}
   - component: {fileID: 7324171675937873852}
+  - component: {fileID: 846100697214272784}
   m_Layer: 8
   m_Name: pCylinder1
   m_TagString: Untagged
@@ -77824,6 +77825,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5076798556035486163, guid: 6e27ab3cb8d80574b919fe6f34b47f9d, type: 3}
+--- !u!208 &846100697214272784
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286098725535976571}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.025, z: 0.15}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.05, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7286959566308052274
 GameObject:
   m_ObjectHideFlags: 0
@@ -100985,11 +101002,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.75, y: 0.5, z: 0.75}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1001 &6096846374371815636
 PrefabInstance:
