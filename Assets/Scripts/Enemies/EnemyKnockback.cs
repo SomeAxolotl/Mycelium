@@ -48,6 +48,17 @@ public class EnemyKnockback : MonoBehaviour
                 rb.useGravity = false;
             }
         }
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, Color.green);
+        RaycastHit test;
+        if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, out test, .25f))
+        {
+            Debug.Log("test: " + gameObject.name);
+        }
+        else
+        {
+            Debug.Log("notest");
+
+        }
     }
     public void Knockback(float knockbackForce)
     {
