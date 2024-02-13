@@ -110,7 +110,6 @@ public class LevelUpManagerNew : MonoBehaviour
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
-       Invoke("ControlEnable", 0.25f); 
 
 
     }
@@ -193,7 +192,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalBarLevelUp()
     {
-        controls.UI.KeyLevelUpPrimal.Enable();
+      
+      controls.UI.KeyLevelUpPrimal.Enable();
       controls.UI.KeyLevelDownPrimal.Enable();
       controls.UI.PrimalLevelRight.Enable();
       controls.UI.PrimalLevelLeft.Enable();
@@ -206,6 +206,7 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
       controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
     }
+    
     public void PrimalUP()
     {
       currentstats.LevelPrimal();
