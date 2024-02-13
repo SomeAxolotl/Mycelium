@@ -29,6 +29,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Canvas badExitSceneCanvasPart2;
     [SerializeField] private Image badExitSceneLoadBar;
     [SerializeField] private TMP_Text badExitSceneFunText;
+    [SerializeField] private float inbetweenTime;
 
     [Header("")]
     public bool isLoading = false;
@@ -166,7 +167,7 @@ public class SceneLoader : MonoBehaviour
         yield return StartCoroutine(FadeCanvasIn(badExitSceneCanvasGroupPart1, transitionTime));
         Debug.Log("Bad Canvas Part 1 Faded In");
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(inbetweenTime);
 
         yield return StartCoroutine(FadeCanvasIn(badExitSceneCanvasGroupPart2, transitionTime));
         Debug.Log("Bad Canvas Part 2 Faded In");
