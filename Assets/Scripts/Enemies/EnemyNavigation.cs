@@ -50,7 +50,7 @@ public class EnemyNavigation : MonoBehaviour
             var newRotation = Quaternion.LookRotation(dirToPlayer);
             if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView || dstToPlayer <= backwardsDetectionRange)
             {
-                if(!Physics.Raycast(center.position, new Vector3(dirToPlayer.x, center.position.y, dirToPlayer.z), dstToPlayer, obstacleLayer))
+                if(!Physics.Raycast(center.position, dirToPlayer, dstToPlayer, obstacleLayer))
                 {
                     playerSeen = true;
                     startedPatrol = false;

@@ -13,12 +13,9 @@ public class EnemyHealth : MonoBehaviour
     float deathTimer;
     Rigidbody rb;
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
-    Transform player;
     public Transform centerPoint;
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
-    CamTracker camTracker;
-    Collider thisCollider;
     protected bool hasTakenDamage = false;
 
     // Start is called before the first frame update
@@ -26,12 +23,8 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
-        camTracker = GameObject.FindWithTag("Camtracker").GetComponent<CamTracker>();
-        player = GameObject.FindWithTag("currentPlayer").transform;
         enemyNavigation = GetComponent<EnemyNavigation>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        thisCollider = GetComponent<Collider>();
-        rb.isKinematic = true;
         this.transform.parent = null;
 
         foreach (BaseEnemyHealthBar enemyHealthBar in GetComponentsInChildren<BaseEnemyHealthBar>())
@@ -64,7 +57,6 @@ public class EnemyHealth : MonoBehaviour
             gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
         }
         deathTimer += Time.deltaTime;
-        thisCollider.enabled = false;
         enemyNavigation.enabled = false;
         navMeshAgent.enabled = false;
         rb.Sleep();
@@ -73,7 +65,6 @@ public class EnemyHealth : MonoBehaviour
         {
             GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
             ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
-            camTracker.ToggleLockOn();
 
             if (gameObject.name == "Giga Beetle")
             {
