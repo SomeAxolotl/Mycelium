@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UI;
 
-public class BossHealthBar : BaseEnemyHealthBar
+public class HUDBoss : BaseEnemyHealthBar
 {
+    [SerializeField] private Image bossHealthBar;
     [SerializeField] private TMP_Text bossNameText;
     [SerializeField] private TMP_Text bossHealthText;
     [SerializeField] private GameObject bossHealthHolder;
@@ -15,41 +16,39 @@ public class BossHealthBar : BaseEnemyHealthBar
 
     void Start()
     {
-        bossNameText.text = transform.parent.gameObject.name;
         bossHealthHolder.transform.localScale = new Vector3(0f, bossHealthHolder.transform.localScale.y, bossHealthHolder.transform.localScale.z);
     }
 
-    public override void UpdateEnemyHealthUI()
+    public void UpdateBossHealthUI(float currentHealth, float maxHealth)
     {
-        float currentHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().currentHealth;
-        float maxHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().maxHealth;
         float healthRatio = currentHealth / maxHealth;
-        enemyHealthBar.fillAmount = healthRatio;
-        if (healthRatio > 0.66)
+        bossHealthBar.fillAmount = healthRatio;
+        /*if (healthRatio > 0.66)
         {
-            enemyHealthBar.color = fullColor;
+            bossHealthBar.color = fullColor;
         }
         else if (healthRatio > 0.33)
         {
-            enemyHealthBar.color = halfColor;
+            bossHealthBar.color = halfColor;
         }
         else
         {
-            enemyHealthBar.color = lowColor;
-        }
+            bossHealthBar.color = lowColor;
+        }*/
 
         bossHealthText.text = Mathf.FloorToInt(currentHealth) + "/" + Mathf.FloorToInt(maxHealth);
     }
 
-    public override void EncounterEnemy()
+    public void EncounterBoss(string bossName, float currentHealth, float maxHealth)
     {
         hasPopped = true;
 
-        UpdateEnemyHealthUI();
-        StartCoroutine(EncounterEnemyCoroutine());
+        bossNameText.text = bossName;
+        UpdateBossHealthUI(currentHealth, maxHealth);
+        StartCoroutine(EncounterBossCoroutine());
     }
 
-    IEnumerator EncounterEnemyCoroutine()
+    IEnumerator EncounterBossCoroutine()
     {
         float popCounter = 0f;
         while (popCounter < popDuration)

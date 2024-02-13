@@ -12,14 +12,14 @@ public class EnemyHealth : MonoBehaviour
     public int nutrientDrop;
     float deathTimer;
     Rigidbody rb;
-    List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
+    protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     Transform player;
     public Transform centerPoint;
     EnemyNavigation enemyNavigation;
     NavMeshAgent navMeshAgent;
     CamTracker camTracker;
     Collider thisCollider;
-    private bool hasTakenDamage = false;
+    protected bool hasTakenDamage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +84,7 @@ public class EnemyHealth : MonoBehaviour
             this.gameObject.SetActive(false);
         }
     }
-    public void EnemyTakeDamage(float dmgTaken)
+    public virtual void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
         ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
