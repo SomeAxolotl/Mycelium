@@ -28,20 +28,10 @@ public class SporeburstDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Sporeburst: <br><br> <size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.";
     }
-    else if (currentstats.vitalityLevel >= 10 && currentstats.skillEquippables["Sporeburst"] == false && nutrientTracker.currentNutrients >= skillpurchase.sporeburstNutrientCost && nutrientTracker.storedFlesh >= skillpurchase.sporeburstMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Sporeburst: <br><size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.<br> <color=#38BC0F>Cost: 5000 Nutrients and 2 Flesh";
-    }
-     else if (currentstats.vitalityLevel >= 10 && currentstats.skillEquippables["Sporeburst"] == false)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Sporeburst: <br><size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.<br> <color=#FF534C>Cost: 5000 Nutrients and 2 Flesh";
-    }
      else 
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Sporeburst: <br><size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.<br> <color=#FF534C>Purchasable at Vitality Level 10";
+        SkillDesc.text ="Sporeburst: <br><size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.<br> <color=#FF534C>Unlocks at Vitality Level 10";
     }
    }
 }

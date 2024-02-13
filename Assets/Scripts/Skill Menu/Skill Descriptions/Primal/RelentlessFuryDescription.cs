@@ -27,20 +27,10 @@ public class RelentlessFuryDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Relentless Fury: <br> <size=25>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25%<br> of weapon damage.";
     }
-    else if(currentstats.primalLevel >= 15 && currentstats.skillEquippables["RelentlessFury"] == false && nutrientTracker.currentNutrients >= skillpurchase.furyNutrientCost && nutrientTracker.storedLog >= skillpurchase.furyMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Relentless Fury: <br> <size=24>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25% of weapon damage.<br> <color=#38BC0F>Cost: 10000 Nutrients and 3 Logs";
-    }
-    else if (currentstats.primalLevel >= 15 && currentstats.skillEquippables["RelentlessFury"] == false)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Relentless Fury: <br> <size=24>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25% of weapon damage.<br> <color=#FF534C>Cost: 10000 Nutrients and 3 Logs";
-    }
     else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Relentless Fury: <br> <size=24>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25% of weapon damage.<br> <color=#FF534C>Purchasable Primal Level 15";
+        SkillDesc.text = "Relentless Fury: <br> <size=24>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25% of weapon damage.<br> <color=#FF534C>Unlocks at Primal Level 15";
     }
    }
 }

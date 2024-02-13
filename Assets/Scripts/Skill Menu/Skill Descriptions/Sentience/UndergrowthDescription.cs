@@ -28,20 +28,10 @@ public class UndergrowthDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Undergrowth: <br><br><size=25> An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit.";
     }
-    else if (currentstats.sentienceLevel >= 15 && currentstats.skillEquippables["Undergrowth"] == false && nutrientTracker.currentNutrients >= skillpurchase.undergrowthNutrientCost && nutrientTracker.storedCalcite >= skillpurchase.undergrowthMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Undergrowth: <br><size=25>An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit. <br><br> <color=#38BC0F>Cost: 10000 Nutrients and 3 Calcite";
-    }
-     else if (currentstats.sentienceLevel >= 15 && currentstats.skillEquippables["Undergrowth"] == false )
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Undergrowth: <br><size=25>An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit. <br><br> <color=#FF534C>Cost: 10000 Nutrients and 3 Calcite";
-    }
      else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Undergrowth: <br><size=25>An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit. <br><br> <color=#FF534C>Purchasable at Sentience Level 15";
+        SkillDesc.text ="Undergrowth: <br><size=25>An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit. <br><br> <color=#FF534C>Unlocks at Sentience Level 15";
     }
    }
 }

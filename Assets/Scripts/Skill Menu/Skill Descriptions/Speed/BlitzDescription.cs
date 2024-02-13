@@ -28,20 +28,10 @@ public class BlitzDescription : MonoBehaviour, ISelectHandler
         SkillDescriptionPanel.SetActive(true);
         SkillDesc.text = "Blitz: <br> <size=25>Dash in a straight line damaging all enemies hit.<br> If an enemy is hit the cooldown of Blitz<br> is reduced by 50%.";
     }
-    else if(currentstats.speedLevel >= 5 && currentstats.skillEquippables["Blitz"] == false && nutrientTracker.currentNutrients >= skillpurchase.blitzNutrientCost && nutrientTracker.storedExoskeleton >= skillpurchase.blitzMaterialCost)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Blitz: <br> <size=25>Dash in a straight line damaging all enemies hit.<br> If an enemy is hit the cooldown of Blitz<br> is reduced by 50%.<br> <color=#38BC0F>Cost: 2500 Nutrients and 1 Exoskeleton";
-    }
-    else if(currentstats.speedLevel >= 5 && currentstats.skillEquippables["Blitz"] == false)
-    {
-        SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Blitz: <br> <size=25>Dash in a straight line damaging all enemies hit.<br> If an enemy is hit the cooldown of Blitz<br> is reduced by 50%.<br> <color=#FF534C>Cost: 2500 Nutrients and 1 Exoskeleton";
-    }
     else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Blitz: <br> <size=25>Dash in a straight line damaging all enemies hit.<br> If an enemy is hit the cooldown of Blitz<br> is reduced by 50%.<br> <color=#FF534C>Purchasable at Speed Level 5";
+        SkillDesc.text = "Blitz: <br> <size=25>Dash in a straight line damaging all enemies hit.<br> If an enemy is hit the cooldown of Blitz<br> is reduced by 50%.<br> <color=#FF534C>Unlocks at Speed Level 5";
     }
    }
 }
