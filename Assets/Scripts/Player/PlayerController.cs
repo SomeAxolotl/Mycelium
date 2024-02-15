@@ -152,6 +152,8 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(forceDirection * 6f, ForceMode.Impulse);
         //Dust Particle for Dodging
         SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
+        animator.SetBool("Roll", true);
+        animator.Play("Roll");
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         //HUD Dodge Cooldown
         hudSkills.StartCooldownUI(4, dodgeCooldown);
@@ -161,6 +163,7 @@ public class PlayerController : MonoBehaviour
         activeDodge = false;
         canUseAttack = true;
         canUseSkill = true;
+        animator.SetBool("Roll", false);
         yield return new WaitForSeconds(dodgeCooldown);
         canUseDodge = true;
     }
