@@ -15,6 +15,7 @@ public class SporeManager : MonoBehaviour
 
     [SerializeField] private GameObject SporePrefab;
     [SerializeField][Tooltip("The range on the x and z axis around the spawn transform where spores should be generated")][Range(0f, 10f)] private float spawnRange;
+    [SerializeField] SwapCharacter swapCharacterScript;
 
     void Start()
     {
@@ -35,6 +36,34 @@ public class SporeManager : MonoBehaviour
         Debug.Log(System.IO.File.ReadAllText(filePath));
         sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
         Debug.Log(sporeDataList);
+
+        try
+        {
+            Debug.Log("File Path: " + filePath);
+            Debug.Log(System.IO.File.ReadAllText(filePath));
+            sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
+            Debug.Log(sporeDataList);
+        }
+        catch
+        {
+            Debug.Log("NO SPORES FOUND!!! ---LOADING DEFAULT SPORE DATA---");
+
+            filePath = "./Assets/DefaultSporeData.json";
+
+            Debug.Log("File Path: " + filePath);
+            Debug.Log(System.IO.File.ReadAllText(filePath));
+            sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
+            Debug.Log(sporeDataList);
+
+            if (Application.isEditor)
+            {
+                filePath = Application.dataPath + "/SporeData.json";
+            }
+            else
+            {
+                filePath = Application.persistentDataPath + "/SporeData.json";
+            }
+        }
 
         LoadSpores();
     }
@@ -79,6 +108,9 @@ public class SporeManager : MonoBehaviour
             //Show the spore's nametag
             stats.UpdateSporeName();
             stats.ShowNametag();
+
+            //Add the spore to the characters index
+            swapCharacterScript.characters.Add(Spore);
 
             //design.ForceUpdateBlendshaped(sporeData.lvlSentience,sporeData.lvlPrimal,sporeData.lvlVitality, sporeData.lvlSpeed);      //<---- Moved to Start() for CharacterStats
             //PlayerParent.GetComponent<SwapCharacter>().characters.Add(Spore);     //<---- Unnecessary if PlayerParent does not exist in Spore Manager
