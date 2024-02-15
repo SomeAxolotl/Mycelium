@@ -52,11 +52,11 @@ public class EnemyKnockback : MonoBehaviour
         RaycastHit test;
         if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, out test, .25f))
         {
-            Debug.Log("test: " + gameObject.name);
+            //Debug.Log("test: " + gameObject.name);
         }
         else
         {
-            Debug.Log("notest");
+            //Debug.Log("notest");
 
         }
     }

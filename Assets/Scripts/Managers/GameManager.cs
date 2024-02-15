@@ -51,9 +51,15 @@ public class GameManager : MonoBehaviour
         GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
     }
 
+    public void OnExitToMainMenu()
+    {
+        GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
+    }
+
     public void OnExitToHub()
     {
         GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
+        Debug.Log("DEFEAT ENEMY");
     }
 
     IEnumerator PlacePlayer()

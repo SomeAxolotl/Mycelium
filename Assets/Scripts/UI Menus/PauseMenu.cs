@@ -104,6 +104,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        GameManager.Instance.OnExitToMainMenu();
         sceneLoaderScript.BeginLoadScene(0, true);
     }
 
