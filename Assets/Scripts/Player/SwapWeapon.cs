@@ -11,11 +11,10 @@ public class SwapWeapon : MonoBehaviour
     private Collider[] weaponColliders;
     [SerializeField] private LayerMask weaponLayer;
     Transform weapon;
-    GameObject currentCharacter;
-    Transform weaponHolder;
+    [HideInInspector] public GameObject currentCharacter;
+    [HideInInspector] public Transform weaponHolder;
     SwapCharacter swapCharacter;
     PlayerController playerController;
-    PlayerHealth playerHealth;
     public GameObject curWeapon;
 
     [SerializeField] private float proximityRadius = 5f;
@@ -31,29 +30,19 @@ public class SwapWeapon : MonoBehaviour
         swapItem = playerActionsAsset.Player.SwapItem;
         swapCharacter = GetComponent<SwapCharacter>();
         playerController = GetComponent<PlayerController>();
-        playerHealth = GetComponent<PlayerHealth>();
-        if (GameObject.FindWithTag("currentWeapon") == null)
+        currentCharacter = GameObject.FindWithTag("currentPlayer");
+        /*if (GameObject.FindWithTag("currentWeapon") == null)
         {
             GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
-            UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
+            //UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             startingWeapon.GetComponent<Collider>().enabled = false;
-        }
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(curWeapon != null) 
-        {
-            curWeapon.transform.position = weaponHolder.transform.position;
-            curWeapon.transform.rotation = weaponHolder.transform.rotation;
-        }
-        else
-        {
-            return;
-        }
-
         weaponColliders = Physics.OverlapSphere(currentCharacter.transform.position, proximityRadius, weaponLayer);
         foreach (var weaponCollider in weaponColliders)
         {
@@ -110,9 +99,9 @@ public class SwapWeapon : MonoBehaviour
                     weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
                     weapon.GetComponent<Collider>().enabled = false;
                     weapon.tag = "currentWeapon";
-                    curWeapon.transform.parent = weaponHolder.transform.parent;
                     curWeapon = GameObject.FindWithTag("currentWeapon");
-                    playerHealth.weaponCollision = curWeapon.GetComponent<WeaponCollision>();
+                    curWeapon.transform.parent = weaponHolder.transform;
+                    curWeapon.transform.rotation = weaponHolder.transform.rotation;
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
@@ -122,7 +111,7 @@ public class SwapWeapon : MonoBehaviour
             }
         }
     }
-    public void UpdateCharacter(GameObject currentPlayer)
+    /*public void UpdateCharacter(GameObject currentPlayer)
     {
         currentCharacter = currentPlayer;
         Transform[] playerChildren = currentCharacter.GetComponentsInChildren<Transform>();
@@ -136,5 +125,5 @@ public class SwapWeapon : MonoBehaviour
         curWeapon = GameObject.FindWithTag("currentWeapon");
         curWeapon.transform.parent = weaponHolder.transform.parent;
         DontDestroyOnLoad(curWeapon);
-    }
+    }*/
 }

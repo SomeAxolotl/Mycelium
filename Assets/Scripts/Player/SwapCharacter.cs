@@ -14,6 +14,7 @@ public class SwapCharacter : MonoBehaviour
     private PlayerController playerController;
     private SwapWeapon swapWeapon;
     private PlayerHealth playerHealth;
+    private PlayerAttack playerAttack;
     private SkillManager skillManager;
 
     private HUDSkills hudSkills;
@@ -24,6 +25,7 @@ public class SwapCharacter : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         swapWeapon = GetComponent<SwapWeapon>();
         playerHealth = GetComponent<PlayerHealth>();
+        playerAttack = GetComponent<PlayerAttack>();
         playerActionsAsset = new ThirdPersonActionsAsset();
         skillManager = GetComponent<SkillManager>();
         playerActionsAsset.Player.Enable();
@@ -83,6 +85,8 @@ public class SwapCharacter : MonoBehaviour
         }
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
+        swapWeapon.currentCharacter = characters[currentCharacterIndex];
+        playerAttack.animator = characters[currentCharacterIndex].GetComponent<Animator>();
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
         currentCharacterStats.StartCalculateAttributes();
         
@@ -91,7 +95,7 @@ public class SwapCharacter : MonoBehaviour
         hudSkills.UpdateHUDIcons();
         playerController.GetStats();
         playerHealth.GetHealthStats();
-        swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
+        //swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
     public void SwitchToNextCharacter()
     {
@@ -107,7 +111,7 @@ public class SwapCharacter : MonoBehaviour
         SwitchCharacter(nextCharacterIndex);
         playerController.GetStats();
         playerHealth.GetHealthStats();
-        swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
+        //swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
     public void SwitchToLastCharacter()
     {
@@ -123,7 +127,7 @@ public class SwapCharacter : MonoBehaviour
         SwitchCharacter(lastCharacterIndex);
         playerController.GetStats();
         playerHealth.GetHealthStats();
-        swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
+        //swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
 
     IEnumerator UpdateHealth()

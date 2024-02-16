@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -52,6 +53,27 @@ public class LevelGenerator : MonoBehaviour
         }
 
         GenerateChunk(attachPoints[0]);
+    }
+    void Start()
+    {
+        GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().currentCharacter = GameObject.FindWithTag("currentPlayer");
+
+        Transform[] playerChildren = GameObject.FindWithTag("currentPlayer").GetComponentsInChildren<Transform>();
+        foreach (Transform child in playerChildren)
+        {
+            if (child.tag == "WeaponSlot")
+            {
+                GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().weaponHolder = child;
+            }
+        }
+
+        if (GameObject.FindWithTag("currentWeapon") == null)
+        {
+            GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
+            startingWeapon.GetComponent<Collider>().enabled = false;
+            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
+        }
     }
 
     private GameObject GenerateChunk(Transform transform)

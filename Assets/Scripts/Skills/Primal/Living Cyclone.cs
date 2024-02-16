@@ -14,7 +14,10 @@ public class LivingCyclone : Skill
     {
         playerController.EnableController();
         playerController.canAct = false;
-        currentWeapon = GameObject.FindWithTag("currentWeapon");
+        if(GameObject.FindWithTag("currentWeapon") != null) 
+        {
+            currentWeapon = GameObject.FindWithTag("currentWeapon");
+        }
 
         StartCoroutine(ExtendArm());
     }
@@ -43,24 +46,40 @@ public class LivingCyclone : Skill
 
     IEnumerator Spin()
     {
-        WeaponCollision weaponCollision = currentWeapon.GetComponent<WeaponCollision>();
-
-        SoundEffectManager.Instance.PlaySound("Slash", player.transform.position);
-        weaponCollision.ClearEnemyList();
-        currentWeapon.GetComponent<Collider>().enabled = true;
-        weaponCollision.sentienceBonusDamage = finalSkillValue;
-
-        float spinCounter = 0f;
-        float spinDuration = baseSpinDuration / (characterStats.animatorSpeed * speedAnimationScalar);
-        while (spinCounter < spinDuration)
+        if(currentWeapon != null) 
         {
-            float rotationAmount = 360f / spinDuration * Time.deltaTime;
-            player.transform.Rotate(Vector3.down, rotationAmount);
-            
-            spinCounter += Time.deltaTime;
-            yield return new WaitForFixedUpdate();
+            WeaponCollision weaponCollision = currentWeapon.GetComponent<WeaponCollision>();
+
+            SoundEffectManager.Instance.PlaySound("Slash", player.transform.position);
+            weaponCollision.ClearEnemyList();
+            currentWeapon.GetComponent<Collider>().enabled = true;
+            weaponCollision.sentienceBonusDamage = finalSkillValue;
+
+            float spinCounter = 0f;
+            float spinDuration = baseSpinDuration / (characterStats.animatorSpeed * speedAnimationScalar);
+            while (spinCounter < spinDuration)
+            {
+                float rotationAmount = 360f / spinDuration * Time.deltaTime;
+                player.transform.Rotate(Vector3.down, rotationAmount);
+
+                spinCounter += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+            currentWeapon.GetComponent<Collider>().enabled = false;
+            weaponCollision.sentienceBonusDamage = 0f;
         }
-        currentWeapon.GetComponent<Collider>().enabled = false;
-        weaponCollision.sentienceBonusDamage = 0f;
+        else
+        {
+            float spinCounter = 0f;
+            float spinDuration = baseSpinDuration / (characterStats.animatorSpeed * speedAnimationScalar);
+            while (spinCounter < spinDuration)
+            {
+                float rotationAmount = 360f / spinDuration * Time.deltaTime;
+                player.transform.Rotate(Vector3.down, rotationAmount);
+
+                spinCounter += Time.deltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+        }
     }
 }

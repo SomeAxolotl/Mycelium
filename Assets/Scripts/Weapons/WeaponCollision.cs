@@ -8,14 +8,14 @@ public class WeaponCollision : MonoBehaviour
     public float sentienceBonusDamage = 0f;
     public float reflectBonusDamage = 0f;
     List<GameObject> enemiesHit = new List<GameObject>();
-    WeaponStats newWeaponStats;
+    WeaponStats weaponStats;
 
     [SerializeField] private float secondsTilHitstopSpeedup = 0.25f;
 
     void Start()
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
-        newWeaponStats = GetComponent<WeaponStats>();
+        weaponStats = GetComponent<WeaponStats>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,9 +25,8 @@ public class WeaponCollision : MonoBehaviour
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
-            other.GetComponent<EnemyKnockback>().Knockback(newWeaponStats.wpnKnockback);
+            other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
-            //HitStopManager.Instance.HitStop();
             StartCoroutine(HitStop());
             reflectBonusDamage = 0f;
         }

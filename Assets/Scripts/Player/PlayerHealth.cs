@@ -17,7 +17,6 @@ public class PlayerHealth : MonoBehaviour
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     PlayerController playerController;
-    [HideInInspector] public WeaponCollision weaponCollision;
     CamTracker camTracker;
     float deathTimer;
     private Animator animator;
@@ -39,7 +38,6 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
         animator = GameObject.Find("Spore").GetComponent<Animator>();
-        weaponCollision = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>();
         isDefending = false;
     }
 
@@ -96,7 +94,7 @@ public class PlayerHealth : MonoBehaviour
         if(isDefending)
         {
             realDmgTaken = dmgTaken/2f;
-            weaponCollision.reflectBonusDamage += realDmgTaken;
+            GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>().reflectBonusDamage += realDmgTaken;
         }
         else
         {
@@ -130,8 +128,6 @@ public class PlayerHealth : MonoBehaviour
         animator.SetBool("Death", false);
         InvokeRepeating("Regen", 1f, 1f);
         swapWeapon.curWeapon.tag = "Weapon";
-        Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
-        swapWeapon.UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         Destroy(weapon);

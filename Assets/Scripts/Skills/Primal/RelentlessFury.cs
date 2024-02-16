@@ -41,10 +41,9 @@ public class RelentlessFury : Skill
 
     void Heal()
     {
-        GameObject enemyObject = GameObject.FindWithTag("Enemy");
-
-        if (enemyObject != null)
+        if (GameObject.FindWithTag("Enemy") != null)
         {
+            GameObject enemyObject = GameObject.FindWithTag("Enemy");
             EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
 
             if (enemyHealth != null && enemyHealth.HasTakenDamage())
@@ -71,17 +70,17 @@ public class RelentlessFury : Skill
                         }
                         else
                         {
-                            Debug.LogError("WeaponStats component not found on the player's weapon.");
+                            Debug.Log("WeaponStats component not found on the player's weapon.");
                         }
                     }
                     else
                     {
-                        Debug.LogError("PlayerAttack component not found on the player.");
+                        Debug.Log("PlayerAttack component not found on the player.");
                     }
                 }
                 else
                 {
-                    Debug.LogError("Player GameObject not found with tag 'player'");
+                    Debug.Log("Player GameObject not found with tag 'player'");
                 }
             }
             else
@@ -91,7 +90,7 @@ public class RelentlessFury : Skill
         }
         else
         {
-            Debug.LogError("Enemy GameObject not found with tag 'Enemy'.");
+            Debug.Log("Enemy GameObject not found with tag 'Enemy'.");
         }
     }
 

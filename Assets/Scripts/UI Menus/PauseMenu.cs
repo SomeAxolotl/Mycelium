@@ -112,16 +112,11 @@ public class PauseMenu : MonoBehaviour
     {
         nutrientTracker.LoseMaterials();
         playerParent.GetComponent<SwapWeapon>().curWeapon.tag = "Weapon";
-        Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform);
-        playerParent.GetComponent<SwapWeapon>().UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         Destroy(weapon);
         GameManager.Instance.OnExitToHub();
-        if(playerParent.GetComponent<SwapWeapon>().curWeapon != null)
-        {
-            sceneLoaderScript.BeginLoadScene(2, true);
-        }
+        sceneLoaderScript.BeginLoadScene(2, true);
     }
 
     private void OnEnable()
