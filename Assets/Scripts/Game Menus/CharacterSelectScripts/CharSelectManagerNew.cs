@@ -18,6 +18,8 @@ public class CharSelectManagerNew : MonoBehaviour
 
     public PlayerController playerController;
 
+    [SerializeField] SporeManager sporeManagerScript;
+
     void Start()
     {
         swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
@@ -46,6 +48,7 @@ public class CharSelectManagerNew : MonoBehaviour
     }
     public void StartGame()
     {
+        sporeManagerScript.Save();
         playerController.EnableController();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
