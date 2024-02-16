@@ -163,6 +163,11 @@ public class SporeManager : MonoBehaviour
                 sporeDataList.Spore_Data.Add(currentSporeData);
             }
             string json = JsonUtility.ToJson(sporeDataList);
+
+            json = json.Replace(":[{", ":[\n\t{");
+            json = json.Replace("},{", "},\n\t{");
+            json = json.Replace("]}", "\n]}");
+
             Debug.Log(json);
             System.IO.File.WriteAllText(filePath, json);
         }
