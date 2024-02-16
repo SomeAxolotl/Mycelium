@@ -15,7 +15,8 @@ public class SporeManager : MonoBehaviour
 
     [SerializeField] private GameObject SporePrefab;
     [SerializeField][Tooltip("The range on the x and z axis around the spawn transform where spores should be generated")][Range(0f, 10f)] private float spawnRange;
-    [SerializeField] SwapCharacter swapCharacterScript;
+    [SerializeField][Tooltip("Put the PlayerParent object in here")] SwapCharacter swapCharacterScript;
+    [SerializeField] GameObject currentPlayerSpore;
 
     void Start()
     {
@@ -32,10 +33,6 @@ public class SporeManager : MonoBehaviour
         {
             filePath = Application.persistentDataPath + "/SporeData.json";
         }
-        Debug.Log("File Path: " + filePath);
-        Debug.Log(System.IO.File.ReadAllText(filePath));
-        sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
-        Debug.Log(sporeDataList);
 
         try
         {
@@ -65,7 +62,18 @@ public class SporeManager : MonoBehaviour
             }
         }
 
-        LoadSpores();
+        //For each SporeData in the json, populate its stats and design
+        foreach (SporeData sporeData in sporeDataList.Spore_Data)
+        {
+            if (sporeData.sporeTag == "currentPlayer")
+            {
+                CreateCurrentPlayerSpore(sporeData);
+            }
+            else
+            {
+                LoadSpores(sporeData);
+            }
+        }
     }
 
     void OnApplicationQuit()
@@ -73,48 +81,75 @@ public class SporeManager : MonoBehaviour
         Save();
     }
 
-    void LoadSpores()
+    void CreateCurrentPlayerSpore(SporeData sporeData)
+    {
+        Debug.Log("Loading Main Spore: " + sporeData.sporeName);
+
+        CharacterStats stats = currentPlayerSpore.GetComponent<CharacterStats>();
+        DesignTracker design = currentPlayerSpore.GetComponent<DesignTracker>();
+
+        //Load the saved data into the prefab
+        stats.sporeName = sporeData.sporeName;
+        //Spore.gameObject.tag = sporeData.sporeTag;
+
+        stats.equippedSkills[0] = sporeData.skillSlot0;
+        stats.equippedSkills[1] = sporeData.skillSlot1;
+        stats.equippedSkills[2] = sporeData.skillSlot2;
+
+        stats.primalLevel = sporeData.lvlPrimal;
+        stats.speedLevel = sporeData.lvlSpeed;
+        stats.sentienceLevel = sporeData.lvlSentience;
+        stats.vitalityLevel = sporeData.lvlVitality;
+
+        design.bodyColor = sporeData.bodyColor;
+        design.capColor = sporeData.capColor;
+
+        //Show the spore's nametag
+        stats.UpdateSporeName();
+        stats.HideNametag();
+    }
+
+    void LoadSpores(SporeData sporeData)
     {
         GameObject Spore;
 
-        //For each SporeData in the json, populate its stats and design
-        foreach (SporeData sporeData in sporeDataList.Spore_Data)
-        {
-            Debug.Log("SPORE DETECTED");
+        Debug.Log("Loading Other Spore: " + sporeData.sporeName);
 
-            //Spawn Spore Prefab
-            Spore = Instantiate(SporePrefab, new Vector3(UnityEngine.Random.Range(spawnTransform.position.x - spawnRange, spawnTransform.position.x + spawnRange), spawnTransform.position.y, UnityEngine.Random.Range(spawnTransform.position.z - spawnRange, spawnTransform.position.z + spawnRange)), spawnTransform.rotation);
+        //Spawn Spore Prefab
+        Spore = Instantiate(SporePrefab, new Vector3(UnityEngine.Random.Range(spawnTransform.position.x - spawnRange, spawnTransform.position.x + spawnRange), spawnTransform.position.y, UnityEngine.Random.Range(spawnTransform.position.z - spawnRange, spawnTransform.position.z + spawnRange)), spawnTransform.rotation);
 
-            //Set references to prefab's components
-            CharacterStats stats = Spore.GetComponent<CharacterStats>();
-            DesignTracker design = Spore.GetComponent<DesignTracker>();
+        //Set references to prefab's components
+        CharacterStats stats = Spore.GetComponent<CharacterStats>();
+        DesignTracker design = Spore.GetComponent<DesignTracker>();
 
-            //Load the saved data into the prefab
-            stats.sporeName = sporeData.sporeName;
-            //Spore.gameObject.tag = sporeData.sporeTag;
+        //Load the saved data into the prefab
+        stats.sporeName = sporeData.sporeName;
+        //Spore.gameObject.tag = sporeData.sporeTag;
 
-            stats.equippedSkills[0] = sporeData.skillSlot0;
-            stats.equippedSkills[1] = sporeData.skillSlot1;
-            stats.equippedSkills[2] = sporeData.skillSlot2;
+        stats.equippedSkills[0] = sporeData.skillSlot0;
+        stats.equippedSkills[1] = sporeData.skillSlot1;
+        stats.equippedSkills[2] = sporeData.skillSlot2;
 
-            stats.primalLevel = sporeData.lvlPrimal;
-            stats.speedLevel = sporeData.lvlSpeed;
-            stats.sentienceLevel = sporeData.lvlSentience;
-            stats.vitalityLevel = sporeData.lvlVitality;
+        stats.primalLevel = sporeData.lvlPrimal;
+        stats.speedLevel = sporeData.lvlSpeed;
+        stats.sentienceLevel = sporeData.lvlSentience;
+        stats.vitalityLevel = sporeData.lvlVitality;
 
-            design.bodyColor = sporeData.bodyColor;
-            design.capColor = sporeData.capColor;
+        design.bodyColor = sporeData.bodyColor;
+        design.capColor = sporeData.capColor;
 
-            //Show the spore's nametag
-            stats.UpdateSporeName();
-            stats.ShowNametag();
+        //Show the spore's nametag
+        stats.UpdateSporeName();
+        stats.ShowNametag();
 
-            //Add the spore to the characters index
-            swapCharacterScript.characters.Add(Spore);
+        //Add the spore to the characters index
+        swapCharacterScript.characters.Add(Spore);
 
-            //design.ForceUpdateBlendshaped(sporeData.lvlSentience,sporeData.lvlPrimal,sporeData.lvlVitality, sporeData.lvlSpeed);      //<---- Moved to Start() for CharacterStats
-            //PlayerParent.GetComponent<SwapCharacter>().characters.Add(Spore);     //<---- Unnecessary if PlayerParent does not exist in Spore Manager
-        }
+
+        //-------Some Dylan Comments-----------
+        //design.ForceUpdateBlendshaped(sporeData.lvlSentience,sporeData.lvlPrimal,sporeData.lvlVitality, sporeData.lvlSpeed);      //<---- Moved to Start() for CharacterStats
+        //PlayerParent.GetComponent<SwapCharacter>().characters.Add(Spore);     //<---- Unnecessary if PlayerParent does not exist in Spore Manager
+
         //PlayerParent.SetActive(true);
         //testingManager.gameObject.SetActive(true);
     }
