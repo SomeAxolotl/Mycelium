@@ -17,6 +17,7 @@ public class SporeManager : MonoBehaviour
 
     [SerializeField] private GameObject SporePrefab;
     [SerializeField][Tooltip("The range on the x and z axis around the spawn transform where spores should be generated")][Range(0f, 10f)] private float spawnRange;
+    [SerializeField] SporeDataList defaultSporeData;
     
 
     void Start()
@@ -49,21 +50,8 @@ public class SporeManager : MonoBehaviour
         {
             Debug.Log("NO SPORES FOUND!!! ---LOADING DEFAULT SPORE DATA---");
 
-            filePath = "./Assets/DefaultSporeData.json";
-
-            Debug.Log("File Path: " + filePath);
-            Debug.Log(System.IO.File.ReadAllText(filePath));
-            sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
+            sporeDataList = defaultSporeData;
             Debug.Log(sporeDataList);
-
-            if (Application.isEditor)
-            {
-                filePath = Application.dataPath + "/SporeData.json";
-            }
-            else
-            {
-                filePath = Application.persistentDataPath + "/SporeData.json";
-            }
         }
 
         //For each SporeData in the json, populate its stats and design
