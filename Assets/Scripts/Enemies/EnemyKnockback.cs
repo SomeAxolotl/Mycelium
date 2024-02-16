@@ -14,6 +14,7 @@ public class EnemyKnockback : MonoBehaviour
     Animator animator;
     MeleeEnemyAttack meleeEnemyAttack;
     RangedEnemyShoot rangedEnemyShoot;
+    public LayerMask groundLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,13 +51,13 @@ public class EnemyKnockback : MonoBehaviour
         }
         Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, Color.green);
         RaycastHit test;
-        if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, out test, .25f))
+        if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, out test, .25f, groundLayer))
         {
-            //Debug.Log("test: " + gameObject.name);
+            Debug.Log("hitting!: " + gameObject.name);
         }
         else
         {
-            //Debug.Log("notest");
+            Debug.Log("not hitting");
 
         }
     }
@@ -75,7 +76,7 @@ public class EnemyKnockback : MonoBehaviour
     {
         yield return new WaitUntil(() => !enemyNavigation.enabled && !navMeshAgent.enabled && !animator.enabled);
         Vector3 knockbackForce = direction * force;
-        knockbackForce += Vector3.up * 2f;
+        knockbackForce += Vector3.up * 3f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 }

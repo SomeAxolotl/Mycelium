@@ -613,6 +613,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -2233600765060392415}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9736732e8cd801c4ca762253aa9d22d9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6954283112528919888}
   m_SourcePrefab: {fileID: 100100000, guid: 9736732e8cd801c4ca762253aa9d22d9, type: 3}
 --- !u!4 &7280773348992226861 stripped
 Transform:
@@ -643,7 +647,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: -1
@@ -674,7 +678,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!195 &1978254500606035869
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -714,7 +718,6 @@ MonoBehaviour:
   attacking: 0
   startedPatrol: 0
   speed: 0
-  attackStopdistance: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -741,10 +744,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  canAttack: 1
-  isAttacking: 0
-  attackStarted: 0
-  playerDamaged: 0
   attackCooldown: 1.5
   damage: 5
   knockbackForce: 25
@@ -778,6 +777,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damaged: 0
   flightTimer: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &-2233600765060392415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,6 +792,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4492e7412b2f0584dacab882f50f7c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &6954283112528919888
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944719615574166679}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.5, z: 0.1}
 --- !u!1001 &7482559756359623612
 PrefabInstance:
   m_ObjectHideFlags: 0

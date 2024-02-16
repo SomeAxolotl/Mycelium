@@ -489,8 +489,8 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   playerSeen: 0
   attacking: 0
+  startedPatrol: 0
   speed: 0
-  attackStopdistance: 6
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -498,8 +498,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4352
   fieldOfView: 80
-  detectionRange: 20
-  detectionBuffer: 2
+  forwardDetectionRange: 25
+  backwardsDetectionRange: 15
   animator: {fileID: 0}
   undergrowthSpeed: 0
 --- !u!114 &6294662400520187078
@@ -532,6 +532,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damaged: 0
   flightTimer: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &4942160677122019285
 MonoBehaviour:
   m_ObjectHideFlags: 0
