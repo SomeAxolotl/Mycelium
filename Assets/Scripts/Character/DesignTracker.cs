@@ -15,7 +15,7 @@ public class DesignTracker : MonoBehaviour
 
     private void Start()
     {
-        UpdateColors();
+        //UpdateColors();          //<---- taken care of by SporeManager.cs now
     }
 
     public void UpdateBlendshape(int sentienceLevel, int primalLevel, int vitalityLevel, int speedLevel)
@@ -98,9 +98,11 @@ public class DesignTracker : MonoBehaviour
     public void SetCapColor(UnityEngine.Color color)
     {
         capColor = color;
+        UpdateColors();
     }
     public void SetBodyColor(UnityEngine.Color color)
     {
         bodyColor = color;
+        UpdateColors();
     }
 }
