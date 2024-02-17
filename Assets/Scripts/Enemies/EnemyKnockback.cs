@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyKnockback : MonoBehaviour
 {
     public bool damaged = false;
+    private bool onGround = true;
     Rigidbody rb;
     Transform player;
     Animator animator;
@@ -49,10 +50,18 @@ public class EnemyKnockback : MonoBehaviour
         Vector3 knockbackForce = direction * force;
         knockbackForce += Vector3.up * 3f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
-        yield return new WaitForSeconds(.25f);
-        yield return new WaitUntil(() => Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), -transform.up, .35f, groundLayer));
+        onGround = false;
+        yield return new WaitForFixedUpdate();
+        yield return new WaitUntil(() => onGround);
         animator.SetBool("IsMoving", true);
         damaged = false;
         reworkedEnemyNav.enabled = true;
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            onGround = true;
+        }
     }
 }
