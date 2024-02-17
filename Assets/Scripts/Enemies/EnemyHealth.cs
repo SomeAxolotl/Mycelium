@@ -14,8 +14,6 @@ public class EnemyHealth : MonoBehaviour
     Rigidbody rb;
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     public Transform centerPoint;
-    EnemyNavigation enemyNavigation;
-    NavMeshAgent navMeshAgent;
     protected bool hasTakenDamage = false;
 
     // Start is called before the first frame update
@@ -23,8 +21,6 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
-        enemyNavigation = GetComponent<EnemyNavigation>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
         this.transform.parent = null;
 
         foreach (BaseEnemyHealthBar enemyHealthBar in GetComponentsInChildren<BaseEnemyHealthBar>())
@@ -57,8 +53,6 @@ public class EnemyHealth : MonoBehaviour
             gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
         }
         deathTimer += Time.deltaTime;
-        enemyNavigation.enabled = false;
-        navMeshAgent.enabled = false;
         rb.Sleep();
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
         if(deathTimer >= 2f)

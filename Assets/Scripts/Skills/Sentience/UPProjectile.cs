@@ -8,8 +8,6 @@ public class UPProjectile : MonoBehaviour
     Rigidbody rb;
     [SerializeField] private float AOERange = 2;
     [SerializeField] private float speed = 12f;
-    [SerializeField] private int particleSpacing = 36;
-    [SerializeField] private float particleHeight = 0f;
     UnstablePuffball unstablePuffball;
     CamTracker camTracker;
 
@@ -45,7 +43,6 @@ public class UPProjectile : MonoBehaviour
         {
             ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
             DamageEnemies();
-            //UnstablePuffballParticles();
         }
 
         int enviornmentLayer = 8;
@@ -80,26 +77,4 @@ public class UPProjectile : MonoBehaviour
         }
         Destroy(gameObject);
     }
-
-    /*void UnstablePuffballParticles()
-    {
-        int particlesPerCircle = 360 / particleSpacing;
-        
-        int currentSmallSpacing = 0;
-        for (int i = 0; i < particlesPerCircle; i++)
-        {
-            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmallSpacing) * AOERange;
-            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmallSpacing) * AOERange;
-
-            InstantiateParticles(smallX, smallZ);
-            currentSmallSpacing += particleSpacing;
-        }
-    }
-
-    void InstantiateParticles(float x, float z)
-    {
-        Vector3 circlePosition = new Vector3(x, particleHeight, z);
-        Vector3 spawnPosition = transform.position + circlePosition;
-        ParticleManager.Instance.SpawnParticles("EruptionParticles", spawnPosition, Quaternion.LookRotation(Vector3.up, Vector3.up));
-    }*/
 }
