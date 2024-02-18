@@ -177,13 +177,37 @@ public class SporeManager : MonoBehaviour
 
     IEnumerator StaggerSkillSets(SporeData sporeData, GameObject Spore)
     {
-        skillManagerScript.SetSkill(sporeData.skillSlot0, 0, Spore);
-        yield return new WaitForSecondsRealtime(0.1f);
-        skillManagerScript.SetSkill(sporeData.skillSlot1, 1, Spore);
-        yield return new WaitForSecondsRealtime(0.1f);
-        skillManagerScript.SetSkill(sporeData.skillSlot2, 2, Spore);
-    }
+        try
+        {
+            skillManagerScript.SetSkill(sporeData.skillSlot0, 0, Spore);
+        }
+        catch
+        {
 
+        }
+
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        try
+        {
+            skillManagerScript.SetSkill(sporeData.skillSlot1, 1, Spore);
+        }
+        catch
+        {
+
+        }
+
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        try
+        {
+            skillManagerScript.SetSkill(sporeData.skillSlot2, 2, Spore);
+        }
+        catch
+        {
+
+        }        
+    }
 }
 
 //[SporeDataList]- Class that is saved to Json: a list of SporeData class objects
