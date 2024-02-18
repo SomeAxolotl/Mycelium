@@ -22,7 +22,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
     [SerializeField] private float fieldOfView = 60f;
     [SerializeField] private float forwardDetectionRange = 25f;
     [SerializeField] private float backwardsDetectionRange = 15f;
-    [SerializeField] private float moveSpeed = 3f;
+    private float moveSpeed = 3f;
     private float gravityForce = -10;
     Vector3 gravity;
     [HideInInspector] public Animator animator;
@@ -112,7 +112,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
             else
             {
                 Vector3 moveDirection = ObstacleAvoidance(nextWaypoint - transform.position);
-                rb.velocity = moveDirection * moveSpeed;
+                rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
 
                 Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
                 float desiredYRotation = desiredRotation.eulerAngles.y;

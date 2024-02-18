@@ -59,9 +59,13 @@ public class EnemyKnockback : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (collision.contacts.Length > 0 && collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            onGround = true;
+            ContactPoint contact = collision.GetContact(0);
+            if(contact.point.y <= transform.position.y + .25f)
+            {
+                onGround = true;
+            }
         }
     }
 }
