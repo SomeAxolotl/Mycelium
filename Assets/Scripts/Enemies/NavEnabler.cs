@@ -6,6 +6,7 @@ public class NavEnabler : MonoBehaviour
 {
     Transform player;
     ReworkedEnemyNavigation reworkedEnemyNav;
+    [SerializeField] private float enableDistance = 75f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,11 +16,11 @@ public class NavEnabler : MonoBehaviour
     }
     void CheckDistance()
     {
-        if(Vector3.Distance(transform.position, player.position) <= 750f)
+        if(Vector3.Distance(transform.position, player.position) <= enableDistance)
         {
             reworkedEnemyNav.enabled = true;
         }
-        else if(Vector3.Distance(transform.position, player.position) > 750f)
+        else if(Vector3.Distance(transform.position, player.position) > enableDistance)
         {
             reworkedEnemyNav.enabled = false;
         }
