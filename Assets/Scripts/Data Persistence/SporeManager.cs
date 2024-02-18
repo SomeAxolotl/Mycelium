@@ -13,6 +13,7 @@ public class SporeManager : MonoBehaviour
     [Tooltip("Where we are saving our json.")] private string filePath;
     [Tooltip("The Spore Spawnpoint transform")] private Transform spawnTransform;
     SwapCharacter swapCharacterScript;
+    SkillManager skillManagerScript;
     GameObject currentPlayerSpore;
 
     [SerializeField] private GameObject SporePrefab;
@@ -24,6 +25,7 @@ public class SporeManager : MonoBehaviour
     {
         spawnTransform = gameObject.transform;
         swapCharacterScript = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
+        skillManagerScript = GameObject.Find("PlayerParent").GetComponent<SkillManager>();
         currentPlayerSpore = GameObject.Find("Spore");
 
         //if(PlayerParent.activeSelf == true)                   //Necessary to have the SwapCharacters function work, unless SwapCharacters is reworked separately
@@ -76,6 +78,8 @@ public class SporeManager : MonoBehaviour
         {
             Debug.Log("Loading Main Spore: " + sporeData.sporeName);
 
+            Spore = currentPlayerSpore;
+
             stats = currentPlayerSpore.GetComponent<CharacterStats>();
             design = currentPlayerSpore.GetComponent<DesignTracker>();
 
@@ -102,9 +106,7 @@ public class SporeManager : MonoBehaviour
         stats.sporeName = sporeData.sporeName;
         //Spore.gameObject.tag = sporeData.sporeTag;
 
-        stats.equippedSkills[0] = sporeData.skillSlot0;
-        stats.equippedSkills[1] = sporeData.skillSlot1;
-        stats.equippedSkills[2] = sporeData.skillSlot2;
+        StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
         stats.primalLevel = sporeData.lvlPrimal;
         stats.speedLevel = sporeData.lvlSpeed;
@@ -172,6 +174,16 @@ public class SporeManager : MonoBehaviour
             System.IO.File.WriteAllText(filePath, json);
         }
     }
+
+    IEnumerator StaggerSkillSets(SporeData sporeData, GameObject Spore)
+    {
+        skillManagerScript.SetSkill(sporeData.skillSlot0, 0, Spore);
+        yield return new WaitForSecondsRealtime(0.1f);
+        skillManagerScript.SetSkill(sporeData.skillSlot1, 1, Spore);
+        yield return new WaitForSecondsRealtime(0.1f);
+        skillManagerScript.SetSkill(sporeData.skillSlot2, 2, Spore);
+    }
+
 }
 
 //[SporeDataList]- Class that is saved to Json: a list of SporeData class objects
