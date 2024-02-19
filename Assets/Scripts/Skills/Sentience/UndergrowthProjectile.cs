@@ -7,8 +7,9 @@ using UnityEngine.AI;
 
 public class UndergrowthProjectile : MonoBehaviour
 {
-    private float speed = 12f;
+    private float speed = 4f;
     private float lifetime = 5f;
+    [SerializeField] private float enemyFreezeTime;
     Rigidbody rb;
     Undergrowth undergrowth;
     [SerializeField] private GameObject undergrowthParticles;
@@ -31,36 +32,28 @@ public class UndergrowthProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
+        if (/*collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss"*/collision.gameObject.layer == 6 || collision.gameObject.layer == 13)
         {
-            Invoke("UnFreeze", 15);
+            StartCoroutine(UnFreeze());
+            // Invoke("UnFreeze", 5);
             hitEnemy.Add(collision.gameObject);
             foreach(GameObject enemy in hitEnemy)
             {
                 enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 enemy.GetComponent<Animator>().SetBool("IsMoving", false);
-                enemy.GetComponent<NavMeshAgent>().enabled = false;
-                enemy.GetComponent<EnemyNavigation>().enabled = false;
                 Instantiate(undergrowthCaughtParticles, enemy.transform.position, transform.rotation);
-                enemy.GetComponent<MeleeEnemyAttack>().enabled = false;
-                enemy.GetComponent<RangedEnemyShoot>().enabled = false;
-                enemy.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
-                enemy.GetComponent<BossHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
             }
         }
     }
 
-    void UnFreeze()
+    IEnumerator UnFreeze()
     {
+        yield return new WaitForSeconds(enemyFreezeTime);
         foreach(GameObject enemy in hitEnemy)
         {
             enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             enemy.GetComponent<Animator>().SetBool("IsMoving", true);
-            enemy.GetComponent<NavMeshAgent>().enabled = true;
-            enemy.GetComponent<EnemyNavigation>().enabled = true;
-            enemy.GetComponent<MeleeEnemyAttack>().enabled = true;
-            enemy.GetComponent<RangedEnemyShoot>().enabled = true;
         }
         hitEnemy.Clear();
     }
