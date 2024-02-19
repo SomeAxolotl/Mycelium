@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpineshotProjectile : MonoBehaviour
 {
-    [SerializeField] private float speed = 12f;
-    [SerializeField] private float lifetime = 5f;
+    [SerializeField] private float speed;
+    [SerializeField] private float lifetime;
     Rigidbody rb;
     Spineshot spineshot;
 
@@ -37,7 +37,7 @@ public class SpineshotProjectile : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag != "Enemy" || collision.gameObject.tag != "Boss")
+        else if (collision.gameObject.layer == 8)
         {
             Destroy(gameObject);
         }

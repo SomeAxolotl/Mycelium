@@ -32,7 +32,7 @@ public class UndergrowthProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (/*collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss"*/collision.gameObject.layer == 6 || collision.gameObject.layer == 13)
+        if (collision.gameObject.layer == 6 || collision.gameObject.layer == 13)
         {
             StartCoroutine(UnFreeze());
             // Invoke("UnFreeze", 5);
