@@ -158,6 +158,7 @@ public class TestingManager : MonoBehaviour
         playerStats.vitalityLevel = vitalityLevel;
 
         player.GetComponent<CharacterStats>().StartCalculateAttributes();
+        player.GetComponent<CharacterStats>().UpdateLevel();
     }
 
     IEnumerator SetPlayerSkills()

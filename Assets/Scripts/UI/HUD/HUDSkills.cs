@@ -11,30 +11,35 @@ public class HUDSkills : MonoBehaviour
 
     private Image dodgeCooldownBackground;
     private Image dodgeIcon;
+    private Vector3 dodgeIconStartingScale;
     private TMP_Text dodgeButtonText;
 
     //Hit
 
     private Image hitCooldownBackground;
     private Image hitIcon;
+    private Vector3 hitIconStartingScale;
     private TMP_Text hitButtonText;
 
     //Skill 1
 
     private Image skill1CooldownBackground;
     private Image skill1Icon;
+    private Vector3 skill1IconStartingScale;
     private TMP_Text skill1ButtonText;
 
     //Skill 2
 
     private Image skill2CooldownBackground;
     private Image skill2Icon;
+    private Vector3 skill2IconStartingScale;
     private TMP_Text skill2ButtonText;
 
     //Skill 3
 
     private Image speciesCooldownBackground;
     private Image speciesIcon;
+    private Vector3 speciesIconStartingScale;
     private TMP_Text speciesButtonText;
 
     private List<Sprite> spriteList = new List<Sprite>();
@@ -48,22 +53,27 @@ public class HUDSkills : MonoBehaviour
     {
         dodgeCooldownBackground = GameObject.Find("DodgeCooldownBackground").GetComponent<Image>();
         dodgeIcon = GameObject.Find("DodgeIcon").GetComponent<Image>();
+        dodgeIconStartingScale = dodgeIcon.transform.localScale;
         dodgeButtonText = GameObject.Find("DodgeButton").GetComponent<TMP_Text>();
 
         speciesCooldownBackground = GameObject.Find("SpeciesCooldownBackground").GetComponent<Image>();
         speciesIcon = GameObject.Find("SpeciesIcon").GetComponent<Image>();
+        speciesIconStartingScale = speciesIcon.transform.localScale;
         speciesButtonText = GameObject.Find("SpeciesButton").GetComponent<TMP_Text>();
 
         skill1CooldownBackground = GameObject.Find("Skill1CooldownBackground").GetComponent<Image>();
         skill1Icon = GameObject.Find("Skill1Icon").GetComponent<Image>();
+        skill1IconStartingScale = skill1Icon.transform.localScale;
         skill1ButtonText = GameObject.Find("Skill1Button").GetComponent<TMP_Text>();
 
         skill2CooldownBackground = GameObject.Find("Skill2CooldownBackground").GetComponent<Image>();
         skill2Icon = GameObject.Find("Skill2Icon").GetComponent<Image>();
+        skill2IconStartingScale = skill2Icon.transform.localScale;
         skill2ButtonText = GameObject.Find("Skill2Button").GetComponent<TMP_Text>();
 
         hitCooldownBackground = GameObject.Find("HitCooldownBackground").GetComponent<Image>();
         hitIcon = GameObject.Find("HitIcon").GetComponent<Image>();
+        hitIconStartingScale = hitIcon.transform.localScale;
         hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();
 
         spriteList.AddRange(Resources.LoadAll<Sprite>("Skill Icons"));
@@ -139,30 +149,36 @@ public class HUDSkills : MonoBehaviour
     {
         Image cooldownBackground = speciesCooldownBackground;
         Image skillIcon = speciesIcon;
+        Vector3 iconStartingScale = new Vector3();
         switch (slot)
         {
             //Skills
             case 0:
                 cooldownBackground = speciesCooldownBackground;
                 skillIcon = speciesIcon;
+                iconStartingScale = speciesIconStartingScale;
                 break;
             case 1:
                 cooldownBackground = skill1CooldownBackground;
                 skillIcon = skill1Icon;
+                iconStartingScale = skill1IconStartingScale;
                 break;
             case 2:
                 cooldownBackground = skill2CooldownBackground;
                 skillIcon = skill2Icon;
+                iconStartingScale = skill2IconStartingScale;
                 break;
 
             //Attack and Dodge
             case 3:
                 cooldownBackground = hitCooldownBackground;
                 skillIcon = hitIcon;
+                iconStartingScale = hitIconStartingScale;
                 break;
             case 4:
                 cooldownBackground = dodgeCooldownBackground;
                 skillIcon = dodgeIcon;
+                iconStartingScale = dodgeIconStartingScale;
                 break;
         }
 
@@ -174,19 +190,18 @@ public class HUDSkills : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(SkillCooldownIconPop(skillIcon.gameObject));
+        StartCoroutine(SkillCooldownIconPop(skillIcon.gameObject, iconStartingScale));
     }
 
-    IEnumerator SkillCooldownIconPop(GameObject icon)
+    IEnumerator SkillCooldownIconPop(GameObject icon, Vector3 iconStartingScale)
     {
-        Vector3 originalSize = icon.transform.localScale;
-        Vector3 popSize = originalSize * popSizeScalar;
+        Vector3 popSize = iconStartingScale * popSizeScalar;
 
         float popCounter = 0f;
         while (popCounter < popDuration)
         {
             float popLerp = EaseOutQuart(popCounter / popDuration);
-            icon.transform.localScale = Vector3.Lerp(originalSize, popSize, popLerp);
+            icon.transform.localScale = Vector3.Lerp(iconStartingScale, popSize, popLerp);
 
             popCounter += Time.deltaTime;
             yield return null;  
@@ -197,12 +212,12 @@ public class HUDSkills : MonoBehaviour
         while (deflateCounter < deflateDuration)
         {
             float deflateLerp = deflateCounter / deflateDuration;
-            icon.transform.localScale = Vector3.Lerp(popSize, originalSize, deflateLerp);
+            icon.transform.localScale = Vector3.Lerp(popSize, iconStartingScale, deflateLerp);
 
             deflateCounter += Time.deltaTime;
             yield return null;  
         }
-        icon.transform.localScale = originalSize;
+        icon.transform.localScale = iconStartingScale;
     }
 
     public List<Sprite> GetAllSkillSprites()

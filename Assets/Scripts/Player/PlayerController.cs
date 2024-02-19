@@ -8,6 +8,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public float baseDodgeCooldown = 3f;
+    [SerializeField] float dodgeCooldownIncrement = -0.15f;
+    private float finalDodgeCooldown;
+
     public Rigidbody rb;
     public Vector3 forceDirection = Vector3.zero;
     [HideInInspector] public float moveSpeed;
@@ -33,8 +37,6 @@ public class PlayerController : MonoBehaviour
     PlayerAttack playerAttack;
     PlayerHealth playerHealth;
     SkillManager skillManager;
-
-    public float dodgeCooldown = 3f;
 
     private HUDSkills hudSkills;
     Animator animator;
@@ -142,9 +144,15 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
     }
+
+    public void CalculateDodgeCooldown()
+    {
+        finalDodgeCooldown = baseDodgeCooldown + (GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>().speedLevel * dodgeCooldownIncrement);
+    }
     
     IEnumerator Dodging()
     {
+        CalculateDodgeCooldown();
         canUseDodge = false;
         canUseAttack = false;
         canUseSkill = false;
@@ -156,7 +164,7 @@ public class PlayerController : MonoBehaviour
         animator.Play("Roll");
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         //HUD Dodge Cooldown
-        hudSkills.StartCooldownUI(4, dodgeCooldown);
+        hudSkills.StartCooldownUI(4, finalDodgeCooldown);
         isInvincible = true;
         yield return new WaitForSeconds(.2f);
         isInvincible = false;
@@ -164,7 +172,7 @@ public class PlayerController : MonoBehaviour
         canUseAttack = true;
         canUseSkill = true;
         animator.SetBool("Roll", false);
-        yield return new WaitForSeconds(dodgeCooldown);
+        yield return new WaitForSeconds(finalDodgeCooldown);
         canUseDodge = true;
     }
     private Vector3 GetCameraForward(Camera playerCamera)
