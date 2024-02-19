@@ -97,7 +97,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
     {
         rb.AddForce(gravity, ForceMode.Acceleration);
 
-        if (startedPatrol && waypoints.Count > 0)
+        if (startedPatrol && !playerSeen && waypoints.Count > 0)
         {
             Vector3 nextWaypoint = waypoints[0];
             float distanceToNextWaypoint = Vector3.Distance(transform.position, nextWaypoint);
