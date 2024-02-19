@@ -5,7 +5,7 @@ using UnityEngine;
 public class RangedEnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float damage = 10f;
-    float gravityForce = 8f;
+    float gravityForce = 9f;
     Vector3 gravity;
     Rigidbody rb;
 
