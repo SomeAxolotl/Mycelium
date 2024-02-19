@@ -51,7 +51,6 @@ public class UPProjectile : MonoBehaviour
         {
             ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
             DamageEnemies();
-            //UnstablePuffballParticles();
         }
     }
 
