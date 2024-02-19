@@ -51,7 +51,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         foreach (var playerCollider in playerColliders)
         {
             player = playerCollider.transform.Find("CenterPoint");
-            Vector3 dirToPlayer = (player.position - center.position).normalized;
+            Vector3 dirToPlayer = player.position - center.position;
             float dstToPlayer = Vector3.Distance(center.position, player.position);
             if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView || dstToPlayer <= backwardsDetectionRange)
             {

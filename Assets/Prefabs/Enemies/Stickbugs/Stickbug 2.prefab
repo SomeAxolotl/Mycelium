@@ -556,20 +556,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6786587982829778811}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 920be926432845f48aa5adef6fbae215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 4352
-  centerPoint: {fileID: 8634755480951926640}
   launchPoint: {fileID: 1357549097188032572}
-  attackCooldown: 3
   projectile: {fileID: 7771920069990623049, guid: 8694cfcf450277f4bbc922c0dcc6ef8c,
     type: 3}
 --- !u!114 &-4879111628889717588
@@ -608,11 +600,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4417
   fieldOfView: 60
-  forwardDetectionRange: 0.1
-  backwardsDetectionRange: 0.1
+  forwardDetectionRange: 25
+  backwardsDetectionRange: 15
   moveSpeed: 3
   animator: {fileID: 0}
-  waypoints: []
 --- !u!114 &4239577867102660761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,6 +616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682cb258e5f6f5f45b1d78b1dcd5a582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableDistance: 75
 --- !u!136 &2702114649190577892
 CapsuleCollider:
   m_ObjectHideFlags: 0

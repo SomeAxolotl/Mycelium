@@ -6,103 +6,69 @@ using UnityEngine.AI;
 
 public class RangedEnemyShoot : MonoBehaviour
 {
-    private NavMeshAgent navMeshAgent;
     private EnemyKnockback enemyKnockback;
-    private EnemyHealth enemyHealth;
-    private Collider[] playerColliders;
-    public LayerMask playerLayer;
-    public LayerMask obstacleLayer;
+    private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private Transform player;
-    public Transform centerPoint;
     public Transform launchPoint;
     private bool canAttack = true;
-    private bool isAttacking = false;
-    private bool stunned = false;
-    private float attackDistance = 15f;
-    [SerializeField] private float attackCooldown = 3f;
+    private float attackCooldown = 2f;
+    private float attackWindupTime = 1f;
     public GameObject projectile;
-    Coroutine attackCoroutine;
+    IEnumerator attack;
     Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
         enemyKnockback = GetComponent<EnemyKnockback>();
-        enemyHealth = GetComponent<EnemyHealth>();
+        reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
+        attack = this.Attack();
         animator = GetComponent<Animator>();
+        player = GameObject.FindWithTag("currentPlayer").transform.Find("CenterPoint");
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerColliders = Physics.OverlapSphere(transform.position, 25f, playerLayer);
-        foreach (var playerCollider in playerColliders)
+        if (enemyKnockback.damaged)
         {
-            player = playerCollider.transform.Find("CenterPoint");
-            Vector3 dirToPlayer = (player.position - launchPoint.position).normalized;
-            float dstToPlayer = Vector3.Distance(launchPoint.position, player.position);
-            if (enemyKnockback.damaged && !stunned)
+            CancelAttack();
+        }
+        else
+        {
+            if (reworkedEnemyNavigation.playerSeen && canAttack)
             {
-                StartCoroutine(CancelAttack());
-                Debug.Log("stunned");
+                StartCoroutine(Attack());
             }
-            else
-            {
-                if (Vector3.Angle(transform.forward, dirToPlayer) < 20f && !Physics.Raycast(launchPoint.position, dirToPlayer, dstToPlayer, obstacleLayer) && dstToPlayer <= attackDistance && canAttack)
-                {
-                    StartCoroutine(Attack());
-                    Debug.Log("attackkk");
-                }
-            }
+        }
+
+        if (reworkedEnemyNavigation.playerSeen)
+        {
+            Vector3 dirToPlayer = player.position - transform.position;
+            Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
+            float desiredYRotation = desiredRotation.eulerAngles.y;
+            Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
         }
     }
     
     IEnumerator Attack()
     {
-        if (!isAttacking && canAttack)
-        {
-            canAttack = false;
-            isAttacking = true;
-            attackCoroutine = StartCoroutine(AttackLogic());
-        }
-
-        yield return null;
-    }
-    IEnumerator AttackLogic()
-    {
-        isAttacking = true;
-        if (!isAttacking)
-        {
-            yield break;
-        }
+        canAttack = false;
+        yield return new WaitForSeconds(attackWindupTime);
         animator.SetTrigger("Attack");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .6f);
-        if(enemyHealth.currentHealth > 0 && isAttacking)
-        {
-            Vector3 dirToPlayer = player.position - launchPoint.position;
-            GameObject tempProj = Instantiate(projectile, launchPoint.position, transform.rotation);
-            tempProj.transform.right = new Vector3(dirToPlayer.x, dirToPlayer.y + 1f, dirToPlayer.z);
-            tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer.normalized * 18f;
-        }
-        isAttacking = false;
+        Vector3 dirToPlayer = (player.position - launchPoint.position).normalized;
+        GameObject tempProj = Instantiate(projectile, launchPoint.position, Quaternion.identity);
+        tempProj.transform.right = dirToPlayer;
+        tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer * 18f;
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
-
     }
-    public IEnumerator CancelAttack()
+    public void CancelAttack()
     {
-        if(attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-            isAttacking = false;
-            stunned = true;
-            transform.position = transform.position;
-            navMeshAgent.speed = 3f;
-            yield return new WaitUntil(() => enemyKnockback.damaged == false);
-            yield return new WaitForSeconds(.25f);
-            canAttack = true;
-            stunned = false;
-        }
+        StopAllCoroutines();
+        attack = Attack();
+        canAttack = true;
     }
 }

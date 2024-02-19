@@ -24,17 +24,17 @@ public class EnemyKnockback : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up * .35f, Color.green);
+        //Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up * .35f, Color.green);
 
         RaycastHit test;
         if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, out test, .35f, groundLayer))
         {
-            Debug.Log("hitting!: " + gameObject.name);
-            rb.AddForce(Vector3.up * 2f, ForceMode.Impulse);
+            Debug.Log("in ground!: " + gameObject.name);
+            rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
         else
         {
-            Debug.Log("not hitting");
+            Debug.Log("not in ground");
         }
     }
     public void Knockback(float knockbackForce)

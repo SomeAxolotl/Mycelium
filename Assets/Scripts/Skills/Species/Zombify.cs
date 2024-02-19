@@ -74,12 +74,12 @@ public class Zombify : Skill
         if (rangedEnemyShoot != null)
         {
             int nothingLayerMask = 2 << LayerMask.NameToLayer("Nothing");
-            rangedEnemyShoot.playerLayer = nothingLayerMask;
+            //rangedEnemyShoot.playerLayer = nothingLayerMask;
         }
         if (meleeEnemyAttack != null)
         {
             int nothingLayerMask = 2 << LayerMask.NameToLayer("Nothing");
-            meleeEnemyAttack.playerLayer = nothingLayerMask;
+            //meleeEnemyAttack.playerLayer = nothingLayerMask;
         }
     }
 

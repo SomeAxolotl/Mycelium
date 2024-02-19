@@ -8,7 +8,6 @@ public class MeleeEnemyAttack : MonoBehaviour
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private EnemyKnockback enemyKnockback;
-    public LayerMask playerLayer;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool attackStarted = false;
