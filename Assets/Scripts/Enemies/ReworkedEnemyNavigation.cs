@@ -6,9 +6,8 @@ using UnityEngine.AI;
 
 public class ReworkedEnemyNavigation : MonoBehaviour
 {
-    public bool playerSeen;
-    //public bool attacking = false;
-    public bool startedPatrol = false;
+    [HideInInspector] public bool playerSeen;
+    [HideInInspector] public bool startedPatrol = false;
     private float patrolRadius = 20f;
     private float speed;
     private float rerouteTimer;
@@ -22,13 +21,13 @@ public class ReworkedEnemyNavigation : MonoBehaviour
     [SerializeField] private float fieldOfView = 60f;
     [SerializeField] private float forwardDetectionRange = 25f;
     [SerializeField] private float backwardsDetectionRange = 15f;
-    private float moveSpeed = 3f;
+    public float moveSpeed = 3f;
     private float gravityForce = -10;
     Vector3 gravity;
     [HideInInspector] public Animator animator;
     //public bool undergrowthSpeed;
     Rigidbody rb;
-    [SerializeField] private List<Vector3> waypoints = new List<Vector3>();
+    private List<Vector3> waypoints = new List<Vector3>();
 
     // Start is called before the first frame update
     void Start()

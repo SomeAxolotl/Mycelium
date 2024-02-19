@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class MeleeEnemyAttack : MonoBehaviour
 {
-    private NavMeshAgent navMeshAgent;
-    private EnemyNavigation enemyNavigation;
+    private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private EnemyKnockback enemyKnockback;
     public LayerMask playerLayer;
     private bool canAttack = true;
@@ -14,21 +14,25 @@ public class MeleeEnemyAttack : MonoBehaviour
     private bool attackStarted = false;
     private bool playerDamaged = false;
     [SerializeField] private float attackCooldown = 2f;
+    private float attackWindupTime = .5f;
     private float resetAttack;
     [SerializeField] private float damage = 20f;
-    [SerializeField] private float knockbackForce = 50f;
+    private float knockbackForce = 30f;
     IEnumerator attack;
     Animator animator;
     List<GameObject> playerHit = new List<GameObject>();
+    private Transform player;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
         enemyKnockback = GetComponent<EnemyKnockback>();
-        enemyNavigation = GetComponent<EnemyNavigation>();
+        reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         attack = this.Attack();
         animator = GetComponent<Animator>();
+        player = GameObject.FindWithTag("currentPlayer").transform;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -40,18 +44,19 @@ public class MeleeEnemyAttack : MonoBehaviour
         }
         else
         {
-            if (enemyNavigation.playerSeen && canAttack && navMeshAgent != null)
+            if (reworkedEnemyNavigation.playerSeen && canAttack)
             {  
                 StartCoroutine(Attack());
             }
         }
 
-        if(attackStarted && navMeshAgent.speed == 0f)
+        if(attackStarted)
         {
-            Vector3 player = GameObject.FindWithTag("currentPlayer").transform.position;
-            Vector3 dirToPlayer = (player - transform.position);
-            var newRotation = Quaternion.LookRotation(dirToPlayer);
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 10f);
+            Vector3 dirToPlayer = (player.position - transform.position);
+            Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
+            float desiredYRotation = desiredRotation.eulerAngles.y;
+            Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
         }
 
         if(isAttacking)
@@ -67,31 +72,27 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         canAttack = false;
         attackStarted = true;
-        enemyNavigation.attacking = true;
-        navMeshAgent.speed = 0f;
-        navMeshAgent.stoppingDistance = 0f;
-        enemyNavigation.animator.speed = 0f;
-        Vector3 chargeTarget = GameObject.FindWithTag("currentPlayer").transform.position;
-        yield return new WaitForSeconds(.75f);
+        animator.speed = 0f;
+        reworkedEnemyNavigation.moveSpeed = 0f;
+        yield return new WaitForSeconds(attackWindupTime);
         SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
-        navMeshAgent.SetDestination(chargeTarget);
-        enemyNavigation.animator.speed = 3f;
-        navMeshAgent.speed = 20f;
-        navMeshAgent.acceleration = 20f;
+        animator.speed = 3f;
+        attackStarted = false;
         isAttacking = true;
-        yield return new WaitUntil(() => Vector3.Distance(transform.position, chargeTarget) <= .25f || playerDamaged || resetAttack > 1f);
-        enemyNavigation.animator.speed = 1f;
+        Transform target = player;
+        Vector3 moveDirection = (target.position - transform.position).normalized;
+        reworkedEnemyNavigation.moveSpeed = 8f;
+        while (Vector3.Distance(transform.position, target.position) > 0.25f && !playerDamaged && resetAttack < 1f)
+        {
+            rb.velocity = new Vector3((moveDirection * reworkedEnemyNavigation.moveSpeed).x, rb.velocity.y, (moveDirection * reworkedEnemyNavigation.moveSpeed).z);
+            yield return null;
+        }
+        animator.speed = 1f;
         animator.SetTrigger("Attack");
         isAttacking = false;
+        reworkedEnemyNavigation.moveSpeed = 3f;
         playerDamaged = false;
-        navMeshAgent.speed = 6f;
-        navMeshAgent.acceleration = 7f;
-        enemyNavigation.attacking = false;
-        navMeshAgent.stoppingDistance = 1f;
         playerHit.Clear();
-        attackStarted = false;
-        enemyNavigation.playerSeen = false;
-        enemyNavigation.startedPatrol = false;
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
@@ -99,17 +100,12 @@ public class MeleeEnemyAttack : MonoBehaviour
     {
         StopAllCoroutines();
         attack = Attack();
-        transform.position = transform.position;
+        animator.speed = 1f;
         isAttacking = false;
+        reworkedEnemyNavigation.moveSpeed = 3f;
         playerDamaged = false;
-        navMeshAgent.speed = 6f;
-        navMeshAgent.acceleration = 7f;
-        enemyNavigation.attacking = false;
-        navMeshAgent.stoppingDistance = 1f;
         playerHit.Clear();
         attackStarted = false;
-        enemyNavigation.playerSeen = false;
-        enemyNavigation.startedPatrol = false;
         canAttack = true;
     }
     private void OnCollisionEnter(Collision other)
