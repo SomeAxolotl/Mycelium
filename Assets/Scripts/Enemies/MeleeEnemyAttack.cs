@@ -82,7 +82,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         Transform target = player;
         Vector3 moveDirection = (target.position - transform.position).normalized;
         reworkedEnemyNavigation.moveSpeed = 8f;
-        while (Vector3.Distance(transform.position, target.position) > 0.25f && !playerDamaged && resetAttack < 1f)
+        while (Vector3.Distance(transform.position, target.position) > 0.25f && !playerDamaged && resetAttack < 1.5f)
         {
             rb.velocity = new Vector3((moveDirection * reworkedEnemyNavigation.moveSpeed).x, rb.velocity.y, (moveDirection * reworkedEnemyNavigation.moveSpeed).z);
             yield return null;
