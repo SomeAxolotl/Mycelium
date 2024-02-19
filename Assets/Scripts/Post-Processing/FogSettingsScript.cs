@@ -12,6 +12,12 @@ public class FogSettingsScript : MonoBehaviour
     [SerializeField] [Tooltip("Default color is White")] Color fogColor;
 
     [ContextMenu("UpdateFog")]
+
+    private void Start()
+    {
+        UpdateFog();
+    }
+
     void UpdateFog()
     {
         Shader.SetGlobalFloat("_WhereFogStarts", whereFogStarts);
