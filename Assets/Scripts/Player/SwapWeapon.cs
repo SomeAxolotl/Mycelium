@@ -31,13 +31,14 @@ public class SwapWeapon : MonoBehaviour
         swapCharacter = GetComponent<SwapCharacter>();
         playerController = GetComponent<PlayerController>();
         currentCharacter = GameObject.FindWithTag("currentPlayer");
-        /*if (GameObject.FindWithTag("currentWeapon") == null)
+        if (GameObject.FindWithTag("currentWeapon") == null && SceneManager.GetActiveScene().buildIndex == 1)
         {
             GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
-            //UpdateCharacter(GameObject.FindWithTag("currentPlayer"));
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             startingWeapon.GetComponent<Collider>().enabled = false;
-        }*/
+            curWeapon = startingWeapon;
+
+        }
     }
 
     // Update is called once per frame
