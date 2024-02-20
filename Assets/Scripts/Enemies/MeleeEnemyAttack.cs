@@ -13,7 +13,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     private bool attackStarted = false;
     private bool playerDamaged = false;
     [SerializeField] private float attackCooldown = 2f;
-    private float attackWindupTime = .75f;
+    private float attackWindupTime = .85f;
     private float resetAttack;
     [SerializeField] private float damage = 20f;
     private float knockbackForce = 30f;
