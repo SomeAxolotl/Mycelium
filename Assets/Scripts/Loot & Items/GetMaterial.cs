@@ -58,7 +58,7 @@ public class GetMaterial : MonoBehaviour
             }
             string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";
 
-            TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press A to Pick Up");
+            TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press A to Pick Up\n(Hold Y to salvage)");
             if (interact.triggered)
             {
                 SoundEffectManager.Instance.PlaySound("Pickup", transform.position);

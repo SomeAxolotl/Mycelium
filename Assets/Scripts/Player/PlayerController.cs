@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator StartKnockback(Vector3 direction, float force)
     {
         Vector3 knockbackForce = direction * force;
-        knockbackForce += Vector3.up * 3f;
+        knockbackForce += -Vector3.forward * 3f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         animator.SetBool("Hurt", true);
         animator.Play("Hurt");
