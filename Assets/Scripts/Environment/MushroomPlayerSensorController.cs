@@ -15,6 +15,10 @@ public class MushroomPlayerSensorController : MonoBehaviour
 
     private void Start(){
         StartGlow = SampleMaterial.material.GetColor("_Glow_Color");
+        foreach(Renderer renderer in Renderers)
+            {
+                renderer.material.SetColor("_Glow_Color", new Color(0,0,0));
+            }
     }
     private void OnTriggerExit(Collider other){
         if(other.gameObject.tag == "currentPlayer"){
