@@ -16,6 +16,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Image enterSceneLoadBar;
     [SerializeField] private TMP_Text enterSceneFunText;
     [SerializeField] private GameObject mainMenuStartupImage;
+    [SerializeField] private TMP_Text mainMenuStartupText;
     [SerializeField] private GameObject defaultImage;
     [SerializeField] private GameObject defaultLoadPanel;
     [SerializeField] float startupDelayTime;
@@ -95,7 +96,7 @@ public class SceneLoader : MonoBehaviour
         float i = 0f;
 
         enterSceneLoadBar.fillAmount = 1;
-        ChangeFunText(enterSceneFunText, 1);
+        enterSceneFunText.text = GlobalData.currentFunText;
 
         enterSceneCanvasGroup.alpha = 1f;
         enterSceneCanvasGroup.blocksRaycasts = true;
@@ -103,12 +104,30 @@ public class SceneLoader : MonoBehaviour
 
         if (isOnStartup == true)
         {
+            Vector4 textColor = new Vector4 (1, 1, 1, 0);
+
             mainMenuStartupImage.SetActive(true);
+            mainMenuStartupText.color = textColor;
             defaultImage.SetActive(false);
             defaultLoadPanel.SetActive(false);
 
             GlobalData.gameIsStarting = false;
             yield return new WaitForSecondsRealtime(startupDelayTime);
+
+            while (elapsedTime < 2f)
+            {
+                t = elapsedTime / 2f;
+
+                textColor.w = Mathf.Lerp(0f, 1f, t);
+                mainMenuStartupText.color = textColor;
+
+                elapsedTime += Time.unscaledDeltaTime;
+
+                yield return null;
+            }
+
+            elapsedTime = 0f;
+            textColor = Color.white;
         }
 
         while (i < 0.5f)
@@ -147,11 +166,12 @@ public class SceneLoader : MonoBehaviour
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
+        ChangeFunText(goodExitSceneFunText);
+
         do
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             goodExitSceneLoadBar.fillAmount = progress;
-            ChangeFunText(goodExitSceneFunText, progress);
 
             yield return null;
         }
@@ -178,11 +198,12 @@ public class SceneLoader : MonoBehaviour
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
+        ChangeFunText(badExitSceneFunText);
+
         do
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             badExitSceneLoadBar.fillAmount = progress;
-            ChangeFunText(badExitSceneFunText, progress);
 
             yield return null;
         }
@@ -193,19 +214,23 @@ public class SceneLoader : MonoBehaviour
         isLoading = false;
     }
 
-    void ChangeFunText(TMP_Text funText, float progress)
+    void ChangeFunText(TMP_Text funText)
     {
         string[] funTexts =
         {
             "Gearing up Spore",
             "Preparing Forage",
-            "Finalizing Fungi"
+            "Finalizing Fungi",
+            "Fortifying Fungus",
+            "Enhancing Evolution",
+            "Strengthening Spores"
         };
 
-        int funTextArrayCount = Mathf.FloorToInt(progress * (funTexts.Length - 1));
-        funTextArrayCount = Mathf.Clamp(funTextArrayCount, 0, funTexts.Length - 1);
+        //int funTextArrayCount = Mathf.FloorToInt(progress * (funTexts.Length - 1));
+        //funTextArrayCount = Mathf.Clamp(funTextArrayCount, 0, funTexts.Length - 1);
 
-        funText.text = funTexts[funTextArrayCount];
+        funText.text = funTexts[Random.Range(0, funTexts.Length)];
+        GlobalData.currentFunText = funText.text;
     }
 
     IEnumerator FadeCanvasIn(CanvasGroup canvasGroup, float transitionTime)
