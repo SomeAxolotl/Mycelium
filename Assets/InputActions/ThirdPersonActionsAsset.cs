@@ -1522,6 +1522,74 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UISub"",
+            ""id"": ""dba0b622-0142-4366-8b2d-6a0255aa258a"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""3606e295-1484-4629-a853-eb266527260e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8ef0d11-5281-4d99-9f26-eecba7302abd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelConfirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""326a628e-20a5-46e6-a307-574989110a60"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d8a319c1-55cd-416d-9721-f30d5343e84e"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""490b88b7-a3c8-45b8-821d-181947467887"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9be57f2e-d057-440e-b191-a13ac5ae2461"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelConfirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1580,6 +1648,11 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UI_KeyLevelDownSentience = m_UI.FindAction("Key Level Down Sentience", throwIfNotFound: true);
         m_UI_KeyLevelUpVitality = m_UI.FindAction("Key Level Up Vitality", throwIfNotFound: true);
         m_UI_KeyLevelDownVitality = m_UI.FindAction("Key Level Down Vitality", throwIfNotFound: true);
+        // UISub
+        m_UISub = asset.FindActionMap("UISub", throwIfNotFound: true);
+        m_UISub_Newaction = m_UISub.FindAction("New action", throwIfNotFound: true);
+        m_UISub_Confirm = m_UISub.FindAction("Confirm", throwIfNotFound: true);
+        m_UISub_CancelConfirm = m_UISub.FindAction("CancelConfirm", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -2113,6 +2186,68 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // UISub
+    private readonly InputActionMap m_UISub;
+    private List<IUISubActions> m_UISubActionsCallbackInterfaces = new List<IUISubActions>();
+    private readonly InputAction m_UISub_Newaction;
+    private readonly InputAction m_UISub_Confirm;
+    private readonly InputAction m_UISub_CancelConfirm;
+    public struct UISubActions
+    {
+        private @ThirdPersonActionsAsset m_Wrapper;
+        public UISubActions(@ThirdPersonActionsAsset wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_UISub_Newaction;
+        public InputAction @Confirm => m_Wrapper.m_UISub_Confirm;
+        public InputAction @CancelConfirm => m_Wrapper.m_UISub_CancelConfirm;
+        public InputActionMap Get() { return m_Wrapper.m_UISub; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UISubActions set) { return set.Get(); }
+        public void AddCallbacks(IUISubActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UISubActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UISubActionsCallbackInterfaces.Add(instance);
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
+            @Confirm.started += instance.OnConfirm;
+            @Confirm.performed += instance.OnConfirm;
+            @Confirm.canceled += instance.OnConfirm;
+            @CancelConfirm.started += instance.OnCancelConfirm;
+            @CancelConfirm.performed += instance.OnCancelConfirm;
+            @CancelConfirm.canceled += instance.OnCancelConfirm;
+        }
+
+        private void UnregisterCallbacks(IUISubActions instance)
+        {
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
+            @Confirm.started -= instance.OnConfirm;
+            @Confirm.performed -= instance.OnConfirm;
+            @Confirm.canceled -= instance.OnConfirm;
+            @CancelConfirm.started -= instance.OnCancelConfirm;
+            @CancelConfirm.performed -= instance.OnCancelConfirm;
+            @CancelConfirm.canceled -= instance.OnCancelConfirm;
+        }
+
+        public void RemoveCallbacks(IUISubActions instance)
+        {
+            if (m_Wrapper.m_UISubActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUISubActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UISubActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UISubActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UISubActions @UISub => new UISubActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -2168,5 +2303,11 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnKeyLevelDownSentience(InputAction.CallbackContext context);
         void OnKeyLevelUpVitality(InputAction.CallbackContext context);
         void OnKeyLevelDownVitality(InputAction.CallbackContext context);
+    }
+    public interface IUISubActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
+        void OnConfirm(InputAction.CallbackContext context);
+        void OnCancelConfirm(InputAction.CallbackContext context);
     }
 }

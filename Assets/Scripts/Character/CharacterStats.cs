@@ -60,11 +60,14 @@ public class CharacterStats : MonoBehaviour
     private SporeAttributeIncrements sporeAttributeIncrements;
     private PlayerController playerController;
     private SkillManager skillManager;
+    public GameObject ConfirmPrimal;
+    public GameObject ConfirmSpeed;
     [SerializeField] private Nametag nametag;
 
     private HUDHealth hudHealth;
 
     public float animatorSpeed;
+    private LevelUpManagerNew levelscript;
 
     void Start()
     {
@@ -73,17 +76,24 @@ public class CharacterStats : MonoBehaviour
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
         sporeAttributeIncrements = playerParent.GetComponent<SporeAttributeIncrements>();
+        
     }
 
     void Update()
     {
         totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
         levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
+
+        
     }
     public void LevelPrimal()
     {        
-        
-        if(nutrientTracker.currentNutrients >= levelUpCost && primalLevel < 15)
+        levelscript = GameObject.FindWithTag("LevelController").GetComponent<LevelUpManagerNew>();
+        if (primalLevel == 15)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 4 && primalLevel != 9 && primalLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
@@ -91,7 +101,36 @@ public class CharacterStats : MonoBehaviour
             StartCalculateAttributes();
             UpdateLevel();
         }
-        
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && primalLevel == 4)
+        {
+            levelscript.ConfirmPrimal.SetActive(true);
+            /*nutrientTracker.SubtractNutrients(levelUpCost);
+            primalLevel++;
+            nutrientTracker.storedLog--;
+            Debug.Log("Leveled Primal");
+            StartCalculateAttributes();
+            UpdateLevel();*/
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && primalLevel == 9)
+        {
+            levelscript.ConfirmPrimal.SetActive(true);
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && primalLevel == 14)
+        {
+            levelscript.ConfirmPrimal.SetActive(true);
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && primalLevel == 4)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && primalLevel == 9)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && primalLevel == 14)
+        {
+            return;
+        }
     }
     public void DeLevelPrimal()
     {
@@ -111,13 +150,47 @@ public class CharacterStats : MonoBehaviour
     }
     public void LevelSpeed()
     {
-        if(nutrientTracker.currentNutrients >= levelUpCost && speedLevel < 15)
+         levelscript = GameObject.FindWithTag("LevelController").GetComponent<LevelUpManagerNew>();
+         if (speedLevel == 15)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 4 && speedLevel != 9 && speedLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             speedLevel++;
-
             StartCalculateAttributes();
             UpdateLevel();
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && speedLevel == 4)
+        {
+            levelscript.ConfirmSpeed.SetActive(true);
+            /*nutrientTracker.SubtractNutrients(levelUpCost);
+            primalLevel++;
+            nutrientTracker.storedLog--;
+            Debug.Log("Leveled Primal");
+            StartCalculateAttributes();
+            UpdateLevel();*/
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && speedLevel == 9)
+        {
+            levelscript.ConfirmSpeed.SetActive(true);
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && speedLevel == 14)
+        {
+            levelscript.ConfirmSpeed.SetActive(true);
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && speedLevel == 4)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && speedLevel == 9)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && speedLevel == 14)
+        {
+            return;
         }
 
     }
@@ -139,11 +212,47 @@ public class CharacterStats : MonoBehaviour
     }
     public void LevelSentience()
     {
-        if(nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel < 15)
+        levelscript = GameObject.FindWithTag("LevelController").GetComponent<LevelUpManagerNew>();
+         if (sentienceLevel == 15)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 4 && sentienceLevel != 9 && sentienceLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             sentienceLevel++;
+            StartCalculateAttributes();
             UpdateLevel();
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && sentienceLevel == 4)
+        {
+            levelscript.ConfirmSpeed.SetActive(true);
+            /*nutrientTracker.SubtractNutrients(levelUpCost);
+            primalLevel++;
+            nutrientTracker.storedLog--;
+            Debug.Log("Leveled Primal");
+            StartCalculateAttributes();
+            UpdateLevel();*/
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && sentienceLevel == 9)
+        {
+            levelscript.ConfirmSent.SetActive(true);
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && sentienceLevel == 14)
+        {
+            levelscript.ConfirmSent.SetActive(true);
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && sentienceLevel == 4)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && sentienceLevel == 9)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && sentienceLevel == 14)
+        {
+            return;
         }
     }
      public void DeLevelSentience()
@@ -162,13 +271,47 @@ public class CharacterStats : MonoBehaviour
     }
     public void LevelVitality()
     {
-        if(nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel < 15)
+        levelscript = GameObject.FindWithTag("LevelController").GetComponent<LevelUpManagerNew>();
+         if (vitalityLevel == 15)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 4 && vitalityLevel != 9 && vitalityLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             vitalityLevel++;
-
             StartCalculateAttributes();
             UpdateLevel();
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && vitalityLevel == 4)
+        {
+            levelscript.ConfirmSpeed.SetActive(true);
+            /*nutrientTracker.SubtractNutrients(levelUpCost);
+            primalLevel++;
+            nutrientTracker.storedLog--;
+            Debug.Log("Leveled Primal");
+            StartCalculateAttributes();
+            UpdateLevel();*/
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && vitalityLevel == 9)
+        {
+            levelscript.ConfirmSent.SetActive(true);
+        }
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && vitalityLevel == 14)
+        {
+            levelscript.ConfirmSent.SetActive(true);
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && vitalityLevel == 4)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && vitalityLevel == 9)
+        {
+            return;
+        }
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && vitalityLevel == 14)
+        {
+            return;
         }
         
     }

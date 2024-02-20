@@ -57,6 +57,10 @@ public class LevelUpManagerNew : MonoBehaviour
     public GameObject [] SpeedPoints;
     public GameObject[] SentiencePoints;
     public GameObject[] VitalityPoints;
+    public GameObject ConfirmPrimal;
+    public GameObject ConfirmSpeed;
+    public GameObject ConfirmSent;
+    public GameObject ConfirmVit;
     
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
@@ -123,7 +127,7 @@ public class LevelUpManagerNew : MonoBehaviour
         MenuSwap();
       }
     }
-    void ControlEnable()
+    public void ControlEnable()
     {
        controls.UI.Enable();  
     }
@@ -133,6 +137,10 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.MenuSwapL.performed += ctx => MenuSwapL();
     }
     void OnDisable()
+    {
+      controls.UI.Disable();
+    }
+    public void ControlDisable()
     {
       controls.UI.Disable();
     }
@@ -210,6 +218,10 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
       controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
     }
+    public void UIUpdate()
+    {
+      StartCoroutine(UpdateUI());
+    }
     
     public void PrimalUP()
     {
@@ -230,8 +242,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalDeselect()
     {
-        controls.UI.KeyLevelDownPrimal.Disable();
-        controls.UI.KeyLevelUpPrimal.Disable();
+      controls.UI.KeyLevelDownPrimal.Disable();
+      controls.UI.KeyLevelUpPrimal.Disable();
       controls.UI.PrimalLevelRight.Disable();
       controls.UI.PrimalLevelLeft.Disable();
       controls.UI.PrimalLevelRightStick.Disable();
