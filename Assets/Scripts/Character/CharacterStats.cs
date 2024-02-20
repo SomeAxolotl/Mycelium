@@ -226,7 +226,7 @@ public class CharacterStats : MonoBehaviour
         }
         else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && sentienceLevel == 4)
         {
-            levelscript.ConfirmSpeed.SetActive(true);
+            levelscript.ConfirmSent.SetActive(true);
             /*nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
             nutrientTracker.storedLog--;
@@ -285,7 +285,7 @@ public class CharacterStats : MonoBehaviour
         }
         else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && vitalityLevel == 4)
         {
-            levelscript.ConfirmSpeed.SetActive(true);
+            levelscript.ConfirmVit.SetActive(true);
             /*nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
             nutrientTracker.storedLog--;
@@ -295,11 +295,11 @@ public class CharacterStats : MonoBehaviour
         }
         else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && vitalityLevel == 9)
         {
-            levelscript.ConfirmSent.SetActive(true);
+            levelscript.ConfirmVit.SetActive(true);
         }
         else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && vitalityLevel == 14)
         {
-            levelscript.ConfirmSent.SetActive(true);
+            levelscript.ConfirmVit.SetActive(true);
         }
         else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && vitalityLevel == 4)
         {

@@ -41,15 +41,15 @@ public class LevelConfirm : MonoBehaviour
    {
     if(currentstats.primalLevel == 4)
     {
-        confirmtext.text = "Would you like to use 1x <br> to level?";
+        confirmtext.text = "Would you like to use x1 <br> to level?";
     }
     else if(currentstats.primalLevel == 9)
     {
-        confirmtext.text = "Would you like to use 2x <br> to level?";
+        confirmtext.text = "Would you like to use x2 <br> to level?";
     }
     else if(currentstats.primalLevel == 14)
     {
-        confirmtext.text = "Would you like to use 3x <br> to level?";
+        confirmtext.text = "Would you like to use x3 <br> to level?";
     }
    }
 
@@ -101,5 +101,8 @@ public class LevelConfirm : MonoBehaviour
     void Close()
     {
         ConfirmPanel.SetActive(false);
+        levelscript.SpeedDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
     }
 }

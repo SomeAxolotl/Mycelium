@@ -61,6 +61,14 @@ public class LevelUpManagerNew : MonoBehaviour
     public GameObject ConfirmSpeed;
     public GameObject ConfirmSent;
     public GameObject ConfirmVit;
+    public Image PrimalArrowUp;
+    public Image PrimalArrowDown;
+    public Image SpeedArrowUp;
+    public Image SpeedArrowDown;
+    public Image SentienceArrowUp;
+    public Image SentienceArrowDown;
+    public Image VitalityArrowUp;
+    public Image VitalityArrowDown;
     
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
@@ -159,6 +167,106 @@ public class LevelUpManagerNew : MonoBehaviour
         SpeedBarFill();
         SentienceBarFill();
         VitalityBarFill();
+        DownArrowUpdate();
+        PrimalArrowIncrease();
+        SpeedArrowIncrease();
+        SentienceArrowIncrease();
+        VitalityArrowIncrease();
+    }
+    void PrimalDownUpdate()
+    {
+      if(currentstats.primalLevel == 1 || currentstats.primalLevel == PrimalSave)
+      {
+        PrimalArrowDown.enabled = false;
+      }
+      else
+      {
+        PrimalArrowDown.enabled = true;
+      }
+    }
+    void SpeedDownUpdate()
+    {
+      if(currentstats.speedLevel == 1 || currentstats.speedLevel == SpeedSave)
+      {
+        SpeedArrowDown.enabled = false;
+      }
+      else
+      {
+        SpeedArrowDown.enabled = true;
+      }
+    }
+    void SentienceDownUpdate()
+    {
+      if(currentstats.sentienceLevel == 1 || currentstats.sentienceLevel == SentienceSave)
+      {
+        SentienceArrowDown.enabled = false;
+      }
+      else
+      {
+        SentienceArrowDown.enabled = true;
+      }
+    }
+    void VitalityDownUpdate()
+    {
+      if(currentstats.vitalityLevel == 1 || currentstats.vitalityLevel == VitalitySave)
+      {
+        VitalityArrowDown.enabled = false;
+      }
+      else
+      {
+        VitalityArrowDown.enabled=true;
+      }
+    }
+    void DownArrowUpdate()
+    {
+      PrimalDownUpdate();
+      SpeedDownUpdate();
+      SentienceDownUpdate();
+      VitalityDownUpdate();
+    }
+    void PrimalArrowIncrease()
+    {
+      if(currentstats.primalLevel == 4 || currentstats.primalLevel == 9 || currentstats.primalLevel == 14)
+      {
+        PrimalArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+      }
+      else
+      {
+        PrimalArrowUp.sprite = Resources.Load<Sprite>("arrow 1");
+      }
+    }
+    void SpeedArrowIncrease()
+    {
+      if(currentstats.speedLevel == 4 || currentstats.speedLevel == 9 || currentstats.speedLevel == 14)
+      {
+        SpeedArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+      }
+      else
+      {
+        SpeedArrowUp.sprite = Resources.Load<Sprite>("arrow 1");
+      }
+    }
+    void SentienceArrowIncrease()
+    {
+      if(currentstats.sentienceLevel == 4 || currentstats.sentienceLevel == 9 || currentstats.sentienceLevel == 14)
+      {
+        SentienceArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+      }
+      else
+      {
+        SentienceArrowUp.sprite = Resources.Load<Sprite>("arrow 1");
+      }
+    }
+    void VitalityArrowIncrease()
+    {
+      if(currentstats.vitalityLevel == 4 || currentstats.vitalityLevel == 9 || currentstats.vitalityLevel == 14)
+      {
+        VitalityArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+      }
+      else
+      {
+        VitalityArrowUp.sprite = Resources.Load<Sprite>("arrow 1");
+      }
     }
     void MenuSwap()
     {
