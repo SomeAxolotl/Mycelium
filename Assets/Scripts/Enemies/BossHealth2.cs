@@ -8,7 +8,7 @@ public class BossHealth2 : EnemyHealth
     {
         HUDBoss hudBoss = GameObject.Find("HUD").GetComponent<HUDBoss>();
 
-        if (other.gameObject.CompareTag("currentPlayer") && !hudBoss.hasPopped)
+        if (other.gameObject.CompareTag("currentPlayer") && !hudBoss.fightingBoss)
         {
             hudBoss.EncounterBoss(gameObject.name, currentHealth, maxHealth);
         }

@@ -97,6 +97,8 @@ public class PlayerAttack : MonoBehaviour
             animator.Play("Slash");
         }
 
+        float currentAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length;
+        hudSkills.StartCooldownUI(3, currentAnimationLength);
 
         /* play smash animation
         animator.Play("Smash");

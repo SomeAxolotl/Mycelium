@@ -28,6 +28,9 @@ public class SporeManager : MonoBehaviour
         skillManagerScript = GameObject.Find("PlayerParent").GetComponent<SkillManager>();
         currentPlayerSpore = GameObject.Find("Spore");
 
+        swapCharacterScript.characters.RemoveAll(item => item == null);
+        swapCharacterScript.currentCharacterIndex = swapCharacterScript.characters.IndexOf(GameObject.FindWithTag("currentPlayer"));
+
         //if(PlayerParent.activeSelf == true)                   //Necessary to have the SwapCharacters function work, unless SwapCharacters is reworked separately
         //    PlayerParent.SetActive(false);
 

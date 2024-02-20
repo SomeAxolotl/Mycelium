@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5677c239b52326e40898a46e93c692d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDodgeCooldown: 3
+  dodgeCooldownIncrement: 0.143
   rb: {fileID: 0}
   forceDirection: {x: 0, y: 0, z: 0}
   moveSpeed: 0
@@ -64,7 +66,6 @@ MonoBehaviour:
   canAct: 1
   activeDodge: 0
   isInvincible: 0
-  dodgeCooldown: 1
 --- !u!114 &4855120389551145187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +119,6 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   isDefending: 0
-  weaponCollision: {fileID: 0}
   timeBetweenHurtSounds: 0.25
 --- !u!114 &6339953943085018612
 MonoBehaviour:
@@ -239,6 +239,8 @@ MonoBehaviour:
   weaponLayer:
     serializedVersion: 2
     m_Bits: 128
+  currentCharacter: {fileID: 0}
+  weaponHolder: {fileID: 0}
   curWeapon: {fileID: 0}
   proximityRadius: 5
   betterStatColor: {r: 0.22031003, g: 0.8584906, b: 0.20652366, a: 0}

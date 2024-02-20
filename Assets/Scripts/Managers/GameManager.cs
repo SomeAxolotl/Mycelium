@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
             RemoveHUDMaterial();
             StartCoroutine(UpdateHUDNutrients());
         }
+
+        StartCoroutine(RefreshCutoutMaskUI());
     }
 
     public void OnPlayerDeath()
@@ -60,6 +62,20 @@ public class GameManager : MonoBehaviour
     {
         GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
         Debug.Log("DEFEAT ENEMY");
+    }
+
+    IEnumerator RefreshCutoutMaskUI()
+    {
+        CutoutMaskUI[] cutoutMasks = GameObject.Find("HUD").GetComponentsInChildren<CutoutMaskUI>();
+        foreach (CutoutMaskUI cutoutMask in cutoutMasks)
+        {
+            cutoutMask.enabled = false;
+        }
+        yield return null;
+        foreach (CutoutMaskUI cutoutMask in cutoutMasks)
+        {
+            cutoutMask.enabled = true;
+        }
     }
 
     IEnumerator PlacePlayer()

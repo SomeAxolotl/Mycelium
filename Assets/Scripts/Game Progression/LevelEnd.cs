@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelEnd : MonoBehaviour
 {
+    [SerializeField] int sceneIndexToGoTo;
+
     NutrientTracker nutrientTracker;
     SceneLoader sceneLoaderScript;
     SwapWeapon swapWeapon;
@@ -19,13 +21,16 @@ public class LevelEnd : MonoBehaviour
         if (other.tag == "currentPlayer")
         {
             other.GetComponentInParent<PlayerHealth>().currentHealth = other.GetComponentInParent<PlayerHealth>().maxHealth;
-            swapWeapon.curWeapon.tag = "Weapon";
-            GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
-            foreach (GameObject weapon in weapons)
-            Destroy(weapon);
+            if (sceneIndexToGoTo == 2)
+            {
+                swapWeapon.curWeapon.tag = "Weapon";
+                GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+                foreach (GameObject weapon in weapons)
+                Destroy(weapon);
+            }
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
-            sceneLoaderScript.BeginLoadScene(2, true);
+            sceneLoaderScript.BeginLoadScene(sceneIndexToGoTo, true);
         }
     }
 }

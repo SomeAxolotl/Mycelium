@@ -12,7 +12,7 @@ public class HUDBoss : BaseEnemyHealthBar
     [SerializeField] private GameObject bossHealthHolder;
     [SerializeField] private float popDuration = 0.5f;
 
-    [HideInInspector] public bool hasPopped = false;
+    [HideInInspector] public bool fightingBoss = false;
 
     void Start()
     {
@@ -41,7 +41,7 @@ public class HUDBoss : BaseEnemyHealthBar
 
     public void EncounterBoss(string bossName, float currentHealth, float maxHealth)
     {
-        hasPopped = true;
+        fightingBoss = true;
 
         bossNameText.text = bossName;
         UpdateBossHealthUI(currentHealth, maxHealth);
@@ -65,7 +65,12 @@ public class HUDBoss : BaseEnemyHealthBar
 
     public override void DefeatEnemy()
     {
-        StartCoroutine(DefeatingEnemyCoroutine());
+        if (fightingBoss)
+        {
+            StartCoroutine(DefeatingEnemyCoroutine());
+            fightingBoss = false;
+            Debug.Log("DEFEATING ENEMY");
+        }
     }
 
     IEnumerator DefeatingEnemyCoroutine()

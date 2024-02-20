@@ -29,13 +29,13 @@ public class EnemyKnockback : MonoBehaviour
         RaycastHit test;
         if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, out test, .35f, groundLayer))
         {
-            Debug.Log("in ground!: " + gameObject.name);
+            //Debug.Log("in ground!: " + gameObject.name);
             rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
-        else
+        /*else
         {
             Debug.Log("not in ground");
-        }
+        }*/
     }
     public void Knockback(float knockbackForce)
     {

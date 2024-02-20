@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DesignTracker : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class DesignTracker : MonoBehaviour
 
     private void Start()
     {
-        //UpdateColors();          //<---- taken care of by SporeManager.cs now
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            UpdateColors();                   //<---- taken care of by SporeManager.cs in the carcass
+        }     
     }
 
     public void UpdateBlendshape(int sentienceLevel, int primalLevel, int vitalityLevel, int speedLevel)

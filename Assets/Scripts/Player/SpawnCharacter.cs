@@ -23,6 +23,7 @@ public class SpawnCharacter : MonoBehaviour
     {
         "Gob"
     };
+    private List<string> usedSporeNames = new List<string>();
 
 
     [SerializeField] private GameObject characterPrefab;
@@ -96,6 +97,8 @@ public class SpawnCharacter : MonoBehaviour
 
         int randomNameIndex = Random.Range(0, sporeNames.Count - 1);
         newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
+        usedSporeNames.Add(sporeNames[randomNameIndex]);
+        sporeNames.Remove(sporeNames[randomNameIndex]);
         newCharacter.GetComponent<CharacterStats>().ShowNametag();
         newCharacter.GetComponent<CharacterStats>().UpdateNametagText();
     }

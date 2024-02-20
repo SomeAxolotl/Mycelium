@@ -37,12 +37,12 @@ public class TestingManager : MonoBehaviour
         Stab
     }
 
-    private enum SporeSubspecies
+    private enum SubspeciesSkills
     {
-        Default,
-        Poison,
-        Coral,
-        Cordyceps
+        FungalMight,
+        DeathBlossom,
+        FairyRing,
+        Zombify
     }
 
     [Header("Nutrients - Alpha1")]
@@ -68,8 +68,8 @@ public class TestingManager : MonoBehaviour
     [SerializeField][Tooltip("Alpha5 - Set Weapon")] private WeaponTiers weaponTier;
     [SerializeField][Tooltip("Alpha5 - Set Weapon")] private WeaponTypes weaponType;
 
-    [Header("New Spore Subspecies - Alpha6")]
-    [SerializeField][Tooltip("Alpha6 - Grow New Spore")] private SporeSubspecies sporeSubspecies;
+    [Header("Subspecies Skill - Alpha6")]
+    [SerializeField][Tooltip("Alpha6 - Grow New Spore")] private SubspeciesSkills subspeciesSkill;
 
     [Header("References")]
     [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
@@ -124,7 +124,7 @@ public class TestingManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            StartCoroutine(GrowNewSpore());
+            StartCoroutine(SetPlayerSubspeciesSkill());
         }
     }
 
@@ -158,6 +158,7 @@ public class TestingManager : MonoBehaviour
         playerStats.vitalityLevel = vitalityLevel;
 
         player.GetComponent<CharacterStats>().StartCalculateAttributes();
+        player.GetComponent<CharacterStats>().UpdateLevel();
     }
 
     IEnumerator SetPlayerSkills()
@@ -187,12 +188,13 @@ public class TestingManager : MonoBehaviour
         }
     }
 
-    IEnumerator GrowNewSpore()
+    IEnumerator SetPlayerSubspeciesSkill()
     {
         GetCurrentPlayer();
 
         yield return null;
-        spawnCharacter.SpawnNewCharacter(sporeSubspecies.ToString());
+        skillManager.SetSkill(subspeciesSkill.ToString(), 0, player);
+        hudSkills.ChangeSkillIcon(subspeciesSkill.ToString(), 0);
     }
 
     void GetCurrentPlayer()
