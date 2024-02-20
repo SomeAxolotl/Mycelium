@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelEnd : MonoBehaviour
 {
+    [SerializeField] int sceneIndexToGoTo;
+
     NutrientTracker nutrientTracker;
     SceneLoader sceneLoaderScript;
     SwapWeapon swapWeapon;
@@ -25,7 +27,7 @@ public class LevelEnd : MonoBehaviour
             Destroy(weapon);
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
-            sceneLoaderScript.BeginLoadScene(2, true);
+            sceneLoaderScript.BeginLoadScene(sceneIndexToGoTo, true);
         }
     }
 }
