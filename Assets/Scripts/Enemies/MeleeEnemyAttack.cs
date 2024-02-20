@@ -49,14 +49,7 @@ public class MeleeEnemyAttack : MonoBehaviour
             }
         }
 
-        if(attackStarted)
-        {
-            Vector3 dirToPlayer = (player.position - transform.position);
-            Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
-            float desiredYRotation = desiredRotation.eulerAngles.y;
-            Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
-        }
+
 
         if(isAttacking)
         {
@@ -65,6 +58,17 @@ public class MeleeEnemyAttack : MonoBehaviour
         else
         {
             resetAttack = 0f;
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (attackStarted)
+        {
+            Vector3 dirToPlayer = (player.position - transform.position);
+            Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
+            float desiredYRotation = desiredRotation.eulerAngles.y;
+            Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
         }
     }
     IEnumerator Attack()
