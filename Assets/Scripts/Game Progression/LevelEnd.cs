@@ -21,10 +21,13 @@ public class LevelEnd : MonoBehaviour
         if (other.tag == "currentPlayer")
         {
             other.GetComponentInParent<PlayerHealth>().currentHealth = other.GetComponentInParent<PlayerHealth>().maxHealth;
-            swapWeapon.curWeapon.tag = "Weapon";
-            GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
-            foreach (GameObject weapon in weapons)
-            Destroy(weapon);
+            if (sceneIndexToGoTo == 2)
+            {
+                swapWeapon.curWeapon.tag = "Weapon";
+                GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+                foreach (GameObject weapon in weapons)
+                Destroy(weapon);
+            }
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
             sceneLoaderScript.BeginLoadScene(sceneIndexToGoTo, true);
