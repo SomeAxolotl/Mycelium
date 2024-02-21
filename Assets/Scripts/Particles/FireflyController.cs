@@ -12,8 +12,6 @@ public class FireflyController : MonoBehaviour
     private int positionIndex=0;
 
     private void OnTriggerEnter(Collider other){
-        if(positionIndex+1 >= Positions.Count)
-            Destroy(this);
         StartCoroutine(MoveToPoint(Positions[positionIndex++]));
     }
 
@@ -23,5 +21,7 @@ public class FireflyController : MonoBehaviour
 			transform.position = Vector3.Lerp (startPosition, goal.position, t);
 			yield return null;
         }
+        if(positionIndex+1 > Positions.Count)
+            Destroy(this.gameObject);
     }
 }

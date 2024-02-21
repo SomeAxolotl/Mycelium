@@ -42,6 +42,10 @@ public class RangedEnemyShoot : MonoBehaviour
             }
         }
 
+
+    }
+    private void FixedUpdate()
+    {
         if (reworkedEnemyNavigation.playerSeen)
         {
             Vector3 dirToPlayer = player.position - transform.position;
@@ -51,7 +55,7 @@ public class RangedEnemyShoot : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
         }
     }
-    
+
     IEnumerator Attack()
     {
         canAttack = false;

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class ReworkedEnemyNavigation : MonoBehaviour
 {
-    [HideInInspector] public bool playerSeen;
+    public bool playerSeen;
     [HideInInspector] public bool startedPatrol = false;
     private float patrolRadius = 20f;
     private float speed;

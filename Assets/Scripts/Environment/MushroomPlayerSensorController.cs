@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -11,13 +12,18 @@ public class MushroomPlayerSensorController : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private float DeactivateSpeed = 1;
     [SerializeField] private float ActivateSpeed = 1;
+    [SerializeField] private bool DisableOnExit = true;
     private Color StartGlow;
 
     private void Start(){
         StartGlow = SampleMaterial.material.GetColor("_Glow_Color");
+        foreach(Renderer renderer in Renderers)
+            {
+                renderer.material.SetColor("_Glow_Color", new Color(0,0,0));
+            }
     }
     private void OnTriggerExit(Collider other){
-        if(other.gameObject.tag == "currentPlayer"){
+        if(DisableOnExit && other.gameObject.tag == "currentPlayer"){
             StartCoroutine(Darken());
         }
     }
