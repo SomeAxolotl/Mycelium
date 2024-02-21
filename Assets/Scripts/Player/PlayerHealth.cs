@@ -50,13 +50,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerController.DisableController();
             playerController.isInvincible = true;
-
-            //THIS IS A TEMPORARY FIX. FIX IT THE PROPER WAY
-            if(SceneManager.GetActiveScene().buildIndex != 1)
-            {
-                swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
-            }
-
+            swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
             CancelInvoke("Regen");
             hudHealth.UpdateHealthUI(0, maxHealth);
             deathTimer += Time.deltaTime;
