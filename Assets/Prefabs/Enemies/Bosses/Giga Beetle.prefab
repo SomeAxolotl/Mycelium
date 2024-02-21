@@ -467,37 +467,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 118.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -255.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.039898593
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9992038
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
@@ -507,7 +507,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -184.573
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
@@ -962,9 +962,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damaged: 0
+  onGround: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 4096
+  groundedCheckLayer:
+    serializedVersion: 2
+    m_Bits: 4352
 --- !u!114 &3785095877889991801
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -570,9 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba501784d43f294caf918106aa4d742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
   attackCooldown: 1.5
   damage: 15
 --- !u!114 &1143851786751607643
@@ -607,6 +604,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 4096
+  groundedCheckLayer:
+    serializedVersion: 2
+    m_Bits: 4352
 --- !u!114 &5005820666780921903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +670,6 @@ MonoBehaviour:
   backwardsDetectionRange: 15
   moveSpeed: 3
   animator: {fileID: 0}
-  waypoints: []
 --- !u!114 &2471222964247862261
 MonoBehaviour:
   m_ObjectHideFlags: 0

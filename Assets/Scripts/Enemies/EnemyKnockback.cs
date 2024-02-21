@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyKnockback : MonoBehaviour
 {
     public bool damaged = false;
-    private bool onGround = true;
+    [SerializeField] private bool onGround = true;
     Rigidbody rb;
     Transform player;
     Animator animator;
@@ -24,18 +24,11 @@ public class EnemyKnockback : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up * .35f, Color.green);
-
         RaycastHit test;
         if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .1f, transform.position.z), transform.up, out test, .35f, groundLayer))
         {
-            //Debug.Log("in ground!: " + gameObject.name);
             rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
-        /*else
-        {
-            Debug.Log("not in ground");
-        }*/
     }
     public void Knockback(float knockbackForce)
     {
@@ -52,17 +45,24 @@ public class EnemyKnockback : MonoBehaviour
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         onGround = false;
         yield return new WaitForFixedUpdate();
-        yield return new WaitUntil(() => onGround);
+        if(this.gameObject.name == "Giga Beetle")
+        {
+            onGround = true;
+        }
+        else
+        {
+            yield return new WaitUntil(() => onGround);
+        }
         animator.SetBool("IsMoving", true);
         damaged = false;
         reworkedEnemyNav.enabled = true;
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts.Length > 0 && collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (collision.contacts.Length > 0 && collision.gameObject.layer == LayerMask.NameToLayer("Wall") || collision.contacts.Length > 0 && collision.gameObject.layer == LayerMask.NameToLayer("Enviroment"))
         {
             ContactPoint contact = collision.GetContact(0);
-            if(contact.point.y <= transform.position.y + .25f)
+            if(contact.point.y <= transform.position.y + .5f)
             {
                 onGround = true;
             }
