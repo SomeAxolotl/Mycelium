@@ -33,6 +33,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _CliffTexture:
+        m_Texture: {fileID: 2800000, guid: cd912e5f64da6fb4e9df39a6d05e5ff0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -104,8 +108,12 @@ Material:
     - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _CliffRockHeight: 0.75
+    - _CliffRockThreshold: -7.94
+    - _CliffTiling: 9
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Degree: 0.02
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _Disable_Fresnel: 1
@@ -121,6 +129,8 @@ Material:
     - _GrassBlendLength: 3.06
     - _GrassHeightBlend: 2.92
     - _LightingCutoff: 0.211
+    - _LowGrassHeight: 29.95
+    - _LowGrassThreshold: -3.4
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
     - _Metallic: 0
@@ -130,6 +140,8 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SOFT_SHADOWS: 1
+    - _SandHeight: -1.39
+    - _SandThreshold: -1.62
     - _Shadow_Brightness: 0.1
     - _Smoothness: 0.152
     - _SmoothnessTextureChannel: 0
@@ -145,12 +157,13 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Blending_Edges: {r: 0.4, g: 0.9, b: 0, a: 0}
+    - _CliffAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _DirtAdjustmentColor: {r: 0.708319, g: 0.7691902, b: 0.90199995, a: 0}
+    - _DirtAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _GrassAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
+    - _GrassAdjustmentColor: {r: 0.70980394, g: 0.7686275, b: 0.90196085, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.80058396, g: 0.76600003, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
