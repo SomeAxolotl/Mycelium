@@ -696,12 +696,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damaged: 0
+  onGround: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 4096
-  groundedCheckLayer:
-    serializedVersion: 2
-    m_Bits: 4352
 --- !u!114 &-2981416077813945563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,10 +731,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.1
+  m_Radius: 0.75
+  m_Height: 2.25
   m_Direction: 2
-  m_Center: {x: 0, y: 0.5, z: 0.2}
+  m_Center: {x: 0, y: 0.75, z: 0.14999998}
 --- !u!114 &3078870193293480809
 MonoBehaviour:
   m_ObjectHideFlags: 0
