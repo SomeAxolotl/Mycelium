@@ -15,13 +15,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float lungeForce = 20f;
     [SerializeField][Tooltip("Is multiplied by the attack animation speed")] private float lungeDurationScalar = 0.25f;
     private HUDSkills hudSkills;
-    public Animator animator;
+    [HideInInspector] public Animator animator;
     GameObject player;
     PlayerController playerController;
     [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider enables at")] float percentUntilWindupDone = 0.5f;
     [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider disables at")] float percentUntilSwingDone = 0.8f;
 
-    public string attackAnimationName = "Slash";
+    [HideInInspector] public string attackAnimation;
 
     public IEnumerator attackstart;
     public IEnumerator lunge;
@@ -79,42 +79,27 @@ public class PlayerAttack : MonoBehaviour
         if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Slash)
         {
             animator.Play("Slash");
+            attackAnimation = "Slash";
         }
         if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Smash)
         {
             animator.Play("Smash");
+            attackAnimation = "Smash";
         }
         if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Stab)
         {
             animator.Play("Stab");
+            attackAnimation = "Stab";
         }
-        //animator.Play(attackAnimationName);
         yield return null;
-        //SoundEffectManager.Instance.PlaySound(attackAnimationName, curWeapon.transform.position);
-
-        if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Slash)
-        {
-            animator.Play("Slash");
-        }
 
         float currentAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length;
         hudSkills.StartCooldownUI(3, currentAnimationLength);
 
-        /* play smash animation
-        animator.Play("Smash");
-        if current weapon = weapon type
-        player that animation
-        ex current weapon type = stab
-        play stab animation
-        */
-
-        // play stab animation
-        // animator.Play("Stab");
-
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimationName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone)
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimation) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone)
         {
             curWeapon.GetComponent<Collider>().enabled = true;
             playerController.playerActionsAsset.Player.Disable();
@@ -123,11 +108,6 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
-
-        /*yield return new WaitForEndOfFrame();
-        yield return new WaitUntil (() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
-        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Smash"));
-        yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Stab"));*/
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f);
         animator.Rebind();

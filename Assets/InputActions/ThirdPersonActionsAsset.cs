@@ -32,7 +32,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""type"": ""Value"",
                     ""id"": ""6ef2843e-221c-46b0-920c-7b4d0aa92079"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone(min=0.25)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -50,7 +50,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""type"": ""PassThrough"",
                     ""id"": ""e06246f0-2ed7-4071-9912-d25a43f1199c"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone(min=0.25)"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },

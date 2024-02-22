@@ -65,15 +65,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        SpeedControl();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
-        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.forward, Color.red);
+
         if (dodge.triggered && canUseDodge == true && canAct == true)
         {
-            if (canUseAttack == false && playerAttack.animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimationName))
+            if (canUseAttack == false && playerAttack.animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
             {
                 StopCoroutine(playerAttack.attackstart);
                 StopCoroutine(playerAttack.lunge);
@@ -119,11 +118,12 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         LookAt();
+        SpeedControl();
 
         forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * moveSpeed;
         forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * moveSpeed;
 
-        animator.SetBool("Walk", forceDirection.magnitude > 0f);
+        animator.SetBool("Walk", rb.velocity.magnitude > 0.01f && forceDirection.magnitude > 0f);
         
         rb.AddForce(forceDirection, ForceMode.Impulse);
         rb.AddForce(gravity, ForceMode.Acceleration);
