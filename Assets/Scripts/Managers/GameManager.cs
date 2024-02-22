@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(UpdateHUDNutrients());
         }
 
-        StartCoroutine(RefreshCutoutMaskUI());
+        //StartCoroutine(RefreshCutoutMaskUI());
     }
 
     public void OnPlayerDeath()
