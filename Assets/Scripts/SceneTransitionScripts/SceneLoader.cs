@@ -11,37 +11,27 @@ public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance;
 
-    [Header("--Enter Section--")]
-    [SerializeField] private Canvas enterSceneCanvas;
-    [SerializeField] private Image enterSceneLoadBar;
-    [SerializeField] private TMP_Text enterSceneFunText;
-    [SerializeField] private GameObject mainMenuStartupImage;
-    [SerializeField] private TMP_Text mainMenuStartupText;
-    [SerializeField] private GameObject defaultImage;
-    [SerializeField] private GameObject defaultLoadPanel;
-    [SerializeField] float startupDelayTime;
+    [Header("--Black Canvas Section--")]
+    [SerializeField] private CanvasGroup blackCanvasGroup;
 
-    [Header("--Good Exit Section--")]
-    [SerializeField] private Canvas goodExitSceneCanvas;
-    [SerializeField] private Image goodExitSceneLoadBar;
-    [SerializeField] private TMP_Text goodExitSceneFunText;
-    
-    [Header("--Bad Exit Section--")]
-    [SerializeField] private Canvas badExitSceneCanvasPart1;
-    [SerializeField] private Canvas badExitSceneCanvasPart2;
-    [SerializeField] private Image badExitSceneLoadBar;
-    [SerializeField] private TMP_Text badExitSceneFunText;
-    [SerializeField] private float inbetweenTime;
+    [Header("--Startup Canvas Section--")]
+    [SerializeField] private CanvasGroup startupCanvasGroup;
+    [SerializeField] private float delayStartupCanvasTime;
+
+    [Header("--Loading Canvas Section--")]
+    [SerializeField] private CanvasGroup loadingCanvasGroup;
+    [SerializeField] private Image loadBar;
+    [SerializeField] private TMP_Text funText;
+
+    [Header("--Death Canvas Section--")]
+    [SerializeField] private CanvasGroup deathCanvasGroup;
+    [SerializeField] private float deathCanvasTime;
 
     [Header("")]
     public bool isLoading = false;
 
-    private CanvasGroup enterSceneCanvasGroup;
-    private CanvasGroup goodExitSceneCanvasGroup;
-    private CanvasGroup badExitSceneCanvasGroupPart1;
-    private CanvasGroup badExitSceneCanvasGroupPart2;
-
-    float defaultTransitionTime = 1f;
+    private float defaultTransitionTime = 1f;
+    private PlayerHealth playerHealthScript;
 
     private void Awake()
     {
@@ -53,16 +43,14 @@ public class SceneLoader : MonoBehaviour
         {
             Instance = this;
         }
-
-        enterSceneCanvasGroup = enterSceneCanvas.GetComponent<CanvasGroup>();
-        goodExitSceneCanvasGroup = goodExitSceneCanvas.GetComponent<CanvasGroup>();
-        badExitSceneCanvasGroupPart1 = badExitSceneCanvasPart1.GetComponent<CanvasGroup>();
-        badExitSceneCanvasGroupPart2 = badExitSceneCanvasPart2.GetComponent<CanvasGroup>();
     }
 
     private void Start()
     {
-            StartCoroutine(EnterScene(defaultTransitionTime, GlobalData.gameIsStarting));
+        StartCoroutine(FinishLoadScene(defaultTransitionTime, GlobalData.gameIsStarting));
+
+        playerHealthScript = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
+        playerHealthScript.deathTimer = 0;
     }
 
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition)
@@ -89,129 +77,64 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    IEnumerator EnterScene(float transitionTime, bool isOnStartup)
+    IEnumerator FinishLoadScene(float transitionTime, bool isOnStartup)
     {
-        float elapsedTime = 0f;
-        float t = 0f;
-        float i = 0f;
-
-        enterSceneLoadBar.fillAmount = 1;
-        enterSceneFunText.text = GlobalData.currentFunText;
-
-        enterSceneCanvasGroup.alpha = 1f;
-        enterSceneCanvasGroup.blocksRaycasts = true;
-        enterSceneCanvasGroup.interactable = true;
-
         if (isOnStartup == true)
         {
-            Vector4 textColor = new Vector4 (1, 1, 1, 0);
-
-            mainMenuStartupImage.SetActive(true);
-            mainMenuStartupText.color = textColor;
-            defaultImage.SetActive(false);
-            defaultLoadPanel.SetActive(false);
-
             GlobalData.gameIsStarting = false;
-            yield return new WaitForSecondsRealtime(startupDelayTime);
 
-            while (elapsedTime < 2f)
-            {
-                t = elapsedTime / 2f;
+            blackCanvasGroup.alpha = 1f;
 
-                textColor.w = Mathf.Lerp(0f, 1f, t);
-                mainMenuStartupText.color = textColor;
+            yield return new WaitForSecondsRealtime(delayStartupCanvasTime);
 
-                elapsedTime += Time.unscaledDeltaTime;
+            yield return StartCoroutine(FadeCanvasIn(startupCanvasGroup, transitionTime));
 
-                yield return null;
-            }
+            yield return new WaitForSecondsRealtime(0.5f); //time before it all goes away
 
-            elapsedTime = 0f;
-            textColor = Color.white;
+            StartCoroutine(FadeCanvasOut(blackCanvasGroup, transitionTime));
+            StartCoroutine(FadeCanvasOut(startupCanvasGroup, transitionTime));
+
         }
-
-        while (i < 0.5f)
+        else
         {
-            i += Time.deltaTime;
+            loadBar.fillAmount = 1;
+            funText.text = GlobalData.currentFunText;
 
-            yield return null;
+            loadingCanvasGroup.alpha = 1f;
+
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            StartCoroutine(FadeCanvasOut(loadingCanvasGroup, transitionTime));
         }
-
-        while (elapsedTime < transitionTime)
-        {
-            t = elapsedTime / transitionTime;
-
-            enterSceneCanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
-
-            elapsedTime += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
-
-        enterSceneCanvasGroup.alpha = 0f;
-        enterSceneCanvasGroup.blocksRaycasts = false;
-        enterSceneCanvasGroup.interactable = false;
-
-        Debug.Log("Canvas Faded Out");
     }
 
     IEnumerator LoadSceneGood(int sceneIndex, float transitionTime)
     {
         isLoading = true;
 
-        yield return StartCoroutine(FadeCanvasIn(goodExitSceneCanvasGroup, transitionTime));
-        Debug.Log("Good Canvas Faded In");
+        loadBar.fillAmount = 0;
+        ChangeFunText(funText);
 
-        Application.backgroundLoadingPriority = ThreadPriority.Low;
+        yield return StartCoroutine(FadeCanvasIn(loadingCanvasGroup, transitionTime));
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-
-        ChangeFunText(goodExitSceneFunText);
-
-        do
-        {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            goodExitSceneLoadBar.fillAmount = progress;
-
-            yield return null;
-        }
-        while (!operation.isDone);
-
-        Application.backgroundLoadingPriority = ThreadPriority.Normal;
-
-        isLoading = false;
+        StartCoroutine(StartLoading(sceneIndex));
     }
 
     IEnumerator LoadSceneBad(int sceneIndex, float transitionTime)
     {
         isLoading = true;
 
-        yield return StartCoroutine(FadeCanvasIn(badExitSceneCanvasGroupPart1, transitionTime));
-        Debug.Log("Bad Canvas Part 1 Faded In");
+        loadBar.fillAmount = 0;
+        ChangeFunText(funText);
 
-        yield return new WaitForSecondsRealtime(inbetweenTime);
+        StartCoroutine(FadeCanvasIn(blackCanvasGroup, transitionTime));
+        yield return StartCoroutine(FadeCanvasIn(deathCanvasGroup, transitionTime));
 
-        yield return StartCoroutine(FadeCanvasIn(badExitSceneCanvasGroupPart2, transitionTime));
-        Debug.Log("Bad Canvas Part 2 Faded In");
+        yield return new WaitForSecondsRealtime(deathCanvasTime);
 
-        Application.backgroundLoadingPriority = ThreadPriority.Low;
+        yield return StartCoroutine(FadeCanvasIn(loadingCanvasGroup, transitionTime));
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-
-        ChangeFunText(badExitSceneFunText);
-
-        do
-        {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            badExitSceneLoadBar.fillAmount = progress;
-
-            yield return null;
-        }
-        while (!operation.isDone);
-
-        Application.backgroundLoadingPriority = ThreadPriority.Normal;
-
-        isLoading = false;
+        StartCoroutine(StartLoading(sceneIndex));
     }
 
     void ChangeFunText(TMP_Text funText)
@@ -225,9 +148,6 @@ public class SceneLoader : MonoBehaviour
             "Enhancing Evolution",
             "Strengthening Spores"
         };
-
-        //int funTextArrayCount = Mathf.FloorToInt(progress * (funTexts.Length - 1));
-        //funTextArrayCount = Mathf.Clamp(funTextArrayCount, 0, funTexts.Length - 1);
 
         funText.text = funTexts[Random.Range(0, funTexts.Length)];
         GlobalData.currentFunText = funText.text;
@@ -255,5 +175,49 @@ public class SceneLoader : MonoBehaviour
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         canvasGroup.interactable = true;
+    }
+
+    IEnumerator FadeCanvasOut(CanvasGroup canvasGroup, float transitionTime)
+    {
+        float elapsedTime = 0f;
+        float t = 0f;
+
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
+
+        while (elapsedTime < transitionTime)
+        {
+            t = elapsedTime / transitionTime;
+
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+    }
+
+    IEnumerator StartLoading(int sceneIndex)
+    {
+        Application.backgroundLoadingPriority = ThreadPriority.Low;
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        do
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            loadBar.fillAmount = progress;
+
+            yield return null;
+        }
+        while (!operation.isDone);
+
+        Application.backgroundLoadingPriority = ThreadPriority.Normal;
+
+        isLoading = false;
     }
 }

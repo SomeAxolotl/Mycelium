@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
     NutrientTracker nutrientTracker;
     PlayerController playerController;
     CamTracker camTracker;
-    float deathTimer;
+    public float deathTimer;
     private Animator animator;
     private SceneLoader sceneLoaderScript;
 
@@ -120,7 +120,7 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator Death()
     {
-        deathTimer = 0;
+        deathTimer = -5; //changed to a negative number beacuse dying was happening twice -ryan
         yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
