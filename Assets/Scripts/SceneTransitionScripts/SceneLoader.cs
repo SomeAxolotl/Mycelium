@@ -14,21 +14,31 @@ public class SceneLoader : MonoBehaviour
     [Header("--Black Canvas Section--")]
     [SerializeField] private CanvasGroup blackCanvasGroup;
 
-    [Header("--Startup Canvas Section--")]
-    [SerializeField] private CanvasGroup startupCanvasGroup;
-    [SerializeField] private float delayStartupCanvasTime;
-
     [Header("--Loading Canvas Section--")]
     [SerializeField] private CanvasGroup loadingCanvasGroup;
     [SerializeField] private Image loadBar;
     [SerializeField] private TMP_Text funText;
 
+    [Header("--Startup Canvas Section--")]
+    [SerializeField] private CanvasGroup startupCanvasGroup;
+    [SerializeField] private float delayStartupCanvasTime;
+    [SerializeField] private float startupCanvasTime;
+
     [Header("--Death Canvas Section--")]
     [SerializeField] private CanvasGroup deathCanvasGroup;
     [SerializeField] private float deathCanvasTime;
 
-    [Header("")]
-    public bool isLoading = false;
+    [Header("--Title Canvas Section--")]
+    [SerializeField] private CanvasGroup titleCanvasGroup;
+    [SerializeField] private GameObject titleTextGameObject;
+    [SerializeField] private Color carcassTextColor;
+    [SerializeField] private Color daybreakTextColor;
+    [SerializeField] private Color deltaTextColor;
+
+    private TMP_Text titleText;
+    private RectTransform titleTextRectTransform;
+
+    [HideInInspector()] public bool isLoading = false;
 
     private float defaultTransitionTime = 1f;
     private PlayerHealth playerHealthScript;
@@ -49,8 +59,18 @@ public class SceneLoader : MonoBehaviour
     {
         StartCoroutine(FinishLoadScene(defaultTransitionTime, GlobalData.gameIsStarting));
 
-        playerHealthScript = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
-        playerHealthScript.deathTimer = 0;
+        titleText = titleTextGameObject.GetComponent<TMP_Text>();
+        titleTextRectTransform = titleTextGameObject.GetComponent<RectTransform>();
+
+        try
+        {
+            playerHealthScript = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
+            playerHealthScript.deathTimer = 0;
+        }
+        catch
+        {
+            Debug.Log("PlayerParent does not currently exist");
+        }
     }
 
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition)
@@ -89,10 +109,10 @@ public class SceneLoader : MonoBehaviour
 
             yield return StartCoroutine(FadeCanvasIn(startupCanvasGroup, transitionTime));
 
-            yield return new WaitForSecondsRealtime(0.5f); //time before it all goes away
+            yield return new WaitForSecondsRealtime(startupCanvasTime);
 
             StartCoroutine(FadeCanvasOut(blackCanvasGroup, transitionTime));
-            StartCoroutine(FadeCanvasOut(startupCanvasGroup, transitionTime));
+            yield return StartCoroutine(FadeCanvasOut(startupCanvasGroup, transitionTime));
 
         }
         else
@@ -104,8 +124,36 @@ public class SceneLoader : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(0.5f);
 
-            StartCoroutine(FadeCanvasOut(loadingCanvasGroup, transitionTime));
+            yield return StartCoroutine(FadeCanvasOut(loadingCanvasGroup, transitionTime));
         }
+
+        switch (SceneManager.GetActiveScene().buildIndex)
+        {
+            case 2:
+                titleText.text = "The Carcass";
+                titleText.color = carcassTextColor;
+                break;
+
+            case 3:
+                titleText.text = "The Daybreak Arboretum";
+                titleText.color = daybreakTextColor;
+                break;
+
+            case 4:
+                titleText.text = "The Delta Crag";
+                titleText.color = deltaTextColor;
+                break;
+
+            default:
+                yield break;
+        }
+
+        yield return new WaitForSecondsRealtime(0.5f);
+        StartCoroutine(ActivateTitleCanvas(5f));
+        yield return StartCoroutine(FadeCanvasIn(titleCanvasGroup, transitionTime));
+        yield return new WaitForSecondsRealtime(1f);
+        yield return StartCoroutine(FadeCanvasOut(titleCanvasGroup, transitionTime));
+
     }
 
     IEnumerator LoadSceneGood(int sceneIndex, float transitionTime)
@@ -135,22 +183,6 @@ public class SceneLoader : MonoBehaviour
         yield return StartCoroutine(FadeCanvasIn(loadingCanvasGroup, transitionTime));
 
         StartCoroutine(StartLoading(sceneIndex));
-    }
-
-    void ChangeFunText(TMP_Text funText)
-    {
-        string[] funTexts =
-        {
-            "Gearing up Spore",
-            "Preparing Forage",
-            "Finalizing Fungi",
-            "Fortifying Fungus",
-            "Enhancing Evolution",
-            "Strengthening Spores"
-        };
-
-        funText.text = funTexts[Random.Range(0, funTexts.Length)];
-        GlobalData.currentFunText = funText.text;
     }
 
     IEnumerator FadeCanvasIn(CanvasGroup canvasGroup, float transitionTime)
@@ -219,5 +251,43 @@ public class SceneLoader : MonoBehaviour
         Application.backgroundLoadingPriority = ThreadPriority.Normal;
 
         isLoading = false;
+    }
+
+    IEnumerator ActivateTitleCanvas(float time)
+    {
+        float elapsedTime = 0f;
+        float t = 0f;
+        float originalY = titleTextRectTransform.localPosition.y;
+        float originalScale = 1f;
+
+        while (elapsedTime < time)
+        {
+            t = elapsedTime / time;
+
+            titleTextRectTransform.localPosition = new Vector3(0, Mathf.Lerp(originalY, originalY + 50, t), 0);
+            titleTextRectTransform.localScale = new Vector3(Mathf.Lerp(originalScale, originalScale + 0.2f, t), Mathf.Lerp(originalScale, originalScale + 0.2f, t), 1f);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        Debug.Log("DONE WITH TITLE CARD");
+    }
+
+    void ChangeFunText(TMP_Text funText)
+    {
+        string[] funTexts =
+        {
+            "Gearing up Spore",
+            "Preparing Forage",
+            "Finalizing Fungi",
+            "Fortifying Fungus",
+            "Enhancing Evolution",
+            "Strengthening Spores"
+        };
+
+        funText.text = funTexts[Random.Range(0, funTexts.Length)];
+        GlobalData.currentFunText = funText.text;
     }
 }
