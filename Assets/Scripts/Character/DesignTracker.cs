@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class DesignTracker : MonoBehaviour
@@ -39,15 +40,9 @@ public class DesignTracker : MonoBehaviour
         vitalityLevel--;
         speedLevel--;
         
-        //CappingLevels, if any are over 15
-        if(sentienceLevel>LevelCap)
-            sentienceLevel=LevelCap;
-        if(primalLevel>LevelCap)
-            primalLevel=LevelCap;
-        if(vitalityLevel>LevelCap)
-            vitalityLevel=LevelCap;
-        if(speedLevel>LevelCap)
-            speedLevel=LevelCap;
+        //New Level Cap, if any are over 15
+        if(Mathf.Max(sentienceLevel,primalLevel,vitalityLevel,speedLevel)>LevelCap)
+            LevelCap = Mathf.Max(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
 
         int totalLevel = sentienceLevel + primalLevel + vitalityLevel + speedLevel;
         if(totalLevel<=LevelCap){
@@ -65,19 +60,19 @@ public class DesignTracker : MonoBehaviour
             speedWeight = speedLevel * 100f/LevelCap;
         }
         //Secret Ultimate Mode, if you're close to capping all 4 skills.
-        else if(totalLevel>=LevelCap*4){
+        else if(sentienceLevel>=15 && speedLevel>=15 && primalLevel >=15 && vitalityLevel >= 15){
             if (sfxEnabled == true) audioSource.PlayOneShot(secretHighLevelSoundClip);
             //map the weight for Sentience
-            sentienceWeight = sentienceLevel*sentienceLevel/(totalLevel-totalLevel*2) * 100f/LevelCap;
+            sentienceWeight = -20;
 
             //map the weight for Primal
-            primalWeight = primalLevel*primalLevel/(totalLevel-totalLevel*2) * 100f/LevelCap;
+            primalWeight = -20;
 
             //map the weight for Vitality
-            vitalityWeight = vitalityLevel*vitalityLevel/(totalLevel-totalLevel*2) * 100f/LevelCap;
+            vitalityWeight = -20;
 
             //map the weight for Speed
-            speedWeight = speedLevel*speedLevel/(totalLevel-totalLevel*2) * 100f/LevelCap;
+            speedWeight = -20;
         }
 
         //If spore level total is above the level cap, adjust based on the level total. No cap can go past 100 ever.
@@ -197,5 +192,10 @@ public class DesignTracker : MonoBehaviour
     {
         bodyColor = color;
         UpdateColors();
+    }
+
+    public void ResetLevelCap()
+    {
+        LevelCap = 15;
     }
 }

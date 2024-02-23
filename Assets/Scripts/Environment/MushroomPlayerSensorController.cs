@@ -37,7 +37,7 @@ public class MushroomPlayerSensorController : MonoBehaviour
         float t = 0f;
         Color currentGlow;
         float currentModifier = 0;
-        while (t < ActivateSpeed) 
+        while (t < DeactivateSpeed) 
         {   
             currentModifier = (t/ActivateSpeed);
             currentGlow = new Color(StartGlow.r - StartGlow.r*currentModifier, StartGlow.g - StartGlow.g*currentModifier, StartGlow.b - StartGlow.b*currentModifier);
