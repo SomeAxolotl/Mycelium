@@ -23,7 +23,6 @@ public class DesignTracker : MonoBehaviour
     private bool sfxEnabled=false;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip secretHighLevelSoundClip;
-    [SerializeField] private AudioClip growingSFX;
 
     private void Start()
     {
@@ -46,7 +45,6 @@ public class DesignTracker : MonoBehaviour
 
         int totalLevel = sentienceLevel + primalLevel + vitalityLevel + speedLevel;
         if(totalLevel<=LevelCap){
-            if (sfxEnabled == true) audioSource.PlayOneShot(growingSFX);
             //map the weight for Sentience
             sentienceWeight = sentienceLevel * 100f/LevelCap;
 
@@ -77,7 +75,6 @@ public class DesignTracker : MonoBehaviour
 
         //If spore level total is above the level cap, adjust based on the level total. No cap can go past 100 ever.
         else{
-            if (sfxEnabled == true) audioSource.PlayOneShot(growingSFX);
             //map the weight for Sentience
             sentienceWeight = sentienceLevel*sentienceLevel/totalLevel * 100f/LevelCap;
 
