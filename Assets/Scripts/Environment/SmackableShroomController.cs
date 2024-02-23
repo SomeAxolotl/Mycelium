@@ -8,17 +8,11 @@ public class SmackableShroomController : MonoBehaviour
 {
     private Boolean Attackable = true;
     [Header("Components")]
-    //[SerializeField] private CapsuleCollider GoOutCollider;
-    //[SerializeField] private CapsuleCollider Hitbox;
-    [SerializeField] private Renderer SampleMaterial;
     [SerializeField] private Animator Anim;
-    [SerializeField] private List<Renderer> Renderers;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip audioClip;
-    [Header("Configuration")]
-    [SerializeField] private float HitGlowUpDuration = 1;
-    [SerializeField] private float HitGlowDownDuration = 2;
-    [SerializeField] private float HitGlowAmount = 1;
+    [Header("Components")]
+    [SerializeField] private float CooldownDuration = 1f;
 
     private void Start(){
         audioSource.pitch = 1/((gameObject.transform.localScale.x + gameObject.transform.localScale.z)/2);
@@ -26,39 +20,24 @@ public class SmackableShroomController : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.gameObject.tag == "currentWeapon" && Attackable == true)
         {
-            Debug.Log("Smacked!");
-            Anim.SetTrigger("Bounce");
-            audioSource.PlayOneShot(audioClip);
-            StartCoroutine(GlowAttacked());
-            Attackable = false;
+            Bounce();
+        }
+        else if (other.gameObject.tag == "currentPlayer" && other.GetComponentInParent<PlayerController>().activeDodge && Attackable == true)
+        {
+            Bounce();
         }
     }
-    IEnumerator GlowAttacked(){
+    private void Bounce(){
+        Anim.SetTrigger("Bounce");
+            audioSource.PlayOneShot(audioClip);
+            StartCoroutine(Cooldown());
+            Attackable = false;
+    }
+    IEnumerator Cooldown(){
         float t = 0f;
-        Color startGlow = SampleMaterial.material.GetColor("_Glow_Color");
-        Color currentGlow;
-        float currentModifier = 0;
-        while (t < HitGlowUpDuration) 
+        while (t < CooldownDuration) 
         {   
-            currentModifier = (t/HitGlowUpDuration)*HitGlowAmount;
-            currentGlow = new Color(startGlow.r+currentModifier, startGlow.g+currentModifier, startGlow.b+currentModifier);
-            foreach(Renderer renderer in Renderers)
-            {
-                renderer.material.SetColor("_Glow_Color", currentGlow);
-            }
-            t += Time.unscaledDeltaTime;
-            yield return null;
-        }
-        startGlow = SampleMaterial.material.GetColor("_Glow_Color");
-        while (t < HitGlowDownDuration) 
-        {   
-            currentModifier = (t/HitGlowDownDuration)*HitGlowAmount;
-            currentGlow = new Color(startGlow.r-currentModifier, startGlow.g-currentModifier, startGlow.b-currentModifier);
-            foreach(Renderer renderer in Renderers)
-            {
-                renderer.material.SetColor("_Glow_Color", currentGlow);
-            }
-            t += Time.unscaledDeltaTime;
+            t += Time.deltaTime;
             yield return null;
         }
         Attackable = true;
