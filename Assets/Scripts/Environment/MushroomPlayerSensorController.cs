@@ -3,24 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class MushroomPlayerSensorController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Renderer SampleMaterial;
     [SerializeField] private List<Renderer> Renderers;
+    [SerializeField] private Light light;
     [Header("Configuration")]
     [SerializeField] private float DeactivateSpeed = 1;
     [SerializeField] private float ActivateSpeed = 1;
     [SerializeField] private bool DisableOnExit = true;
     private Color StartGlow;
+    private float startLightIntensity;
+
 
     private void Start(){
         StartGlow = SampleMaterial.material.GetColor("_Glow_Color");
-        foreach(Renderer renderer in Renderers)
-            {
-                renderer.material.SetColor("_Glow_Color", new Color(0,0,0));
-            }
+        if(light!=null){
+            startLightIntensity = light.intensity;
+            light.intensity = 0;
+        }
+        foreach(Renderer renderer in Renderers){
+            renderer.material.SetColor("_Glow_Color", new Color(0,0,0));
+        }
     }
     private void OnTriggerExit(Collider other){
         if(DisableOnExit && other.gameObject.tag == "currentPlayer"){
@@ -37,14 +44,19 @@ public class MushroomPlayerSensorController : MonoBehaviour
         float t = 0f;
         Color currentGlow;
         float currentModifier = 0;
+        float darkenLightIntensity=0;
+        if(light!=null)
+            darkenLightIntensity = light.intensity;
         while (t < DeactivateSpeed) 
         {   
-            currentModifier = (t/ActivateSpeed);
+            currentModifier = (t/DeactivateSpeed);
             currentGlow = new Color(StartGlow.r - StartGlow.r*currentModifier, StartGlow.g - StartGlow.g*currentModifier, StartGlow.b - StartGlow.b*currentModifier);
             foreach(Renderer renderer in Renderers)
             {
                 renderer.material.SetColor("_Glow_Color", currentGlow);
             }
+            if(light!=null)
+                light.intensity = Mathf.Lerp(darkenLightIntensity,0,t);
             t += Time.unscaledDeltaTime;
             yield return null;
         }
@@ -61,6 +73,8 @@ public class MushroomPlayerSensorController : MonoBehaviour
             {
                 renderer.material.SetColor("_Glow_Color", currentGlow);
             }
+            if(light!=null)
+                light.intensity = Mathf.Lerp(0,startLightIntensity,t);
             t += Time.unscaledDeltaTime;
             yield return null;
         }

@@ -26,12 +26,19 @@ public class SmackableGlowShroomController : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.gameObject.tag == "currentWeapon" && Attackable == true)
         {
-            Debug.Log("Smacked!");
-            Anim.SetTrigger("Bounce");
-            audioSource.PlayOneShot(audioClip);
-            StartCoroutine(GlowAttacked());
-            Attackable = false;
+            Bounce();
         }
+        else if (other.gameObject.tag == "currentPlayer" && other.GetComponentInParent<PlayerController>().activeDodge && Attackable == true)
+        {
+            Bounce();
+        }
+    }
+    private void Bounce(){
+        Debug.Log("Smacked!");
+        Anim.SetTrigger("Bounce");
+        audioSource.PlayOneShot(audioClip);
+        StartCoroutine(GlowAttacked());
+        Attackable = false;
     }
     IEnumerator GlowAttacked(){
         float t = 0f;
