@@ -11,7 +11,7 @@ public class RangedEnemyShoot : MonoBehaviour
     private Transform player;
     public Transform launchPoint;
     private bool canAttack = true;
-    private float attackCooldown = 2f;
+    private float attackCooldown = 3f;
     private float attackWindupTime = 1f;
     public GameObject projectile;
     IEnumerator attack;
@@ -65,7 +65,7 @@ public class RangedEnemyShoot : MonoBehaviour
         Vector3 dirToPlayer = (player.position - launchPoint.position).normalized;
         GameObject tempProj = Instantiate(projectile, launchPoint.position, Quaternion.identity);
         tempProj.transform.right = dirToPlayer;
-        tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer * 18f;
+        tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer * 15f;
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
