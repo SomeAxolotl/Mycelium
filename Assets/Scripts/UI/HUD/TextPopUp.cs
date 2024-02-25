@@ -220,7 +220,7 @@ public class TextPopUp : MonoBehaviour
 
         if(shouldDestroyItself == true)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
