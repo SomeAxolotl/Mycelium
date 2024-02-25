@@ -18,8 +18,6 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector] public Animator animator;
     GameObject player;
     PlayerController playerController;
-    [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider enables at")] float percentUntilWindupDone = 0.5f;
-    [SerializeField][Tooltip("Controls what percent of the attack animation the weapon collider disables at")] float percentUntilSwingDone = 0.8f;
 
     [HideInInspector] public string attackAnimation;
 
@@ -76,6 +74,8 @@ public class PlayerAttack : MonoBehaviour
         playerController.canUseAttack = false;
         playerController.canAct = false;
         playerController.moveSpeed = windupMoveSpeed;
+        float originalAnimatorSpeed = animator.speed;
+        animator.speed *= curWeapon.GetComponent<WeaponStats>().wpnAttackSpeedModifier;
         if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Slash)
         {
             animator.Play("Slash");
@@ -97,6 +97,8 @@ public class PlayerAttack : MonoBehaviour
         hudSkills.StartCooldownUI(3, currentAnimationLength);
 
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
+        float percentUntilWindupDone = curWeapon.GetComponent<WeaponStats>().percentUntilWindupDone;
+        float percentUntilSwingDone = curWeapon.GetComponent<WeaponStats>().percentUntilSwingDone;
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
         if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimation) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone)
@@ -112,9 +114,11 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f);
         animator.Rebind();
         playerController.EnableController();
+        animator.speed = originalAnimatorSpeed;
     }
     private IEnumerator Lunge()
     {
+        float percentUntilWindupDone = curWeapon.GetComponent<WeaponStats>().percentUntilWindupDone;
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
         Vector3 lungeDirection = player.transform.forward;

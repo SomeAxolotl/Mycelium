@@ -40,8 +40,8 @@ public class NutrientTracker : MonoBehaviour
     }
     public void SubtractNutrients(int cost)
     {
-        currentNutrients -= cost;
-        hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
+        currentNutrients = Mathf.Max(0, currentNutrients - cost);
+
         hudNutrients.UpdateNutrientsUI(currentNutrients);
     }
     public void AddNutrients(int amount)

@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] float nutrientDrainRate = 1f;
+    bool shouldDrainNutrients;
+
     public static GameManager Instance;
 
     void Awake()
@@ -46,6 +49,13 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(RefreshCutoutMaskUI());
+
+        shouldDrainNutrients = false;
+        if (scene.buildIndex > 2)
+        {
+            shouldDrainNutrients = true;
+            StartCoroutine(DrainNutrients());
+        }
     }
 
     public void OnPlayerDeath()
@@ -148,5 +158,17 @@ public class GameManager : MonoBehaviour
     void DestroyMenuCamera()
     {
         Destroy(GameObject.Find("Menu Camera"));
+    }
+
+    IEnumerator DrainNutrients()
+    {
+        NutrientTracker nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+
+        while (shouldDrainNutrients)
+        {
+            nutrientTracker.SubtractNutrients(1);
+
+            yield return new WaitForSeconds(nutrientDrainRate);
+        }
     }
 }

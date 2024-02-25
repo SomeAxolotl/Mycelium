@@ -85,7 +85,14 @@ public class SwapWeapon : MonoBehaviour
                 }
 
                 string weaponName = newStats.wpnName;
-                TooltipManager.Instance.CreateTooltip(weapon.gameObject, weaponName, "Damage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, "Press Y to Swap");
+                TooltipManager.Instance.CreateTooltip
+                    (weapon.gameObject, 
+                    weaponName, 
+                    "Speed: " + newStats.wpnSpeed + 
+                    "\nDamage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + 
+                    "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, 
+                    "Press Y to Swap"
+                    );
 
                 if (swapItem.triggered)
                 {
@@ -103,6 +110,12 @@ public class SwapWeapon : MonoBehaviour
                     curWeapon = GameObject.FindWithTag("currentWeapon");
                     curWeapon.transform.parent = weaponHolder.transform;
                     curWeapon.transform.rotation = weaponHolder.transform.rotation;
+
+                    Vector3 positionOffset = curWeapon.GetComponent<WeaponStats>().holdPositionOffset;
+                    curWeapon.transform.localPosition = positionOffset;
+                    Vector3 rotationOffset = curWeapon.GetComponent<WeaponStats>().holdRotationOffset;
+                    weaponHolder.transform.localEulerAngles = rotationOffset;
+
                     TooltipManager.Instance.DestroyTooltip();
                 }
             }
