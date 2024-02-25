@@ -10,8 +10,6 @@ public class WeaponCollision : MonoBehaviour
     List<GameObject> enemiesHit = new List<GameObject>();
     WeaponStats weaponStats;
 
-    [SerializeField] private float secondsTilHitstopSpeedup = 0.25f;
-
     void Start()
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
@@ -46,7 +44,7 @@ public class WeaponCollision : MonoBehaviour
 
         //Speed Up
         float t = 0f;
-        while (t < secondsTilHitstopSpeedup)
+        while (t < weaponStats.secondsTilHitstopSpeedup)
         {
             t += Time.unscaledDeltaTime;
             yield return null;

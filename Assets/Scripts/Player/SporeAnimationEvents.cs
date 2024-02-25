@@ -14,9 +14,19 @@ public class SporeAnimationEvents : MonoBehaviour
         SoundEffectManager.Instance.PlaySound("Footstep 2", transform.position);
     }
 
-    void Swing()
+    void Slash()
     {
         SoundEffectManager.Instance.PlaySound("Slash", transform.position);
+    }
+
+    void Stab()
+    {
+        SoundEffectManager.Instance.PlaySound("Stab", transform.position);
+    }
+
+    void Smash()
+    {
+        SoundEffectManager.Instance.PlaySound("Smash", transform.position);
     }
 
     void Pant()

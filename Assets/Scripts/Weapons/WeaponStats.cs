@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponStats : MonoBehaviour
@@ -14,6 +15,7 @@ public class WeaponStats : MonoBehaviour
     public WeaponTypes weaponType;
 
     [SerializeField] public string wpnName = "Wooden Sword";
+    [SerializeField] public string wpnSpeed = "Normal";
 
     [SerializeField] float wpnDamageMin = 10f;
     [SerializeField] float wpnDamageMax = 50f;
@@ -23,10 +25,20 @@ public class WeaponStats : MonoBehaviour
     [SerializeField] float wpnKnockbackMax = 50f;
     public float wpnKnockback {get; private set;}
 
+    public float wpnAttackSpeedModifier = 1.0f;
+
     float rotationSpeed = 30f;
     float tiltAngle = 45f;
 
     private Quaternion initialRotation;
+
+    public Vector3 holdPositionOffset = new Vector3();
+    public Vector3 holdRotationOffset = new Vector3();
+
+    [Tooltip("Controls what percent of the attack animation the weapon collider enables at")] public float percentUntilWindupDone = 0.3f;
+    [Tooltip("Controls what percent of the attack animation the weapon collider disables at")] public float percentUntilSwingDone = 0.55f;
+
+    public float secondsTilHitstopSpeedup = 0.25f;
 
     void Start()
     {

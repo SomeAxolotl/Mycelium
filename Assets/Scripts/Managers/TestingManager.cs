@@ -23,18 +23,17 @@ public class TestingManager : MonoBehaviour
         DefenseMechanism
     }
 
-    private enum WeaponTiers
-    {
-        Wood,
-        Stone,
-        Bone,
-    }
-
     private enum WeaponTypes
     {
-        Slash,
-        Smash,
-        Stab
+        AvocadoFlamberge,
+        BambooPartisan,
+        RoseMace,
+        ObsidianScimitar,
+        OpalRapier,
+        GeodeHammer,
+        MandibleSickle,
+        CarpalSais,
+        FemurClub
     }
 
     private enum SubspeciesSkills
@@ -65,7 +64,6 @@ public class TestingManager : MonoBehaviour
     [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill2;
 
     [Header("Weapon - Alpha5")]
-    [SerializeField][Tooltip("Alpha5 - Set Weapon")] private WeaponTiers weaponTier;
     [SerializeField][Tooltip("Alpha5 - Set Weapon")] private WeaponTypes weaponType;
 
     [Header("Subspecies Skill - Alpha6")]
@@ -178,7 +176,7 @@ public class TestingManager : MonoBehaviour
         GetCurrentPlayer();
 
         yield return null;
-        string weaponString = weaponTier.ToString() + weaponType.ToString();
+        string weaponString = weaponType.ToString();
         foreach (GameObject weapon in weaponPrefabs)
         {
             if (weapon.name == weaponString)
