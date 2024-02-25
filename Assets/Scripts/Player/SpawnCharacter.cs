@@ -27,6 +27,8 @@ public class SpawnCharacter : MonoBehaviour
 
 
     [SerializeField] private GameObject characterPrefab;
+    [SerializeField] private List<Texture2D> MouthTextures;
+    [SerializeField] private List<Texture2D> EyeTextures;
 
     [Header("Default Colors")]
     [SerializeField] private List<UnityEngine.Color> defaultCapColors;
@@ -89,6 +91,13 @@ public class SpawnCharacter : MonoBehaviour
                 break;
         }
         CreateSpeciesPalette(newCharacter, subspecies);
+        int randomMouthIndex = Random.Range(0,MouthTextures.Count);
+        int randomEyeIndex = Random.Range(0,MouthTextures.Count);
+        DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
+        designTracker.EyeOption = randomEyeIndex;
+        designTracker.MouthOption = randomMouthIndex;
+        designTracker.EyeTexture = EyeTextures[randomEyeIndex];
+        designTracker.MouthTexture = MouthTextures[randomMouthIndex];
         skillManager.SetSkill(subspeciesSkill, 0, newCharacter);
 
         swapCharacter.characters.Add(newCharacter);

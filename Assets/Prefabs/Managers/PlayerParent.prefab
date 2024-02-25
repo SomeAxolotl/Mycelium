@@ -119,6 +119,7 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   isDefending: 0
+  deathTimer: 0
   timeBetweenHurtSounds: 0.25
 --- !u!114 &6339953943085018612
 MonoBehaviour:
@@ -161,6 +162,25 @@ MonoBehaviour:
   - Squig
   characterPrefab: {fileID: 1833743133119944518, guid: cd2dd3fe4fda4fe4c8fea9a1e081735e,
     type: 3}
+  MouthTextures:
+  - {fileID: 2800000, guid: 5082403d89141b24e9996ccf1e23fd22, type: 3}
+  - {fileID: 2800000, guid: 2cc7084a212786c479493861b51d8d1e, type: 3}
+  - {fileID: 2800000, guid: b998930980ffd234a96c6649ff4ef54b, type: 3}
+  - {fileID: 2800000, guid: d792931d519fe8047b9406cd7aeff0ed, type: 3}
+  - {fileID: 2800000, guid: 1e136cabe9aef6040b2782c25623b08d, type: 3}
+  - {fileID: 2800000, guid: 72a8dc0b329ec5f42b5b45337d11508d, type: 3}
+  EyeTextures:
+  - {fileID: 2800000, guid: fd72f45a9af11b547bf0d575ef051ec8, type: 3}
+  - {fileID: 2800000, guid: d2f777217fdbaef4097db87a8c7aab7a, type: 3}
+  - {fileID: 2800000, guid: 0e7a343481e81e843b286b1fbf45129a, type: 3}
+  - {fileID: 2800000, guid: 33338c4431720fd468600309a1186084, type: 3}
+  - {fileID: 2800000, guid: 0968c09293780fb4ea66ee83a648ef00, type: 3}
+  - {fileID: 2800000, guid: 1990df2eb4d46ba4eb36a5675063434e, type: 3}
+  - {fileID: 2800000, guid: cf47ba83ef029a24a88808ad7a31dc36, type: 3}
+  - {fileID: 2800000, guid: de1c43fd33f82da41ad06d46adcaeae9, type: 3}
+  - {fileID: 2800000, guid: 5b97b0151765b8948bdd26ec448316cb, type: 3}
+  - {fileID: 2800000, guid: 5b97b0151765b8948bdd26ec448316cb, type: 3}
+  - {fileID: 2800000, guid: 5b97b0151765b8948bdd26ec448316cb, type: 3}
   defaultCapColors:
   - {r: 0.639, g: 0.2750852, b: 0.25502694, a: 1}
   - {r: 0.611, g: 0.22484799, b: 0.47092518, a: 1}
@@ -222,7 +242,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   percentUntilWindupDone: 0.4
   percentUntilSwingDone: 0.45
-  attackAnimationName: Slash
+  attackAnimation: 
   windupMoveSpeed: 0
 --- !u!114 &2120284731979701386
 MonoBehaviour:

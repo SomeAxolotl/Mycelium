@@ -12,6 +12,8 @@ public class SporeManager : MonoBehaviour
     [Tooltip("What is saved to json. A custom class that is a list of sporeData objects")] private SporeDataList sporeDataList;
     [Tooltip("Where we are saving our json.")] private string filePath;
     [Tooltip("The Spore Spawnpoint transform")] private Transform spawnTransform;
+    [SerializeField] private List<Texture2D> MouthTextures;
+    [SerializeField] private List<Texture2D> EyeTextures;
     SwapCharacter swapCharacterScript;
     SkillManager skillManagerScript;
     GameObject currentPlayerSpore;
@@ -19,6 +21,7 @@ public class SporeManager : MonoBehaviour
     [SerializeField] private GameObject SporePrefab;
     [SerializeField][Tooltip("The range on the x and z axis around the spawn transform where spores should be generated")][Range(0f, 10f)] private float spawnRange;
     [SerializeField] SporeDataList defaultSporeData;
+
     
 
     void Start()
@@ -118,11 +121,17 @@ public class SporeManager : MonoBehaviour
 
         design.bodyColor = sporeData.bodyColor;
         design.capColor = sporeData.capColor;
+        design.EyeOption = sporeData.eyeOption;
+        design.MouthOption = sporeData.mouthOption;
+        design.EyeTexture = EyeTextures[sporeData.eyeOption];
+        design.MouthTexture = MouthTextures[sporeData.mouthOption];
+
+
 
         //Run Spore Setup functions
         stats.UpdateSporeName();
         design.UpdateBlendshape(sporeData.lvlSentience, sporeData.lvlPrimal, sporeData.lvlVitality, sporeData.lvlSpeed);
-        design.UpdateColors();
+        design.UpdateColorsAndTexture();
 
         //-------Some Dylan Comments-----------
         //design.ForceUpdateBlendshaped(sporeData.lvlSentience,sporeData.lvlPrimal,sporeData.lvlVitality, sporeData.lvlSpeed);      //<---- Moved to Start() for CharacterStats
@@ -164,6 +173,8 @@ public class SporeManager : MonoBehaviour
                 //From the Design Tracker
                 currentSporeData.bodyColor = currentSporeDesign.bodyColor;
                 currentSporeData.capColor = currentSporeDesign.capColor;
+                currentSporeData.mouthOption = currentSporeDesign.MouthOption;
+                currentSporeData.eyeOption = currentSporeDesign.EyeOption;
 
                 sporeDataList.Spore_Data.Add(currentSporeData);
             }
@@ -238,6 +249,8 @@ public class SporeData
 
     public Color bodyColor;
     public Color capColor;
+    public int eyeOption;
+    public int mouthOption;
 
     public override string ToString()
     {

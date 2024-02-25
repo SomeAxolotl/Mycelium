@@ -19,6 +19,10 @@ public class DesignTracker : MonoBehaviour
     private float primalWeight = 0;
     private float vitalityWeight = 0;
     private float speedWeight = 0;
+    public int MouthOption;
+    public int EyeOption;
+    public Texture2D EyeTexture;
+    public Texture2D MouthTexture;
     [SerializeField] private bool PlaySFX = true;
     private bool sfxEnabled=false;
     [SerializeField] private AudioSource audioSource;
@@ -28,7 +32,7 @@ public class DesignTracker : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
-            UpdateColors();                   //<---- taken care of by SporeManager.cs in the carcass
+            UpdateColorsAndTexture();                   //<---- taken care of by SporeManager.cs in the carcass
         }     
     }
 
@@ -173,22 +177,26 @@ public class DesignTracker : MonoBehaviour
         skinnedMeshRenderer.SetBlendShapeWeight(0, speedWeight);
     }
 
-    public void UpdateColors()
+    public void UpdateColorsAndTexture()
     {
         Material[] materials = skinnedMeshRenderer.materials;
         materials[0].SetColor("_Color", capColor);
+        if(EyeTexture!=null)
+            materials[1].SetTexture("_Secondary_Texture", EyeTexture);
+        if(MouthTexture!=null)
+            materials[1].SetTexture("_Tertiary_Texture", MouthTexture);
         materials[1].SetColor("_Color", bodyColor);
     }
 
     public void SetCapColor(UnityEngine.Color color)
     {
         capColor = color;
-        UpdateColors();
+        UpdateColorsAndTexture();
     }
     public void SetBodyColor(UnityEngine.Color color)
     {
         bodyColor = color;
-        UpdateColors();
+        UpdateColorsAndTexture();
     }
 
     public void ResetLevelCap()
