@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using static System.TimeZoneInfo;
-using static UnityEditor.Rendering.CameraUI;
 
 public class TextPopUp : MonoBehaviour
 {
