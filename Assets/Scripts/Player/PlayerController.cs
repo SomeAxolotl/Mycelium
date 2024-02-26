@@ -257,4 +257,9 @@ public class PlayerController : MonoBehaviour
         EnableController();
         isInvincible = false;
     }
+    public void ApplyAttractionForce(Vector3 force)
+    {
+        rb.AddForce(force, ForceMode.Impulse);
+    }
+
 }

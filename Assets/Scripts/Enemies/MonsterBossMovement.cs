@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement2 : MonoBehaviour
+public class MonsterBossMovement : MonoBehaviour
 {
-    [HideInInspector] public NavMeshAgent navMeshAgent;
-    // public bool playerSeen;
+    public bool playerSeen;
     public bool attacking = false;
     private bool startedPatrol = false;
     private float patrolRadius = 10f;
@@ -19,15 +18,14 @@ public class EnemyMovement2 : MonoBehaviour
     public LayerMask obstacleLayer;
     private Transform player;
     [SerializeField] private float fieldOfView = 60f;
-    [SerializeField] private float detectionRange = 25f;
-    [SerializeField] private float detectionBuffer = 12f;
+    [SerializeField] private float detectionRange = 30f;
+    [SerializeField] private float backwardsDetectionRange = 15f;
     public bool undergrowthSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         //transform.rotation = Quaternion.Euler(46, 0, 0);
-        navMeshAgent = GetComponent<NavMeshAgent>();
         previousPosition = transform.position;
     }
 
@@ -48,10 +46,9 @@ public class EnemyMovement2 : MonoBehaviour
             var newRotation = Quaternion.LookRotation(dirToPlayer);
 
             if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer) ||
-                dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer))
+                dstToPlayer <= backwardsDetectionRange)
             {
-                //playerSeen = true;
-                navMeshAgent.SetDestination(player.position);
+                playerSeen = true;
                 startedPatrol = false;
                 if (!attacking)
                 {
@@ -66,12 +63,12 @@ public class EnemyMovement2 : MonoBehaviour
             }
             else
             {
-                
-                //playerSeen = false;
+
+                playerSeen = false;
             }
         }
 
-        if (speed < .25f /*&& !playerSeen*/)
+        if (speed < .25f && !playerSeen)
         {
             rerouteTimer += Time.deltaTime;
         }
@@ -79,43 +76,6 @@ public class EnemyMovement2 : MonoBehaviour
         {
             rerouteTimer = 0;
         }
-
-        if (!startedPatrol /*&& !playerSeen*/)
-        {
-            SetRandomDestination();
-        }
-
-        if (/*!playerSeen && */navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + .5f || rerouteTimer > 1.5f)
-        {
-            startedPatrol = false;
-        }
-    }
-
-    void SetRandomDestination()
-    {
-        Vector3 point;
-        if (RandomPoint(transform.position, patrolRadius, out point) == true)
-        {
-            navMeshAgent.SetDestination(point);
-            startedPatrol = true;
-        }
-    }
-
-    bool RandomPoint(Vector3 center, float range, out Vector3 result)
-    {
-        Vector2 randomPoint = Random.insideUnitCircle * patrolRadius;
-        Vector3 worldPoint = transform.position + new Vector3(randomPoint.x, 0, randomPoint.y);
-        NavMeshHit hit;
-
-        if (NavMesh.SamplePosition(worldPoint, out hit, 10f, NavMesh.AllAreas))
-        {
-            result = hit.position;
-            return true;
-        }
-        else
-        {
-            result = Vector3.zero;
-            return false;
-        }
     }
 }
+
