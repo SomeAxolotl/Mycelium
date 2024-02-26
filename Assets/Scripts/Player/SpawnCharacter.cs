@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SpawnCharacter : MonoBehaviour
@@ -91,20 +92,23 @@ public class SpawnCharacter : MonoBehaviour
                 break;
         }
         CreateSpeciesPalette(newCharacter, subspecies);
-        int randomMouthIndex = Random.Range(0,MouthTextures.Count);
-        int randomEyeIndex = Random.Range(0,MouthTextures.Count);
+        int randomMouthIndex = UnityEngine.Random.Range(0,MouthTextures.Count);
+        Debug.Log("Mouth: " + randomMouthIndex);
+        int randomEyeIndex = UnityEngine.Random.Range(0,EyeTextures.Count);
+        Debug.Log("Eye: " + randomEyeIndex);
         DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
         designTracker.EyeOption = randomEyeIndex;
         designTracker.MouthOption = randomMouthIndex;
         designTracker.EyeTexture = EyeTextures[randomEyeIndex];
         designTracker.MouthTexture = MouthTextures[randomMouthIndex];
+        designTracker.UpdateColorsAndTexture();
         skillManager.SetSkill(subspeciesSkill, 0, newCharacter);
 
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         newCharacter.GetComponent<NewSporeAnimation>().StartGrowAnimation();
 
-        int randomNameIndex = Random.Range(0, sporeNames.Count - 1);
+        int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
         newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
         usedSporeNames.Add(sporeNames[randomNameIndex]);
         sporeNames.Remove(sporeNames[randomNameIndex]);
