@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TestingManager : MonoBehaviour
 {
@@ -44,6 +45,13 @@ public class TestingManager : MonoBehaviour
         Zombify
     }
 
+    private enum LevelSelector
+    {
+        level3 = 3,
+        level4 = 4,
+        level5 = 5
+    }
+
     [Header("Nutrients - Alpha1")]
     [SerializeField][Tooltip("Alpha1 - Add Nutrients")] private int nutrients;
 
@@ -68,6 +76,9 @@ public class TestingManager : MonoBehaviour
 
     [Header("Subspecies Skill - Alpha6")]
     [SerializeField][Tooltip("Alpha6 - Grow New Spore")] private SubspeciesSkills subspeciesSkill;
+
+    [Header("Level Selector - Alpha7")]
+    [SerializeField][Tooltip("Alpha7 - Load Into Level")] private LevelSelector levelSelect = LevelSelector.level3;
 
     [Header("References")]
     [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
@@ -123,6 +134,11 @@ public class TestingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             StartCoroutine(SetPlayerSubspeciesSkill());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            StartCoroutine(SetLevel());
         }
     }
 
@@ -193,6 +209,15 @@ public class TestingManager : MonoBehaviour
         yield return null;
         skillManager.SetSkill(subspeciesSkill.ToString(), 0, player);
         hudSkills.ChangeSkillIcon(subspeciesSkill.ToString(), 0);
+    }
+
+    IEnumerator SetLevel()
+    {
+        GetCurrentPlayer();
+
+        yield return null;
+        int levelSelected = (int)levelSelect;
+        SceneManager.LoadScene(levelSelected);
     }
 
     void GetCurrentPlayer()

@@ -146,7 +146,7 @@ public class SceneLoader : MonoBehaviour
                 break;
 
             case 5:
-                titleText.text = "BossTest";
+                titleText.text = "The Boss";
                 titleText.color = bossTestTextColor;
                 break;
 
