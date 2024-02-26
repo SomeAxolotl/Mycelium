@@ -249,8 +249,8 @@ public class SporeData
 
     public Color bodyColor;
     public Color capColor;
-    public int eyeOption;
     public int mouthOption;
+    public int eyeOption;
 
     public override string ToString()
     {
@@ -265,8 +265,10 @@ public class SporeData
             "\nSpeed: " + lvlSpeed +
             "\nSentience: " + lvlSentience +
             "\nVitality: " + lvlVitality +
+            "\nBodyColor: " + bodyColor +
             "\nCapColor: " + capColor +
-            "\nBodyColor: " + bodyColor
+            "\nMouthOption: " + mouthOption +
+            "\nEyeOption: " + eyeOption
         );
     }
 
