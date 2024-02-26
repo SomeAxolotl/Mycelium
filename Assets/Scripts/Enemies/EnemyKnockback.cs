@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,7 @@ public class EnemyKnockback : MonoBehaviour
     Animator animator;
     public LayerMask groundLayer;
     ReworkedEnemyNavigation reworkedEnemyNav;
+    public float timer = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,14 +47,20 @@ public class EnemyKnockback : MonoBehaviour
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         onGround = false;
         yield return new WaitForFixedUpdate();
-        if(this.gameObject.name == "Giga Beetle")
+        if (this.gameObject.name == "Giga Beetle")
         {
             onGround = true;
         }
-        else
+        while(timer < 1f && !onGround)
         {
-            yield return new WaitUntil(() => onGround);
+            timer += Time.fixedDeltaTime;
+                if(timer > 1f)
+                {
+                    onGround = true;
+                }
+            yield return new WaitForFixedUpdate();
         }
+        timer = 0f;
         animator.SetBool("IsMoving", true);
         damaged = false;
         reworkedEnemyNav.enabled = true;
