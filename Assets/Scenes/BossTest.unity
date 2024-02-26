@@ -1520,6 +1520,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkeletonBoss Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8740347814730537543, guid: 74373cd65fc3aa540913305c870f81a0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9200489523976519559, guid: 74373cd65fc3aa540913305c870f81a0,
         type: 3}
       propertyPath: m_Enabled
@@ -1532,7 +1537,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8740347814730537543, guid: 74373cd65fc3aa540913305c870f81a0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1784421598}
+      addedObject: {fileID: 1784421597}
+    - targetCorrespondingSourceObject: {fileID: 8740347814730537543, guid: 74373cd65fc3aa540913305c870f81a0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1784421599}
   m_SourcePrefab: {fileID: 100100000, guid: 74373cd65fc3aa540913305c870f81a0, type: 3}
 --- !u!1 &1784421596 stripped
 GameObject:
@@ -1540,13 +1549,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1784421595}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1784421597 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3267067185139615345, guid: 74373cd65fc3aa540913305c870f81a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1784421595}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1784421598
+--- !u!114 &1784421597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1555,10 +1558,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 1784421596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9777b89c4af1ab48bf608e665896ff3, type: 3}
+  m_Script: {fileID: 11500000, guid: feae535cf97ed49408afa1955225fdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 500
   currentHealth: 0
-  nutrientDrop: 500
-  centerPoint: {fileID: 1784421597}
+  nutrientDrop: 1000
+  centerPoint: {fileID: 1784421598}
+--- !u!4 &1784421598 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3267067185139615345, guid: 74373cd65fc3aa540913305c870f81a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1784421595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1784421599
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784421596}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 50
+  m_Center: {x: 0, y: 0, z: 0}

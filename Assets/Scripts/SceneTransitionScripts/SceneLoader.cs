@@ -136,18 +136,18 @@ public class SceneLoader : MonoBehaviour
                 break;
 
             case 3:
+                titleText.text = "BossTest";
+                titleText.color = bossTestTextColor;
+                break;
+
+            case 4:
                 titleText.text = "The Daybreak Arboretum";
                 titleText.color = daybreakTextColor;
                 break;
 
-            case 4:
+            case 5:
                 titleText.text = "The Delta Crag";
                 titleText.color = deltaTextColor;
-                break;
-
-            case 5:
-                titleText.text = "BossTest";
-                titleText.color = bossTestTextColor;
                 break;
 
             default:

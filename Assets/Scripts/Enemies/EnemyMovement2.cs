@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMovement2 : MonoBehaviour
 {
     [HideInInspector] public NavMeshAgent navMeshAgent;
-    public bool playerSeen;
+    // public bool playerSeen;
     public bool attacking = false;
     private bool startedPatrol = false;
     private float patrolRadius = 10f;
@@ -50,7 +50,7 @@ public class EnemyMovement2 : MonoBehaviour
             if (Vector3.Angle(transform.forward, dirToPlayer) < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer) ||
                 dstToPlayer <= (navMeshAgent.stoppingDistance + detectionBuffer))
             {
-                playerSeen = true;
+                //playerSeen = true;
                 navMeshAgent.SetDestination(player.position);
                 startedPatrol = false;
                 if (!attacking)
@@ -67,11 +67,11 @@ public class EnemyMovement2 : MonoBehaviour
             else
             {
                 
-                playerSeen = false;
+                //playerSeen = false;
             }
         }
 
-        if (speed < .25f && !playerSeen)
+        if (speed < .25f /*&& !playerSeen*/)
         {
             rerouteTimer += Time.deltaTime;
         }
@@ -80,12 +80,12 @@ public class EnemyMovement2 : MonoBehaviour
             rerouteTimer = 0;
         }
 
-        if (!startedPatrol && !playerSeen)
+        if (!startedPatrol /*&& !playerSeen*/)
         {
             SetRandomDestination();
         }
 
-        if (!playerSeen && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + .5f || rerouteTimer > 1.5f)
+        if (/*!playerSeen && */navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + .5f || rerouteTimer > 1.5f)
         {
             startedPatrol = false;
         }
