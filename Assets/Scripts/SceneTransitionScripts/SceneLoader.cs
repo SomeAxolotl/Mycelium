@@ -34,6 +34,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Color carcassTextColor;
     [SerializeField] private Color daybreakTextColor;
     [SerializeField] private Color deltaTextColor;
+    [SerializeField] private Color bossTestTextColor;
 
     private TMP_Text titleText;
     private RectTransform titleTextRectTransform;
@@ -142,6 +143,11 @@ public class SceneLoader : MonoBehaviour
             case 4:
                 titleText.text = "The Delta Crag";
                 titleText.color = deltaTextColor;
+                break;
+
+            case 5:
+                titleText.text = "BossTest";
+                titleText.color = bossTestTextColor;
                 break;
 
             default:
