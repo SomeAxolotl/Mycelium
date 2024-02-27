@@ -10,8 +10,8 @@ public class RangedEnemyShoot : EnemyAttack
     private Transform player;
     public Transform launchPoint;
     private bool canAttack = true;
-    private float attackCooldown = 3f;
-    private float attackWindupTime = 1f;
+    private float attackCooldown = 2f;
+    private float attackWindupTime = 2f;
     public GameObject projectile;
     IEnumerator attack;
     Animator animator;
@@ -29,19 +29,10 @@ public class RangedEnemyShoot : EnemyAttack
     // Update is called once per frame
     void Update()
     {
-        if (enemyKnockback.damaged)
+        if (reworkedEnemyNavigation.playerSeen && canAttack)
         {
-            CancelAttack();
+            StartCoroutine(Attack());
         }
-        else
-        {
-            if (reworkedEnemyNavigation.playerSeen && canAttack)
-            {
-                StartCoroutine(Attack());
-            }
-        }
-
-
     }
     private void FixedUpdate()
     {

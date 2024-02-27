@@ -13,7 +13,7 @@ public class EnemyKnockback : MonoBehaviour
     Animator animator;
     public LayerMask groundLayer;
     ReworkedEnemyNavigation reworkedEnemyNav;
-
+    EnemyAttack enemyAttack;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +21,7 @@ public class EnemyKnockback : MonoBehaviour
         player = GameObject.FindWithTag("currentPlayer").transform;
         animator = GetComponent<Animator>();
         reworkedEnemyNav = GetComponent<ReworkedEnemyNavigation>();
+        enemyAttack = GetComponent<EnemyAttack>();
     }
 
     // Update is called once per frame
@@ -35,7 +36,7 @@ public class EnemyKnockback : MonoBehaviour
     public void Knockback(float knockbackForce)
     {
         animator.SetBool("IsMoving", false);
-        damaged = true;
+        enemyAttack.CancelAttack();
         reworkedEnemyNav.enabled = false;
         Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
         StartCoroutine(StartKnockback(dirFromPlayer, knockbackForce));
@@ -63,7 +64,7 @@ public class EnemyKnockback : MonoBehaviour
         }
         timer = 0f;
         animator.SetBool("IsMoving", true);
-        damaged = false;
+        enemyAttack.CancelAttack();
         reworkedEnemyNav.enabled = true;
     }
     void OnCollisionEnter(Collision collision)

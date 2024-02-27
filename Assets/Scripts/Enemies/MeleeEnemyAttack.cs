@@ -36,16 +36,9 @@ public class MeleeEnemyAttack : EnemyAttack
     // Update is called once per frame
     void Update()
     {
-        if(enemyKnockback.damaged)
-        {
-            CancelAttack();
-        }
-        else
-        {
-            if (reworkedEnemyNavigation.playerSeen && canAttack)
-            {  
-                StartCoroutine(Attack());
-            }
+        if (reworkedEnemyNavigation.playerSeen && canAttack)
+        {  
+            StartCoroutine(Attack());
         }
 
         if(isAttacking)
