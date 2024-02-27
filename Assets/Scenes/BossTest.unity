@@ -196,36 +196,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d4dec33d489214ca7fb9fc326fb717, type: 3}
---- !u!1 &70214514 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8740347814730537543, guid: 74373cd65fc3aa540913305c870f81a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1784421595}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &70214515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70214514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd775ab3fa056e9479c68231850fb71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attractionForce: 100
-  attractionRadius: 20
-  pullInterval: 15
-  pullOrigin: {fileID: 1784421596}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  canAttack: 1
-  isAttacking: 0
-  playerDamaged: 0
-  attackInterval: 2
-  damage: 20
 --- !u!1 &469764643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,29 +1440,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8607880596001834372, guid: 74373cd65fc3aa540913305c870f81a0,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
     - target: {fileID: 8740347814730537543, guid: 74373cd65fc3aa540913305c870f81a0,
         type: 3}
       propertyPath: m_Name
       value: SkeletonBoss Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4046129775924910529, guid: 74373cd65fc3aa540913305c870f81a0, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8740347814730537543, guid: 74373cd65fc3aa540913305c870f81a0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 70214515}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74373cd65fc3aa540913305c870f81a0, type: 3}
---- !u!4 &1784421596 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6764624565057531529, guid: 74373cd65fc3aa540913305c870f81a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1784421595}
-  m_PrefabAsset: {fileID: 0}

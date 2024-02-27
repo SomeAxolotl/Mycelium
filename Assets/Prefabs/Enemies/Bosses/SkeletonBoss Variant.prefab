@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a0556e6489d1f954197c104cdba92359,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: -0.63
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0556e6489d1f954197c104cdba92359,
         type: 3}
@@ -563,15 +563,19 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0556e6489d1f954197c104cdba92359,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4046129775924910529}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0556e6489d1f954197c104cdba92359,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5294336412724459787}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0556e6489d1f954197c104cdba92359,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3782455756321879263}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0556e6489d1f954197c104cdba92359,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2741573076740551787}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0556e6489d1f954197c104cdba92359,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5198807240441793365}
     - targetCorrespondingSourceObject: {fileID: 1719206259683712167, guid: a0556e6489d1f954197c104cdba92359,
         type: 3}
       insertIndex: -1
@@ -777,6 +781,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.9242988, y: 1, z: 1}
   m_Center: {x: 2.141818, y: 0.0000051373086, z: 0.0000066603}
+--- !u!4 &6764624565057531529 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6311130888208938593, guid: a0556e6489d1f954197c104cdba92359,
+    type: 3}
+  m_PrefabInstance: {fileID: 8469755594128828182}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7084519738046315441 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1719206259683712167, guid: a0556e6489d1f954197c104cdba92359,
@@ -822,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b376ba53e95521c419d27ef9621d6ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 0}
+  playerSeen: 0
   attacking: 0
   speed: 0
   attackStopdistance: 0
@@ -834,7 +844,7 @@ MonoBehaviour:
     m_Bits: 4352
   fieldOfView: 150
   detectionRange: 25
-  detectionBuffer: 12
+  backwardsDetectionRange: 15
   undergrowthSpeed: 0
 --- !u!54 &8607880596001834372
 Rigidbody:
@@ -861,30 +871,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 2
---- !u!195 &4046129775924910529
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8740347814730537543}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 1.5
-  m_Speed: 0
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 10
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 3
-  m_BaseOffset: -2
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &5294336412724459787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,6 +910,45 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2741573076740551787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740347814730537543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd775ab3fa056e9479c68231850fb71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractionForce: 100
+  attractionRadius: 20
+  pullInterval: 15
+  pullOrigin: {fileID: 6764624565057531529}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  canAttack: 1
+  isAttacking: 0
+  playerDamaged: 0
+  attackInterval: 2
+  damage: 20
+  tailAttackAnimationDuration: 1.5
+  swipeAttackAnimationDuration: 1
+  slamAttackAnimationDuration: 2
+--- !u!114 &5198807240441793365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740347814730537543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4fba6b5e832b845a572ad6085bc405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8835763022202269819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1086619240624609133, guid: a0556e6489d1f954197c104cdba92359,
