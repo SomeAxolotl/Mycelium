@@ -45,10 +45,13 @@ public class WeaponStats : MonoBehaviour
         wpnDamage = Mathf.RoundToInt(Random.Range(wpnDamageMin, wpnDamageMax));
         wpnKnockback = Random.Range(wpnKnockbackMin, wpnKnockbackMax);
 
-        Vector3 positionOffset = holdPositionOffset;
-        transform.localPosition = positionOffset;
-        Vector3 rotationOffset = holdRotationOffset;
-        transform.parent.transform.localEulerAngles = rotationOffset;
+        if (gameObject.tag == "currentWeapon")
+        {
+            Vector3 positionOffset = holdPositionOffset;
+            transform.localPosition = positionOffset;
+            Vector3 rotationOffset = holdRotationOffset;
+            transform.parent.transform.localEulerAngles = rotationOffset;
+        }
     }
 
     // Update is called once per frame
