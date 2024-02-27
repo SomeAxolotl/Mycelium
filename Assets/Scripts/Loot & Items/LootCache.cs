@@ -29,7 +29,8 @@ public class LootCache : MonoBehaviour
         if (distance < 3)
         {
             Debug.Log("SPAWNING TOOLTIP FOR WEAPON");
-            TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Press A to Open");
+            string buttonText = "<color=#3cdb4e>A</color>";
+            TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Press "+buttonText+" to Open");
             if (interact.triggered)
             {
                 SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
