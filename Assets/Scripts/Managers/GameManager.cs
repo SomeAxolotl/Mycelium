@@ -37,7 +37,10 @@ public class GameManager : MonoBehaviour
         {
             FreezePlayer();
             StartCoroutine(DisableController());
-            DestroyMenuCamera();
+            if (GameObject.FindWithTag("currentPlayer") != null)
+            {
+                DestroyMenuCamera();
+            }
         }
         else
         {
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
             RemoveHUDMaterial();
             StartCoroutine(UpdateHUDNutrients());
         }
+        ToggleAudioListeners();
 
         StartCoroutine(RefreshCutoutMaskUI());
 
@@ -169,6 +173,18 @@ public class GameManager : MonoBehaviour
             nutrientTracker.SubtractNutrients(1);
 
             yield return new WaitForSeconds(nutrientDrainRate);
+        }
+    }
+
+    void ToggleAudioListeners()
+    {
+        AudioListener cameraListener = Camera.main.GetComponent<AudioListener>();
+        AudioListener sporeListener = GameObject.FindWithTag("currentPlayer").GetComponent<AudioListener>();
+
+        if (cameraListener != null && sporeListener != null)
+        {
+            cameraListener.enabled = !cameraListener.enabled;
+            sporeListener.enabled = !sporeListener.enabled;
         }
     }
 }

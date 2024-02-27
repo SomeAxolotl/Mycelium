@@ -324,10 +324,7 @@ public class CharacterStats : MonoBehaviour
             else
             {
             vitalityLevel--;
-            StartCalculateAttributes();
-            UpdateLevel();
-            nutrientTracker.AddNutrients(levelUpCost);     
-            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel); 
+            
             }   
     }
 
@@ -360,6 +357,8 @@ public class CharacterStats : MonoBehaviour
         baseRegen = sporeAttributeIncrements.regenBase + ((vitalityLevel - 1) * sporeAttributeIncrements.regenIncrement);
         moveSpeed = sporeAttributeIncrements.moveSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.moveSpeedIncrement);
         animatorSpeed = sporeAttributeIncrements.attackSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.attackSpeedIncrement);
+
+        Debug.Log(primalLevel + "---" + sentienceLevel + "---" + speedLevel + "---" + vitalityLevel);
 
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerController.GetStats();
@@ -431,5 +430,28 @@ public class CharacterStats : MonoBehaviour
     public void RelockSkill(string skillName)
     {
         skillEquippables[skillName] = false;
+    }
+
+    public void MultiplyStat(string statName, float multiplier)
+    {
+        switch (statName)
+        {
+            case "Primal":
+                primalLevel = Mathf.RoundToInt(primalLevel * multiplier);
+                break;
+            case "Sentience":
+                sentienceLevel = Mathf.RoundToInt(sentienceLevel * multiplier);
+                break;
+            case "Speed":
+                speedLevel = Mathf.RoundToInt(speedLevel * multiplier);
+                break;
+            case "Vitality":
+                vitalityLevel = Mathf.RoundToInt(vitalityLevel * multiplier);
+                break;
+        }
+
+        StartCalculateAttributes();
+        UpdateLevel();
+        designTracker.ForceUpdateBlendshaped(sentienceLevel, primalLevel, vitalityLevel, speedLevel); 
     }
 }

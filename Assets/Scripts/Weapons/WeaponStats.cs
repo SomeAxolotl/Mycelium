@@ -44,7 +44,11 @@ public class WeaponStats : MonoBehaviour
     {
         wpnDamage = Mathf.RoundToInt(Random.Range(wpnDamageMin, wpnDamageMax));
         wpnKnockback = Random.Range(wpnKnockbackMin, wpnKnockbackMax);
-        initialRotation = Quaternion.Euler(0f, 0f, tiltAngle);
+
+        Vector3 positionOffset = holdPositionOffset;
+        transform.localPosition = positionOffset;
+        Vector3 rotationOffset = holdRotationOffset;
+        transform.parent.transform.localEulerAngles = rotationOffset;
     }
 
     // Update is called once per frame

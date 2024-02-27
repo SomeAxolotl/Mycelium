@@ -94,7 +94,7 @@ public class PlayerAttack : MonoBehaviour
         yield return null;
 
         float currentAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length;
-        hudSkills.StartCooldownUI(3, currentAnimationLength);
+        //hudSkills.StartCooldownUI(3, currentAnimationLength);
 
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
         float percentUntilWindupDone = curWeapon.GetComponent<WeaponStats>().percentUntilWindupDone;

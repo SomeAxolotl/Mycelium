@@ -170,11 +170,11 @@ public class HUDSkills : MonoBehaviour
                 break;
 
             //Attack and Dodge
-            case 3:
-                /*cooldownBackground = hitCooldownBackground;
+            /*case 3:
+                cooldownBackground = hitCooldownBackground;
                 skillIcon = hitIcon;
-                iconStartingScale = hitIconStartingScale;*/
-                break;
+                iconStartingScale = hitIconStartingScale;
+                break;*/
             case 4:
                 cooldownBackground = dodgeCooldownBackground;
                 skillIcon = dodgeIcon;
