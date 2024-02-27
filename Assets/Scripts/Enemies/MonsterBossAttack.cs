@@ -28,6 +28,9 @@ public class MonsterBossAttack : MonoBehaviour
     private Transform player;
     private Rigidbody rb;
     PlayerController playerController;
+    [SerializeField] private float tailAttackAnimationDuration = 1.5f;
+    [SerializeField] private float swipeAttackAnimationDuration = 1.0f;
+    [SerializeField] private float slamAttackAnimationDuration = 2.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +61,7 @@ public class MonsterBossAttack : MonoBehaviour
             if (bossMovement.playerSeen && canAttack)
             {
                 StartCoroutine(Attack());
+                StartCoroutine(TriggerRandomAttacksWithDelay());
             }
         }
         if (isAttacking)
@@ -93,7 +97,6 @@ public class MonsterBossAttack : MonoBehaviour
 
         playerHit.Clear();
 
-        // Wait for the next attack interval
         yield return new WaitForSeconds(attackInterval);
 
         canAttack = true;
@@ -156,6 +159,68 @@ public class MonsterBossAttack : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
             yield return null;
+        }
+    }
+    private IEnumerator TailAttack()
+    {
+        //animator.SetTrigger("TailAttack");
+        Debug.Log("TAIL ATTACK!");
+        yield return new WaitForSeconds(tailAttackAnimationDuration);
+
+        ApplyKnockbackToPlayer();
+    }
+
+    private IEnumerator SwipeAttack()
+    {
+        //animator.SetTrigger("SwipeAttack");
+        Debug.Log("SWIPE ATTACK!");
+        yield return new WaitForSeconds(swipeAttackAnimationDuration);
+
+        ApplyKnockbackToPlayer();
+    }
+
+    private IEnumerator SlamAttack()
+    {
+        //animator.SetTrigger("SlamAttack");
+        Debug.Log("SLAM ATTACK!");
+        yield return new WaitForSeconds(slamAttackAnimationDuration);
+
+        ApplyKnockbackToPlayer();
+    }
+
+    private void ApplyKnockbackToPlayer()
+    {
+        // Apply knockback effect to player here
+        // Example: playerController.Knockback(this.gameObject, knockbackForce);
+    }
+
+    private void TriggerRandomAttack()
+    {
+        int randomAttack = Random.Range(0, 3);
+
+        switch (randomAttack)
+        {
+            case 0:
+                StartCoroutine(TailAttack());
+                break;
+            case 1:
+                StartCoroutine(SwipeAttack());
+                break;
+            case 2:
+                StartCoroutine(SlamAttack());
+                break;
+            default:
+                Debug.LogError("Invalid random attack number.");
+                break;
+        }
+    }
+    private IEnumerator TriggerRandomAttacksWithDelay()
+    {
+        while (true)
+        {
+            TriggerRandomAttack();
+
+            yield return new WaitForSeconds(5.0f);
         }
     }
 }
