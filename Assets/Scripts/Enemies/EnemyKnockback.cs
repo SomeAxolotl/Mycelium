@@ -13,7 +13,7 @@ public class EnemyKnockback : MonoBehaviour
     Animator animator;
     public LayerMask groundLayer;
     ReworkedEnemyNavigation reworkedEnemyNav;
-    public float timer = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +47,7 @@ public class EnemyKnockback : MonoBehaviour
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         onGround = false;
         yield return new WaitForFixedUpdate();
+        float timer = 0f;
         if (this.gameObject.name == "Giga Beetle")
         {
             onGround = true;

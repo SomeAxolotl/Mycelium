@@ -30,25 +30,17 @@ public class Sporeburst : Skill
                 Debug.Log("Sporeburst hit!");
             }
 
-            if (enemy.gameObject.GetComponent<MeleeEnemyAttack>() != null)
+            if (enemy.gameObject.GetComponent<EnemyAttack>() != null)
             {
-                enemy.gameObject.GetComponent<MeleeEnemyAttack>().CancelAttack();
-                StartCoroutine(ReactivateMelee(enemy.gameObject.GetComponent<MeleeEnemyAttack>()));
-                enemy.gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
+                enemy.gameObject.GetComponent<EnemyAttack>().CancelAttack();
+                StartCoroutine(ReactivateAttack(enemy.gameObject.GetComponent<EnemyAttack>()));
+                enemy.gameObject.GetComponent<EnemyAttack>().enabled = false;
             }
 
-            if (enemy.gameObject.GetComponent<RangedEnemyShoot>() != null)
+            if (enemy.gameObject.GetComponent<ReworkedEnemyNavigation>() != null)
             {
-                enemy.gameObject.GetComponent<RangedEnemyShoot>().StartCoroutine("CancelAttack");
-                StartCoroutine(ReactivateRanged(enemy.gameObject.GetComponent<RangedEnemyShoot>()));
-                enemy.gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
-            }
-
-            if (enemy.gameObject.GetComponent<EnemyNavigation>() != null)
-            {
-                StartCoroutine(ReactivateNavigation(enemy.gameObject.GetComponent<EnemyNavigation>(),enemy.gameObject.GetComponent<NavMeshAgent>()));
-                enemy.gameObject.GetComponent<EnemyNavigation>().enabled = false;
-                enemy.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                StartCoroutine(ReactivateNavigation(enemy.gameObject.GetComponent<ReworkedEnemyNavigation>()));
+                enemy.gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
                 enemy.gameObject.GetComponent<Animator>().SetBool("IsMoving", false);
             }
         }
@@ -62,22 +54,16 @@ public class Sporeburst : Skill
             GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(healingAmount);
         }
     }
-    IEnumerator ReactivateMelee(MeleeEnemyAttack meleeEnemyAttack)
+    IEnumerator ReactivateAttack(EnemyAttack enemyAttack)
     {
         yield return new WaitForSeconds(stunDuration);
-        meleeEnemyAttack.enabled = true;
+        enemyAttack.enabled = true;
     }
-    IEnumerator ReactivateRanged(RangedEnemyShoot rangedEnemyShoot)
+    IEnumerator ReactivateNavigation(ReworkedEnemyNavigation reworkedEnemyNavigation)
     {
         yield return new WaitForSeconds(stunDuration);
-        rangedEnemyShoot.enabled = true;
-    }
-    IEnumerator ReactivateNavigation(EnemyNavigation enemyNavigation, NavMeshAgent navMeshAgent)
-    {
-        yield return new WaitForSeconds(stunDuration);
-        enemyNavigation.gameObject.GetComponent<Animator>().SetBool("IsMoving", true);
-        navMeshAgent.enabled = true;
-        enemyNavigation.enabled = true;
+        reworkedEnemyNavigation.gameObject.GetComponent<Animator>().SetBool("IsMoving", true);
+        reworkedEnemyNavigation.enabled = true;
     }
 }
 

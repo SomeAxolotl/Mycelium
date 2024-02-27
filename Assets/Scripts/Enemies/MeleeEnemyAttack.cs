@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 
-public class MeleeEnemyAttack : MonoBehaviour
+public class MeleeEnemyAttack : EnemyAttack
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private EnemyKnockback enemyKnockback;
@@ -49,8 +48,6 @@ public class MeleeEnemyAttack : MonoBehaviour
             }
         }
 
-
-
         if(isAttacking)
         {
             resetAttack += Time.deltaTime;
@@ -71,7 +68,7 @@ public class MeleeEnemyAttack : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
         }
     }
-    IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         canAttack = false;
         attackStarted = true;
@@ -99,7 +96,7 @@ public class MeleeEnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-    public void CancelAttack()
+    public override void CancelAttack()
     {
         StopAllCoroutines();
         attack = Attack();

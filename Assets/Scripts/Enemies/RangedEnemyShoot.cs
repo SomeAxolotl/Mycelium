@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RangedEnemyShoot : MonoBehaviour
+public class RangedEnemyShoot : EnemyAttack
 {
     private EnemyKnockback enemyKnockback;
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
@@ -56,7 +55,7 @@ public class RangedEnemyShoot : MonoBehaviour
         }
     }
 
-    IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         canAttack = false;
         yield return new WaitForSeconds(attackWindupTime);
@@ -69,7 +68,7 @@ public class RangedEnemyShoot : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-    public void CancelAttack()
+    public override void CancelAttack()
     {
         StopAllCoroutines();
         attack = Attack();
