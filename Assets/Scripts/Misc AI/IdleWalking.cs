@@ -5,108 +5,151 @@ using UnityEngine.AI;
 
 public class IdleWalking : MonoBehaviour
 {
-    bool canWander = true;
-    float wanderCooldown = 1f;
-    bool isRotatingLeft = false;
-    bool isRotatingRight = false;
-    bool isWalking = false;
-    int rotTime;
-    int walkTime;
-    public LayerMask obstacleLayer;
-    public IEnumerator wander;
-    IEnumerator restartWander;
-    IEnumerator stopWander;
+    private float wanderRadius = 30f;
+    private List<Vector3> waypoints = new List<Vector3>();
+    private bool startedWander;
+    private bool startedFirstWander;
+    private float speed;
+    private float rerouteTimer;
+    private Vector3 previousPosition;
+    public LayerMask environmentLayer;
+    private float gravityForce;
+    public float moveSpeed = 2f;
+    Vector3 gravity;
+    private Rigidbody rb;
+    private Transform center;
+    private Animator animator;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        wander = this.Wander();
-        restartWander = this.RestartWander();
-        stopWander = this.StopWander();
+        startedWander = true;
+        startedFirstWander = false;
+        animator = GetComponent<Animator>();
+        previousPosition = transform.position;
+        rb = GetComponent<Rigidbody>();
+        center = transform.Find("CenterPoint");
+        gravityForce = 0f;
+        gravity = new Vector3(0f, gravityForce, 0f);
+        Invoke("BeginFirstWander", 3f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.tag == "Player" && canWander)
+        Vector3 currentVelocity = (transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = transform.position;
+        speed = currentVelocity.magnitude;
+
+        if (!startedWander)
         {
-            wanderCooldown -= Time.deltaTime;
-            if (wanderCooldown <= 0)
+            SetRandomDestination();
+        }
+
+        if (speed < .5f)
+        {
+            rerouteTimer += Time.deltaTime;
+        }
+        else
+        {
+            rerouteTimer = 0;
+        }
+
+        if (rerouteTimer > .5f && startedFirstWander)
+        {
+            waypoints.Clear();
+            SetRandomDestination();
+            rerouteTimer = 0f;
+            Debug.Log("wander restart via timer! " + gameObject.name);
+        }
+    }
+    private void FixedUpdate()
+    {
+        rb.AddForce(gravity, ForceMode.Acceleration);
+
+        if (startedWander && waypoints.Count > 0)
+        {
+            Vector3 nextWaypoint = waypoints[0];
+            float distanceToNextWaypoint = Vector3.Distance(transform.position, nextWaypoint);
+            if (distanceToNextWaypoint <= 1f)
             {
-                StartCoroutine(Wander());
-            }
-        }
-
-        if (isRotatingRight == true)
-        {
-            transform.Rotate(transform.up * Time.deltaTime * 100f);
-        }
-
-        if (isRotatingLeft == true)
-        {
-            transform.Rotate(transform.up * Time.deltaTime * -100f);
-        }
-
-        if (isWalking == true)
-        {
-            if (!Physics.Raycast(transform.position, transform.forward, 2f, obstacleLayer))
-            {
-                transform.position += transform.forward * 5f * Time.deltaTime;
+                waypoints.RemoveAt(0);
+                if (waypoints.Count == 0)
+                {
+                    startedWander = false;
+                }
             }
             else
             {
-                StartCoroutine(RestartWander());
+                Vector3 moveDirection = ObstacleAvoidance(nextWaypoint - transform.position);
+                rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
+
+                Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
+                float desiredYRotation = desiredRotation.eulerAngles.y;
+                Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
             }
         }
     }
-    IEnumerator Wander()
+    Vector3 ObstacleAvoidance(Vector3 desiredDirection)
     {
-        canWander = false;
-        rotTime = Random.Range(1, 3);
-        int rotateWait = Random.Range(1, 3);
-        int rotateLorR = Random.Range(1, 2);
-        int walkWait = Random.Range(1, 3);
-        walkTime = Random.Range(1, 4);
+        Vector3 moveDirection = desiredDirection.normalized;
 
-        yield return new WaitForSeconds(walkWait);
-        isWalking = true;
-        yield return new WaitForSeconds(walkTime);
-        isWalking = false;
-        yield return new WaitForSeconds(rotateWait);
-        if (rotateLorR == 1)
+        RaycastHit hit;
+        if (Physics.Raycast(center.position, transform.forward, out hit, 2f, environmentLayer) && speed <= .5f)
         {
-            isRotatingRight = true;
-            yield return new WaitForSeconds(rotTime);
-            isRotatingRight = false;
+            waypoints.Clear();
+            SetRandomDestination();
+            rerouteTimer = 0f;
+            Debug.Log("wander restart via raycast! " + gameObject.name);
         }
-        if (rotateLorR == 2)
+        else if (Physics.Raycast(center.position, transform.forward, out hit, 2f, environmentLayer) && speed > .5f)
         {
-            isRotatingLeft = true;
-            yield return new WaitForSeconds(rotTime);
-            isRotatingLeft = false;
+            Vector3 avoidanceDirection = Vector3.Cross(Vector3.up, hit.normal);
+            moveDirection += avoidanceDirection * 1f;
         }
-        wanderCooldown = 1f;
-        canWander = true;
+
+        return moveDirection.normalized;
     }
-    IEnumerator RestartWander()
+    void SetRandomDestination()
     {
-        StopCoroutine(wander);
-        wander = Wander();
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + 180f * Time.deltaTime, transform.rotation.z);
-        yield return new WaitForSeconds(1f);
-        canWander = true;
-        wanderCooldown = 1f;
+        Vector3 point;
+        if (RandomPoint(transform.position, wanderRadius, out point))
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (NavMesh.CalculatePath(transform.position, point, NavMesh.AllAreas, path))
+            {
+                waypoints.Clear();
+
+                for (int i = 0; i < path.corners.Length; i++)
+                {
+                    waypoints.Add(path.corners[i]);
+                }
+            }
+            startedWander = true;
+        }
     }
-    public IEnumerator StopWander()
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
-        StopCoroutine(wander);
-        wander = Wander();
-        isWalking = false;
-        isRotatingLeft = false;
-        isRotatingRight = false;
-        rotTime = 0;
-        walkTime = 0;
-        canWander = true;
-        wanderCooldown = 1f;
-        yield return null;
+        Vector2 randomPoint = Random.insideUnitCircle * wanderRadius;
+        Vector3 worldPoint = transform.position + new Vector3(randomPoint.x, 0, randomPoint.y);
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(worldPoint, out hit, wanderRadius, NavMesh.AllAreas))
+        {
+            result = hit.position;
+            return true;
+        }
+        else
+        {
+            result = Vector3.zero;
+            return false;
+        }
+    }
+    private void BeginFirstWander()
+    {
+        gravityForce = -10f;
+        animator.SetBool("Walk", true);
+        startedFirstWander = true;
+        startedWander = false;
     }
 }

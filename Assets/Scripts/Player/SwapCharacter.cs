@@ -56,10 +56,7 @@ public class SwapCharacter : MonoBehaviour
         // Switch to the new character
         currentCharacterIndex = index;
         characters[currentCharacterIndex].tag = "currentPlayer";
-        if(characters[currentCharacterIndex].GetComponent<IdleWalking>().wander != null )
-        {
-            characters[currentCharacterIndex].GetComponent<IdleWalking>().StartCoroutine("StopWander");
-        }
+        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = false;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
@@ -76,13 +73,11 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = true;
         currentCharacterIndex = index;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().HideNametag();
         characters[currentCharacterIndex].tag = "currentPlayer";
-        if(characters[currentCharacterIndex].GetComponent<IdleWalking>().wander != null )
-        {
-            characters[currentCharacterIndex].GetComponent<IdleWalking>().StartCoroutine("StopWander");
-        }
+        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = false;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         swapWeapon.currentCharacter = characters[currentCharacterIndex];
@@ -95,7 +90,6 @@ public class SwapCharacter : MonoBehaviour
         hudSkills.UpdateHUDIcons();
         playerController.GetStats();
         playerHealth.GetHealthStats();
-        //swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
     public void SwitchToNextCharacter()
     {
@@ -111,7 +105,6 @@ public class SwapCharacter : MonoBehaviour
         SwitchCharacter(nextCharacterIndex);
         playerController.GetStats();
         playerHealth.GetHealthStats();
-        //swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
     public void SwitchToLastCharacter()
     {
@@ -127,7 +120,6 @@ public class SwapCharacter : MonoBehaviour
         SwitchCharacter(lastCharacterIndex);
         playerController.GetStats();
         playerHealth.GetHealthStats();
-        //swapWeapon.UpdateCharacter(characters[currentCharacterIndex]);
     }
 
     IEnumerator UpdateHealth()

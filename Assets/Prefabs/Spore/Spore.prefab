@@ -3068,10 +3068,14 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 4506723246477034531}
   capColor: {r: 0.25942102, g: 0.16899252, b: 0.4433962, a: 0}
   bodyColor: {r: 0.7669841, g: 0.60267, b: 0.9339623, a: 0}
+  MouthOption: 0
+  EyeOption: 0
+  EyeTexture: {fileID: 0}
+  MouthTexture: {fileID: 0}
+  PlaySFX: 1
   audioSource: {fileID: 3315170148169550044}
   secretHighLevelSoundClip: {fileID: 8300000, guid: f74faf5b125041b458be11528afa1e34,
     type: 3}
-  growingSFX: {fileID: 8300000, guid: eb3b70367e3e6a94aa800535f5ba6bc7, type: 3}
 --- !u!95 &1131853324052152694
 Animator:
   serializedVersion: 5
@@ -3105,9 +3109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0e8a38ca15dfc4fa1a0b9c8a6226ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleLayer:
+  environmentLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4361
+  moveSpeed: 2
 --- !u!114 &5961980393901514681
 MonoBehaviour:
   m_ObjectHideFlags: 0
