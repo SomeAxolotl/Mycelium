@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RangedEnemyShoot : MonoBehaviour
+public class RangedEnemyShoot : EnemyAttack
 {
     private EnemyKnockback enemyKnockback;
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private Transform player;
     public Transform launchPoint;
     private bool canAttack = true;
-    private float attackCooldown = 3f;
-    private float attackWindupTime = 1f;
+    private float attackCooldown = 2f;
+    private float attackWindupTime = 2f;
     public GameObject projectile;
     IEnumerator attack;
     Animator animator;
@@ -30,19 +29,10 @@ public class RangedEnemyShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyKnockback.damaged)
+        if (reworkedEnemyNavigation.playerSeen && canAttack)
         {
-            CancelAttack();
+            StartCoroutine(Attack());
         }
-        else
-        {
-            if (reworkedEnemyNavigation.playerSeen && canAttack)
-            {
-                StartCoroutine(Attack());
-            }
-        }
-
-
     }
     private void FixedUpdate()
     {
@@ -56,7 +46,7 @@ public class RangedEnemyShoot : MonoBehaviour
         }
     }
 
-    IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         canAttack = false;
         yield return new WaitForSeconds(attackWindupTime);
@@ -69,7 +59,7 @@ public class RangedEnemyShoot : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-    public void CancelAttack()
+    public override void CancelAttack()
     {
         StopAllCoroutines();
         attack = Attack();
