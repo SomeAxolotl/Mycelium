@@ -45,6 +45,7 @@ public class CharSelectManagerNew : MonoBehaviour
     {
         playerController.EnableController();
         UIEnable.SetActive(false);
+        GlobalData.isAbleToPause = true;
     }
     public void StartGame()
     {
@@ -58,6 +59,7 @@ public class CharSelectManagerNew : MonoBehaviour
         //SceneManager.LoadScene("Prototype Level");
         playerController.EnableController();
         UIEnable.SetActive(false);
+        GlobalData.isAbleToPause = true;
         SceneLoader.Instance.BeginLoadScene(3, true);
         
     }

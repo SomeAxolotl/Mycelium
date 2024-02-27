@@ -526,7 +526,7 @@ public class LevelUpManagerNew : MonoBehaviour
       UnlockSkills();
 
       //This helps fix the bug where you could pause in the shop
-      PauseData.isAbleToPause = true;
+      GlobalData.isAbleToPause = true;
     }
     /*public void CloseController()
     {
@@ -555,7 +555,7 @@ public class LevelUpManagerNew : MonoBehaviour
       hudNutrients.UpdateNutrientsUI(nutrientsSave);
 
       //This helps fix the bug where you could pause in the shop
-      PauseData.isAbleToPause = true;
+      GlobalData.isAbleToPause = true;
     }
     void UnlockSkills()
     {

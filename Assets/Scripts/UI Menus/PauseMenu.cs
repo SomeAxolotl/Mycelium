@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour
             HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
             hudItem = HUD.GetComponent<HUDItem>();
             sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-            PauseData.isAbleToPause = true;
+            GlobalData.isAbleToPause = true;
             Resume();
         }
     }
@@ -45,9 +45,9 @@ public class PauseMenu : MonoBehaviour
     {
         if (isOnMainMenu == false)
         {
-            if (playerInput.Player.Pause.WasPressedThisFrame() && PauseData.isAbleToPause == true)
+            if (playerInput.Player.Pause.WasPressedThisFrame() && GlobalData.isAbleToPause == true)
             {
-                if (PauseData.isGamePaused == true)
+                if (GlobalData.isGamePaused == true)
                 {
                     Resume();
                     SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
@@ -68,7 +68,7 @@ public class PauseMenu : MonoBehaviour
         confirmMenu.SetActive(false);
         HUD.alpha = 1f;
         Time.timeScale = 1f;
-        PauseData.isGamePaused = false;
+        GlobalData.isGamePaused = false;
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
     }
@@ -79,7 +79,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         HUD.alpha = 0f;
         Time.timeScale = 0f;
-        PauseData.isGamePaused = true;
+        GlobalData.isGamePaused = true;
 
         resumeButton.Select();
 

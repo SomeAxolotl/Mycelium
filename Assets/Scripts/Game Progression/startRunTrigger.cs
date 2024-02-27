@@ -13,9 +13,10 @@ public class startRunTrigger : MonoBehaviour
     {
         if(other.CompareTag("currentPlayer") && SceneLoader.Instance.isLoading == false)
         {
-           playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-           playerController.DisableController();
-           UIEnable.SetActive(true);
+            playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+            playerController.DisableController();
+            UIEnable.SetActive(true);
+            GlobalData.isAbleToPause = false;
         }
     }
 }
