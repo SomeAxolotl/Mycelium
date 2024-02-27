@@ -71,10 +71,10 @@ public class HUDSkills : MonoBehaviour
         skill2IconStartingScale = skill2Icon.transform.localScale;
         skill2ButtonText = GameObject.Find("Skill2Button").GetComponent<TMP_Text>();
 
-        hitCooldownBackground = GameObject.Find("HitCooldownBackground").GetComponent<Image>();
+        /*hitCooldownBackground = GameObject.Find("HitCooldownBackground").GetComponent<Image>();
         hitIcon = GameObject.Find("HitIcon").GetComponent<Image>();
         hitIconStartingScale = hitIcon.transform.localScale;
-        hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();
+        hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();*/
 
         spriteList.AddRange(Resources.LoadAll<Sprite>("Skill Icons"));
     }
@@ -171,9 +171,9 @@ public class HUDSkills : MonoBehaviour
 
             //Attack and Dodge
             case 3:
-                cooldownBackground = hitCooldownBackground;
+                /*cooldownBackground = hitCooldownBackground;
                 skillIcon = hitIcon;
-                iconStartingScale = hitIconStartingScale;
+                iconStartingScale = hitIconStartingScale;*/
                 break;
             case 4:
                 cooldownBackground = dodgeCooldownBackground;

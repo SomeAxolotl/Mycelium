@@ -7,36 +7,45 @@ using UnityEngine.UIElements;
 
 public class FireflyController : MonoBehaviour
 {
-    [SerializeField] private List<Transform> Positions;
-    private List<Transform> staticPositions;
+    public List<Transform> targetPositions = new List<Transform>();
+    private GameObject fireflySearchRoot;
     private int positionIndex=0;
-    private bool Moving = false;
-    private bool QueueToMove = false;
+    private bool isMoving = false;
 
-    private void Update(){
-        if(Moving==false && QueueToMove==true){
-            StartCoroutine(MoveToPoint(Positions[positionIndex++]));
+    void Start()
+    {
+        fireflySearchRoot = GameObject.FindWithTag("FireflySearchRoot");
+        foreach (Transform targetPosition in fireflySearchRoot.GetComponentsInChildren<Transform>())
+        {
+            if (targetPosition.gameObject.tag == "FireflyTarget")
+            {
+                targetPositions.Add(targetPosition);
+            }
         }
     }
-    private void OnTriggerEnter(Collider other){
-        if(other.tag=="currentPlayer")
-            QueueToMove=true;
-    }
-    private void OnTriggerExit(Collider other){
-        if(other.tag=="currentPlayer")
-            QueueToMove=false;
+
+    void OnTriggerStay(Collider other)
+    {
+        if(other.tag=="currentPlayer" && isMoving == false)
+        {
+            StartCoroutine(MoveToPoint(targetPositions[positionIndex++]));
+        }
     }
 
-    IEnumerator MoveToPoint(Transform goal){
-        Moving = true;
+    IEnumerator MoveToPoint(Transform goal)
+    {
+        isMoving = true;
         Vector3 startPosition = transform.position;
         for (float t = 0f; t <= 1; t += Time.deltaTime / 3) {
 			transform.position = Vector3.Slerp(startPosition, goal.position, Mathf.SmoothStep(0, 1, t));
 			yield return null;
         }
-        Moving = false;
-        if(positionIndex+1 > Positions.Count)
+        isMoving = false;
+
+        if(positionIndex+1 > targetPositions.Count)
+        {
             Destroy(this.gameObject);
+        }
     }
 
 }
