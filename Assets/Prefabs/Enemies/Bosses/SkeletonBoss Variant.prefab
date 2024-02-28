@@ -846,6 +846,9 @@ MonoBehaviour:
   detectionRange: 25
   backwardsDetectionRange: 15
   undergrowthSpeed: 0
+  turningRight: 0
+  turningLeft: 0
+  previousRotationY: 0
 --- !u!54 &8607880596001834372
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -887,7 +890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 500
   currentHealth: 0
-  nutrientDrop: 1000
+  nutrientDrop: 50
   centerPoint: {fileID: 3267067185139615345}
 --- !u!135 &3782455756321879263
 SphereCollider:
