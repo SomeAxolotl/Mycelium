@@ -4,6 +4,7 @@ using System.Drawing;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using static System.TimeZoneInfo;
 
 public class DesignTracker : MonoBehaviour
 {
@@ -28,12 +29,23 @@ public class DesignTracker : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip secretHighLevelSoundClip;
 
+    //Ryan's nutrient glow stuff
+    private Coroutine nutrientGlow;
+
     private void Start()
     {
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
             UpdateColorsAndTexture();                   //<---- taken care of by SporeManager.cs in the carcass
-        }     
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            StartNutrientGlow();
+        }
     }
 
     public void UpdateBlendshape(int sentienceLevel, int primalLevel, int vitalityLevel, int speedLevel)
@@ -202,5 +214,64 @@ public class DesignTracker : MonoBehaviour
     public void ResetLevelCap()
     {
         LevelCap = 15;
+    }
+
+    public void StartNutrientGlow()
+    {
+        Material[] materials = skinnedMeshRenderer.materials;
+
+        try
+        {
+            StopCoroutine(nutrientGlow);
+        }
+        catch
+        {
+
+        }
+
+        nutrientGlow = StartCoroutine(NutrientGlow(materials[0]));
+    }
+
+    IEnumerator NutrientGlow(Material material)
+    {
+        float elapsedTime = 0f;
+        float t = 0f;
+        float time = 0.1f;
+
+        float intensity = 3;
+        float factor = Mathf.Pow(2, intensity);
+        UnityEngine.Color startingColor = material.GetColor("_Tertiary_Color");
+        UnityEngine.Color glowColor = new UnityEngine.Color(0.1f * factor, 1f * factor, 0.1f * factor);
+        UnityEngine.Color whiteColor = new UnityEngine.Color(1, 1, 1);
+        UnityEngine.Color finalColor;
+
+        while (elapsedTime < time)
+        {
+            t = elapsedTime / time;
+
+            finalColor = UnityEngine.Color.Lerp(startingColor, glowColor, t);
+            material.SetColor("_Tertiary_Color", finalColor);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        elapsedTime = 0f;
+        t = 0f;
+        time = 0.3f;
+        startingColor = material.GetColor("_Tertiary_Color");
+
+        while (elapsedTime < time)
+        {
+            t = elapsedTime / time;
+
+            finalColor = UnityEngine.Color.Lerp(startingColor, whiteColor, t);
+            material.SetColor("_Tertiary_Color", finalColor);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
     }
 }

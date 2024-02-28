@@ -7,11 +7,13 @@ public class NutrientParticles : MonoBehaviour
     [SerializeField] private float absorbTime = 1.5f;
     [SerializeField] private float timeBeforeAbsorb = 1.5f;
     private GameObject targetObject;
+    private DesignTracker designTrackerScript;
     private NutrientTracker nutrientTrackerScript;
 
     void Start()
     {
         targetObject = GameObject.FindWithTag("currentPlayer");
+        designTrackerScript = GameObject.FindWithTag("currentPlayer").GetComponent<DesignTracker>();
         nutrientTrackerScript = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         StartCoroutine(LerpParticlePositions());
     }
@@ -37,6 +39,7 @@ public class NutrientParticles : MonoBehaviour
                 if (Vector3.Distance(particles[i].position, targetObject.transform.position + new Vector3(0, 1, 0)) < 0.1f)
                 {
                     particles[i].remainingLifetime = 0f;
+                    absorbCounter += absorbCounter;
                 }
             }
 
@@ -46,6 +49,7 @@ public class NutrientParticles : MonoBehaviour
         }
 
         nutrientTrackerScript.AddNutrients(20);
+        designTrackerScript.StartNutrientGlow();
     }
 
     float EaseInQuart(float x)
