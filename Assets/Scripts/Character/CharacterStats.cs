@@ -452,6 +452,6 @@ public class CharacterStats : MonoBehaviour
 
         StartCalculateAttributes();
         UpdateLevel();
-        designTracker.ForceUpdateBlendshaped(sentienceLevel, primalLevel, vitalityLevel, speedLevel); 
+        designTracker.UpdateBlendshape(sentienceLevel, primalLevel, vitalityLevel, speedLevel); 
     }
 }
