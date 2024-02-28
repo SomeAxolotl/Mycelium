@@ -20,8 +20,8 @@ public class DeathBlossomPlant : DeathBlossom
         StartCoroutine(ExplodeAfterDelay());
         StartGlow = render.material.GetColor("_Glow_Color");
         if(light!=null){
-            startLightIntensity = light.intensity;
-            light.intensity = 0;
+            startLightIntensity = light.range;
+            light.range = 0;
         }
         render.material.SetColor("_Glow_Color", new Color(0,0,0));
         StartCoroutine(Illuminate());
@@ -36,7 +36,7 @@ public class DeathBlossomPlant : DeathBlossom
             currentGlow = new Color(StartGlow.r*currentModifier, StartGlow.g*currentModifier, StartGlow.b*currentModifier);
             render.material.SetColor("_Glow_Color", currentGlow);
             if(light!=null)
-                light.intensity = Mathf.Lerp(0,startLightIntensity,t);
+                light.range = Mathf.Lerp(0,startLightIntensity,t);
             t += Time.deltaTime;
             yield return null;
         }
