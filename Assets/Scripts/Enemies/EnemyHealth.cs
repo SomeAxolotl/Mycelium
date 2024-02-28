@@ -10,19 +10,18 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
     public int nutrientDrop;
-    float deathTimer;
     Rigidbody rb;
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     public Transform centerPoint;
     protected bool hasTakenDamage = false;
-    ReworkedEnemyNavigation reworkedEnemyNav;
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
-        rb = GetComponent<Rigidbody>();
         this.transform.parent = null;
-        reworkedEnemyNav = GetComponent<ReworkedEnemyNavigation>();
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         foreach (BaseEnemyHealthBar enemyHealthBar in GetComponentsInChildren<BaseEnemyHealthBar>())
         {
             enemyHealthBars.Add(enemyHealthBar);
@@ -32,45 +31,7 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentHealth <= 0)
-        {
-            deathTimer += Time.deltaTime;
-            Death();
-        }
-    }
-    void Death()
-    {
-        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
-        {
-            enemyHealthBar.DefeatEnemy();
-        }
 
-        if(gameObject.GetComponent<MeleeEnemyAttack>() != null)
-        {
-            gameObject.GetComponent<MeleeEnemyAttack>().enabled = false;
-        }
-        else if (gameObject.GetComponent<RangedEnemyShoot>() != null)
-        {
-            gameObject.GetComponent<RangedEnemyShoot>().enabled = false;
-        }
-        gameObject.GetComponent<Collider>().enabled = false;
-        reworkedEnemyNav.enabled = false;
-        rb.velocity = Vector3.zero;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f), Time.deltaTime);
-        if(deathTimer >= 2f)
-        {
-            //GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
-            ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
-
-            if (gameObject.name == "Giga Beetle")
-            {
-                GameManager.Instance.OnExitToHub();
-                PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
-                GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
-            }
-
-            this.gameObject.SetActive(false);
-        }
     }
     public virtual void EnemyTakeDamage(float dmgTaken)
     {
@@ -84,10 +45,36 @@ public class EnemyHealth : MonoBehaviour
                 enemyHealthBar.UpdateEnemyHealthUI();
                 enemyHealthBar.DamageNumber(dmgTaken);
             }
+        }
+        if(currentHealth <= 0)
+        {
+            StartCoroutine(Death());
+        }
+        hasTakenDamage = true;
+    }
 
+    IEnumerator Death()
+    {
+        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+        {
+            enemyHealthBar.DefeatEnemy();
         }
 
-        hasTakenDamage = true;
+        gameObject.GetComponent<EnemyAttack>().CancelAttack();
+        gameObject.GetComponent<EnemyAttack>().enabled = false;
+        gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
+        rb.velocity = Vector3.zero;
+        animator.Rebind();
+        animator.SetTrigger("Death");
+        yield return new WaitForSeconds(2f);
+        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        if (gameObject.name == "Giga Beetle")
+        {
+            GameManager.Instance.OnExitToHub();
+            PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
+            GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
+        }
+        this.gameObject.SetActive(false);
     }
 
     public bool HasTakenDamage()

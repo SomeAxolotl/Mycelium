@@ -160,8 +160,9 @@ public class PlayerController : MonoBehaviour
         canUseAttack = false;
         canUseSkill = false;
         activeDodge = true;
-        rb.AddForce(forceDirection * 6f, ForceMode.Impulse);
-        //Dust Particle for Dodging
+        Vector3 rollForce = forceDirection * 5f;
+        rollForce += Vector3.up * 5f;
+        rb.AddForce(rollForce, ForceMode.Impulse);
         SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
         animator.SetBool("Roll", true);
         animator.Play("Roll");
