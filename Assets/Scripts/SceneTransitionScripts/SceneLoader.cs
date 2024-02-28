@@ -104,17 +104,19 @@ public class SceneLoader : MonoBehaviour
         {
             GlobalData.gameIsStarting = false;
 
-            blackCanvasGroup.alpha = 1f;
+            if (Application.isEditor == false)
+            {
+                blackCanvasGroup.alpha = 1f;
 
-            yield return new WaitForSecondsRealtime(delayStartupCanvasTime);
+                yield return new WaitForSecondsRealtime(delayStartupCanvasTime);
 
-            yield return StartCoroutine(FadeCanvasIn(startupCanvasGroup, transitionTime));
+                yield return StartCoroutine(FadeCanvasIn(startupCanvasGroup, transitionTime));
 
-            yield return new WaitForSecondsRealtime(startupCanvasTime);
+                yield return new WaitForSecondsRealtime(startupCanvasTime);
 
-            StartCoroutine(FadeCanvasOut(blackCanvasGroup, transitionTime));
-            yield return StartCoroutine(FadeCanvasOut(startupCanvasGroup, transitionTime));
-
+                StartCoroutine(FadeCanvasOut(blackCanvasGroup, transitionTime));
+                yield return StartCoroutine(FadeCanvasOut(startupCanvasGroup, transitionTime));
+            }
         }
         else
         {
