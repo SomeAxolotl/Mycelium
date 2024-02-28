@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,10 +11,35 @@ public class DeathBlossomPlant : DeathBlossom
     [SerializeField] private float damageOverTimeDuration = 7f;
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
-    // Start is called before the first frame update
+    [SerializeField] private Renderer render;
+    [SerializeField] private Light light;
+    private Color StartGlow;
+    private float startLightIntensity;
     void Start()
     {
         StartCoroutine(ExplodeAfterDelay());
+        StartGlow = render.material.GetColor("_Glow_Color");
+        if(light!=null){
+            startLightIntensity = light.intensity;
+            light.intensity = 0;
+        }
+        render.material.SetColor("_Glow_Color", new Color(0,0,0));
+        StartCoroutine(Illuminate());
+    }
+    IEnumerator Illuminate(){
+        float t = 0f;
+        Color currentGlow;
+        float currentModifier = 0;
+        while (t < destroyTime) 
+        {   
+            currentModifier = (t/destroyTime);
+            currentGlow = new Color(StartGlow.r*currentModifier, StartGlow.g*currentModifier, StartGlow.b*currentModifier);
+            render.material.SetColor("_Glow_Color", currentGlow);
+            if(light!=null)
+                light.intensity = Mathf.Lerp(0,startLightIntensity,t);
+            t += Time.deltaTime;
+            yield return null;
+        }
     }
     private IEnumerator ExplodeAfterDelay()
     {
@@ -23,8 +49,14 @@ public class DeathBlossomPlant : DeathBlossom
         if (damageOverTimeDuration > 0)
         {
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
+            Destroy(light);
         }
-
+    }
+    //DestoryAfterTime culls the gameobject after it is finished dealing damage over time.
+    private IEnumerator DestroyAfterTime()
+    {
+        yield return new WaitForSeconds(damageOverTimeDuration);
+        Destroy(this);
     }
     private IEnumerator ApplyDamageOverTime(EnemyHealth enemyHealth, float damage)
     {
@@ -39,7 +71,6 @@ public class DeathBlossomPlant : DeathBlossom
             yield return new WaitForSeconds(1f);
             timeElapsed++;
         }
-        Destroy(gameObject);
     }
     void DamageEnemies()
     {
@@ -60,7 +91,9 @@ public class DeathBlossomPlant : DeathBlossom
                 Debug.Log("Death Blossom hit!");
             }
         }
+        StartCoroutine(DestroyAfterTime());
     }
+
     void DeathBlossomParticles()
     {
         int particlesPerCircle = 360 / particleSpacing;
