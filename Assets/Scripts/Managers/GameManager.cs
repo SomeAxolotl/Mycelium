@@ -179,12 +179,12 @@ public class GameManager : MonoBehaviour
     void ToggleAudioListeners()
     {
         AudioListener cameraListener = Camera.main.GetComponent<AudioListener>();
-        AudioListener sporeListener = GameObject.FindWithTag("currentPlayer").GetComponent<AudioListener>();
+        AudioListener cameraTrackerListener = GameObject.Find("CameraTracker").GetComponent<AudioListener>();
 
-        if (cameraListener != null && sporeListener != null)
+        if (cameraListener != null && cameraTrackerListener != null)
         {
             cameraListener.enabled = !cameraListener.enabled;
-            sporeListener.enabled = !sporeListener.enabled;
+            cameraTrackerListener.enabled = !cameraTrackerListener.enabled;
         }
     }
 }
