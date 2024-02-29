@@ -44,7 +44,7 @@ public class LoadCurrentPlayer : MonoBehaviour
             Debug.LogError("NO SPORES FOUND!!! PLEASE HAVE A SporeData.json FILE!!! QUITTING!!!");
 
             Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;
+
         }
 
         //Find the currentPlayer spore and populate its stats and design
