@@ -112,7 +112,7 @@ public class DeathBlossomPlant : DeathBlossom
     {
         Vector3 circlePosition = new Vector3(x, particleHeight, z);
         Vector3 spawnPosition = transform.position + circlePosition;
-        ParticleManager.Instance.SpawnParticles("EruptionParticles", spawnPosition, Quaternion.LookRotation(Vector3.up, Vector3.up));
+        ParticleManager.Instance.SpawnParticles("DeathBlossomParticles", spawnPosition, Quaternion.LookRotation(Vector3.up, Vector3.up));
     }
 }
 
