@@ -404,20 +404,18 @@ public class LevelUpManagerNew : MonoBehaviour
         currentstats.LevelPrimalPoison();
         StartCoroutine(UpdateUI());
         break;
+        case "FairyRing":
+        currentstats.LevelPrimalCoral();
+        StartCoroutine(UpdateUI());
+        break;
+        case "Zombify":
+        currentstats.LevelPrimalCordyceps();
+        StartCoroutine(UpdateUI());
+        break;
         default:
         return;
         break;
       }
-      /*if(currentstats.equippedSkills == "FungalMight")
-      {
-      currentstats.LevelPrimal();
-      StartCoroutine(UpdateUI());
-      }
-      else if (currentstats.equippedSkills == "DeathBlossom")
-      {
-        currentstats.LevelPrimalPoison();
-        StartCoroutine(UpdateUI());
-      }*/
     }
     public void PrimalDown()
     {
@@ -475,20 +473,18 @@ public class LevelUpManagerNew : MonoBehaviour
         currentstats.LevelSpeedPoison();
         StartCoroutine(UpdateUI());
         break;
+        case "FairyRing":
+        currentstats.LevelSpeedCoral();
+        StartCoroutine(UpdateUI());
+        break;
+        case "Zombify":
+        currentstats.LevelSpeedCordyceps();
+        StartCoroutine(UpdateUI());
+        break;
         default:
         return;
         break;
-      }
-      /*if(currentstats.equippedSkills == "FungalMight")
-      {
-      currentstats.LevelSpeed();
-      StartCoroutine(UpdateUI());
-      }
-      else if(currentstats.equippedSkills == "DeathBlossom") 
-      {
-        currentstats.LevelSpeedPoison();
-        StartCoroutine(UpdateUI());
-      } */  
+      }  
     }
     public void SpeedDown()
     {
@@ -552,28 +548,24 @@ public class LevelUpManagerNew : MonoBehaviour
          StartCoroutine(UpdateUI());
          SkillUIUpdate();
         break;
+        case "FairyRing":
+        currentstats.LevelSentienceCoral();
+        SkillCD();
+        SkillDam();
+        StartCoroutine(UpdateUI());
+        SkillUIUpdate();
+        break;
+        case "Zombify":
+        currentstats.LevelSentienceCordyceps();
+        SkillCD();
+        SkillDam();
+        StartCoroutine(UpdateUI());
+        SkillUIUpdate();
+        break;
         default:
         return;
         break;
       }
-      /*if(currentstats.equippedSkills == "FungalMight")
-      {
-      currentstats.LevelSentience();
-      SkillCD();
-      SkillDam();
-      StartCoroutine(UpdateUI());
-      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
-      List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
-      }
-      else if(currentstats.equippedSkills == "DeathBlossom")
-      {
-      currentstats.LevelSentiencePoison();
-      SkillCD();
-      SkillDam();
-      StartCoroutine(UpdateUI());
-      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
-      List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
-      }*/
     }
     void SkillUIUpdate()
     {
@@ -649,20 +641,18 @@ public class LevelUpManagerNew : MonoBehaviour
         currentstats.LevelVitalityPoison();
         StartCoroutine(UpdateUI());
         break;
+        case "FairyRing":
+        currentstats.LevelVitalityCoral();
+        StartCoroutine(UpdateUI());
+        break;
+        case "Zombify":
+        currentstats.LevelVitalityCordyceps();
+        StartCoroutine(UpdateUI());
+        break;
         default:
         return;
         break;
       }
-      /*if(currentstats.equippedSkills == "FungalMight")
-      {
-      currentstats.LevelVitalityPoison();
-      StartCoroutine(UpdateUI());
-      }
-      else if(currentstats.equippedSkills == "DeathBlossom") 
-      {
-        currentstats.LevelVitalityPoison();
-        StartCoroutine(UpdateUI());
-      } */  
     }
     public void VitalityDown()
     {
