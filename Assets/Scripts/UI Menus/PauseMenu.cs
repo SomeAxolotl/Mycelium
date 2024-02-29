@@ -20,6 +20,7 @@ public class PauseMenu : MonoBehaviour
     GameObject playerParent;
     SceneLoader sceneLoaderScript;
     bool isOnMainMenu;
+    public string audioTag;
 
     private ThirdPersonActionsAsset playerInput = null;
 
@@ -38,6 +39,15 @@ public class PauseMenu : MonoBehaviour
             GlobalData.isAbleToPause = true;
             Resume();
         }
+
+        if(GameObject.FindWithTag("Camtracker") == null)
+        {
+            audioTag = "MainCamera";
+        }
+        else
+        {
+            audioTag = "Camtracker";
+        }
     }
 
     // Update is called once per frame
@@ -50,7 +60,7 @@ public class PauseMenu : MonoBehaviour
                 if (GlobalData.isGamePaused == true)
                 {
                     Resume();
-                    SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
+                    SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
                 }
                 else
                 {
@@ -75,7 +85,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
+        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
         pauseMenu.SetActive(true);
         HUD.alpha = 0f;
         Time.timeScale = 0f;
@@ -90,7 +100,7 @@ public class PauseMenu : MonoBehaviour
     public void PlayUIMoveSound()
     {
         Time.timeScale = 1f;
-        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag(audioTag).transform.position);
         Time.timeScale = 0f;
 
         //Debug.Log("UI Move");
@@ -99,7 +109,7 @@ public class PauseMenu : MonoBehaviour
     public void PlayUISelectSound()
     {
         Time.timeScale = 1f;
-        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag("MainCamera").transform.position);
+        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
         Time.timeScale = 0f;
     }
 
