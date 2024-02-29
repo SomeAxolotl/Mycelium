@@ -64,18 +64,16 @@ public class LevelConfirm : MonoBehaviour
         case "DeathBlossom":
         Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
         break;
+        case "FairyRing":
+        Material.sprite = Resources.Load<Sprite>("CalciteDeposit");
+        break;
+        case "Zombify":
+        Material.sprite = Resources.Load<Sprite>("Flesh");
+        break;
         default:
         return;
         break;
     }
-    /*if(currentstats.equippedSkills == "FungalMight")
-    {
-        Material.sprite = Resources.Load<Sprite>("RottenLog"); 
-    }
-    else if(currentstats.equippedSkills == "DeathBlossom")
-    {
-        Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
-    }*/
    }
 
     void Confirm()
