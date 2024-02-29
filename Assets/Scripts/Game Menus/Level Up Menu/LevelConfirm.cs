@@ -17,6 +17,7 @@ public class LevelConfirm : MonoBehaviour
     public Button Lock;
     public Button Primal;
     public TMP_Text confirmtext;
+    public Image Material;
    void OnEnable()
    {
     controls = new ThirdPersonActionsAsset();
@@ -28,6 +29,7 @@ public class LevelConfirm : MonoBehaviour
     controls.UISub.CancelConfirm.performed += ctx => Close();
     levelscript.ControlDisable();
     SetText();
+    SetMaterial();
     Lock.Select();
    }
    void OnDisable()
@@ -51,6 +53,29 @@ public class LevelConfirm : MonoBehaviour
     {
         confirmtext.text = "Would you like to use x3 <br> to level?";
     }
+   }
+   void SetMaterial()
+   {
+    switch(currentstats.equippedSkills[0])
+    {
+        case "FungalMight":
+        Material.sprite = Resources.Load<Sprite>("RottenLog"); 
+        break;
+        case "DeathBlossom":
+        Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
+        break;
+        default:
+        return;
+        break;
+    }
+    /*if(currentstats.equippedSkills == "FungalMight")
+    {
+        Material.sprite = Resources.Load<Sprite>("RottenLog"); 
+    }
+    else if(currentstats.equippedSkills == "DeathBlossom")
+    {
+        Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
+    }*/
    }
 
     void Confirm()

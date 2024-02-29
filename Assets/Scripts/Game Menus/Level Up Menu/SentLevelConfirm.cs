@@ -17,6 +17,7 @@ public class SentLevelConfirm : MonoBehaviour
     public Button Lock;
     public Button Sentience;
     public TMP_Text confirmtext;
+    public Image Material;
    void OnEnable()
    {
     controls = new ThirdPersonActionsAsset();
@@ -28,6 +29,7 @@ public class SentLevelConfirm : MonoBehaviour
     controls.UISub.CancelConfirm.performed += ctx => Close();
     levelscript.ControlDisable();
     SetText();
+    SetMaterial();
     Lock.Select();
    }
    void OnDisable()
@@ -50,6 +52,21 @@ public class SentLevelConfirm : MonoBehaviour
     else if(currentstats.sentienceLevel == 14)
     {
         confirmtext.text = "Would you like to use x3 <br> to level?";
+    }
+   }
+   void SetMaterial()
+   {
+     switch(currentstats.equippedSkills[0])
+    {
+        case "FungalMight":
+        Material.sprite = Resources.Load<Sprite>("RottenLog"); 
+        break;
+        case "DeathBlossom":
+        Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
+        break;
+        default:
+        return;
+        break;
     }
    }
 
