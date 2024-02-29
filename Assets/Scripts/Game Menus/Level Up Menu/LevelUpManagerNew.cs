@@ -224,22 +224,83 @@ public class LevelUpManagerNew : MonoBehaviour
       SentienceDownUpdate();
       VitalityDownUpdate();
     }
+    void PrimalArrowSprite()
+    {
+      switch(currentstats.equippedSkills[0])
+      {
+      case "FungalMight":
+      PrimalArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      break;
+      case "DeathBlossom":
+      PrimalArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      break;
+      default:
+      return;
+      break;
+      }
+    }
+    void SpeedArrowSprite()
+    {
+      switch(currentstats.equippedSkills[0])
+      {
+      case "FungalMight":
+      SpeedArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      break;
+      case "DeathBlossom":
+      SpeedArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      break;
+      default:
+      return;
+      break;
+      }
+    }
+    void SentienceArrowSprite()
+    {
+      switch(currentstats.equippedSkills[0])
+      {
+      case "FungalMight":
+      SentienceArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      break;
+      case "DeathBlossom":
+      SentienceArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      break;
+      default:
+      return;
+      break;
+      }
+    }
+    void VitalityArrowSprite()
+    {
+      switch(currentstats.equippedSkills[0])
+      {
+      case "FungalMight":
+      VitalityArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      break;
+      case "DeathBlossom":
+      VitalityArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      break;
+      default:
+      return;
+      break;
+      }
+    }
     void PrimalArrowIncrease()
     {
       if(currentstats.primalLevel == 4 || currentstats.primalLevel == 9 || currentstats.primalLevel == 14)
       {
-        PrimalArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+        PrimalArrowSprite();
       }
       else
       {
         PrimalArrowUp.sprite = Resources.Load<Sprite>("arrow 1");
       }
     }
+    
     void SpeedArrowIncrease()
     {
       if(currentstats.speedLevel == 4 || currentstats.speedLevel == 9 || currentstats.speedLevel == 14)
       {
-        SpeedArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+        SpeedArrowSprite(); 
       }
       else
       {
@@ -250,7 +311,7 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       if(currentstats.sentienceLevel == 4 || currentstats.sentienceLevel == 9 || currentstats.sentienceLevel == 14)
       {
-        SentienceArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+        SentienceArrowSprite(); 
       }
       else
       {
@@ -261,7 +322,7 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       if(currentstats.vitalityLevel == 4 || currentstats.vitalityLevel == 9 || currentstats.vitalityLevel == 14)
       {
-        VitalityArrowUp.sprite = Resources.Load<Sprite>("RottenLog"); 
+        VitalityArrowSprite(); 
       }
       else
       {
@@ -333,8 +394,30 @@ public class LevelUpManagerNew : MonoBehaviour
     
     public void PrimalUP()
     {
+      switch(currentstats.equippedSkills[0])
+      {
+        case "FungalMight":
+        currentstats.LevelPrimal();
+        StartCoroutine(UpdateUI());
+        break;
+        case "DeathBlossom":
+        currentstats.LevelPrimalPoison();
+        StartCoroutine(UpdateUI());
+        break;
+        default:
+        return;
+        break;
+      }
+      /*if(currentstats.equippedSkills == "FungalMight")
+      {
       currentstats.LevelPrimal();
       StartCoroutine(UpdateUI());
+      }
+      else if (currentstats.equippedSkills == "DeathBlossom")
+      {
+        currentstats.LevelPrimalPoison();
+        StartCoroutine(UpdateUI());
+      }*/
     }
     public void PrimalDown()
     {
@@ -382,8 +465,30 @@ public class LevelUpManagerNew : MonoBehaviour
   
     public void SpeedUP()
     {
+      switch(currentstats.equippedSkills[0])
+      {
+        case "FungalMight":
+        currentstats.LevelSpeed();
+        StartCoroutine(UpdateUI());
+        break;
+        case "DeathBlossom":
+        currentstats.LevelSpeedPoison();
+        StartCoroutine(UpdateUI());
+        break;
+        default:
+        return;
+        break;
+      }
+      /*if(currentstats.equippedSkills == "FungalMight")
+      {
       currentstats.LevelSpeed();
       StartCoroutine(UpdateUI());
+      }
+      else if(currentstats.equippedSkills == "DeathBlossom") 
+      {
+        currentstats.LevelSpeedPoison();
+        StartCoroutine(UpdateUI());
+      } */  
     }
     public void SpeedDown()
     {
@@ -431,13 +536,51 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SentienceUP()
     {
+      switch(currentstats.equippedSkills[0])
+      {
+        case "FungalMight":
+         currentstats.LevelSentience();
+         SkillCD();
+         SkillDam();
+         StartCoroutine(UpdateUI());
+         SkillUIUpdate();
+         break;
+        case "DeathBlossom":
+         currentstats.LevelSentiencePoison();
+         SkillCD();
+         SkillDam();
+         StartCoroutine(UpdateUI());
+         SkillUIUpdate();
+        break;
+        default:
+        return;
+        break;
+      }
+      /*if(currentstats.equippedSkills == "FungalMight")
+      {
       currentstats.LevelSentience();
       SkillCD();
       SkillDam();
       StartCoroutine(UpdateUI());
       GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
       List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
+      }
+      else if(currentstats.equippedSkills == "DeathBlossom")
+      {
+      currentstats.LevelSentiencePoison();
+      SkillCD();
+      SkillDam();
+      StartCoroutine(UpdateUI());
+      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+      List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
+      }*/
     }
+    void SkillUIUpdate()
+    {
+      GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+      List<float> allCooldowns = skillManager.GetEquippedSkillCooldowns(currentPlayer);
+    }
+    
     public void SentienceDown()
     {
       if(currentstats.sentienceLevel == SentienceSave)
@@ -496,8 +639,30 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void VitalityUP()
     {
-      currentstats.LevelVitality();
+      switch(currentstats.equippedSkills[0])
+      {
+        case "FungalMight":
+        currentstats.LevelVitalityPoison();
+        StartCoroutine(UpdateUI());
+        break;
+        case "DeathBlossom":
+        currentstats.LevelVitalityPoison();
+        StartCoroutine(UpdateUI());
+        break;
+        default:
+        return;
+        break;
+      }
+      /*if(currentstats.equippedSkills == "FungalMight")
+      {
+      currentstats.LevelVitalityPoison();
       StartCoroutine(UpdateUI());
+      }
+      else if(currentstats.equippedSkills == "DeathBlossom") 
+      {
+        currentstats.LevelVitalityPoison();
+        StartCoroutine(UpdateUI());
+      } */  
     }
     public void VitalityDown()
     {
