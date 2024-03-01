@@ -28,9 +28,9 @@ public class IdleWalking : MonoBehaviour
         previousPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         center = transform.Find("CenterPoint");
-        gravityForce = 0f;
+        gravityForce = 9.81f;
         gravity = new Vector3(0f, gravityForce, 0f);
-        Invoke("BeginFirstWander", 3f);
+        Invoke("BeginFirstWander", 2f);
     }
 
     // Update is called once per frame
@@ -148,6 +148,7 @@ public class IdleWalking : MonoBehaviour
     private void BeginFirstWander()
     {
         gravityForce = -10f;
+        gravity = new Vector3(0f, gravityForce, 0f);
         animator.SetBool("Walk", true);
         startedFirstWander = true;
         startedWander = false;

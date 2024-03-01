@@ -53,10 +53,10 @@ public class EnemyKnockback : MonoBehaviour
         {
             onGround = true;
         }
-        while(timer < 1f && !onGround)
+        while(timer < .5f && !onGround)
         {
             timer += Time.fixedDeltaTime;
-                if(timer > 1f)
+                if(timer > .5f)
                 {
                     onGround = true;
                 }

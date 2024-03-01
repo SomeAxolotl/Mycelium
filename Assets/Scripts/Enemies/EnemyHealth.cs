@@ -14,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     public Transform centerPoint;
     protected bool hasTakenDamage = false;
+    private bool alreadyDead = false;
     Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,6 @@ public class EnemyHealth : MonoBehaviour
     public virtual void EnemyTakeDamage(float dmgTaken)
     {
         currentHealth -= dmgTaken;
-        ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
 
         foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
         {
@@ -44,9 +44,10 @@ public class EnemyHealth : MonoBehaviour
             {
                 enemyHealthBar.UpdateEnemyHealthUI();
                 enemyHealthBar.DamageNumber(dmgTaken);
+                ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
             }
         }
-        if(currentHealth <= 0)
+        if(currentHealth <= 0 && !alreadyDead)
         {
             StartCoroutine(Death());
         }
@@ -55,18 +56,27 @@ public class EnemyHealth : MonoBehaviour
 
     IEnumerator Death()
     {
-        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
-        {
-            enemyHealthBar.DefeatEnemy();
-        }
-
+        alreadyDead = true;
         gameObject.GetComponent<EnemyAttack>().CancelAttack();
         gameObject.GetComponent<EnemyAttack>().enabled = false;
         gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
         rb.velocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
         animator.Rebind();
         animator.SetTrigger("Death");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.5f);
+        float elapsedTime = 0f;
+        float shrinkDuration = 1f;
+        Vector3 initialScale = transform.localScale;
+        Vector3 targetScale = Vector3.zero;
+        while (elapsedTime < shrinkDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / shrinkDuration;
+            transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
+            yield return null;
+        }
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         if (gameObject.name == "Giga Beetle")
         {
