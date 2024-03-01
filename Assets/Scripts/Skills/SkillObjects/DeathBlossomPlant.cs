@@ -7,7 +7,7 @@ using UnityEngine;
 public class DeathBlossomPlant : DeathBlossom
 {
     [SerializeField] private float destroyTime = 2f;
-    [SerializeField] private float burstRadius = 10f;
+    [SerializeField] private float burstRadius = 2f;
     [SerializeField] private float damageOverTimeDuration = 7f;
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
@@ -101,8 +101,8 @@ public class DeathBlossomPlant : DeathBlossom
         int currentSmallSpacing = 0;
         for (int i = 0; i < particlesPerCircle; i++)
         {
-            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmallSpacing) * burstRadius;
-            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmallSpacing) * burstRadius;
+            float smallX = Mathf.Cos(Mathf.Deg2Rad * currentSmallSpacing) * 3f;
+            float smallZ = Mathf.Sin(Mathf.Deg2Rad * currentSmallSpacing) * 3f;
 
             InstantiateParticles(smallX, smallZ);
             currentSmallSpacing += particleSpacing;
