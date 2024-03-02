@@ -160,16 +160,15 @@ public class PlayerController : MonoBehaviour
         canUseAttack = false;
         canUseSkill = false;
         activeDodge = true;
+        isInvincible = true;
         Vector3 rollForce = forceDirection * 5f;
         rollForce += Vector3.up * 5f;
         rb.AddForce(rollForce, ForceMode.Impulse);
-        SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
         animator.SetBool("Roll", true);
         animator.Play("Roll");
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
-        //HUD Dodge Cooldown
+        SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
         hudSkills.StartCooldownUI(4, finalDodgeCooldown);
-        isInvincible = true;
         yield return new WaitForSeconds(.2f);
         isInvincible = false;
         activeDodge = false;
@@ -199,7 +198,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 moveInput = move.ReadValue<Vector2>();
 
-            if (moveInput.magnitude != 0f)
+            if (rb.velocity.magnitude > 0.01f && moveInput.magnitude > 0f)
             {
                 Vector3 lookDirection = GetCameraForward(playerCamera) * moveInput.y + GetCameraRight(playerCamera) * moveInput.x;
 
