@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3695766000809188768
+--- !u!1 &9015727428081834227
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2377951147130537297}
-  - component: {fileID: -1067859460915137601}
+  - component: {fileID: 7688054161261380076}
+  - component: {fileID: 4223101352475805443}
   m_Layer: 0
-  m_Name: HitStopManager
-  m_TagString: HitStopManager
+  m_Name: NutrientCounter
+  m_TagString: Tracker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2377951147130537297
+--- !u!4 &7688054161261380076
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695766000809188768}
+  m_GameObject: {fileID: 9015727428081834227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1067859460915137601
+--- !u!114 &4223101352475805443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695766000809188768}
+  m_GameObject: {fileID: 9015727428081834227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12306b2930d4b4841b3779c49ea28412, type: 3}
+  m_Script: {fileID: 11500000, guid: ac47566b2c711b1478eff6d5b1e86a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowestStopPoint: 0
-  secondsTilSpeedup: 0.5
+  currentNutrients: 0
+  heldItem: {fileID: 0}
+  heldLog: 0
+  heldExoskeleton: 0
+  heldCalcite: 0
+  heldFlesh: 0
+  storedLog: 0
+  storedExoskeleton: 0
+  storedCalcite: 0
+  storedFlesh: 0

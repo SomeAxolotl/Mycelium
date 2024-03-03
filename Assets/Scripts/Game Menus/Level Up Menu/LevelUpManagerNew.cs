@@ -235,7 +235,6 @@ public class LevelUpManagerNew : MonoBehaviour
       PrimalArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
       break;
       default:
-      return;
       break;
       }
     }
@@ -250,7 +249,6 @@ public class LevelUpManagerNew : MonoBehaviour
       SpeedArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
       break;
       default:
-      return;
       break;
       }
     }
@@ -265,7 +263,6 @@ public class LevelUpManagerNew : MonoBehaviour
       SentienceArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
       break;
       default:
-      return;
       break;
       }
     }
@@ -280,7 +277,6 @@ public class LevelUpManagerNew : MonoBehaviour
       VitalityArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
       break;
       default:
-      return;
       break;
       }
     }
@@ -413,7 +409,6 @@ public class LevelUpManagerNew : MonoBehaviour
         StartCoroutine(UpdateUI());
         break;
         default:
-        return;
         break;
       }
     }
@@ -482,7 +477,6 @@ public class LevelUpManagerNew : MonoBehaviour
         StartCoroutine(UpdateUI());
         break;
         default:
-        return;
         break;
       }  
     }
@@ -563,7 +557,6 @@ public class LevelUpManagerNew : MonoBehaviour
         SkillUIUpdate();
         break;
         default:
-        return;
         break;
       }
     }
@@ -650,7 +643,6 @@ public class LevelUpManagerNew : MonoBehaviour
         StartCoroutine(UpdateUI());
         break;
         default:
-        return;
         break;
       }
     }

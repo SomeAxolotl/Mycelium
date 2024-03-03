@@ -115,7 +115,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        GameManager.Instance.OnExitToMainMenu();
+        //GameManager.Instance.OnExitToMainMenu();
         sceneLoaderScript.BeginLoadScene(0, true);
     }
 
@@ -126,7 +126,7 @@ public class PauseMenu : MonoBehaviour
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         Destroy(weapon);
-        GameManager.Instance.OnExitToHub();
+        //GameManager.Instance.OnExitToHub();
         sceneLoaderScript.BeginLoadScene(2, true);
     }
 
