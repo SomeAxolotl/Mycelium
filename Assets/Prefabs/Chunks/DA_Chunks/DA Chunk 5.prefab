@@ -113488,6 +113488,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7972787958883768233}
     m_Modifications:
+    - target: {fileID: -7614317663710555383, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: enemyPrefab
@@ -113496,13 +113501,23 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
-      propertyPath: enemiesSpawnedLimit
+      propertyPath: spawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: spawnInterval
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
+      propertyPath: enemiesSpawnedLimit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
       propertyPath: EnemyList.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
@@ -113512,7 +113527,12 @@ PrefabInstance:
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: EnemyList.Array.data[1].name
-      value: Green Stickbug
+      value: Purple Beetle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[2].name
+      value: Green Beetle
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
@@ -113526,6 +113546,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
+      propertyPath: EnemyList.Array.data[2].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
       propertyPath: EnemyList.Array.data[0].EnemyPrefab
       value: 
       objectReference: {fileID: 6786587982829778811, guid: 2f798d456eefb434183b309e9668f9b7,
@@ -113534,7 +113559,13 @@ PrefabInstance:
         type: 3}
       propertyPath: EnemyList.Array.data[1].EnemyPrefab
       value: 
-      objectReference: {fileID: 6786587982829778811, guid: 2b39cb9d718c0364fad87b3552c2f1cd,
+      objectReference: {fileID: 7944719615574166679, guid: c209709ecb1d27349a4a9b45310a2178,
+        type: 3}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[2].EnemyPrefab
+      value: 
+      objectReference: {fileID: 7944719615574166679, guid: ae3aa481956fcb14e802747a09531d3c,
         type: 3}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
@@ -113544,7 +113575,7 @@ PrefabInstance:
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.9
+      value: -21.97
       objectReference: {fileID: 0}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
@@ -113554,7 +113585,7 @@ PrefabInstance:
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.65
+      value: 10.42
       objectReference: {fileID: 0}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}

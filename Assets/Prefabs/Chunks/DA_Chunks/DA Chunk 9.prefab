@@ -67899,6 +67899,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7521682831162143497}
     m_Modifications:
+    - target: {fileID: -7614317663710555383, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: spawnAll
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: maxEnemies
@@ -67912,6 +67922,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
+      propertyPath: spawnOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
       propertyPath: spawnInterval
       value: 4
       objectReference: {fileID: 0}
@@ -67923,17 +67938,22 @@ PrefabInstance:
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: EnemyList.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: EnemyList.Array.data[0].name
-      value: Green Stickbug
+      value: Purple Beetle
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: EnemyList.Array.data[1].name
       value: Brown Stickbug
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[2].name
+      value: Pink Beetle
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
@@ -67947,15 +67967,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
+      propertyPath: EnemyList.Array.data[2].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
       propertyPath: EnemyList.Array.data[0].EnemyPrefab
       value: 
-      objectReference: {fileID: 6786587982829778811, guid: 2b39cb9d718c0364fad87b3552c2f1cd,
+      objectReference: {fileID: 7944719615574166679, guid: c209709ecb1d27349a4a9b45310a2178,
         type: 3}
     - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: EnemyList.Array.data[1].EnemyPrefab
       value: 
       objectReference: {fileID: 6786587982829778811, guid: 2f798d456eefb434183b309e9668f9b7,
+        type: 3}
+    - target: {fileID: 1710457778544223438, guid: 2b9efca1d9229104fb93bcf92c6841d5,
+        type: 3}
+      propertyPath: EnemyList.Array.data[2].EnemyPrefab
+      value: 
+      objectReference: {fileID: 7944719615574166679, guid: cf806083b528f5a449a71c2ee872048c,
         type: 3}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
@@ -67965,17 +67996,17 @@ PrefabInstance:
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.971001
+      value: 12.93
       objectReference: {fileID: 0}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3622036
+      value: 3.262
       objectReference: {fileID: 0}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.431854
+      value: -13.61
       objectReference: {fileID: 0}
     - target: {fileID: 2749206655855574446, guid: 2b9efca1d9229104fb93bcf92c6841d5,
         type: 3}
