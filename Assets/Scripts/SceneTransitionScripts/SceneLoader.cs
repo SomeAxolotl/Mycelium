@@ -192,8 +192,6 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator FadeCanvasIn(CanvasGroup canvasGroup, float transitionTime)
     {
-        GameManager.Instance.RefreshCutoutMaskUI();
-
         float elapsedTime = 0f;
         float t = 0f;
 
@@ -218,8 +216,6 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator FadeCanvasOut(CanvasGroup canvasGroup, float transitionTime)
     {
-        GameManager.Instance.RefreshCutoutMaskUI();
-
         float elapsedTime = 0f;
         float t = 0f;
 
@@ -244,8 +240,6 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator StartLoading(int sceneIndex)
     {
-        GameManager.Instance.RefreshCutoutMaskUI();
-
         Application.backgroundLoadingPriority = ThreadPriority.Low;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
