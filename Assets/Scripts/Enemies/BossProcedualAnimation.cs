@@ -81,6 +81,7 @@ public class BossProcedualAnimation : MonoBehaviour
 
         if (tempMovement.playerIsLeft)
         {
+            elapsedHeadTime = 0f;
             // move head
             if (elapsedHeadTime < headDuration)
             {
