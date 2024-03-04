@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(UpdateHUDNutrients());
             StartCoroutine(PlacePlayer());
-            StartCoroutine(RefreshCutoutMaskUI());
+            RefreshCutoutMaskUI();
         }
 
         if (scene.buildIndex > 2)
@@ -42,9 +42,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator RefreshCutoutMaskUI()
+    public void RefreshCutoutMaskUI()
     {
-        CutoutMaskUI[] cutoutMasks = GameObject.Find("HUD").GetComponentsInChildren<CutoutMaskUI>();
+        StartCoroutine(RefreshCutoutMaskUICoroutine());
+    }
+
+    IEnumerator RefreshCutoutMaskUICoroutine()
+    {
+        CutoutMaskUI[] cutoutMasks = GameObject.FindObjectsOfType<CutoutMaskUI>();
         foreach (CutoutMaskUI cutoutMask in cutoutMasks)
         {
             cutoutMask.enabled = !cutoutMask.enabled;
