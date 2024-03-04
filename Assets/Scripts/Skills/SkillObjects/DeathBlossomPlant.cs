@@ -46,7 +46,9 @@ public class DeathBlossomPlant : DeathBlossom
     {
         yield return new WaitForSeconds(destroyTime);
         DamageEnemies();
-        DeathBlossomParticles();
+        //DeathBlossomParticles();
+
+        ParticleManager.Instance.SpawnParticles("DeathBlossomParticles", transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
         if (damageOverTimeDuration > 0)
         {
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
