@@ -74,7 +74,6 @@ public class Skill : MonoBehaviour
         skillSlot = slot;
 
         CalculateProperties();
-        Debug.Log(this.name + " " + finalSkillValue);
         StartCooldown();
         DoSkill();
 

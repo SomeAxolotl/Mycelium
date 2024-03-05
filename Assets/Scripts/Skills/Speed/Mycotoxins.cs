@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Mycotoxins : Skill
@@ -51,7 +50,6 @@ public class Mycotoxins : Skill
         {
             // Spawn a spore cone
             GameObject sporeCone = Instantiate(sporeConePrefab, transform.position - transform.forward * 2f, Quaternion.identity);
-            ParticleManager.Instance.SpawnParticles("MycoToxinsParticles", player.transform.position, Quaternion.identity);
             spawnCount++;
             if (sporeCone != null)
             {

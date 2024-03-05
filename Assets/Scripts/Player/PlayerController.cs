@@ -16,21 +16,17 @@ public class PlayerController : MonoBehaviour
     private float finalDodgeCooldown;
 
     public Rigidbody rb;
+    public Vector3 forceDirection = Vector3.zero;
     [HideInInspector] public float moveSpeed;
-    private float gravityForce = -15f;
+    [SerializeField] float gravityForce = -20;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;
     public bool looking = true;
-    [HideInInspector] public Vector3 inputDirection;
-    [HideInInspector] public Vector3 targetVelocity;
-    public AnimationClip rollClip;
-    private float clipLength;
 
     //Input fields
     [HideInInspector] public ThirdPersonActionsAsset playerActionsAsset;
     private InputAction move;
     private InputAction dodge;
-    private InputAction attack;
     private InputAction stat_skill_1;
     private InputAction stat_skill_2;
     private InputAction subspecies_skill;
@@ -60,7 +56,6 @@ public class PlayerController : MonoBehaviour
         playerActionsAsset.Player.Enable();
         move = playerActionsAsset.Player.Move;
         dodge = playerActionsAsset.Player.Dodge;
-        attack = playerActionsAsset.Player.Attack;
         stat_skill_1 = playerActionsAsset.Player.Stat_Skill_1;
         stat_skill_2 = playerActionsAsset.Player.Stat_Skill_2;
         subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
@@ -68,8 +63,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
-        animator = GetComponentInChildren<Animator>();
-        clipLength = rollClip.length / 3.5f;
     }
 
     // Update is called once per frame
@@ -80,9 +73,9 @@ public class PlayerController : MonoBehaviour
             Application.Quit();
         }
 
-        if (dodge.triggered && canUseDodge && canAct)
+        if (dodge.triggered && canUseDodge == true && canAct == true)
         {
-            if (!canUseAttack && animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
+            if (canUseAttack == false && playerAttack.animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
             {
                 StopCoroutine(playerAttack.attackstart);
                 StopCoroutine(playerAttack.lunge);
@@ -90,6 +83,7 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
                 playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
             }
+
             StartCoroutine(Dodging());
         }
 
@@ -123,18 +117,20 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     private void FixedUpdate()
     {
         LookAt();
+        SpeedControl();
 
-        inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
-        targetVelocity = (GetCameraRight(playerCamera) * inputDirection.x + GetCameraForward(playerCamera) * inputDirection.z) * moveSpeed;
-        targetVelocity.y = rb.velocity.y + gravity.y * Time.fixedDeltaTime;
-        if(!activeDodge)
-        {
-            rb.velocity = targetVelocity;
-        }
-        animator.SetBool("Walk", rb.velocity.magnitude > 0.01f && inputDirection.magnitude > 0f);
+        forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * moveSpeed;
+        forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * moveSpeed;
+
+        animator.SetBool("Walk", rb.velocity.magnitude > 0.01f && forceDirection.magnitude > 0f);
+        
+        rb.AddForce(forceDirection, ForceMode.Impulse);
+        rb.AddForce(gravity, ForceMode.Acceleration);
+        forceDirection = Vector3.zero;
 
         if (move.ReadValue<Vector2>() == Vector2.zero)
         {
@@ -165,30 +161,20 @@ public class PlayerController : MonoBehaviour
         canUseSkill = false;
         activeDodge = true;
         isInvincible = true;
-        looking = false;
+        Vector3 rollForce = forceDirection * 5f;
+        rollForce += Vector3.up * 5f;
+        rb.AddForce(rollForce, ForceMode.Impulse);
         animator.SetBool("Roll", true);
         animator.Play("Roll");
-        Vector3 rollDirection = rb.transform.forward * (moveSpeed * 2f);
-        rollDirection.y += gravity.y * Time.fixedDeltaTime;
-        float rollTimer = 0f;
-        while (rollTimer < clipLength)
-        { 
-            rollTimer += Time.deltaTime;
-            Vector3 finalDirection = rollDirection + (gravity * Time.deltaTime);
-            rb.velocity = new Vector3(finalDirection.x, rb.velocity.y + finalDirection.y, finalDirection.z);
-            yield return null;
-        }
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
-        hudSkills.StartCooldownUI(4, (finalDodgeCooldown + clipLength));
-        yield return new WaitForSeconds(clipLength);
+        hudSkills.StartCooldownUI(4, finalDodgeCooldown);
+        yield return new WaitForSeconds(.2f);
+        isInvincible = false;
         activeDodge = false;
-        isInvincible= false;
         canUseAttack = true;
         canUseSkill = true;
-        looking = true;
         animator.SetBool("Roll", false);
-        animator.SetBool("Walk", true);
         yield return new WaitForSeconds(finalDodgeCooldown);
         canUseDodge = true;
     }
@@ -210,9 +196,11 @@ public class PlayerController : MonoBehaviour
     {
         if(looking)
         {
-            if (rb.velocity.magnitude > 0.01f && inputDirection.magnitude > 0f)
+            Vector2 moveInput = move.ReadValue<Vector2>();
+
+            if (rb.velocity.magnitude > 0.01f && moveInput.magnitude > 0f)
             {
-                Vector3 lookDirection = GetCameraForward(playerCamera) * inputDirection.z + GetCameraRight(playerCamera) * inputDirection.x;
+                Vector3 lookDirection = GetCameraForward(playerCamera) * moveInput.y + GetCameraRight(playerCamera) * moveInput.x;
 
                 if (lookDirection != Vector3.zero)
                 {
@@ -222,7 +210,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    /*private void SpeedControl()
+    private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
@@ -232,7 +220,7 @@ public class PlayerController : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
-    }*/
+    }
 
     public void EnableController()
     {
@@ -273,4 +261,5 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(force, ForceMode.Impulse);
     }
+
 }

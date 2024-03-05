@@ -8,7 +8,6 @@ public class DeathBlossomPlant : DeathBlossom
 {
     [SerializeField] private float destroyTime = 2f;
     [SerializeField] private float burstRadius = 2f;
-    [SerializeField] public float damage = 0f;
     [SerializeField] private float damageOverTimeDuration = 7f;
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
@@ -46,9 +45,7 @@ public class DeathBlossomPlant : DeathBlossom
     {
         yield return new WaitForSeconds(destroyTime);
         DamageEnemies();
-        //DeathBlossomParticles();
-
-        ParticleManager.Instance.SpawnParticles("DeathBlossomParticles", transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
+        DeathBlossomParticles();
         if (damageOverTimeDuration > 0)
         {
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
@@ -82,6 +79,8 @@ public class DeathBlossomPlant : DeathBlossom
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);
+
+        float damage = finalSkillValue;
         Debug.Log("FinalSkillValue: " + damage);
         foreach (Collider collider in colliders)
         {
