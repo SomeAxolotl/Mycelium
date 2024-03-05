@@ -6,44 +6,34 @@ using UnityEngine.AI;
 public class FairyRingPlacement : FairyRing
 {
     [SerializeField] private float damageOverTimeDuration = 7f;
-    [SerializeField] public float damage = 0f;
     [SerializeField] private float speedReduction = 0.5f;
-    private bool enemyInsideFairyRing = false;
-
-    void Start()
-    {
-        StartCoroutine(DestroyAfterTime());
-    }
+    [SerializeField] private float timeElapsed = 0f;
     private IEnumerator DamageOverTime(EnemyHealth enemyHealth, float damage)
     {
-        float timeElapsed = 0f;
-        float damageInterval = damage / damageOverTimeDuration;
-        while (timeElapsed < damageOverTimeDuration && enemyInsideFairyRing)
+        while (timeElapsed < damageOverTimeDuration)
         {
+            
+            float damageInterval = damage / damageOverTimeDuration;
+
             Debug.Log("Applying damage: " + damageInterval);
             enemyHealth.EnemyTakeDamage(damageInterval);
             yield return new WaitForSeconds(1f);
             timeElapsed ++;
         }
-    }
-    private IEnumerator DestroyAfterTime()
-    {
-        yield return new WaitForSeconds(damageOverTimeDuration);
-        //gameObject.GetComponentInChildren<Renderer>().enabled = false;
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
     void OnTriggerEnter(Collider other)
     {
+        float damage = finalSkillValue;
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            enemyInsideFairyRing = true;
             EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                ReworkedEnemyNavigation enemyNav = other.gameObject.GetComponent<ReworkedEnemyNavigation>();
-                if (enemyNav != null)
+                NavMeshAgent navMeshAgent = other.gameObject.GetComponent<NavMeshAgent>();
+                if (navMeshAgent != null)
                 {
-                    enemyNav.moveSpeed = speedReduction * 4f;
+                    navMeshAgent.speed = speedReduction * 4f;
                 }
                 if (enemyHealth != null)
                 {
@@ -52,13 +42,6 @@ public class FairyRingPlacement : FairyRing
                 }
 
             }
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
-        {
-            enemyInsideFairyRing = false;
         }
     }
 }

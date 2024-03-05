@@ -37,6 +37,7 @@ public class PauseMenu : MonoBehaviour
             hudItem = HUD.GetComponent<HUDItem>();
             sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
             GlobalData.isAbleToPause = true;
+            Resume();
         }
 
         if(GameObject.FindWithTag("Camtracker") == null)

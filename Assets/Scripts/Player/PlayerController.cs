@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public ThirdPersonActionsAsset playerActionsAsset;
     private InputAction move;
     private InputAction dodge;
-    private InputAction attack;
     private InputAction stat_skill_1;
     private InputAction stat_skill_2;
     private InputAction subspecies_skill;
@@ -57,7 +56,6 @@ public class PlayerController : MonoBehaviour
         playerActionsAsset.Player.Enable();
         move = playerActionsAsset.Player.Move;
         dodge = playerActionsAsset.Player.Dodge;
-        attack = playerActionsAsset.Player.Attack;
         stat_skill_1 = playerActionsAsset.Player.Stat_Skill_1;
         stat_skill_2 = playerActionsAsset.Player.Stat_Skill_2;
         subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
@@ -65,7 +63,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
-        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -89,14 +86,6 @@ public class PlayerController : MonoBehaviour
 
             StartCoroutine(Dodging());
         }
-
-        // if ((canUseDodge == false) && attack.triggered)
-        // {
-        //     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
-        //     {
-        //         playerAttack.StartAttack();
-        //     }
-        // }
 
         if (subspecies_skill.triggered && canUseSkill == true)
         {
@@ -272,4 +261,5 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(force, ForceMode.Impulse);
     }
+
 }

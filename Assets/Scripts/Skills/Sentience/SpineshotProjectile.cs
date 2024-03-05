@@ -6,7 +6,6 @@ public class SpineshotProjectile : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float lifetime;
-    [SerializeField] private GameObject ExplosionVFX;
     Rigidbody rb;
     Spineshot spineshot;
 
@@ -36,7 +35,6 @@ public class SpineshotProjectile : MonoBehaviour
             {
                 collision.GetComponent<BossHealth>().EnemyTakeDamage(spineshot.finalSkillValue);
             }
-            Instantiate(ExplosionVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
         else if (collision.gameObject.layer == 8)

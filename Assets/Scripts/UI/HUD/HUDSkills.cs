@@ -241,21 +241,6 @@ public class HUDSkills : MonoBehaviour
         return 1f - Mathf.Pow(1f - x, 4);
     }
 
-    public string GetSkillNameInSlot(int slot)
-    {
-        switch (slot)
-        {
-            case 0:
-                return speciesIcon.sprite.name;
-            case 1:
-                return skill1Icon.sprite.name;
-            case 2:
-                return skill2Icon.sprite.name;
-            default:
-                return "";
-        }
-    }
-
     /*void Update()
     {
         if (hitCooldownCounter > 0)
