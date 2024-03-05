@@ -48,6 +48,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
 
     //DM Buttons
     public Button DefenseMechanismUnlocked;
+    public GameObject Skill2;
+    public GameObject Skill3;
     void OnEnable()
     {
         LevelUI.SetActive(false);
@@ -66,6 +68,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         
         
     }
+   
      void OnDisable()
     {
       controls.UI.Disable();
@@ -123,10 +126,16 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         SpeedBarFill();
         SentienceBarFill();
         VitalityBarFill();
+        List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
+        Skill1.GetComponent<Image>().sprite = equippedSkillSprites[1];
+        Skill2.GetComponent<Image>().sprite = equippedSkillSprites[2];
     }
      void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftBracket))
+        List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
+        Skill1.GetComponent<Image>().sprite = equippedSkillSprites[1];
+        Skill2.GetComponent<Image>().sprite = equippedSkillSprites[2];
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
       {
         MenuSwapLeft();
       }
