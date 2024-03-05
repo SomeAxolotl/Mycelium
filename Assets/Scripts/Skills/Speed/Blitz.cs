@@ -23,9 +23,9 @@ public class Blitz : Skill
     {
         playerController.activeDodge = true;
         playerController.isInvincible = true;
-        Vector3 blitzForce = playerController.forceDirection * 15f;
-        blitzForce += Vector3.up * 3f;
-        playerController.rb.AddForce(blitzForce, ForceMode.Impulse);
+        //Vector3 blitzForce = player.transform.forward * 15f;
+        //blitzForce += Vector3.up * 3f;
+        //playerController.rb.AddForce(blitzForce, ForceMode.Impulse);
         float elapsedTime = 0f;
         while (elapsedTime < activeBlitz)
         {

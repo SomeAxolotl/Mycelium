@@ -80,7 +80,7 @@ public class EnemyHealth : MonoBehaviour
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         if (gameObject.name == "Giga Beetle")
         {
-            GameManager.Instance.OnExitToHub();
+            //GameManager.Instance.OnExitToHub();
             PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
         }

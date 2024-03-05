@@ -24,58 +24,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    void Start()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
+        Scene scene = SceneManager.GetActiveScene();
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        Debug.Log("Game Manager: Scene Loaded - " + scene.name);
-
-        if (scene.buildIndex == 0)
+        //RemoveHUDMaterial();
+        if (GameObject.FindWithTag("currentPlayer") != null)
         {
-            FreezePlayer();
-            StartCoroutine(DisableController());
-            if (GameObject.FindWithTag("currentPlayer") != null)
-            {
-                DestroyMenuCamera();
-            }
-        }
-        else
-        {
-            UnfreezePlayer();
-            StartCoroutine(PlacePlayer());
-            StartCoroutine(EnableController());
-            RemoveHUDMaterial();
             StartCoroutine(UpdateHUDNutrients());
+            StartCoroutine(PlacePlayer());
+            StartCoroutine(RefreshCutoutMaskUI());
         }
-        ToggleAudioListeners();
 
-        StartCoroutine(RefreshCutoutMaskUI());
-
-        shouldDrainNutrients = false;
         if (scene.buildIndex > 2)
         {
-            shouldDrainNutrients = true;
             StartCoroutine(DrainNutrients());
         }
-    }
-
-    public void OnPlayerDeath()
-    {
-        GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
-    }
-
-    public void OnExitToMainMenu()
-    {
-        GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
-    }
-
-    public void OnExitToHub()
-    {
-        GameObject.Find("HUD").GetComponent<HUDBoss>().DefeatEnemy();
-        Debug.Log("DEFEAT ENEMY");
     }
 
     IEnumerator RefreshCutoutMaskUI()
@@ -94,35 +58,18 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlacePlayer()
     {
-        yield return new WaitForEndOfFrame();
-
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
         GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
+        Rigidbody playerRB = currentPlayer.GetComponent<Rigidbody>();
 
-        if (spawnPoint != null)
+        if (currentPlayer != null && spawnPoint != null)
         {
             currentPlayer.transform.position = spawnPoint.transform.position;
             currentPlayer.transform.rotation = spawnPoint.transform.rotation;
-        }
-    }
+            playerRB.constraints = RigidbodyConstraints.FreezePosition; //To avoid falling out of map with high velocity
 
-    IEnumerator EnableController()
-    {
-        yield return new WaitForEndOfFrame();
-
-        if (GameObject.FindWithTag("PlayerParent") != null)
-        {
-            GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().EnableController();
-        }
-    }
-
-    IEnumerator DisableController()
-    {
-        yield return new WaitForEndOfFrame();
-
-        if (GameObject.FindWithTag("PlayerParent") != null)
-        {
-            GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().DisableController();
+            yield return new WaitForEndOfFrame();
+            playerRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
@@ -139,52 +86,15 @@ public class GameManager : MonoBehaviour
         GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(0);
     }
 
-    void FreezePlayer()
-    {
-        Rigidbody playerRB = GameObject.FindWithTag("currentPlayer").GetComponent<Rigidbody>();
-
-        if (playerRB != null)
-        {
-            playerRB.constraints = RigidbodyConstraints.FreezePosition;
-        }
-    }
-
-    void UnfreezePlayer()
-    {
-        Rigidbody playerRB = GameObject.FindWithTag("currentPlayer").GetComponent<Rigidbody>();
-
-        if (playerRB != null)
-        {
-            playerRB.constraints = RigidbodyConstraints.FreezeRotation;
-        }
-    }
-
-    void DestroyMenuCamera()
-    {
-        Destroy(GameObject.Find("Menu Camera"));
-    }
-
     IEnumerator DrainNutrients()
     {
-        NutrientTracker nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+        NutrientTracker nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
 
         while (shouldDrainNutrients)
         {
             nutrientTracker.SubtractNutrients(1);
 
             yield return new WaitForSeconds(nutrientDrainRate);
-        }
-    }
-
-    void ToggleAudioListeners()
-    {
-        AudioListener cameraListener = Camera.main.GetComponent<AudioListener>();
-        AudioListener cameraTrackerListener = GameObject.Find("CameraTracker").GetComponent<AudioListener>();
-
-        if (cameraListener != null && cameraTrackerListener != null)
-        {
-            cameraListener.enabled = !cameraListener.enabled;
-            cameraTrackerListener.enabled = !cameraTrackerListener.enabled;
         }
     }
 }

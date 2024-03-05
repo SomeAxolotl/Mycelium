@@ -24,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     public IEnumerator attackstart;
     public IEnumerator lunge;
 
-    [SerializeField] private float windupMoveSpeed = 2f;
+    private float windupMoveSpeed = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +72,6 @@ public class PlayerAttack : MonoBehaviour
     {
         playerController.canUseSkill = false;
         playerController.canUseAttack = false;
-        playerController.canAct = false;
         playerController.moveSpeed = windupMoveSpeed;
         float originalAnimatorSpeed = animator.speed;
         animator.speed *= curWeapon.GetComponent<WeaponStats>().wpnAttackSpeedModifier;
