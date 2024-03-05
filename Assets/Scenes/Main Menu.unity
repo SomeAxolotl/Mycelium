@@ -507,7 +507,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.28
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2476,8 +2476,8 @@ Camera:
   m_GameObject: {fileID: 572651559}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2691,6 +2691,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carcass_Skybox
       objectReference: {fileID: 0}
+    - target: {fileID: 331346496046951147, guid: 96cf007a40e95b3439359aa979e8e105,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 568917158793676871, guid: 96cf007a40e95b3439359aa979e8e105,
         type: 3}
       propertyPath: m_IsActive
@@ -2756,7 +2761,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8296781695198495, guid: 96cf007a40e95b3439359aa979e8e105, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2797,7 +2803,7 @@ TerrainCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: 4bebaf629464e8a42a6d7f9b9193ee04, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: cbc59866ae3ff4c44bfbf59ada6fd0d7, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &581002394
 Terrain:
@@ -2808,7 +2814,7 @@ Terrain:
   m_GameObject: {fileID: 581002392}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 4bebaf629464e8a42a6d7f9b9193ee04, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: cbc59866ae3ff4c44bfbf59ada6fd0d7, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -3103,6 +3109,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FogSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795065203077757072, guid: 71c9c0bcd7a4a2440ba4fa84b2a8dca2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8199074697120397907, guid: 71c9c0bcd7a4a2440ba4fa84b2a8dca2,
         type: 3}
