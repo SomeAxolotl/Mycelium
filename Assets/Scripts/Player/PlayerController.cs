@@ -18,10 +18,14 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public Vector3 forceDirection = Vector3.zero;
     [HideInInspector] public float moveSpeed;
-    [SerializeField] float gravityForce = -20;
+    private float gravityForce = -15;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;
     public bool looking = true;
+    [HideInInspector] public Vector3 inputDirection;
+    [HideInInspector] public Vector3 targetVelocity;
+    public AnimationClip rollClip;
+    private float clipLength;
 
     //Input fields
     [HideInInspector] public ThirdPersonActionsAsset playerActionsAsset;
@@ -63,6 +67,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        clipLength = rollClip.length / 4f;
     }
 
     // Update is called once per frame
@@ -73,9 +78,9 @@ public class PlayerController : MonoBehaviour
             Application.Quit();
         }
 
-        if (dodge.triggered && canUseDodge == true && canAct == true)
+        if (dodge.triggered && canUseDodge && canAct)
         {
-            if (canUseAttack == false && playerAttack.animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
+            if (!canUseAttack && animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
             {
                 StopCoroutine(playerAttack.attackstart);
                 StopCoroutine(playerAttack.lunge);
@@ -121,18 +126,18 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         LookAt();
-        SpeedControl();
 
-        forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * moveSpeed;
-        forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * moveSpeed;
+        inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
+        targetVelocity = (GetCameraRight(playerCamera) * inputDirection.x + GetCameraForward(playerCamera) * inputDirection.z) * moveSpeed;
+        targetVelocity.y = rb.velocity.y + gravity.y * Time.fixedDeltaTime;
+        if (!activeDodge)
+        {
+            rb.velocity = targetVelocity;
+        }
 
-        animator.SetBool("Walk", rb.velocity.magnitude > 0.01f && forceDirection.magnitude > 0f);
-        
-        rb.AddForce(forceDirection, ForceMode.Impulse);
-        rb.AddForce(gravity, ForceMode.Acceleration);
-        forceDirection = Vector3.zero;
+        animator.SetBool("Walk", rb.velocity.magnitude > 0.01f && inputDirection.magnitude > 0f);
 
-        if (move.ReadValue<Vector2>() == Vector2.zero)
+        if (inputDirection == Vector3.zero)
         {
             //Deceleration
             Vector3 currentVelocity = rb.velocity;
@@ -161,20 +166,30 @@ public class PlayerController : MonoBehaviour
         canUseSkill = false;
         activeDodge = true;
         isInvincible = true;
-        Vector3 rollForce = forceDirection * 5f;
-        rollForce += Vector3.up * 5f;
-        rb.AddForce(rollForce, ForceMode.Impulse);
+        looking = false;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
+        Vector3 rollDirection = rb.transform.forward * (moveSpeed * 1.5f);
+        rollDirection.y += gravity.y * Time.fixedDeltaTime;
+        float rollTimer = 0f;
+        while (rollTimer < clipLength)
+        {
+            rollTimer += Time.deltaTime;
+            Vector3 finalDirection = rollDirection + (gravity * Time.deltaTime);
+            rb.velocity = new Vector3(finalDirection.x, rb.velocity.y + finalDirection.y, finalDirection.z);
+            yield return null;
+        }
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
-        hudSkills.StartCooldownUI(4, finalDodgeCooldown);
-        yield return new WaitForSeconds(.2f);
+        hudSkills.StartCooldownUI(4, (finalDodgeCooldown + clipLength));
+        yield return new WaitForSeconds(clipLength);
         isInvincible = false;
         activeDodge = false;
         canUseAttack = true;
         canUseSkill = true;
+        looking = true;
         animator.SetBool("Roll", false);
+        animator.SetBool("Walk", true);
         yield return new WaitForSeconds(finalDodgeCooldown);
         canUseDodge = true;
     }
@@ -196,11 +211,9 @@ public class PlayerController : MonoBehaviour
     {
         if(looking)
         {
-            Vector2 moveInput = move.ReadValue<Vector2>();
-
-            if (rb.velocity.magnitude > 0.01f && moveInput.magnitude > 0f)
+            if (rb.velocity.magnitude > 0.01f && inputDirection.magnitude > 0f)
             {
-                Vector3 lookDirection = GetCameraForward(playerCamera) * moveInput.y + GetCameraRight(playerCamera) * moveInput.x;
+                Vector3 lookDirection = GetCameraForward(playerCamera) * inputDirection.z + GetCameraRight(playerCamera) * inputDirection.x;
 
                 if (lookDirection != Vector3.zero)
                 {
@@ -210,18 +223,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        //Limits player velocity
-        if(flatVel.magnitude > moveSpeed && activeDodge == false)
-        {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
-    }
-
     public void EnableController()
     {
         canAct = true;
