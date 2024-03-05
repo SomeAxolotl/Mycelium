@@ -2795,6 +2795,7 @@ GameObject:
   - component: {fileID: 4656573405082141068}
   - component: {fileID: 4901697814054613464}
   - component: {fileID: 8735746815716307006}
+  - component: {fileID: 1021745892343768979}
   - component: {fileID: 9077876855232020164}
   - component: {fileID: 8485585223913528046}
   - component: {fileID: 5943911386262235283}
@@ -2897,6 +2898,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1021745892343768979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3372745713700537923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50d699e2cba866428cc95fd33a8e57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudFadeTransitionTime: 0.25
 --- !u!114 &9077876855232020164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,7 +2985,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3372745713700537923}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
