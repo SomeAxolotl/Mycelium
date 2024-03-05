@@ -154,7 +154,7 @@ public class SceneLoader : MonoBehaviour
         }
 
         yield return new WaitForSecondsRealtime(0.5f);
-        StartCoroutine(ActivateTitleCanvas(5f));
+        StartCoroutine(ActivateTitleCanvas(3f));
         yield return StartCoroutine(FadeCanvasIn(titleCanvasGroup, transitionTime));
         yield return new WaitForSecondsRealtime(1f);
         yield return StartCoroutine(FadeCanvasOut(titleCanvasGroup, transitionTime));
@@ -278,6 +278,8 @@ public class SceneLoader : MonoBehaviour
         }
 
         Debug.Log("DONE WITH TITLE CARD");
+
+        GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
     }
 
     void ChangeFunText(TMP_Text funText)
