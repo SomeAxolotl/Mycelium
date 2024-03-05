@@ -50,7 +50,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void StartAttack()
+    public void StartAttack()
     {
         if(GameObject.FindWithTag("currentWeapon") != null)
         {
