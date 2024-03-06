@@ -111,6 +111,24 @@ public class ProfileManager : MonoBehaviour
         System.IO.File.WriteAllText(filePath, json);
     }
 
+    public void SaveOverride()
+    {
+        ProfileData newProfileData = new ProfileData();
+
+        newProfileData.nutrients = nutrientTrackerScript.currentNutrients;
+
+        newProfileData.log = nutrientTrackerScript.storedLog;
+        newProfileData.exoskeleton = nutrientTrackerScript.storedExoskeleton;
+        newProfileData.calcite = nutrientTrackerScript.storedCalcite;
+        newProfileData.flesh = nutrientTrackerScript.storedFlesh;
+
+        newProfileData.tutroialIsDone = tutorialIsDone;
+
+        string json = JsonUtility.ToJson(newProfileData);
+        Debug.Log(json);
+        System.IO.File.WriteAllText(filePath, json);
+    }
+
     [Serializable]
     public class ProfileData
     {

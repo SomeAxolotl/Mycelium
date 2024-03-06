@@ -10,11 +10,13 @@ public class LevelEnd : MonoBehaviour
     NutrientTracker nutrientTracker;
     SceneLoader sceneLoaderScript;
     SwapWeapon swapWeapon;
+    ProfileManager profileManager;
     void Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
         swapWeapon = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
+        profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -30,6 +32,7 @@ public class LevelEnd : MonoBehaviour
             }
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
+            profileManager.SaveOverride();
             sceneLoaderScript.BeginLoadScene(sceneIndexToGoTo, true);
         }
     }
