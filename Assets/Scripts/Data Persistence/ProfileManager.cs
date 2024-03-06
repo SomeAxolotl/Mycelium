@@ -47,33 +47,68 @@ public class ProfileManager : MonoBehaviour
             Debug.Log(profileData);
         }
 
-        LoadProfile(profileData);
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            LoadProfile(profileData);
+        }
+
+        LoadTutorialCompletion(profileData);
     }
 
     void OnApplicationQuit()
     {
-        Save();
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            Save();
+        }
     }
 
     void LoadProfile(ProfileData data)
     {
+        nutrientTrackerScript.SetNutrients(data.nutrients);
 
+        nutrientTrackerScript.storedLog = data.log;
+        nutrientTrackerScript.storedExoskeleton = data.exoskeleton;
+        nutrientTrackerScript.storedCalcite = data.calcite;
+        nutrientTrackerScript.storedFlesh = data.flesh;
     }
 
-    void Save()
+    void LoadTutorialCompletion(ProfileData data)
     {
-        profileData = new ProfileData();
+        tutorialIsDone = data.tutroialIsDone;
+    }
 
-        profileData.nutrients = nutrientTrackerScript.currentNutrients;
+    bool CheckTutorialCompletion(int profileNumber)
+    {
+        return tutorialIsDone;
+    }
 
-        profileData.log = nutrientTrackerScript.storedLog;
-        profileData.exoskeleton = nutrientTrackerScript.storedExoskeleton;
-        profileData.calcite = nutrientTrackerScript.storedCalcite;
-        profileData.flesh = nutrientTrackerScript.storedFlesh;
+    public void Save()
+    {
+        ProfileData newProfileData = new ProfileData();
 
-        profileData.tutroialIsDone = tutorialIsDone;
+        newProfileData.nutrients = nutrientTrackerScript.currentNutrients;
 
-        //profileData
+        if(SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            newProfileData.log = nutrientTrackerScript.storedLog;
+            newProfileData.exoskeleton = nutrientTrackerScript.storedExoskeleton;
+            newProfileData.calcite = nutrientTrackerScript.storedCalcite;
+            newProfileData.flesh = nutrientTrackerScript.storedFlesh;
+        }
+        else
+        {
+            newProfileData.log = profileData.log;
+            newProfileData.exoskeleton = profileData.exoskeleton;
+            newProfileData.calcite = profileData.calcite;
+            newProfileData.flesh = profileData.flesh;
+        }
+        
+        newProfileData.tutroialIsDone = tutorialIsDone;
+
+        string json = JsonUtility.ToJson(newProfileData);
+        Debug.Log(json);
+        System.IO.File.WriteAllText(filePath, json);
     }
 
     [Serializable]

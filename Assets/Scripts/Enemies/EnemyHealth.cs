@@ -16,6 +16,9 @@ public class EnemyHealth : MonoBehaviour
     protected bool hasTakenDamage = false;
     private bool alreadyDead = false;
     Animator animator;
+
+    private ProfileManager profileManagerScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +30,8 @@ public class EnemyHealth : MonoBehaviour
         {
             enemyHealthBars.Add(enemyHealthBar);
         }
+
+        profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
     }
 
     // Update is called once per frame
@@ -81,7 +86,7 @@ public class EnemyHealth : MonoBehaviour
         if (gameObject.name == "Giga Beetle")
         {
             //GameManager.Instance.OnExitToHub();
-            PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
+            profileManagerScript.tutorialIsDone = true;
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
         }
         this.gameObject.SetActive(false);

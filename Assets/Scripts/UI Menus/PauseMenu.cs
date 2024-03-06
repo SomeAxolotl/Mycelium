@@ -22,6 +22,9 @@ public class PauseMenu : MonoBehaviour
     bool isOnMainMenu;
     public string audioTag;
 
+    private SporeManager sporeManagerScript;
+    private ProfileManager profileManagerScript;
+
     private ThirdPersonActionsAsset playerInput = null;
 
     private void Awake()
@@ -37,10 +40,18 @@ public class PauseMenu : MonoBehaviour
             hudItem = HUD.GetComponent<HUDItem>();
             sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
             GlobalData.isAbleToPause = true;
+
+            profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
+
             Resume();
         }
 
-        if(GameObject.FindWithTag("Camtracker") == null)
+        if(GameObject.Find("SporeManager") != null)
+        {
+            sporeManagerScript = GameObject.Find("SporeManager").GetComponent<SporeManager>();
+        }
+
+        if (GameObject.FindWithTag("Camtracker") == null)
         {
             audioTag = "MainCamera";
         }
@@ -116,11 +127,17 @@ public class PauseMenu : MonoBehaviour
     public void GoToMainMenu()
     {
         //GameManager.Instance.OnExitToMainMenu();
+
+        sporeManagerScript.Save();
+        profileManagerScript.Save();
+
         sceneLoaderScript.BeginLoadScene(0, true);
     }
 
     public void GoToHubWorld()
     {
+        profileManagerScript.Save();
+
         nutrientTracker.LoseMaterials();
         playerParent.GetComponent<SwapWeapon>().curWeapon.tag = "Weapon";
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
@@ -132,19 +149,23 @@ public class PauseMenu : MonoBehaviour
 
     public void DeleteAllSaveData()
     {
-        string filePath;
+        string sporeFilePath;
+        string profileFilePath;
 
         if (Application.isEditor)
         {
-            filePath = Application.dataPath + "/SporeData.json";
+            sporeFilePath = Application.dataPath + "/SporeData.json";
+            profileFilePath = Application.dataPath + "/ProfileData.json";
         }
         else
         {
-            filePath = Application.persistentDataPath + "/SporeData.json";
+            sporeFilePath = Application.persistentDataPath + "/SporeData.json";
+            profileFilePath = Application.persistentDataPath + "/ProfileData.json";
         }
 
         PlayerPrefs.DeleteAll();
-        File.Delete(filePath);
+        File.Delete(sporeFilePath);
+        File.Delete(profileFilePath);
     }
 
     private void OnEnable()
