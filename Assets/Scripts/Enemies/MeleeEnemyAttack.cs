@@ -12,7 +12,7 @@ public class MeleeEnemyAttack : EnemyAttack
     private bool attackStarted = false;
     private bool playerDamaged = false;
     [SerializeField] private float attackCooldown = 2f;
-    private float attackWindupTime = .85f;
+    private float attackWindupTime;
     private float resetAttack;
     [SerializeField] private float damage = 20f;
     private float knockbackForce = 30f;
@@ -67,6 +67,7 @@ public class MeleeEnemyAttack : EnemyAttack
         attackStarted = true;
         animator.speed = 0f;
         reworkedEnemyNavigation.moveSpeed = 0f;
+        attackWindupTime = Random.Range(.8f, 1f);
         yield return new WaitForSeconds(attackWindupTime);
         SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
         animator.speed = 3f;

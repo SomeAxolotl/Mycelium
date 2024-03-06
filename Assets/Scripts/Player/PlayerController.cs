@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
-        clipLength = rollClip.length / 4f;
+        clipLength = rollClip.length / 6f;
     }
 
     // Update is called once per frame
@@ -88,7 +88,6 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
                 playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
             }
-
             StartCoroutine(Dodging());
         }
 
@@ -161,6 +160,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator Dodging()
     {
         CalculateDodgeCooldown();
+        float storedAnimSpeed = swapCharacter.currentCharacterStats.animatorSpeed;
+        animator.speed = 1.5f;
         canUseDodge = false;
         canUseAttack = false;
         canUseSkill = false;
@@ -169,14 +170,14 @@ public class PlayerController : MonoBehaviour
         looking = false;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
-        Vector3 rollDirection = rb.transform.forward * (moveSpeed * 1.5f);
-        rollDirection.y += gravity.y * Time.fixedDeltaTime;
+        Vector3 rollDirection = rb.transform.forward * (moveSpeed * 1.75f);
         float rollTimer = 0f;
         while (rollTimer < clipLength)
         {
             rollTimer += Time.deltaTime;
             Vector3 finalDirection = rollDirection + (gravity * Time.deltaTime);
             rb.velocity = new Vector3(finalDirection.x, rb.velocity.y + finalDirection.y, finalDirection.z);
+            rb.AddForce(gravity, ForceMode.Acceleration);
             yield return null;
         }
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
@@ -190,6 +191,7 @@ public class PlayerController : MonoBehaviour
         looking = true;
         animator.SetBool("Roll", false);
         animator.SetBool("Walk", true);
+        animator.speed = storedAnimSpeed;
         yield return new WaitForSeconds(finalDodgeCooldown);
         canUseDodge = true;
     }

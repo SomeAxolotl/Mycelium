@@ -21,11 +21,12 @@ public class Blitz : Skill
     }
     IEnumerator Blitzing()
     {
+        Vector3 gravity = new Vector3(0f, -15f, 0f);
+        Rigidbody rb = player.GetComponent<Rigidbody>();
         playerController.activeDodge = true;
         playerController.isInvincible = true;
-        //Vector3 blitzForce = player.transform.forward * 15f;
-        //blitzForce += Vector3.up * 3f;
-        //playerController.rb.AddForce(blitzForce, ForceMode.Impulse);
+        playerController.looking = false;
+        Vector3 blitzDirection = rb.transform.forward * 50f;
         float elapsedTime = 0f;
         while (elapsedTime < activeBlitz)
         {
@@ -39,10 +40,14 @@ public class Blitz : Skill
                 }
             }
             elapsedTime += Time.deltaTime;
+            Vector3 finalDirection = blitzDirection + (gravity * Time.deltaTime);
+            rb.velocity = new Vector3(finalDirection.x, rb.velocity.y + finalDirection.y, finalDirection.z);
+            rb.AddForce(gravity, ForceMode.Acceleration);
             yield return null;
         }
         playerController.activeDodge = false;
         playerController.isInvincible = false;
+        playerController.looking = true;
         enemiesHit.Clear();
     }
     IEnumerator BlitzParticles(Vector3 startPosition, Vector3 startingForwardVector)

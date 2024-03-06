@@ -21,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     public float deathTimer;
     private Animator animator;
     private SceneLoader sceneLoaderScript;
+    private ProfileManager profileManagerScript;
 
     [SerializeField] private float timeBetweenHurtSounds = 0.25f;
 
@@ -38,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
         animator = GameObject.Find("Spore").GetComponent<Animator>();
+        profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         isDefending = false;
     }
 
@@ -67,8 +69,9 @@ public class PlayerHealth : MonoBehaviour
                 Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
                 if (SceneManager.GetActiveScene().buildIndex == 1)
                 {
-                    PlayerPrefs.SetInt("IsTutorialFinished", Convert.ToInt32(true));
+                    profileManagerScript.tutorialIsDone = true;
                 }
+                profileManagerScript.Save();
                 sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
                 //GameManager.Instance.OnPlayerDeath();
                 sceneLoaderScript.BeginLoadScene(2, false);

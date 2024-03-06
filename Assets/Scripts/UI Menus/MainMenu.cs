@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] Button playButton;
     [SerializeField] SceneLoader sceneLoaderScript;
+    [SerializeField] ProfileManager profileManagerScript;
 
     ThirdPersonActionsAsset playerInput;
 
@@ -30,7 +31,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        if (Convert.ToBoolean(PlayerPrefs.GetInt("IsTutorialFinished")))
+        if (profileManagerScript.tutorialIsDone == true)
         {
             sceneLoaderScript.BeginLoadScene(SceneManager.GetActiveScene().buildIndex + 2, true);
         }

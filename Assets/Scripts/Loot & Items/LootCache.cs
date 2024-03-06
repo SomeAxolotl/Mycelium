@@ -21,6 +21,17 @@ public class LootCache : MonoBehaviour
         playerActionsAsset.Player.Enable();
         interact = playerActionsAsset.Player.Interact;
         player = GameObject.FindWithTag("currentPlayer");
+
+        //THIS IS A TEMPORARY FIX FOR CACHES!!! PLEASE GO INTO THE CHUNKS AND MANUALLY FIX THE NUTRIENT VALUES.
+        if(nutrientMin >= 60)
+        {
+            nutrientMin = nutrientMin / 20;
+        }
+
+        if(nutrientMax >= 60)
+        {
+            nutrientMax = nutrientMax / 20;
+        }
     }
 
     private void Update()
