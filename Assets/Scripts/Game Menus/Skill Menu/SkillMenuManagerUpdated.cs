@@ -152,9 +152,10 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         Skill2.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3.GetComponent<Image>().sprite = equippedSkillSprites[2];
     }
+    //Checks if Eruption has been selected as well as Y press. Checks if double skills are active and unassigns one when selected.
     public void EruptionCheck()
     {
-        if(controls.UISub.AssignX.triggered && EruptionActive == true)
+        if(controls.UISub.AssignX.triggered && EruptionActive == true || controls.UISub.AssignYKB.triggered && EruptionActive == true)
         {
           Debug.Log("X Pressed");
            if (currentstats.equippedSkills[2] == "Eruption")
@@ -179,7 +180,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           UpdateUI();
         }
-        else if(controls.UISub.AssignB.triggered && EruptionActive == true)
+        //Checks B button press with same conditionals
+        else if(controls.UISub.AssignB.triggered && EruptionActive == true || controls.UISub.AssignBKB.triggered && EruptionActive == true)
         {
           Debug.Log("B Pressed");
           
@@ -215,7 +217,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void CycloneCheck()
     {
-        if(controls.UISub.AssignX.triggered && LivingCycloneActive == true)
+        if(controls.UISub.AssignX.triggered && LivingCycloneActive == true || controls.UISub.AssignYKB.triggered && LivingCycloneActive == true)
         {
            if (currentstats.equippedSkills[2] == "LivingCyclone")
           {
@@ -245,7 +247,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && LivingCycloneActive == true)
+        else if(controls.UISub.AssignB.triggered && LivingCycloneActive == true || controls.UISub.AssignBKB.triggered && LivingCycloneActive == true)
         {
           
           if (currentstats.equippedSkills[1] == "LivingCyclone")
@@ -280,7 +282,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
      public void FuryCheck()
     {
-        if(controls.UISub.AssignX.triggered && FuryActive == true)
+        if(controls.UISub.AssignX.triggered && FuryActive == true || controls.UISub.AssignYKB.triggered && FuryActive == true)
         {
           if(currentstats.equippedSkills[1] == "RelentlessFury")
           {
@@ -307,7 +309,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && FuryActive == true)
+        else if(controls.UISub.AssignB.triggered && FuryActive == true || controls.UISub.AssignBKB.triggered && FuryActive == true)
         {
           if(currentstats.equippedSkills[1] == "RelentlessFury")
           {
@@ -342,7 +344,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void BlitzCheck()
     {
-        if(controls.UISub.AssignX.triggered && BlitzActive == true)
+        if(controls.UISub.AssignX.triggered && BlitzActive == true || controls.UISub.AssignYKB.triggered && BlitzActive == true)
         {
           if(currentstats.equippedSkills[2] == "Blitz")
           {
@@ -369,7 +371,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && BlitzActive == true)
+        else if(controls.UISub.AssignB.triggered && BlitzActive == true || controls.UISub.AssignBKB.triggered && BlitzActive == true)
         {
           if(currentstats.equippedSkills[1] == "Blitz")
           {
@@ -403,7 +405,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void TrophicCheck()
     {
-        if(controls.UISub.AssignX.triggered && TrophicActive == true)
+        if(controls.UISub.AssignX.triggered && TrophicActive == true || controls.UISub.AssignYKB.triggered && TrophicActive == true)
         {
          
           if(currentstats.equippedSkills[2] == "TrophicCascade")
@@ -431,7 +433,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && TrophicActive == true)
+        else if(controls.UISub.AssignB.triggered && TrophicActive == true || controls.UISub.AssignBKB.triggered && TrophicActive == true)
         {
           
           if(currentstats.equippedSkills[1] == "TrophicCascade")
@@ -466,7 +468,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void MycoCheck()
     {
-        if(controls.UISub.AssignX.triggered && MycoActive == true)
+        if(controls.UISub.AssignX.triggered && MycoActive == true || controls.UISub.AssignYKB.triggered && MycoActive == true)
         {
          
           if(currentstats.equippedSkills[2] == "Mycotoxins")
@@ -495,7 +497,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && MycoActive == true)
+        else if(controls.UISub.AssignB.triggered && MycoActive == true || controls.UISub.AssignBKB.triggered && MycoActive == true)
         {
           
           if(currentstats.equippedSkills[1] == "Mycotoxins")
@@ -530,7 +532,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void SpineCheck()
     {
-        if(controls.UISub.AssignX.triggered && SpineActive == true)
+        if(controls.UISub.AssignX.triggered && SpineActive == true || controls.UISub.AssignYKB.triggered && SpineActive == true)
         {
           
           if(currentstats.equippedSkills[2] == "Spineshot")
@@ -559,7 +561,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && SpineActive == true)
+        else if(controls.UISub.AssignB.triggered && SpineActive == true || controls.UISub.AssignBKB.triggered && SpineActive == true)
         {
          
           if(currentstats.equippedSkills[1] == "Spineshot")
@@ -594,7 +596,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void UnstableCheck()
     {
-        if(controls.UISub.AssignX.triggered && UnstableActive == true)
+        if(controls.UISub.AssignX.triggered && UnstableActive == true || controls.UISub.AssignYKB.triggered && UnstableActive == true)
         {
           
           if(currentstats.equippedSkills[2] == "UnstablePuffball")
@@ -623,7 +625,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && UnstableActive == true)
+        else if(controls.UISub.AssignB.triggered && UnstableActive == true || controls.UISub.AssignBKB.triggered && UnstableActive == true)
         {
           
           if(currentstats.equippedSkills[1] == "UnstablePuffball")
@@ -659,7 +661,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void UndergrowthCheck()
     {
-        if(controls.UISub.AssignX.triggered && UndergrowthActive == true)
+        if(controls.UISub.AssignX.triggered && UndergrowthActive == true || controls.UISub.AssignYKB.triggered && UndergrowthActive == true)
         {
           
           if(currentstats.equippedSkills[2] == "Undergrowth")
@@ -688,7 +690,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && UndergrowthActive == true)
+        else if(controls.UISub.AssignB.triggered && UndergrowthActive == true || controls.UISub.AssignBKB.triggered && UndergrowthActive == true)
         {
           
           if(currentstats.equippedSkills[1] == "Undergrowth")
@@ -724,7 +726,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void LeechCheck()
     {
-        if(controls.UISub.AssignX.triggered && LeechActive == true)
+        if(controls.UISub.AssignX.triggered && LeechActive == true || controls.UISub.AssignYKB.triggered && LeechActive == true)
         {
           
           if(currentstats.equippedSkills[2] == "LeechingSpore")
@@ -752,7 +754,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && LeechActive == true)
+        else if(controls.UISub.AssignB.triggered && LeechActive == true || controls.UISub.AssignBKB.triggered && LeechActive == true)
         {
           
           if(currentstats.equippedSkills[1] == "LeechingSpore")
@@ -788,7 +790,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void SporeburstCheck()
     {
-        if(controls.UISub.AssignX.triggered && SporeburstActive == true)
+        if(controls.UISub.AssignX.triggered && SporeburstActive == true || controls.UISub.AssignYKB.triggered && SporeburstActive == true)
         {
           
           if(currentstats.equippedSkills[2] == "Sporeburst")
@@ -817,10 +819,10 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && SporeburstActive == true)
+        else if(controls.UISub.AssignB.triggered && SporeburstActive == true || controls.UISub.AssignBKB.triggered && SporeburstActive == true)
         {
           
-          if(currentstats.equippedSkills[1] == "Sporeshot")
+          if(currentstats.equippedSkills[1] == "Sporeburst")
           {
             skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();  
@@ -853,7 +855,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void DefenseMechCheck()
     {
-        if(controls.UISub.AssignX.triggered && DefenseMechActive == true)
+        if(controls.UISub.AssignX.triggered && DefenseMechActive == true || controls.UISub.AssignYKB.triggered && DefenseMechActive == true)
         {
          
           if(currentstats.equippedSkills[2] == "DefenseMechanism")
@@ -882,7 +884,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           UpdateUI();
           
         }
-        else if(controls.UISub.AssignB.triggered && DefenseMechActive == true)
+        else if(controls.UISub.AssignB.triggered && DefenseMechActive == true || controls.UISub.AssignBKB.triggered && DefenseMechActive == true)
         {
           
           if(currentstats.equippedSkills[1] == "DefenseMechanism")
@@ -1246,7 +1248,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         case "Undergrowth":
         UndergrowthUnlocked.colors = cb9;
         break;
-        case "LeechingSpores":
+        case "LeechingSpore":
         LeechingSporesUnlocked.colors = cb10;
         break;
         case "Sporeburst":
@@ -1288,7 +1290,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         case "Undergrowth":
         UndergrowthUnlocked.colors = cb9;
         break;
-        case "LeechingSpores":
+        case "LeechingSpore":
         LeechingSporesUnlocked.colors = cb10;
         break;
         case "Sporeburst":

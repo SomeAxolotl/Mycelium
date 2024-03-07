@@ -1591,6 +1591,24 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Assign Y KB"",
+                    ""type"": ""Button"",
+                    ""id"": ""4419abb3-d434-4760-8a1e-d36f31c1e146"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Assign B KB"",
+                    ""type"": ""Button"",
+                    ""id"": ""f20bfbd9-5385-4f99-840c-ed91ee5f5a71"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1646,6 +1664,28 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""AssignB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99d749a5-6a93-40f6-9f5c-bcb012051e76"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Assign Y KB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""749756ab-512d-41ec-988b-6129948c726a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Assign B KB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1716,6 +1756,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UISub_CancelConfirm = m_UISub.FindAction("CancelConfirm", throwIfNotFound: true);
         m_UISub_AssignX = m_UISub.FindAction("Assign X", throwIfNotFound: true);
         m_UISub_AssignB = m_UISub.FindAction("AssignB", throwIfNotFound: true);
+        m_UISub_AssignYKB = m_UISub.FindAction("Assign Y KB", throwIfNotFound: true);
+        m_UISub_AssignBKB = m_UISub.FindAction("Assign B KB", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -2266,6 +2308,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UISub_CancelConfirm;
     private readonly InputAction m_UISub_AssignX;
     private readonly InputAction m_UISub_AssignB;
+    private readonly InputAction m_UISub_AssignYKB;
+    private readonly InputAction m_UISub_AssignBKB;
     public struct UISubActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -2275,6 +2319,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @CancelConfirm => m_Wrapper.m_UISub_CancelConfirm;
         public InputAction @AssignX => m_Wrapper.m_UISub_AssignX;
         public InputAction @AssignB => m_Wrapper.m_UISub_AssignB;
+        public InputAction @AssignYKB => m_Wrapper.m_UISub_AssignYKB;
+        public InputAction @AssignBKB => m_Wrapper.m_UISub_AssignBKB;
         public InputActionMap Get() { return m_Wrapper.m_UISub; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2299,6 +2345,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @AssignB.started += instance.OnAssignB;
             @AssignB.performed += instance.OnAssignB;
             @AssignB.canceled += instance.OnAssignB;
+            @AssignYKB.started += instance.OnAssignYKB;
+            @AssignYKB.performed += instance.OnAssignYKB;
+            @AssignYKB.canceled += instance.OnAssignYKB;
+            @AssignBKB.started += instance.OnAssignBKB;
+            @AssignBKB.performed += instance.OnAssignBKB;
+            @AssignBKB.canceled += instance.OnAssignBKB;
         }
 
         private void UnregisterCallbacks(IUISubActions instance)
@@ -2318,6 +2370,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @AssignB.started -= instance.OnAssignB;
             @AssignB.performed -= instance.OnAssignB;
             @AssignB.canceled -= instance.OnAssignB;
+            @AssignYKB.started -= instance.OnAssignYKB;
+            @AssignYKB.performed -= instance.OnAssignYKB;
+            @AssignYKB.canceled -= instance.OnAssignYKB;
+            @AssignBKB.started -= instance.OnAssignBKB;
+            @AssignBKB.performed -= instance.OnAssignBKB;
+            @AssignBKB.canceled -= instance.OnAssignBKB;
         }
 
         public void RemoveCallbacks(IUISubActions instance)
@@ -2399,5 +2457,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnCancelConfirm(InputAction.CallbackContext context);
         void OnAssignX(InputAction.CallbackContext context);
         void OnAssignB(InputAction.CallbackContext context);
+        void OnAssignYKB(InputAction.CallbackContext context);
+        void OnAssignBKB(InputAction.CallbackContext context);
     }
 }
