@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class SkillMenuManagerUpdated : MonoBehaviour
 {
-    public Button Skill1;
+    
     public GameObject LevelUI;
     ThirdPersonActionsAsset controls;
     public GameObject UIenable;
@@ -45,11 +45,26 @@ public class SkillMenuManagerUpdated : MonoBehaviour
 
     //SB Buttons
     public Button SporeburstUnlocked;
-
+    public GameObject PanelHolder;
     //DM Buttons
     public Button DefenseMechanismUnlocked;
     public GameObject Skill2;
     public GameObject Skill3;
+    public SkillManager skillmanager;
+    public bool EruptionActive = false;
+    private bool LivingCycloneActive = false;
+    private bool FuryActive = false;
+    private bool BlitzActive = false;
+    private bool TrophicActive = false;
+    private bool MycoActive = false;
+    private bool SpineActive = false;
+    private bool UnstableActive = false;
+    private bool UndergrowthActive = false;
+    private bool LeechActive = false;
+    private bool SporeburstActive = false;
+    private bool DefenseMechActive = false;
+    public Color newColor;
+    public Color defaultcolor;
     void OnEnable()
     {
         LevelUI.SetActive(false);
@@ -57,7 +72,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.Close.performed += ctx => CloseSkill();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
-        Skill1.Select();
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
@@ -65,6 +79,9 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         UpdateUI();
         Invoke("ControlEnable", 0.25f);
         GrowMenu.SetActive(false);
+         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        EruptionUnlocked.Select();
+        //Primal Unlock Statements
         
         
     }
@@ -72,6 +89,10 @@ public class SkillMenuManagerUpdated : MonoBehaviour
      void OnDisable()
     {
       controls.UI.Disable();
+    }
+    public void ControlAssign()
+    {
+
     }
     void MenuSwapLeft()
     {
@@ -126,15 +147,792 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         SpeedBarFill();
         SentienceBarFill();
         VitalityBarFill();
+        LockedAbilities();
         List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
-        Skill1.GetComponent<Image>().sprite = equippedSkillSprites[1];
-        Skill2.GetComponent<Image>().sprite = equippedSkillSprites[2];
+        Skill2.GetComponent<Image>().sprite = equippedSkillSprites[1];
+        Skill3.GetComponent<Image>().sprite = equippedSkillSprites[2];
+    }
+    public void EruptionCheck()
+    {
+        if(controls.UISub.AssignX.triggered && EruptionActive == true)
+        {
+          Debug.Log("X Pressed");
+           if (currentstats.equippedSkills[2] == "Eruption")
+          {
+            skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+            hudSkills.UpdateHUDIcons();
+            skillmanager.SetSkill("Eruption", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Eruption", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          EruptionActive = false;
+          }
+          else 
+          {
+          skillmanager.SetSkill("Eruption", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Eruption", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          EruptionActive = false;
+          }
+          UpdateUI();
+        }
+        else if(controls.UISub.AssignB.triggered && EruptionActive == true)
+        {
+          Debug.Log("B Pressed");
+          
+          
+          if (currentstats.equippedSkills[1] == "Eruption")
+          {
+            skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+            hudSkills.UpdateHUDIcons();
+            skillmanager.SetSkill("Eruption", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Eruption", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          EruptionActive = false;
+            
+          }
+          else
+          {
+            skillmanager.SetSkill("Eruption", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Eruption", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          EruptionActive = false;
+          }
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void CycloneCheck()
+    {
+        if(controls.UISub.AssignX.triggered && LivingCycloneActive == true)
+        {
+           if (currentstats.equippedSkills[2] == "LivingCyclone")
+          {
+             skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+            hudSkills.UpdateHUDIcons();
+             Debug.Log("X Pressed");
+          skillmanager.SetSkill("LivingCyclone", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LivingCyclone", 1);
+          
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LivingCycloneActive = false;
+          }
+          else
+          {
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("LivingCyclone", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LivingCyclone", 1);
+          
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LivingCycloneActive = false;
+          }
+         
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && LivingCycloneActive == true)
+        {
+          
+          if (currentstats.equippedSkills[1] == "LivingCyclone")
+          {
+             skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+            hudSkills.UpdateHUDIcons();
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("LivingCyclone", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LivingCyclone", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LivingCycloneActive = false;
+          
+          }
+          else
+          {
+             skillmanager.SetSkill("LivingCyclone", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LivingCyclone", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LivingCycloneActive = false;
+          }
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+     public void FuryCheck()
+    {
+        if(controls.UISub.AssignX.triggered && FuryActive == true)
+        {
+          if(currentstats.equippedSkills[1] == "RelentlessFury")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("RelentlessFury", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("RelentlessFury", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          FuryActive = false;
+          }
+          else
+          {
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("RelentlessFury", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("RelentlessFury", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          FuryActive = false;
+          }
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && FuryActive == true)
+        {
+          if(currentstats.equippedSkills[1] == "RelentlessFury")
+          {
+          skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("B Pressed");
+          skillmanager.SetSkill("RelentlessFury", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("RelentlessFury", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          FuryActive = false;
+          }
+          else
+          {
+          Debug.Log("B Pressed");
+          skillmanager.SetSkill("RelentlessFury", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("RelentlessFury", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          FuryActive = false;
+
+          }
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void BlitzCheck()
+    {
+        if(controls.UISub.AssignX.triggered && BlitzActive == true)
+        {
+          if(currentstats.equippedSkills[2] == "Blitz")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Blitz", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Blitz", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          BlitzActive = false;
+          }
+          else
+          {
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Blitz", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Blitz", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          BlitzActive = false;
+          }
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && BlitzActive == true)
+        {
+          if(currentstats.equippedSkills[1] == "Blitz")
+          {
+          skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();  
+          Debug.Log("B Pressed");
+          skillmanager.SetSkill("Blitz", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Blitz", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          BlitzActive = false;
+          }
+          else
+          {
+          Debug.Log("B Pressed");
+          skillmanager.SetSkill("Blitz", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Blitz", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          BlitzActive = false;
+          }
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void TrophicCheck()
+    {
+        if(controls.UISub.AssignX.triggered && TrophicActive == true)
+        {
+         
+          if(currentstats.equippedSkills[2] == "TrophicCascade")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("TrophicCascade", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("TrophicCascade", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          TrophicActive = false;
+          }
+          else
+          {
+            Debug.Log("X Pressed");
+          skillmanager.SetSkill("TrophicCascade", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("TrophicCascade", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          TrophicActive = false;
+          }
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && TrophicActive == true)
+        {
+          
+          if(currentstats.equippedSkills[1] == "TrophicCascade")
+          {
+             skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("TrophicCascade", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("TrophicCascade", 2);
+           controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          TrophicActive = false;
+          }
+         else
+         {
+           Debug.Log("B Pressed");
+          skillmanager.SetSkill("TrophicCascade", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("TrophicCascade", 2);
+           controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          TrophicActive = false;
+         }
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void MycoCheck()
+    {
+        if(controls.UISub.AssignX.triggered && MycoActive == true)
+        {
+         
+          if(currentstats.equippedSkills[2] == "Mycotoxins")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Mycotoxins", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Mycotoxins", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          MycoActive = false;
+          }
+          else
+          {
+            Debug.Log("X Pressed");
+          skillmanager.SetSkill("Mycotoxins", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Mycotoxins", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          MycoActive = false;
+          }
+          
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && MycoActive == true)
+        {
+          
+          if(currentstats.equippedSkills[1] == "Mycotoxins")
+          {
+          skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("B Pressed");
+          skillmanager.SetSkill("Mycotoxins", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Mycotoxins", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          MycoActive = false;
+          }
+          else
+          {
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("Mycotoxins", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Mycotoxins", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          MycoActive = false;
+          }
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void SpineCheck()
+    {
+        if(controls.UISub.AssignX.triggered && SpineActive == true)
+        {
+          
+          if(currentstats.equippedSkills[2] == "Spineshot")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Spineshot", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Spineshot", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SpineActive = false;
+          }
+          else
+          {
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Spineshot", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Spineshot", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SpineActive = false;
+          }
+          
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && SpineActive == true)
+        {
+         
+          if(currentstats.equippedSkills[1] == "Spineshot")
+          {
+          skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("B Pressed");
+          skillmanager.SetSkill("Spineshot", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Spineshot", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SpineActive = false;
+          }
+          else
+          {
+          Debug.Log("B Pressed");
+          skillmanager.SetSkill("Spineshot", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Spineshot", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SpineActive = false;
+          }
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void UnstableCheck()
+    {
+        if(controls.UISub.AssignX.triggered && UnstableActive == true)
+        {
+          
+          if(currentstats.equippedSkills[2] == "UnstablePuffball")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("UnstablePuffball", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("UnstablePuffball", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UnstableActive = false;
+          }
+          else
+          {
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("UnstablePuffball", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("UnstablePuffball", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UnstableActive = false;
+          }
+          
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && UnstableActive == true)
+        {
+          
+          if(currentstats.equippedSkills[1] == "UnstablePuffball")
+          {
+             skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("UnstablePuffball", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("UnstablePuffball", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UnstableActive = false;
+          }
+          else
+          {
+             Debug.Log("B Pressed");
+          skillmanager.SetSkill("UnstablePuffball", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("UnstablePuffball", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UnstableActive = false;
+          }
+          
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void UndergrowthCheck()
+    {
+        if(controls.UISub.AssignX.triggered && UndergrowthActive == true)
+        {
+          
+          if(currentstats.equippedSkills[2] == "Undergrowth")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Undergrowth", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Undergrowth", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UndergrowthActive = false;
+          }
+          else
+          {
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Undergrowth", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Undergrowth", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UndergrowthActive = false;
+          }
+          
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && UndergrowthActive == true)
+        {
+          
+          if(currentstats.equippedSkills[1] == "Undergrowth")
+          {
+          skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("Undergrowth", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Undergrowth", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UndergrowthActive = false;
+          }
+          else
+          {
+             Debug.Log("B Pressed");
+          skillmanager.SetSkill("Undergrowth", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Undergrowth", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          UndergrowthActive = false;
+          }
+          
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void LeechCheck()
+    {
+        if(controls.UISub.AssignX.triggered && LeechActive == true)
+        {
+          
+          if(currentstats.equippedSkills[2] == "LeechingSpore")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("LeechingSpore", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LeechingSpore", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LeechActive = false;
+          }
+          else
+          {
+            Debug.Log("X Pressed");
+          skillmanager.SetSkill("LeechingSpore", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LeechingSpore", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LeechActive = false;
+          }
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && LeechActive == true)
+        {
+          
+          if(currentstats.equippedSkills[1] == "LeechingSpore")
+          {
+          skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();  
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("LeechingSpore", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LeechingSpore", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LeechActive = false;
+          }
+          else
+          {
+             Debug.Log("B Pressed");
+          skillmanager.SetSkill("LeechingSpore", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("LeechingSpore", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          LeechActive = false;
+          }
+          
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void SporeburstCheck()
+    {
+        if(controls.UISub.AssignX.triggered && SporeburstActive == true)
+        {
+          
+          if(currentstats.equippedSkills[2] == "Sporeburst")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("Sporeburst", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Sporeburst", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SporeburstActive = false;
+          }
+          else
+          {
+            Debug.Log("X Pressed");
+          skillmanager.SetSkill("Sporeburst", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Sporeburst", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SporeburstActive = false;
+          }
+          
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && SporeburstActive == true)
+        {
+          
+          if(currentstats.equippedSkills[1] == "Sporeshot")
+          {
+            skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();  
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("Sporeburst", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Sporeburst", 2);
+           controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SporeburstActive = false;
+          }
+          else
+          {
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("Sporeburst", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("Sporeburst", 2);
+           controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          SporeburstActive = false;
+          }
+         
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
+    }
+    public void DefenseMechCheck()
+    {
+        if(controls.UISub.AssignX.triggered && DefenseMechActive == true)
+        {
+         
+          if(currentstats.equippedSkills[2] == "DefenseMechanism")
+          {
+          skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();
+          Debug.Log("X Pressed");
+          skillmanager.SetSkill("DefenseMechanism", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("DefenseMechanism", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          DefenseMechActive = false;
+          }
+          else
+          {
+             Debug.Log("X Pressed");
+          skillmanager.SetSkill("DefenseMechanism", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("DefenseMechanism", 1);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          DefenseMechActive = false;
+          }
+          
+          UpdateUI();
+          
+        }
+        else if(controls.UISub.AssignB.triggered && DefenseMechActive == true)
+        {
+          
+          if(currentstats.equippedSkills[1] == "DefenseMechanism")
+          {
+            skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.UpdateHUDIcons();  
+            Debug.Log("B Pressed");
+          skillmanager.SetSkill("DefenseMechanism", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("DefenseMechanism", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          DefenseMechActive = false;
+          }
+          else
+          {
+             Debug.Log("B Pressed");
+          skillmanager.SetSkill("DefenseMechanism", 2, GameObject.FindWithTag("currentPlayer"));
+          hudSkills.ChangeSkillIcon("DefenseMechanism", 2);
+          controls.UISub.Disable();
+          controls.UI.Enable();
+          PanelHolder.SetActive(false);
+          DefenseMechActive = false;
+          }
+          
+          UpdateUI();
+        }
+        else
+        {
+          Debug.Log("return");
+          return;
+        }  
     }
      void Update()
     {
         List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
-        Skill1.GetComponent<Image>().sprite = equippedSkillSprites[1];
-        Skill2.GetComponent<Image>().sprite = equippedSkillSprites[2];
+        Skill2.GetComponent<Image>().sprite = equippedSkillSprites[1];
+        Skill3.GetComponent<Image>().sprite = equippedSkillSprites[2];
+        EruptionCheck();
+        CycloneCheck();
+        FuryCheck();
+        BlitzCheck();
+        TrophicCheck();
+        MycoCheck();
+        SpineCheck();
+        UnstableCheck();
+        UndergrowthCheck();
+        SporeburstCheck();
+        LeechCheck();
+        DefenseMechCheck();
         if (Input.GetKeyDown(KeyCode.LeftBracket))
       {
         MenuSwapLeft();
@@ -142,6 +940,366 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       if(Input.GetKeyDown(KeyCode.RightBracket))
       {
         MenuSwapRight();
+      }
+      if(currentstats.primalLevel >= 5)
+        {
+            EruptionUnlocked.onClick.AddListener(EruptionsSlot1);
+        }
+        else
+        {
+            EruptionUnlocked.onClick.RemoveListener(EruptionsSlot1);
+        }
+
+
+        if (currentstats.primalLevel >= 10)
+        {
+            LivingCycloneUnlocked.onClick.AddListener(LivingCycloneSlot1);
+        }
+        else
+        {
+            LivingCycloneUnlocked.onClick.RemoveListener(LivingCycloneSlot1);
+        }
+
+        
+        if(currentstats.primalLevel >= 15)
+        {
+            RelentlessFuryUnlocked.onClick.AddListener(RelentlessFurySlot1);
+        }
+        else
+        {
+            RelentlessFuryUnlocked.onClick.RemoveListener(RelentlessFurySlot1);
+        }
+
+        
+        //Speed Unlock Statements
+        if(currentstats.speedLevel >= 5)
+        {
+            BlitzUnlocked.onClick.AddListener(BlitzSlot1);
+        }
+        else
+        {
+            BlitzUnlocked.onClick.RemoveListener(BlitzSlot1);
+        }
+
+        
+        if(currentstats.speedLevel >= 10)
+        {
+            TrophicCascadeUnlocked.onClick.AddListener(TrophicCascadeSlot1);
+        }
+        else
+        {
+            TrophicCascadeUnlocked.onClick.RemoveListener(TrophicCascadeSlot1);
+        }
+
+
+        if(currentstats.speedLevel >= 15)
+        {
+            MycotoxinsUnlocked.onClick.AddListener(MycotoxinsSlot1);
+        }
+        else
+        {
+            MycotoxinsUnlocked.onClick.RemoveListener(MycotoxinsSlot1);
+        }
+
+
+        //Sentience Unlock Statements
+        if(currentstats.sentienceLevel >= 5)
+        {
+            SpineshotUnlocked.onClick.AddListener(SpineShotSlot1);
+        }
+        else
+        {
+            SpineshotUnlocked.onClick.RemoveListener(SpineShotSlot1);
+        }
+
+        if(currentstats.sentienceLevel >= 10)
+        {
+            UnstablePuffBallUnlocked.onClick.AddListener(UnstablePuffballSlot1);
+        }
+        else
+        {
+            UnstablePuffBallUnlocked.onClick.RemoveListener(UnstablePuffballSlot1);
+        }
+
+        if(currentstats.sentienceLevel >= 15)
+        {
+            UndergrowthUnlocked.onClick.AddListener(UndergrowthSlot1);
+        }
+        else
+        {
+            UndergrowthUnlocked.onClick.RemoveListener(UndergrowthSlot1);
+        }
+
+        
+        //Vitality unlock statements
+        if(currentstats.vitalityLevel >= 5)
+        {
+            LeechingSporesUnlocked.onClick.AddListener(LeechingSporeSlot1);
+        }
+        else
+        {
+            LeechingSporesUnlocked.onClick.RemoveListener(LeechingSporeSlot1);
+        }
+
+        if(currentstats.vitalityLevel >= 10)
+        {
+            SporeburstUnlocked.onClick.AddListener(SporeBurstSlot1);
+        }
+        else
+        {
+            SporeburstUnlocked.onClick.RemoveListener(SporeBurstSlot1);
+        }
+
+        if(currentstats.vitalityLevel >= 15)
+        {
+            DefenseMechanismUnlocked.onClick.AddListener(DefenseMechanismSlot1);
+        }
+        else
+        {
+            DefenseMechanismUnlocked.onClick.RemoveListener(DefenseMechanismSlot1);
+        }
+    }
+    public void EruptionsSlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        EruptionActive = true;
+     
+    }
+    //Set Living Cyclone Skill slot 1 or 2
+    public void LivingCycloneSlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        LivingCycloneActive = true;
+        
+    }
+    
+    //Set Relentless Fury Skill slot 1 or 2
+    public void RelentlessFurySlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        FuryActive = true;
+        
+    }
+    //Set Spine Shot skill slot 1 or 2  
+    public void SpineShotSlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        SpineActive = true;
+        
+    }
+    //Set Undergrowth Skill slot 1 or 2
+     public void UndergrowthSlot1()
+    {
+       controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        UndergrowthActive = true;
+       
+    }
+    //Set Unstable Puff Ball Skill slot 1 or 2
+     public void UnstablePuffballSlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        UnstableActive = true;
+        
+    }
+    //Sets blitz skill for slot 1 or 2
+     public void BlitzSlot1()
+    {
+         controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        BlitzActive = true;
+        
+    }
+    //Sets Mycotoxin for slot 1 or 2
+     public void MycotoxinsSlot1()
+    {
+       controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        MycoActive = true;
+        
+    }
+
+    //Sets Trophic Cascade for slot 1 or 2
+    public void TrophicCascadeSlot1()
+    {
+         controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        TrophicActive = true;
+        
+    }
+    //Set Defense Mechanism for slot1 or 2
+     public void DefenseMechanismSlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        DefenseMechActive = true;
+        
+    }
+
+    //Set leeching spores for slot 1 or 2
+    public void LeechingSporeSlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        LeechActive = true;
+        
+    }
+
+    //Set Spore burst for slot 1 or 2
+    public void SporeBurstSlot1()
+    {
+        controls.UI.Disable();
+        controls.UISub.Enable();
+        PanelHolder.SetActive(true);
+        SporeburstActive = true;
+        
+    }
+   
+    public void ColorChange()
+    {
+      Color defaultcolor = new Color32(25,43,29,255);
+      ColorBlock defaultcb = EruptionUnlocked.colors;
+      defaultcb.normalColor = defaultcolor;
+      EruptionUnlocked.colors = defaultcb;
+      LivingCycloneUnlocked.colors = defaultcb;
+      RelentlessFuryUnlocked.colors = defaultcb;
+      BlitzUnlocked.colors = defaultcb;
+      TrophicCascadeUnlocked.colors = defaultcb;
+      SpineshotUnlocked.colors = defaultcb;
+      UnstablePuffBallUnlocked.colors = defaultcb;
+      UndergrowthUnlocked.colors = defaultcb;
+      LeechingSporesUnlocked.colors = defaultcb;
+      SporeburstUnlocked.colors = defaultcb;
+      DefenseMechanismUnlocked.colors = defaultcb;
+
+    }
+    public void LockedAbilities()
+    {
+      ColorChange();
+      Color newColor = new Color32(241, 251, 56, 255);
+        ColorBlock cb1 = EruptionUnlocked.colors;
+        cb1.normalColor = newColor;
+        ColorBlock cb2 = LivingCycloneUnlocked.colors;
+        cb2.normalColor = newColor;
+        ColorBlock cb3 = RelentlessFuryUnlocked.colors;
+        cb3.normalColor = newColor;
+        ColorBlock cb4 = BlitzUnlocked.colors;
+        cb4.normalColor = newColor;
+        ColorBlock cb5 = TrophicCascadeUnlocked.colors;
+        cb5.normalColor = newColor;
+        ColorBlock cb6 = MycotoxinsUnlocked.colors;
+        cb6.normalColor = newColor;
+        ColorBlock cb7 = SpineshotUnlocked.colors;
+        cb7.normalColor = newColor;
+        ColorBlock cb8 = UnstablePuffBallUnlocked.colors;
+        cb8.normalColor = newColor;
+        ColorBlock cb9 = UndergrowthUnlocked.colors;
+        cb9.normalColor = newColor;
+        ColorBlock cb10 = LeechingSporesUnlocked.colors;
+        cb10.normalColor = newColor;
+        ColorBlock cb11 = SporeburstUnlocked.colors;
+        cb11.normalColor = newColor;
+        ColorBlock cb12 = DefenseMechanismUnlocked.colors;
+        cb12.normalColor = newColor;
+      switch(currentstats.equippedSkills[1])
+      {
+        case "Eruption":
+        EruptionUnlocked.colors = cb1;
+        break;
+        case"LivingCyclone":
+        LivingCycloneUnlocked.colors = cb2;
+        break;
+        case "RelentlessFury":
+        RelentlessFuryUnlocked.colors = cb3;
+        break;
+        case "Blitz":
+        BlitzUnlocked.colors = cb4;
+        break;
+        case "TrophicCascade":
+        TrophicCascadeUnlocked.colors = cb5;
+        break;
+        case "Mycotoxins":
+        MycotoxinsUnlocked.colors = cb6;
+        break;
+        case "Spineshot":
+        SpineshotUnlocked.colors = cb7;
+        break;
+        case "UnstablePuffball":
+        UnstablePuffBallUnlocked.colors = cb8;
+        break;
+        case "Undergrowth":
+        UndergrowthUnlocked.colors = cb9;
+        break;
+        case "LeechingSpores":
+        LeechingSporesUnlocked.colors = cb10;
+        break;
+        case "Sporeburst":
+        SporeburstUnlocked.colors = cb11;
+        break;
+        case "DefenseMechanism":
+        DefenseMechanismUnlocked.colors = cb12;
+        break;
+        default:
+        return;
+        break;
+      }
+    switch(currentstats.equippedSkills[2])
+      {
+        case "Eruption":
+        EruptionUnlocked.colors = cb1;
+        break;
+        case"LivingCyclone":
+        LivingCycloneUnlocked.colors = cb2;
+        break;
+        case "RelentlessFury":
+        RelentlessFuryUnlocked.colors = cb3;
+        break;
+        case "Blitz":
+        BlitzUnlocked.colors = cb4;
+        break;
+        case "TrophicCascade":
+        TrophicCascadeUnlocked.colors = cb5;
+        break;
+        case "Mycotoxins":
+        MycotoxinsUnlocked.colors = cb6;
+        break;
+        case "Spineshot":
+        SpineshotUnlocked.colors = cb7;
+        break;
+        case "UnstablePuffball":
+        UnstablePuffBallUnlocked.colors = cb8;
+        break;
+        case "Undergrowth":
+        UndergrowthUnlocked.colors = cb9;
+        break;
+        case "LeechingSpores":
+        LeechingSporesUnlocked.colors = cb10;
+        break;
+        case "Sporeburst":
+        SporeburstUnlocked.colors = cb11;
+        break;
+        case "DefenseMechanism":
+        DefenseMechanismUnlocked.colors = cb12;
+        break;
+        default:
+        return;
+        break;
       }
     }
 }

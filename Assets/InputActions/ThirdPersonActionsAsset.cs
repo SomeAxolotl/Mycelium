@@ -803,6 +803,15 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoreInfo"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9926e40-2a44-4eec-bfaa-582fbe3695bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1520,6 +1529,17 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""Key Level Down Vitality"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""619fc249-5154-4285-92b0-6ee4cde6c13d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoreInfo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1549,6 +1569,24 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""name"": ""CancelConfirm"",
                     ""type"": ""Button"",
                     ""id"": ""326a628e-20a5-46e6-a307-574989110a60"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Assign X"",
+                    ""type"": ""Button"",
+                    ""id"": ""53dddf11-7e0f-4998-871a-30a253571f5e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AssignB"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae45e7f6-ad35-4b3f-95f0-424922a6eda1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1586,6 +1624,28 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CancelConfirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88b66e72-7d9c-4cdc-9f1a-17f21c7c116a"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Assign X"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2df05eba-c579-4fe5-a5d2-548e03e59809"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AssignB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1648,11 +1708,14 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UI_KeyLevelDownSentience = m_UI.FindAction("Key Level Down Sentience", throwIfNotFound: true);
         m_UI_KeyLevelUpVitality = m_UI.FindAction("Key Level Up Vitality", throwIfNotFound: true);
         m_UI_KeyLevelDownVitality = m_UI.FindAction("Key Level Down Vitality", throwIfNotFound: true);
+        m_UI_MoreInfo = m_UI.FindAction("MoreInfo", throwIfNotFound: true);
         // UISub
         m_UISub = asset.FindActionMap("UISub", throwIfNotFound: true);
         m_UISub_Newaction = m_UISub.FindAction("New action", throwIfNotFound: true);
         m_UISub_Confirm = m_UISub.FindAction("Confirm", throwIfNotFound: true);
         m_UISub_CancelConfirm = m_UISub.FindAction("CancelConfirm", throwIfNotFound: true);
+        m_UISub_AssignX = m_UISub.FindAction("Assign X", throwIfNotFound: true);
+        m_UISub_AssignB = m_UISub.FindAction("AssignB", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1893,6 +1956,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UI_KeyLevelDownSentience;
     private readonly InputAction m_UI_KeyLevelUpVitality;
     private readonly InputAction m_UI_KeyLevelDownVitality;
+    private readonly InputAction m_UI_MoreInfo;
     public struct UIActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -1934,6 +1998,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @KeyLevelDownSentience => m_Wrapper.m_UI_KeyLevelDownSentience;
         public InputAction @KeyLevelUpVitality => m_Wrapper.m_UI_KeyLevelUpVitality;
         public InputAction @KeyLevelDownVitality => m_Wrapper.m_UI_KeyLevelDownVitality;
+        public InputAction @MoreInfo => m_Wrapper.m_UI_MoreInfo;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2054,6 +2119,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @KeyLevelDownVitality.started += instance.OnKeyLevelDownVitality;
             @KeyLevelDownVitality.performed += instance.OnKeyLevelDownVitality;
             @KeyLevelDownVitality.canceled += instance.OnKeyLevelDownVitality;
+            @MoreInfo.started += instance.OnMoreInfo;
+            @MoreInfo.performed += instance.OnMoreInfo;
+            @MoreInfo.canceled += instance.OnMoreInfo;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -2169,6 +2237,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @KeyLevelDownVitality.started -= instance.OnKeyLevelDownVitality;
             @KeyLevelDownVitality.performed -= instance.OnKeyLevelDownVitality;
             @KeyLevelDownVitality.canceled -= instance.OnKeyLevelDownVitality;
+            @MoreInfo.started -= instance.OnMoreInfo;
+            @MoreInfo.performed -= instance.OnMoreInfo;
+            @MoreInfo.canceled -= instance.OnMoreInfo;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -2193,6 +2264,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UISub_Newaction;
     private readonly InputAction m_UISub_Confirm;
     private readonly InputAction m_UISub_CancelConfirm;
+    private readonly InputAction m_UISub_AssignX;
+    private readonly InputAction m_UISub_AssignB;
     public struct UISubActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -2200,6 +2273,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @Newaction => m_Wrapper.m_UISub_Newaction;
         public InputAction @Confirm => m_Wrapper.m_UISub_Confirm;
         public InputAction @CancelConfirm => m_Wrapper.m_UISub_CancelConfirm;
+        public InputAction @AssignX => m_Wrapper.m_UISub_AssignX;
+        public InputAction @AssignB => m_Wrapper.m_UISub_AssignB;
         public InputActionMap Get() { return m_Wrapper.m_UISub; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2218,6 +2293,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @CancelConfirm.started += instance.OnCancelConfirm;
             @CancelConfirm.performed += instance.OnCancelConfirm;
             @CancelConfirm.canceled += instance.OnCancelConfirm;
+            @AssignX.started += instance.OnAssignX;
+            @AssignX.performed += instance.OnAssignX;
+            @AssignX.canceled += instance.OnAssignX;
+            @AssignB.started += instance.OnAssignB;
+            @AssignB.performed += instance.OnAssignB;
+            @AssignB.canceled += instance.OnAssignB;
         }
 
         private void UnregisterCallbacks(IUISubActions instance)
@@ -2231,6 +2312,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @CancelConfirm.started -= instance.OnCancelConfirm;
             @CancelConfirm.performed -= instance.OnCancelConfirm;
             @CancelConfirm.canceled -= instance.OnCancelConfirm;
+            @AssignX.started -= instance.OnAssignX;
+            @AssignX.performed -= instance.OnAssignX;
+            @AssignX.canceled -= instance.OnAssignX;
+            @AssignB.started -= instance.OnAssignB;
+            @AssignB.performed -= instance.OnAssignB;
+            @AssignB.canceled -= instance.OnAssignB;
         }
 
         public void RemoveCallbacks(IUISubActions instance)
@@ -2303,11 +2390,14 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnKeyLevelDownSentience(InputAction.CallbackContext context);
         void OnKeyLevelUpVitality(InputAction.CallbackContext context);
         void OnKeyLevelDownVitality(InputAction.CallbackContext context);
+        void OnMoreInfo(InputAction.CallbackContext context);
     }
     public interface IUISubActions
     {
         void OnNewaction(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnCancelConfirm(InputAction.CallbackContext context);
+        void OnAssignX(InputAction.CallbackContext context);
+        void OnAssignB(InputAction.CallbackContext context);
     }
 }
