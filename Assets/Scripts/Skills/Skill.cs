@@ -20,6 +20,7 @@ public class Skill : MonoBehaviour
     public CharacterStats characterStats;
     public PlayerController playerController;
     public PlayerHealth playerHealth;
+    public GameObject curWeapon;
 
     private HUDSkills hudSkills;
     private int skillSlot;
@@ -42,7 +43,10 @@ public class Skill : MonoBehaviour
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
         currentAnimator = player.GetComponent<Animator>();
-
+        if(GameObject.FindWithTag("currentWeapon") != null)
+        {
+            curWeapon = GameObject.FindWithTag("currentWeapon");
+        }
         //int t = characterStats.sentienceLevel;
         //float lerpValue = (-0.081365f) + (0.08f*t) + (Mathf.Pow(0.0015f*t, 2)) - (Mathf.Pow(0.000135f*t, 3));
 

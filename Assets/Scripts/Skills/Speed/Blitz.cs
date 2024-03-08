@@ -6,9 +6,9 @@ using UnityEngine;
 public class Blitz : Skill
 {
     //Skill specific fields
-    private float activeBlitz = .4f;
+    private float activeBlitz = .3f;
     private float raycastDistance = 10f;
-    private int particleCount = 12;
+    private int particleCount = 10;
     private float timeBetweenParticles = 0.03f;
     [SerializeField] private LayerMask enemyLayer;
     private Collider[] enemyColliders;
@@ -21,13 +21,18 @@ public class Blitz : Skill
     }
     IEnumerator Blitzing()
     {
-        Vector3 gravity = new Vector3(0f, -15f, 0f);
         Rigidbody rb = player.GetComponent<Rigidbody>();
         playerController.activeDodge = true;
         playerController.isInvincible = true;
         playerController.looking = false;
-        Vector3 blitzDirection = rb.transform.forward * 50f;
+        Vector3 blitzDirection = rb.transform.forward * 40f;
         float elapsedTime = 0f;
+        float storedAnimSpeed = currentAnimator.speed;
+        if(curWeapon != null)
+        {
+            currentAnimator.speed = 2f;
+            currentAnimator.Play("Stab");
+        }
         while (elapsedTime < activeBlitz)
         {
             enemyColliders = Physics.OverlapSphere(player.transform.Find("CenterPoint").position, 3f, enemyLayer);
@@ -40,11 +45,11 @@ public class Blitz : Skill
                 }
             }
             elapsedTime += Time.deltaTime;
-            Vector3 finalDirection = blitzDirection + (gravity * Time.deltaTime);
-            rb.velocity = new Vector3(finalDirection.x, rb.velocity.y + finalDirection.y, finalDirection.z);
-            rb.AddForce(gravity, ForceMode.Acceleration);
+            blitzDirection.y = rb.velocity.y;
+            rb.velocity = blitzDirection;
             yield return null;
         }
+        currentAnimator.speed = storedAnimSpeed;
         playerController.activeDodge = false;
         playerController.isInvincible = false;
         playerController.looking = true;
@@ -57,7 +62,7 @@ public class Blitz : Skill
             float t = (float)i / (float)(particleCount - 1);
 
             Vector3 spawnPosition = Vector3.Lerp(startPosition, startPosition + (startingForwardVector * raycastDistance), t);
-            ParticleManager.Instance.SpawnParticles("BlitzParticles", spawnPosition, Quaternion.identity);
+            ParticleManager.Instance.SpawnParticles("BlitzParticles", player.transform.Find("CenterPoint").position, Quaternion.identity);
             yield return new WaitForSeconds(timeBetweenParticles);
         }
     }
