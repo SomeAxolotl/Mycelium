@@ -26,10 +26,15 @@ public class WeaponCollision : MonoBehaviour
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
-            if(relentlessFury.isFrenzied)
+            if(relentlessFury != null)
             {
-                playerHealth.PlayerHeal(dmgDealt / 4f);
+                if(relentlessFury.isFrenzied)
+                {
+                    playerHealth.PlayerHeal(dmgDealt / 4f);
+                }
+
             }
+            
             other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
             StartCoroutine(HitStop());
@@ -39,9 +44,13 @@ public class WeaponCollision : MonoBehaviour
         {
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponentInParent<BossHealth>().EnemyTakeDamage(dmgDealt);
-            if (relentlessFury.isFrenzied)
+            if(relentlessFury != null)
             {
-                playerHealth.PlayerHeal(dmgDealt / 4f);
+                if(relentlessFury.isFrenzied)
+                {
+                    playerHealth.PlayerHeal(dmgDealt / 4f);
+                }
+
             }
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
         }
