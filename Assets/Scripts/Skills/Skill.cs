@@ -94,7 +94,7 @@ public class Skill : MonoBehaviour
 
     public void StartCooldown()
     {
-        StartCoroutine("Cooldown");
+        StartCoroutine(Cooldown());
     }
 
     IEnumerator Cooldown()

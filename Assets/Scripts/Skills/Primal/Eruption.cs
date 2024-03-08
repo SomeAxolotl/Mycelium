@@ -36,9 +36,11 @@ public class Eruption : Skill
             {
                 damage *= sourSpotScalar;
             }
-
-            EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
-            enemyHealth.EnemyTakeDamage(damage);
+            if(collider.gameObject.GetComponent<EnemyHealth>() != null)
+            {
+                EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
+                enemyHealth.EnemyTakeDamage(damage);
+            }
         }
     }
 

@@ -162,14 +162,14 @@ public class PlayerController : MonoBehaviour
     IEnumerator Dodging()
     {
         CalculateDodgeCooldown();
-        float storedAnimSpeed = swapCharacter.currentCharacterStats.animatorSpeed;
-        animator.speed = 1.5f;
         canUseDodge = false;
         canUseAttack = false;
         canUseSkill = false;
         activeDodge = true;
         isInvincible = true;
         looking = false;
+        float storedAnimSpeed = swapCharacter.currentCharacterStats.animatorSpeed;
+        animator.speed = 1.5f;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
         Vector3 rollDirection = rb.transform.forward * 20f;

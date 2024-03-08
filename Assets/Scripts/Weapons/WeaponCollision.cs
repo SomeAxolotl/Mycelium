@@ -5,15 +5,18 @@ using UnityEngine;
 public class WeaponCollision : MonoBehaviour
 {
     PlayerAttack playerAttack;
+    PlayerHealth playerHealth;
     public float sentienceBonusDamage = 0f;
     public float reflectBonusDamage = 0f;
     List<GameObject> enemiesHit = new List<GameObject>();
     WeaponStats weaponStats;
-
+    RelentlessFury relentlessFury;
     void Start()
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
+        playerHealth = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
         weaponStats = GetComponent<WeaponStats>();
+        Invoke("CheckForSkills", 1f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +26,10 @@ public class WeaponCollision : MonoBehaviour
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
+            if(relentlessFury.isFrenzied)
+            {
+                playerHealth.PlayerHeal(dmgDealt / 4f);
+            }
             other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback);
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
             StartCoroutine(HitStop());
@@ -32,6 +39,10 @@ public class WeaponCollision : MonoBehaviour
         {
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponentInParent<BossHealth>().EnemyTakeDamage(dmgDealt);
+            if (relentlessFury.isFrenzied)
+            {
+                playerHealth.PlayerHeal(dmgDealt / 4f);
+            }
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
         }
     }
@@ -56,5 +67,12 @@ public class WeaponCollision : MonoBehaviour
     public void ClearEnemyList()
     {
         enemiesHit.Clear();
+    }
+    private void CheckForSkills()
+    {
+        if (GameObject.Find("SkillLoadout").GetComponentInChildren<RelentlessFury>() != null)
+        {
+            relentlessFury = GameObject.Find("SkillLoadout").GetComponentInChildren<RelentlessFury>();
+        }
     }
 }
