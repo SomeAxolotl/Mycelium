@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public Vector3 forceDirection = Vector3.zero;
     [HideInInspector] public float moveSpeed;
-    private float gravityForce = -15;
+    private float gravityForce = -25f;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;
     public bool looking = true;
@@ -126,9 +126,11 @@ public class PlayerController : MonoBehaviour
     {
         LookAt();
 
+        rb.AddForce(gravity, ForceMode.Acceleration);
+
         inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
         targetVelocity = (GetCameraRight(playerCamera) * inputDirection.x + GetCameraForward(playerCamera) * inputDirection.z) * moveSpeed;
-        targetVelocity.y = rb.velocity.y + gravity.y * Time.fixedDeltaTime;
+        targetVelocity.y = rb.velocity.y;
         if (!activeDodge)
         {
             rb.velocity = targetVelocity;
@@ -170,14 +172,13 @@ public class PlayerController : MonoBehaviour
         looking = false;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
-        Vector3 rollDirection = rb.transform.forward * (moveSpeed * 1.75f);
+        Vector3 rollDirection = rb.transform.forward * 20f;
         float rollTimer = 0f;
         while (rollTimer < clipLength)
         {
             rollTimer += Time.deltaTime;
-            Vector3 finalDirection = rollDirection + (gravity * Time.deltaTime);
-            rb.velocity = new Vector3(finalDirection.x, rb.velocity.y + finalDirection.y, finalDirection.z);
-            rb.AddForce(gravity, ForceMode.Acceleration);
+            rollDirection.y = rb.velocity.y;
+            rb.velocity = rollDirection;
             yield return null;
         }
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
@@ -254,7 +255,6 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         animator.SetBool("Hurt", true);
         animator.Play("Hurt");
-        //yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt"));
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .5f);
         animator.SetBool("Hurt", false);
         EnableController();
