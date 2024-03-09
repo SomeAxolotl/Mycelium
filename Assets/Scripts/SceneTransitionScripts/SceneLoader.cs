@@ -278,6 +278,8 @@ public class SceneLoader : MonoBehaviour
         }
 
         Debug.Log("DONE WITH TITLE CARD");
+
+        GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
     }
 
     void ChangeFunText(TMP_Text funText)

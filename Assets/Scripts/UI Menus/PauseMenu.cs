@@ -43,7 +43,7 @@ public class PauseMenu : MonoBehaviour
 
             profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
 
-            Resume();
+            //Resume();
         }
 
         if(GameObject.Find("SporeManager") != null)

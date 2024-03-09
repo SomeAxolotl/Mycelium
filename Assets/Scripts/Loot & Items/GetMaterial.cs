@@ -80,7 +80,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
         string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";
 
         string buttonText = "<color=#3cdb4e>A</color>";
-        TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press "+buttonText+" to Pick Up\n(Hold "+buttonText+" to salvage)");
+        TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press "+buttonText+" to Pick Up\n(Hold "+buttonText+" to Salvage)");
     }
 
     public void DestroyTooltip(GameObject interactObject)
