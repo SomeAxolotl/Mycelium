@@ -13,6 +13,7 @@ public class CamOcclusionTransmit : MonoBehaviour
     private int numOfHits;
 
     private List<CamOcclusionReceive> latestReceiveScripts = new List<CamOcclusionReceive>();
+    private List<CamOcclusionReceive> toBeFadedIn = new List<CamOcclusionReceive>();
 
     private Vector3 playerDirection;
     private float playerDistance;
@@ -50,14 +51,19 @@ public class CamOcclusionTransmit : MonoBehaviour
             foreach(CamOcclusionReceive script in latestReceiveScripts)
             {
                 script.StartFadeOut();
+                if(toBeFadedIn.Contains(script) == false)
+                {
+                    toBeFadedIn.Add(script);
+                }
             }
         }
         else
         {
             Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.red * 2, 0f, false);
-            foreach (CamOcclusionReceive script in latestReceiveScripts)
+            foreach (CamOcclusionReceive script in toBeFadedIn)
             {
                 script.StartFadeIn();
+                toBeFadedIn.Remove(script);
             }
         }
     }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5140441064138256259}
   - component: {fileID: 300661754802236567}
   - component: {fileID: 7181757157090771017}
+  - component: {fileID: 3351839404963708272}
   m_Layer: 0
   m_Name: Carcass_Skull_Cranium
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -81.737, y: -180, z: 0}
 --- !u!33 &300661754802236567
 MeshFilter:
@@ -83,3 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3351839404963708272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861708650755229219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66b1068624b6544192d9e60e7de9395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderers:
+  - {fileID: 7181757157090771017}
+  isActivated: 0

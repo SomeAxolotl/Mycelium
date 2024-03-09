@@ -97,7 +97,7 @@ public class CamOcclusionReceive : MonoBehaviour
 
             foreach (Material material in materials)
             {
-                finalOpacity = Mathf.Lerp(0, 1, t);
+                finalOpacity = Mathf.Lerp(startingOpacity, 1, t);
                 material.SetFloat("_OpacityOverride", finalOpacity);
             }
 
