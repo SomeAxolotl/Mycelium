@@ -46,7 +46,7 @@ public class CamOcclusionTransmit : MonoBehaviour
 
         if (numOfHits > 0)
         {
-            Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.blue * 2, 0f, false);
+            Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.blue, 0f, false);
             latestReceiveScripts = FindTheReceiver();
             foreach(CamOcclusionReceive script in latestReceiveScripts)
             {
@@ -59,12 +59,12 @@ public class CamOcclusionTransmit : MonoBehaviour
         }
         else
         {
-            Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.red * 2, 0f, false);
+            Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.red, 0f, false);
             foreach (CamOcclusionReceive script in toBeFadedIn)
             {
                 script.StartFadeIn();
-                toBeFadedIn.Remove(script);
             }
+            toBeFadedIn.Clear();
         }
     }
 
