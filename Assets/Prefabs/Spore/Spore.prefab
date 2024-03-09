@@ -2942,6 +2942,9 @@ GameObject:
   - component: {fileID: 5961980393901514681}
   - component: {fileID: 7217284717038426674}
   - component: {fileID: 3315170148169550044}
+  - component: {fileID: 7309809706582082505}
+  - component: {fileID: 9137682804701217071}
+  - component: {fileID: 5155620943360445244}
   m_Layer: 3
   m_Name: Spore
   m_TagString: Player
@@ -3051,7 +3054,6 @@ MonoBehaviour:
   levelUpCost: 0
   ConfirmPrimal: {fileID: 0}
   ConfirmSpeed: {fileID: 0}
-  nametag: {fileID: 7073038314392275862}
   animatorSpeed: 0
 --- !u!114 &2379302324268303564
 MonoBehaviour:
@@ -3235,6 +3237,54 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &7309809706582082505
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833743133119944518}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 65672
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 65399
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 4
+  m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &9137682804701217071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833743133119944518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653fa405385fa964f8a56dfb6db8ad52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableObjects: []
+  interactAngle: 90
+  closestInteractableObject: {fileID: 0}
+--- !u!114 &5155620943360445244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833743133119944518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762afe0e436de51499747a3e90401103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1865234690160273150
 GameObject:
   m_ObjectHideFlags: 0
@@ -7747,7 +7797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5134051130583639152
 RectTransform:
   m_ObjectHideFlags: 0

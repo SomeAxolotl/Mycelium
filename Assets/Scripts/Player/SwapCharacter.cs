@@ -29,7 +29,7 @@ public class SwapCharacter : MonoBehaviour
         playerActionsAsset = new ThirdPersonActionsAsset();
         skillManager = GetComponent<SkillManager>();
         playerActionsAsset.Player.Enable();
-        swapCharacter = playerActionsAsset.Player.SwapItem;
+        swapCharacter = playerActionsAsset.Player.Interact;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
 
         SwitchCharacter(currentCharacterIndex);
@@ -66,16 +66,22 @@ public class SwapCharacter : MonoBehaviour
         StartCoroutine(UpdateName());
         hudSkills.UpdateHUDIcons();
     }
+
+    public int GetCharacterIndex(GameObject character)
+    {
+        return characters.IndexOf(character);
+    }
+
     public void SwitchCharacterGrowMenu(int index)
     {
-        characters[currentCharacterIndex].GetComponent<CharacterStats>().ShowNametag();
+        //characters[currentCharacterIndex].GetComponent<CharacterStats>().ShowNametag();
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
         characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = true;
         currentCharacterIndex = index;
-        characters[currentCharacterIndex].GetComponent<CharacterStats>().HideNametag();
+        //characters[currentCharacterIndex].GetComponent<CharacterStats>().HideNametag();
         characters[currentCharacterIndex].tag = "currentPlayer";
         characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = false;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;

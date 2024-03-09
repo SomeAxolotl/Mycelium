@@ -112,8 +112,8 @@ public class SpawnCharacter : MonoBehaviour
         newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
         usedSporeNames.Add(sporeNames[randomNameIndex]);
         sporeNames.Remove(sporeNames[randomNameIndex]);
-        newCharacter.GetComponent<CharacterStats>().ShowNametag();
-        newCharacter.GetComponent<CharacterStats>().UpdateNametagText();
+        //newCharacter.GetComponent<CharacterStats>().ShowNametag();
+        //newCharacter.GetComponent<CharacterStats>().UpdateNametagText();
     }
 
     void CreateSpeciesPalette(GameObject character, string subspecies)

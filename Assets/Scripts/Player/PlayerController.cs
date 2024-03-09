@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using RonaldSunglassesEmoji.Interaction;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dodgeCooldownIncrement = -0.15f;
     private float finalDodgeCooldown;
 
+    private GameObject currentPlayer;
     public Rigidbody rb;
     public Vector3 forceDirection = Vector3.zero;
     [HideInInspector] public float moveSpeed;
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private InputAction stat_skill_1;
     private InputAction stat_skill_2;
     private InputAction subspecies_skill;
+    private InputAction interact;
+    private InputAction salvage;
     public bool canUseDodge = true;
     public bool canUseAttack = true;
     public bool canUseSkill = true;
@@ -63,6 +67,8 @@ public class PlayerController : MonoBehaviour
         stat_skill_1 = playerActionsAsset.Player.Stat_Skill_1;
         stat_skill_2 = playerActionsAsset.Player.Stat_Skill_2;
         subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
+        interact = playerActionsAsset.Player.Interact;
+        salvage = playerActionsAsset.Player.Salvage;
         gravity = new Vector3(0f, gravityForce, 0f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -120,6 +126,28 @@ public class PlayerController : MonoBehaviour
                 skill2.ActivateSkill(2);
             }
         }
+
+        if (interact.triggered && canAct)
+        {
+            SporeInteractableFinder sporeInteractableFinder = GameObject.FindWithTag("currentPlayer").GetComponent<SporeInteractableFinder>();
+            GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
+            if (closestInteractableObject != null)
+            {
+                closestInteractableObject.GetComponent<IInteractable>().Interact(closestInteractableObject);
+                sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
+            }
+        }
+
+        if (salvage.triggered && canAct)
+        {
+            SporeInteractableFinder sporeInteractableFinder = GameObject.FindWithTag("currentPlayer").GetComponent<SporeInteractableFinder>();
+            GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
+            if (closestInteractableObject != null)
+            {
+                closestInteractableObject.GetComponent<IInteractable>().Salvage(closestInteractableObject);
+                sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -149,6 +177,7 @@ public class PlayerController : MonoBehaviour
     }
     public void GetStats()
     {
+        currentPlayer = GameObject.FindWithTag("currentPlayer");
         rb = GetComponentInChildren<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;

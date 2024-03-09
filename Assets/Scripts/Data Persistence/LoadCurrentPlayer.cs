@@ -70,7 +70,7 @@ public class LoadCurrentPlayer : MonoBehaviour
         stats = currentPlayerSpore.GetComponent<CharacterStats>();
         design = currentPlayerSpore.GetComponent<DesignTracker>();
 
-        stats.HideNametag();
+        //stats.HideNametag();
 
         //Load the saved data into the prefab
         stats.sporeName = sporeData.sporeName;

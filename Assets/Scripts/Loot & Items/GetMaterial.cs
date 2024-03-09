@@ -3,10 +3,14 @@ using System.Collections.Generic;
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using RonaldSunglassesEmoji.Interaction;
+using UnityEditor;
 
-public class GetMaterial : MonoBehaviour
+public class GetMaterial : MonoBehaviour, IInteractable
 {
     [SerializeField] private string materialName = "Rotten Log";
+
+    [SerializeField] private int nutrientsSalvaged = 200;
 
     [SerializeField] private Color descriptionColor;
 
@@ -17,7 +21,6 @@ public class GetMaterial : MonoBehaviour
     [SerializeField] private GameObject flesh;
 
     ThirdPersonActionsAsset playerActionsAsset;
-    private InputAction interact;
     GameObject player;
     NutrientTracker nutrientTracker;
 
@@ -28,56 +31,63 @@ public class GetMaterial : MonoBehaviour
     {
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
-        interact = playerActionsAsset.Player.Interact;
         player = GameObject.FindWithTag("currentPlayer");
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         hudItem = GameObject.Find("HUD").GetComponent<HUDItem>();
     }
-    private void Update()
+
+    void Update()
     {
         transform.Rotate(0, 60 * Time.deltaTime, 0);
-
-        distance = Vector3.Distance(player.transform.position, this.transform.position);
-        if (distance < 3f)
-        {
-            string subspeciesText = "N/A";
-            switch (materialName)
-            {
-                case "Rotten Log":
-                    subspeciesText = "basic";
-                    break;
-                case "Fresh Exoskeleton":
-                    subspeciesText = "poisonous";
-                    break;
-                case "Calcite Deposit":
-                    subspeciesText = "coral";
-                    break;
-                case "Flesh":
-                    subspeciesText = "cordyceps";
-                    break;
-            }
-            string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";
-
-            string buttonText = "<color=#3cdb4e>A</color>";
-            TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press "+buttonText+" to Pick Up\n(Hold "+buttonText+" to salvage)");
-            if (interact.triggered)
-            {
-                SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
-
-                AddMaterial();
-                TooltipManager.Instance.DestroyTooltip();
-            }
-        }
-        else if (distance > 3f && distance < 5f)
-        {
-            TooltipManager.Instance.DestroyTooltip();
-        }
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             nutrientTracker.KeepMaterials();
         }
     }
+
+    public void Interact(GameObject interactObject)
+    {
+        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+
+        AddMaterial();
+        TooltipManager.Instance.DestroyTooltip();
+    }
+
+    public void Salvage(GameObject interactObject)
+    {
+        SalvageNutrients(nutrientsSalvaged);
+    }
+
+    public void CreateTooltip(GameObject interactObject)
+    {
+        string subspeciesText = "N/A";
+        switch (materialName)
+        {
+            case "Rotten Log":
+                subspeciesText = "basic";
+                break;
+            case "Fresh Exoskeleton":
+                subspeciesText = "poisonous";
+                break;
+            case "Calcite Deposit":
+                subspeciesText = "coral";
+                break;
+            case "Flesh":
+                subspeciesText = "cordyceps";
+                break;
+        }
+        string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";
+
+        string buttonText = "<color=#3cdb4e>A</color>";
+        TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press "+buttonText+" to Pick Up\n(Hold "+buttonText+" to salvage)");
+    }
+
+    public void DestroyTooltip(GameObject interactObject)
+    {
+        TooltipManager.Instance.DestroyTooltip();
+    }
+
     private void AddMaterial()
     {
         nutrientTracker.LoseMaterials();
@@ -145,5 +155,13 @@ public class GetMaterial : MonoBehaviour
             hudItem.PickUpItem("Flesh");
         }
         gameObject.SetActive(false);
+    }
+
+    void SalvageNutrients(int nutrientAmount)
+    {
+        nutrientTracker.AddNutrients(nutrientAmount);
+        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientAmount / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        TooltipManager.Instance.DestroyTooltip();
+        Destroy(this.gameObject);
     }
 }

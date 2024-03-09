@@ -89,7 +89,7 @@ public class SporeManager : MonoBehaviour
             stats = currentPlayerSpore.GetComponent<CharacterStats>();
             design = currentPlayerSpore.GetComponent<DesignTracker>();
 
-            stats.HideNametag();
+            //stats.HideNametag();
         }
         else
         {
@@ -105,7 +105,7 @@ public class SporeManager : MonoBehaviour
             //Add the spore to the characters index
             swapCharacterScript.characters.Add(Spore);
 
-            stats.ShowNametag();
+            //stats.ShowNametag();
         }
 
         //Load the saved data into the prefab

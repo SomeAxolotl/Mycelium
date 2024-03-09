@@ -62,7 +62,7 @@ public class CharacterStats : MonoBehaviour
     private SkillManager skillManager;
     public GameObject ConfirmPrimal;
     public GameObject ConfirmSpeed;
-    [SerializeField] private Nametag nametag;
+    //[SerializeField] private Nametag nametag;
 
     private HUDHealth hudHealth;
 
@@ -861,17 +861,17 @@ public class CharacterStats : MonoBehaviour
     }
     public void UpdateNametagText()
     {
-        nametag.SetSporeNametagText(sporeName);
+        //nametag.SetSporeNametagText(sporeName);
     }
     public void ShowNametag()
     {
         Debug.Log(sporeName + " showing nametag");
-        nametag.ShowNametag();
+        //nametag.ShowNametag();
     }
     public void HideNametag()
     {
-        nametag.HideNametag();
-        Debug.Log(sporeName + " hiding nametag");
+        //nametag.HideNametag();
+        //Debug.Log(sporeName + " hiding nametag");
     }
 
     public void UnlockSkill(string skillName)

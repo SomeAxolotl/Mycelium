@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using RonaldSunglassesEmoji.Interaction;
 //using static UnityEditor.Progress;
 
 
-public class LootCache : MonoBehaviour
+public class LootCache : MonoBehaviour, IInteractable
 {
     float distance;
     [SerializeField] private List<GameObject> possibleDrops;
@@ -34,28 +35,31 @@ public class LootCache : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Interact(GameObject interactObject)
     {
-        distance = Vector3.Distance(player.transform.position, this.transform.position);
-        if (distance < 3)
-        {
-            Debug.Log("SPAWNING TOOLTIP FOR WEAPON");
-            string buttonText = "<color=#3cdb4e>A</color>";
-            TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Press "+buttonText+" to Open");
-            if (interact.triggered)
-            {
-                SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
 
-                TooltipManager.Instance.DestroyTooltip();
-                GetLoot();
-                Destroy(this.gameObject);
-            }
-        }
-        else if (distance < 5)
-        {
-            TooltipManager.Instance.DestroyTooltip();
-        }
+        TooltipManager.Instance.DestroyTooltip();
+        GetLoot();
+        Destroy(this.gameObject);
     }
+
+    public void Salvage(GameObject interactObject)
+    {
+        //buh
+    }
+
+    public void CreateTooltip(GameObject interactObject)
+    {
+        string buttonText = "<color=#3cdb4e>A</color>";
+        TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Press "+buttonText+" to Open");
+    }
+
+    public void DestroyTooltip(GameObject interactObject)
+    {
+        TooltipManager.Instance.DestroyTooltip();
+    }
+
     public void GetLoot()
     {
         int randomDropIndex = Random.Range(0, possibleDrops.Count);

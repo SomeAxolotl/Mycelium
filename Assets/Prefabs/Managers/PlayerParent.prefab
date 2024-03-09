@@ -37,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4282385786043701617
 MonoBehaviour:
@@ -51,14 +51,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5677c239b52326e40898a46e93c692d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugInteractables: []
+  interactRadius: 4
+  interactAngle: 90
   baseDodgeCooldown: 3
   dodgeCooldownIncrement: -0.15
   rb: {fileID: 0}
   forceDirection: {x: 0, y: 0, z: 0}
   moveSpeed: 0
-  gravityForce: -20
   playerCamera: {fileID: 0}
   looking: 1
+  inputDirection: {x: 0, y: 0, z: 0}
+  targetVelocity: {x: 0, y: 0, z: 0}
+  rollClip: {fileID: 0}
   canUseDodge: 1
   canUseAttack: 1
   canUseSkill: 1
@@ -240,7 +245,6 @@ MonoBehaviour:
   lungeDurationScalar: 0.05
   animator: {fileID: 0}
   attackAnimation: 
-  windupMoveSpeed: 0
 --- !u!114 &2120284731979701386
 MonoBehaviour:
   m_ObjectHideFlags: 0

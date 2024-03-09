@@ -7,6 +7,7 @@ public class TooltipManager : MonoBehaviour
     public static TooltipManager Instance;
 
     private GameObject currentTooltip;
+    private GameObject currentParent;
     [SerializeField] private GameObject tooltipCanvasPrefab;
 
     void Awake()
@@ -21,12 +22,23 @@ public class TooltipManager : MonoBehaviour
         }
     }
 
-    public void CreateTooltip(GameObject parent, string title, string description, string interactString)
+    public void CreateTooltip(GameObject parent, string title, string description, string interactString, bool shouldParent = false, float verticalOffset = 0f)
     {
-        if (currentTooltip == null)
+        if (currentParent != parent)
         {
+            Vector3 tooltipPosition = parent.transform.position;
+            tooltipPosition.y += verticalOffset;
+
             DestroyTooltip();
-            currentTooltip = Instantiate(tooltipCanvasPrefab, parent.transform.position, Quaternion.identity);
+            currentParent = parent;
+            if (shouldParent)
+            {
+                currentTooltip = Instantiate(tooltipCanvasPrefab, tooltipPosition, Quaternion.identity, parent.transform);
+            }
+            else
+            {
+                currentTooltip = Instantiate(tooltipCanvasPrefab, tooltipPosition, Quaternion.identity);
+            }
             Tooltip tooltip = currentTooltip.GetComponent<Tooltip>();
             tooltip.tooltipTitle.text = title;
             tooltip.tooltipDescription.text = description;
@@ -38,6 +50,7 @@ public class TooltipManager : MonoBehaviour
     {
         if (currentTooltip != null)
         {
+            currentParent = null;
             Destroy(currentTooltip);
         }
     }

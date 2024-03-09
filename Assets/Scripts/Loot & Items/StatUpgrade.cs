@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using RonaldSunglassesEmoji.Interaction;
 
-public class StatUpgrade : MonoBehaviour
+public class StatUpgrade : MonoBehaviour, IInteractable
 {
     ThirdPersonActionsAsset playerActionsAsset;
-    InputAction upgrade1;
-    InputAction upgrade2;
     GameObject player;
     CharacterStats characterStats;
     string upgradeStat1;
@@ -19,8 +18,6 @@ public class StatUpgrade : MonoBehaviour
     {
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
-        upgrade1 = playerActionsAsset.Player.Interact;
-        upgrade2 = playerActionsAsset.Player.Salvage;
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
 
@@ -54,27 +51,32 @@ public class StatUpgrade : MonoBehaviour
     private void Update()
     {
         transform.Rotate(0, 60 * Time.deltaTime, 0);
+    }
 
-        float distance = Vector3.Distance(player.transform.position, this.transform.position);
-        if (distance < 3f)
-        {
-            string buttonText = "<color=#3cdb4e>A</color>";
-            TooltipManager.Instance.CreateTooltip(gameObject, "Nutrient Deposit", "Press "+buttonText+" - " + multiplyAmount + "x " + upgradeStat1 + "\nOR" + "\nHold "+buttonText+" - " + multiplyAmount + "x " +upgradeStat2, "Choose One");
+    public void Interact(GameObject interactObject)
+    {
+        Upgrade1();
+    }
 
-            if (upgrade1.triggered)
-            {
-                Upgrade1();
-            }
-            if (upgrade2.triggered)
-            {
-                Debug.Log("upgrade2");
-                Upgrade2();
-            }
-        }
-        else if (distance >3f && distance <5f)
-        {
-            TooltipManager.Instance.DestroyTooltip();
-        }
+    public void Swap(GameObject interactObject)
+    {
+        //buh
+    }
+
+    public void Salvage(GameObject interactObject)
+    {
+        Upgrade2();
+    }
+
+    public void CreateTooltip(GameObject interactObject)
+    {
+        string buttonText = "<color=#3cdb4e>A</color>";
+        TooltipManager.Instance.CreateTooltip(gameObject, "Nutrient Deposit", "Press "+buttonText+" - " + multiplyAmount + "x " + upgradeStat1 + "\nOR" + "\nHold "+buttonText+" - " + multiplyAmount + "x " +upgradeStat2, "Choose One");
+    }
+
+    public void DestroyTooltip(GameObject interactObject)
+    {
+        TooltipManager.Instance.DestroyTooltip();
     }
 
     void Upgrade1()
