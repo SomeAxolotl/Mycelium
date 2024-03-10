@@ -5,11 +5,14 @@ using UnityEngine;
 public class CamOcclusionReceive : MonoBehaviour
 {
     [SerializeField] private List<Renderer> meshRenderers;
+    
 
     private List<Material> materials = new List<Material>();
 
     private Coroutine fadeOut;
     private Coroutine fadeIn;
+
+    //private GameObject shadowCasterObject;
 
     [HideInInspector] public bool isActivated = false;
 
@@ -24,7 +27,7 @@ public class CamOcclusionReceive : MonoBehaviour
 
     public void StartFadeOut()
     {
-        //Debug.Log("ACTIVATING" + name, gameObject);
+        Debug.Log("ACTIVATING" + name, gameObject);
 
         try
         {
@@ -38,6 +41,25 @@ public class CamOcclusionReceive : MonoBehaviour
         if(isActivated == false)
         {
             fadeOut = StartCoroutine(FadeOut());
+
+            GameObject shadowCasterObject = Instantiate(gameObject, transform.position, transform.rotation, transform.parent);
+            shadowCasterObject.tag = "Cloned";
+
+            foreach(Renderer renderer in shadowCasterObject.GetComponent<CamOcclusionReceive>().meshRenderers)
+            {
+                renderer.material.shader = Shader.Find("Shader Graphs/TransparentWithShadow");
+            }
+
+            foreach(Component component in shadowCasterObject.GetComponents<Component>())
+            {
+                if(component.GetType() != typeof(Transform) && component.GetType() != typeof(MeshRenderer) && component.GetType() != typeof(MeshFilter))
+                {
+                    Destroy(component);
+                }
+            }
+
+            shadowCasterObject.AddComponent<DestroySelf>();
+            
         }
     }
 

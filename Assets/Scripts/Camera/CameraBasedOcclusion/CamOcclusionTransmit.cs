@@ -40,7 +40,7 @@ public class CamOcclusionTransmit : MonoBehaviour
 
     void CastOcclusionRay()
     {
-        numOfHits = Physics.SphereCastNonAlloc(occlusionCheckRay, 0.5f, hits, playerDistance, occludedLayers);
+        numOfHits = Physics.SphereCastNonAlloc(occlusionCheckRay, 0.5f, hits, playerDistance, occludedLayers, QueryTriggerInteraction.Ignore);
 
 
 
@@ -50,9 +50,9 @@ public class CamOcclusionTransmit : MonoBehaviour
             latestReceiveScripts = FindTheReceiver();
             foreach(CamOcclusionReceive script in latestReceiveScripts)
             {
-                script.StartFadeOut();
                 if(toBeFadedIn.Contains(script) == false)
                 {
+                    script.StartFadeOut();
                     toBeFadedIn.Add(script);
                 }
             }
@@ -65,6 +65,11 @@ public class CamOcclusionTransmit : MonoBehaviour
                 script.StartFadeIn();
             }
             toBeFadedIn.Clear();
+            foreach (GameObject clonedObject in GameObject.FindGameObjectsWithTag("Cloned"))
+            {
+                clonedObject.GetComponent<DestroySelf>().InitiateSelfDestructSequence();
+                clonedObject.tag = "Untagged";
+            }
         }
     }
 
