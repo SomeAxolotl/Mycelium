@@ -45,7 +45,7 @@ public class DeathBlossomPlant : DeathBlossom
     {
         yield return new WaitForSeconds(destroyTime);
         DamageEnemies();
-        DeathBlossomParticles();
+        //DeathBlossomParticles();
         if (damageOverTimeDuration > 0)
         {
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
@@ -75,6 +75,7 @@ public class DeathBlossomPlant : DeathBlossom
     void DamageEnemies()
     {
         SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+        ParticleManager.Instance.SpawnParticles("DeathBlossomParticles", transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
 
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
