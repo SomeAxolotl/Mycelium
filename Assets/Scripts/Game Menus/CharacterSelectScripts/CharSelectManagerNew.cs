@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 public class CharSelectManagerNew : MonoBehaviour
 {
     public SwapCharacter swapCharacter;
-    public Button Test;
+    public Button startButton;
     public GameObject UIEnable;
     public GameObject HUD;
     ThirdPersonActionsAsset controls;
@@ -33,7 +33,8 @@ public class CharSelectManagerNew : MonoBehaviour
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerController.DisableController();
         controls = new ThirdPersonActionsAsset();
-        Test.Select();
+        startButton.Select();
+        HUD.GetComponent<HUDController>().FadeOutHUD();
         controls.UI.Close.performed += ctx => Close();
         
     }
@@ -43,6 +44,7 @@ public class CharSelectManagerNew : MonoBehaviour
         playerController.EnableController();
         UIEnable.SetActive(false);
         GlobalData.isAbleToPause = true;
+        HUD.GetComponent<HUDController>().FadeInHUD();
     }
     public void StartGame()
     {

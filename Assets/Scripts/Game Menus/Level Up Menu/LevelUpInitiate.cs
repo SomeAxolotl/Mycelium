@@ -10,7 +10,7 @@ public class LevelUpInitiate : MonoBehaviour, IInteractable
     [SerializeField]
     GameObject levelupmenu;
     public GameObject HUD;
-    private CanvasGroup HUDCanvasGroup;
+    private HUDController hudController;
     public Button firstbutton;
 
     public PlayerController playerController;
@@ -20,8 +20,8 @@ public class LevelUpInitiate : MonoBehaviour, IInteractable
 
     void Start()
     {
-        HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
-         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        hudController = GameObject.Find("HUD").GetComponent<HUDController>();
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         //HUDCanvasGroup = HUD.GetComponent<CanvasGroup>();
     }
 
@@ -33,7 +33,7 @@ public class LevelUpInitiate : MonoBehaviour, IInteractable
             playerController.DisableController();
             levelupmenu.SetActive(true);
             
-            HUDCanvasGroup.alpha = 0;
+            hudController.FadeOutHUD();
 
             //This helps fix the bug where you could pause in the shop
             GlobalData.isAbleToPause = false;

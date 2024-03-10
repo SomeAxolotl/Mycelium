@@ -35,6 +35,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Color daybreakTextColor;
     [SerializeField] private Color deltaTextColor;
     [SerializeField] private Color bossTestTextColor;
+    [SerializeField] private float titleFadoutTime = 1f;
 
     private TMP_Text titleText;
     private RectTransform titleTextRectTransform;
@@ -156,9 +157,10 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(ActivateTitleCanvas(5f));
         yield return StartCoroutine(FadeCanvasIn(titleCanvasGroup, transitionTime));
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(titleFadoutTime);
         yield return StartCoroutine(FadeCanvasOut(titleCanvasGroup, transitionTime));
 
+        GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
     }
 
     IEnumerator LoadSceneGood(int sceneIndex, float transitionTime)
@@ -277,9 +279,7 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("DONE WITH TITLE CARD");
-
-        GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
+        //Debug.Log("DONE WITH TITLE CARD");
     }
 
     void ChangeFunText(TMP_Text funText)

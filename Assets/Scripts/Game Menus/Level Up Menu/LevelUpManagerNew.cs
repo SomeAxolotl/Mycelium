@@ -34,7 +34,7 @@ public class LevelUpManagerNew : MonoBehaviour
     private float damagesave;
     private int totalLevelsave;
     private int levelupsave;
-    private CanvasGroup HUDCanvasGroup;
+    private HUDController hudController;
     private PlayerHealth playerHealth;
     public CharacterStats currentstats;
     private PlayerController playerController;
@@ -78,7 +78,7 @@ public class LevelUpManagerNew : MonoBehaviour
   
     void Start()
     {
-        HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+        hudController = GameObject.Find("HUD").GetComponent<HUDController>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
@@ -666,7 +666,7 @@ public class LevelUpManagerNew : MonoBehaviour
       playerhealth.GetHealthStats();
       playerhealth.currentHealth = playerhealth.maxHealth;
       UIenable.SetActive(false);
-      HUDCanvasGroup.alpha = 1;
+      hudController.FadeInHUD();
       hudSkills.UpdateHUDIcons();
       currentstats.UpdateLevel();
       playerController.EnableController();
@@ -697,7 +697,7 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
       UIenable.SetActive(false);
-      HUDCanvasGroup.alpha = 1;
+      hudController.FadeInHUD();
       hudSkills.UpdateHUDIcons();
       hudNutrients.UpdateNutrientsUI(nutrientsSave);
 
