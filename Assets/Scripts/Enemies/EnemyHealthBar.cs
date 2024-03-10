@@ -47,7 +47,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
 
     IEnumerator DamageNumberAnimation(float damage)
     {
-        Debug.Log("damage number");
+        //Debug.Log("damage number");
         Transform parentTransform = transform.GetChild(0);
         GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, transform.GetChild(0).rotation, parentTransform);
         TMP_Text damageText = damageTextInstance.GetComponent<TMP_Text>();

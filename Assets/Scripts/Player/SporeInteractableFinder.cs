@@ -52,7 +52,7 @@ public class SporeInteractableFinder : MonoBehaviour
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Weapon") || other.gameObject.layer == LayerMask.NameToLayer("Interactable") || other.gameObject.tag == "Player" )
             {
-                Debug.Log(other.gameObject.name);
+                //Debug.Log(other.gameObject.name);
                 if (gameObject.tag == "currentPlayer")
                 {
                     Vector3 directionToPlayer = (other.transform.position - transform.position).normalized;

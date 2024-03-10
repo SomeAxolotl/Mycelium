@@ -10,7 +10,7 @@ public class HUDNutrients : MonoBehaviour
 
     public void UpdateNutrientsUI(int currentNutrients)
     {
-        Debug.Log("Nutrients: " + currentNutrients);
+        //Debug.Log("Nutrients: " + currentNutrients);
         nutrientsNumberText.text = currentNutrients.ToString();
     }
 }

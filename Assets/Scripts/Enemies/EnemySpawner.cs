@@ -49,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnEnemy();
             enemiesSpawnedCount++;
-            Debug.Log("Spawn count: " + enemiesSpawnedCount);
+            //Debug.Log("Spawn count: " + enemiesSpawnedCount);
             yield return new WaitForSeconds(spawnInterval);
         }
             
