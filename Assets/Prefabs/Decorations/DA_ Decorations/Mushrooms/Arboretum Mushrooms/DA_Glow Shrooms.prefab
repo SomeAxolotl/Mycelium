@@ -540,6 +540,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2722244371606317122}
   - component: {fileID: 1575563825033414682}
+  - component: {fileID: 7103778586239017854}
+  - component: {fileID: 3123949601416676025}
   m_Layer: 0
   m_Name: DA_Glow Shrooms
   m_TagString: Untagged
@@ -623,6 +625,55 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &7103778586239017854
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4117140401888986113}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.03739999, y: 0.07275, z: 0.03739999}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.018916667, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &3123949601416676025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4117140401888986113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66b1068624b6544192d9e60e7de9395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderers:
+  - {fileID: 3161290665341696719}
+  - {fileID: 6897564181028568617}
+  - {fileID: 3475406922966192655}
+  - {fileID: 9072327526135491729}
+  - {fileID: 1610049158661995682}
+  - {fileID: 7350273908074329625}
+  - {fileID: 6683676789253141740}
+  - {fileID: 4771066008209657880}
+  - {fileID: 4373318511164941387}
+  - {fileID: 1616442876243028582}
+  - {fileID: 2723733055847677573}
+  - {fileID: 8122172143182422141}
+  - {fileID: 7756776265438611185}
+  - {fileID: 8105346252994271287}
+  - {fileID: 1933065508697130275}
+  - {fileID: 420580376968040608}
+  - {fileID: 4896688097147243361}
+  - {fileID: 7381349548401276477}
+  - {fileID: 7383067171050570329}
+  isActivated: 0
 --- !u!1 &4854059564567507225
 GameObject:
   m_ObjectHideFlags: 0
