@@ -135,7 +135,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         else if (Physics.Raycast(center.position, transform.forward, out hit, 2f, obstacleLayer) && speed > .5f)
         {
             Vector3 avoidanceDirection = Vector3.Cross(Vector3.up, hit.normal);
-            moveDirection += avoidanceDirection * 1f;
+            moveDirection += avoidanceDirection * 2f;
         }
 
         return moveDirection.normalized;
