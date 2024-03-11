@@ -23,18 +23,18 @@ public class MonsterBossMovement : MonoBehaviour
     public bool undergrowthSpeed;
 
     // turning
-    /*[HideInInspector] */public bool turningRight;
-    /*[HideInInspector] */public bool turningLeft;
-    public float previousRotationY;
+    // /*[HideInInspector] */public bool turningRight;
+    // /*[HideInInspector] */public bool turningLeft;
+    // public float previousRotationY;
 
     // Start is called before the first frame update
     void Start()
     {
         //transform.rotation = Quaternion.Euler(46, 0, 0);
         previousPosition = transform.position;
-        previousRotationY = transform.eulerAngles.y;
-        turningRight = false;
-        turningLeft = false;
+        // previousRotationY = transform.eulerAngles.y;
+        // turningRight = false;
+        // turningLeft = false;
     }
 
     // Update is called once per frame
@@ -64,10 +64,10 @@ public class MonsterBossMovement : MonoBehaviour
                     newRotation.eulerAngles = new Vector3(46f, newRotation.eulerAngles.y, newRotation.eulerAngles.z);
                     transform.rotation = newRotation;
 
-                    float deltaYRotation = Mathf.DeltaAngle(previousRotationY, transform.eulerAngles.y);
-                    turningRight = deltaYRotation > 0;
-                    turningLeft = deltaYRotation < 0;
-                    previousRotationY = transform.eulerAngles.y;
+                    // float deltaYRotation = Mathf.DeltaAngle(previousRotationY, transform.eulerAngles.y);
+                    // turningRight = deltaYRotation > 0;
+                    // turningLeft = deltaYRotation < 0;
+                    // previousRotationY = transform.eulerAngles.y;
                 }
                 else if (attacking)
                 {

@@ -16,7 +16,7 @@ public class TempMovement : MonoBehaviour
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public LayerMask obstacleLayer;
-    private Transform player;
+    [HideInInspector] public Transform player;
     [SerializeField] private float fieldOfView = 60f;
     [SerializeField] private float detectionRange = 30f;
     [SerializeField] private float backwardsDetectionRange = 15f;
