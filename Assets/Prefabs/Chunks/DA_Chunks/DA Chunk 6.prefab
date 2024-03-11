@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5149947782543100846}
   - component: {fileID: 8610609930485374215}
   - component: {fileID: 7651602794646309818}
+  - component: {fileID: 9121079743245683431}
+  - component: {fileID: 3341269266069222879}
   m_Layer: 0
   m_Name: Cube (13)
   m_TagString: InvisibleWalls
@@ -27,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394642103738683584}
   m_LocalRotation: {x: -0, y: 0.83499694, z: -0, w: 0.55025464}
-  m_LocalPosition: {x: 4.757, y: 11.9, z: 34.3656}
-  m_LocalScale: {x: 9.267798, y: 21.447481, z: 0.20916004}
+  m_LocalPosition: {x: 4.757, y: 9.9601, z: 34.3656}
+  m_LocalScale: {x: 9.267798, y: 24.78042, z: 0.20916004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -54,7 +56,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,6 +115,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &9121079743245683431
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394642103738683584}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &3341269266069222879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394642103738683584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &444002500428672377
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +147,8 @@ GameObject:
   - component: {fileID: 4948383324371644056}
   - component: {fileID: 3536025651316431384}
   - component: {fileID: 6499959439324039838}
+  - component: {fileID: 623729852612994992}
+  - component: {fileID: 3727925781029023398}
   m_Layer: 0
   m_Name: Cube (23)
   m_TagString: InvisibleWalls
@@ -140,8 +164,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444002500428672377}
   m_LocalRotation: {x: -0, y: -0.9786768, z: -0, w: 0.20540628}
-  m_LocalPosition: {x: 47.3, y: 13.6599865, z: 41.05}
-  m_LocalScale: {x: 9.723599, y: 21.447481, z: 0.20916003}
+  m_LocalPosition: {x: 47.3, y: 11.9936, z: 41.05}
+  m_LocalScale: {x: 9.723599, y: 24.78042, z: 0.20916003}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -167,7 +191,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -226,6 +250,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &623729852612994992
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444002500428672377}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &3727925781029023398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444002500428672377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &882645125012164714
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +528,8 @@ GameObject:
   - component: {fileID: 4176771469839426029}
   - component: {fileID: 5335879460708941092}
   - component: {fileID: 5496013501564950684}
+  - component: {fileID: 6354316245517246177}
+  - component: {fileID: 7296094838885223370}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: InvisibleWalls
@@ -526,7 +572,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -585,6 +631,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &6354316245517246177
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156876316666624632}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7296094838885223370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156876316666624632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1302624348254680334
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +663,8 @@ GameObject:
   - component: {fileID: 4563804221680855726}
   - component: {fileID: 1775991986378035511}
   - component: {fileID: 4248152698742888901}
+  - component: {fileID: 7976205269879413967}
+  - component: {fileID: 6920893660393254157}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: InvisibleWalls
@@ -639,7 +707,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -698,6 +766,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &7976205269879413967
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302624348254680334}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &6920893660393254157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302624348254680334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1497690728011339618
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,6 +862,8 @@ GameObject:
   - component: {fileID: 683579502880503242}
   - component: {fileID: 6962558075175282153}
   - component: {fileID: 472599497202442017}
+  - component: {fileID: 3751910981829315097}
+  - component: {fileID: 4621207417487994000}
   m_Layer: 0
   m_Name: Cube (22)
   m_TagString: InvisibleWalls
@@ -789,8 +879,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509234403288442164}
   m_LocalRotation: {x: -0, y: -0.9133933, z: -0, w: 0.40707824}
-  m_LocalPosition: {x: 54.7597, y: 13.6599865, z: 35.8124}
-  m_LocalScale: {x: 9.723596, y: 21.447481, z: 0.20915997}
+  m_LocalPosition: {x: 54.7597, y: 11.9936, z: 35.8124}
+  m_LocalScale: {x: 9.723596, y: 24.78042, z: 0.20915997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -816,7 +906,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -875,6 +965,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &3751910981829315097
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509234403288442164}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4621207417487994000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509234403288442164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1538011297714873194
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,6 +997,8 @@ GameObject:
   - component: {fileID: 5837289832036777494}
   - component: {fileID: 6137095748906120126}
   - component: {fileID: 8392792104209361878}
+  - component: {fileID: 8670508942889567623}
+  - component: {fileID: 7761109843224517633}
   m_Layer: 0
   m_Name: Cube
   m_TagString: InvisibleWalls
@@ -929,7 +1041,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -988,6 +1100,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &8670508942889567623
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538011297714873194}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7761109843224517633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538011297714873194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1871429257669097691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,6 +1181,8 @@ GameObject:
   - component: {fileID: 468516719888936947}
   - component: {fileID: 5321263337512977860}
   - component: {fileID: 5305833863211251660}
+  - component: {fileID: 8082348553570743}
+  - component: {fileID: 5658240369450176541}
   m_Layer: 0
   m_Name: Cube (11)
   m_TagString: InvisibleWalls
@@ -1064,8 +1198,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875336642274759748}
   m_LocalRotation: {x: -0, y: 0.990571, z: -0, w: 0.13700008}
-  m_LocalPosition: {x: 13.78, y: 11.9, z: 42.63}
-  m_LocalScale: {x: 5.7550387, y: 21.447481, z: 0.20916004}
+  m_LocalPosition: {x: 13.78, y: 9.9601, z: 42.63}
+  m_LocalScale: {x: 5.7550387, y: 24.78042, z: 0.20916004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -1091,7 +1225,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1150,6 +1284,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &8082348553570743
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875336642274759748}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &5658240369450176541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875336642274759748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2185838708523206832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,6 +1846,8 @@ GameObject:
   - component: {fileID: 7321339825651646686}
   - component: {fileID: 8973389491828420229}
   - component: {fileID: 6736046201807567058}
+  - component: {fileID: 7917586026232092088}
+  - component: {fileID: 4193385028199397791}
   m_Layer: 0
   m_Name: Cube (14)
   m_TagString: InvisibleWalls
@@ -1707,8 +1863,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3130486211392002506}
   m_LocalRotation: {x: -0, y: 0.86317956, z: -0, w: 0.5048972}
-  m_LocalPosition: {x: 2.101799, y: 13.6599865, z: 28.7185}
-  m_LocalScale: {x: 3.6549516, y: 21.447481, z: 0.20916003}
+  m_LocalPosition: {x: 2.101799, y: 11.9936, z: 28.7185}
+  m_LocalScale: {x: 3.6549516, y: 24.78042, z: 0.20916003}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -1734,7 +1890,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1793,6 +1949,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &7917586026232092088
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130486211392002506}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4193385028199397791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130486211392002506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3303120494853758446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,6 +2059,8 @@ GameObject:
   - component: {fileID: 4097559752216554859}
   - component: {fileID: 5297865094021326166}
   - component: {fileID: 1244773327532327810}
+  - component: {fileID: 5864729270737354795}
+  - component: {fileID: 6990056832954010374}
   m_Layer: 0
   m_Name: Cube (20)
   m_TagString: InvisibleWalls
@@ -1898,8 +2076,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3368555791410453925}
   m_LocalRotation: {x: -0, y: -0.33237675, z: -0, w: 0.94314677}
-  m_LocalPosition: {x: 53.5926, y: 13.6599865, z: 6.0878983}
-  m_LocalScale: {x: 10.185843, y: 21.447481, z: 0.20916}
+  m_LocalPosition: {x: 53.5926, y: 11.9936, z: 6.0878983}
+  m_LocalScale: {x: 10.185843, y: 24.78042, z: 0.20916}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -1925,7 +2103,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1984,6 +2162,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &5864729270737354795
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368555791410453925}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &6990056832954010374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368555791410453925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3612461645787044304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,6 +2194,8 @@ GameObject:
   - component: {fileID: 6864684383224215511}
   - component: {fileID: 2875536232317671155}
   - component: {fileID: 8674628996767786746}
+  - component: {fileID: 3514199056834672153}
+  - component: {fileID: 7970650509558166757}
   m_Layer: 0
   m_Name: Cube (16)
   m_TagString: InvisibleWalls
@@ -2011,8 +2211,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3612461645787044304}
   m_LocalRotation: {x: -0, y: 0.42867568, z: -0, w: 0.9034585}
-  m_LocalPosition: {x: 6.450001, y: 13.6599865, z: 10.540001}
-  m_LocalScale: {x: 12.030563, y: 21.447481, z: 0.20916003}
+  m_LocalPosition: {x: 6.450001, y: 11.9936, z: 10.540001}
+  m_LocalScale: {x: 12.030563, y: 24.78042, z: 0.20916003}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -2038,7 +2238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2097,6 +2297,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &3514199056834672153
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3612461645787044304}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7970650509558166757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3612461645787044304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3960127586896101542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2158,6 +2378,8 @@ GameObject:
   - component: {fileID: 3208277405076602136}
   - component: {fileID: 3145023163990852439}
   - component: {fileID: 2328086483438070297}
+  - component: {fileID: 3736432117737516886}
+  - component: {fileID: 6427564091497766374}
   m_Layer: 0
   m_Name: Cube (24)
   m_TagString: InvisibleWalls
@@ -2173,8 +2395,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4037192884983330869}
   m_LocalRotation: {x: -0, y: -0.99609786, z: -0, w: 0.08825588}
-  m_LocalPosition: {x: 41.09, y: 13.6599865, z: 43.34}
-  m_LocalScale: {x: 3.498551, y: 21.447481, z: 0.20916001}
+  m_LocalPosition: {x: 41.09, y: 11.9936, z: 43.34}
+  m_LocalScale: {x: 3.498551, y: 24.78042, z: 0.20916001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -2200,7 +2422,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2259,6 +2481,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &3736432117737516886
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037192884983330869}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &6427564091497766374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037192884983330869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4303342754615709265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,6 +2593,8 @@ GameObject:
   - component: {fileID: 7273334624689554585}
   - component: {fileID: 7094294111829705968}
   - component: {fileID: 7759433264196843756}
+  - component: {fileID: 8353471572611843676}
+  - component: {fileID: 4206666854795070803}
   m_Layer: 0
   m_Name: Cube (17)
   m_TagString: InvisibleWalls
@@ -2366,8 +2610,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4370593462819668554}
   m_LocalRotation: {x: -0, y: 0.30353707, z: -0, w: 0.9528197}
-  m_LocalPosition: {x: 12.41, y: 13.6599865, z: 4.41}
-  m_LocalScale: {x: 5.7169237, y: 21.447481, z: 0.20916004}
+  m_LocalPosition: {x: 12.41, y: 11.9936, z: 4.41}
+  m_LocalScale: {x: 5.7169237, y: 24.78042, z: 0.20916004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -2393,7 +2637,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2452,6 +2696,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &8353471572611843676
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4370593462819668554}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4206666854795070803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4370593462819668554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4861919000573316810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,6 +2767,8 @@ GameObject:
   - component: {fileID: 1680174321057959919}
   - component: {fileID: 6064400182156631361}
   - component: {fileID: 5268440218907904129}
+  - component: {fileID: 7566759282401075261}
+  - component: {fileID: 8494753188501440577}
   m_Layer: 0
   m_Name: Cube (18)
   m_TagString: InvisibleWalls
@@ -2518,8 +2784,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5074064438581219064}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.1056, y: 13.6599865, z: 2.6100006}
-  m_LocalScale: {x: 11.012977, y: 21.447481, z: 0.20916003}
+  m_LocalPosition: {x: 20.1056, y: 11.9936, z: 2.6100006}
+  m_LocalScale: {x: 11.012977, y: 24.78042, z: 0.20916003}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -2545,7 +2811,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2604,6 +2870,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &7566759282401075261
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5074064438581219064}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &8494753188501440577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5074064438581219064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5259085588995622017
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,6 +2902,8 @@ GameObject:
   - component: {fileID: 2455489375075776397}
   - component: {fileID: 7263738726335676791}
   - component: {fileID: 7203746670928558224}
+  - component: {fileID: 7698569225423523389}
+  - component: {fileID: 52179962153736463}
   m_Layer: 0
   m_Name: Cube (21)
   m_TagString: InvisibleWalls
@@ -2631,8 +2919,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5259085588995622017}
   m_LocalRotation: {x: -0, y: -0.7035884, z: -0, w: 0.71060777}
-  m_LocalPosition: {x: 57.8334, y: 13.6599865, z: 20.8667}
-  m_LocalScale: {x: 22.959911, y: 21.447481, z: 0.20916003}
+  m_LocalPosition: {x: 57.8334, y: 11.9936, z: 20.8667}
+  m_LocalScale: {x: 22.959911, y: 24.78042, z: 0.20916003}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -2658,7 +2946,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2717,6 +3005,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &7698569225423523389
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5259085588995622017}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &52179962153736463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5259085588995622017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5498009300038860396
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,6 +3074,8 @@ GameObject:
   - component: {fileID: 4926685750728724912}
   - component: {fileID: 3325651615484503734}
   - component: {fileID: 1636555605028079761}
+  - component: {fileID: 762853108680832500}
+  - component: {fileID: 4333715359268208633}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: InvisibleWalls
@@ -2808,7 +3118,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2867,6 +3177,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &762853108680832500
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5674553151821691969}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4333715359268208633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5674553151821691969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5732775464245552779
 GameObject:
   m_ObjectHideFlags: 0
@@ -3072,6 +3402,8 @@ GameObject:
   - component: {fileID: 8316729479881956434}
   - component: {fileID: 6137231349272338145}
   - component: {fileID: 2329507770252521085}
+  - component: {fileID: 4457736492555012200}
+  - component: {fileID: 1607537704716979847}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: InvisibleWalls
@@ -3114,7 +3446,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3173,6 +3505,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &4457736492555012200
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906604605102268873}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1607537704716979847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906604605102268873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6252012975028059443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3185,6 +3537,8 @@ GameObject:
   - component: {fileID: 3102850736377853273}
   - component: {fileID: 1982318127835910185}
   - component: {fileID: 8252010279200195622}
+  - component: {fileID: 64054788658548635}
+  - component: {fileID: 4450889297891191810}
   m_Layer: 0
   m_Name: Cube (19)
   m_TagString: InvisibleWalls
@@ -3200,8 +3554,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6252012975028059443}
   m_LocalRotation: {x: -0, y: -0.027733184, z: -0, w: 0.9996154}
-  m_LocalPosition: {x: 42.0168, y: 13.6599865, z: 2.6100006}
-  m_LocalScale: {x: 15.206718, y: 21.447481, z: 0.20916001}
+  m_LocalPosition: {x: 42.0168, y: 11.9936, z: 2.6100006}
+  m_LocalScale: {x: 15.206718, y: 24.78042, z: 0.20916001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -3227,7 +3581,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3286,6 +3640,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &64054788658548635
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252012975028059443}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4450889297891191810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252012975028059443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6311435537730422444
 GameObject:
   m_ObjectHideFlags: 0
@@ -3594,6 +3968,8 @@ GameObject:
   - component: {fileID: 4742488428016709204}
   - component: {fileID: 3044822613669000388}
   - component: {fileID: 1931365411177566747}
+  - component: {fileID: 6771463414828534471}
+  - component: {fileID: 350348836748373308}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: InvisibleWalls
@@ -3636,7 +4012,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3695,6 +4071,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &6771463414828534471
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7527556970464382114}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &350348836748373308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7527556970464382114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7544799115261060100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,6 +4198,8 @@ GameObject:
   - component: {fileID: 932476048752441493}
   - component: {fileID: 5883224851109605653}
   - component: {fileID: 7230237455064844192}
+  - component: {fileID: 2022178699161066100}
+  - component: {fileID: 1621097802647719950}
   m_Layer: 0
   m_Name: Cube (12)
   m_TagString: InvisibleWalls
@@ -3817,8 +4215,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7896069547861667787}
   m_LocalRotation: {x: -0, y: 0.95381993, z: -0, w: 0.3003792}
-  m_LocalPosition: {x: 8.75, y: 11.9, z: 40.05}
-  m_LocalScale: {x: 5.7550387, y: 21.447481, z: 0.20916004}
+  m_LocalPosition: {x: 8.75, y: 9.9601, z: 40.05}
+  m_LocalScale: {x: 5.7550387, y: 24.78042, z: 0.20916004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -3844,7 +4242,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3903,6 +4301,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &2022178699161066100
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896069547861667787}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1621097802647719950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896069547861667787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7952403614534155527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3915,6 +4333,8 @@ GameObject:
   - component: {fileID: 1344768473030869121}
   - component: {fileID: 2913006878649673663}
   - component: {fileID: 8014803029731855736}
+  - component: {fileID: 2605989955207750939}
+  - component: {fileID: 4026621712746212294}
   m_Layer: 0
   m_Name: Cube (10)
   m_TagString: InvisibleWalls
@@ -3930,8 +4350,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7952403614534155527}
   m_LocalRotation: {x: -0, y: 0.99988407, z: -0, w: 0.01522966}
-  m_LocalPosition: {x: 21.94, y: 11.9, z: 43.53}
-  m_LocalScale: {x: 10.840191, y: 21.447481, z: 0.20916004}
+  m_LocalPosition: {x: 21.94, y: 9.9601, z: 43.53}
+  m_LocalScale: {x: 10.840191, y: 24.78042, z: 0.20916004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -3957,7 +4377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4016,6 +4436,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &2605989955207750939
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952403614534155527}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4026621712746212294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952403614534155527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8162759178149055383
 GameObject:
   m_ObjectHideFlags: 0
@@ -4267,6 +4707,8 @@ GameObject:
   - component: {fileID: 5546226878669961113}
   - component: {fileID: 352873879533062093}
   - component: {fileID: 1955510328720107771}
+  - component: {fileID: 8523682985656640543}
+  - component: {fileID: 7950523212091239460}
   m_Layer: 0
   m_Name: Cube (15)
   m_TagString: InvisibleWalls
@@ -4282,8 +4724,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9053951237700506358}
   m_LocalRotation: {x: -0, y: 0.6670702, z: -0, w: 0.74499494}
-  m_LocalPosition: {x: 2.0548, y: 13.6599865, z: 21.2262}
-  m_LocalScale: {x: 12.269823, y: 21.447481, z: 0.20916003}
+  m_LocalPosition: {x: 2.0548, y: 11.9936, z: 21.2262}
+  m_LocalScale: {x: 12.269823, y: 24.78042, z: 0.20916003}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7462285092020791586}
@@ -4309,7 +4751,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b7c6d60a3ec272841899b763795373cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4368,6 +4810,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!33 &8523682985656640543
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9053951237700506358}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7950523212091239460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9053951237700506358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb7709983430da4c8589b874f5f56df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9085910190117664888
 GameObject:
   m_ObjectHideFlags: 0
