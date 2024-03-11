@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossProcedualAnimation : MonoBehaviour
@@ -10,7 +11,6 @@ public class BossProcedualAnimation : MonoBehaviour
     [SerializeField] private Transform rightArmTarget;
 
     [SerializeField] private Transform head;
-    [SerializeField] private float headSpeed;
     [SerializeField] private float delayTime;
     [SerializeField] private float maxRotation;
 
@@ -24,10 +24,6 @@ public class BossProcedualAnimation : MonoBehaviour
         tempMovement = GetComponent<TempMovement>();
         playerIsRight = tempMovement.playerIsRight;
         playerIsLeft = tempMovement.playerIsLeft;
-        // leftArmTarget.position = new Vector3(-2, -1, -4);
-        // leftArmTarget.rotation = Quaternion.Euler(2, 88, -159);
-        // rightArmTarget.position = new Vector3(8, -1, -4);
-        // rightArmTarget.rotation = Quaternion.Euler(2, 88, -159);
     }
 
     void Update()
