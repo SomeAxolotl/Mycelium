@@ -8,17 +8,21 @@ public class ZombifiedMovement : MonoBehaviour
     [SerializeField] private LayerMask obstacleLayer;
     [SerializeField] private float followRange = 10f;
     [SerializeField] private float explosionTimer = 3f;
-    [SerializeField] private float explosionRadius = 5f;
+    [SerializeField] private float explosionRadius = 4f;
     [SerializeField] private float explosionDamage = 15f;
     private Collider[] enemyColliders;
+    private Renderer[] renderers;
     List<GameObject> enemiesHit = new List<GameObject>();
     private Transform center;
     private Transform player;
     private Rigidbody rb;
     private float moveSpeed = 2f;
+    private float maxRotationSpeed = 200f;
     private float gravityForce = -10;
     Vector3 gravity;
     private Vector3 moveDirection;
+    private Color newColor = Color.gray;
+    [SerializeField] private GameObject zombifiedParticles;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +31,13 @@ public class ZombifiedMovement : MonoBehaviour
         player = GameObject.FindWithTag("currentPlayer").transform;
         rb = GetComponent<Rigidbody>();
         gravity = new Vector3(0f, gravityForce, 0f);
+        Instantiate(zombifiedParticles, center.position, Quaternion.Euler(-90f, 0f, 0f), gameObject.transform);
         StartCoroutine(ExplosionCountdown());
+        renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.SetColor("_Color", newColor);
+        }
     }
 
     // Update is called once per frame
@@ -45,11 +55,13 @@ public class ZombifiedMovement : MonoBehaviour
             moveDirection = ObstacleAvoidance(transform.position - player.position);
             rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
         }
-
         Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
         float desiredYRotation = desiredRotation.eulerAngles.y;
         Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
+        float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
+        float maxAngleThisFrame = maxRotationSpeed * Time.fixedDeltaTime;
+        float fractionOfTurn = Mathf.Min(maxAngleThisFrame / angleToTarget, 1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, fractionOfTurn);
 
     }
     GameObject GetClosestEnemy()
@@ -82,6 +94,7 @@ public class ZombifiedMovement : MonoBehaviour
     IEnumerator ExplosionCountdown()
     {
         yield return new WaitForSeconds(explosionTimer);
+        ParticleManager.Instance.SpawnParticles("ZombifiedExplosion", center.position, Quaternion.identity);
         enemyColliders = Physics.OverlapSphere(transform.position, explosionRadius, enemyLayer);
         foreach (Collider collider in enemyColliders)
         {

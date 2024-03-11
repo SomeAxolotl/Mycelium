@@ -35,7 +35,6 @@ public class Zombify : Skill
     {
         if(enemy != null && enemy.GetComponent<EnemyAttack>() != null && enemy.GetComponent<NavEnabler>() != null && enemy.GetComponent<ReworkedEnemyNavigation>() != null && enemy.GetComponent<ZombifiedMovement>() != null)
         {
-            Debug.Log("enemy name " + enemy.name);
             enemy.GetComponent<EnemyAttack>().CancelAttack();
             enemy.GetComponent<EnemyAttack>().enabled = false;
             enemy.GetComponent<NavEnabler>().enabled = false;

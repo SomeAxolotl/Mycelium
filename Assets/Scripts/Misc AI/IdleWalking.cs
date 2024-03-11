@@ -15,6 +15,7 @@ public class IdleWalking : MonoBehaviour
     public LayerMask environmentLayer;
     private float gravityForce;
     public float moveSpeed = 2f;
+    private float maxRotationSpeed = 200f;
     Vector3 gravity;
     private Rigidbody rb;
     private Transform center;
@@ -59,7 +60,6 @@ public class IdleWalking : MonoBehaviour
             waypoints.Clear();
             SetRandomDestination();
             rerouteTimer = 0f;
-            Debug.Log("wander restart via timer! " + gameObject.name);
         }
     }
     private void FixedUpdate()
@@ -86,7 +86,10 @@ public class IdleWalking : MonoBehaviour
                 Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
                 float desiredYRotation = desiredRotation.eulerAngles.y;
                 Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
+                float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
+                float maxAngleThisFrame = maxRotationSpeed * Time.fixedDeltaTime;
+                float fractionOfTurn = Mathf.Min(maxAngleThisFrame / angleToTarget, 1f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, fractionOfTurn);
             }
         }
     }
@@ -100,7 +103,6 @@ public class IdleWalking : MonoBehaviour
             waypoints.Clear();
             SetRandomDestination();
             rerouteTimer = 0f;
-            Debug.Log("wander restart via raycast! " + gameObject.name);
         }
         else if (Physics.Raycast(center.position, transform.forward, out hit, 2f, environmentLayer) && speed > .5f)
         {

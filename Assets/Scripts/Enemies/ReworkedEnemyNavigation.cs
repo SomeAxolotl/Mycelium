@@ -23,6 +23,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
     [SerializeField] private float backwardsDetectionRange = 15f;
     public float moveSpeed = 3f;
     private float gravityForce = -10;
+    private float maxRotationSpeed = 200f;
     Vector3 gravity;
     [HideInInspector] public Animator animator;
     //public bool undergrowthSpeed;
@@ -116,7 +117,10 @@ public class ReworkedEnemyNavigation : MonoBehaviour
                 Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
                 float desiredYRotation = desiredRotation.eulerAngles.y;
                 Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
+                float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
+                float maxAngleThisFrame = maxRotationSpeed * Time.fixedDeltaTime;
+                float fractionOfTurn = Mathf.Min(maxAngleThisFrame / angleToTarget, 1f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, fractionOfTurn);
             }
         }
     }
@@ -135,7 +139,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         else if (Physics.Raycast(center.position, transform.forward, out hit, 2f, obstacleLayer) && speed > .5f)
         {
             Vector3 avoidanceDirection = Vector3.Cross(Vector3.up, hit.normal);
-            moveDirection += avoidanceDirection * 2f;
+            moveDirection += avoidanceDirection * 1f;
         }
 
         return moveDirection.normalized;

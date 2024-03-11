@@ -19,7 +19,7 @@ public class RelentlessFury : Skill
     }
     IEnumerator Frenzied()
     {
-        Instantiate(relentlessFuryParticles, player.transform.position, transform.rotation = Quaternion.Euler(-90f, 0f, 0f), player.transform);
+        Instantiate(relentlessFuryParticles, player.transform.position, Quaternion.Euler(-90f, 0f, 0f), player.transform);
         isFrenzied = true;
         playerController.canUseDodge = false;
         float storedAnimSpeed = currentAnimator.speed;
