@@ -159,12 +159,12 @@ public class PlayerController : MonoBehaviour
         inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
         targetVelocity = (GetCameraRight(playerCamera) * inputDirection.x + GetCameraForward(playerCamera) * inputDirection.z) * moveSpeed;
         targetVelocity.y = rb.velocity.y;
-        if (!activeDodge && inputDirection.magnitude > 0.1f)
+        if (!activeDodge)
         {
             rb.velocity = targetVelocity;
         }
 
-        animator.SetBool("Walk", rb.velocity.magnitude > 0.1f && inputDirection.magnitude > 0.1f);
+        animator.SetBool("Walk", rb.velocity.magnitude > 0.01f && inputDirection.magnitude > 0.01f);
 
         if (inputDirection == Vector3.zero)
         {
@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
     {
         if(looking)
         {
-            if (rb.velocity.magnitude > 0.1f && inputDirection.magnitude > 0.1f)
+            if (rb.velocity.magnitude > 0.01f && inputDirection.magnitude > 0.01f)
             {
                 Vector3 lookDirection = GetCameraForward(playerCamera) * inputDirection.z + GetCameraRight(playerCamera) * inputDirection.x;
 
