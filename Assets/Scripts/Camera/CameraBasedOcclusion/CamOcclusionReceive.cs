@@ -27,7 +27,7 @@ public class CamOcclusionReceive : MonoBehaviour
 
     public void StartFadeOut()
     {
-        Debug.Log("ACTIVATING" + name, gameObject);
+        //Debug.Log("ACTIVATING" + name, gameObject);
 
         try
         {
