@@ -50,6 +50,18 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     public Button DefenseMechanismUnlocked;
     public GameObject Skill2;
     public GameObject Skill3;
+    public GameObject EruptionLock;
+    public GameObject LivingCycloneLock;
+    public GameObject RelentlessFuryLock;
+    public GameObject BlitzLock;
+    public GameObject TrophicCascadeLock;
+    public GameObject MycoToxLock;
+    public GameObject Spineshotlock;
+    public GameObject UnstableLock;
+    public GameObject UndergrowthLock;
+    public GameObject LeechingLock;
+    public GameObject SporeburstLock;
+    public GameObject DefenseMechLock;
     public SkillManager skillmanager;
     public bool EruptionActive = false;
     private bool LivingCycloneActive = false;
@@ -946,30 +958,37 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       if(currentstats.primalLevel >= 5)
         {
             EruptionUnlocked.onClick.AddListener(EruptionsSlot1);
+            EruptionLock.SetActive(false);
         }
         else
         {
             EruptionUnlocked.onClick.RemoveListener(EruptionsSlot1);
+            EruptionLock.SetActive(true);
         }
 
 
         if (currentstats.primalLevel >= 10)
         {
             LivingCycloneUnlocked.onClick.AddListener(LivingCycloneSlot1);
+            LivingCycloneLock.SetActive(false);
         }
         else
         {
             LivingCycloneUnlocked.onClick.RemoveListener(LivingCycloneSlot1);
+            LivingCycloneLock.SetActive(true);
         }
 
         
         if(currentstats.primalLevel >= 15)
         {
             RelentlessFuryUnlocked.onClick.AddListener(RelentlessFurySlot1);
+            RelentlessFuryLock.SetActive(false);
+            
         }
         else
         {
             RelentlessFuryUnlocked.onClick.RemoveListener(RelentlessFurySlot1);
+            RelentlessFuryLock.SetActive(true);
         }
 
         
@@ -977,30 +996,36 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         if(currentstats.speedLevel >= 5)
         {
             BlitzUnlocked.onClick.AddListener(BlitzSlot1);
+            BlitzLock.SetActive(false);
         }
         else
         {
             BlitzUnlocked.onClick.RemoveListener(BlitzSlot1);
+            BlitzLock.SetActive(true);
         }
 
         
         if(currentstats.speedLevel >= 10)
         {
             TrophicCascadeUnlocked.onClick.AddListener(TrophicCascadeSlot1);
+            TrophicCascadeLock.SetActive(false);
         }
         else
         {
             TrophicCascadeUnlocked.onClick.RemoveListener(TrophicCascadeSlot1);
+            TrophicCascadeLock.SetActive(true);
         }
 
 
         if(currentstats.speedLevel >= 15)
         {
             MycotoxinsUnlocked.onClick.AddListener(MycotoxinsSlot1);
+            MycoToxLock.SetActive(false);
         }
         else
         {
             MycotoxinsUnlocked.onClick.RemoveListener(MycotoxinsSlot1);
+            MycoToxLock.SetActive(true);
         }
 
 
@@ -1008,28 +1033,34 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         if(currentstats.sentienceLevel >= 5)
         {
             SpineshotUnlocked.onClick.AddListener(SpineShotSlot1);
+            Spineshotlock.SetActive(false);
         }
         else
         {
             SpineshotUnlocked.onClick.RemoveListener(SpineShotSlot1);
+            Spineshotlock.SetActive(true);
         }
 
         if(currentstats.sentienceLevel >= 10)
         {
             UnstablePuffBallUnlocked.onClick.AddListener(UnstablePuffballSlot1);
+            UnstableLock.SetActive(false);
         }
         else
         {
             UnstablePuffBallUnlocked.onClick.RemoveListener(UnstablePuffballSlot1);
+            UnstableLock.SetActive(true);
         }
 
         if(currentstats.sentienceLevel >= 15)
         {
             UndergrowthUnlocked.onClick.AddListener(UndergrowthSlot1);
+            UndergrowthLock.SetActive(false);
         }
         else
         {
             UndergrowthUnlocked.onClick.RemoveListener(UndergrowthSlot1);
+            UndergrowthLock.SetActive(true);
         }
 
         
@@ -1037,28 +1068,34 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         if(currentstats.vitalityLevel >= 5)
         {
             LeechingSporesUnlocked.onClick.AddListener(LeechingSporeSlot1);
+            LeechingLock.SetActive(false);
         }
         else
         {
             LeechingSporesUnlocked.onClick.RemoveListener(LeechingSporeSlot1);
+            LeechingLock.SetActive(true);
         }
 
         if(currentstats.vitalityLevel >= 10)
         {
             SporeburstUnlocked.onClick.AddListener(SporeBurstSlot1);
+            SporeburstLock.SetActive(false);
         }
         else
         {
             SporeburstUnlocked.onClick.RemoveListener(SporeBurstSlot1);
+            SporeburstLock.SetActive(true);
         }
 
         if(currentstats.vitalityLevel >= 15)
         {
             DefenseMechanismUnlocked.onClick.AddListener(DefenseMechanismSlot1);
+            DefenseMechLock.SetActive(false);
         }
         else
         {
             DefenseMechanismUnlocked.onClick.RemoveListener(DefenseMechanismSlot1);
+            DefenseMechLock.SetActive(true);
         }
     }
     public void EruptionsSlot1()
