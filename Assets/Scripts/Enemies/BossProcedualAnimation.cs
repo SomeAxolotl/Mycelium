@@ -99,9 +99,10 @@ public class BossProcedualAnimation : MonoBehaviour
             float rotationSpeedMultiplier = Mathf.Clamp(playerSpeed, 0.5f, 1.5f);
             float adjustedRotationSpeed = initialRotationSpeed * rotationSpeedMultiplier;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-            float clampedYRotation = Mathf.Clamp(targetRotation.eulerAngles.y, head.eulerAngles.y - maxRotation, head.eulerAngles.y + maxRotation);
-            Quaternion newRotation = Quaternion.Euler(originalHeadRotation.eulerAngles.x, Mathf.Lerp(head.rotation.eulerAngles.y, clampedYRotation, Time.deltaTime * adjustedRotationSpeed), originalHeadRotation.eulerAngles.z);
-            head.rotation = newRotation;
+            float yRotationDifference = targetRotation.eulerAngles.y - head.eulerAngles.y;
+            float clampedYRotation = Mathf.Clamp(yRotationDifference, -maxRotation, maxRotation);
+            Quaternion newRotation = Quaternion.Euler(originalHeadRotation.eulerAngles.x, head.rotation.eulerAngles.y + clampedYRotation, originalHeadRotation.eulerAngles.z);
+            head.rotation = Quaternion.Lerp(head.rotation, newRotation, Time.deltaTime * adjustedRotationSpeed);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -113,17 +114,18 @@ public class BossProcedualAnimation : MonoBehaviour
         float elapsedTime = 0.0f;
         while (elapsedTime < 1.0f)
         {
-            Vector3 directionToPlayer = (tempMovement.player.position - neck.position).normalized;
+            Vector3 directionToPlayer = neck.InverseTransformPoint(tempMovement.player.position).normalized;
             float playerSpeed = characterStats.moveSpeed;
             float rotationSpeedMultiplier = Mathf.Clamp(playerSpeed, 0.5f, 1.5f);
             float adjustedRotationSpeed = initialRotationSpeed * rotationSpeedMultiplier;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-            float clampedYRotation = Mathf.Clamp(targetRotation.eulerAngles.y, neck.eulerAngles.y - maxRotation, neck.eulerAngles.y + maxRotation);
-            Quaternion newRotation = Quaternion.Euler(originalNeckRotation.eulerAngles.x, Mathf.Lerp(neck.rotation.eulerAngles.y, clampedYRotation, Time.deltaTime * adjustedRotationSpeed), originalNeckRotation.eulerAngles.z);
-            neck.rotation = newRotation;
+            float yRotationDifference = targetRotation.eulerAngles.y - neck.eulerAngles.y;
+            float clampedYRotation = Mathf.Clamp(yRotationDifference, -maxRotation, maxRotation);
+            Quaternion newRotation = Quaternion.Euler(originalNeckRotation.eulerAngles.x, neck.rotation.eulerAngles.y + clampedYRotation, originalNeckRotation.eulerAngles.z);
+            neck.rotation = Quaternion.Lerp(neck.rotation, newRotation, Time.deltaTime * adjustedRotationSpeed);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        neck.rotation = Quaternion.Euler(originalNeckRotation.eulerAngles.x, head.rotation.eulerAngles.y, originalNeckRotation.eulerAngles.z);
+        neck.rotation = Quaternion.Euler(originalNeckRotation.eulerAngles.x, neck.rotation.eulerAngles.y, originalNeckRotation.eulerAngles.z);
     }
 }
