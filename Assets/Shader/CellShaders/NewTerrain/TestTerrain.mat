@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7274656172438675340
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TestTerrain
+  m_Shader: {fileID: -6465566751694194690, guid: eb825c6d87911424b81faa3e15d173f4,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2450
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _CliffTexture:
+        m_Texture: {fileID: 2800000, guid: 736cad1341fdbc242b76c343ad93d7fa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DirtTexture:
+        m_Texture: {fileID: 2800000, guid: cd912e5f64da6fb4e9df39a6d05e5ff0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GrassTexture:
+        m_Texture: {fileID: 2800000, guid: cd912e5f64da6fb4e9df39a6d05e5ff0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AdditionalLightStrength: 0.5
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _CastShadows: 1
+    - _CliffRockHeight: 0.83
+    - _CliffRockThreshold: -1.32
+    - _CliffTiling: 15
+    - _Cull: 2
+    - _DirtTiling: 3
+    - _Disable_Fresnel: 0
+    - _Disable_Specular: 0
+    - _DstBlend: 0
+    - _Falloff_Amount: 0
+    - _Fresnel_Size: 0.125
+    - _GrassBlendLength: 1
+    - _GrassHeight: 29.95
+    - _GrassHeightBlend: 0
+    - _GrassThreshold: -3.4
+    - _GrassTiling: 3
+    - _LightingCutoff: 0.211
+    - _LowGrassHeight: 0
+    - _LowGrassThreshold: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Scale: 1
+    - _Shadow_Brightness: 0.1
+    - _Sharpness: 1
+    - _Smoothness: 0.5
+    - _Speed: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _TilingValue: 1
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
+    m_Colors:
+    - _Blending_Edges: {r: 0.4, g: 0.9, b: 0, a: 0}
+    - _CliffAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Color1: {r: 1, g: 1, b: 1, a: 0}
+    - _Color1_1: {r: 0, g: 0, b: 0, a: 0}
+    - _Color1_2: {r: 0, g: 0, b: 0, a: 0}
+    - _Color1_3: {r: 0, g: 0, b: 0, a: 0}
+    - _Color1_4: {r: 0, g: 0, b: 0, a: 0}
+    - _Color1_5: {r: 0, g: 0, b: 0, a: 0}
+    - _Color2: {r: 0, g: 0, b: 0, a: 0}
+    - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _DirtAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _GrassAdjustmentColor: {r: 0.70980394, g: 0.76862746, b: 0.9019608, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadowColor: {r: 0.8, g: 0.7647059, b: 1, a: 1}
+    - _Specular_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []
