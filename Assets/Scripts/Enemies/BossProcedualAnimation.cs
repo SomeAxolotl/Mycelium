@@ -9,12 +9,16 @@ public class BossProcedualAnimation : MonoBehaviour
     private CharacterStats characterStats;
     private GameObject player;
 
+    [Header("Transforms")]
     [SerializeField] private Transform leftArmTarget;
     [SerializeField] private Transform rightArmTarget;
     [SerializeField] private Transform head;
     [SerializeField] private Transform neck;
 
+    [Header("MathStuff")]
     [SerializeField] private float delayTime;
+    [Header("This is for the pausing while rotating")]
+    [SerializeField] private float PauseTime;
     [SerializeField] private float maxRotation;
     [SerializeField] private float maxBodyRotate;
     [SerializeField] private float initialHeadRotationSpeed;
@@ -62,7 +66,7 @@ public class BossProcedualAnimation : MonoBehaviour
         yield return StartCoroutine(TurnHead());
         //Rotate Body
         isTurningHead = false;
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(5f);
     }
 
     IEnumerator TurnHeadLeft()
@@ -71,7 +75,7 @@ public class BossProcedualAnimation : MonoBehaviour
         yield return StartCoroutine(TurnHead());
         //Rotate Body
         isTurningHead = false;
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(5f);
     }
 
     IEnumerator TurnHead()
