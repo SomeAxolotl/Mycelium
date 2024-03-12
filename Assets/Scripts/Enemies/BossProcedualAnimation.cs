@@ -21,8 +21,7 @@ public class BossProcedualAnimation : MonoBehaviour
     [SerializeField] private float PauseTime;
     [SerializeField] private float maxRotation;
     [SerializeField] private float maxBodyRotate;
-    [SerializeField] private float initialHeadRotationSpeed;
-    [SerializeField] private float initialBodyRotationSpeed;
+    [SerializeField] private float initialRotationSpeed;
 
     private bool playerIsRight;
     private bool playerIsLeft;
@@ -31,6 +30,7 @@ public class BossProcedualAnimation : MonoBehaviour
     private Coroutine bossCoroutine;
 
     private Quaternion originalHeadRotation;
+    private Quaternion originalNeckRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +39,7 @@ public class BossProcedualAnimation : MonoBehaviour
         tempMovement = GetComponent<TempMovement>();
         characterStats = player.GetComponent<CharacterStats>();
         originalHeadRotation = head.rotation;
+        originalNeckRotation = neck.rotation;
         bossCoroutine = StartCoroutine(BossBehavior());
     }
 
@@ -64,18 +65,28 @@ public class BossProcedualAnimation : MonoBehaviour
     {
         isTurningHead = true;
         yield return StartCoroutine(TurnHead());
-        //Rotate Body
+        // move right arm
+        // Rotate Body
+        yield return StartCoroutine(RotateBody());
+        // move left arm 
+        // rotate body
+        // put left arm in its final place
         isTurningHead = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(PauseTime);
     }
 
     IEnumerator TurnHeadLeft()
     {
         isTurningHead = true;
         yield return StartCoroutine(TurnHead());
-        //Rotate Body
+        // move right arm
+        // Rotate Body
+        yield return StartCoroutine(RotateBody());
+        // move left arm 
+        // rotate body
+        // put left arm in its final place
         isTurningHead = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(PauseTime);
     }
 
     IEnumerator TurnHead()
@@ -86,7 +97,7 @@ public class BossProcedualAnimation : MonoBehaviour
             Vector3 directionToPlayer = (tempMovement.player.position - head.position).normalized;
             float playerSpeed = characterStats.moveSpeed;
             float rotationSpeedMultiplier = Mathf.Clamp(playerSpeed, 0.5f, 1.5f);
-            float adjustedRotationSpeed = initialHeadRotationSpeed * rotationSpeedMultiplier;
+            float adjustedRotationSpeed = initialRotationSpeed * rotationSpeedMultiplier;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
             float clampedYRotation = Mathf.Clamp(targetRotation.eulerAngles.y, head.eulerAngles.y - maxRotation, head.eulerAngles.y + maxRotation);
             Quaternion newRotation = Quaternion.Euler(originalHeadRotation.eulerAngles.x, Mathf.Lerp(head.rotation.eulerAngles.y, clampedYRotation, Time.deltaTime * adjustedRotationSpeed), originalHeadRotation.eulerAngles.z);
@@ -95,5 +106,24 @@ public class BossProcedualAnimation : MonoBehaviour
             yield return null;
         }
         head.rotation = Quaternion.Euler(originalHeadRotation.eulerAngles.x, head.rotation.eulerAngles.y, originalHeadRotation.eulerAngles.z);
+    }
+
+    IEnumerator RotateBody()
+    {
+        float elapsedTime = 0.0f;
+        while (elapsedTime < 1.0f)
+        {
+            Vector3 directionToPlayer = (tempMovement.player.position - neck.position).normalized;
+            float playerSpeed = characterStats.moveSpeed;
+            float rotationSpeedMultiplier = Mathf.Clamp(playerSpeed, 0.5f, 1.5f);
+            float adjustedRotationSpeed = initialRotationSpeed * rotationSpeedMultiplier;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+            float clampedYRotation = Mathf.Clamp(targetRotation.eulerAngles.y, neck.eulerAngles.y - maxRotation, neck.eulerAngles.y + maxRotation);
+            Quaternion newRotation = Quaternion.Euler(originalNeckRotation.eulerAngles.x, Mathf.Lerp(neck.rotation.eulerAngles.y, clampedYRotation, Time.deltaTime * adjustedRotationSpeed), originalNeckRotation.eulerAngles.z);
+            neck.rotation = newRotation;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        neck.rotation = Quaternion.Euler(originalNeckRotation.eulerAngles.x, head.rotation.eulerAngles.y, originalNeckRotation.eulerAngles.z);
     }
 }
