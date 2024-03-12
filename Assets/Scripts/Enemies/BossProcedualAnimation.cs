@@ -5,83 +5,91 @@ using UnityEngine;
 
 public class BossProcedualAnimation : MonoBehaviour
 {
-    TempMovement tempMovement;
+    private TempMovement tempMovement;
+    private CharacterStats characterStats;
+    private GameObject player;
 
     [SerializeField] private Transform leftArmTarget;
     [SerializeField] private Transform rightArmTarget;
-
     [SerializeField] private Transform head;
+    [SerializeField] private Transform neck;
+
     [SerializeField] private float delayTime;
     [SerializeField] private float maxRotation;
+    [SerializeField] private float maxBodyRotate;
+    [SerializeField] private float initialHeadRotationSpeed;
+    [SerializeField] private float initialBodyRotationSpeed;
 
     private bool playerIsRight;
     private bool playerIsLeft;
     private bool isTurningHead;
 
+    private Coroutine bossCoroutine;
+
+    private Quaternion originalHeadRotation;
+
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindWithTag("currentPlayer");
         tempMovement = GetComponent<TempMovement>();
-        playerIsRight = tempMovement.playerIsRight;
-        playerIsLeft = tempMovement.playerIsLeft;
+        characterStats = player.GetComponent<CharacterStats>();
+        originalHeadRotation = head.rotation;
+        bossCoroutine = StartCoroutine(BossBehavior());
     }
 
-    void Update()
+    IEnumerator BossBehavior()
     {
-        playerIsRight = tempMovement.playerIsRight;
-        if (playerIsRight && !isTurningHead)
+        while (true)
         {
-            StartCoroutine(TurnHeadRight(delayTime));
-        }
-        else if (!playerIsRight)
-        {
-            StopCoroutine(TurnHeadRight(delayTime));
-            isTurningHead = false;
-        }
-
-        playerIsLeft = tempMovement.playerIsLeft;
-        if (playerIsLeft && !isTurningHead)
-        {
-            StartCoroutine(TurnHeadLeft(delayTime));
-        }
-        else if (!playerIsLeft)
-        {
-            StopCoroutine(TurnHeadLeft(delayTime));
-            isTurningHead = false;
+            yield return new WaitForSeconds(delayTime);
+            playerIsRight = tempMovement.playerIsRight;
+            playerIsLeft = tempMovement.playerIsLeft;
+            if (playerIsRight)
+            {
+                yield return StartCoroutine(TurnHeadRight());
+            }
+            if (playerIsLeft)
+            {
+                yield return StartCoroutine(TurnHeadLeft());
+            }
         }
     }
 
-    IEnumerator TurnHeadRight(float delay)
+    IEnumerator TurnHeadRight()
     {
-        yield return new WaitForSeconds(delay);
         isTurningHead = true;
+        yield return StartCoroutine(TurnHead());
+        //Rotate Body
+        isTurningHead = false;
+        yield return new WaitForSeconds(10.0f);
+    }
 
-        while (playerIsRight)
+    IEnumerator TurnHeadLeft()
+    {
+        isTurningHead = true;
+        yield return StartCoroutine(TurnHead());
+        //Rotate Body
+        isTurningHead = false;
+        yield return new WaitForSeconds(10.0f);
+    }
+
+    IEnumerator TurnHead()
+    {
+        float elapsedTime = 0.0f;
+        while (elapsedTime < 1.0f)
         {
             Vector3 directionToPlayer = (tempMovement.player.position - head.position).normalized;
+            float playerSpeed = characterStats.moveSpeed;
+            float rotationSpeedMultiplier = Mathf.Clamp(playerSpeed, 0.5f, 1.5f);
+            float adjustedRotationSpeed = initialHeadRotationSpeed * rotationSpeedMultiplier;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
             float clampedYRotation = Mathf.Clamp(targetRotation.eulerAngles.y, head.eulerAngles.y - maxRotation, head.eulerAngles.y + maxRotation);
-            head.rotation = Quaternion.Euler(head.eulerAngles.x, clampedYRotation, head.eulerAngles.z);
+            Quaternion newRotation = Quaternion.Euler(originalHeadRotation.eulerAngles.x, Mathf.Lerp(head.rotation.eulerAngles.y, clampedYRotation, Time.deltaTime * adjustedRotationSpeed), originalHeadRotation.eulerAngles.z);
+            head.rotation = newRotation;
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        isTurningHead = false;
-    }
-
-    IEnumerator TurnHeadLeft(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        isTurningHead = true;
-
-        while (playerIsLeft)
-        {
-            Vector3 directionToPlayer = (tempMovement.player.position - head.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-            float clampedYRotation = Mathf.Clamp(targetRotation.eulerAngles.y, head.eulerAngles.y - maxRotation, head.eulerAngles.y + maxRotation);
-            head.rotation = Quaternion.Euler(head.eulerAngles.x, clampedYRotation, head.eulerAngles.z);
-            yield return null;
-        }
-
-        isTurningHead = false;
+        head.rotation = Quaternion.Euler(originalHeadRotation.eulerAngles.x, head.rotation.eulerAngles.y, originalHeadRotation.eulerAngles.z);
     }
 }
