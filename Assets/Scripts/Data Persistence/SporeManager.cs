@@ -16,6 +16,8 @@ public class SporeManager : MonoBehaviour
     [SerializeField] private List<Texture2D> EyeTextures;
     SwapCharacter swapCharacterScript;
     SkillManager skillManagerScript;
+    PlayerHealth playerHealthScript;
+    PlayerController playerControllerScript;
     GameObject currentPlayerSpore;
 
     [SerializeField] private GameObject SporePrefab;
@@ -29,6 +31,8 @@ public class SporeManager : MonoBehaviour
         spawnTransform = gameObject.transform;
         swapCharacterScript = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
         skillManagerScript = GameObject.Find("PlayerParent").GetComponent<SkillManager>();
+        playerHealthScript = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
+        playerControllerScript = GameObject.Find("PlayerParent").GetComponent<PlayerController>();
         currentPlayerSpore = GameObject.Find("Spore");
 
         swapCharacterScript.characters.RemoveAll(item => item == null);
@@ -129,9 +133,7 @@ public class SporeManager : MonoBehaviour
 
 
         //Run Spore Setup functions
-        stats.UpdateSporeName();
-        design.UpdateBlendshape(sporeData.lvlSentience, sporeData.lvlPrimal, sporeData.lvlVitality, sporeData.lvlSpeed);
-        design.UpdateColorsAndTexture();
+        StartCoroutine(RunSporeSetup(sporeData, stats, design));
 
         //-------Some Dylan Comments-----------
         //design.ForceUpdateBlendshaped(sporeData.lvlSentience,sporeData.lvlPrimal,sporeData.lvlVitality, sporeData.lvlSpeed);      //<---- Moved to Start() for CharacterStats
@@ -139,6 +141,20 @@ public class SporeManager : MonoBehaviour
 
         //PlayerParent.SetActive(true);
         //testingManager.gameObject.SetActive(true);
+    }
+
+    IEnumerator RunSporeSetup(SporeData sporeData, CharacterStats stats, DesignTracker design)
+    {
+        //Delay by one frame
+        yield return null;
+
+        stats.UpdateSporeName();
+        stats.StartCalculateAttributes();
+        design.UpdateBlendshape(sporeData.lvlSentience, sporeData.lvlPrimal, sporeData.lvlVitality, sporeData.lvlSpeed);
+        design.UpdateColorsAndTexture();
+        playerHealthScript.ResetHealth();
+        playerControllerScript.GetStats();
+        stats.GetComponent<Animator>().speed = stats.animatorSpeed;
     }
 
     public void Save()

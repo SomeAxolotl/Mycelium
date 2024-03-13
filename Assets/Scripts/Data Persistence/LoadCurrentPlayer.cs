@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 //using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -14,12 +15,16 @@ public class LoadCurrentPlayer : MonoBehaviour
     [SerializeField] private List<Texture2D> EyeTextures;
     SwapCharacter swapCharacterScript;
     SkillManager skillManagerScript;
+    PlayerHealth playerHealthScript;
+    PlayerController playerControllerScript;
     GameObject currentPlayerSpore;
 
     void Start()
     {
         swapCharacterScript = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
         skillManagerScript = GameObject.Find("PlayerParent").GetComponent<SkillManager>();
+        playerHealthScript = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
+        playerControllerScript = GameObject.Find("PlayerParent").GetComponent<PlayerController>();
         currentPlayerSpore = GameObject.Find("Spore");
 
         swapCharacterScript.characters.RemoveAll(item => item == null);
@@ -93,9 +98,21 @@ public class LoadCurrentPlayer : MonoBehaviour
 
 
         //Run Spore Setup functions
+        StartCoroutine(RunSporeSetup(sporeData, stats, design));
+    }
+
+    IEnumerator RunSporeSetup(SporeData sporeData, CharacterStats stats, DesignTracker design)
+    {
+        //Delay by one frame
+        yield return null;
+
         stats.UpdateSporeName();
+        stats.StartCalculateAttributes();
         design.UpdateBlendshape(sporeData.lvlSentience, sporeData.lvlPrimal, sporeData.lvlVitality, sporeData.lvlSpeed);
         design.UpdateColorsAndTexture();
+        playerHealthScript.ResetHealth();
+        playerControllerScript.GetStats();
+        stats.GetComponent<Animator>().speed = stats.animatorSpeed;
     }
 
     IEnumerator StaggerSkillSets(SporeData sporeData, GameObject Spore)

@@ -801,8 +801,6 @@ public class CharacterStats : MonoBehaviour
 
     IEnumerator CalculateAttributes()
     {
-        yield return null;
-
         primalDmg = Mathf.RoundToInt(sporeAttributeIncrements.attackDamageBase + ((primalLevel - 1) * sporeAttributeIncrements.attackDamageIncrement));
         baseHealth = Mathf.RoundToInt(sporeAttributeIncrements.healthBase + ((vitalityLevel - 1) * sporeAttributeIncrements.healthIncrement));
         baseRegen = sporeAttributeIncrements.regenBase + ((vitalityLevel - 1) * sporeAttributeIncrements.regenIncrement);
@@ -817,6 +815,8 @@ public class CharacterStats : MonoBehaviour
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
         Animator currentAnimator = currentPlayer.GetComponent<Animator>();
         currentAnimator.speed = animatorSpeed;
+
+        yield return null;
 
         /*float minAttackDamage = sporeAttributeRanges.attackDamageAt1Primal;
         float maxAttackDamage = sporeAttributeRanges.attackDamageAt15Primal;
