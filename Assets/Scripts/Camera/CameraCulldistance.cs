@@ -7,6 +7,8 @@ public class CameraCulldistance : MonoBehaviour
     public float renderDistance = 150;
     private float[] distances = new float[32];
 
+    [SerializeField] List<int> layersToSkip = new List<int>();
+
     void Start()
     {
         RefreshRenderDistance();
@@ -23,11 +25,14 @@ public class CameraCulldistance : MonoBehaviour
     {
         Camera camera = GetComponent<Camera>();
 
-        for(int i = 0; i<15; i++)
-            distances[i] = renderDistance;
-        //Skip Layer 15 (IgnoreFog Layer)
-        for(int i = 16; i<32; i++)
-            distances[i] = renderDistance;
+        for(int i = 0; i<32; i++)
+        {
+            if(layersToSkip.Contains(i) == false)
+            {
+                distances[i] = renderDistance;
+            }
+        }
+
         camera.layerCullDistances = distances;
     }
 }
