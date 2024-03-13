@@ -42,12 +42,12 @@ public class GrowMenuButtonController : MonoBehaviour
         SkillMenu.SetActive(false);
         buttons = new List<GameObject>();
         button.Select();
-        if (swapCharacterscript != null)
+        /*if (swapCharacterscript != null)
         {
             swapCharacterscript.characters.RemoveAll(item => item == null);
             swapCharacterscript.currentCharacterIndex = swapCharacterscript.characters.IndexOf(GameObject.FindWithTag("currentPlayer"));
             GenerateList();
-        }
+        }*/
         LevelUI.SetActive(false);
 
     }
@@ -88,20 +88,20 @@ public class GrowMenuButtonController : MonoBehaviour
     {
       controls.UI.Disable();
     }
-    void GenerateList()
+    /*void GenerateList()
     {
         
         foreach (GameObject i in swapCharacterscript.characters)
-    {
-        GameObject button = Instantiate(buttonBase) as GameObject;
-        buttons.Add(button);
-        button.SetActive(true);
+        {
+            GameObject button = Instantiate(buttonBase) as GameObject;
+            buttons.Add(button);
+            button.SetActive(true);
 
-        string name = i.GetComponent<CharacterStats>().sporeName;
-        button.GetComponent<GrowMenuButtonList>().SetText(name);
-        button.transform.SetParent(buttonBase.transform.parent, false);
-    }
-    }
+            string name = i.GetComponent<CharacterStats>().sporeName;
+            button.GetComponent<GrowMenuButtonList>().SetText(name);
+            button.transform.SetParent(buttonBase.transform.parent, false);
+        }
+    }*/
     void ClearList()
     {
          if (buttons.Count > 0)
@@ -143,6 +143,24 @@ public class GrowMenuButtonController : MonoBehaviour
     public void GrowDefault()
     {
         spawnCharacterscript.SpawnNewCharacter("Default");
+        playerController.EnableController();
+        UIenable.SetActive(false);
+        HUDCanvasGroup.alpha = 1;
+
+        GlobalData.isAbleToPause = true;
+    }
+    public void GrowCoral()
+    {
+        spawnCharacterscript.SpawnNewCharacter("Coral");
+        playerController.EnableController();
+        UIenable.SetActive(false);
+        HUDCanvasGroup.alpha = 1;
+
+        GlobalData.isAbleToPause = true;
+    }
+    public void GrowCordy()
+    {
+        spawnCharacterscript.SpawnNewCharacter("Cordyceps");
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;

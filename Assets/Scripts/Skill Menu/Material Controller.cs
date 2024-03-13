@@ -8,12 +8,12 @@ using UnityEngine.InputSystem;
 
 public class MaterialController : MonoBehaviour
 {
- public NutrientTracker currentnutrients;
-   public TMP_Text LogText;
-   public TMP_Text ExoText;
-   public TMP_Text CalciteText;
-   public TMP_Text FleshText;
-   public TMP_Text Nutrients;
+    public NutrientTracker currentnutrients;
+    public TMP_Text LogText;
+    public TMP_Text ExoText;
+    public TMP_Text CalciteText;
+    public TMP_Text FleshText;
+    //public TMP_Text Nutrients;
    
     void OnEnable()
     {
@@ -22,6 +22,6 @@ public class MaterialController : MonoBehaviour
         ExoText.text = currentnutrients.storedExoskeleton.ToString();
         CalciteText.text = currentnutrients.storedCalcite.ToString();
         FleshText.text = currentnutrients.storedFlesh.ToString();
-        Nutrients.text = currentnutrients.currentNutrients.ToString();
+        //Nutrients.text = currentnutrients.currentNutrients.ToString();
     }
 }
