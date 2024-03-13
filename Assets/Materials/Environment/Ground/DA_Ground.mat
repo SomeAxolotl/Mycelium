@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DC_Ground
-  m_Shader: {fileID: -6465566751694194690, guid: d54c0ac1b96ea9b48a3358031e09d919,
+  m_Name: DA_Ground
+  m_Shader: {fileID: -6465566751694194690, guid: eb825c6d87911424b81faa3e15d173f4,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -17,9 +17,8 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -34,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CliffTexture:
-        m_Texture: {fileID: 2800000, guid: 88f0fe705b57284458710b5be545d635, type: 3}
+        m_Texture: {fileID: 2800000, guid: 736cad1341fdbc242b76c343ad93d7fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -50,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DirtTexture:
-        m_Texture: {fileID: 2800000, guid: b1938b8c25e2dca458827cafb5b335f6, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd912e5f64da6fb4e9df39a6d05e5ff0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -58,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GrassTexture:
-        m_Texture: {fileID: 2800000, guid: 299bc486f040915409a3945441a01a1e, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd912e5f64da6fb4e9df39a6d05e5ff0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -108,14 +107,18 @@ Material:
     - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _CliffRockHeight: 1.1
-    - _CliffRockThreshold: -24.81
-    - _CliffTiling: 5.2
+    - _CliffRockHeight: 0.83
+    - _CliffRockThreshold: -1.32
+    - _CliffTiling: 15
     - _Cull: 2
     - _Cutoff: 0.5
     - _Degree: 0.02
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DiffuseTiling1: 15
+    - _DiffuseTiling2: 15
+    - _DiffuseTiling3: 15
+    - _DirtTiling: 3
     - _Disable_Fresnel: 1
     - _Disable_Specular: 1
     - _DstBlend: 0
@@ -127,10 +130,13 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _GrassBlendLength: 3.06
+    - _GrassHeight: 29.95
     - _GrassHeightBlend: 2.92
+    - _GrassThreshold: -3.4
+    - _GrassTiling: 3
     - _LightingCutoff: 0.211
-    - _LowGrassHeight: -31.2
-    - _LowGrassThreshold: 1
+    - _LowGrassHeight: 29.95
+    - _LowGrassThreshold: -3.4
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
     - _Metallic: 0
@@ -157,13 +163,16 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Blending_Edges: {r: 0.4, g: 0.9, b: 0, a: 0}
-    - _CliffAdjustmentColor: {r: 0.46941975, g: 0.7169812, b: 0.616744, a: 1}
+    - _CliffAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DiffuseTint1: {r: 1, g: 1, b: 1, a: 0}
+    - _DiffuseTint2: {r: 1, g: 1, b: 1, a: 0}
+    - _DiffuseTint3: {r: 1, g: 1, b: 1, a: 0}
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _DirtAdjustmentColor: {r: 1, g: 0.9919718, b: 0.7962264, a: 0}
+    - _DirtAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _GrassAdjustmentColor: {r: 1, g: 1, b: 1, a: 0}
+    - _GrassAdjustmentColor: {r: 0.70980394, g: 0.7686275, b: 0.90196085, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.80058396, g: 0.76600003, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
