@@ -101,6 +101,8 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator FinishLoadScene(float transitionTime, bool isOnStartup)
     {
+        GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>().Resume();
+
         if (isOnStartup == true)
         {
             GlobalData.gameIsStarting = false;

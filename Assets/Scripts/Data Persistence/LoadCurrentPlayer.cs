@@ -50,7 +50,7 @@ public class LoadCurrentPlayer : MonoBehaviour
         {
             Debug.LogError("NO SPORES FOUND!!! PLEASE HAVE A SporeData.json FILE!!! QUITTING!!!");
 
-            Application.Quit();
+            //Application.Quit();
 
         }
 
