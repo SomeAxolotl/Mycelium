@@ -5,12 +5,14 @@ using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 //using UnityEditor.EditorTools;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class LoadCurrentPlayer : MonoBehaviour
 {
     [Tooltip("A custom class that is a list of sporeData objects")] private SporeDataList sporeDataList;
     [Tooltip("Where the .json is")] private string filePath;
+    [SerializeField] private SporeData tutorialSpore;
     [SerializeField] private List<Texture2D> MouthTextures;
     [SerializeField] private List<Texture2D> EyeTextures;
     SwapCharacter swapCharacterScript;
@@ -52,12 +54,19 @@ public class LoadCurrentPlayer : MonoBehaviour
 
         }
 
-        //Find the currentPlayer spore and populate its stats and design
-        foreach (SporeData sporeData in sporeDataList.Spore_Data)
+        if(SceneManager.GetActiveScene().buildIndex == 1)
         {
-            if (sporeData.sporeTag == "currentPlayer")
+            LoadSpores(tutorialSpore);
+        }
+        else
+        {
+            //Find the currentPlayer spore and populate its stats and design
+            foreach (SporeData sporeData in sporeDataList.Spore_Data)
             {
-                LoadSpores(sporeData);
+                if (sporeData.sporeTag == "currentPlayer")
+                {
+                    LoadSpores(sporeData);
+                }
             }
         }
     }
