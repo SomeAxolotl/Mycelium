@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnCharacter : MonoBehaviour
 {
@@ -53,7 +54,14 @@ public class SpawnCharacter : MonoBehaviour
     {
         swapCharacter = GetComponent<SwapCharacter>();
         skillManager = GetComponent<SkillManager>();
-        sporeCam = GameObject.Find("GrowCamera").GetComponent<NewSporeCam>();
+        if(SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            sporeCam = GameObject.Find("GrowCamera").GetComponent<NewSporeCam>();
+        }
+        else
+        {
+            sporeCam = null;
+        }
     }
 
     // Update is called once per frame
@@ -108,7 +116,10 @@ public class SpawnCharacter : MonoBehaviour
 
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
-        sporeCam.SwitchCamera("GrowCamera");
+        if(sporeCam != null )
+        {
+            sporeCam.SwitchCamera("GrowCamera");
+        }
         newCharacter.GetComponent<Animator>().Play("Sprout");
         StartCoroutine(ResetCamera(newCharacter));
 
@@ -122,7 +133,10 @@ public class SpawnCharacter : MonoBehaviour
     IEnumerator ResetCamera(GameObject newCharacter)
     { 
         yield return new WaitForSeconds(2.5f);
-        sporeCam.SwitchCamera("Main Camera");
+        if (sporeCam != null)
+        {
+            sporeCam.SwitchCamera("Main Camera");
+        }
         newCharacter.GetComponent<IdleWalking>().enabled = true;
 
     }
