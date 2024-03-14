@@ -81,7 +81,10 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     public Transform MenuSporeLocation;
     public GameObject Camera;
     private SwapCharacter swapcharacterscript;
-   
+    public Navigation NoneNav = new Navigation();
+    public Navigation AutoNav = new Navigation();
+
+
     void OnEnable()
     {
         
@@ -99,7 +102,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         Invoke("ControlEnable", 0.25f);
         GrowMenu.SetActive(false);
         Camera.SetActive(true);
-        
         EruptionUnlocked.Select();
         Invoke("InstantiateCurrentSpore", 0.01f);
         //Primal Unlock Statements
@@ -231,6 +233,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           EruptionActive = false;
+          EruptionUnlocked.navigation = AutoNav;
           }
           else 
           {
@@ -240,6 +243,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           EruptionActive = false;
+          EruptionUnlocked.navigation = AutoNav;
           }
           UpdateUI();
         }
@@ -259,6 +263,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           EruptionActive = false;
+          EruptionUnlocked.navigation = AutoNav;
             
           }
           else
@@ -269,6 +274,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           EruptionActive = false;
+          EruptionUnlocked.navigation = AutoNav;
           }
           UpdateUI();
         }
@@ -294,6 +300,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LivingCycloneActive = false;
+          LivingCycloneUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -305,7 +312,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LivingCycloneActive = false;
-          }
+          LivingCycloneUnlocked.navigation = AutoNav;
+            }
          
           UpdateUI();
           
@@ -324,8 +332,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LivingCycloneActive = false;
-          
-          }
+          LivingCycloneUnlocked.navigation = AutoNav;
+            }
           else
           {
              skillmanager.SetSkill("LivingCyclone", 2, GameObject.FindWithTag("currentPlayer"));
@@ -334,13 +342,14 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LivingCycloneActive = false;
-          }
+          LivingCycloneUnlocked.navigation = AutoNav;
+            }
           UpdateUI();
         }
         else
         {
           Debug.Log("return");
-          return;
+            return;
         }  
     }
      public void FuryCheck()
@@ -358,6 +367,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           FuryActive = false;
+           RelentlessFuryUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -368,7 +378,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           FuryActive = false;
-          }
+          RelentlessFuryUnlocked.navigation = AutoNav;
+            }
           UpdateUI();
           
         }
@@ -385,7 +396,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           FuryActive = false;
-          }
+          RelentlessFuryUnlocked.navigation = AutoNav;
+            }
           else
           {
           Debug.Log("B Pressed");
@@ -395,14 +407,14 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           FuryActive = false;
-
-          }
+          RelentlessFuryUnlocked.navigation = AutoNav;
+            }
           UpdateUI();
         }
         else
         {
           Debug.Log("return");
-          return;
+            return;
         }  
     }
     public void BlitzCheck()
@@ -420,6 +432,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           BlitzActive = false;
+         BlitzUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -430,7 +443,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           BlitzActive = false;
-          }
+          BlitzUnlocked.navigation = AutoNav;
+            }
           UpdateUI();
           
         }
@@ -447,7 +461,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           BlitzActive = false;
-          }
+          BlitzUnlocked.navigation = AutoNav;
+            }
           else
           {
           Debug.Log("B Pressed");
@@ -457,13 +472,14 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           BlitzActive = false;
-          }
+          BlitzUnlocked.navigation = AutoNav;
+            }
           UpdateUI();
         }
         else
         {
           Debug.Log("return");
-          return;
+            return;
         }  
     }
     public void TrophicCheck()
@@ -482,6 +498,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           TrophicActive = false;
+          TrophicCascadeUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -492,6 +509,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           TrophicActive = false;
+          TrophicCascadeUnlocked.navigation = AutoNav;
           }
           UpdateUI();
           
@@ -510,6 +528,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           TrophicActive = false;
+          TrophicCascadeUnlocked.navigation = AutoNav;
           }
          else
          {
@@ -520,7 +539,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           TrophicActive = false;
-         }
+          TrophicCascadeUnlocked.navigation = AutoNav;
+            }
           UpdateUI();
         }
         else
@@ -545,6 +565,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           MycoActive = false;
+          MycotoxinsUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -555,6 +576,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           MycoActive = false;
+          MycotoxinsUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -574,6 +596,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           MycoActive = false;
+        MycotoxinsUnlocked.navigation=AutoNav;
           }
           else
           {
@@ -584,6 +607,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           MycoActive = false;
+        MycotoxinsUnlocked.navigation =AutoNav;
           }
           UpdateUI();
         }
@@ -609,6 +633,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SpineActive = false;
+          SpineshotUnlocked.navigation =AutoNav;
           }
           else
           {
@@ -619,7 +644,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SpineActive = false;
-          }
+          SpineshotUnlocked.navigation = AutoNav;
+            }
           
           UpdateUI();
           
@@ -638,6 +664,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SpineActive = false;
+                SpineshotUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -648,6 +675,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SpineActive = false;
+                SpineshotUnlocked.navigation = AutoNav;
           }
           UpdateUI();
         }
@@ -673,6 +701,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UnstableActive = false;
+                UnstablePuffBallUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -683,6 +712,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UnstableActive = false;
+                UnstablePuffBallUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -702,6 +732,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UnstableActive = false;
+                UnstablePuffBallUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -712,6 +743,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UnstableActive = false;
+                UnstablePuffBallUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -738,6 +770,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UndergrowthActive = false;
+            UndergrowthUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -748,6 +781,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UndergrowthActive = false;
+                UndergrowthUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -767,6 +801,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UndergrowthActive = false;
+        UndergrowthUnlocked.navigation=AutoNav;
           }
           else
           {
@@ -777,6 +812,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           UndergrowthActive = false;
+        UndergrowthUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -803,6 +839,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LeechActive = false;
+          LeechingSporesUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -813,6 +850,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LeechActive = false;
+                LeechingSporesUnlocked.navigation = AutoNav;
           }
           UpdateUI();
           
@@ -831,6 +869,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LeechActive = false;
+                LeechingSporesUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -841,6 +880,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           LeechActive = false;
+                LeechingSporesUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -867,6 +907,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SporeburstActive = false;
+        SporeburstUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -877,6 +918,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SporeburstActive = false;
+                SporeburstUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -896,6 +938,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SporeburstActive = false;
+                SporeburstUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -906,6 +949,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           SporeburstActive = false;
+                SporeburstUnlocked.navigation = AutoNav;
           }
          
           UpdateUI();
@@ -932,6 +976,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           DefenseMechActive = false;
+                DefenseMechanismUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -942,6 +987,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           DefenseMechActive = false;
+                DefenseMechanismUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -961,6 +1007,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           DefenseMechActive = false;
+                DefenseMechanismUnlocked.navigation = AutoNav;
           }
           else
           {
@@ -971,6 +1018,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           controls.UI.Enable();
           PanelHolder.SetActive(false);
           DefenseMechActive = false;
+                DefenseMechanismUnlocked.navigation = AutoNav;
           }
           
           UpdateUI();
@@ -1156,6 +1204,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         EruptionActive = true;
+        EruptionUnlocked.navigation = NoneNav;
      
     }
     //Set Living Cyclone Skill slot 1 or 2
@@ -1165,6 +1214,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         LivingCycloneActive = true;
+        LivingCycloneUnlocked.navigation = NoneNav;
         
     }
     
@@ -1175,6 +1225,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         FuryActive = true;
+        RelentlessFuryUnlocked.navigation = NoneNav;    
         
     }
     //Set Spine Shot skill slot 1 or 2  
@@ -1184,6 +1235,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         SpineActive = true;
+        SpineshotUnlocked.navigation = NoneNav;
         
     }
     //Set Undergrowth Skill slot 1 or 2
@@ -1193,6 +1245,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         UndergrowthActive = true;
+        UndergrowthUnlocked.navigation = NoneNav;
        
     }
     //Set Unstable Puff Ball Skill slot 1 or 2
@@ -1202,7 +1255,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         UnstableActive = true;
-        
+        UnstablePuffBallUnlocked.navigation = NoneNav;
     }
     //Sets blitz skill for slot 1 or 2
      public void BlitzSlot1()
@@ -1211,6 +1264,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         BlitzActive = true;
+        BlitzUnlocked.navigation = NoneNav;
         
     }
     //Sets Mycotoxin for slot 1 or 2
@@ -1220,7 +1274,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         MycoActive = true;
-        
+        MycotoxinsUnlocked.navigation = NoneNav;
     }
 
     //Sets Trophic Cascade for slot 1 or 2
@@ -1230,6 +1284,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         TrophicActive = true;
+        TrophicCascadeUnlocked.navigation = NoneNav;
         
     }
     //Set Defense Mechanism for slot1 or 2
@@ -1239,6 +1294,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         DefenseMechActive = true;
+        DefenseMechanismUnlocked.navigation = NoneNav;
         
     }
 
@@ -1249,7 +1305,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         LeechActive = true;
-        
+        LeechingSporesUnlocked.navigation = NoneNav;
     }
 
     //Set Spore burst for slot 1 or 2
@@ -1259,7 +1315,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         controls.UISub.Enable();
         PanelHolder.SetActive(true);
         SporeburstActive = true;
-        
+        SporeburstUnlocked.navigation = NoneNav;
     }
    
     public void ColorChange()

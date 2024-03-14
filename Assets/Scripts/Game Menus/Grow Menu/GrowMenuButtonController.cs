@@ -148,6 +148,7 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
+        currentnutrients.storedExoskeleton--;
 
         GlobalData.isAbleToPause = true;
         }
@@ -164,6 +165,7 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
+        currentnutrients.storedLog--;
 
         GlobalData.isAbleToPause = true;
         }
@@ -180,7 +182,7 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
-
+        currentnutrients.storedCalcite--;
         GlobalData.isAbleToPause = true;
         }
         else
@@ -196,6 +198,7 @@ public class GrowMenuButtonController : MonoBehaviour
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
+        currentnutrients.storedFlesh--;
 
         GlobalData.isAbleToPause = true;
         }
