@@ -71,6 +71,10 @@ public class SwapCharacter : MonoBehaviour
     {
         return characters.IndexOf(character);
     }
+    public GameObject GetCharacterFromIndex(int index)
+    {
+        return characters[index];
+    }
 
     public void SwitchCharacterGrowMenu(int index)
     {
@@ -118,7 +122,7 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
-        int lastCharacterIndex = (currentCharacterIndex - 1) % characters.Count;
+        int lastCharacterIndex = (currentCharacterIndex - 1 + characters.Count) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {
             currentCharacterIndex = 0;

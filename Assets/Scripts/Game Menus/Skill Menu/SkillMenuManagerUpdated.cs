@@ -77,6 +77,11 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     private bool DefenseMechActive = false;
     public Color newColor;
     public Color defaultcolor;
+    public GameObject InstantiatedSpore;
+    public Transform MenuSporeLocation;
+    public GameObject Camera;
+    private SwapCharacter swapcharacterscript;
+   
     void OnEnable()
     {
         LevelUI.SetActive(false);
@@ -88,11 +93,13 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        swapcharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
         UpdateUI();
         Invoke("ControlEnable", 0.25f);
         GrowMenu.SetActive(false);
-         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        
         EruptionUnlocked.Select();
+        Invoke("InstantiateCurrentSpore", 0.01f);
         //Primal Unlock Statements
         
         
@@ -101,10 +108,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
      void OnDisable()
     {
       controls.UI.Disable();
-    }
-    public void ControlAssign()
-    {
-
+      Destroy(InstantiatedSpore);
     }
     void MenuSwapLeft()
     {
@@ -122,6 +126,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     }
     public void CloseSkill()
     {
+            Camera.SetActive(false);
             UIenable.SetActive(false);
             LevelUI.SetActive(true);
     }
@@ -153,12 +158,56 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         VitalityPoints[i].SetActive(i <= (currentstats.vitalityLevel - 1));
       }
     }
+    void InstantiateCurrentSpore()
+    {
+      if(InstantiatedSpore != null)
+      {
+        Destroy(InstantiatedSpore);
+      }
+      InstantiatedSpore = Instantiate(GameObject.FindWithTag("currentPlayer"), MenuSporeLocation.position, Quaternion.identity);
+      Destroy(InstantiatedSpore.transform.Find("CenterPoint").gameObject);
+      InstantiatedSpore.tag = "Tree";
+      Destroy(InstantiatedSpore.GetComponent<Rigidbody>());
+      InstantiatedSpore.layer = LayerMask.NameToLayer("MenuSpore");
+      InstantiatedSpore.transform.Find("SporeModel").gameObject.layer = LayerMask.NameToLayer("MenuSpore");
+      InstantiatedSpore.transform.eulerAngles = new Vector3(0f,183.53476f,0f);
+      InstantiatedSpore.transform.localScale = new Vector3(3.33189845f,3.33189845f,3.33189845f);
+      InstantiatedSpore.GetComponent<CapsuleCollider>().enabled = false;
+      InstantiatedSpore.GetComponent<AudioSource>().enabled = false;
+      InstantiatedSpore.GetComponent<DesignTracker>().enabled = false;
+      InstantiatedSpore.GetComponent<CharacterStats>().enabled = false;
+      InstantiatedSpore.GetComponent<IdleWalking>().enabled = false;
+      InstantiatedSpore.GetComponent<AudioSource>().enabled = false;
+      InstantiatedSpore.GetComponent<SphereCollider>().enabled = false;
+      InstantiatedSpore.GetComponent<SporeInteractableFinder>().enabled = false;
+      InstantiatedSpore.GetComponent<SporeInteraction>().enabled = false;
+    }
+      public void SwapLast()
+      {
+        swapcharacterscript.SwitchToLastCharacter();
+        InstantiateCurrentSpore();
+        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        UpdateUI();
+        
+      }
+      public void SwapNext()
+      {
+        swapcharacterscript.SwitchToNextCharacter();
+        InstantiateCurrentSpore();
+        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        UpdateUI();
+        
+
+      }
+  
+     
     public void UpdateUI()
     {
         PrimalBarFill();
         SpeedBarFill();
         SentienceBarFill();
         VitalityBarFill();
+        ColorChange();
         LockedAbilities();
         List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
         Skill2.GetComponent<Image>().sprite = equippedSkillSprites[1];
@@ -1098,6 +1147,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
             DefenseMechLock.SetActive(true);
         }
     }
+
     public void EruptionsSlot1()
     {
         controls.UI.Disable();
@@ -1220,6 +1270,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       RelentlessFuryUnlocked.colors = defaultcb;
       BlitzUnlocked.colors = defaultcb;
       TrophicCascadeUnlocked.colors = defaultcb;
+      MycotoxinsUnlocked.colors = defaultcb;
       SpineshotUnlocked.colors = defaultcb;
       UnstablePuffBallUnlocked.colors = defaultcb;
       UndergrowthUnlocked.colors = defaultcb;
