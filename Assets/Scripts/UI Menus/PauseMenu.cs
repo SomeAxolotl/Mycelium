@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         isOnMainMenu = SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0);
+        profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
 
         if (isOnMainMenu == false)
         {
@@ -40,8 +41,6 @@ public class PauseMenu : MonoBehaviour
             hudItem = HUD.GetComponent<HUDItem>();
             sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
             GlobalData.isAbleToPause = true;
-
-            profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
 
             //Resume();
         }

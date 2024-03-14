@@ -792,6 +792,7 @@ public class CharacterStats : MonoBehaviour
 
         designTracker.UpdateBlendshape(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
         UpdateSporeName();
+        GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().UpdateHudHealthUI();
     }
 
     public void StartCalculateAttributes()
@@ -811,6 +812,8 @@ public class CharacterStats : MonoBehaviour
 
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerController.GetStats();
+        
+        GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().GetHealthStats();
 
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
         Animator currentAnimator = currentPlayer.GetComponent<Animator>();

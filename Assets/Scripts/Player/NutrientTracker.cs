@@ -28,7 +28,7 @@ public class NutrientTracker : MonoBehaviour
         hudNutrients.UpdateNutrientsUI(currentNutrients);
     }
 
-    // Update is called once per frame
+    /*// Update is called once per frame
     void Update()
     {
         //FOR TESTING
@@ -37,7 +37,7 @@ public class NutrientTracker : MonoBehaviour
         {
             AddNutrients(1000);
         }
-    }
+    }*/
     public void SubtractNutrients(int cost)
     {
         currentNutrients = Mathf.Max(0, currentNutrients - cost);

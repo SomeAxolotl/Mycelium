@@ -18,13 +18,11 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     {
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
-        player = GameObject.FindWithTag("currentPlayer");
-        characterStats = player.GetComponent<CharacterStats>();
 
         List<int> statNumbers = new List<int> {0, 1, 2, 3};
-        int statNumber1 = Random.Range(0, statNumbers.Count);
+        int statNumber1 = statNumbers[Random.Range(0, statNumbers.Count)];
         statNumbers.Remove(statNumber1);
-        int statNumber2 = Random.Range(0, statNumbers.Count);
+        int statNumber2 = statNumbers[Random.Range(0, statNumbers.Count)];
 
         upgradeStat1 = NumberToStat(statNumber1);
         upgradeStat2 = NumberToStat(statNumber2);
@@ -81,6 +79,8 @@ public class StatUpgrade : MonoBehaviour, IInteractable
 
     void Upgrade1()
     {
+        player = GameObject.FindWithTag("currentPlayer");
+        characterStats = player.GetComponent<CharacterStats>();
         characterStats.MultiplyStat(upgradeStat1, multiplyAmount);
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
         TooltipManager.Instance.DestroyTooltip();
@@ -89,6 +89,8 @@ public class StatUpgrade : MonoBehaviour, IInteractable
 
     void Upgrade2()
     {
+        player = GameObject.FindWithTag("currentPlayer");
+        characterStats = player.GetComponent<CharacterStats>();
         characterStats.MultiplyStat(upgradeStat2, multiplyAmount);
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
         TooltipManager.Instance.DestroyTooltip();

@@ -45,27 +45,20 @@ public class TestingManager : MonoBehaviour
         Zombify
     }
 
-    private enum LevelSelector
-    {
-        level3 = 3,
-        level4 = 4,
-        level5 = 5
-    }
-
     [Header("Nutrients - Alpha1")]
-    [SerializeField][Tooltip("Alpha1 - Add Nutrients")] private int nutrients;
+    [SerializeField][Tooltip("Alpha1 - Add Nutrients")] private int nutrientsToGain = 1000;
 
     [Header("Materials - Alpha2")]
-    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int logs;
-    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int exoskeletons;
-    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int calcites;
-    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int fleshes;
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int logsToGain = 1;
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int exoskeletonsToGain = 1;
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int calcitesToGain = 1;
+    [SerializeField][Tooltip("Alpha2 - Add Materials")] private int fleshesToGain = 1;
 
     [Header("Stats - Alpha3")]
-    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int primalLevel = 1;
-    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int sentienceLevel = 1;
-    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int speedLevel = 1;
-    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int vitalityLevel = 1;
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int primalLevelsToGain = 1;
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int sentienceLevelsToGain = 1;
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int speedLevelsToGain = 1;
+    [SerializeField][Tooltip("Alpha3 - Set Stats")] private int vitalityLevelsToGain = 1;
 
     [Header("Stat Skills - Alpha4")] 
     [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill1;
@@ -76,9 +69,6 @@ public class TestingManager : MonoBehaviour
 
     [Header("Subspecies Skill - Alpha6")]
     [SerializeField][Tooltip("Alpha6 - Grow New Spore")] private SubspeciesSkills subspeciesSkill;
-
-    [Header("Level Selector - Alpha7")]
-    [SerializeField][Tooltip("Alpha7 - Load Into Level")] private LevelSelector levelSelect = LevelSelector.level3;
 
     [Header("References")]
     [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
@@ -138,7 +128,27 @@ public class TestingManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            StartCoroutine(SetLevel());
+            StartCoroutine(SetLevel(3));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            StartCoroutine(SetLevel(4));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            StartCoroutine(SetLevel(6));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            StartCoroutine(SetLevel(2));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            StartCoroutine(SetLevel(1));
         }
     }
 
@@ -147,7 +157,7 @@ public class TestingManager : MonoBehaviour
         GetCurrentPlayer();
 
         yield return null;
-        nutrientTracker.SetNutrients(nutrients);
+        nutrientTracker.AddNutrients(nutrientsToGain);
     }
 
     IEnumerator SetPlayerMaterials()
@@ -155,10 +165,10 @@ public class TestingManager : MonoBehaviour
         GetCurrentPlayer();
 
         yield return null;
-        nutrientTracker.storedLog = logs;
-        nutrientTracker.storedExoskeleton = exoskeletons;
-        nutrientTracker.storedCalcite = calcites;
-        nutrientTracker.storedFlesh = fleshes;
+        nutrientTracker.storedLog += logsToGain;
+        nutrientTracker.storedExoskeleton += exoskeletonsToGain;
+        nutrientTracker.storedCalcite += calcitesToGain;
+        nutrientTracker.storedFlesh += fleshesToGain;
     }
 
     IEnumerator SetPlayerStats()
@@ -166,13 +176,13 @@ public class TestingManager : MonoBehaviour
         GetCurrentPlayer();
 
         yield return null;
-        playerStats.primalLevel = primalLevel;
-        playerStats.sentienceLevel = sentienceLevel;
-        playerStats.speedLevel = speedLevel;
-        playerStats.vitalityLevel = vitalityLevel;
+        playerStats.primalLevel += primalLevelsToGain;
+        playerStats.sentienceLevel += sentienceLevelsToGain;
+        playerStats.speedLevel += speedLevelsToGain;
+        playerStats.vitalityLevel += vitalityLevelsToGain;
 
-        player.GetComponent<CharacterStats>().StartCalculateAttributes();
-        player.GetComponent<CharacterStats>().UpdateLevel();
+        playerStats.StartCalculateAttributes();
+        playerStats.UpdateLevel();
     }
 
     IEnumerator SetPlayerSkills()
@@ -211,13 +221,12 @@ public class TestingManager : MonoBehaviour
         hudSkills.ChangeSkillIcon(subspeciesSkill.ToString(), 0);
     }
 
-    IEnumerator SetLevel()
+    IEnumerator SetLevel(int buildIndex)
     {
         GetCurrentPlayer();
 
         yield return null;
-        int levelSelected = (int)levelSelect;
-        SceneManager.LoadScene(levelSelected);
+        SceneLoader.Instance.BeginLoadScene(buildIndex, true);
     }
 
     void GetCurrentPlayer()

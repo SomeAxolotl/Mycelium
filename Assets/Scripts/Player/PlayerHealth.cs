@@ -104,7 +104,7 @@ public class PlayerHealth : MonoBehaviour
             realDmgTaken = dmgTaken;
         }
         currentHealth -= realDmgTaken;
-        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        UpdateHudHealthUI();
     }
     public void PlayerHeal(float healAmount)
     {
@@ -119,7 +119,7 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
-        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        UpdateHudHealthUI();
     }
     IEnumerator Death()
     {
@@ -147,7 +147,7 @@ public class PlayerHealth : MonoBehaviour
     {
         GetHealthStats();
         currentHealth = maxHealth;
-        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        UpdateHudHealthUI();
     }
 
     IEnumerator HurtSound()
@@ -159,5 +159,10 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenHurtSounds);
 
         SoundEffectManager.Instance.PlaySound("Hurt", player.transform.position);
+    }
+
+    public void UpdateHudHealthUI()
+    {
+        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
 }
