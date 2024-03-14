@@ -84,6 +84,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
    
     void OnEnable()
     {
+        
         LevelUI.SetActive(false);
         controls = new ThirdPersonActionsAsset();
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
@@ -97,6 +98,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         UpdateUI();
         Invoke("ControlEnable", 0.25f);
         GrowMenu.SetActive(false);
+        Camera.SetActive(true);
         
         EruptionUnlocked.Select();
         Invoke("InstantiateCurrentSpore", 0.01f);

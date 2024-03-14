@@ -29,6 +29,7 @@ public class GrowMenuButtonController : MonoBehaviour
     private PlayerController playerController;
     private SpawnCharacter spawnCharacterscript;
     public GameObject Camera;
+    public NutrientTracker currentnutrients;
     
 
     void OnEnable()
@@ -40,6 +41,7 @@ public class GrowMenuButtonController : MonoBehaviour
         controls.UI.Close.performed += ctx => Close();
         swapCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
         //currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         Invoke("ControlEnable", 0.25f);
         SkillMenu.SetActive(false);
@@ -140,39 +142,66 @@ public class GrowMenuButtonController : MonoBehaviour
     }
     public void GrowPoison()
     {
-        
+        if(currentnutrients.storedExoskeleton >= 1)
+        {
         spawnCharacterscript.SpawnNewCharacter("Poison");
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
 
         GlobalData.isAbleToPause = true;
+        }
+        else
+        {
+            return;
+        }
     }
     public void GrowDefault()
     {
+        if(currentnutrients.storedLog >= 1)
+        {
         spawnCharacterscript.SpawnNewCharacter("Default");
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
 
         GlobalData.isAbleToPause = true;
+        }
+        else
+        {
+            return;
+        }
     }
     public void GrowCoral()
     {
+        if(currentnutrients.storedCalcite >= 1)
+        {
         spawnCharacterscript.SpawnNewCharacter("Coral");
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
 
         GlobalData.isAbleToPause = true;
+        }
+        else
+        {
+            return;
+        }
     }
     public void GrowCordy()
     {
+        if(currentnutrients.storedFlesh >= 1)
+        {
         spawnCharacterscript.SpawnNewCharacter("Cordyceps");
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
 
         GlobalData.isAbleToPause = true;
+        }
+        else
+        {
+            return;
+        }
     }
 }
