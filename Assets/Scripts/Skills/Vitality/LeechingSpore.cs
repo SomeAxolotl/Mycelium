@@ -5,7 +5,7 @@ using UnityEngine;
 public class LeechingSpore : Skill
 {
     //Skill specific fields
-    [SerializeField] private float attachRange = 5f;
+    [SerializeField] private float attachRange = 10f;
     [SerializeField] private float sporeDuration = 5f;
     [SerializeField] private GameObject sporeObj;
     private GameObject currentSpore;
@@ -23,12 +23,12 @@ public class LeechingSpore : Skill
     {
         SoundEffectManager.Instance.PlaySound("Projectile", player.transform.position);
 
-        // get closest enemy with 5m
+        //Get closest enemy within distance
         Transform closestEnemyObj = ClosestEnemy();
 
         if (closestEnemyObj != null)
         {
-            GameObject enemyAttach = GameObject.FindWithTag("EnemySporeAttach");
+            GameObject enemyAttach = closestEnemyObj.transform.Find("Attach").gameObject;
             currentSpore = Instantiate(sporeObj, enemyAttach.transform);
             StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
             StartCoroutine(HealingPlayer(closestEnemyObj.gameObject));

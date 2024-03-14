@@ -7,6 +7,7 @@ public class Sporeburst : Skill
 {
     [SerializeField] private float burstRadius = 3f;
     [SerializeField] private float stunDuration = 2f;
+    List<GameObject> enemiesHit = new List<GameObject>();
     public override void DoSkill()
     {
         DoSporeburst();
@@ -16,6 +17,7 @@ public class Sporeburst : Skill
     void DoSporeburst()
     {
         SoundEffectManager.Instance.PlaySound("Explosion", player.transform.position);
+        ParticleManager.Instance.SpawnParticles("SporeburstParticles", transform.position, Quaternion.identity);
 
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
@@ -23,8 +25,9 @@ public class Sporeburst : Skill
         float damage = finalSkillValue;
         foreach (var enemy in enemies)
         {
-            if (enemy.gameObject.GetComponent<EnemyHealth>() != null)
+            if (enemy.gameObject.GetComponent<EnemyHealth>() != null && !enemiesHit.Contains(enemy.gameObject))
             {
+                enemiesHit.Add(enemy.gameObject);
                 enemy.gameObject.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
                 HealPlayer(enemy.gameObject);
                 Debug.Log("Sporeburst hit!");
@@ -58,12 +61,14 @@ public class Sporeburst : Skill
     {
         yield return new WaitForSeconds(stunDuration);
         enemyAttack.enabled = true;
+        enemiesHit.Clear();
     }
     IEnumerator ReactivateNavigation(ReworkedEnemyNavigation reworkedEnemyNavigation)
     {
         yield return new WaitForSeconds(stunDuration);
         reworkedEnemyNavigation.gameObject.GetComponent<Animator>().SetBool("IsMoving", true);
         reworkedEnemyNavigation.enabled = true;
+        enemiesHit.Clear();
     }
 }
 

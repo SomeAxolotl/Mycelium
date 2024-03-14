@@ -5,7 +5,7 @@ using UnityEngine;
 public class DefenseMechanism : Skill
 {
     //Skill specific fields
-    [SerializeField] private float defenseDuration = 1f;
+    [SerializeField] private float defenseDuration = 5f;
     public override void DoSkill()
     {
         //Skill specific stuff
@@ -15,6 +15,7 @@ public class DefenseMechanism : Skill
     IEnumerator DoDefense()
     {
         playerHealth.isDefending = true;
+        ParticleManager.Instance.SpawnParticles("DefenseParticles", new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.Euler(-90f, 0f, 0f), player);
         yield return new WaitForSeconds(defenseDuration);
         playerHealth.isDefending = false;
     }
