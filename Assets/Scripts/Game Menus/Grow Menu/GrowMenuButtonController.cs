@@ -30,7 +30,7 @@ public class GrowMenuButtonController : MonoBehaviour
     private SpawnCharacter spawnCharacterscript;
     public GameObject Camera;
     public NutrientTracker currentnutrients;
-    
+
 
     void OnEnable()
     {

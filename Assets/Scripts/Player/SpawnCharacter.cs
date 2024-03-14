@@ -47,11 +47,13 @@ public class SpawnCharacter : MonoBehaviour
 
     SwapCharacter swapCharacter;
     SkillManager skillManager;
+    NewSporeCam sporeCam;
     // Start is called before the first frame update
     void Start()
     {
         swapCharacter = GetComponent<SwapCharacter>();
-        skillManager = GetComponent<SkillManager>();  
+        skillManager = GetComponent<SkillManager>();
+        sporeCam = GameObject.Find("GrowCamera").GetComponent<NewSporeCam>();
     }
 
     // Update is called once per frame
@@ -71,7 +73,7 @@ public class SpawnCharacter : MonoBehaviour
     public void SpawnNewCharacter(string subspecies)
     {
         GameObject newCharacter = Instantiate(characterPrefab);
-
+        newCharacter.GetComponent<IdleWalking>().enabled = false;
         string subspeciesSkill = "FungalMight";
         switch (subspecies)
         {
@@ -106,7 +108,9 @@ public class SpawnCharacter : MonoBehaviour
 
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
-        newCharacter.GetComponent<NewSporeAnimation>().StartGrowAnimation();
+        sporeCam.SwitchCamera("GrowCamera");
+        newCharacter.GetComponent<Animator>().Play("Sprout");
+        StartCoroutine(ResetCamera(newCharacter));
 
         int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
         newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
@@ -114,6 +118,13 @@ public class SpawnCharacter : MonoBehaviour
         sporeNames.Remove(sporeNames[randomNameIndex]);
         //newCharacter.GetComponent<CharacterStats>().ShowNametag();
         //newCharacter.GetComponent<CharacterStats>().UpdateNametagText();
+    }
+    IEnumerator ResetCamera(GameObject newCharacter)
+    { 
+        yield return new WaitForSeconds(2.5f);
+        sporeCam.SwitchCamera("Main Camera");
+        newCharacter.GetComponent<IdleWalking>().enabled = true;
+
     }
 
     void CreateSpeciesPalette(GameObject character, string subspecies)

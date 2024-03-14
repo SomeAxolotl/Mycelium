@@ -8,30 +8,28 @@ public class IdleWalking : MonoBehaviour
     private float wanderRadius = 30f;
     private List<Vector3> waypoints = new List<Vector3>();
     private bool startedWander;
-    private bool startedFirstWander;
     private float speed;
     private float rerouteTimer;
     private Vector3 previousPosition;
     public LayerMask environmentLayer;
-    private float gravityForce;
+    private float gravityForce = -10f;
     public float moveSpeed = 2f;
     private float maxRotationSpeed = 200f;
     Vector3 gravity;
     private Rigidbody rb;
     private Transform center;
     private Animator animator;
+    private NewSporeCam sporeCam;
     // Start is called before the first frame update
     void OnEnable()
     {
         startedWander = true;
-        startedFirstWander = false;
         animator = GetComponent<Animator>();
         previousPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         center = transform.Find("CenterPoint");
-        gravityForce = 9.81f;
         gravity = new Vector3(0f, gravityForce, 0f);
-        Invoke("BeginFirstWander", 2f);
+        animator.SetBool("Walk", true);
     }
 
     // Update is called once per frame
@@ -40,7 +38,6 @@ public class IdleWalking : MonoBehaviour
         Vector3 currentVelocity = (transform.position - previousPosition) / Time.deltaTime;
         previousPosition = transform.position;
         speed = currentVelocity.magnitude;
-
         if (!startedWander)
         {
             SetRandomDestination();
@@ -55,7 +52,7 @@ public class IdleWalking : MonoBehaviour
             rerouteTimer = 0;
         }
 
-        if (rerouteTimer > .5f && startedFirstWander)
+        if (rerouteTimer > .5f)
         {
             waypoints.Clear();
             SetRandomDestination();
@@ -146,13 +143,5 @@ public class IdleWalking : MonoBehaviour
             result = Vector3.zero;
             return false;
         }
-    }
-    private void BeginFirstWander()
-    {
-        gravityForce = -10f;
-        gravity = new Vector3(0f, gravityForce, 0f);
-        animator.SetBool("Walk", true);
-        startedFirstWander = true;
-        startedWander = false;
     }
 }

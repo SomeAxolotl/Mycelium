@@ -59,6 +59,7 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = false;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
+        playerAttack.animator = characters[currentCharacterIndex].GetComponent<Animator>();
         currentCharacterStats = characters[currentCharacterIndex].GetComponent<CharacterStats>();
         //currentCharacterStats.StartCalculateAttributes();
         
@@ -107,6 +108,7 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = true;
         int nextCharacterIndex = (currentCharacterIndex + 1) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {
@@ -122,6 +124,7 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = true;
         int lastCharacterIndex = (currentCharacterIndex - 1 + characters.Count) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {
