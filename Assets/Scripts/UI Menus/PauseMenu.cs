@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
     GameObject playerParent;
     SceneLoader sceneLoaderScript;
     bool isOnMainMenu;
-    public string audioTag;
+    private string audioTag;
 
     private SporeManager sporeManagerScript;
     private ProfileManager profileManagerScript;
@@ -166,6 +166,7 @@ public class PauseMenu : MonoBehaviour
         PlayerPrefs.DeleteAll();
         File.Delete(sporeFilePath);
         File.Delete(profileFilePath);
+        profileManagerScript.tutorialIsDone = false;
     }
 
     private void OnEnable()
