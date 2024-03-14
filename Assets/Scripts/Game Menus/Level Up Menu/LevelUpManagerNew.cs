@@ -69,6 +69,7 @@ public class LevelUpManagerNew : MonoBehaviour
     public Image SentienceArrowDown;
     public Image VitalityArrowUp;
     public Image VitalityArrowDown;
+    public GameObject Camera;
     
     ThirdPersonActionsAsset controls;
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
@@ -88,6 +89,7 @@ public class LevelUpManagerNew : MonoBehaviour
 
     void OnEnable()
     {
+      Camera.SetActive(true);
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
       controls = new ThirdPersonActionsAsset();
       controls.UI.Close.performed += ctx => Close();
@@ -659,6 +661,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void Commit()
     {
+      Camera.SetActive(false);
       PrimalSave = currentstats.primalLevel;
       SpeedSave = currentstats.speedLevel;
       SentienceSave = currentstats.sentienceLevel;
@@ -681,6 +684,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }*/
     public void Close()
     {
+      Camera.SetActive(false);
       playerController.EnableController();
       currentstats.primalLevel = PrimalSave;
       currentstats.speedLevel = SpeedSave;

@@ -1578,6 +1578,24 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d2f5a91-99ed-4edc-b870-8ecc90c7713b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac4547d6-1c48-444d-8b67-ad914a9bae4b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1657,6 +1675,28 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""Assign B KB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d221127-ca8a-4a88-8840-0708a4db9933"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""981764bd-13e5-44fe-aecb-94348fdf487b"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1726,6 +1766,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UISub_AssignB = m_UISub.FindAction("AssignB", throwIfNotFound: true);
         m_UISub_AssignYKB = m_UISub.FindAction("Assign Y KB", throwIfNotFound: true);
         m_UISub_AssignBKB = m_UISub.FindAction("Assign B KB", throwIfNotFound: true);
+        m_UISub_Left = m_UISub.FindAction("Left", throwIfNotFound: true);
+        m_UISub_Right = m_UISub.FindAction("Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -2270,6 +2312,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UISub_AssignB;
     private readonly InputAction m_UISub_AssignYKB;
     private readonly InputAction m_UISub_AssignBKB;
+    private readonly InputAction m_UISub_Left;
+    private readonly InputAction m_UISub_Right;
     public struct UISubActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -2281,6 +2325,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @AssignB => m_Wrapper.m_UISub_AssignB;
         public InputAction @AssignYKB => m_Wrapper.m_UISub_AssignYKB;
         public InputAction @AssignBKB => m_Wrapper.m_UISub_AssignBKB;
+        public InputAction @Left => m_Wrapper.m_UISub_Left;
+        public InputAction @Right => m_Wrapper.m_UISub_Right;
         public InputActionMap Get() { return m_Wrapper.m_UISub; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2311,6 +2357,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @AssignBKB.started += instance.OnAssignBKB;
             @AssignBKB.performed += instance.OnAssignBKB;
             @AssignBKB.canceled += instance.OnAssignBKB;
+            @Left.started += instance.OnLeft;
+            @Left.performed += instance.OnLeft;
+            @Left.canceled += instance.OnLeft;
+            @Right.started += instance.OnRight;
+            @Right.performed += instance.OnRight;
+            @Right.canceled += instance.OnRight;
         }
 
         private void UnregisterCallbacks(IUISubActions instance)
@@ -2336,6 +2388,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @AssignBKB.started -= instance.OnAssignBKB;
             @AssignBKB.performed -= instance.OnAssignBKB;
             @AssignBKB.canceled -= instance.OnAssignBKB;
+            @Left.started -= instance.OnLeft;
+            @Left.performed -= instance.OnLeft;
+            @Left.canceled -= instance.OnLeft;
+            @Right.started -= instance.OnRight;
+            @Right.performed -= instance.OnRight;
+            @Right.canceled -= instance.OnRight;
         }
 
         public void RemoveCallbacks(IUISubActions instance)
@@ -2418,5 +2476,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnAssignB(InputAction.CallbackContext context);
         void OnAssignYKB(InputAction.CallbackContext context);
         void OnAssignBKB(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
     }
 }

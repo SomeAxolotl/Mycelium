@@ -28,6 +28,8 @@ public class GrowMenuButtonController : MonoBehaviour
     public GameObject UIenable;
     private PlayerController playerController;
     private SpawnCharacter spawnCharacterscript;
+    public GameObject Camera;
+    
 
     void OnEnable()
     {
@@ -38,6 +40,7 @@ public class GrowMenuButtonController : MonoBehaviour
         controls.UI.Close.performed += ctx => Close();
         swapCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        //currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         Invoke("ControlEnable", 0.25f);
         SkillMenu.SetActive(false);
         buttons = new List<GameObject>();
@@ -87,6 +90,7 @@ public class GrowMenuButtonController : MonoBehaviour
     void OnDisable()
     {
       controls.UI.Disable();
+      Camera.SetActive(false);
     }
     /*void GenerateList()
     {
@@ -115,6 +119,7 @@ public class GrowMenuButtonController : MonoBehaviour
     }
     void Close()
     {
+        Camera.SetActive(false);
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
@@ -124,6 +129,8 @@ public class GrowMenuButtonController : MonoBehaviour
     }
     public void OnClickClose()
     {
+        
+        Camera.SetActive(false);
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
@@ -133,6 +140,7 @@ public class GrowMenuButtonController : MonoBehaviour
     }
     public void GrowPoison()
     {
+        
         spawnCharacterscript.SpawnNewCharacter("Poison");
         playerController.EnableController();
         UIenable.SetActive(false);
