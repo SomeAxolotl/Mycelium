@@ -10,7 +10,7 @@ public class RangedEnemyShoot : EnemyAttack
     private Transform player;
     public Transform launchPoint;
     private bool canAttack = true;
-    private float attackCooldown = 2f;
+    [SerializeField]private float attackCooldown = 2f;
     private float attackWindupTime = 2f;
     public GameObject projectile;
     IEnumerator attack;
