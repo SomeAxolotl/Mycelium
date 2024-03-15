@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -32,8 +33,21 @@ public class AreaTrigger : MonoBehaviour
             if(AudioFadeoutEvents.Count != 0)
                 foreach (AudioTrigger audioFade in AudioFadeoutEvents)
                     StartCoroutine(audioFade.SlideOffVolume());
+
+            if(GetComponent<CinemachineImpulseSource>() != null)
+            {
+                StartCoroutine(WaitThenShake(0.65f));
+            }
+
             StartCoroutine(DestroySelf());
         }
+    }
+
+    private IEnumerator WaitThenShake(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        CameraShakeManager.instance.ShakeCamera(GetComponent<CinemachineImpulseSource>());
     }
 
     private IEnumerator DestroySelf(){
