@@ -8,9 +8,11 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
-    float regenRate;
+    private float regenRate;
     public bool isDefending;
-    float realDmgTaken;
+    private bool dead = false;
+    private float realDmgTaken;
+    [HideInInspector] public float deathTimer;
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
     HUDItem hudItem;
@@ -18,10 +20,9 @@ public class PlayerHealth : MonoBehaviour
     NutrientTracker nutrientTracker;
     PlayerController playerController;
     CamTracker camTracker;
-    public float deathTimer;
-    private Animator animator;
-    private SceneLoader sceneLoaderScript;
-    private ProfileManager profileManagerScript;
+    Animator animator;
+    SceneLoader sceneLoaderScript;
+    ProfileManager profileManagerScript;
 
     [SerializeField] private float timeBetweenHurtSounds = 0.25f;
 
@@ -46,37 +47,10 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentHealth = Mathf.Clamp(currentHealth, -100, maxHealth);
-
-        if (currentHealth <= 0)
+        if(dead)
         {
             playerController.DisableController();
             playerController.isInvincible = true;
-            swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
-            CancelInvoke("Regen");
-            hudHealth.UpdateHealthUI(0, maxHealth);
-            deathTimer += Time.deltaTime;
-            if (camTracker.isLockedOn)
-            {
-                camTracker.ToggleLockOn();
-            }
-            if (animator.GetBool("Death") == false)
-            {
-                animator.SetBool("Death", true);
-            }
-            if (deathTimer >= 3f)
-            {
-                Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
-                if (SceneManager.GetActiveScene().buildIndex == 1)
-                {
-                    profileManagerScript.tutorialIsDone = true;
-                }
-                profileManagerScript.Save();
-                sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-                //GameManager.Instance.OnPlayerDeath();
-                sceneLoaderScript.BeginLoadScene(2, false);
-                StartCoroutine(Death());
-            }
         }
     }
     public void GetHealthStats()
@@ -86,25 +60,32 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
-        StartCoroutine(HurtSound());
+        if (currentHealth > 0 && !playerController.isInvincible)
+        {
+            StartCoroutine(HurtSound());
 
-        animator = GetComponentInChildren<Animator>();
-        if(animator.GetBool("Hurt") == true)
-        {
-            Debug.Log("that hurt is true yo");
-            GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
+            animator = GetComponentInChildren<Animator>();
+            if (animator.GetBool("Hurt") == true)
+            {
+                Debug.Log("that hurt is true yo");
+                GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
+            }
+            if (isDefending)
+            {
+                realDmgTaken = dmgTaken / 2f;
+                GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>().reflectBonusDamage += realDmgTaken;
+            }
+            else
+            {
+                realDmgTaken = dmgTaken;
+            }
+            currentHealth -= realDmgTaken;
+            UpdateHudHealthUI();
         }
-        if(isDefending)
+        if (currentHealth <= 0 && !dead)
         {
-            realDmgTaken = dmgTaken/2f;
-            GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>().reflectBonusDamage += realDmgTaken;
+            StartCoroutine(Death());
         }
-        else
-        {
-            realDmgTaken = dmgTaken;
-        }
-        currentHealth -= realDmgTaken;
-        UpdateHudHealthUI();
     }
     public void PlayerHeal(float healAmount)
     {
@@ -123,20 +104,35 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator Death()
     {
-        deathTimer = -5; //changed to a negative number beacuse dying was happening twice -ryan
+        dead = true;
+        swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
+        CancelInvoke("Regen");
+        hudHealth.UpdateHealthUI(0, maxHealth);
+        if (camTracker.isLockedOn)
+        {
+            camTracker.ToggleLockOn();
+        }
+        if (animator.GetBool("Death") == false)
+        {
+            animator.SetBool("Death", true);
+        }
+        yield return new WaitForSeconds(3f);
+        Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            profileManagerScript.tutorialIsDone = true;
+        }
+        profileManagerScript.Save();
+        sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+        sceneLoaderScript.BeginLoadScene(2, false);
         yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
-        animator.Rebind();
-        animator.SetBool("Death", false);
-        InvokeRepeating("Regen", 1f, 1f);
         swapWeapon.curWeapon.tag = "Weapon";
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         Destroy(weapon);
         nutrientTracker.LoseMaterials();
-        playerController.isInvincible = false;
-        playerController.EnableController();
     }
     void Regen()
     {

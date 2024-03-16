@@ -34,12 +34,12 @@ public class CharacterStats : MonoBehaviour
     [Header("Primal Level")]
     public int primalLevel = 1;
     //Primal Base Stats
-    public float primalDmg = 10f;
+    public float primalDmg;
     
     [Header("Speed Level")]
     public int speedLevel = 1;
     //Speed Base Stats
-    public float moveSpeed = 4f;
+    public float moveSpeed;
     public float atkCooldownBuff = 0f;
     public float minAttackSpeed;
     public float maxAttackSpeed;
@@ -50,8 +50,8 @@ public class CharacterStats : MonoBehaviour
     [Header("Vitality Level")]
     public int vitalityLevel = 1;
     //Vitality Base Stats
-    public float baseHealth = 100f;
-    public float baseRegen = .2f;
+    public float baseHealth;
+    public float baseRegen;
     
     public int totalLevel;
     public int levelUpCost;

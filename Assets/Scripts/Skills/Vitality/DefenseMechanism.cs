@@ -5,7 +5,7 @@ using UnityEngine;
 public class DefenseMechanism : Skill
 {
     //Skill specific fields
-    [SerializeField] private float defenseDuration = 5f;
+    private float defenseDuration = 5f;
     public override void DoSkill()
     {
         //Skill specific stuff

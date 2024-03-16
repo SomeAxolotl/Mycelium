@@ -104,7 +104,7 @@ public class MeleeEnemyAttack : EnemyAttack
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "currentPlayer" && other.gameObject.GetComponentInParent<PlayerController>().isInvincible == false && !playerHit.Contains(other.gameObject) && isAttacking)
+        if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
             playerDamaged = true;
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);

@@ -6,8 +6,8 @@ public class WeaponCollision : MonoBehaviour
 {
     PlayerAttack playerAttack;
     PlayerHealth playerHealth;
-    public float sentienceBonusDamage = 0f;
-    public float reflectBonusDamage = 0f;
+    public float sentienceBonusDamage;
+    public float reflectBonusDamage;
     List<GameObject> enemiesHit = new List<GameObject>();
     WeaponStats weaponStats;
     RelentlessFury relentlessFury;
