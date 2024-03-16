@@ -45,6 +45,10 @@ public class SceneLoader : MonoBehaviour
     private float defaultTransitionTime = 1f;
     private PlayerHealth playerHealthScript;
 
+    //SceneUtility and SceneManager stuff
+    private int totalSceneCount;
+    private List<string> sceneNames = new List<string>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -59,10 +63,20 @@ public class SceneLoader : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FinishLoadScene(defaultTransitionTime, GlobalData.gameIsStarting));
-
         titleText = titleTextGameObject.GetComponent<TMP_Text>();
         titleTextRectTransform = titleTextGameObject.GetComponent<RectTransform>();
+
+        if (GlobalData.gameIsStarting == true)
+        {
+            totalSceneCount = SceneManager.sceneCountInBuildSettings;
+            //Debug.Log("TOTAL SCENE COUNT IS: " + totalSceneCount);
+
+            for(int i = 0; i < totalSceneCount; i++)
+            {
+                //Debug.Log(SceneUtility.GetScenePathByBuildIndex(i) + "\t" + i);
+                GlobalData.sceneNames.Add(ProcessScenePath(SceneUtility.GetScenePathByBuildIndex(i)));
+            }
+        }
 
         try
         {
@@ -71,8 +85,28 @@ public class SceneLoader : MonoBehaviour
         }
         catch
         {
-            Debug.Log("PlayerParent does not currently exist");
+            Debug.LogWarning("PlayerParent does not currently exist", gameObject);
         }
+
+        StartCoroutine(FinishLoadScene(defaultTransitionTime, GlobalData.gameIsStarting));
+    }
+
+    private string ProcessScenePath(string scenePath)
+    {
+        int highestSlashIndex = 0;
+
+        for(int i = 0; i < scenePath.Length; i++)
+        {
+            if (scenePath[i] == '/' && i > highestSlashIndex)
+            {
+                highestSlashIndex = i;
+            }
+        }
+
+        scenePath = scenePath.Remove(0, highestSlashIndex + 1);
+        scenePath = scenePath.Replace(".unity", "");
+
+        return scenePath;
     }
 
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition)
@@ -87,8 +121,52 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    public void BeginLoadScene(string sceneName, bool doGoodTransition)
+    {
+        int sceneIndex;
+
+        sceneIndex = GlobalData.sceneNames.IndexOf(sceneName);
+
+        if(sceneIndex == -1)
+        {
+            Debug.LogError("That scene does not exist or is not in the build settings!");
+            return;
+        }
+
+        if (doGoodTransition == true)
+        {
+            StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneBad(sceneIndex, defaultTransitionTime));
+        }
+    }
+
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition, float transitionTime)
     {
+        if (doGoodTransition == true)
+        {
+            StartCoroutine(LoadSceneGood(sceneIndex, transitionTime));
+        }
+        else
+        {
+            StartCoroutine(LoadSceneBad(sceneIndex, transitionTime));
+        }
+    }
+
+    public void BeginLoadScene(string sceneName, bool doGoodTransition, float transitionTime)
+    {
+        int sceneIndex;
+
+        sceneIndex = GlobalData.sceneNames.IndexOf(sceneName);
+
+        if (sceneIndex == -1)
+        {
+            Debug.LogError("That scene does not exist or is not in the build settings!");
+            return;
+        }
+
         if (doGoodTransition == true)
         {
             StartCoroutine(LoadSceneGood(sceneIndex, transitionTime));

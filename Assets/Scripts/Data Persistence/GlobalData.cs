@@ -9,4 +9,5 @@ public static class GlobalData
     public static bool isGamePaused { get; set; }
     public static bool isAbleToPause { get; set; }
     public static string currentWeapon { get; set; }
+    public static List<string> sceneNames = new List<string>();
 }
