@@ -71,7 +71,7 @@ public class SceneLoader : MonoBehaviour
             totalSceneCount = SceneManager.sceneCountInBuildSettings;
             //Debug.Log("TOTAL SCENE COUNT IS: " + totalSceneCount);
 
-            for(int i = 0; i < totalSceneCount; i++)
+            for (int i = 0; i < totalSceneCount; i++)
             {
                 //Debug.Log(SceneUtility.GetScenePathByBuildIndex(i) + "\t" + i);
                 GlobalData.sceneNames.Add(ProcessScenePath(SceneUtility.GetScenePathByBuildIndex(i)));
@@ -234,7 +234,7 @@ public class SceneLoader : MonoBehaviour
                 break;
 
             default:
-                yield break;
+                break;
         }
 
         yield return new WaitForSecondsRealtime(0.5f);
