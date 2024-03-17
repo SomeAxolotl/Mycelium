@@ -7,20 +7,23 @@ public class CameraShakeManager : MonoBehaviour
 {
     public static CameraShakeManager instance;
 
-    private CinemachineImpulseListener.ImpulseReaction impulseReaction;
+    private CinemachineImpulseListener impulseListener;
 
     private float defaultShakeForce = 1f;
 
-    void Awake()
+    private void Awake()
     {
         if(instance == null)
         {
             instance = this;
         }
+    }
 
+    private void Start()
+    {
         try
         {
-            impulseReaction = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineImpulseListener.ImpulseReaction>();
+            impulseListener = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineImpulseListener>();
         }
         catch
         {
@@ -30,14 +33,14 @@ public class CameraShakeManager : MonoBehaviour
 
     public void ShakeCamera(CinemachineImpulseSource impulseSource)
     {
-        impulseReaction.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
+        impulseListener.m_ReactionSettings.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
 
         impulseSource.GenerateImpulseWithForce(defaultShakeForce);
     }
 
     public void ShakeCamera(CinemachineImpulseSource impulseSource, float forceOverride)
     {
-        impulseReaction.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
+        impulseListener.m_ReactionSettings.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
 
         impulseSource.GenerateImpulseWithForce(forceOverride);
     }
