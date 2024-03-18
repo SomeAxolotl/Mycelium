@@ -21,17 +21,20 @@ public class InvisibleMaterial : MonoBehaviour
 
     public void ToggleAllVisibility()
     {
-        if(Application.isPlaying == false)
+        MeshRenderer mr;
+
+        if (Application.isPlaying == false)
         {
             return;
         }
 
-        MeshRenderer mr;
-
         foreach(GameObject singleObject in GameObject.FindGameObjectsWithTag("InvisibleWalls"))
         {
-            mr = singleObject.GetComponent<MeshRenderer>();
-            mr.enabled = !mr.enabled;
+            if(singleObject.GetComponent<MeshRenderer>() != null)
+            {
+                mr = singleObject.GetComponent<MeshRenderer>();
+                mr.enabled = !mr.enabled;
+            }
         }
     }
 }
