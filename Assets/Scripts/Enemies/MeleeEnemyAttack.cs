@@ -20,7 +20,10 @@ public class MeleeEnemyAttack : EnemyAttack
     Animator animator;
     List<GameObject> playerHit = new List<GameObject>();
     private Transform player;
+    private Transform center;
     private Rigidbody rb;
+    Quaternion targetRotation;
+    public LayerMask enviromentLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,7 @@ public class MeleeEnemyAttack : EnemyAttack
         attack = this.Attack();
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;
+        center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
     }
 
@@ -54,12 +58,29 @@ public class MeleeEnemyAttack : EnemyAttack
     {
         if (attackStarted)
         {
-            Vector3 dirToPlayer = (player.position - transform.position);
+            Vector3 dirToPlayer = (player.position - transform.position).normalized;
             Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
             float desiredYRotation = desiredRotation.eulerAngles.y;
-            Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
+            targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
         }
+
+        RaycastHit groundHit;
+        if (Physics.Raycast(center.position, -transform.up, out groundHit, 5f, enviromentLayer))
+        {
+            Quaternion groundRotation = Quaternion.FromToRotation(transform.up, groundHit.normal) * transform.rotation;
+            float groundXRotation = groundRotation.eulerAngles.x;
+            float groundZRotation = groundRotation.eulerAngles.z;
+            if(attackStarted)
+            {
+                targetRotation = Quaternion.Euler(groundXRotation, targetRotation.eulerAngles.y, groundZRotation);
+            }
+            else
+            {
+                targetRotation = Quaternion.Euler(groundXRotation, transform.eulerAngles.y, groundZRotation);
+            }
+        }
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
     }
     public override IEnumerator Attack()
     {

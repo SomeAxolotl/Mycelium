@@ -87,11 +87,9 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         {
             waypoints.Clear();
             SetRandomDestination();
+            rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
             rerouteTimer = 0f;
-            //Debug.Log("patrol restart via timer! " + gameObject.name);
         }
-
-        //Debug.DrawRay(center.position, transform.forward * 2f, Color.red);
     }
     private void FixedUpdate()
     {
@@ -133,8 +131,8 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         {
             waypoints.Clear();
             SetRandomDestination();
+            rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
             rerouteTimer = 0f;
-            //Debug.Log("patrol restart via raycast! " + gameObject.name);
         }
         else if (Physics.Raycast(center.position, transform.forward, out hit, 2f, obstacleLayer) && speed > .5f)
         {
