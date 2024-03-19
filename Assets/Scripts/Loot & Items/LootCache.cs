@@ -4,13 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using RonaldSunglassesEmoji.Interaction;
+using System;
 //using static UnityEditor.Progress;
 
 
 public class LootCache : MonoBehaviour, IInteractable
 {
     float distance;
-    [SerializeField] private List<GameObject> possibleDrops;
+    [SerializeField][Tooltip("The Loot Table Object used for this Cache;")] private LootTable lootTable;
+    [SerializeField][Tooltip("Legacy. Used only for reference.")] private List<GameObject> possibleDrops;
     [SerializeField] private int nutrientMin = 50;
     [SerializeField] private int nutrientMax = 200;
     ThirdPersonActionsAsset playerActionsAsset;
@@ -62,13 +64,22 @@ public class LootCache : MonoBehaviour, IInteractable
 
     public void GetLoot()
     {
-        int randomDropIndex = Random.Range(0, possibleDrops.Count);
-        if (possibleDrops[randomDropIndex] != null)
+        List<Loot> possibleItems = new List<Loot>();
+        do
         {
-        	Instantiate(possibleDrops[randomDropIndex], new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
-        }
-
-        int randomNutrientValue = Random.Range(nutrientMin, nutrientMax);
+            int randomIndex = UnityEngine.Random.Range(1,101);
+            foreach(Loot item in lootTable.loots)
+            {
+                if(randomIndex <= item.DropChance)
+                {
+                    possibleItems.Add(item);
+                }
+            }
+        } while (possibleItems.Count == 0);
+        Loot droppedItem = possibleItems[UnityEngine.Random.Range(0,possibleItems.Count)];
+        Instantiate(droppedItem.LootPrefab, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
+        
+        int randomNutrientValue = UnityEngine.Random.Range(nutrientMin, nutrientMax);
         //GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(randomNutrientValue);
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", randomNutrientValue, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
     }
