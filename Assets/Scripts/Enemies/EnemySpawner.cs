@@ -103,6 +103,6 @@ class EnemySpawn
     [Tooltip("The prefab of the enemy to spawn")]
     public GameObject EnemyPrefab = null;
     
-    [Range(0,10)][Tooltip("The spawn weight of an enemy. The higher the weight compared to other enemies, the more likely the enemy will spawn.")]
+    [Range(1,10)][Tooltip("The spawn weight of an enemy. The higher the weight compared to other enemies, the more likely the enemy will spawn.")]
     public int weight = 1;
 } 
