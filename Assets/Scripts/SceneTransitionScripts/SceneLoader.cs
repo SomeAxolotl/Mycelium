@@ -234,7 +234,7 @@ public class SceneLoader : MonoBehaviour
                 break;
 
             default:
-                break;
+                yield break;
         }
 
         yield return new WaitForSecondsRealtime(0.5f);
