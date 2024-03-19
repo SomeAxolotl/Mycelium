@@ -6,6 +6,7 @@ public class DeathPlane : MonoBehaviour
 {
     [SerializeField] Transform respawnPoint;
     [SerializeField] float percentHealthTaken = 0.2f;
+    [SerializeField][Tooltip("The range at which an enemy falling will drop nutrients")] float rangeForEnemyDropNutrients = 20f;
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,7 +16,14 @@ public class DeathPlane : MonoBehaviour
         }
         if (other.gameObject.tag == "Enemy")
         {
-            KillObject(other.gameObject);
+            if (Vector3.Distance(other.gameObject.transform.position, GameObject.FindWithTag("currentPlayer").transform.position) < rangeForEnemyDropNutrients)
+            {
+                KillObject(other.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 

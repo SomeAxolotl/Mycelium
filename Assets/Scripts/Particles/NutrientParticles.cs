@@ -10,6 +10,8 @@ public class NutrientParticles : MonoBehaviour
     private DesignTracker designTrackerScript;
     private NutrientTracker nutrientTrackerScript;
 
+    [SerializeField] float nutrientHealAmount = 0.25f;
+
     void Start()
     {
         targetObject = GameObject.FindWithTag("currentPlayer");
@@ -50,6 +52,8 @@ public class NutrientParticles : MonoBehaviour
 
         nutrientTrackerScript.AddNutrients(20);
         designTrackerScript.StartNutrientGlow();
+
+        GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(nutrientHealAmount);
     }
 
     float EaseInQuart(float x)

@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] float nutrientDrainRate = 1f;
-    bool shouldDrainNutrients;
 
     public static GameManager Instance;
 
@@ -90,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         NutrientTracker nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
 
-        while (shouldDrainNutrients)
+        while (true)
         {
             nutrientTracker.SubtractNutrients(1);
 
