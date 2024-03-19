@@ -7,28 +7,21 @@ using UnityEngine;
 public class HUDController : MonoBehaviour
 {
     [SerializeField] private float hudFadeTransitionTime = 0.25f;
-    public bool fadingIn = false;
 
     public void FadeInHUD()
     {
         CanvasGroup hudCanvasGroup = GetComponent<CanvasGroup>();
-        fadingIn = true;
 
-        if (hudCanvasGroup.alpha != 1f)
-        {
-            StartCoroutine(FadeCanvasIn(hudCanvasGroup, hudFadeTransitionTime));
-        }
+        StopAllCoroutines();
+        StartCoroutine(FadeCanvasIn(hudCanvasGroup, hudFadeTransitionTime));
     }
 
     public void FadeOutHUD()
     {
         CanvasGroup hudCanvasGroup = GetComponent<CanvasGroup>();
-        fadingIn = false;
 
-        if (hudCanvasGroup.alpha != 0f)
-        {
-            StartCoroutine(FadeCanvasOut(hudCanvasGroup, hudFadeTransitionTime));
-        }
+        StopAllCoroutines();
+        StartCoroutine(FadeCanvasOut(hudCanvasGroup, hudFadeTransitionTime));
     }
 
     IEnumerator FadeCanvasIn(CanvasGroup canvasGroup, float transitionTime)
@@ -36,14 +29,16 @@ public class HUDController : MonoBehaviour
         float elapsedTime = 0f;
         float t = 0f;
 
+        float currentCanvasAlpha = canvasGroup.alpha;
+
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
 
-        while (elapsedTime < transitionTime && fadingIn)
+        while (elapsedTime < transitionTime)
         {
             t = elapsedTime / transitionTime;
 
-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+            canvasGroup.alpha = Mathf.Lerp(currentCanvasAlpha, 1f, t);
 
             elapsedTime += Time.unscaledDeltaTime;
 
@@ -54,31 +49,31 @@ public class HUDController : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
         canvasGroup.interactable = true;
 
-        try
+        /*try
         {
             GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>().Resume();
         }
         catch
         {
             
-        }
+        }*/
     }
 
     IEnumerator FadeCanvasOut(CanvasGroup canvasGroup, float transitionTime)
     {
-        Debug.Log("hud fade in " + transitionTime);
-
         float elapsedTime = 0f;
         float t = 0f;
+
+        float currentCanvasAlpha = canvasGroup.alpha;
 
         canvasGroup.blocksRaycasts = true;
         canvasGroup.interactable = true;
 
-        while (elapsedTime < transitionTime && !fadingIn)
+        while (elapsedTime < transitionTime)
         {
             t = elapsedTime / transitionTime;
 
-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+            canvasGroup.alpha = Mathf.Lerp(currentCanvasAlpha, 0f, t);
 
             elapsedTime += Time.unscaledDeltaTime;
 

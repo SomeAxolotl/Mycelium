@@ -179,10 +179,10 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator FinishLoadScene(float transitionTime, bool isOnStartup)
     {
-        if(SceneManager.GetActiveScene().buildIndex != 0)
+        /*if(SceneManager.GetActiveScene().buildIndex != 0)
         {
             GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>().Resume();
-        }
+        }*/
         
         if (isOnStartup == true)
         {

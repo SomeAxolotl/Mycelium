@@ -86,7 +86,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
         confirmMenu.SetActive(false);
-        HUD.alpha = 1f;
+        HUD.GetComponent<HUDController>().FadeInHUD();
         Time.timeScale = 1f;
         GlobalData.isGamePaused = false;
         //Cursor.visible = false;
@@ -97,7 +97,7 @@ public class PauseMenu : MonoBehaviour
     {
         SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
         pauseMenu.SetActive(true);
-        HUD.alpha = 0f;
+        HUD.GetComponent<HUDController>().FadeOutHUD();
         Time.timeScale = 0f;
         GlobalData.isGamePaused = true;
 
