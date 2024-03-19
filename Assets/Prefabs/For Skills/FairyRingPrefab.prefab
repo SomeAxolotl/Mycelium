@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2549898513639098181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 0.2, z: 2}
+  m_LocalScale: {x: 4, y: 0.2, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2549898513639098181}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -119,9 +119,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSkill: 1
-  valueBase: 10
+  valueBase: 11
   valueIncrement: 2
-  finalSkillValue: 21
+  finalSkillValue: 0
   cooldownBase: 8
   cooldownIncrement: -0.26
   finalSkillCooldown: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   curWeapon: {fileID: 0}
   currentAnimator: {fileID: 0}
   fairyRingPrefab: {fileID: 0}
-  damageOverTimeDuration: 7
+  fairyRingParticles: {fileID: 0}
+  lifetime: 7
+  damage: 0
   speedReduction: 0.5
-  timeElapsed: 0

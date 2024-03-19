@@ -16,6 +16,7 @@ public class MeleeEnemyAttack : EnemyAttack
     private float resetAttack;
     [SerializeField] private float damage = 20f;
     private float knockbackForce = 30f;
+    public float chargeSpeed;
     IEnumerator attack;
     Animator animator;
     List<GameObject> playerHit = new List<GameObject>();
@@ -88,6 +89,7 @@ public class MeleeEnemyAttack : EnemyAttack
         attackStarted = true;
         animator.speed = 0f;
         reworkedEnemyNavigation.moveSpeed = 0f;
+        chargeSpeed = 8f;
         attackWindupTime = Random.Range(.8f, 1f);
         yield return new WaitForSeconds(attackWindupTime);
         SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
@@ -96,10 +98,9 @@ public class MeleeEnemyAttack : EnemyAttack
         isAttacking = true;
         Transform target = player;
         Vector3 moveDirection = (target.position - transform.position).normalized;
-        reworkedEnemyNavigation.moveSpeed = 8f;
         while (Vector3.Distance(transform.position, target.position) > 0.25f && !playerDamaged && resetAttack < 1.5f)
         {
-            rb.velocity = new Vector3((moveDirection * reworkedEnemyNavigation.moveSpeed).x, rb.velocity.y, (moveDirection * reworkedEnemyNavigation.moveSpeed).z);
+            rb.velocity = new Vector3((moveDirection * chargeSpeed).x, rb.velocity.y, (moveDirection * chargeSpeed).z);
             yield return null;
         }
         animator.speed = 1f;
@@ -118,6 +119,7 @@ public class MeleeEnemyAttack : EnemyAttack
         animator.speed = 1f;
         isAttacking = false;
         reworkedEnemyNavigation.moveSpeed = 3f;
+        chargeSpeed = 8f;
         playerDamaged = false;
         playerHit.Clear();
         attackStarted = false;

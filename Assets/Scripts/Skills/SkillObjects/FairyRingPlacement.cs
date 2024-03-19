@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class FairyRingPlacement : FairyRing
 {
-    [SerializeField] private float damageOverTimeDuration = 7f;
-    [SerializeField] public float damage = 0f;
+    [SerializeField] private float lifetime = 7f;
+    [HideInInspector] public float damage;
     [SerializeField] private float speedReduction = 0.5f;
 
     // Flag to track if an enemy is within the fairy ring collider
@@ -17,14 +17,23 @@ public class FairyRingPlacement : FairyRing
         StartCoroutine(DestroyAfterTime());
     }
 
-    private IEnumerator DamageOverTime(EnemyHealth enemyHealth, float damage)
+    private IEnumerator DamageOverTime(EnemyHealth enemyHealth,Collider other, float damage)
     {
         float timeElapsed = 0f;
-        float damageInterval = damage / damageOverTimeDuration;
-        while (timeElapsed < damageOverTimeDuration && enemyInsideFairyRing)
+        float damageInterval = damage / lifetime;
+        while (timeElapsed < lifetime && enemyInsideFairyRing)
         {
             Debug.Log("Applying damage: " + damageInterval);
             enemyHealth.EnemyTakeDamage(damageInterval);
+            ReworkedEnemyNavigation enemyNav = other.gameObject.GetComponent<ReworkedEnemyNavigation>();
+            if (enemyNav != null && enemyInsideFairyRing)
+            {
+                enemyNav.moveSpeed *= speedReduction;
+                if (other.gameObject.GetComponent<MeleeEnemyAttack>() != null)
+                {
+                    other.gameObject.GetComponent<MeleeEnemyAttack>().chargeSpeed *= speedReduction;
+                }
+            }
             yield return new WaitForSeconds(1f);
             timeElapsed++;
         }
@@ -32,7 +41,7 @@ public class FairyRingPlacement : FairyRing
 
     private IEnumerator DestroyAfterTime()
     {
-        yield return new WaitForSeconds(damageOverTimeDuration);
+        yield return new WaitForSeconds(lifetime);
         Destroy(this.gameObject);
     }
 
@@ -48,9 +57,13 @@ public class FairyRingPlacement : FairyRing
                 ReworkedEnemyNavigation enemyNav = other.gameObject.GetComponent<ReworkedEnemyNavigation>();
                 if (enemyNav != null && enemyInsideFairyRing)
                 {
-                    enemyNav.moveSpeed = speedReduction * 4f;
+                    enemyNav.moveSpeed *= speedReduction;
+                    if(other.gameObject.GetComponent<MeleeEnemyAttack>() != null)
+                    {
+                        other.gameObject.GetComponent<MeleeEnemyAttack>().chargeSpeed *= speedReduction;
+                    }
                 }
-                StartCoroutine(DamageOverTime(enemyHealth, damage));
+                StartCoroutine(DamageOverTime(enemyHealth, other, damage));
                 Debug.Log("Fairy Ring hit!");
             }
         }
