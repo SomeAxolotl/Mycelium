@@ -125,6 +125,8 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        Resume();
+
         //GameManager.Instance.OnExitToMainMenu();
 
         sporeManagerScript.Save();
@@ -135,6 +137,8 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToHubWorld()
     {
+        Resume();
+
         profileManagerScript.Save();
 
         nutrientTracker.LoseMaterials();
