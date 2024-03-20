@@ -48,7 +48,7 @@ public class LoadCurrentPlayer : MonoBehaviour
         }
         catch
         {
-            Debug.LogError("NO SPORES FOUND!!! PLEASE HAVE A SporeData.json FILE!!! QUITTING!!!");
+            Debug.LogWarning("No SporeData.json file! If this is the tutorial or main menu this is ok.");
 
             //Application.Quit();
 

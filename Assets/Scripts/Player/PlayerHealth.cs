@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     ProfileManager profileManagerScript;
 
     [SerializeField] private float timeBetweenHurtSounds = 0.25f;
+    [SerializeField] private CutscenePlayer cutscenePlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -121,6 +122,22 @@ public class PlayerHealth : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             profileManagerScript.tutorialIsDone = true;
+
+            cutscenePlayer.StartCutscene();
+
+            //Lobotomize the Giga Beetle
+            foreach (Component component in GameObject.Find("Giga Beetle").GetComponents<Component>())
+            {
+                if (component.GetType() != typeof(Transform) && component.GetType() != typeof(MeshRenderer) && component.GetType() != typeof(MeshFilter))
+                {
+                    Destroy(component);
+                }
+            }
+
+            while (cutscenePlayer.isFinished == false)
+            {
+                yield return null;
+            }
         }
         profileManagerScript.Save();
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
