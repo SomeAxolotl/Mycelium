@@ -27,7 +27,9 @@ public class LevelEnd : MonoBehaviour
 
             weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
             Debug.Log(weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", ""));
-            GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+
+            GlobalData.currentWeapon = SceneManager.GetActiveScene().name + "/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+
             Debug.Log(GlobalData.currentWeapon);
 
             if (sceneIndexToGoTo == 2)
