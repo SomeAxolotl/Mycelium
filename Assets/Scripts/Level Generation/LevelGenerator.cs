@@ -70,7 +70,10 @@ public class LevelGenerator : MonoBehaviour
         if (GlobalData.currentWeapon != null)
         {
             GameObject previousWeapon = Instantiate(Resources.Load(GlobalData.currentWeapon), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
-            previousWeapon.transform.localScale = previousWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
+            if (previousWeapon.GetComponent<WeaponStats>().wpnName != "Stick")
+            {
+                previousWeapon.transform.localScale = previousWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
+            }
             previousWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             previousWeapon.GetComponent<Collider>().enabled = false;
             GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = previousWeapon;
@@ -83,7 +86,7 @@ public class LevelGenerator : MonoBehaviour
 
         if (GameObject.FindWithTag("currentWeapon") == null)
         {
-            GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            GameObject startingWeapon = Instantiate(Resources.Load("Daybreak Arboretum/Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             startingWeapon.GetComponent<Collider>().enabled = false;
             GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
