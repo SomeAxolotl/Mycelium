@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SporeAnimationEvents : MonoBehaviour
@@ -32,5 +33,12 @@ public class SporeAnimationEvents : MonoBehaviour
     void Pant()
     {
         SoundEffectManager.Instance.PlaySound("Panting", transform.position);
+    }
+
+    void SmashPart()
+    {
+        Transform particleHolder = GameObject.FindWithTag("currentWeapon").transform.Find("ParticleHolder");
+
+        ParticleManager.Instance.SpawnParticles("SmashParticle",particleHolder.position,Quaternion.Euler(90,0,0));
     }
 }
