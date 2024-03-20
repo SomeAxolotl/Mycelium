@@ -34,17 +34,17 @@ public class ProfileManager : MonoBehaviour
 
         try
         {
-            Debug.Log("File Path: " + filePath);
-            Debug.Log(System.IO.File.ReadAllText(filePath));
+            //Debug.Log("File Path: " + filePath);
+            //Debug.Log(System.IO.File.ReadAllText(filePath));
             profileData = JsonUtility.FromJson<ProfileData>(System.IO.File.ReadAllText(filePath));
-            Debug.Log(profileData);
+            //Debug.Log(profileData);
         }
         catch
         {
-            Debug.Log("NO PROFILE DATA FOUND!!! ---LOADING DEFAULT PROFILE DATA---");
+            //Debug.Log("NO PROFILE DATA FOUND!!! ---LOADING DEFAULT PROFILE DATA---");
 
             profileData = defaultProfileData;
-            Debug.Log(profileData);
+            //Debug.Log(profileData);
         }
 
         if (SceneManager.GetActiveScene().buildIndex != 0)
@@ -107,7 +107,7 @@ public class ProfileManager : MonoBehaviour
         newProfileData.tutroialIsDone = tutorialIsDone;
 
         string json = JsonUtility.ToJson(newProfileData);
-        Debug.Log(json);
+        //Debug.Log(json);
         System.IO.File.WriteAllText(filePath, json);
     }
 

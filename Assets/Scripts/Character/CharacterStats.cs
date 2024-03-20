@@ -97,7 +97,7 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
-            Debug.Log("Leveled Primal");
+            //Debug.Log("Leveled Primal");
             StartCalculateAttributes();
             UpdateLevel();
         }
@@ -137,7 +137,7 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
-            Debug.Log("Leveled Primal");
+            //Debug.Log("Leveled Primal");
             StartCalculateAttributes();
             UpdateLevel();
         }
@@ -177,7 +177,7 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
-            Debug.Log("Leveled Primal");
+            //Debug.Log("Leveled Primal");
             StartCalculateAttributes();
             UpdateLevel();
         }
@@ -217,7 +217,7 @@ public class CharacterStats : MonoBehaviour
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
-            Debug.Log("Leveled Primal");
+            //Debug.Log("Leveled Primal");
             StartCalculateAttributes();
             UpdateLevel();
         }
@@ -782,7 +782,7 @@ public class CharacterStats : MonoBehaviour
     public void SetEquippedSkill(string skillName, int slot)
     {
         equippedSkills[slot] = skillName;
-        Debug.Log("CharacterStats equippedSkill ["+slot+"] - " + equippedSkills[slot]);
+        //Debug.Log("CharacterStats equippedSkill ["+slot+"] - " + equippedSkills[slot]);
     }
 
     public void UpdateLevel()
@@ -808,7 +808,7 @@ public class CharacterStats : MonoBehaviour
         moveSpeed = sporeAttributeIncrements.moveSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.moveSpeedIncrement);
         animatorSpeed = sporeAttributeIncrements.attackSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.attackSpeedIncrement);
 
-        Debug.Log(primalLevel + "---" + sentienceLevel + "---" + speedLevel + "---" + vitalityLevel);
+        //Debug.Log(primalLevel + "---" + sentienceLevel + "---" + speedLevel + "---" + vitalityLevel);
 
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerController.GetStats();
@@ -868,7 +868,7 @@ public class CharacterStats : MonoBehaviour
     }
     public void ShowNametag()
     {
-        Debug.Log(sporeName + " showing nametag");
+        //Debug.Log(sporeName + " showing nametag");
         //nametag.ShowNametag();
     }
     public void HideNametag()

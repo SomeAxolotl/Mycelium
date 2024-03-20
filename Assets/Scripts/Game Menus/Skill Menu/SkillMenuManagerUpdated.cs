@@ -1266,7 +1266,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         break;
         default:
         return;
-        break;
       }
     switch(currentstats.equippedSkills[2])
       {
@@ -1308,7 +1307,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         break;
         default:
         return;
-        break;
       }
     }
     public void ButtonListeners()

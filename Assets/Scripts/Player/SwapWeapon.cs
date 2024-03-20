@@ -16,7 +16,7 @@ public class SwapWeapon : MonoBehaviour
     PlayerController playerController;
     public GameObject curWeapon;
 
-    [SerializeField] private float proximityRadius = 5f;
+    //[SerializeField] private float proximityRadius = 5f;
     [SerializeField] public Color betterStatColor;
     [SerializeField] public Color worseStatColor;
     [SerializeField] public Color evenStatColor;

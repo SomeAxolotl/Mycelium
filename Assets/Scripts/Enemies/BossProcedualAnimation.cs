@@ -24,7 +24,7 @@ public class BossProcedualAnimation : MonoBehaviour
 
     private bool playerIsRight;
     private bool playerIsLeft;
-    private bool isTurningHead;
+    //private bool isTurningHead;
 
     private Coroutine bossCoroutine;
 
@@ -62,7 +62,7 @@ public class BossProcedualAnimation : MonoBehaviour
 
     IEnumerator TurnHeadRight()
     {
-        isTurningHead = true;
+        //isTurningHead = true;
         yield return StartCoroutine(TurnHead());
         // move right arm
         // Rotate Body
@@ -70,13 +70,13 @@ public class BossProcedualAnimation : MonoBehaviour
         // move left arm 
         // rotate body
         // put left arm in its final place
-        isTurningHead = false;
+        //isTurningHead = false;
         yield return new WaitForSeconds(PauseTime);
     }
 
     IEnumerator TurnHeadLeft()
     {
-        isTurningHead = true;
+        //isTurningHead = true;
         yield return StartCoroutine(TurnHead());
         // move right arm
         // Rotate Body
@@ -84,7 +84,7 @@ public class BossProcedualAnimation : MonoBehaviour
         // move left arm 
         // rotate body
         // put left arm in its final place
-        isTurningHead = false;
+        //isTurningHead = false;
         yield return new WaitForSeconds(PauseTime);
     }
 

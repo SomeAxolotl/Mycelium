@@ -53,7 +53,7 @@ public class NutrientTracker : MonoBehaviour
     public void SetNutrients(int amount)
     {
         currentNutrients = amount;
-        Debug.Log("test");
+        //Debug.Log("test");
         hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
         hudNutrients.UpdateNutrientsUI(currentNutrients);
     }

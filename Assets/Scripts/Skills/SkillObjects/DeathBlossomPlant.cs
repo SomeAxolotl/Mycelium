@@ -12,16 +12,16 @@ public class DeathBlossomPlant : DeathBlossom
     [SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 0f;
     [SerializeField] private Renderer render;
-    [SerializeField] private Light light;
+    [SerializeField] private Light thisLight;
     private Color StartGlow;
     private float startLightIntensity;
     void Start()
     {
         StartCoroutine(ExplodeAfterDelay());
         StartGlow = render.material.GetColor("_Glow_Color");
-        if(light!=null){
-            startLightIntensity = light.range;
-            light.range = 0;
+        if(thisLight!=null){
+            startLightIntensity = thisLight.range;
+            thisLight.range = 0;
         }
         render.material.SetColor("_Glow_Color", new Color(0,0,0));
         StartCoroutine(Illuminate());
@@ -35,8 +35,8 @@ public class DeathBlossomPlant : DeathBlossom
             currentModifier = (t/destroyTime);
             currentGlow = new Color(StartGlow.r*currentModifier, StartGlow.g*currentModifier, StartGlow.b*currentModifier);
             render.material.SetColor("_Glow_Color", currentGlow);
-            if(light!=null)
-                light.range = Mathf.Lerp(0,startLightIntensity,t);
+            if(thisLight!=null)
+                thisLight.range = Mathf.Lerp(0,startLightIntensity,t);
             t += Time.deltaTime;
             yield return null;
         }
@@ -49,7 +49,7 @@ public class DeathBlossomPlant : DeathBlossom
         if (damageOverTimeDuration > 0)
         {
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
-            Destroy(light);
+            Destroy(thisLight);
         }
     }
     //DestoryAfterTime culls the gameobject after it is finished dealing damage over time.

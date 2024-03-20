@@ -56,24 +56,23 @@ public class LevelConfirm : MonoBehaviour
    }
    void SetMaterial()
    {
-    switch(currentstats.equippedSkills[0])
-    {
-        case "FungalMight":
-        Material.sprite = Resources.Load<Sprite>("RottenLog"); 
-        break;
-        case "DeathBlossom":
-        Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
-        break;
-        case "FairyRing":
-        Material.sprite = Resources.Load<Sprite>("CalciteDeposit");
-        break;
-        case "Zombify":
-        Material.sprite = Resources.Load<Sprite>("Flesh");
-        break;
-        default:
-        return;
-        break;
-    }
+        switch(currentstats.equippedSkills[0])
+        {
+            case "FungalMight":
+                Material.sprite = Resources.Load<Sprite>("RottenLog"); 
+                break;
+            case "DeathBlossom":
+                Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
+                break;
+            case "FairyRing":
+                Material.sprite = Resources.Load<Sprite>("CalciteDeposit");
+                break;
+            case "Zombify":
+                Material.sprite = Resources.Load<Sprite>("Flesh");
+                break;
+            default:
+                return;
+        }
    }
 
     void Confirm()

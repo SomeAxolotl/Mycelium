@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class LevelUpManagerNew : MonoBehaviour
 {
-    [SerializeField] private int maxStatLevel = 15;
+    //[SerializeField] private int maxStatLevel = 15;
 
     public TMP_Text primaldam;
     public TMP_Text movespeed;

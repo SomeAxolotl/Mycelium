@@ -53,17 +53,17 @@ public class SporeManager : MonoBehaviour
 
         try
         {
-            Debug.Log("File Path: " + filePath);
-            Debug.Log(System.IO.File.ReadAllText(filePath));
+            //Debug.Log("File Path: " + filePath);
+            //Debug.Log(System.IO.File.ReadAllText(filePath));
             sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
-            Debug.Log(sporeDataList);
+            //Debug.Log(sporeDataList);
         }
         catch
         {
-            Debug.Log("NO SPORES FOUND!!! ---LOADING DEFAULT SPORE DATA---");
+            //Debug.Log("NO SPORES FOUND!!! ---LOADING DEFAULT SPORE DATA---");
 
             sporeDataList = defaultSporeData;
-            Debug.Log(sporeDataList);
+            //Debug.Log(sporeDataList);
         }
 
         //For each SporeData in the json, populate its stats and design
@@ -86,7 +86,7 @@ public class SporeManager : MonoBehaviour
 
         if (sporeData.sporeTag == "currentPlayer")
         {
-            Debug.Log("Loading Main Spore: " + sporeData.sporeName);
+            //Debug.Log("Loading Main Spore: " + sporeData.sporeName);
 
             Spore = currentPlayerSpore;
 
@@ -97,7 +97,7 @@ public class SporeManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Loading Other Spore: " + sporeData.sporeName);
+            //Debug.Log("Loading Other Spore: " + sporeData.sporeName);
 
             //Spawn Spore Prefab
             Spore = Instantiate(SporePrefab, new Vector3(UnityEngine.Random.Range(spawnTransform.position.x - spawnRange, spawnTransform.position.x + spawnRange), spawnTransform.position.y, UnityEngine.Random.Range(spawnTransform.position.z - spawnRange, spawnTransform.position.z + spawnRange)), spawnTransform.rotation);
@@ -200,7 +200,7 @@ public class SporeManager : MonoBehaviour
             json = json.Replace("},{", "},\n\t{");
             json = json.Replace("]}", "\n]}");
 
-            Debug.Log(json);
+            //Debug.Log(json);
             System.IO.File.WriteAllText(filePath, json);
         }
     }

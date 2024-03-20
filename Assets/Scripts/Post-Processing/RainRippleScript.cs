@@ -13,11 +13,11 @@ public class RainRippleScript : MonoBehaviour
     List<float> delay = new List<float>();
     List<float> timer = new List<float>();
 
-    int seed;
+    //int seed;
 
     private void OnEnable()
     {
-        seed = -2147483648;
+        //seed = -2147483648;
 
         //Reset Frame Index
         frameIndex.Clear();

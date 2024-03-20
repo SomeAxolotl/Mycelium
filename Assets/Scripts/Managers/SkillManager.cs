@@ -30,7 +30,7 @@ public class SkillManager : MonoBehaviour
 
         if (!skillFound)
         {
-            Debug.Log("NO SKILL FOUND WITH THAT NAME");
+            //Debug.Log("NO SKILL FOUND WITH THAT NAME");
 
             Destroy(skillLoadout.transform.GetChild(slot).gameObject);
 

@@ -34,7 +34,7 @@ public class MonsterBossAttack : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private GameObject bossTail;
     PlayerController playerController;
-    [SerializeField] private float tailAttackAnimationDuration = 1.5f;
+    //[SerializeField] private float tailAttackAnimationDuration = 1.5f;
     [SerializeField] private float swipeAttackAnimationDuration = 1.0f;
     [SerializeField] private float slamAttackAnimationDuration = 2.0f;
     [SerializeField] private float tailAttackDamage = 30f;

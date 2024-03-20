@@ -77,7 +77,7 @@ public class LoadCurrentPlayer : MonoBehaviour
         CharacterStats stats;
         DesignTracker design;
 
-        Debug.Log("Loading Main Spore: " + sporeData.sporeName);
+        //Debug.Log("Loading Main Spore: " + sporeData.sporeName);
 
         Spore = currentPlayerSpore;
 

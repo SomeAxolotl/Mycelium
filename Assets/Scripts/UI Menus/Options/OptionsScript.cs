@@ -32,21 +32,21 @@ public class OptionsScript : MonoBehaviour
     {
         masterMixer.SetFloat("MasterVolume", Mathf.Log10(sliderValue) * 20);
 
-        Debug.Log("Master");
+        //Debug.Log("Master");
     }
 
     public void SetBGMVolume(float sliderValue)
     {
         masterMixer.SetFloat("BGMVolume", Mathf.Log10(sliderValue) * 20);
 
-        Debug.Log("BGM");
+        //Debug.Log("BGM");
     }
 
     public void SetSFXVolume(float sliderValue)
     {
         masterMixer.SetFloat("SFXVolume", Mathf.Log10(sliderValue) * 20);
 
-        Debug.Log("SFX");
+        //Debug.Log("SFX");
     }
 
     public void SetGammaValue(float sliderValue)

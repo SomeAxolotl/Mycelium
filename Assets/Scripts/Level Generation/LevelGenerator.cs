@@ -43,7 +43,7 @@ public class LevelGenerator : MonoBehaviour
 
         if(attachPoints.Count == 0)
         {
-            Debug.Log("ERROR: NO ATTACH POINTS ON STARTUP PIECE");
+            //Debug.Log("ERROR: NO ATTACH POINTS ON STARTUP PIECE");
             return;
         }
 
@@ -78,7 +78,7 @@ public class LevelGenerator : MonoBehaviour
 
             GlobalData.currentWeapon = null;
 
-            Debug.Log("GLOBAL DATA WEAPON FOUND");
+            //Debug.Log("GLOBAL DATA WEAPON FOUND");
         }
 
         if (GameObject.FindWithTag("currentWeapon") == null)
@@ -88,7 +88,7 @@ public class LevelGenerator : MonoBehaviour
             startingWeapon.GetComponent<Collider>().enabled = false;
             GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
 
-            Debug.Log("NO GLOBAL DATA WEAPON FOUND");
+            //Debug.Log("NO GLOBAL DATA WEAPON FOUND");
         }
     }
 
@@ -104,7 +104,7 @@ public class LevelGenerator : MonoBehaviour
         }
         recentChunkIndex = chunkIndex;
 
-        Debug.Log("Chunk Index: " + chunkIndex);
+        //Debug.Log("Chunk Index: " + chunkIndex);
         GameObject Piece = Instantiate(MiddleChunkPrefabs[chunkIndex], transform);
         NumberOfPieces++;
 

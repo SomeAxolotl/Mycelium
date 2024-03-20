@@ -7,8 +7,8 @@ public class TempMovement : MonoBehaviour
 {
     public bool playerSeen;
     public bool attacking = false;
-    private bool startedPatrol = false;
-    private float patrolRadius = 10f;
+    //private bool startedPatrol = false;
+    //private float patrolRadius = 10f;
     [HideInInspector] public float speed;
     private float rerouteTimer;
     [HideInInspector] public float attackStopdistance;
@@ -59,7 +59,7 @@ public class TempMovement : MonoBehaviour
                 dstToPlayer <= backwardsDetectionRange)
             {
                 playerSeen = true;
-                startedPatrol = false;
+                //startedPatrol = false;
 
                 if (!attacking)
                 {
