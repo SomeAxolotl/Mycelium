@@ -138,9 +138,9 @@ GameObject:
   - component: {fileID: 5917882716122667658}
   - component: {fileID: 130059756369187576}
   - component: {fileID: 9118525770565412680}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Terrain (2)
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -157,7 +157,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1812258319521728038}
   - {fileID: 96623692112307342}
   - {fileID: 9171072346892960320}
   - {fileID: 1934616430918647252}
@@ -225,37 +224,6 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: ea734210ea241464d9cd0b1464107cf9, type: 2}
   m_EnableTreeColliders: 1
---- !u!1 &1719797247351181622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3426004566181712778}
-  m_Layer: 0
-  m_Name: Sea Walls
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3426004566181712778
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719797247351181622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1812258319521728038}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1788548528564555220
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,38 +343,6 @@ Transform:
   - {fileID: 7057739365157437572}
   - {fileID: 627302170722319983}
   m_Father: {fileID: 9212286501670256760}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4469099517953849658
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1812258319521728038}
-  m_Layer: 0
-  m_Name: Invisible Walls
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1812258319521728038
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4469099517953849658}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 84.5, y: 3.4, z: 147.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3426004566181712778}
-  m_Father: {fileID: 5917882716122667658}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5681957993801655644
@@ -7560,7 +7496,7 @@ PrefabInstance:
     - target: {fileID: 3701570919444780907, guid: 7b11a3bc1a820f24eb09616d0f8e4e13,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6300001
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3701570919444780907, guid: 7b11a3bc1a820f24eb09616d0f8e4e13,
         type: 3}
