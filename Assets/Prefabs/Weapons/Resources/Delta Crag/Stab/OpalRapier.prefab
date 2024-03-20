@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 3704908966309692247}
   - component: {fileID: 2946718521451772917}
   - component: {fileID: 69671975620290457}
+  - component: {fileID: 1133390607630289209}
   m_Layer: 7
-  m_Name: MiniBottle
+  m_Name: OpalRapier
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7468024198118708354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: -0.000000026646, y: 0, z: 0}
+  m_LocalScale: {x: 22.20825, y: 22.20825, z: 22.20825}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7468024198118708354}
-  m_Mesh: {fileID: -3908109609201952162, guid: e4280ad3f3121bd41b6d8e71b55aa9a2, type: 3}
+  m_Mesh: {fileID: 8793110816996630780, guid: ff143e33d5e8bd445a25e322d74e1963, type: 3}
 --- !u!23 &8981088056501908823
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 99bef852c54d82f4faeda87a40b7d7ac, type: 2}
+  - {fileID: 5561349426305759274, guid: ff143e33d5e8bd445a25e322d74e1963, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.079537205, y: 0.13190769, z: 0.09163766}
-  m_Center: {x: 0.0044339076, y: 0.05387975, z: -0.0018248648}
+  m_Size: {x: 0.08448009, y: 0.19003537, z: 0.0622752}
+  m_Center: {x: 0.0017180453, y: 0.024959391, z: -0.0026015653}
 --- !u!114 &2946718521451772917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,15 +135,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  wpnName: Mini Bottle
-  wpnSpeed: Very Fast
-  wpnDamageMin: 1
-  wpnDamageMax: 1
-  wpnKnockbackMin: 0
-  wpnKnockbackMax: 0
-  wpnAttackSpeedModifier: 2
-  holdPositionOffset: {x: 0, y: 0, z: 0}
-  holdRotationOffset: {x: 0, y: 90, z: 90}
+  wpnName: Opal Rapier
+  wpnSpeed: Fast
+  wpnDamageMin: 14
+  wpnDamageMax: 18
+  wpnKnockbackMin: 4
+  wpnKnockbackMax: 6
+  wpnAttackSpeedModifier: 1
+  holdPositionOffset: {x: 0, y: 0.315, z: 0}
+  holdRotationOffset: {x: 90, y: 0, z: 0}
   percentUntilWindupDone: 0.3
   percentUntilSwingDone: 0.55
-  secondsTilHitstopSpeedup: 0
+  secondsTilHitstopSpeedup: 0.1
+--- !u!114 &1133390607630289209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468024198118708354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5ce8f492fa4d84980e058d49aea239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
