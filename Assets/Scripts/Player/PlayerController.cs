@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
         isInvincible = true;
         looking = false;
         float storedAnimSpeed = swapCharacter.currentCharacterStats.animatorSpeed;
-        animator.speed = 1.5f;
+        animator.speed = 1.25f;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
         Vector3 rollDirection = rb.transform.forward * 20f;

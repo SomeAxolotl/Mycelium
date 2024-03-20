@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3704908966309692247}
   - component: {fileID: 2946718521451772917}
   - component: {fileID: 69671975620290457}
-  - component: {fileID: 1133390607630289209}
+  - component: {fileID: 1009146294598818243}
   m_Layer: 7
-  m_Name: OpalRapier
+  m_Name: CarpalSais
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,14 +29,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7468024198118708354}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000000026646, y: 0, z: 0}
-  m_LocalScale: {x: 22.20825, y: 22.20825, z: 22.20825}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0.02591, y: 0.69313, z: 0.73067}
+  m_LocalScale: {x: 0.5652236, y: 0.5652236, z: 0.5652236}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!33 &6577449295230550429
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7468024198118708354}
-  m_Mesh: {fileID: 8793110816996630780, guid: ff143e33d5e8bd445a25e322d74e1963, type: 3}
+  m_Mesh: {fileID: -3252786404987669566, guid: e8660a8b62638574babf025af138766f, type: 3}
 --- !u!23 &8981088056501908823
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: ff143e33d5e8bd445a25e322d74e1963, type: 3}
+  - {fileID: 2100000, guid: d055fc606f9af4b43ad0bdefa8714f41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.08448009, y: 0.19003537, z: 0.0622752}
-  m_Center: {x: 0.0017180453, y: 0.024959391, z: -0.0026015653}
+  m_Size: {x: 1.3, y: 0.75, z: 3.5590234}
+  m_Center: {x: 0, y: 0, z: 1.6205413}
 --- !u!114 &2946718521451772917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,19 +135,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  wpnName: Opal Rapier
+  wpnName: Carpal Sais
   wpnSpeed: Fast
-  wpnDamageMin: 14
-  wpnDamageMax: 18
-  wpnKnockbackMin: 4
-  wpnKnockbackMax: 6
+  wpnDamageMin: 11
+  wpnDamageMax: 14
+  wpnKnockbackMin: 2
+  wpnKnockbackMax: 4
   wpnAttackSpeedModifier: 1
-  holdPositionOffset: {x: 0, y: 0.315, z: 0}
-  holdRotationOffset: {x: 90, y: 0, z: 0}
+  holdPositionOffset: {x: 0, y: 0, z: -0.05}
+  holdRotationOffset: {x: 0, y: 10, z: -60}
   percentUntilWindupDone: 0.3
   percentUntilSwingDone: 0.55
   secondsTilHitstopSpeedup: 0.1
---- !u!114 &1133390607630289209
+--- !u!114 &1009146294598818243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
