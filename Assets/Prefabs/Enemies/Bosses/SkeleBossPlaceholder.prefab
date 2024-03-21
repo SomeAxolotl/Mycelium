@@ -198,7 +198,6 @@ MonoBehaviour:
   attackInterval: 2
   damage: 20
   bossTail: {fileID: 0}
-  tailAttackAnimationDuration: 1.5
   swipeAttackAnimationDuration: 1
   slamAttackAnimationDuration: 2
   tailAttackDamage: 30
@@ -249,9 +248,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftArmTarget: {fileID: 117474110279071278}
   rightArmTarget: {fileID: 5624634969117896462}
-  head: {fileID: 0}
-  body: {fileID: 9188943140229090061}
+  origHeadParent: {fileID: 0}
+  spine: {fileID: 0}
   delayTime: 1
+  startDelayTime: 0
   PauseTime: 1
   maxRotation: 75
   initialRotationSpeed: 2
@@ -310,13 +310,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928346067252459845}
-  m_LocalRotation: {x: 0.13102672, y: -1.4210855e-13, z: -0.000000031239196, w: 0.99137884}
-  m_LocalPosition: {x: 0, y: 0.03627884, z: -0.00561313}
+  m_LocalRotation: {x: 0.2169685, y: -0.0000001163697, z: -0.000000025864653, w: 0.97617865}
+  m_LocalPosition: {x: 0, y: 0.014266261, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2098917392340261120}
-  m_Father: {fileID: 8501895100372137951}
+  m_Father: {fileID: 8806993916135171660}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931893114621319438
@@ -603,6 +603,7 @@ Transform:
   m_Children:
   - {fileID: 6576845623078274615}
   - {fileID: 7881821858759273517}
+  - {fileID: 7194188578040342494}
   m_Father: {fileID: 9188943140229090061}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1097,7 +1098,6 @@ Transform:
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7194188578040342494}
   - {fileID: 9188943140229090061}
   m_Father: {fileID: 7868689505453516412}
   m_RootOrder: -1

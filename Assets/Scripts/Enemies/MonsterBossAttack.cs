@@ -41,6 +41,7 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float swipeAttackDamage = 25f;
     [SerializeField] private float slamAttackDamage = 35f;
     [SerializeField] private float tailKnockback = 70f;
+    private bool collidedWithPlayer = false;
 
 
     // Start is called before the first frame update
@@ -68,7 +69,7 @@ public class MonsterBossAttack : MonoBehaviour
         {
             CancelAttack();
         }
-        else if (bossMovement.playerSeen && canAttack && dstToPlayer <= 20f)
+        else if (bossMovement.playerSeen && canAttack && dstToPlayer <= 12f)
         {
             isTailAttacking = false;
             if (!isRandomOnCooldown)
@@ -76,7 +77,7 @@ public class MonsterBossAttack : MonoBehaviour
                 StartCoroutine(TriggerRandomAttacksWithDelay());
             }
         }
-        else if (dstToPlayer > 20f && bossMovement.playerSeen && canAttack)
+        else if (dstToPlayer > 12f && bossMovement.playerSeen && canAttack)
         {
 
             if (!isTailAttacking && !tailAttackOnCooldown)
@@ -107,7 +108,7 @@ public class MonsterBossAttack : MonoBehaviour
 
         // Check if player is within range and not invincible
         if (!playerDamaged && Vector3.Distance(transform.position, player.position) <= 12f &&
-            !player.gameObject.GetComponentInParent<PlayerController>().isInvincible)
+            !player.gameObject.GetComponentInParent<PlayerController>().isInvincible && collidedWithPlayer)
         {
             // Inflict damage and any other effects
             player.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
@@ -139,7 +140,9 @@ public class MonsterBossAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && other.gameObject.GetComponentInParent<PlayerController>().isInvincible == false && !playerHit.Contains(other.gameObject) && isAttacking)
         {
-            if (isTailAttacking && !isSlamAttacking || !isSwipeAttacking)
+            collidedWithPlayer = true;
+        
+        if (isTailAttacking && !isSlamAttacking || !isSwipeAttacking)
             {
                 damage = tailAttackDamage;
                 knockbackForce = 300f;
@@ -158,6 +161,13 @@ public class MonsterBossAttack : MonoBehaviour
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
+        }
+    }
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.tag == "currentPlayer")
+        {
+            collidedWithPlayer = false;
         }
     }
     private void PullPlayers()
