@@ -17,7 +17,7 @@ public class TrophicCascade : Skill
     IEnumerator Vanish()
     {
         Renderer[] childRenderers = player.GetComponentsInChildren<Renderer>();
-        PlayerHealth playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
+        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
 
         playerController.isInvincible = true;
         foreach (Renderer renderer in childRenderers)
