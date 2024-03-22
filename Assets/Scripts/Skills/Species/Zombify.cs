@@ -40,6 +40,7 @@ public class Zombify : Skill
             enemy.GetComponent<NavEnabler>().enabled = false;
             enemy.GetComponent<ReworkedEnemyNavigation>().enabled = false;
             enemy.GetComponent<ZombifiedMovement>().enabled = true;
+            enemy.GetComponent<ZombifiedMovement>().explosionDamage = finalSkillValue;
         }
     }
 }

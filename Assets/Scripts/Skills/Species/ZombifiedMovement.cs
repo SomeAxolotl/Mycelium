@@ -9,7 +9,7 @@ public class ZombifiedMovement : MonoBehaviour
     [SerializeField] private float followRange = 10f;
     [SerializeField] private float explosionTimer = 3f;
     [SerializeField] private float explosionRadius = 4f;
-    [SerializeField] private float explosionDamage = 15f;
+    public float explosionDamage;
     private Collider[] enemyColliders;
     private Renderer[] renderers;
     List<GameObject> enemiesHit = new List<GameObject>();

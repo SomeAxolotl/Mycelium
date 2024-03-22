@@ -1,36 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class MeleeEnemyAttack : EnemyAttack
+public class CrabAttack : EnemyAttack
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool attackStarted = false;
     private bool playerDamaged = false;
+    [SerializeField] private bool holdingShell = true;
     [SerializeField] private float attackCooldown = 2f;
-    private float attackWindupTime;
-    private float resetAttack;
     [SerializeField] private float damage = 20f;
+    private float shellthrowWindup = 1.5f;
     private float knockbackForce = 30f;
-    public float chargeSpeed;
     IEnumerator attack;
     Animator animator;
     List<GameObject> playerHit = new List<GameObject>();
     private Transform player;
     private Transform center;
     private Rigidbody rb;
+    [SerializeField] private GameObject shellProjectile;
+    [SerializeField] private GameObject shell;
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
-
     // Start is called before the first frame update
     void Start()
     {
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         attack = this.Attack();
         animator = GetComponent<Animator>();
+        animator.SetBool("HasShell", true);
         player = GameObject.FindWithTag("currentPlayer").transform;
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
@@ -40,17 +40,8 @@ public class MeleeEnemyAttack : EnemyAttack
     void Update()
     {
         if (reworkedEnemyNavigation.playerSeen && canAttack)
-        {  
+        {
             StartCoroutine(Attack());
-        }
-
-        if(isAttacking)
-        {
-            resetAttack += Time.deltaTime;
-        }
-        else
-        {
-            resetAttack = 0f;
         }
     }
     private void FixedUpdate()
@@ -69,7 +60,7 @@ public class MeleeEnemyAttack : EnemyAttack
             Quaternion groundRotation = Quaternion.FromToRotation(transform.up, groundHit.normal) * transform.rotation;
             float groundXRotation = groundRotation.eulerAngles.x;
             float groundZRotation = groundRotation.eulerAngles.z;
-            if(attackStarted)
+            if (attackStarted)
             {
                 targetRotation = Quaternion.Euler(groundXRotation, targetRotation.eulerAngles.y, groundZRotation);
             }
@@ -85,27 +76,18 @@ public class MeleeEnemyAttack : EnemyAttack
     {
         canAttack = false;
         attackStarted = true;
-        animator.speed = 0f;
-        reworkedEnemyNavigation.moveSpeed = 0f;
-        chargeSpeed = 8f;
-        attackWindupTime = Random.Range(.8f, 1f);
-        yield return new WaitForSeconds(attackWindupTime);
-        SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
-        animator.speed = 3f;
-        attackStarted = false;
-        isAttacking = true;
-        Transform target = player;
-        Vector3 moveDirection = (target.position - transform.position).normalized;
-        while (Vector3.Distance(transform.position, target.position) > 0.25f && !playerDamaged && resetAttack < 1.5f)
+        if(holdingShell)
         {
-            rb.velocity = new Vector3((moveDirection * chargeSpeed).x, rb.velocity.y, (moveDirection * chargeSpeed).z);
-            yield return null;
+            holdingShell = false;
+            yield return new WaitForSeconds(shellthrowWindup);
+            Destroy(shell);
+            GameObject spawnedShell = Instantiate(shellProjectile, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
+            spawnedShell.GetComponent<ShellVelocity>().LaunchShell();
         }
-        animator.speed = 1f;
-        animator.SetTrigger("Attack");
-        isAttacking = false;
-        reworkedEnemyNavigation.moveSpeed = 3f;
-        playerDamaged = false;
+        else
+        {
+            Debug.Log("melee attack!");
+        }
         playerHit.Clear();
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
@@ -113,11 +95,13 @@ public class MeleeEnemyAttack : EnemyAttack
     public override void CancelAttack()
     {
         StopAllCoroutines();
+        if(shell != null)
+        {
+            Destroy(shell);
+        }
+        holdingShell = false;
         attack = Attack();
-        animator.speed = 1f;
         isAttacking = false;
-        reworkedEnemyNavigation.moveSpeed = 3f;
-        chargeSpeed = 8f;
         playerDamaged = false;
         playerHit.Clear();
         attackStarted = false;
