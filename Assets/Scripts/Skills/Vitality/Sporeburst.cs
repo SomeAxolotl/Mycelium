@@ -17,7 +17,7 @@ public class Sporeburst : Skill
     void DoSporeburst()
     {
         SoundEffectManager.Instance.PlaySound("Explosion", player.transform.position);
-        ParticleManager.Instance.SpawnParticles("SporeburstParticles", transform.position, Quaternion.identity);
+        ParticleManager.Instance.SpawnParticles("SporeBurstPart", transform.position, Quaternion.Euler(-90,0,0));
 
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
