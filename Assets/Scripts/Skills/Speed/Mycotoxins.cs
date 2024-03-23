@@ -15,6 +15,7 @@ public class Mycotoxins : Skill
 
     public override void DoSkill()
     {
+        ParticleManager.Instance.SpawnParticles("MycoToxinsParticles", player.transform.position, Quaternion.identity, player);
         spawnCount = 0;
         controller = GetComponentInParent<PlayerController>();
         if (controller == null)

@@ -11,6 +11,7 @@ public class ZombifiedMovement : MonoBehaviour
     [SerializeField] private float explosionRadius = 4f;
     public float explosionDamage;
     private Collider[] enemyColliders;
+    private Collider[] playerColliders;
     private Renderer[] renderers;
     List<GameObject> enemiesHit = new List<GameObject>();
     private Transform center;
@@ -78,6 +79,7 @@ public class ZombifiedMovement : MonoBehaviour
                 closestDistance = distance;
             }
         }
+
         return closestEnemy;
     }
     Vector3 ObstacleAvoidance(Vector3 desiredDirection)
@@ -94,7 +96,8 @@ public class ZombifiedMovement : MonoBehaviour
     IEnumerator ExplosionCountdown()
     {
         yield return new WaitForSeconds(explosionTimer);
-        ParticleManager.Instance.SpawnParticles("ZombifiedExplosion", center.position, Quaternion.identity);
+        ParticleManager.Instance.SpawnParticles("ZombifyExplosionParticles", center.position, Quaternion.identity);
+        SoundEffectManager.Instance.PlaySound("Explosion", center.position);
         enemyColliders = Physics.OverlapSphere(transform.position, explosionRadius, enemyLayer);
         foreach (Collider collider in enemyColliders)
         {
@@ -104,6 +107,12 @@ public class ZombifiedMovement : MonoBehaviour
                 collider.GetComponent<EnemyHealth>().EnemyTakeDamage(explosionDamage);
             }
         }
-        gameObject.GetComponent<EnemyHealth>().EnemyTakeDamage(100f);
+
+        gameObject.GetComponent<EnemyAttack>().enabled = true;
+        gameObject.GetComponent<NavEnabler>().enabled = true;
+        gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = true;
+        gameObject.GetComponent<ZombifiedMovement>().enabled = false;
+
+        gameObject.GetComponent<EnemyHealth>().EnemyTakeDamage(explosionDamage);
     }
 }

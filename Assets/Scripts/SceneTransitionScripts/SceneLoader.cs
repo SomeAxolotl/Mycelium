@@ -253,7 +253,10 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSecondsRealtime(titleFadoutTime);
         yield return StartCoroutine(FadeCanvasOut(titleCanvasGroup, transitionTime));
 
-        GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
+        if (GlobalData.isAbleToPause)
+        {
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
+        }
     }
 
     IEnumerator LoadSceneGood(int sceneIndex, float transitionTime)
