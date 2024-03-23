@@ -129,7 +129,10 @@ public class PauseMenu : MonoBehaviour
 
         //GameManager.Instance.OnExitToMainMenu();
 
-        sporeManagerScript.Save();
+        if (sporeManagerScript != null)
+        {
+            sporeManagerScript.Save();
+        }
         profileManagerScript.Save();
 
         sceneLoaderScript.BeginLoadScene(0, true);

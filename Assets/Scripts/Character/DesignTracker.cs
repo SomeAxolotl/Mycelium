@@ -75,7 +75,7 @@ public class DesignTracker : MonoBehaviour
         }
         //Secret Ultimate Mode, if you're close to capping all 4 skills.
         else if(sentienceLevel>=15 && speedLevel>=15 && primalLevel >=15 && vitalityLevel >= 15){
-            if (sfxEnabled == true) audioSource.PlayOneShot(secretHighLevelSoundClip);
+            //if (sfxEnabled == true) audioSource.PlayOneShot(secretHighLevelSoundClip);
             //map the weight for Sentience
             sentienceWeight = -20;
 

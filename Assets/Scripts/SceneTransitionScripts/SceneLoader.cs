@@ -113,6 +113,11 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition)
     {
+        if (GameObject.Find("HUD") != null)
+        {
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+        }
+
         if (doGoodTransition == true)
         {
             StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime));
