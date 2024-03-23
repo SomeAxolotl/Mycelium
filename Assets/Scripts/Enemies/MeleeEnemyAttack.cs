@@ -95,9 +95,13 @@ public class MeleeEnemyAttack : EnemyAttack
         attackStarted = false;
         isAttacking = true;
         Transform target = player;
+        Vector3 playerPos = player.position;
         Vector3 moveDirection = (target.position - transform.position).normalized;
-        while (Vector3.Distance(transform.position, target.position) > 0.25f && !playerDamaged && resetAttack < 1.5f)
+        moveDirection.y = 0f;
+        float distanceToPlayer = Vector3.Distance(transform.position, playerPos);
+        while (distanceToPlayer > 0.25f && !playerDamaged && resetAttack < 1.5f)
         {
+            distanceToPlayer = Vector3.Distance(transform.position, playerPos);
             rb.velocity = new Vector3((moveDirection * chargeSpeed).x, rb.velocity.y, (moveDirection * chargeSpeed).z);
             yield return null;
         }

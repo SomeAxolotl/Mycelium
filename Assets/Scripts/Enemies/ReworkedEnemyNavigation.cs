@@ -127,14 +127,14 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         Vector3 moveDirection = desiredDirection.normalized;
 
         RaycastHit hit;
-        if (Physics.Raycast(center.position, transform.forward, out hit, 2f, obstacleLayer) && speed <= .5f)
+        if (Physics.Raycast(center.position, transform.forward, out hit, 3f, obstacleLayer) && speed <= .5f)
         {
             waypoints.Clear();
             SetRandomDestination();
             rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
             rerouteTimer = 0f;
         }
-        else if (Physics.Raycast(center.position, transform.forward, out hit, 2f, obstacleLayer) && speed > .5f)
+        else if (Physics.Raycast(center.position, transform.forward, out hit, 3f, obstacleLayer) && speed > .5f)
         {
             Vector3 avoidanceDirection = Vector3.Cross(Vector3.up, hit.normal);
             moveDirection += avoidanceDirection * 1f;
