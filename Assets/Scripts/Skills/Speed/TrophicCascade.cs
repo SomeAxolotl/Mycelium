@@ -10,7 +10,7 @@ public class TrophicCascade : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
-
+        
         StartCoroutine(Vanish());
     }
 
@@ -47,7 +47,10 @@ public class TrophicCascade : Skill
         List<GameObject> enemies = new List<GameObject>();
         foreach (Collider collider in colliders)
         {
-            enemies.Add(collider.gameObject);
+            if (!enemies.Contains(collider.gameObject))
+            {
+                enemies.Add(collider.gameObject);
+            }
         }
 
         float cascadeDuration = vanishDuration / 2f;
@@ -60,13 +63,14 @@ public class TrophicCascade : Skill
 
         yield return new WaitForSeconds(vanishDuration / 4f);
 
+        //omae wa mou shindeiru
         Extinguish(enemies);
     }
 
     void Mark(GameObject enemy)
     {
-        ParticleManager.Instance.SpawnParticles("Dust", enemy.transform.position, Quaternion.identity);
-        SoundEffectManager.Instance.PlaySound("Stab", enemy.transform.position);
+        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", enemy.transform.position, Quaternion.identity);
+        SoundEffectManager.Instance.PlaySound("Projectile", enemy.transform.position);
     }
 
     void Extinguish(List<GameObject> enemies)

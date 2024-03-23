@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static System.TimeZoneInfo;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -30,15 +28,19 @@ public class SceneLoader : MonoBehaviour
 
     [Header("--Title Canvas Section--")]
     [SerializeField] private CanvasGroup titleCanvasGroup;
-    [SerializeField] private GameObject titleTextGameObject;
-    [SerializeField] private Color carcassTextColor;
-    [SerializeField] private Color daybreakTextColor;
-    [SerializeField] private Color deltaTextColor;
-    [SerializeField] private Color bossTestTextColor;
+    [SerializeField] private GameObject titleImageGameObject;
+    [SerializeField] private Sprite carcassSprite;
+    [SerializeField] private Color carcassColor;
+    [SerializeField] private Sprite daybreakSprite;
+    [SerializeField] private Color daybreakColor;
+    [SerializeField] private Sprite deltaSprite;
+    [SerializeField] private Color deltaColor;
+    [SerializeField] private Sprite impactSprite;
+    [SerializeField] private Color impactColor;
     [SerializeField] private float titleFadoutTime = 1f;
 
-    private TMP_Text titleText;
-    private RectTransform titleTextRectTransform;
+    private Image titleImage;
+    private RectTransform titleImageRectTransform;
 
     [HideInInspector()] public bool isLoading = false;
 
@@ -63,8 +65,8 @@ public class SceneLoader : MonoBehaviour
 
     private void Start()
     {
-        titleText = titleTextGameObject.GetComponent<TMP_Text>();
-        titleTextRectTransform = titleTextGameObject.GetComponent<RectTransform>();
+        titleImage = titleImageGameObject.GetComponent<Image>();
+        titleImageRectTransform = titleImageGameObject.GetComponent<RectTransform>();
 
         if (GlobalData.gameIsStarting == true)
         {
@@ -111,6 +113,11 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition)
     {
+        if (GameObject.Find("HUD") != null)
+        {
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+        }
+
         if (doGoodTransition == true)
         {
             StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime));
@@ -211,31 +218,34 @@ public class SceneLoader : MonoBehaviour
             yield return StartCoroutine(FadeCanvasOut(loadingCanvasGroup, transitionTime));
         }
 
-        switch (SceneManager.GetActiveScene().buildIndex)
+        switch (SceneManager.GetActiveScene().name)
         {
-            case 2:
-                titleText.text = "The Carcass";
-                titleText.color = carcassTextColor;
+            case "The Carcass":
+                titleImage.sprite = carcassSprite;
+                titleImage.color = carcassColor;
                 break;
 
-            case 3:
-                titleText.text = "The Daybreak Arboretum";
-                titleText.color = daybreakTextColor;
+            case "Daybreak Arboretum":
+                titleImage.sprite = daybreakSprite;
+                titleImage.color = daybreakColor;
                 break;
 
-            case 4:
-                titleText.text = "The Delta Crag";
-                titleText.color = deltaTextColor;
+            case "Delta Crag":
+                titleImage.sprite = deltaSprite;
+                titleImage.color = deltaColor;
                 break;
 
-            case 5:
-                titleText.text = "The Boss";
-                titleText.color = bossTestTextColor;
+            case "Impact Barrens":
+                titleImage.sprite = impactSprite;
+                titleImage.color = impactColor;
                 break;
 
             default:
                 yield break;
         }
+
+        titleImage.SetNativeSize();
+        titleImageRectTransform.sizeDelta *= 0.383897f;
 
         yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(ActivateTitleCanvas(5f));
@@ -347,15 +357,15 @@ public class SceneLoader : MonoBehaviour
     {
         float elapsedTime = 0f;
         float t = 0f;
-        float originalY = titleTextRectTransform.localPosition.y;
+        float originalY = titleImageRectTransform.localPosition.y;
         float originalScale = 1f;
 
         while (elapsedTime < time)
         {
             t = elapsedTime / time;
 
-            titleTextRectTransform.localPosition = new Vector3(0, Mathf.Lerp(originalY, originalY + 50, t), 0);
-            titleTextRectTransform.localScale = new Vector3(Mathf.Lerp(originalScale, originalScale + 0.2f, t), Mathf.Lerp(originalScale, originalScale + 0.2f, t), 1f);
+            titleImageRectTransform.localPosition = new Vector3(0, Mathf.Lerp(originalY, originalY + 50, t), 0);
+            titleImageRectTransform.localScale = new Vector3(Mathf.Lerp(originalScale, originalScale + 0.2f, t), Mathf.Lerp(originalScale, originalScale + 0.2f, t), 1f);
 
             elapsedTime += Time.unscaledDeltaTime;
 

@@ -58,7 +58,9 @@ public class WeaponCollision : MonoBehaviour
 
     IEnumerator HitStop()
     {
-        Animator animator = GameObject.FindWithTag("currentPlayer").GetComponent<Animator>();
+        GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+
+        Animator animator = currentPlayer.GetComponent<Animator>();
 
         animator.speed = 0f;
 
@@ -70,7 +72,7 @@ public class WeaponCollision : MonoBehaviour
             yield return null;
         }
 
-        animator.speed = 1f;
+        animator.speed = currentPlayer.GetComponent<CharacterStats>().animatorSpeed;
     }
 
     public void ClearEnemyList()

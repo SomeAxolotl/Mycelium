@@ -24,7 +24,10 @@ public class OptionsScript : MonoBehaviour
     private void Awake()
     {
         gammaVolume.profile.TryGet(out colorAdjust);
+    }
 
+    private void Start()
+    {
         LoadOptionValues();
     }
 

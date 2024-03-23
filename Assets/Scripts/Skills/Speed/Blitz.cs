@@ -21,6 +21,7 @@ public class Blitz : Skill
     }
     IEnumerator Blitzing()
     {
+        SoundEffectManager.Instance.PlaySound("Projectile", player.transform.position);
         Rigidbody rb = player.GetComponent<Rigidbody>();
         playerController.activeDodge = true;
         playerController.isInvincible = true;
@@ -42,6 +43,7 @@ public class Blitz : Skill
                 {
                     enemiesHit.Add(enemyCollider.gameObject);
                     enemyCollider.GetComponent<EnemyHealth>().EnemyTakeDamage(finalSkillValue);
+                    SoundEffectManager.Instance.PlaySound("Impact", enemyCollider.gameObject.transform.position);
                 }
             }
             elapsedTime += Time.deltaTime;
