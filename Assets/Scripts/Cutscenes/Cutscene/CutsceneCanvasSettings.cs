@@ -22,19 +22,19 @@ public class CutsceneCanvasSettings : MonoBehaviour
         }
     }
 
-    public void StartPlaying(float transitionTime, float textInbetweenTime, float textReadTime)
+    public void StartPlaying(float canvasFadeTime, float canvasInbetweenTime, float textFadeTime, float textInbetweenTime, float textReadTime)
     {
-        StartCoroutine(Play(transitionTime, textInbetweenTime, textReadTime));
+        StartCoroutine(Play(canvasFadeTime, canvasInbetweenTime, textFadeTime, textInbetweenTime, textReadTime));
     }
 
-    IEnumerator Play(float transitionTime, float textInbetweenTime, float textReadTime)
+    IEnumerator Play(float canvasFadeTime, float canvasInbetweenTime, float textFadeTime, float textInbetweenTime, float textReadTime)
     {
-        yield return StartCoroutine(FadeIn(canvasGroup, transitionTime));
+        yield return StartCoroutine(FadeIn(canvasGroup, canvasFadeTime));
 
         foreach (TMP_Text text in textOrder)
         {
             yield return new WaitForSeconds(textInbetweenTime);
-            StartCoroutine(FadeIn(text, transitionTime));
+            StartCoroutine(FadeIn(text, textFadeTime));
         }
 
         yield return new WaitForSeconds(textReadTime);
@@ -42,14 +42,14 @@ public class CutsceneCanvasSettings : MonoBehaviour
         foreach (TMP_Text text in textOrder)
         {
             yield return new WaitForSeconds(textInbetweenTime);
-            StartCoroutine(FadeOut(text, transitionTime));
+            StartCoroutine(FadeOut(text, textFadeTime));
         }
 
-        yield return new WaitForSeconds(textInbetweenTime);
+        yield return new WaitForSeconds(canvasFadeTime);
 
-        StartCoroutine(FadeOut(canvasGroup, transitionTime));
+        yield return StartCoroutine(FadeOut(canvasGroup, canvasFadeTime));
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(canvasInbetweenTime);
 
         isFinished = true;
     }
