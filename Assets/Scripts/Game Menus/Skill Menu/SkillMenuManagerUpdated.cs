@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class SkillMenuManagerUpdated : MonoBehaviour
 {
     
+    [SerializeField] private FullScreenPassRendererFeature fog;
     public GameObject LevelUI;
     ThirdPersonActionsAsset controls;
     public GameObject UIenable;
@@ -102,7 +103,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     public TMP_Text DescriptionText;
     void OnEnable()
     {
-        
+        fog.SetActive(!fog.isActive);  
+        fog.SetActive(!fog.isActive);  
         LevelUI.SetActive(false);
         controls = new ThirdPersonActionsAsset();
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
@@ -119,6 +121,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         Camera.SetActive(true);
         EruptionUnlocked.Select();
         ButtonListeners();
+        
         Invoke("InstantiateCurrentSpore", 0.01f);
         //Primal Unlock Statements
         
@@ -129,6 +132,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     {
       controls.UI.Disable();
       Destroy(InstantiatedSpore);
+      fog.SetActive(!fog.isActive);
     }
     void MenuSwapLeft()
     {
@@ -188,8 +192,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       Destroy(InstantiatedSpore.transform.Find("CenterPoint").gameObject);
       InstantiatedSpore.tag = "Tree";
       Destroy(InstantiatedSpore.GetComponent<Rigidbody>());
-      InstantiatedSpore.layer = LayerMask.NameToLayer("MenuSpore");
-      InstantiatedSpore.transform.Find("SporeModel").gameObject.layer = LayerMask.NameToLayer("MenuSpore");
+      InstantiatedSpore.layer = LayerMask.NameToLayer("UI");
+      InstantiatedSpore.transform.Find("SporeModel").gameObject.layer = LayerMask.NameToLayer("UI");
       InstantiatedSpore.transform.eulerAngles = new Vector3(0f,183.53476f,0f);
       InstantiatedSpore.transform.localScale = new Vector3(3.33189845f,3.33189845f,3.33189845f);
       InstantiatedSpore.GetComponent<CapsuleCollider>().enabled = false;
