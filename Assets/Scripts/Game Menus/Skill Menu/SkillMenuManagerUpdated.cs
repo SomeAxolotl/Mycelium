@@ -133,6 +133,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       controls.UI.Disable();
       Destroy(InstantiatedSpore);
       fog.SetActive(!fog.isActive);
+      fog.SetActive(!fog.isActive); 
     }
     void MenuSwapLeft()
     {
@@ -1569,6 +1570,14 @@ public class SkillMenuManagerUpdated : MonoBehaviour
   public void DefenseMechDeSelect()
   {
     DefenseDescrip = false;
+  }
+  public void CharacterbuttonSelect()
+  {
+    CharacterButtonsSelected = true;
+  }
+  public void CharacterbuttonDeselect()
+  {
+    CharacterButtonsSelected = false;
   }
   public void SkillDescriptions()
   {
