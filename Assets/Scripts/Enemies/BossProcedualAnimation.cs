@@ -8,12 +8,13 @@ public class BossProcedualAnimation : MonoBehaviour
     // script and gameobject references
     private TempMovement tempMovement;
     private CharacterStats characterStats;
+    private PlayerController playerController;
+    Animator animator;
     private GameObject player;
 
     [Header("Transforms")]
     [SerializeField] private Transform leftArmTarget;
     [SerializeField] private Transform rightArmTarget;
-    [SerializeField] private Transform origHeadParent;
     [SerializeField] private Transform spine;
 
     [Header("MathStuff")]
@@ -48,6 +49,8 @@ public class BossProcedualAnimation : MonoBehaviour
         player = GameObject.FindWithTag("currentPlayer");
         tempMovement = GetComponent<TempMovement>();
         characterStats = player.GetComponent<CharacterStats>();
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        animator = GetComponent<Animator>();
 
         // objects rotations and positions
         originalSpineRotation = spine.rotation;
@@ -58,6 +61,31 @@ public class BossProcedualAnimation : MonoBehaviour
 
         // start body coroutine with delay to account for transition into scene
         StartCoroutine(StartBossBehaviorWithDelay());
+    }
+
+    void Update()
+    {
+        bool playerIsMoving = playerController.rb.velocity.magnitude > 0.01f;
+
+        if (playerIsMoving && bossCoroutine == null)
+        {
+            animator.speed = 0f;
+            bossCoroutine = StartCoroutine("BossBehavior");
+        }
+        else if (!playerIsMoving && bossCoroutine != null)
+        {
+            animator.speed = 1f;
+            StopCoroutine(bossCoroutine);
+            bossCoroutine = null;
+        }
+        else if (!playerIsMoving && bossCoroutine != null && Vector3.Distance(transform.position, player.transform.position) < 0.1f)
+        {
+            // If player stopped moving and boss reached player's current position,
+            // continue boss movement until it reaches the desired position
+            StopCoroutine(bossCoroutine);
+            bossCoroutine = null;
+            bossCoroutine = StartCoroutine(BossBehavior());
+        }
     }
 
     // starting start coroutine with delay
@@ -289,4 +317,4 @@ public class BossProcedualAnimation : MonoBehaviour
             yield return null;
         }
     }
-}
+} 
