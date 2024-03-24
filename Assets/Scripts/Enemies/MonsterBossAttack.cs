@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -140,6 +141,7 @@ public class MonsterBossAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && other.gameObject.GetComponentInParent<PlayerController>().isInvincible == false && !playerHit.Contains(other.gameObject) && isAttacking)
         {
+            Debug.Log("collided with player");
             collidedWithPlayer = true;
         
         if (isTailAttacking && !isSlamAttacking || !isSwipeAttacking)
@@ -147,15 +149,19 @@ public class MonsterBossAttack : MonoBehaviour
                 damage = tailAttackDamage;
                 knockbackForce = 300f;
             }
-            if (isSlamAttacking && !isSwipeAttacking)
+            if (other.gameObject.layer == LayerMask.NameToLayer("ArmLayer") && isSlamAttacking && !isSwipeAttacking)
             {
                 damage = slamAttackDamage;
                 knockbackForce = 100f;
             }
-            if (isSwipeAttacking && !isSlamAttacking)
+            if (other.gameObject.layer == LayerMask.NameToLayer("ArmLayer") && isSwipeAttacking && !isSlamAttacking)
             {
                 damage = swipeAttackDamage;
                 knockbackForce = 200f;
+            }
+            if (other.gameObject.layer == LayerMask.NameToLayer("BodyLayer"))
+            {
+                collidedWithPlayer = false;
             }
             playerDamaged = false;
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
