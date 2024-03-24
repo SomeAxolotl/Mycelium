@@ -1509,6 +1509,17 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""MoreInfo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d6cddff-30d0-4879-b2b7-78404ce9a639"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoreInfo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1592,6 +1603,15 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""name"": ""Right"",
                     ""type"": ""Button"",
                     ""id"": ""ac4547d6-1c48-444d-8b67-ad914a9bae4b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""e15038e1-e7c1-48e6-8cb1-1e39ee1788c2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1697,6 +1717,17 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef38208e-a617-4c67-9701-8593f1ff8ce3"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1768,6 +1799,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UISub_AssignBKB = m_UISub.FindAction("Assign B KB", throwIfNotFound: true);
         m_UISub_Left = m_UISub.FindAction("Left", throwIfNotFound: true);
         m_UISub_Right = m_UISub.FindAction("Right", throwIfNotFound: true);
+        m_UISub_Cancel = m_UISub.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -2314,6 +2346,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UISub_AssignBKB;
     private readonly InputAction m_UISub_Left;
     private readonly InputAction m_UISub_Right;
+    private readonly InputAction m_UISub_Cancel;
     public struct UISubActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -2327,6 +2360,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @AssignBKB => m_Wrapper.m_UISub_AssignBKB;
         public InputAction @Left => m_Wrapper.m_UISub_Left;
         public InputAction @Right => m_Wrapper.m_UISub_Right;
+        public InputAction @Cancel => m_Wrapper.m_UISub_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_UISub; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2363,6 +2397,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Right.started += instance.OnRight;
             @Right.performed += instance.OnRight;
             @Right.canceled += instance.OnRight;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         private void UnregisterCallbacks(IUISubActions instance)
@@ -2394,6 +2431,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Right.started -= instance.OnRight;
             @Right.performed -= instance.OnRight;
             @Right.canceled -= instance.OnRight;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         public void RemoveCallbacks(IUISubActions instance)
@@ -2478,5 +2518,6 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnAssignBKB(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }
