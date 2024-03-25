@@ -69,20 +69,34 @@ public class NutrientTracker : MonoBehaviour
         if (heldLog != 0)
         {
             storedLog++;
+            IncrementAllMaterialsALPHA();
         }
         else if (heldExoskeleton != 0)
         {
             storedExoskeleton++;
+            IncrementAllMaterialsALPHA();
         }
         else if (heldCalcite != 0)
         {
             storedCalcite++;
+            IncrementAllMaterialsALPHA();
         }
         else if (heldFlesh != 0)
         {
             storedFlesh++;
+            IncrementAllMaterialsALPHA();
         }
+
     }
+
+    void IncrementAllMaterialsALPHA()
+    {
+        storedLog++;
+        storedExoskeleton++;
+        storedCalcite++;
+        storedFlesh++;
+    }
+
     public void SpendLog(int cost)
     {
         storedLog -= cost;
