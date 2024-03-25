@@ -54,7 +54,7 @@ public class TrophicCascade : Skill
         List<GameObject> enemies = new List<GameObject>();
         foreach (Collider collider in colliders)
         {
-            if (!enemies.Contains(collider.gameObject))
+            if (!enemies.Contains(collider.gameObject) && collider.gameObject.GetComponent<EnemyHealth>() != null)
             {
                 enemies.Add(collider.gameObject);
             }
