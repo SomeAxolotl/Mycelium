@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SproutPlayer()
     {
+        yield return new WaitForSeconds(0.1f);
+        
         GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().DisableController();
 
         yield return new WaitForSeconds(timeUntilHubSprout);

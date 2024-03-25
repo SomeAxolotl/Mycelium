@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrowMenuSelectAnimation : MonoBehaviour
+public class MenuSelectAnimation : MonoBehaviour
 {
     [SerializeField] private bool startSelected = false;
     [SerializeField] private Animator animator;
