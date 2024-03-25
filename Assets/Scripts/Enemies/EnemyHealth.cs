@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 using System;
+using UnityEditor.Rendering.Universal.ShaderGUI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class EnemyHealth : MonoBehaviour
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     public Transform centerPoint;
     protected bool hasTakenDamage = false;
-    private bool alreadyDead = false;
+    protected bool alreadyDead = false;
     Animator animator;
 
     private ProfileManager profileManagerScript;
@@ -59,8 +60,10 @@ public class EnemyHealth : MonoBehaviour
         hasTakenDamage = true;
     }
 
-    IEnumerator Death()
+    protected IEnumerator Death()
     {
+        Debug.Log("death");
+
         alreadyDead = true;
         gameObject.GetComponent<EnemyAttack>().CancelAttack();
         gameObject.GetComponent<EnemyAttack>().enabled = false;

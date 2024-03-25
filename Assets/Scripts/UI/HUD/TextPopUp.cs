@@ -25,7 +25,7 @@ public class TextPopUp : MonoBehaviour
     [SerializeField] private HideVia hideVia;
     [SerializeField] private bool shouldDestroyItself;
     [SerializeField] private bool shouldDestroyOther;
-    [SerializeField][Tooltip("This will do nothing when using PlayerInput.")] string textToDisplay;
+    [SerializeField] string textToDisplay;
 
     [Header("--If Hiding Via Timer--")]
     [SerializeField] private float timeToDisplay;
@@ -50,6 +50,11 @@ public class TextPopUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.tag != "currentPlayer")
+        {
+            return;
+        }
+
         if (isActivated == false)
         {
             isActivated = true;
@@ -63,7 +68,7 @@ public class TextPopUp : MonoBehaviour
                     break;
 
                 case HideVia.PlayerInput:
-                    UpdateText(CreatePlayerInputText(requiredInput));
+                    UpdateText(textToDisplay);
                     StartCoroutine(ShowText(0.5f));
                     StartCoroutine(WaitForInput(requiredInput, numberOfPressesRequired));
                     break;
@@ -81,7 +86,12 @@ public class TextPopUp : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(hideVia == HideVia.LeavingTrigger)
+        if (other.tag != "currentPlayer")
+        {
+            return;
+        }
+
+        if (hideVia == HideVia.LeavingTrigger)
         {
             StartCoroutine(HideText(0.5f));
         }

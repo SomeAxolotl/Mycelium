@@ -66,7 +66,7 @@ Transform:
   m_Children:
   - {fileID: 1786795856123770500}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8165718735506847767
 MonoBehaviour:
@@ -160,10 +160,11 @@ AudioSource:
   m_GameObject: {fileID: 7773518522406955985}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -790609977834391584, guid: adca8645eaeba22479467ab8ff8c59df,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.575
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -592,8 +593,10 @@ MonoBehaviour:
   - {fileID: 3309799078111810186}
   - {fileID: 609552851306278870}
   - {fileID: 607897032158092210}
+  thisLight: {fileID: 0}
   DeactivateSpeed: 1
   ActivateSpeed: 1
+  DisableOnExit: 1
 --- !u!136 &7202338310125515498
 CapsuleCollider:
   m_ObjectHideFlags: 0
