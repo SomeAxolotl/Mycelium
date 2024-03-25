@@ -85,18 +85,18 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     private SwapCharacter swapcharacterscript;
     public Navigation NoneNav = new Navigation();
     public Navigation AutoNav = new Navigation();
-    private bool ErupDescrip = false;
-    private bool LCDescrip = false;
-    private bool RelentDescrip = false;
-    private bool BlitzDescrip = false;
-    private bool TrophicDescrip = false;
-    private bool MycoDescrip = false;
-    private bool SpineDescrip = false;
-    private bool UnstableDescrip = false;
-    private bool UnderDescrip = false;
-    private bool LeechDescrip = false;
-    private bool SporeDescrip = false;
-    private bool DefenseDescrip = false;
+    public bool ErupDescrip = false;
+    public bool LCDescrip = false;
+    public bool RelentDescrip = false;
+    public bool BlitzDescrip = false;
+    public bool TrophicDescrip = false;
+    public bool MycoDescrip = false;
+    public bool SpineDescrip = false;
+    public bool UnstableDescrip = false;
+    public bool UnderDescrip = false;
+    public bool LeechDescrip = false;
+    public bool SporeDescrip = false;
+    public bool DefenseDescrip = false;
     public bool DescriptionActive = false;
     private bool CharacterButtonsSelected = false;
     public GameObject DescriptionPanel;
@@ -119,6 +119,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         GrowMenu.SetActive(false);
         Camera.SetActive(true);
         EruptionUnlocked.Select();
+        ErupDescrip = true;
         ButtonListeners();
         
         Invoke("InstantiateCurrentSpore", 0.01f);
@@ -1618,27 +1619,27 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       }
       else if (SpineDescrip == true)
       {
-        DescriptionText.text = "Spineshot: <br><br> <size=25>Fire out a spine damaging the first enemy hit.";
+        DescriptionText.text = "Spineshot: <br> <size=25>Fire out a spine damaging the first enemy hit.";
         SpineshotUnlocked.navigation = NoneNav;
       }
       else if (UnstableDescrip == true)
       {
-        DescriptionText.text = "Unstable Puffball: <br><br><size=25>Fires a puffball that explodes and damages all enemies upon contact.";
+        DescriptionText.text = "Unstable Puffball: <br><size=25>Fires a puffball that explodes and damages all enemies upon contact.";
         UnstablePuffBallUnlocked.navigation = NoneNav;
       }
       else if (UnderDescrip == true)
       {
-        DescriptionText.text = "Undergrowth: <br><br><size=25> An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit.";
+        DescriptionText.text = "Undergrowth: <br><size=25> An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit.";
         UndergrowthUnlocked.navigation = NoneNav;
       }
       else if(LeechDescrip == true)
       {
-        DescriptionText.text = "Leeching Spores: <br><br> <size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.";
+        DescriptionText.text = "Leeching Spores: <br><size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.";
         LeechingSporesUnlocked.navigation = NoneNav;
       }
       else if(SporeDescrip == true)
       {
-        DescriptionText.text = "Sporeburst: <br><br> <size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.";
+        DescriptionText.text = "Sporeburst: <br><size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.";
         SporeburstUnlocked.navigation = NoneNav;
       }
       else if (DefenseDescrip == true)
