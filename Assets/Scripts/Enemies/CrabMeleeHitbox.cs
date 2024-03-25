@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CrabMeleeHitbox : MonoBehaviour
 {
+    [SerializeField] float HitboxActivateDelay = 3.13f;
     [HideInInspector] public float damage;
     [HideInInspector] public float knockbackForce;
     [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();
@@ -21,7 +22,7 @@ public class CrabMeleeHitbox : MonoBehaviour
     }
     public IEnumerator ActivateHitbox()
     {
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(HitboxActivateDelay);
         gameObject.GetComponent<Collider>().enabled = true;
         //gameObject.GetComponent<Renderer>().enabled = true;
         yield return new WaitForSeconds(0.2f);

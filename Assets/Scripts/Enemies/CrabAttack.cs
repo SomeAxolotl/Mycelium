@@ -102,6 +102,7 @@ public class CrabAttack : EnemyAttack
             Destroy(shell);
             GameObject spawnedShell = Instantiate(shellProjectile, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
             spawnedShell.GetComponent<ShellVelocity>().LaunchShell();
+            animator.SetBool("HasShell", false);
             attackStarted = false;
             yield return new WaitForSeconds(attackCooldown/2f);
         }
@@ -124,7 +125,8 @@ public class CrabAttack : EnemyAttack
             {
                 yield return new WaitForSeconds(0.5f);
                 attackStarted = false;
-                animator.Play("Attack", 0, 0.5f);
+                animator.SetTrigger("Attack");
+                //animator.Play("Attack", 0, 0.5f);             //<-Just use triggers to make the animation work
                 crabMeleeHitbox.StartCoroutine(crabMeleeHitbox.ActivateHitbox());
                 yield return new WaitForSeconds(attackCooldown);
             }
