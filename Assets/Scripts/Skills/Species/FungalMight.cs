@@ -11,7 +11,7 @@ public class FungalMight : Skill
     {
         ClearAllFungalMights();
         
-        GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+        GameObject skillLoadout = transform.parent.gameObject;
         foreach (Transform child in skillLoadout.transform)
         {
             Skill skill = child.gameObject.GetComponent<Skill>();
@@ -29,7 +29,6 @@ public class FungalMight : Skill
 
     void FungalMightParticles()
     {
-        GameObject player = GameObject.FindWithTag("currentPlayer");
         //Positions
         Vector3 rightParticlesPositionH = player.transform.position + (player.transform.right * particleDistance);
         Vector3 leftParticlesPositionH = player.transform.position + (-player.transform.right * particleDistance);

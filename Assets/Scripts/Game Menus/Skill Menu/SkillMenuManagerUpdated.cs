@@ -1045,7 +1045,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+          //Debug.Log("return");
           return;
         }  
     }

@@ -9,13 +9,23 @@ public class DefenseMechanism : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
-        StartCoroutine(DoDefense());
+        DefenseParticles();
+
+        if (isPlayerCurrentPlayer())
+        {
+            StartCoroutine(DoDefense());
+        }
+
         EndSkill();
     }
+    void DefenseParticles()
+    {
+        ParticleManager.Instance.SpawnParticles("DefenseParticles", new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.Euler(-90f, 0f, 0f), player);
+    }
+
     IEnumerator DoDefense()
     {
         playerHealth.isDefending = true;
-        ParticleManager.Instance.SpawnParticles("DefenseParticles", new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.Euler(-90f, 0f, 0f), player);
         yield return new WaitForSeconds(defenseDuration);
         playerHealth.isDefending = false;
     }

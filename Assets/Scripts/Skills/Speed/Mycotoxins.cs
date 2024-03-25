@@ -18,17 +18,16 @@ public class Mycotoxins : Skill
         ParticleManager.Instance.SpawnParticles("MycoToxinsParticles", player.transform.position, Quaternion.identity, player);
         spawnCount = 0;
         controller = GetComponentInParent<PlayerController>();
-        if (controller == null)
+        if (controller != null)
         {
-            Debug.LogError("PlayerController not found!");
-            return; // Exit the method if the controller is not found
+            originalMoveSpeed = controller.moveSpeed;
+            controller.moveSpeed *= speedBoost;
+
+            StartCoroutine(ReleaseSpores());
+
+            timer = 0f;
         }
-        originalMoveSpeed = controller.moveSpeed;
-        controller.moveSpeed *= speedBoost;
 
-        StartCoroutine(ReleaseSpores());
-
-        timer = 0f;
         //Skill specific stuff
 
         EndSkill();

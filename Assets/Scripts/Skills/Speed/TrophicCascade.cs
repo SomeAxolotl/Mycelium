@@ -19,7 +19,11 @@ public class TrophicCascade : Skill
         Renderer[] childRenderers = player.GetComponentsInChildren<Renderer>();
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
 
-        playerController.isInvincible = true;
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.isInvincible = true;
+        }
+        
         foreach (Renderer renderer in childRenderers)
         {
             renderer.enabled = false;
@@ -27,7 +31,10 @@ public class TrophicCascade : Skill
 
         yield return StartCoroutine(Cascade());
 
-        playerController.isInvincible = false;
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.isInvincible = false;
+        }
         foreach (Renderer renderer in childRenderers)
         {
             if (!(renderer is ParticleSystemRenderer))

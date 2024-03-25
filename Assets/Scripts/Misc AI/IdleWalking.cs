@@ -20,6 +20,10 @@ public class IdleWalking : MonoBehaviour
     private Transform center;
     private Animator animator;
     private NewSporeCam sporeCam;
+
+    private float randomSkillChanceTimer;
+    [SerializeField] float randomSkillChanceTimerInterval = 1f;
+    [SerializeField] float chanceToCastEachInterval = 0.2f;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -58,7 +62,36 @@ public class IdleWalking : MonoBehaviour
             SetRandomDestination();
             rerouteTimer = 0f;
         }
+
+        if (randomSkillChanceTimer <= 0)
+        {
+            float chanceToCastNumber = Random.Range(0f, 1f);
+            {
+                if (chanceToCastNumber < chanceToCastEachInterval)
+                {
+                    CastRandomSkill();
+                }
+            }
+            randomSkillChanceTimer = randomSkillChanceTimerInterval;
+        }
+        else
+        {
+            randomSkillChanceTimer -= Time.deltaTime;
+        }
     }
+
+    void CastRandomSkill()
+    {
+        GameObject skillLoadout = transform.Find("SkillLoadout").gameObject;
+        
+        int randomNumber = Random.Range(0, 3);
+        Skill skillToUse = skillLoadout.transform.GetChild(randomNumber).gameObject.GetComponent<Skill>();
+        if (skillToUse.canSkill)
+        {
+            skillToUse.ActivateSkill(randomNumber);
+        }
+    }
+
     private void FixedUpdate()
     {
         rb.AddForce(gravity, ForceMode.Acceleration);

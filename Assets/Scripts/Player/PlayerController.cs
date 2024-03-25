@@ -198,6 +198,7 @@ public class PlayerController : MonoBehaviour
         isInvincible = true;
         looking = false;
         float storedAnimSpeed = swapCharacter.currentCharacterStats.animatorSpeed;
+        Animator dodgingAnimation = animator;
         animator.speed = 1.25f;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
@@ -219,9 +220,9 @@ public class PlayerController : MonoBehaviour
         canUseAttack = true;
         canUseSkill = true;
         looking = true;
-        animator.SetBool("Roll", false);
-        animator.SetBool("Walk", true);
-        animator.speed = storedAnimSpeed;
+        dodgingAnimation.SetBool("Roll", false);
+        dodgingAnimation.SetBool("Walk", true);
+        dodgingAnimation.speed = storedAnimSpeed;
         yield return new WaitForSeconds(finalDodgeCooldown);
         canUseDodge = true;
     }
