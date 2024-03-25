@@ -17,12 +17,21 @@ public class BossLevelGeneration : MonoBehaviour
             }
         }
 
-        if (GameObject.FindWithTag("currentWeapon") == null)
+        /*if (GameObject.FindWithTag("currentWeapon") == null)
         {
             GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             startingWeapon.GetComponent<Collider>().enabled = false;
             GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
+        }*/
+        if (GameObject.FindWithTag("currentWeapon") == null)
+        {
+            GameObject startingWeapon = Instantiate(Resources.Load("Daybreak Arboretum/Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
+            startingWeapon.GetComponent<Collider>().enabled = false;
+            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
+
+            //Debug.Log("NO GLOBAL DATA WEAPON FOUND");
         }
     }
 
