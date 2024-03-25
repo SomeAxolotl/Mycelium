@@ -49,6 +49,8 @@ public class MonsterBossAttack : MonoBehaviour
 
     BossProcedualAnimation bossProcedualAnimation;
 
+    BossProcedualAnimation bossProcedualAnimation;
+
 
     // Start is called before the first frame update
     void Start()
