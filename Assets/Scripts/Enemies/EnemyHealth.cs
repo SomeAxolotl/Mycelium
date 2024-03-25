@@ -62,13 +62,24 @@ public class EnemyHealth : MonoBehaviour
 
     protected IEnumerator Death()
     {
+        if (gameObject.name != "Rival Colony Leader")
+        {
+            gameObject.GetComponent<EnemyAttack>().CancelAttack();
+            gameObject.GetComponent<EnemyAttack>().enabled = false;
+            gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        }
+        else
+        {
+            GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();
+        }
+
+
         alreadyDead = true;
-        gameObject.GetComponent<EnemyAttack>().CancelAttack();
-        gameObject.GetComponent<EnemyAttack>().enabled = false;
-        gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
+        
         rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.FreezePosition;
-        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        
         animator.Rebind();
         animator.SetTrigger("Death");
         yield return new WaitForSeconds(1.25f);
@@ -78,6 +89,7 @@ public class EnemyHealth : MonoBehaviour
         Vector3 targetScale = Vector3.zero;
         while (elapsedTime < shrinkDuration)
         {
+
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / shrinkDuration;
             transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
@@ -90,6 +102,7 @@ public class EnemyHealth : MonoBehaviour
             profileManagerScript.tutorialIsDone = true;
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
         }
+
         this.gameObject.SetActive(false);
     }
 

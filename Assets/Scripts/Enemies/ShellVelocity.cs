@@ -48,12 +48,12 @@ public class ShellVelocity : MonoBehaviour
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
             collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
-            Instantiate(particles, transform.position, Quaternion.Euler(90f, 0f, 0f));
+            ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(gameObject);
         }
         else if (collision.gameObject.layer == 8 || collision.gameObject.layer == 12)
         {
-            Instantiate(particles, transform.position, Quaternion.identity);
+            ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
             SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
             Destroy(gameObject);
         }
