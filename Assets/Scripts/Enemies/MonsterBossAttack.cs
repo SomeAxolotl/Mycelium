@@ -11,8 +11,10 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] public float attractionForce = 25.0f;
     [SerializeField] public float attractionRadius = 20.0f;
     [SerializeField] public float pullInterval = 5.0f;
+    public float pullDistance = 2f;
+    public float pullHeightOffset = 1f;
     private float elapsedTime = 0.0f;
-    public Transform pullOrigin;
+    public GameObject pullOriginPrefab;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public bool canAttack = true;
@@ -43,8 +45,10 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float slamAttackDamage = 35f;
     [SerializeField] private float tailKnockback = 50f;
     private bool collidedWithPlayer = false;
+    [SerializeField] private float distanceInFront = 2.0f;
 
     BossProcedualAnimation bossProcedualAnimation;
+
 
 
     // Start is called before the first frame update
@@ -62,11 +66,16 @@ public class MonsterBossAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         float dstToPlayer = Vector3.Distance(transform.position, player.position);
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= pullInterval)
         {
+            Vector3 bossPosition = transform.position;
+            Vector3 spawnPosition = bossPosition + transform.forward * distanceInFront;
+            GameObject pullOriginInstance = Instantiate(pullOriginPrefab, spawnPosition, Quaternion.identity);
             PullPlayers();
+            Destroy(pullOriginInstance);
             elapsedTime = 0.0f; // Reset the timer
         }
         if (!bossMovement.playerSeen)
@@ -182,7 +191,7 @@ public class MonsterBossAttack : MonoBehaviour
     private void PullPlayers()
     {
 
-        playerColliders = Physics.OverlapSphere(pullOrigin.position, attractionRadius, playerLayer);
+        playerColliders = Physics.OverlapSphere(pullOriginPrefab.transform.position, attractionRadius, playerLayer);
         foreach (var playerCollider in playerColliders)
         {
             if (playerCollider.CompareTag("currentPlayer"))
@@ -203,7 +212,7 @@ public class MonsterBossAttack : MonoBehaviour
 
         while (elapsedTime < 5.0f) // Change 5.0f to the desired duration
         {
-            Vector3 direction = pullOrigin.position - playerTransform.position;
+            Vector3 direction = pullOriginPrefab.transform.position - playerTransform.position;
             float distance = direction.magnitude;
 
             if (distance <= attractionRadius)
@@ -219,8 +228,12 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator TailAttack()
     {
 
-        while (!tailAttackOnCooldown)
+        while (true)
         {
+            if (tailAttackOnCooldown)
+            {
+                yield break;
+            }
             tailAttackOnCooldown = true;
             //animator.SetTrigger("TailAttack");
             Debug.Log("TAIL ATTACK!");
