@@ -14,7 +14,7 @@ public class MonsterBossAttack : MonoBehaviour
     public float pullDistance = 2f;
     public float pullHeightOffset = 1f;
     private float elapsedTime = 0.0f;
-    public GameObject pullOriginPrefab;
+    public Transform pullOrigin;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public bool canAttack = true;
@@ -49,8 +49,6 @@ public class MonsterBossAttack : MonoBehaviour
 
     BossProcedualAnimation bossProcedualAnimation;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -71,11 +69,8 @@ public class MonsterBossAttack : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= pullInterval)
         {
-            Vector3 bossPosition = transform.position;
-            Vector3 spawnPosition = bossPosition + transform.forward * distanceInFront;
-            GameObject pullOriginInstance = Instantiate(pullOriginPrefab, spawnPosition, Quaternion.identity);
             PullPlayers();
-            Destroy(pullOriginInstance);
+            
             elapsedTime = 0.0f; // Reset the timer
         }
         if (!bossMovement.playerSeen)
@@ -190,8 +185,8 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private void PullPlayers()
     {
-
-        playerColliders = Physics.OverlapSphere(pullOriginPrefab.transform.position, attractionRadius, playerLayer);
+        ParticleManager.Instance.SpawnParticles("BossSandPullParticles", gameObject.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
+        playerColliders = Physics.OverlapSphere(pullOrigin.position, attractionRadius, playerLayer);
         foreach (var playerCollider in playerColliders)
         {
             if (playerCollider.CompareTag("currentPlayer"))
@@ -212,7 +207,7 @@ public class MonsterBossAttack : MonoBehaviour
 
         while (elapsedTime < 5.0f) // Change 5.0f to the desired duration
         {
-            Vector3 direction = pullOriginPrefab.transform.position - playerTransform.position;
+            Vector3 direction = pullOrigin.position - playerTransform.position;
             float distance = direction.magnitude;
 
             if (distance <= attractionRadius)
