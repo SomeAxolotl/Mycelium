@@ -222,8 +222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 318.74988, y: -144.99998}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 328.19995, y: -138.9}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3425837950831152263
 CanvasRenderer:
@@ -253,8 +253,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: b2707e4f9db358545859e8cf12277b7c, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -493,8 +493,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 229.16667, y: -144.99997}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 228.1, y: -138.9}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1907048204563501451
 CanvasRenderer:
@@ -524,8 +524,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: b2707e4f9db358545859e8cf12277b7c, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1488,6 +1488,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: LivingCycloneSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: LivingCycloneDeselect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &3023033723352129881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,7 +1572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 118.26083, y: 236.00006}
+  m_AnchoredPosition: {x: 118.260864, y: 236.00006}
   m_SizeDelta: {x: -1222.334, y: -801.1806}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5124804157716606451
@@ -3074,8 +3106,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 229.16667, y: -144.99991}
-  m_SizeDelta: {x: 90, y: 90}
+  m_AnchoredPosition: {x: 228.1, y: -143.8}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8706968690154719149
 CanvasRenderer:
@@ -4056,7 +4088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -59.987312, y: 236.00006}
+  m_AnchoredPosition: {x: -59.987305, y: 236.00006}
   m_SizeDelta: {x: -1222.334, y: -801.1806}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7459185395472617139
@@ -4763,10 +4795,30 @@ MonoBehaviour:
   - eventID: 11
     callback:
       m_PersistentCalls:
+        m_Calls: []
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 376500842286817363}
-          m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
-          m_MethodName: PlayUIMoveSound
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: MycotoxinsSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: MycotoxinsDeSelect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4826,8 +4878,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 318.75, y: -144.99995}
-  m_SizeDelta: {x: 90, y: 90}
+  m_AnchoredPosition: {x: 328.2, y: -143.8}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3595836349674900090
 CanvasRenderer:
@@ -5074,7 +5126,7 @@ GameObject:
   - component: {fileID: 2799349497246365543}
   - component: {fileID: 6289897799775579657}
   - component: {fileID: 5898586473902721782}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Skill Description Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5234,7 +5286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 320.8, y: -201.2}
+  m_AnchoredPosition: {x: 328.2, y: -202.9}
   m_SizeDelta: {x: 37.356, y: 31.0157}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5069102759484409634
@@ -5370,7 +5422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.915}
+  m_AnchoredPosition: {x: 0, y: 2.915001}
   m_SizeDelta: {x: 1322.334, y: 745.2619}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2363535025617224789
@@ -5874,6 +5926,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: UndergrowthSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: UndergrowthDeSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &4477014284732846081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6056,6 +6140,38 @@ MonoBehaviour:
         - m_Target: {fileID: 376500842286817363}
           m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
           m_MethodName: PlayUIMoveSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: SporeshotSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: SporeShotDeSelect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6284,6 +6400,38 @@ MonoBehaviour:
         - m_Target: {fileID: 376500842286817363}
           m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
           m_MethodName: PlayUIMoveSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: UnstablePuffSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: UnstablePuffDeselect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6744,6 +6892,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: TrophicSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: TrophicDeSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &460618002242138157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7167,7 +7347,7 @@ GameObject:
   - component: {fileID: 3036045814093192085}
   - component: {fileID: 6164531729952245296}
   - component: {fileID: 4172782361384852840}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7182,7 +7362,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4694204064596833721}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -158}
+  m_LocalPosition: {x: 0, y: 0, z: -105}
   m_LocalScale: {x: 0.40794164, y: 0.16691248, z: 0.17721248}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7192,7 +7372,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -8.5, y: -4.200012}
   m_SizeDelta: {x: 622.334, y: 401.08618}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3036045814093192085
@@ -7964,6 +8144,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: DefenseMechSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: DefenseMechDeSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &5726095530280202545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8406,6 +8618,38 @@ MonoBehaviour:
         - m_Target: {fileID: 376500842286817363}
           m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
           m_MethodName: PlayUIMoveSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: BlitzSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: BlitzDeSelect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -8867,6 +9111,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: RelentlessFurySelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: RelentlessFuryDeSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &6102740047003441036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9058,6 +9334,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: LeechingSporeSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: LeechingSporeDeSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &2943618962496748731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9145,7 +9453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230.49, y: -201.2}
+  m_AnchoredPosition: {x: 228.10004, y: -202.9}
   m_SizeDelta: {x: 37.356, y: 31.0157}
   m_Pivot: {x: 0.5000003, y: 0.49999997}
 --- !u!222 &9211400949183702344
@@ -10107,6 +10415,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: SpineShotSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: SpineShotDeSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1959609743639326051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10720,7 +11060,7 @@ Canvas:
   m_GameObject: {fileID: 6605839792270232063}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -11031,6 +11371,7 @@ GameObject:
   - component: {fileID: 5737546063686712105}
   - component: {fileID: 625411968145278769}
   - component: {fileID: 2359264223264768360}
+  - component: {fileID: 5869578596053703925}
   m_Layer: 5
   m_Name: ArrowUp
   m_TagString: Untagged
@@ -11056,7 +11397,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 374.36768, y: 38.117928}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 71.69, y: 71.6898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5321727636764801796
 CanvasRenderer:
@@ -11184,6 +11525,51 @@ MonoBehaviour:
         - m_Target: {fileID: 376500842286817363}
           m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
           m_MethodName: PlayUIMoveSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &5869578596053703925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6890222908382910640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: CharacterbuttonSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: CharacterbuttonDeselect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -11916,7 +12302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.915}
+  m_AnchoredPosition: {x: 0, y: 2.915001}
   m_SizeDelta: {x: 1322.334, y: 745.2619}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3402106966994152956
@@ -12062,6 +12448,7 @@ GameObject:
   - component: {fileID: 8283991284566216666}
   - component: {fileID: 6565333406686747931}
   - component: {fileID: 5037923678883804774}
+  - component: {fileID: 2119977216203361296}
   m_Layer: 5
   m_Name: ArrowDown
   m_TagString: Untagged
@@ -12086,8 +12473,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 169.05046, y: 38.117928}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 175.97, y: 35.845}
+  m_SizeDelta: {x: 71.69, y: 71.6898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8851523478962695708
 CanvasRenderer:
@@ -12215,6 +12602,51 @@ MonoBehaviour:
         - m_Target: {fileID: 376500842286817363}
           m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
           m_MethodName: PlayUIMoveSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2119977216203361296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7835958838740184359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: CharacterbuttonSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: CharacterbuttonDeselect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -14002,9 +14434,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ee14d54149bd6418497b924126c3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fog: {fileID: 0}
+  fog: {fileID: -636460249933653262, guid: c40be3174f62c4acf8c1216858c64956, type: 2}
   LevelUI: {fileID: 0}
-  UIenable: {fileID: 0}
+  UIenable: {fileID: 6605839792270232063}
   GrowMenu: {fileID: 0}
   currentstats: {fileID: 0}
   PrimalPoints:
@@ -14098,7 +14530,7 @@ MonoBehaviour:
   LeechingLock: {fileID: 8837970187048918445}
   SporeburstLock: {fileID: 227701920246210683}
   DefenseMechLock: {fileID: 4561593889947057884}
-  DescriptionPanelHolder: {fileID: 0}
+  DescriptionPanelHolder: {fileID: 4241686417857285284}
   skillmanager: {fileID: 0}
   EruptionActive: 0
   newColor: {r: 0, g: 0, b: 0, a: 0}
@@ -14120,9 +14552,21 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
+  ErupDescrip: 0
+  LCDescrip: 0
+  RelentDescrip: 0
+  BlitzDescrip: 0
+  TrophicDescrip: 0
+  MycoDescrip: 0
+  SpineDescrip: 0
+  UnstableDescrip: 0
+  UnderDescrip: 0
+  LeechDescrip: 0
+  SporeDescrip: 0
+  DefenseDescrip: 0
   DescriptionActive: 0
-  DescriptionPanel: {fileID: 0}
-  DescriptionText: {fileID: 0}
+  DescriptionPanel: {fileID: 4694204064596833721}
+  DescriptionText: {fileID: 5898586473902721782}
 --- !u!114 &376500842286817363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14486,6 +14930,38 @@ MonoBehaviour:
         - m_Target: {fileID: 376500842286817363}
           m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
           m_MethodName: PlayUIMoveSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: EruptionSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8490552419188652797}
+          m_TargetAssemblyTypeName: SkillMenuManagerUpdated, Assembly-CSharp
+          m_MethodName: EruptionDeSelect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 public class CrabAttack : EnemyAttack
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
+    private EnemyHealth enemyHealth;
     private bool canAttack = true;
     private bool meleeAttackStarted = false;
     private bool attackStarted = false;
     private float attackTimer;
     private float disFromPlayer;
     private bool holdingShell = true;
-    private float attackCooldown = 2.5f;
+    private float attackCooldown = 2f;
     [SerializeField] private float meleeDamage = 20f;
     [SerializeField] private float movementSpeed = 2f;
     private float shellthrowWindup = 1.5f;
@@ -33,6 +34,7 @@ public class CrabAttack : EnemyAttack
     void Start()
     {
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
+        enemyHealth = GetComponent<EnemyHealth>();
         attack = this.Attack();
         animator = GetComponent<Animator>();
         animator.SetBool("HasShell", true);
@@ -110,7 +112,7 @@ public class CrabAttack : EnemyAttack
         {
             meleeAttackStarted = true;
             disFromPlayer = Vector3.Distance(transform.position, player.position);
-            while (disFromPlayer > 2.5f && attackTimer < 3f)
+            while (disFromPlayer > 4f && attackTimer < 3f)
             {
                 reworkedEnemyNavigation.playerSeen = true;
                 disFromPlayer = Vector3.Distance(transform.position, player.position);
@@ -121,14 +123,14 @@ public class CrabAttack : EnemyAttack
             meleeAttackStarted = false;
             attackTimer = 0f;
             disFromPlayer = Vector3.Distance(transform.position, player.position);
-            if (disFromPlayer <= 4f)
+            if (disFromPlayer <= 5f)
             {
                 yield return new WaitForSeconds(0.5f);
                 attackStarted = false;
                 animator.SetTrigger("Attack");
-                //animator.Play("Attack", 0, 0.5f);             //<-Just use triggers to make the animation work
+                //animator.Play("Attack", 0, 0.5f);
                 crabMeleeHitbox.StartCoroutine(crabMeleeHitbox.ActivateHitbox());
-                yield return new WaitForSeconds(attackCooldown);
+                yield return new WaitForSeconds(attackCooldown + 2f);
             }
             else
             {
@@ -153,7 +155,7 @@ public class CrabAttack : EnemyAttack
     }
     public override void CancelAttack()
     {
-        StopAllCoroutines();
+        /*StopAllCoroutines();
         crabMeleeHitbox.GetComponent<Collider>().enabled = false;
         if(shell != null)
         {
@@ -164,6 +166,7 @@ public class CrabAttack : EnemyAttack
         meleeAttackStarted = false;
         attackTimer = 0f;
         crabMeleeHitbox.playerHit.Clear();
-        canAttack = true;
+        animator.SetBool("IsMoving", true);
+        canAttack = true;*/
     }
 }

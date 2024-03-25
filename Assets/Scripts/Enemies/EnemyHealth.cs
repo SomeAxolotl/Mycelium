@@ -62,8 +62,6 @@ public class EnemyHealth : MonoBehaviour
 
     protected IEnumerator Death()
     {
-        Debug.Log("death");
-
         alreadyDead = true;
         gameObject.GetComponent<EnemyAttack>().CancelAttack();
         gameObject.GetComponent<EnemyAttack>().enabled = false;
@@ -73,7 +71,7 @@ public class EnemyHealth : MonoBehaviour
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
         animator.Rebind();
         animator.SetTrigger("Death");
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1.25f);
         float elapsedTime = 0f;
         float shrinkDuration = 1f;
         Vector3 initialScale = transform.localScale;

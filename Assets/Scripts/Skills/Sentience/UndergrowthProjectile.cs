@@ -39,8 +39,11 @@ public class UndergrowthProjectile : MonoBehaviour
             hitEnemy.Add(collision.gameObject);
             foreach(GameObject enemy in hitEnemy)
             {
-                enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                enemy.GetComponent<Animator>().SetBool("IsMoving", false);
+                if (enemy.GetComponent<BossHealth2>() == null)
+                {
+                    enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    enemy.GetComponent<Animator>().SetBool("IsMoving", false);
+                }
                 Instantiate(undergrowthCaughtParticles, enemy.transform.position, transform.rotation);
             }
         }
@@ -51,9 +54,12 @@ public class UndergrowthProjectile : MonoBehaviour
         yield return new WaitForSeconds(enemyFreezeTime);
         foreach(GameObject enemy in hitEnemy)
         {
-            enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-            enemy.GetComponent<Animator>().SetBool("IsMoving", true);
+            if (enemy.GetComponent<BossHealth2>() == null)
+            {
+                enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                enemy.GetComponent<Animator>().SetBool("IsMoving", true);
+            }
         }
         hitEnemy.Clear();
     }
