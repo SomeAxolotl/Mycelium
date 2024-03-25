@@ -49,7 +49,6 @@ public class MonsterBossAttack : MonoBehaviour
 
     BossProcedualAnimation bossProcedualAnimation;
 
-    BossProcedualAnimation bossProcedualAnimation;
 
 
     // Start is called before the first frame update
@@ -76,6 +75,7 @@ public class MonsterBossAttack : MonoBehaviour
             Vector3 spawnPosition = bossPosition + transform.forward * distanceInFront;
             GameObject pullOriginInstance = Instantiate(pullOriginPrefab, spawnPosition, Quaternion.identity);
             PullPlayers();
+            Destroy(pullOriginInstance);
             elapsedTime = 0.0f; // Reset the timer
         }
         if (!bossMovement.playerSeen)
