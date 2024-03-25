@@ -16,8 +16,6 @@ public class BossProcedualAnimation : MonoBehaviour
     [SerializeField] private Transform leftArmTarget;
     [SerializeField] private Transform rightArmTarget;
     [SerializeField] private Transform spine;
-    [SerializeField] private Transform spine1;
-    [SerializeField] private Transform spine2;
 
     [Header("MathStuff")]
     [SerializeField] private float delayTime;
@@ -36,8 +34,6 @@ public class BossProcedualAnimation : MonoBehaviour
 
     // original rotations
     private Quaternion originalBodyRotation;
-    private Quaternion originalSpineRotation;
-    private Quaternion originalSpine2Rotation;
     private Quaternion originalRightTargetRotation;
     private Quaternion originalLeftTargetRotation;
 
@@ -102,50 +98,68 @@ public class BossProcedualAnimation : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(delayTime);
+            bool playerIsMoving = playerController.rb.velocity.magnitude > 0.01f;
+            bool bossIsFacingPlayer = IsBossFacingPlayer();
 
-            // check if player is left or right
-            playerIsRight = tempMovement.playerIsRight;
-            playerIsLeft = tempMovement.playerIsLeft;
-
-            // if player is left or right
-            if (playerIsRight)
+            if (playerIsMoving || !bossIsFacingPlayer)
             {
-                yield return StartCoroutine(TurnHeadRight());
+                yield return new WaitForSeconds(delayTime);
+
+                playerIsRight = tempMovement.playerIsRight;
+                playerIsLeft = tempMovement.playerIsLeft;
+
+                if (playerIsRight)
+                {
+                    yield return StartCoroutine(TurnHeadRight());
+                }
+                if (playerIsLeft)
+                {
+                    yield return StartCoroutine(TurnHeadLeft());
+                }
             }
-            if (playerIsLeft)
+            else
             {
-                yield return StartCoroutine(TurnHeadLeft());
+                yield return null;
             }
         }
+    }
+
+    bool IsBossFacingPlayer()
+    {
+        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        float angle = Vector3.Angle(transform.forward, directionToPlayer);
+        return angle < 20f;
     }
 
     // the player is to the right
     IEnumerator TurnHeadRight()
     {
-        // move head
-        yield return StartCoroutine(RotateBody());
         // move right arm
         yield return StartCoroutine(MoveRightFirstArm());
         // move left arm
         yield return StartCoroutine(MoveLeftSecondArm());
+        // move head
+        yield return StartCoroutine(RotateBody());
         // Lean the body
-        //yield return StartCoroutine(LeanBody());
+        // yield return StartCoroutine(LeanBody());
+        // resetting
+        yield return StartCoroutine(Resetting(originalRightTargetPosition, originalRightTargetRotation, originalLeftTargetPosition, originalLeftTargetRotation, originalBodyRotation));
         yield return new WaitForSeconds(PauseTime);
     }
 
     // the player is to the left
     IEnumerator TurnHeadLeft()
     {
-        // move head
-        // yield return StartCoroutine(TurnHead());
-        yield return StartCoroutine(RotateBody());
         // move right arm
         yield return StartCoroutine(MoveLeftFirstArm());
         // move left arm
         yield return StartCoroutine(MoveRightSecondArm());
+        // move head
+        yield return StartCoroutine(RotateBody());
         // Lean the body
-        //yield return StartCoroutine(LeanBody());
+        // yield return StartCoroutine(LeanBody());
+        // resetting
+        yield return StartCoroutine(Resetting(originalRightTargetPosition, originalRightTargetRotation, originalLeftTargetPosition, originalLeftTargetRotation, originalBodyRotation));
         yield return new WaitForSeconds(PauseTime);
     }
 
@@ -321,6 +335,30 @@ public class BossProcedualAnimation : MonoBehaviour
         }
     }
 
+    IEnumerator Resetting(Vector3 previousRightPosition, Quaternion previousRightRotation, Vector3 previousLeftPosition, Quaternion previousLeftRotation, Quaternion originalSpineRotation)
+    {
+        float elapsedTime = 0.0f;
+        Quaternion newSpineRotation = Quaternion.Euler(originalSpineRotation.eulerAngles.x, spine.rotation.eulerAngles.y, spine.rotation.eulerAngles.z);
+        
+        while (elapsedTime < 1.0f)
+        {
+            rightArmTarget.position = Vector3.Lerp(rightArmTarget.position, previousRightPosition, elapsedTime);
+            rightArmTarget.rotation = Quaternion.Lerp(rightArmTarget.rotation, previousRightRotation, elapsedTime);
+            leftArmTarget.position = Vector3.Lerp(leftArmTarget.position, previousLeftPosition, elapsedTime);
+            leftArmTarget.rotation = Quaternion.Lerp(leftArmTarget.rotation, previousLeftRotation, elapsedTime);
+            spine.rotation = Quaternion.Lerp(spine.rotation, newSpineRotation, elapsedTime);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        rightArmTarget.position = previousRightPosition;
+        rightArmTarget.rotation = previousRightRotation;
+        leftArmTarget.position = previousLeftPosition;
+        leftArmTarget.rotation = previousLeftRotation;
+        spine.rotation = newSpineRotation;
+    }
+
+
     // right swing attack
     public IEnumerator RightSwingAttack()
     {
@@ -328,6 +366,8 @@ public class BossProcedualAnimation : MonoBehaviour
         yield return StartCoroutine(LeftTargetSwingPos1());
         // move right target
         yield return StartCoroutine(RightTargetSwingPos2());
+        // reset
+        yield return StartCoroutine(Resetting(originalRightTargetPosition, originalRightTargetRotation, originalLeftTargetPosition, originalLeftTargetRotation, originalBodyRotation));
         yield return new WaitForSeconds(PauseTime);
     }
     IEnumerator LeftTargetSwingPos1()
@@ -364,12 +404,12 @@ public class BossProcedualAnimation : MonoBehaviour
             else if (elapsedTime < armMoveTime + bodyRotateTime)
             {
                 float t = (elapsedTime - armMoveTime) / bodyRotateTime;
-                spine1.rotation = Quaternion.Lerp(originalSpineRotation, Quaternion.Euler(-9.051f, -56.431f, 13.336f), Mathf.Clamp01(t));
+                spine.rotation = Quaternion.Lerp(originalBodyRotation, Quaternion.Euler(-9.051f, -56.431f, 13.336f), Mathf.Clamp01(t));
             }
             // Phase 4: Reset to initial position and rotation
             else
             {
-                spine1.rotation = originalSpineRotation;
+                spine.rotation = originalBodyRotation;
                 rightArmTarget.position = originalRightTargetPosition;
                 rightArmTarget.rotation = originalRightTargetRotation;
                 leftArmTarget.position = originalLeftTargetPosition;
@@ -389,6 +429,8 @@ public class BossProcedualAnimation : MonoBehaviour
         yield return StartCoroutine(RightTargetSwingPos1());
         // move right target
         yield return StartCoroutine(LeftTargetSwingPos2());
+        // reset
+        yield return StartCoroutine(Resetting(originalRightTargetPosition, originalRightTargetRotation, originalLeftTargetPosition, originalLeftTargetRotation, originalBodyRotation));
         yield return new WaitForSeconds(PauseTime);
     }
     IEnumerator RightTargetSwingPos1()
@@ -426,7 +468,7 @@ public class BossProcedualAnimation : MonoBehaviour
             else if (elapsedTime < armMoveTime + bodyRotateTime)
             {
                 float t = (elapsedTime - armMoveTime) / bodyRotateTime;
-                spine1.rotation = Quaternion.Slerp(originalSpineRotation, Quaternion.Euler(-9.972f, 52.389f, -12.668f), Mathf.Clamp01(t));
+                spine.rotation = Quaternion.Slerp(originalBodyRotation, Quaternion.Euler(-9.972f, 52.389f, -12.668f), Mathf.Clamp01(t));
             }
             // Phase 4: Reset to initial position and rotation
             else
@@ -453,7 +495,7 @@ public class BossProcedualAnimation : MonoBehaviour
         // lower arms
         yield return StartCoroutine(LowerArmsSmash());
         // reset
-        yield return StartCoroutine(ResetSmash());
+        yield return StartCoroutine(Resetting(originalRightTargetPosition, originalRightTargetRotation, originalLeftTargetPosition, originalLeftTargetRotation, originalBodyRotation));
         yield return new WaitForSeconds(PauseTime);
     }
     IEnumerator RaiseArmsSmash()
@@ -469,7 +511,7 @@ public class BossProcedualAnimation : MonoBehaviour
         {
             float t = elapsedTime / duration;
             // spine
-            spine2.rotation = Quaternion.Slerp(originalSpine2Rotation, Quaternion.Euler(-21.38f, originalSpine2Rotation.eulerAngles.y, originalSpine2Rotation.eulerAngles.z), t);
+            spine.rotation = Quaternion.Slerp(originalBodyRotation, Quaternion.Euler(-21.38f, originalBodyRotation.eulerAngles.y, originalBodyRotation.eulerAngles.z), t);
             // right
             rightArmTarget.position = Vector3.Lerp(originalRightTargetPosition, new Vector3(2.23f, 8.58f, -0.62f), t);
             // left
@@ -492,32 +534,13 @@ public class BossProcedualAnimation : MonoBehaviour
         {
             float t = elapsedTime / duration;
             // spine
-            spine2.rotation = Quaternion.Slerp(originalSpine2Rotation, Quaternion.Euler(27.474f, originalSpine2Rotation.eulerAngles.y, originalSpine2Rotation.eulerAngles.z), t);
+            spine.rotation = Quaternion.Slerp(originalBodyRotation, Quaternion.Euler(27.474f, originalBodyRotation.eulerAngles.y, originalBodyRotation.eulerAngles.z), t);
             // right
             rightArmTarget.position = Vector3.Lerp(originalRightTargetPosition, new Vector3(2.172f, 1.664f, 2.268f), t);
             // left
             leftArmTarget.position = Vector3.Lerp(originalLeftTargetPosition, new Vector3(-2.112f, 1.995f, 2.395f), t);
             
             elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-    IEnumerator ResetSmash()
-    {
-        float elapsedTime = 0.0f;
-        float duration = 2.0f;
-        while (elapsedTime < duration)
-        {
-            float t = elapsedTime / duration;
-
-            spine.rotation = originalBodyRotation;
-            rightArmTarget.position = originalRightTargetPosition;
-            rightArmTarget.rotation = originalRightTargetRotation;
-            leftArmTarget.position = originalLeftTargetPosition;
-            leftArmTarget.rotation = originalLeftTargetRotation;
-
-            elapsedTime += Time.deltaTime;
-
             yield return null;
         }
     }
