@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1517264885358897483
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3040721375584100902}
-  m_Layer: 0
-  m_Name: SmashParticleHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3040721375584100902
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517264885358897483}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026, y: 0.1890046, z: 2.745}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 886458834485646453}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5454817949857303222
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5454817949857303222}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.36, z: 1.7414}
-  m_LocalScale: {x: 6.45425, y: 2.5655403, z: 7.595771}
+  m_LocalPosition: {x: 0, y: 1.36, z: 2.862}
+  m_LocalScale: {x: 5.5, y: 2.5655403, z: 3.9998107}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 886458834485646453}
@@ -149,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a206f21114375ec429be6641b5d7f22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitboxActivateDelay: 3.13
   damage: 0
   knockbackForce: 0
   playerHit: []
@@ -727,10 +695,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8752826809413551247}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0463caab273664348ae434a16c35e1e9,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3040721375584100902}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0463caab273664348ae434a16c35e1e9,
         type: 3}
@@ -776,14 +740,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6450083113422950560}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0463caab273664348ae434a16c35e1e9,
-        type: 3}
-      insertIndex: -1
-<<<<<<< HEAD
-      addedObject: {fileID: 6179668740283228303}
-=======
-      addedObject: {fileID: 2119385832796894300}
->>>>>>> 11d4d6147640e4259000ef877850597ff6f8a89f
   m_SourcePrefab: {fileID: 100100000, guid: 0463caab273664348ae434a16c35e1e9, type: 3}
 --- !u!1 &506238456229678799 stripped
 GameObject:
@@ -799,7 +755,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506238456229678799}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1005,7 +961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4f63616cf0ddb4d8a8e3454e35e3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dead: 0
   meleeDamage: 20
   movementSpeed: 2
   shellProjectile: {fileID: 5104298390244367686, guid: 4ff47181c7e973249a19c943c1e46b32,
@@ -1018,69 +973,6 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4417
-<<<<<<< HEAD
---- !u!114 &6179668740283228303
-=======
---- !u!114 &2119385832796894300
->>>>>>> 11d4d6147640e4259000ef877850597ff6f8a89f
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506238456229678799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-<<<<<<< HEAD
-  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ImpulseDefinition:
-    m_ImpulseChannel: 1
-    m_ImpulseShape: 4
-    m_CustomImpulseShape:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_ImpulseDuration: 0.2
-    m_ImpulseType: 0
-    m_DissipationRate: 0.25
-    m_RawSignal: {fileID: 0}
-    m_AmplitudeGain: 1
-    m_FrequencyGain: 1
-    m_RepeatMode: 0
-    m_Randomize: 1
-    m_TimeEnvelope:
-      m_AttackShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_DecayShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_AttackTime: 0
-      m_SustainTime: 0.2
-      m_DecayTime: 0.7
-      m_ScaleWithImpact: 1
-      m_HoldForever: 0
-    m_ImpactRadius: 100
-    m_DirectionMode: 0
-    m_DissipationMode: 2
-    m_DissipationDistance: 100
-    m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -0.5, z: 0}
-=======
-  m_Script: {fileID: 11500000, guid: dfb0ee78216a18e409933013240fd069, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
->>>>>>> 11d4d6147640e4259000ef877850597ff6f8a89f
 --- !u!4 &886458834485646453 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0463caab273664348ae434a16c35e1e9,
