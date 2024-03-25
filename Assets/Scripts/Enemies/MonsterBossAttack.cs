@@ -224,8 +224,14 @@ public class MonsterBossAttack : MonoBehaviour
 
         Debug.Log("Tail Attack Animation Finished!");
         Vector3 playerPosition = player.position;
-        Vector3 spawnPosition = playerPosition + transform.forward * 1f;
-        GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, Quaternion.identity, transform);
+        Vector3 spawnPosition = playerPosition + transform.forward * -1f;
+        float yOffset = -1.85f; // Adjust this value as needed
+                               // Add the height offset and a Vector3.up movement to the spawn position
+        spawnPosition += Vector3.up * yOffset;
+        Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
+        GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, rotation, transform);
+        yield return new WaitForSeconds(1.0f);
+        StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
         StartCoroutine(Attack(tailAttackDamage));
         knockbackForce = tailKnockback;
         ApplyKnockbackToPlayer();
@@ -235,6 +241,39 @@ public class MonsterBossAttack : MonoBehaviour
         Destroy(bossTailInstance);
         tailAttackOnCooldown = false;
         isTailAttacking = false;
+    }
+    private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
+    {
+        // Get the initial position of the tail
+        Vector3 initialPosition = bossTailInstance.transform.position;
+
+        // Define the target position to move the tail upwards
+        Vector3 targetPosition = initialPosition + Vector3.up * 1.70f;
+
+        // Define the duration of the upward movement
+        float moveDuration = 0.2f; // Adjust the duration as needed
+
+        // Track the elapsed time during the movement
+        float elapsedTime = 0.0f;
+
+        // Move the tail upwards over time
+        while (elapsedTime < moveDuration)
+        {
+            // Calculate the interpolation factor based on elapsed time and duration
+            float t = elapsedTime / moveDuration;
+
+            // Interpolate between the initial and target positions to move the tail smoothly
+            bossTailInstance.transform.position = Vector3.Lerp(initialPosition, targetPosition, t);
+
+            // Increment the elapsed time
+            elapsedTime += Time.deltaTime;
+
+            // Wait for the next frame
+            yield return null;
+        }
+
+        // Ensure the tail reaches the exact target position
+        bossTailInstance.transform.position = targetPosition;
     }
 
     private IEnumerator SwipeAttack()
