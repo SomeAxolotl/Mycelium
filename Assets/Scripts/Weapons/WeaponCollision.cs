@@ -25,6 +25,7 @@ public class WeaponCollision : MonoBehaviour
         {
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
+            Debug.Log(other.gameObject);
             other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
             if(relentlessFury != null)
             {
@@ -35,12 +36,16 @@ public class WeaponCollision : MonoBehaviour
 
             }
             
-            other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback);
+            if (other.GetComponent<EnemyKnockback>() != null)
+            {
+                other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback);
+            }
+
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
             StartCoroutine(HitStop());
             reflectBonusDamage = 0f;
         }
-        if (this.gameObject.tag == "currentWeapon" && other.GetType() != typeof(SphereCollider) && other.gameObject.tag == "Boss")
+        /*if (this.gameObject.tag == "currentWeapon" && other.GetType() != typeof(SphereCollider) && other.gameObject.tag == "Boss")
         {
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             other.GetComponentInParent<BossHealth>().EnemyTakeDamage(dmgDealt);
@@ -53,7 +58,7 @@ public class WeaponCollision : MonoBehaviour
 
             }
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
-        }
+        }*/
     }
 
     IEnumerator HitStop()

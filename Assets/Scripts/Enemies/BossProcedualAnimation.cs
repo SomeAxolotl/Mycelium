@@ -128,7 +128,7 @@ public class BossProcedualAnimation : MonoBehaviour
         // move left arm
         yield return StartCoroutine(MoveLeftSecondArm());
         // Lean the body
-        yield return StartCoroutine(LeanBody());
+        //yield return StartCoroutine(LeanBody());
         yield return new WaitForSeconds(PauseTime);
     }
 
@@ -143,7 +143,7 @@ public class BossProcedualAnimation : MonoBehaviour
         // move left arm
         yield return StartCoroutine(MoveRightSecondArm());
         // Lean the body
-        yield return StartCoroutine(LeanBody());
+        //yield return StartCoroutine(LeanBody());
         yield return new WaitForSeconds(PauseTime);
     }
 
