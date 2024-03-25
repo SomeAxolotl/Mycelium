@@ -16,6 +16,8 @@ public class BossProcedualAnimation : MonoBehaviour
     [SerializeField] private Transform leftArmTarget;
     [SerializeField] private Transform rightArmTarget;
     [SerializeField] private Transform spine;
+    [SerializeField] private Transform spine1;
+    [SerializeField] private Transform spine2;
 
     [Header("MathStuff")]
     [SerializeField] private float delayTime;
@@ -35,6 +37,7 @@ public class BossProcedualAnimation : MonoBehaviour
     // original rotations
     private Quaternion originalBodyRotation;
     private Quaternion originalSpineRotation;
+    private Quaternion originalSpine2Rotation;
     private Quaternion originalRightTargetRotation;
     private Quaternion originalLeftTargetRotation;
 
@@ -53,7 +56,6 @@ public class BossProcedualAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // objects rotations and positions
-        originalSpineRotation = spine.rotation;
         originalRightTargetPosition = rightArmTarget.position;
         originalRightTargetRotation = rightArmTarget.rotation;
         originalLeftTargetPosition = leftArmTarget.position;
@@ -92,7 +94,10 @@ public class BossProcedualAnimation : MonoBehaviour
     private IEnumerator StartBossBehaviorWithDelay()
     {
         yield return new WaitForSeconds(startDelayTime);
-        bossCoroutine = StartCoroutine(BossBehavior());
+        //bossCoroutine = StartCoroutine(BossBehavior());
+        StartCoroutine(SmashAttack());
+        //StartCoroutine(RightSwingAttack());
+        //StartCoroutine(LeftSwingAttack());
     }
 
     // starting boss coroutine
@@ -314,6 +319,207 @@ public class BossProcedualAnimation : MonoBehaviour
             }
 
             elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    // right swing attack
+    IEnumerator RightSwingAttack()
+    {
+        // set left target
+        yield return StartCoroutine(LeftTargetSwingPos1());
+        // move right target
+        yield return StartCoroutine(RightTargetSwingPos2());
+        yield return new WaitForSeconds(PauseTime);
+    }
+    IEnumerator LeftTargetSwingPos1()
+    {
+        // move to position and rotation
+        float elapsedTime = 0.0f;
+        while (elapsedTime < 1.0f)
+        {
+            leftArmTarget.position = Vector3.Lerp(originalLeftTargetPosition, new Vector3(-4.28f, -0.12f, -1.69f), elapsedTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator RightTargetSwingPos2()
+    {
+        rightArmTarget.position = new Vector3(3.73f, 0.75f, 3.31f);
+
+        // do this over a certain amount of time
+        float totalTime = 4.0f;
+        float elapsedTime = 0.0f;
+        float armMoveTime = 1.0f;
+        float bodyRotateTime = 4.0f;
+        float animationSpeed = 1f;
+
+        while (elapsedTime < totalTime)
+        {
+            // move to poition 2
+            if (elapsedTime < armMoveTime)
+            {
+                float t = elapsedTime / armMoveTime;
+                rightArmTarget.position = Vector3.Lerp(new Vector3(3.73f, 0.75f, 3.31f), new Vector3(1.29f, 0.75f, 3.31f), Mathf.Clamp01(t));
+            }
+            // rotate body
+            else if (elapsedTime < armMoveTime + bodyRotateTime)
+            {
+                float t = (elapsedTime - armMoveTime) / bodyRotateTime;
+                spine1.rotation = Quaternion.Lerp(originalSpineRotation, Quaternion.Euler(-9.051f, -56.431f, 13.336f), Mathf.Clamp01(t));
+            }
+            // Phase 4: Reset to initial position and rotation
+            else
+            {
+                spine1.rotation = originalSpineRotation;
+                rightArmTarget.position = originalRightTargetPosition;
+                rightArmTarget.rotation = originalRightTargetRotation;
+                leftArmTarget.position = originalLeftTargetPosition;
+                leftArmTarget.rotation = originalLeftTargetRotation;
+                break;
+            }
+
+            elapsedTime += Time.deltaTime * animationSpeed;
+            yield return null;
+        }
+    }
+
+    // right swing attack
+    IEnumerator LeftSwingAttack()
+    {
+        // set left target
+        yield return StartCoroutine(RightTargetSwingPos1());
+        // move right target
+        yield return StartCoroutine(LeftTargetSwingPos2());
+        yield return new WaitForSeconds(PauseTime);
+    }
+    IEnumerator RightTargetSwingPos1()
+    {
+        // move to position and rotation
+        float elapsedTime = 0.0f;
+        while (elapsedTime < 1.0f)
+        {
+            rightArmTarget.position = Vector3.Lerp(originalRightTargetPosition, new Vector3(4.28f, -0.12f, -1.69f), elapsedTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator LeftTargetSwingPos2()
+    {
+        // move to position 1
+        leftArmTarget.position = new Vector3(-3.73f, 0.75f, 3.31f);
+
+        // do this over a certain amount of time
+        float totalTime = 4.0f;
+        float elapsedTime = 0.0f;
+        float armMoveTime = 1.0f;
+        float bodyRotateTime = 4.0f;
+        float animationSpeed = 1.0f;
+        
+        while (elapsedTime < totalTime)
+        {
+            // move to poition 2
+            if (elapsedTime < armMoveTime)
+            {
+                float t = elapsedTime / armMoveTime;
+                leftArmTarget.position = Vector3.Lerp(new Vector3(-3.73f, 0.75f, 3.31f), new Vector3(1.29f, 0.75f, 3.31f), Mathf.Clamp01(t));
+            }
+            // rotate body)
+            else if (elapsedTime < armMoveTime + bodyRotateTime)
+            {
+                float t = (elapsedTime - armMoveTime) / bodyRotateTime;
+                spine1.rotation = Quaternion.Slerp(originalSpineRotation, Quaternion.Euler(-9.972f, 52.389f, -12.668f), Mathf.Clamp01(t));
+            }
+            // Phase 4: Reset to initial position and rotation
+            else
+            {
+                spine.rotation = originalBodyRotation;
+                rightArmTarget.position = originalRightTargetPosition;
+                rightArmTarget.rotation = originalRightTargetRotation;
+                leftArmTarget.position = originalLeftTargetPosition;
+                leftArmTarget.rotation = originalLeftTargetRotation;
+                break;
+            }
+
+            elapsedTime += Time.deltaTime * animationSpeed;
+
+            yield return null;
+        }
+    }
+
+    // smash attack
+    IEnumerator SmashAttack()
+    {
+        // Raise arms
+        yield return StartCoroutine(RaiseArmsSmash());
+        // lower arms
+        yield return StartCoroutine(LowerArmsSmash());
+        // reset
+        yield return StartCoroutine(ResetSmash());
+        yield return new WaitForSeconds(PauseTime);
+    }
+    IEnumerator RaiseArmsSmash()
+    {
+        // set target rotations
+        rightArmTarget.rotation = Quaternion.Euler(-0.46f, -104.48f, -2.536f);
+        leftArmTarget.rotation = Quaternion.Euler(0.46f, 104.48f, 2.536f);
+
+        // move to position and rotation
+        float elapsedTime = 0.0f;
+        float duration = 2.0f;
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            // spine
+            spine2.rotation = Quaternion.Slerp(originalSpine2Rotation, Quaternion.Euler(-21.38f, originalSpine2Rotation.eulerAngles.y, originalSpine2Rotation.eulerAngles.z), t);
+            // right
+            rightArmTarget.position = Vector3.Lerp(originalRightTargetPosition, new Vector3(2.23f, 8.58f, -0.62f), t);
+            // left
+            leftArmTarget.position = Vector3.Lerp(originalLeftTargetPosition, new Vector3(-2.23f, 8.58f, -0.62f), t);
+            
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator LowerArmsSmash()
+    {
+        // set target rotations
+        rightArmTarget.rotation = Quaternion.Euler(-8.431f, -94.79f, -50.442f);
+        leftArmTarget.rotation = Quaternion.Euler(8.431f, 94.79f, 53.88f);
+
+        // move to position and rotation
+        float elapsedTime = 0.0f;
+        float duration = 2.0f;
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            // spine
+            spine2.rotation = Quaternion.Slerp(originalSpine2Rotation, Quaternion.Euler(27.474f, originalSpine2Rotation.eulerAngles.y, originalSpine2Rotation.eulerAngles.z), t);
+            // right
+            rightArmTarget.position = Vector3.Lerp(originalRightTargetPosition, new Vector3(2.172f, 1.664f, 2.268f), t);
+            // left
+            leftArmTarget.position = Vector3.Lerp(originalLeftTargetPosition, new Vector3(-2.112f, 1.995f, 2.395f), t);
+            
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator ResetSmash()
+    {
+        float elapsedTime = 0.0f;
+        float duration = 2.0f;
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+
+            spine.rotation = originalBodyRotation;
+            rightArmTarget.position = originalRightTargetPosition;
+            rightArmTarget.rotation = originalRightTargetRotation;
+            leftArmTarget.position = originalLeftTargetPosition;
+            leftArmTarget.rotation = originalLeftTargetRotation;
+
+            elapsedTime += Time.deltaTime;
+
             yield return null;
         }
     }
