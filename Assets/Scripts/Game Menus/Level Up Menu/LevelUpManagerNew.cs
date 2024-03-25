@@ -89,6 +89,7 @@ public class LevelUpManagerNew : MonoBehaviour
 
     void OnEnable()
     {
+      
       Camera.SetActive(true);
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
       controls = new ThirdPersonActionsAsset();
@@ -166,6 +167,7 @@ public class LevelUpManagerNew : MonoBehaviour
         regen.text = currentstats.baseRegen.ToString("0.00") + " HPS";
         movespeed.text = currentstats.moveSpeed.ToString("0.0") + " m/s";
         primaldam.text = currentstats.primalDmg.ToString();
+        controls.Player.Disable();
         PrimalBarFill();
         SpeedBarFill();
         SentienceBarFill();
