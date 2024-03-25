@@ -94,10 +94,7 @@ public class BossProcedualAnimation : MonoBehaviour
     private IEnumerator StartBossBehaviorWithDelay()
     {
         yield return new WaitForSeconds(startDelayTime);
-        //bossCoroutine = StartCoroutine(BossBehavior());
-        StartCoroutine(SmashAttack());
-        //StartCoroutine(RightSwingAttack());
-        //StartCoroutine(LeftSwingAttack());
+        bossCoroutine = StartCoroutine(BossBehavior());
     }
 
     // starting boss coroutine
@@ -316,6 +313,7 @@ public class BossProcedualAnimation : MonoBehaviour
             {
                 spine.rotation = newInitialSpineRotation;
                 spine.position = newInitialSpinePosition;
+                break;
             }
 
             elapsedTime += Time.deltaTime;
@@ -324,7 +322,7 @@ public class BossProcedualAnimation : MonoBehaviour
     }
 
     // right swing attack
-    IEnumerator RightSwingAttack()
+    public IEnumerator RightSwingAttack()
     {
         // set left target
         yield return StartCoroutine(LeftTargetSwingPos1());
@@ -385,7 +383,7 @@ public class BossProcedualAnimation : MonoBehaviour
     }
 
     // right swing attack
-    IEnumerator LeftSwingAttack()
+    public IEnumerator LeftSwingAttack()
     {
         // set left target
         yield return StartCoroutine(RightTargetSwingPos1());
@@ -448,7 +446,7 @@ public class BossProcedualAnimation : MonoBehaviour
     }
 
     // smash attack
-    IEnumerator SmashAttack()
+    public IEnumerator SmashAttack()
     {
         // Raise arms
         yield return StartCoroutine(RaiseArmsSmash());

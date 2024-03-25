@@ -44,6 +44,8 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float tailKnockback = 50f;
     private bool collidedWithPlayer = false;
 
+    BossProcedualAnimation bossProcedualAnimation;
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,7 @@ public class MonsterBossAttack : MonoBehaviour
         attack = this.Attack(damage);
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;
+        bossProcedualAnimation = GetComponent<BossProcedualAnimation>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -286,11 +289,25 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator SwipeAttack()
     {
         isSwipeAttacking = true;
+        int randomSwipeAttack = Random.Range(0, 2);
+
+        switch (randomSwipeAttack)
+        {
+            case 0:
+                StartCoroutine(bossProcedualAnimation.RightSwingAttack());
+                break;
+            case 1:
+                StartCoroutine(bossProcedualAnimation.LeftSwingAttack());
+                break;
+            default:
+                Debug.LogError("Invalid random attack number.");
+                break;
+        }
+
         //animator.SetTrigger("SwipeAttack");
         Debug.Log("SWIPE ATTACK!");
         yield return new WaitForSeconds(swipeAttackAnimationDuration);
         StartCoroutine(Attack(swipeAttackDamage));
-
         ApplyKnockbackToPlayer();
         isSwipeAttacking = false;
     }
@@ -298,8 +315,9 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator SlamAttack()
     {
         isSlamAttacking = true;
+        StartCoroutine(bossProcedualAnimation.SmashAttack());
         //animator.SetTrigger("SlamAttack");
-        Debug.Log("SLAM ATTACK!");
+        // Debug.Log("SLAM ATTACK!");
         yield return new WaitForSeconds(slamAttackAnimationDuration);
         StartCoroutine(Attack(slamAttackDamage));
 
