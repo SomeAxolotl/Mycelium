@@ -144,7 +144,10 @@ public class Skill : MonoBehaviour
 
     public void EndSkill()
     {
-        playerController.EnableController();
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.EnableController();
+        }
     }
 
     protected bool isPlayerCurrentPlayer()
