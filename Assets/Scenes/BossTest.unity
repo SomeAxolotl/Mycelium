@@ -196,6 +196,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d4dec33d489214ca7fb9fc326fb717, type: 3}
+--- !u!4 &51697731 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7574838425047628890, guid: b7d4f0fa9460e64419563c83383f300e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6976012367826138539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &411091631 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4294458200561370637, guid: b7d4f0fa9460e64419563c83383f300e,
@@ -713,17 +719,17 @@ PrefabInstance:
     - target: {fileID: 4267462138682520116, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000000029802319
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4267462138682520116, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000014901159
+      value: 0.000000037252903
       objectReference: {fileID: 0}
     - target: {fileID: 4267462138682520116, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000002235174
+      value: -0.000000014901161
       objectReference: {fileID: 0}
     - target: {fileID: 5500608331430562911, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
@@ -743,17 +749,17 @@ PrefabInstance:
     - target: {fileID: 5500608331430562911, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.34423354
+      value: 0.3442335
       objectReference: {fileID: 0}
     - target: {fileID: 5500608331430562911, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.11705259
+      value: 0.11705262
       objectReference: {fileID: 0}
     - target: {fileID: 5500608331430562911, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.043300573
+      value: -0.04330058
       objectReference: {fileID: 0}
     - target: {fileID: 5823963185381911013, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
@@ -823,17 +829,17 @@ PrefabInstance:
     - target: {fileID: 6815607712795869092, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.015759023
+      value: -0.015759083
       objectReference: {fileID: 0}
     - target: {fileID: 6815607712795869092, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000022351744
+      value: 0.000000037252907
       objectReference: {fileID: 0}
     - target: {fileID: 6815607712795869092, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000074505815
+      value: -0.000000037252907
       objectReference: {fileID: 0}
     - target: {fileID: 8454668877942059718, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
@@ -2333,13 +2339,15 @@ MonoBehaviour:
   attractionForce: 100
   attractionRadius: 20
   pullInterval: 15
-  pullOrigin: {fileID: 0}
+  pullOrigin: {fileID: 51697731}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
   canAttack: 1
   isAttacking: 0
   playerDamaged: 0
+  isTailAttacking: 0
+  tailAttackOnCooldown: 0
   attackInterval: 2
   damage: 20
   bossTail: {fileID: 7141084923713803150, guid: df6fba694f8dc874eba98b45d0a9344e,

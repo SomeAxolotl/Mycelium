@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class MonsterBossAttack : MonoBehaviour
 {
     private TempMovement bossMovement;
-    [SerializeField] public float attractionForce = 100.0f;
+    [SerializeField] public float attractionForce = 25.0f;
     [SerializeField] public float attractionRadius = 20.0f;
     [SerializeField] public float pullInterval = 5.0f;
     private float elapsedTime = 0.0f;
@@ -18,10 +18,10 @@ public class MonsterBossAttack : MonoBehaviour
     public bool canAttack = true;
     public bool isAttacking = false;
     public bool playerDamaged = false;
-    private bool isTailAttacking = false;
+    public bool isTailAttacking = false;
     private bool isSlamAttacking = false;
     private bool isSwipeAttacking = false;
-    private bool tailAttackOnCooldown = false;
+    public bool tailAttackOnCooldown = false;
     private bool isRandomOnCooldown = false;
     [SerializeField] private float attackInterval = 2f;
     private float attackWindupTime = .5f;
@@ -41,7 +41,7 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float tailAttackDamage = 30f;
     [SerializeField] private float swipeAttackDamage = 25f;
     [SerializeField] private float slamAttackDamage = 35f;
-    [SerializeField] private float tailKnockback = 70f;
+    [SerializeField] private float tailKnockback = 50f;
     private bool collidedWithPlayer = false;
 
 
@@ -78,7 +78,7 @@ public class MonsterBossAttack : MonoBehaviour
                 StartCoroutine(TriggerRandomAttacksWithDelay());
             }
         }
-        else if (dstToPlayer > 12f && bossMovement.playerSeen && canAttack)
+        if (dstToPlayer > 12f && bossMovement.playerSeen && canAttack)
         {
 
             if (!isTailAttacking && !tailAttackOnCooldown)
@@ -147,17 +147,17 @@ public class MonsterBossAttack : MonoBehaviour
         if (isTailAttacking && !isSlamAttacking || !isSwipeAttacking)
             {
                 damage = tailAttackDamage;
-                knockbackForce = 300f;
+                knockbackForce = 150f;
             }
             if (other.gameObject.layer == LayerMask.NameToLayer("ArmLayer") && isSlamAttacking && !isSwipeAttacking)
             {
                 damage = slamAttackDamage;
-                knockbackForce = 100f;
+                knockbackForce = 50f;
             }
             if (other.gameObject.layer == LayerMask.NameToLayer("ArmLayer") && isSwipeAttacking && !isSlamAttacking)
             {
                 damage = swipeAttackDamage;
-                knockbackForce = 200f;
+                knockbackForce = 100f;
             }
             if (other.gameObject.layer == LayerMask.NameToLayer("BodyLayer"))
             {
@@ -215,32 +215,39 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private IEnumerator TailAttack()
     {
-        tailAttackOnCooldown = true;
-        //animator.SetTrigger("TailAttack");
-        Debug.Log("TAIL ATTACK!");
-        float customDuration = 3.0f; // Replace with your custom duration
-        Debug.Log("Waiting for " + customDuration + " seconds...");
-        yield return new WaitForSeconds(customDuration);
 
-        Debug.Log("Tail Attack Animation Finished!");
-        Vector3 playerPosition = player.position;
-        Vector3 spawnPosition = playerPosition + transform.forward * -1f;
-        float yOffset = -1.85f; // Adjust this value as needed
-                               // Add the height offset and a Vector3.up movement to the spawn position
-        spawnPosition += Vector3.up * yOffset;
-        Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
-        GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, rotation, transform);
-        yield return new WaitForSeconds(1.0f);
-        StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
-        StartCoroutine(Attack(tailAttackDamage));
-        knockbackForce = tailKnockback;
-        ApplyKnockbackToPlayer();
+        while (!tailAttackOnCooldown)
+        {
+            tailAttackOnCooldown = true;
+            //animator.SetTrigger("TailAttack");
+            Debug.Log("TAIL ATTACK!");
+            float customDuration = 3.0f; // Replace with your custom duration
+            Debug.Log("Waiting for " + customDuration + " seconds...");
+            yield return new WaitForSeconds(customDuration);
 
-        yield return new WaitForSeconds(5f);
-        Debug.Log("Tail Attack off cooldown!");
-        Destroy(bossTailInstance);
-        tailAttackOnCooldown = false;
-        isTailAttacking = false;
+            Debug.Log("Tail Attack Animation Finished!");
+            Vector3 playerPosition = player.position;
+            Vector3 spawnPosition = playerPosition + transform.forward * -1f;
+            float yOffset = -1.85f; // Adjust this value as needed
+                                    // Add the height offset and a Vector3.up movement to the spawn position
+            spawnPosition += Vector3.up * yOffset;
+            Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
+            GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, rotation, transform);
+            yield return new WaitForSeconds(1.0f);
+            StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
+            StartCoroutine(Attack(tailAttackDamage));
+            knockbackForce = tailKnockback;
+            ApplyKnockbackToPlayer();
+
+            yield return new WaitForSeconds(5f);
+            Debug.Log("Tail Attack off cooldown!");
+            Destroy(bossTailInstance);
+
+            tailAttackOnCooldown = false;
+
+            isTailAttacking = false;
+        }
+        
     }
     private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
     {
