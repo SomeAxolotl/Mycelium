@@ -32,9 +32,7 @@ public class CrabMeleeHitbox : MonoBehaviour
         CameraShakeManager.instance.ShakeCamera(impulseSource);
         gameObject.GetComponent<Collider>().enabled = true;
         //gameObject.GetComponent<Renderer>().enabled = true;
-        yield return new WaitForSeconds(0.2f);
-        Instantiate(particles, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         gameObject.GetComponent<Collider>().enabled = false;
         //gameObject.GetComponent<Renderer>().enabled = false;
         playerHit.Clear();
