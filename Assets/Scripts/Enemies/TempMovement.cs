@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class TempMovement : MonoBehaviour
 {
     public bool playerSeen;
+    [SerializeField] private float turnModifier = .5f;
     public bool attacking = false;
     //private bool startedPatrol = false;
     //private float patrolRadius = 10f;
@@ -63,14 +64,15 @@ public class TempMovement : MonoBehaviour
 
                 if (!attacking)
                 {
-                    // newRotation = Quaternion.LookRotation(dirToPlayer);
-                    // newRotation.eulerAngles = new Vector3(46f, newRotation.eulerAngles.y, newRotation.eulerAngles.z);
-                    // transform.rotation = newRotation;
+                    newRotation = new Quaternion (transform.rotation.x, Quaternion.LookRotation(dirToPlayer).y, transform.rotation.z, transform.rotation.w);
+                    //transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * turnModifier);
+                    //newRotation.eulerAngles = new Vector3(46f, newRotation.eulerAngles.y, newRotation.eulerAngles.z);
+                    transform.rotation = newRotation;
 
-                    // float deltaYRotation = Mathf.DeltaAngle(previousRotationY, transform.eulerAngles.y);
-                    // turningRight = deltaYRotation > 0;
-                    // turningLeft = deltaYRotation < 0;
-                    // previousRotationY = transform.eulerAngles.y;
+                    float deltaYRotation = Mathf.DeltaAngle(previousRotationY, transform.eulerAngles.y);
+                    //turningRight = deltaYRotation > 0;
+                    //turningLeft = deltaYRotation < 0;
+                    previousRotationY = transform.eulerAngles.y;
 
                     if (angleToPlayer > 0)
                     {
@@ -88,7 +90,10 @@ public class TempMovement : MonoBehaviour
                 }
                 else if (attacking)
                 {
-                    transform.rotation = transform.rotation;
+                    // newRotation = new Quaternion (transform.rotation.x, Quaternion.LookRotation(dirToPlayer).y, transform.rotation.z, transform.rotation.w);
+                    // transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * turnModifier / 5);
+                    //newRotation.eulerAngles = new Vector3(46f, newRotation.eulerAngles.y, newRotation.eulerAngles.z);
+                    //transform.rotation = newRotation;
                 }
             }
             else

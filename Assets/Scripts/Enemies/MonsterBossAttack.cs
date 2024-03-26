@@ -243,7 +243,7 @@ public class MonsterBossAttack : MonoBehaviour
                                     // Add the height offset and a Vector3.up movement to the spawn position
             spawnPosition += Vector3.up * yOffset;
             Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
-            GameObject bossTailInstance = Instantiate(bossTail, spawnPosition + new Vector3(0, -4f, 0), rotation, transform);
+            GameObject bossTailInstance = Instantiate(bossTail, spawnPosition + new Vector3(0, -5f, 0), rotation, null);
             ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition, Quaternion.Euler(-90,0,0));
             yield return new WaitForSeconds(1.0f);
             StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
@@ -267,7 +267,7 @@ public class MonsterBossAttack : MonoBehaviour
         Vector3 initialPosition = bossTailInstance.transform.position;
 
         // Define the target position to move the tail upwards
-        Vector3 targetPosition = initialPosition + Vector3.up * 5f;
+        Vector3 targetPosition = initialPosition + Vector3.up * 3f;
 
         // Define the duration of the upward movement
         float moveDuration = 0.2f; // Adjust the duration as needed
