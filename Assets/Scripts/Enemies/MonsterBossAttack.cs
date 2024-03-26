@@ -231,12 +231,12 @@ public class MonsterBossAttack : MonoBehaviour
             }
             tailAttackOnCooldown = true;
             //animator.SetTrigger("TailAttack");
-            Debug.Log("TAIL ATTACK!");
+            //Debug.Log("TAIL ATTACK!");
             float customDuration = 3.0f; // Replace with your custom duration
-            Debug.Log("Waiting for " + customDuration + " seconds...");
+            //Debug.Log("Waiting for " + customDuration + " seconds...");
             yield return new WaitForSeconds(customDuration);
 
-            Debug.Log("Tail Attack Animation Finished!");
+            //Debug.Log("Tail Attack Animation Finished!");
             Vector3 playerPosition = player.position;
             Vector3 spawnPosition = playerPosition + transform.forward * -1f;
             float yOffset = -1.85f; // Adjust this value as needed
@@ -251,7 +251,7 @@ public class MonsterBossAttack : MonoBehaviour
             ApplyKnockbackToPlayer();
 
             yield return new WaitForSeconds(5f);
-            Debug.Log("Tail Attack off cooldown!");
+            //Debug.Log("Tail Attack off cooldown!");
             Destroy(bossTailInstance);
 
             tailAttackOnCooldown = false;
@@ -263,7 +263,7 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
     {
         // Get the initial position of the tail
-        Vector3 initialPosition = bossTailInstance.transform.position;
+        Vector3 initialPosition = bossTailInstance.transform.position + new Vector3(0, -1f, 0);
 
         // Define the target position to move the tail upwards
         Vector3 targetPosition = initialPosition + Vector3.up * 1.70f;

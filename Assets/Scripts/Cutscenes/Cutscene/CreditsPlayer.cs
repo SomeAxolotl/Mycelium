@@ -102,6 +102,8 @@ public class CreditsPlayer : MonoBehaviour
         }
 
         StartCoroutine(FadeOut(skipCanvas, 0.3f));
+
+        askSkip = null;
     }
 
     IEnumerator MoveText()
