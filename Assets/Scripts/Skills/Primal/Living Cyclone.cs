@@ -12,8 +12,12 @@ public class LivingCyclone : Skill
 
     public override void DoSkill()
     {
-        playerController.EnableController();
-        playerController.canAct = false;
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.EnableController();
+            playerController.canAct = false;
+        }
+
         if(GameObject.FindWithTag("currentWeapon") != null) 
         {
             currentWeapon = GameObject.FindWithTag("currentWeapon");
@@ -32,11 +36,20 @@ public class LivingCyclone : Skill
         yield return new WaitUntil (() => currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > extendFreezePoint);
 
         currentAnimator.speed = 0;
-        playerController.looking = false;
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.looking = false;
+        }
+        
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
-        playerController.looking = true;
+        
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.looking = true;
+        }
+        
 
         currentAnimator.speed = storedAnimatorSpeed;
 

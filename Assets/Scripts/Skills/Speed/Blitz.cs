@@ -16,15 +16,21 @@ public class Blitz : Skill
     public override void DoSkill()
     { 
         StartCoroutine(BlitzParticles(player.transform.Find("CenterPoint").position, player.transform.forward));
-        StartCoroutine(Blitzing());
+        if (isPlayerCurrentPlayer())
+        {
+            StartCoroutine(Blitzing());
+        }
+
         EndSkill();
     }
     IEnumerator Blitzing()
     {
+        SoundEffectManager.Instance.PlaySound("Projectile", player.transform.position);
         Rigidbody rb = player.GetComponent<Rigidbody>();
         playerController.activeDodge = true;
         playerController.isInvincible = true;
         playerController.looking = false;
+        
         Vector3 blitzDirection = rb.transform.forward * 40f;
         float elapsedTime = 0f;
         float storedAnimSpeed = currentAnimator.speed;
@@ -42,6 +48,7 @@ public class Blitz : Skill
                 {
                     enemiesHit.Add(enemyCollider.gameObject);
                     enemyCollider.GetComponent<EnemyHealth>().EnemyTakeDamage(finalSkillValue);
+                    SoundEffectManager.Instance.PlaySound("Impact", enemyCollider.gameObject.transform.position);
                 }
             }
             elapsedTime += Time.deltaTime;
@@ -50,9 +57,11 @@ public class Blitz : Skill
             yield return null;
         }
         currentAnimator.speed = storedAnimSpeed;
+
         playerController.activeDodge = false;
         playerController.isInvincible = false;
         playerController.looking = true;
+
         enemiesHit.Clear();
     }
     IEnumerator BlitzParticles(Vector3 startPosition, Vector3 startingForwardVector)

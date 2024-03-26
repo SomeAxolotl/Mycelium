@@ -79,6 +79,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
+        LookAt();
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -152,11 +155,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        LookAt();
+        //LookAt();
 
         rb.AddForce(gravity, ForceMode.Acceleration);
 
-        inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
+        //inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
         targetVelocity = (GetCameraRight(playerCamera) * inputDirection.x + GetCameraForward(playerCamera) * inputDirection.z) * moveSpeed;
         targetVelocity.y = rb.velocity.y;
         if (!activeDodge)
@@ -198,6 +201,7 @@ public class PlayerController : MonoBehaviour
         isInvincible = true;
         looking = false;
         float storedAnimSpeed = swapCharacter.currentCharacterStats.animatorSpeed;
+        Animator dodgingAnimation = animator;
         animator.speed = 1.25f;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
@@ -219,9 +223,9 @@ public class PlayerController : MonoBehaviour
         canUseAttack = true;
         canUseSkill = true;
         looking = true;
-        animator.SetBool("Roll", false);
-        animator.SetBool("Walk", true);
-        animator.speed = storedAnimSpeed;
+        dodgingAnimation.SetBool("Roll", false);
+        dodgingAnimation.SetBool("Walk", true);
+        dodgingAnimation.speed = storedAnimSpeed;
         yield return new WaitForSeconds(finalDodgeCooldown);
         canUseDodge = true;
     }

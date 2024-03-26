@@ -65,16 +65,16 @@ public class GetMaterial : MonoBehaviour, IInteractable
         switch (materialName)
         {
             case "Rotten Log":
-                subspeciesText = "basic";
+                subspeciesText = "sporelius";
                 break;
             case "Fresh Exoskeleton":
-                subspeciesText = "poisonous";
+                subspeciesText = "toxitious";
                 break;
             case "Calcite Deposit":
-                subspeciesText = "coral";
+                subspeciesText = "costaalis";
                 break;
             case "Flesh":
-                subspeciesText = "cordyceps";
+                subspeciesText = "gloomacea";
                 break;
         }
         string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";

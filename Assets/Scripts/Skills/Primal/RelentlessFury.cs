@@ -13,13 +13,21 @@ public class RelentlessFury : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
-        StartCoroutine(Frenzied());
-        InvokeRepeating("HurtPlayer", 0f, 1f);
+        FrenzyParticles();
+        if (isPlayerCurrentPlayer())
+        { 
+            StartCoroutine(Frenzied());  
+            InvokeRepeating("HurtPlayer", 0f, 1f);
+        }
         EndSkill();
     }
-    IEnumerator Frenzied()
+    void FrenzyParticles()
     {
         Instantiate(relentlessFuryParticles, player.transform.position, Quaternion.Euler(-90f, 0f, 0f), player.transform);
+    }
+
+    IEnumerator Frenzied()
+    {
         isFrenzied = true;
         playerController.canUseDodge = false;
         float storedAnimSpeed = currentAnimator.speed;

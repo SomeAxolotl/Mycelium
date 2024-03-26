@@ -10,7 +10,7 @@ public class TrophicCascade : Skill
     public override void DoSkill()
     {
         //Skill specific stuff
-
+        
         StartCoroutine(Vanish());
     }
 
@@ -19,7 +19,11 @@ public class TrophicCascade : Skill
         Renderer[] childRenderers = player.GetComponentsInChildren<Renderer>();
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
 
-        playerController.isInvincible = true;
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.isInvincible = true;
+        }
+        
         foreach (Renderer renderer in childRenderers)
         {
             renderer.enabled = false;
@@ -27,7 +31,10 @@ public class TrophicCascade : Skill
 
         yield return StartCoroutine(Cascade());
 
-        playerController.isInvincible = false;
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.isInvincible = false;
+        }
         foreach (Renderer renderer in childRenderers)
         {
             if (!(renderer is ParticleSystemRenderer))
@@ -47,7 +54,10 @@ public class TrophicCascade : Skill
         List<GameObject> enemies = new List<GameObject>();
         foreach (Collider collider in colliders)
         {
-            enemies.Add(collider.gameObject);
+            if (!enemies.Contains(collider.gameObject) && collider.gameObject.GetComponent<EnemyHealth>() != null)
+            {
+                enemies.Add(collider.gameObject);
+            }
         }
 
         float cascadeDuration = vanishDuration / 2f;
@@ -60,13 +70,14 @@ public class TrophicCascade : Skill
 
         yield return new WaitForSeconds(vanishDuration / 4f);
 
+        //omae wa mou shindeiru
         Extinguish(enemies);
     }
 
     void Mark(GameObject enemy)
     {
-        ParticleManager.Instance.SpawnParticles("Dust", enemy.transform.position, Quaternion.identity);
-        SoundEffectManager.Instance.PlaySound("Stab", enemy.transform.position);
+        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", enemy.transform.position, Quaternion.identity);
+        SoundEffectManager.Instance.PlaySound("Projectile", enemy.transform.position);
     }
 
     void Extinguish(List<GameObject> enemies)

@@ -38,7 +38,7 @@ public class SporeAnimationEvents : MonoBehaviour
     void SmashPart()
     {
         Transform particleHolder = GameObject.FindWithTag("currentWeapon").transform.Find("ParticleHolder");
-
+        SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
         ParticleManager.Instance.SpawnParticles("SmashParticle",particleHolder.position,Quaternion.Euler(90,0,0));
     }
 }

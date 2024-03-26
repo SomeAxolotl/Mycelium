@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using System.Runtime.CompilerServices;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Button playButton;
     [SerializeField] SceneLoader sceneLoaderScript;
     [SerializeField] ProfileManager profileManagerScript;
+    [SerializeField] private List<MenuTypes> menuTypes;
 
     ThirdPersonActionsAsset playerInput;
 
@@ -21,6 +23,28 @@ public class MainMenu : MonoBehaviour
 
         //NOTE TO SELF: Probably eventually find a way to detect if someone is using a controller
         Cursor.visible = false;
+
+        int randomValue = UnityEngine.Random.Range(0,101);
+        int currentChance = 0;
+        MenuTypes selectedMenu = menuTypes[0];
+        foreach(MenuTypes menuType in menuTypes)
+        {
+            currentChance += menuType.StartChance;
+            if(randomValue<=currentChance)
+            {
+                selectedMenu = menuType;
+                Debug.Log("Menu Randomly Selected!");
+                break;
+            }
+        }
+        SelectMenu(selectedMenu);
+    }
+
+    private void SelectMenu(MenuTypes menu)
+    {
+        foreach(GameObject item in menu.ObjectsForScene){
+            item.SetActive(true);
+        }
     }
 
     public void QuitTheGame()
@@ -59,4 +83,10 @@ public class MainMenu : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+}
+
+[System.Serializable]
+class MenuTypes {
+    public List<GameObject> ObjectsForScene;
+    [Tooltip("WARNING: ALL CHANCES MUST BE == 100 AND NOT EXCEED")] public int StartChance = 1;
 }

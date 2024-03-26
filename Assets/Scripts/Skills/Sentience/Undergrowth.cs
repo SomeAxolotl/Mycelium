@@ -17,12 +17,10 @@ public class Undergrowth : Skill
     {
         SoundEffectManager.Instance.PlaySound("Projectile", transform.position);
 
-        GameObject player = GameObject.FindWithTag("currentPlayer");
         Instantiate(undergrowthPrefab, player.transform.Find("CenterPoint").position, transform.rotation);
     }
     void InstantiateParticles()
     {
-        GameObject player = GameObject.FindWithTag("currentPlayer");
         ParticleManager.Instance.SpawnParticles("UndergrowthShot", player.transform.Find("CenterPoint").position, transform.rotation);
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] float nutrientDrainRate = 1f;
+    [SerializeField] float timeUntilHubSprout = 10f;
 
     public static GameManager Instance;
 
@@ -35,10 +36,29 @@ public class GameManager : MonoBehaviour
             StartCoroutine(RefreshCutoutMaskUI());
         }
 
+        if (scene.buildIndex == 2)
+        {
+            StartCoroutine(SproutPlayer());
+        }
+
         if (scene.buildIndex > 2)
         {
             StartCoroutine(DrainNutrients());
         }
+    }
+
+    IEnumerator SproutPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        
+        GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().DisableController();
+
+        yield return new WaitForSeconds(timeUntilHubSprout);
+
+        GameObject.FindWithTag("currentPlayer").GetComponent<Animator>().Play("Sprout");
+        yield return new WaitUntil(() => GameObject.FindWithTag("currentPlayer").GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 1f);
+
+        GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().EnableController();
     }
 
     IEnumerator RefreshCutoutMaskUI()

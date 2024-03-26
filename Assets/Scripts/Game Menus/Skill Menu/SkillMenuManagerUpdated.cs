@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class SkillMenuManagerUpdated : MonoBehaviour
 {
     
+    [SerializeField] private FullScreenPassRendererFeature fog;
     public GameObject LevelUI;
     ThirdPersonActionsAsset controls;
     public GameObject UIenable;
@@ -62,6 +63,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     public GameObject LeechingLock;
     public GameObject SporeburstLock;
     public GameObject DefenseMechLock;
+    public GameObject DescriptionPanelHolder;
     public SkillManager skillmanager;
     public bool EruptionActive = false;
     private bool LivingCycloneActive = false;
@@ -83,11 +85,25 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     private SwapCharacter swapcharacterscript;
     public Navigation NoneNav = new Navigation();
     public Navigation AutoNav = new Navigation();
-
-
+    public bool ErupDescrip = false;
+    public bool LCDescrip = false;
+    public bool RelentDescrip = false;
+    public bool BlitzDescrip = false;
+    public bool TrophicDescrip = false;
+    public bool MycoDescrip = false;
+    public bool SpineDescrip = false;
+    public bool UnstableDescrip = false;
+    public bool UnderDescrip = false;
+    public bool LeechDescrip = false;
+    public bool SporeDescrip = false;
+    public bool DefenseDescrip = false;
+    public bool DescriptionActive = false;
+    private bool CharacterButtonsSelected = false;
+    public GameObject DescriptionPanel;
+    public TMP_Text DescriptionText;
     void OnEnable()
-    {
-        
+    {  
+        fog.SetActive(!fog.isActive);  
         LevelUI.SetActive(false);
         controls = new ThirdPersonActionsAsset();
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
@@ -103,7 +119,9 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         GrowMenu.SetActive(false);
         Camera.SetActive(true);
         EruptionUnlocked.Select();
+        ErupDescrip = true;
         ButtonListeners();
+        
         Invoke("InstantiateCurrentSpore", 0.01f);
         //Primal Unlock Statements
         
@@ -114,15 +132,16 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     {
       controls.UI.Disable();
       Destroy(InstantiatedSpore);
+      fog.SetActive(!fog.isActive); 
     }
     void MenuSwapLeft()
     {
-        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform.position);
         LevelUI.SetActive(true);
     }
      void MenuSwapRight()
     {
-        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("MainCamera").transform.position);
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform.position);
         GrowMenu.SetActive(true);
     }
     void ControlEnable()
@@ -173,8 +192,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       Destroy(InstantiatedSpore.transform.Find("CenterPoint").gameObject);
       InstantiatedSpore.tag = "Tree";
       Destroy(InstantiatedSpore.GetComponent<Rigidbody>());
-      InstantiatedSpore.layer = LayerMask.NameToLayer("MenuSpore");
-      InstantiatedSpore.transform.Find("SporeModel").gameObject.layer = LayerMask.NameToLayer("MenuSpore");
+      InstantiatedSpore.layer = LayerMask.NameToLayer("UI");
+      InstantiatedSpore.transform.Find("SporeModel").gameObject.layer = LayerMask.NameToLayer("UI");
       InstantiatedSpore.transform.eulerAngles = new Vector3(0f,183.53476f,0f);
       InstantiatedSpore.transform.localScale = new Vector3(3.33189845f,3.33189845f,3.33189845f);
       InstantiatedSpore.GetComponent<CapsuleCollider>().enabled = false;
@@ -1027,7 +1046,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+          //Debug.Log("return");
           return;
         }  
     }
@@ -1048,6 +1067,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         SporeburstCheck();
         LeechCheck();
         DefenseMechCheck();
+        SkillDescriptions();
         if (Input.GetKeyDown(KeyCode.LeftBracket))
       {
         MenuSwapLeft();
@@ -1454,4 +1474,199 @@ public class SkillMenuManagerUpdated : MonoBehaviour
             DefenseMechLock.SetActive(true);
         }
     }
-}
+  public void EruptionSelect()
+  {
+    ErupDescrip = true;
+  }
+  public void EruptionDeSelect()
+  {
+    ErupDescrip = false;
+  }
+  public void LivingCycloneSelect()
+  {
+    LCDescrip = true;
+  }
+  public void LivingCycloneDeselect()
+  {
+    LCDescrip = false;
+  }
+  public void RelentlessFurySelect()
+  {
+    RelentDescrip = true;
+  }
+  public void RelentlessFuryDeSelect()
+  {
+    RelentDescrip = false;
+  }
+  public void BlitzSelect()
+  {
+    BlitzDescrip = true;
+  }
+  public void BlitzDeSelect()
+  {
+    BlitzDescrip = false;
+  }
+  public void TrophicSelect()
+  {
+    TrophicDescrip = true;
+  }
+  public void TrophicDeSelect()
+  {
+    TrophicDescrip = false;
+  }
+  public void MycotoxinsSelect()
+  {
+    MycoDescrip = true;
+  }
+  public void MycotoxinsDeSelect()
+  {
+    MycoDescrip = false;
+  }
+  public void SpineShotSelect()
+  {
+    SpineDescrip = true;
+  }
+  public void SpineShotDeSelect()
+  {
+    SpineDescrip = false;
+  }
+  public void UnstablePuffSelect()
+  {
+    UnstableDescrip = true;
+  }
+  public void UnstablePuffDeselect()
+  {
+    UnstableDescrip = false;
+  }
+  public void UndergrowthSelect()
+  {
+    UnderDescrip = true;
+  }
+  public void UndergrowthDeSelect()
+  {
+    UnderDescrip = false;
+  }
+  public void LeechingSporeSelect()
+  {
+    LeechDescrip = true;
+  }
+  public void LeechingSporeDeSelect()
+  {
+    LeechDescrip = false;
+  }
+  public void SporeshotSelect()
+  {
+    SporeDescrip = true;
+  }
+  public void SporeShotDeSelect()
+  {
+    SporeDescrip = false; 
+  }
+  public void DefenseMechSelect()
+  {
+    DefenseDescrip = true;
+  }
+  public void DefenseMechDeSelect()
+  {
+    DefenseDescrip = false;
+  }
+  public void CharacterbuttonSelect()
+  {
+    CharacterButtonsSelected = true;
+  }
+  public void CharacterbuttonDeselect()
+  {
+    CharacterButtonsSelected = false;
+  }
+  public void SkillDescriptions()
+  {
+    if(controls.UI.MoreInfo.triggered && DescriptionActive == false && CharacterButtonsSelected == false)
+    {
+      DescriptionPanel.SetActive(true);
+      DescriptionActive = true;
+      DescriptionPanelHolder.SetActive(true);
+      controls.UISub.Enable();
+      controls.UI.Disable();
+      if(ErupDescrip == true)
+      {
+        DescriptionText.text = "Eruption: <br> <size=25>Stomp the ground with primal strength <br> dealing damage to all enemies around you.<br> Deals additional damage to enemies closer to you.";
+        EruptionUnlocked.navigation = NoneNav;
+      }
+      else if(LCDescrip == true)
+      {
+        DescriptionText.text = "Living Cyclone: <br> <size=25>Spin relentlessly striking all enemies<br> around you with your currently equipped weapon. <br> You are able to move while Living Cyclone is active.";
+        LivingCycloneUnlocked.navigation = NoneNav;
+      }
+      else if(RelentDescrip == true)
+      {
+        DescriptionText.text = "Relentless Fury: <br> <size=25>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25%<br> of weapon damage.";
+        RelentlessFuryUnlocked.navigation = NoneNav; 
+      }
+      else if (BlitzDescrip == true)
+      {
+        DescriptionText.text = "Blitz: <br> <size=25>Dash in a straight line damaging all enemies hit.<br> If an enemy is hit the cooldown of Blitz<br> is reduced by 50%.";
+        BlitzUnlocked.navigation = NoneNav;
+      }
+      else if (TrophicDescrip == true)
+      {
+        DescriptionText.text = "Trophic Cascade: <br> <size=25>Release a flurry of attacks slashing<br> all enemies around you.";
+        TrophicCascadeUnlocked.navigation = NoneNav;
+      }
+      else if (MycoDescrip == true)
+      {
+        DescriptionText.text = "Mycotoxins: <br> <size=25>Gain 50% bonus movement speed and release a trail of spores behind you. Enemies hit by these spores are damaged.";
+        MycotoxinsUnlocked.navigation = NoneNav;
+      }
+      else if (SpineDescrip == true)
+      {
+        DescriptionText.text = "Spineshot: <br> <size=25>Fire out a spine damaging the first enemy hit.";
+        SpineshotUnlocked.navigation = NoneNav;
+      }
+      else if (UnstableDescrip == true)
+      {
+        DescriptionText.text = "Unstable Puffball: <br><size=25>Fires a puffball that explodes and damages all enemies upon contact.";
+        UnstablePuffBallUnlocked.navigation = NoneNav;
+      }
+      else if (UnderDescrip == true)
+      {
+        DescriptionText.text = "Undergrowth: <br><size=25> An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit.";
+        UndergrowthUnlocked.navigation = NoneNav;
+      }
+      else if(LeechDescrip == true)
+      {
+        DescriptionText.text = "Leeching Spores: <br><size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.";
+        LeechingSporesUnlocked.navigation = NoneNav;
+      }
+      else if(SporeDescrip == true)
+      {
+        DescriptionText.text = "Sporeburst: <br><size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.";
+        SporeburstUnlocked.navigation = NoneNav;
+      }
+      else if (DefenseDescrip == true)
+      {
+        DescriptionText.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Attacks against you while Defense Mechanism is active is stored as bonus damage on your next attack equal to 50% of the damage absorbed.";
+        DefenseMechanismUnlocked.navigation = NoneNav;
+      }
+      }
+      if(controls.UISub.Cancel.triggered && DescriptionActive == true)
+      {
+        DescriptionPanel.SetActive(false);
+        controls.UISub.Disable();
+        controls.UI.Enable();
+        EruptionUnlocked.navigation = AutoNav;
+        LivingCycloneUnlocked.navigation = AutoNav;
+        RelentlessFuryUnlocked.navigation = AutoNav;
+        BlitzUnlocked.navigation = AutoNav;
+        TrophicCascadeUnlocked.navigation = AutoNav;
+        MycotoxinsUnlocked.navigation = AutoNav;
+        SpineshotUnlocked.navigation = AutoNav;
+        UnstablePuffBallUnlocked.navigation = AutoNav;
+        UndergrowthUnlocked.navigation = AutoNav;
+        LeechingSporesUnlocked.navigation = AutoNav;
+        SporeburstUnlocked.navigation = AutoNav;
+        DefenseMechanismUnlocked.navigation = AutoNav;
+        DescriptionActive = false;
+        DescriptionPanelHolder.SetActive(false);
+    }
+  }
+  }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -7,9 +8,11 @@ using UnityEngine.EventSystems;
 public class MonsterBossAttack : MonoBehaviour
 {
     private TempMovement bossMovement;
-    [SerializeField] public float attractionForce = 100.0f;
+    [SerializeField] public float attractionForce = 25.0f;
     [SerializeField] public float attractionRadius = 20.0f;
     [SerializeField] public float pullInterval = 5.0f;
+    public float pullDistance = 2f;
+    public float pullHeightOffset = 1f;
     private float elapsedTime = 0.0f;
     public Transform pullOrigin;
     private Collider[] playerColliders;
@@ -17,10 +20,10 @@ public class MonsterBossAttack : MonoBehaviour
     public bool canAttack = true;
     public bool isAttacking = false;
     public bool playerDamaged = false;
-    private bool isTailAttacking = false;
+    public bool isTailAttacking = false;
     private bool isSlamAttacking = false;
     private bool isSwipeAttacking = false;
-    private bool tailAttackOnCooldown = false;
+    public bool tailAttackOnCooldown = false;
     private bool isRandomOnCooldown = false;
     [SerializeField] private float attackInterval = 2f;
     private float attackWindupTime = .5f;
@@ -40,9 +43,11 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float tailAttackDamage = 30f;
     [SerializeField] private float swipeAttackDamage = 25f;
     [SerializeField] private float slamAttackDamage = 35f;
-    [SerializeField] private float tailKnockback = 70f;
+    [SerializeField] private float tailKnockback = 50f;
     private bool collidedWithPlayer = false;
+    [SerializeField] private float distanceInFront = 2.0f;
 
+    BossProcedualAnimation bossProcedualAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -52,17 +57,20 @@ public class MonsterBossAttack : MonoBehaviour
         attack = this.Attack(damage);
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;
+        bossProcedualAnimation = GetComponent<BossProcedualAnimation>();
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         float dstToPlayer = Vector3.Distance(transform.position, player.position);
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= pullInterval)
         {
             PullPlayers();
+            
             elapsedTime = 0.0f; // Reset the timer
         }
         if (!bossMovement.playerSeen)
@@ -77,7 +85,7 @@ public class MonsterBossAttack : MonoBehaviour
                 StartCoroutine(TriggerRandomAttacksWithDelay());
             }
         }
-        else if (dstToPlayer > 12f && bossMovement.playerSeen && canAttack)
+        if (dstToPlayer > 12f && bossMovement.playerSeen && canAttack)
         {
 
             if (!isTailAttacking && !tailAttackOnCooldown)
@@ -140,22 +148,27 @@ public class MonsterBossAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && other.gameObject.GetComponentInParent<PlayerController>().isInvincible == false && !playerHit.Contains(other.gameObject) && isAttacking)
         {
+            Debug.Log("collided with player");
             collidedWithPlayer = true;
         
         if (isTailAttacking && !isSlamAttacking || !isSwipeAttacking)
             {
                 damage = tailAttackDamage;
-                knockbackForce = 300f;
+                knockbackForce = 150f;
             }
-            if (isSlamAttacking && !isSwipeAttacking)
+            if (other.gameObject.layer == LayerMask.NameToLayer("ArmLayer") && isSlamAttacking && !isSwipeAttacking)
             {
                 damage = slamAttackDamage;
-                knockbackForce = 100f;
+                knockbackForce = 50f;
             }
-            if (isSwipeAttacking && !isSlamAttacking)
+            if (other.gameObject.layer == LayerMask.NameToLayer("ArmLayer") && isSwipeAttacking && !isSlamAttacking)
             {
                 damage = swipeAttackDamage;
-                knockbackForce = 200f;
+                knockbackForce = 100f;
+            }
+            if (other.gameObject.layer == LayerMask.NameToLayer("BodyLayer"))
+            {
+                collidedWithPlayer = false;
             }
             playerDamaged = false;
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
@@ -172,7 +185,7 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private void PullPlayers()
     {
-
+        ParticleManager.Instance.SpawnParticles("BossSandPullParticles", gameObject.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
         playerColliders = Physics.OverlapSphere(pullOrigin.position, attractionRadius, playerLayer);
         foreach (var playerCollider in playerColliders)
         {
@@ -209,36 +222,101 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private IEnumerator TailAttack()
     {
-        tailAttackOnCooldown = true;
-        //animator.SetTrigger("TailAttack");
-        Debug.Log("TAIL ATTACK!");
-        float customDuration = 3.0f; // Replace with your custom duration
-        Debug.Log("Waiting for " + customDuration + " seconds...");
-        yield return new WaitForSeconds(customDuration);
 
-        Debug.Log("Tail Attack Animation Finished!");
-        Vector3 playerPosition = player.position;
-        Vector3 spawnPosition = playerPosition + transform.forward * 1f;
-        GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, Quaternion.identity, transform);
-        StartCoroutine(Attack(tailAttackDamage));
-        knockbackForce = tailKnockback;
-        ApplyKnockbackToPlayer();
+        while (true)
+        {
+            if (tailAttackOnCooldown)
+            {
+                yield break;
+            }
+            tailAttackOnCooldown = true;
+            //animator.SetTrigger("TailAttack");
+            //Debug.Log("TAIL ATTACK!");
+            float customDuration = 3.0f; // Replace with your custom duration
+            //Debug.Log("Waiting for " + customDuration + " seconds...");
+            yield return new WaitForSeconds(customDuration);
 
-        yield return new WaitForSeconds(5f);
-        Debug.Log("Tail Attack off cooldown!");
-        Destroy(bossTailInstance);
-        tailAttackOnCooldown = false;
-        isTailAttacking = false;
+            //Debug.Log("Tail Attack Animation Finished!");
+            Vector3 playerPosition = player.position;
+            Vector3 spawnPosition = playerPosition + transform.forward * -1f;
+            float yOffset = -1.85f; // Adjust this value as needed
+                                    // Add the height offset and a Vector3.up movement to the spawn position
+            spawnPosition += Vector3.up * yOffset;
+            Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
+            GameObject bossTailInstance = Instantiate(bossTail, spawnPosition + new Vector3(0, -4f, 0), rotation, transform);
+            ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition, Quaternion.Euler(-90,0,0));
+            yield return new WaitForSeconds(1.0f);
+            StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
+            StartCoroutine(Attack(tailAttackDamage));
+            knockbackForce = tailKnockback;
+            ApplyKnockbackToPlayer();
+
+            yield return new WaitForSeconds(5f);
+            //Debug.Log("Tail Attack off cooldown!");
+            Destroy(bossTailInstance);
+
+            tailAttackOnCooldown = false;
+
+            isTailAttacking = false;
+        }
+        
+    }
+    private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
+    {
+        // Get the initial position of the tail
+        Vector3 initialPosition = bossTailInstance.transform.position;
+
+        // Define the target position to move the tail upwards
+        Vector3 targetPosition = initialPosition + Vector3.up * 5f;
+
+        // Define the duration of the upward movement
+        float moveDuration = 0.2f; // Adjust the duration as needed
+
+        // Track the elapsed time during the movement
+        float elapsedTime = 0.0f;
+
+        // Move the tail upwards over time
+        while (elapsedTime < moveDuration)
+        {
+            // Calculate the interpolation factor based on elapsed time and duration
+            float t = elapsedTime / moveDuration;
+
+            // Interpolate between the initial and target positions to move the tail smoothly
+            bossTailInstance.transform.position = Vector3.Slerp(initialPosition, targetPosition, t);
+
+            // Increment the elapsed time
+            elapsedTime += Time.deltaTime;
+
+            // Wait for the next frame
+            yield return null;
+        }
+
+        // Ensure the tail reaches the exact target position
+        bossTailInstance.transform.position = targetPosition;
     }
 
     private IEnumerator SwipeAttack()
     {
         isSwipeAttacking = true;
+        int randomSwipeAttack = Random.Range(0, 2);
+
+        switch (randomSwipeAttack)
+        {
+            case 0:
+                StartCoroutine(bossProcedualAnimation.RightSwingAttack());
+                break;
+            case 1:
+                StartCoroutine(bossProcedualAnimation.LeftSwingAttack());
+                break;
+            default:
+                Debug.LogError("Invalid random attack number.");
+                break;
+        }
+
         //animator.SetTrigger("SwipeAttack");
         Debug.Log("SWIPE ATTACK!");
         yield return new WaitForSeconds(swipeAttackAnimationDuration);
         StartCoroutine(Attack(swipeAttackDamage));
-
         ApplyKnockbackToPlayer();
         isSwipeAttacking = false;
     }
@@ -246,8 +324,9 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator SlamAttack()
     {
         isSlamAttacking = true;
+        StartCoroutine(bossProcedualAnimation.SmashAttack());
         //animator.SetTrigger("SlamAttack");
-        Debug.Log("SLAM ATTACK!");
+        // Debug.Log("SLAM ATTACK!");
         yield return new WaitForSeconds(slamAttackAnimationDuration);
         StartCoroutine(Attack(slamAttackDamage));
 

@@ -9,6 +9,7 @@ public class ShellVelocity : MonoBehaviour
     private float launchAngle = 45f;
     private Vector3 gravity = new Vector3(0, -20f, 0);
     [SerializeField] private float damage = 30f;
+    [SerializeField] private GameObject particles;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -47,10 +48,13 @@ public class ShellVelocity : MonoBehaviour
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
             collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
+            ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(gameObject);
         }
         else if (collision.gameObject.layer == 8 || collision.gameObject.layer == 12)
         {
+            ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
+            SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
             Destroy(gameObject);
         }
     }

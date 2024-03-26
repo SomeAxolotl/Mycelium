@@ -1509,6 +1509,17 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""MoreInfo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d6cddff-30d0-4879-b2b7-78404ce9a639"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoreInfo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1592,6 +1603,15 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""name"": ""Right"",
                     ""type"": ""Button"",
                     ""id"": ""ac4547d6-1c48-444d-8b67-ad914a9bae4b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""e15038e1-e7c1-48e6-8cb1-1e39ee1788c2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1697,6 +1717,56 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef38208e-a617-4c67-9701-8593f1ff8ce3"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Cutscene"",
+            ""id"": ""a3968683-c11c-4cdb-b9c9-be04247e7af1"",
+            ""actions"": [
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""00476e84-f0d9-4b6b-ab82-3da1e9c889b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""570cd794-31db-4164-a668-3a17fff0a5cb"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7559a86-7a4a-468c-bf3a-e7b9381a2aca"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1768,6 +1838,10 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_UISub_AssignBKB = m_UISub.FindAction("Assign B KB", throwIfNotFound: true);
         m_UISub_Left = m_UISub.FindAction("Left", throwIfNotFound: true);
         m_UISub_Right = m_UISub.FindAction("Right", throwIfNotFound: true);
+        m_UISub_Cancel = m_UISub.FindAction("Cancel", throwIfNotFound: true);
+        // Cutscene
+        m_Cutscene = asset.FindActionMap("Cutscene", throwIfNotFound: true);
+        m_Cutscene_Skip = m_Cutscene.FindAction("Skip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -2314,6 +2388,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_UISub_AssignBKB;
     private readonly InputAction m_UISub_Left;
     private readonly InputAction m_UISub_Right;
+    private readonly InputAction m_UISub_Cancel;
     public struct UISubActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -2327,6 +2402,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @AssignBKB => m_Wrapper.m_UISub_AssignBKB;
         public InputAction @Left => m_Wrapper.m_UISub_Left;
         public InputAction @Right => m_Wrapper.m_UISub_Right;
+        public InputAction @Cancel => m_Wrapper.m_UISub_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_UISub; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2363,6 +2439,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Right.started += instance.OnRight;
             @Right.performed += instance.OnRight;
             @Right.canceled += instance.OnRight;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         private void UnregisterCallbacks(IUISubActions instance)
@@ -2394,6 +2473,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Right.started -= instance.OnRight;
             @Right.performed -= instance.OnRight;
             @Right.canceled -= instance.OnRight;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         public void RemoveCallbacks(IUISubActions instance)
@@ -2411,6 +2493,52 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         }
     }
     public UISubActions @UISub => new UISubActions(this);
+
+    // Cutscene
+    private readonly InputActionMap m_Cutscene;
+    private List<ICutsceneActions> m_CutsceneActionsCallbackInterfaces = new List<ICutsceneActions>();
+    private readonly InputAction m_Cutscene_Skip;
+    public struct CutsceneActions
+    {
+        private @ThirdPersonActionsAsset m_Wrapper;
+        public CutsceneActions(@ThirdPersonActionsAsset wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Skip => m_Wrapper.m_Cutscene_Skip;
+        public InputActionMap Get() { return m_Wrapper.m_Cutscene; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CutsceneActions set) { return set.Get(); }
+        public void AddCallbacks(ICutsceneActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CutsceneActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CutsceneActionsCallbackInterfaces.Add(instance);
+            @Skip.started += instance.OnSkip;
+            @Skip.performed += instance.OnSkip;
+            @Skip.canceled += instance.OnSkip;
+        }
+
+        private void UnregisterCallbacks(ICutsceneActions instance)
+        {
+            @Skip.started -= instance.OnSkip;
+            @Skip.performed -= instance.OnSkip;
+            @Skip.canceled -= instance.OnSkip;
+        }
+
+        public void RemoveCallbacks(ICutsceneActions instance)
+        {
+            if (m_Wrapper.m_CutsceneActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICutsceneActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CutsceneActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CutsceneActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CutsceneActions @Cutscene => new CutsceneActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -2478,5 +2606,10 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnAssignBKB(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
+    }
+    public interface ICutsceneActions
+    {
+        void OnSkip(InputAction.CallbackContext context);
     }
 }

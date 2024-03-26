@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Body
-    second: {fileID: 2100000, guid: a41abc80b0984774392fa8a4098f764e, type: 2}
+    second: {fileID: 2100000, guid: 7091f3573ad270c40877267bdeb4125c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Claws
-    second: {fileID: 2100000, guid: a41abc80b0984774392fa8a4098f764e, type: 2}
+    second: {fileID: 2100000, guid: 48541d0399a270a4286ec721265df569, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Horns
-    second: {fileID: 2100000, guid: 4709823aad5d2b34a9f1f7d75dc43f35, type: 2}
+    second: {fileID: 2100000, guid: a5e87943641b5994babe8c26d46c05dd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Legs
-    second: {fileID: 2100000, guid: a41abc80b0984774392fa8a4098f764e, type: 2}
+    second: {fileID: 2100000, guid: 6cae6625ef2cc8143806c9f8c8bfeb2c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -192,6 +192,42 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events:
+      - time: 0.65037596
+        functionName: CrabSmash
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 292
+    - serializedVersion: 16
+      name: Death
+      takeName: Death
+      internalID: 4348485665485846014
+      firstFrame: -72
+      lastFrame: -1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
       events: []
       transformMask: []
       maskType: 3
@@ -235,7 +271,7 @@ ModelImporter:
     useFileScale: 0
     strictVertexDataChecks: 0
   tangentSpace:
-    normalSmoothAngle: 90
+    normalSmoothAngle: 60
     normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
@@ -256,7 +292,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: Root
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
@@ -264,7 +300,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

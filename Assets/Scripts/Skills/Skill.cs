@@ -29,7 +29,7 @@ public class Skill : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindWithTag("currentPlayer");
+        player = transform.parent.parent.gameObject;
         characterStats = player.GetComponent<CharacterStats>();
         currentAnimator = player.GetComponent<Animator>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
@@ -40,7 +40,7 @@ public class Skill : MonoBehaviour
     //this is called at the start of all the subclass skills. all stat math for skills can be done here and it should b fine
     public void CalculateProperties()
     {
-        player = GameObject.FindWithTag("currentPlayer");
+        player = transform.parent.parent.gameObject;
         characterStats = player.GetComponent<CharacterStats>();
         currentAnimator = player.GetComponent<Animator>();
         if(GameObject.FindWithTag("currentWeapon") != null)
@@ -73,7 +73,10 @@ public class Skill : MonoBehaviour
 
     public void ActivateSkill(int slot)
     {
-        playerController.DisableController();
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.DisableController();
+        }
 
         skillSlot = slot;
 
@@ -99,7 +102,10 @@ public class Skill : MonoBehaviour
 
     IEnumerator Cooldown()
     {
-        hudSkills.StartCooldownUI(skillSlot, finalSkillCooldown);
+        if (isPlayerCurrentPlayer())
+        {
+            hudSkills.StartCooldownUI(skillSlot, finalSkillCooldown);
+        }
 
         canSkill = false;
         yield return new WaitForSeconds(finalSkillCooldown);
@@ -138,6 +144,21 @@ public class Skill : MonoBehaviour
 
     public void EndSkill()
     {
-        playerController.EnableController();
+        if (isPlayerCurrentPlayer())
+        {
+            playerController.EnableController();
+        }
+    }
+
+    protected bool isPlayerCurrentPlayer()
+    {
+        if (player == GameObject.FindWithTag("currentPlayer"))
+        {   
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

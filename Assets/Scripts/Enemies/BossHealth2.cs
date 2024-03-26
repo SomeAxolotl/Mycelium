@@ -22,6 +22,10 @@ public class BossHealth2 : EnemyHealth
         HUDBoss hudBoss = GameObject.Find("HUD").GetComponent<HUDBoss>();
         hudBoss.UpdateBossHealthUI(currentHealth, maxHealth);
 
+        if(currentHealth <= 0 && !alreadyDead)
+        {
+            StartCoroutine(Death());
+        }
 
         hasTakenDamage = true;
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 using System;
+//using UnityEditor.Rendering.Universal.ShaderGUI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class EnemyHealth : MonoBehaviour
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     public Transform centerPoint;
     protected bool hasTakenDamage = false;
-    private bool alreadyDead = false;
+    protected bool alreadyDead = false;
     Animator animator;
 
     private ProfileManager profileManagerScript;
@@ -59,24 +60,36 @@ public class EnemyHealth : MonoBehaviour
         hasTakenDamage = true;
     }
 
-    IEnumerator Death()
+    protected IEnumerator Death()
     {
+        if (gameObject.name != "Rival Colony Leader")
+        {
+            gameObject.GetComponent<EnemyAttack>().CancelAttack();
+            gameObject.GetComponent<EnemyAttack>().enabled = false;
+            gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        }
+        else
+        {
+            GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();
+        }
+
+
         alreadyDead = true;
-        gameObject.GetComponent<EnemyAttack>().CancelAttack();
-        gameObject.GetComponent<EnemyAttack>().enabled = false;
-        gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
+        
         rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.FreezePosition;
-        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        
         animator.Rebind();
         animator.SetTrigger("Death");
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1.25f);
         float elapsedTime = 0f;
         float shrinkDuration = 1f;
         Vector3 initialScale = transform.localScale;
         Vector3 targetScale = Vector3.zero;
         while (elapsedTime < shrinkDuration)
         {
+
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / shrinkDuration;
             transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
@@ -89,6 +102,7 @@ public class EnemyHealth : MonoBehaviour
             profileManagerScript.tutorialIsDone = true;
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
         }
+
         this.gameObject.SetActive(false);
     }
 

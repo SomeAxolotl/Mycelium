@@ -50,7 +50,7 @@ public class NutrientParticles : MonoBehaviour
             yield return null;
         }
 
-        nutrientTrackerScript.AddNutrients(20);
+        nutrientTrackerScript.AddNutrients(200); //BEEFING THIS UP FOR ALPHA
         designTrackerScript.StartNutrientGlow();
 
         GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(nutrientHealAmount);

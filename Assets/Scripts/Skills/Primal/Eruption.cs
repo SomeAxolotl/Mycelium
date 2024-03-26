@@ -10,13 +10,14 @@ public class Eruption : Skill
     [SerializeField] private float smallRadius = 3f;
     [SerializeField] private float largeRadius = 6f;
 
-    [SerializeField] private int particleSpacing = 36;
+    //[SerializeField] private int particleSpacing = 36;
     [SerializeField] private float particleHeight = 1f;
 
     public override void DoSkill()
     {
         DamageEnemies();
-        EruptionParticles();
+        //EruptionParticles();
+        ParticleManager.Instance.SpawnParticles("EruptionParticles2", player.transform.position + new Vector3(0, particleHeight, 0), Quaternion.Euler(-90,0,0));
         SoundEffectManager.Instance.PlaySound("Explosion", player.transform.position);
         EndSkill();
     }
@@ -44,7 +45,7 @@ public class Eruption : Skill
         }
     }
 
-    void EruptionParticles()
+    /*void EruptionParticles()
     {
         int particlesPerCircle = 360 / particleSpacing;
         
@@ -74,5 +75,5 @@ public class Eruption : Skill
         Vector3 circlePosition = new Vector3(x, particleHeight, z);
         Vector3 spawnPosition = transform.position + circlePosition;
         ParticleManager.Instance.SpawnParticles("EruptionParticles", spawnPosition, Quaternion.LookRotation(Vector3.up, Vector3.up));
-    }
+    }*/
 }
