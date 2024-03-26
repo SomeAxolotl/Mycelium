@@ -77,7 +77,7 @@ public class VitLevelConfirm : MonoBehaviour
 
     void Confirm()
     {
-        if(currentstats.vitalityLevel == 4)
+        if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.vitalityLevel++;
         nutrientTracker.storedLog--;
@@ -90,7 +90,7 @@ public class VitLevelConfirm : MonoBehaviour
         levelscript.SpeedDeselect();
         levelscript.VitalitySave = currentstats.vitalityLevel;
         }
-        else if(currentstats.vitalityLevel == 9)
+        else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.vitalityLevel++;
         nutrientTracker.storedLog -= 2;
@@ -103,10 +103,127 @@ public class VitLevelConfirm : MonoBehaviour
         levelscript.SpeedDeselect();
         levelscript.VitalitySave = currentstats.vitalityLevel;
         }
-        else if(currentstats.vitalityLevel == 14)
+        else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.vitalityLevel++;
         nutrientTracker.storedLog -= 3;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else  if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "DeathBlossom")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedExoskeleton--;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedExoskeleton -= 2;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "DeathBlossom")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedExoskeleton -= 3;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else  if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "FairyRing")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedCalcite--;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedCalcite -= 2;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "FairyRing")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedCalcite -= 3;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else  if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "Zombify")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedFlesh--;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedFlesh -= 2;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedDeselect();
+        levelscript.VitalitySave = currentstats.vitalityLevel;
+        }
+        else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "Zombify")
+        {
+        currentstats.vitalityLevel++;
+        nutrientTracker.storedFlesh -= 3;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();

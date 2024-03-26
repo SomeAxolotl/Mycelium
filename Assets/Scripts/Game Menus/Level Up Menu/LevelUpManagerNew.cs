@@ -239,6 +239,12 @@ public class LevelUpManagerNew : MonoBehaviour
       case "DeathBlossom":
       PrimalArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
       break;
+      case "FairyRing":
+      PrimalArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      break;
+      case "Zombify":
+      PrimalArrowUp.sprite = Resources.Load<Sprite>("Flesh");
+      break;
       default:
       break;
       }
@@ -252,6 +258,12 @@ public class LevelUpManagerNew : MonoBehaviour
       break;
       case "DeathBlossom":
       SpeedArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      break;
+      case "FairyRing":
+      SpeedArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      break;
+      case "Zombify":
+      SpeedArrowUp.sprite = Resources.Load<Sprite>("Flesh");
       break;
       default:
       break;
@@ -267,6 +279,12 @@ public class LevelUpManagerNew : MonoBehaviour
       case "DeathBlossom":
       SentienceArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
       break;
+      case "FairyRing":
+      SentienceArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      break;
+      case "Zombify":
+      SentienceArrowUp.sprite = Resources.Load<Sprite>("Flesh");
+      break;
       default:
       break;
       }
@@ -280,6 +298,12 @@ public class LevelUpManagerNew : MonoBehaviour
       break;
       case "DeathBlossom":
       VitalityArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      break;
+      case "FairyRing":
+      VitalityArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      break;
+      case "Zombify":
+      VitalityArrowUp.sprite = Resources.Load<Sprite>("Flesh");
       break;
       default:
       break;

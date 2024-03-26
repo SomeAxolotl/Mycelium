@@ -77,7 +77,7 @@ public class SpeedLevelConfirm : MonoBehaviour
 
     void Confirm()
     {
-        if(currentstats.speedLevel == 4)
+        if(currentstats.speedLevel == 4 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.speedLevel++;
         nutrientTracker.storedLog--;
@@ -90,7 +90,7 @@ public class SpeedLevelConfirm : MonoBehaviour
         levelscript.SentienceDeselect();
         levelscript.SpeedSave = currentstats.speedLevel;
         }
-        else if(currentstats.speedLevel == 9)
+        else if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.speedLevel++;
         nutrientTracker.storedLog -= 2;
@@ -103,10 +103,127 @@ public class SpeedLevelConfirm : MonoBehaviour
         levelscript.SentienceDeselect();
         levelscript.SpeedSave = currentstats.speedLevel;
         }
-        else if(currentstats.speedLevel == 14)
+        else if(currentstats.speedLevel == 14 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.speedLevel++;
         nutrientTracker.storedLog -= 3;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+        else if(currentstats.speedLevel == 4 && currentstats.equippedSkills[0] == "DeathBlossom")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedExoskeleton--;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+        else if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedExoskeleton -= 2;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+        else if(currentstats.speedLevel == 14 && currentstats.equippedSkills[0] == "DeathBlossom")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedExoskeleton -= 3;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+         else if(currentstats.speedLevel == 4 && currentstats.equippedSkills[0] == "FairyRing")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedCalcite--;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+        else if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedCalcite -= 2;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+        else if(currentstats.speedLevel == 14 && currentstats.equippedSkills[0] == "FairyRing")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedCalcite -= 3;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+         else if(currentstats.speedLevel == 4 && currentstats.equippedSkills[0] == "Zombify")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedFlesh--;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+        else if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedFlesh -= 2;
+        currentstats.StartCalculateAttributes();
+        currentstats.UpdateLevel();
+        levelscript.UIUpdate();
+        ConfirmPanel.SetActive(false);
+        levelscript.PrimalDeselect();
+        levelscript.VitalityDeselect();
+        levelscript.SentienceDeselect();
+        levelscript.SpeedSave = currentstats.speedLevel;
+        }
+        else if(currentstats.speedLevel == 14 && currentstats.equippedSkills[0] == "Zombify")
+        {
+        currentstats.speedLevel++;
+        nutrientTracker.storedFlesh -= 3;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
