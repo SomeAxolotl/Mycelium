@@ -174,6 +174,7 @@ GameObject:
   - component: {fileID: 8358930179958250671}
   - component: {fileID: 7655304909832570556}
   - component: {fileID: 6538829050431268633}
+  - component: {fileID: 9196231705994607948}
   m_Layer: 12
   m_Name: Terrain
   m_TagString: Walls
@@ -254,6 +255,37 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 146ec75f2aeb6b245a93b0668ee9ff42, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &9196231705994607948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255868302274544046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 9357d16ea9d965947b7464237407a46d, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &2341316210944516847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3251,6 +3283,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.x
@@ -3790,6 +3827,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.y
@@ -4224,6 +4266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -7028,6 +7075,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.y
@@ -7488,6 +7540,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.x
@@ -7695,6 +7752,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}

@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 5917882716122667658}
   - component: {fileID: 130059756369187576}
   - component: {fileID: 9118525770565412680}
+  - component: {fileID: 7976294897253777071}
   m_Layer: 12
   m_Name: Terrain (2)
   m_TagString: Walls
@@ -238,6 +239,37 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: ea734210ea241464d9cd0b1464107cf9, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &7976294897253777071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603316758504218015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 33bc130b45b92594bbdc478b24185b4d, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1788548528564555220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1815,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -3389,6 +3426,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.y
@@ -3964,6 +4006,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -8725,6 +8772,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}

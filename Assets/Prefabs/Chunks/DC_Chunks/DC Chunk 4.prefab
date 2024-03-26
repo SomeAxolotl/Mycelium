@@ -221,97 +221,6 @@ Transform:
   m_Father: {fileID: 2692930212270955682}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3516214577567455044
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4237746411096180417}
-  - component: {fileID: 706301855855819785}
-  - component: {fileID: 6909042275113573970}
-  m_Layer: 0
-  m_Name: Terrain (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
---- !u!4 &4237746411096180417
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3516214577567455044}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 49.45, y: -4.5, z: -99.484}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2692930212270955682}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!218 &706301855855819785
-Terrain:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3516214577567455044}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 922f0f2aa37be5144b890c0d415c5a2e, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMaximumLOD: 0
-  m_ShadowCastingMode: 2
-  m_DrawHeightmap: 1
-  m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
-  m_StaticShadowCaster: 0
-  m_IgnoreQualitySettings: 0
-  m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
-  m_DeringLightProbesForTrees: 1
-  m_ReceiveGI: 1
-  m_ScaleInLightmap: 0.0256
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
-  m_GroupingID: 0
-  m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 1
-  m_EnableHeightmapRayTracing: 1
-  m_EnableTreesAndDetailsRayTracing: 0
---- !u!154 &6909042275113573970
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3516214577567455044}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: 922f0f2aa37be5144b890c0d415c5a2e, type: 2}
-  m_EnableTreeColliders: 1
 --- !u!1 &5046136006284834043
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +252,6 @@ Transform:
   - {fileID: 5548940658587737814}
   - {fileID: 8613955683174248433}
   - {fileID: 6662981470078029671}
-  - {fileID: 4237746411096180417}
   - {fileID: 1484443960900766452}
   - {fileID: 2416243319758349641}
   - {fileID: 8317259507499557470}
@@ -415,8 +323,9 @@ GameObject:
   - component: {fileID: 1484443960900766452}
   - component: {fileID: 4792630875788265752}
   - component: {fileID: 1600245505749356557}
+  - component: {fileID: 687045260297713444}
   m_Layer: 12
-  m_Name: Terrain (2)
+  m_Name: Terrain
   m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,6 +404,37 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 5539abc231c512849b8cad8eabdd396e, type: 2}
   m_EnableTreeColliders: 1
+--- !u!114 &687045260297713444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5753726297082903560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: f33394c10437cd341aed15e29097ba74, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &6553022080960086981
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +736,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -1103,6 +1048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -2014,6 +1964,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.x
@@ -2449,6 +2404,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.y
@@ -2819,6 +2779,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -3293,6 +3258,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.x
@@ -3510,6 +3480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -3916,6 +3891,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
@@ -5790,6 +5770,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.x
@@ -6265,6 +6250,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeashellBridge (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
       propertyPath: m_Size.y
@@ -6457,6 +6447,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SeashellBridge (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212873419473229573, guid: d21b06f62e417d64295900ed7d3ba7f8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5036744987085332818, guid: d21b06f62e417d64295900ed7d3ba7f8,
         type: 3}
