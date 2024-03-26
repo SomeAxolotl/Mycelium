@@ -47,7 +47,7 @@ public class MonsterBossAttack : MonoBehaviour
     private bool collidedWithPlayer = false;
     [SerializeField] private float distanceInFront = 2.0f;
 
-    BossProcedualAnimation bossProcedualAnimation;
+    //BossProcedualAnimation bossProcedualAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +57,7 @@ public class MonsterBossAttack : MonoBehaviour
         attack = this.Attack(damage);
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;
-        bossProcedualAnimation = GetComponent<BossProcedualAnimation>();
+        //bossProcedualAnimation = GetComponent<BossProcedualAnimation>();          <--REMOVED FOR OTHER ANIMATIONS
         rb = GetComponent<Rigidbody>();
     }
 
@@ -112,7 +112,7 @@ public class MonsterBossAttack : MonoBehaviour
         yield return new WaitForSeconds(attackWindupTime);
 
         // Perform attack animation or action
-        animator.SetTrigger("Attack");
+        //animator.SetTrigger("Attack");
 
         // Check if player is within range and not invincible
         if (!playerDamaged && Vector3.Distance(transform.position, player.position) <= 12f &&
@@ -303,10 +303,10 @@ public class MonsterBossAttack : MonoBehaviour
         switch (randomSwipeAttack)
         {
             case 0:
-                StartCoroutine(bossProcedualAnimation.RightSwingAttack());
+                animator.SetTrigger("AttackLeft");
                 break;
             case 1:
-                StartCoroutine(bossProcedualAnimation.LeftSwingAttack());
+                animator.SetTrigger("AttackRight");
                 break;
             default:
                 Debug.LogError("Invalid random attack number.");
@@ -324,8 +324,8 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator SlamAttack()
     {
         isSlamAttacking = true;
-        StartCoroutine(bossProcedualAnimation.SmashAttack());
-        //animator.SetTrigger("SlamAttack");
+        //StartCoroutine(bossProcedualAnimation.SmashAttack());
+        animator.SetTrigger("Smash");
         // Debug.Log("SLAM ATTACK!");
         yield return new WaitForSeconds(slamAttackAnimationDuration);
         StartCoroutine(Attack(slamAttackDamage));
