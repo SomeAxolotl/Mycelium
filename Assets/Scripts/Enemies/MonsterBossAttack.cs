@@ -243,7 +243,8 @@ public class MonsterBossAttack : MonoBehaviour
                                     // Add the height offset and a Vector3.up movement to the spawn position
             spawnPosition += Vector3.up * yOffset;
             Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
-            GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, rotation, transform);
+            GameObject bossTailInstance = Instantiate(bossTail, spawnPosition + new Vector3(0, -4f, 0), rotation, transform);
+            ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition, Quaternion.Euler(-90,0,0));
             yield return new WaitForSeconds(1.0f);
             StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
             StartCoroutine(Attack(tailAttackDamage));
@@ -263,10 +264,10 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
     {
         // Get the initial position of the tail
-        Vector3 initialPosition = bossTailInstance.transform.position + new Vector3(0, -1f, 0);
+        Vector3 initialPosition = bossTailInstance.transform.position;
 
         // Define the target position to move the tail upwards
-        Vector3 targetPosition = initialPosition + Vector3.up * 1.70f;
+        Vector3 targetPosition = initialPosition + Vector3.up * 5f;
 
         // Define the duration of the upward movement
         float moveDuration = 0.2f; // Adjust the duration as needed
@@ -281,7 +282,7 @@ public class MonsterBossAttack : MonoBehaviour
             float t = elapsedTime / moveDuration;
 
             // Interpolate between the initial and target positions to move the tail smoothly
-            bossTailInstance.transform.position = Vector3.Lerp(initialPosition, targetPosition, t);
+            bossTailInstance.transform.position = Vector3.Slerp(initialPosition, targetPosition, t);
 
             // Increment the elapsed time
             elapsedTime += Time.deltaTime;
