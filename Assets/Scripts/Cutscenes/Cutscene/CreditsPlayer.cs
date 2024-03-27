@@ -17,8 +17,8 @@ public class CreditsPlayer : MonoBehaviour
     [SerializeField] private float pauseTime;
 
     private PlayerController playerController;
-    private Coroutine credits;
-    private Coroutine askSkip;
+    private bool creditsIsOn = false;
+    private bool askSkipIsOn = false;
     private ThirdPersonActionsAsset playerInput;
 
     private void Start()
@@ -30,19 +30,19 @@ public class CreditsPlayer : MonoBehaviour
     
     private void Update()
     {
-        if(credits == null)
+        if(creditsIsOn == false)
         {
             return;
         }
 
-        if (askSkip != null)
+        if (askSkipIsOn == true)
         {
             return;
         }
 
         if (playerInput.Cutscene.Skip.WasPressedThisFrame())
         {
-            askSkip = StartCoroutine(AskSkip());
+            StartCoroutine(AskSkip());
         }
     }
 
@@ -52,7 +52,7 @@ public class CreditsPlayer : MonoBehaviour
         playerController.DisableController();
         playerInput.Enable();
 
-        credits = StartCoroutine(PlayCredits());
+        StartCoroutine(PlayCredits());
     }
 
     private void ConfirmSkip()
@@ -64,6 +64,8 @@ public class CreditsPlayer : MonoBehaviour
 
     IEnumerator PlayCredits()
     {
+        creditsIsOn = true;
+
         yield return StartCoroutine(FadeIn(blackCanvas, fadeTimeBlackCanvas));
 
         yield return new WaitForSeconds(1f);
@@ -81,13 +83,16 @@ public class CreditsPlayer : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         SceneLoader.Instance.BeginLoadScene("The Carcass", true);
+
+        creditsIsOn = false;
     }
 
     IEnumerator AskSkip()
     {
-        yield return StartCoroutine(FadeIn(skipCanvas, 0.3f));
-
+        askSkipIsOn = true;
         float elapsedTime = 0f;
+
+        yield return StartCoroutine(FadeIn(skipCanvas, 0.3f));
 
         while (elapsedTime < 2f)
         {
@@ -101,9 +106,9 @@ public class CreditsPlayer : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(FadeOut(skipCanvas, 0.3f));
+        yield return StartCoroutine(FadeOut(skipCanvas, 0.3f));
 
-        askSkip = null;
+        askSkipIsOn = false;
     }
 
     IEnumerator MoveText()
@@ -121,8 +126,6 @@ public class CreditsPlayer : MonoBehaviour
 
             yield return null;
         }
-
-        yield break;
     }
 
     IEnumerator FadeIn(CanvasGroup canvasGroup, float transitionTime)

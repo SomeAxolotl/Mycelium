@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CutscenePlayer : MonoBehaviour
 {
     [SerializeField] private CanvasGroup blackCavnas;
+    [SerializeField] private CanvasGroup skipCanvas;
     [SerializeField] private List<CutsceneCanvasSettings> canvasOrder;
 
     [SerializeField] private float canvasFadeTime;
@@ -16,23 +19,55 @@ public class CutscenePlayer : MonoBehaviour
 
     [HideInInspector] public bool isFinished = false;
     private AudioSource cutsceneMusic;
+    private PlayerController playerController;
+    private ThirdPersonActionsAsset playerInput;
+    private bool cutsceneIsOn;
+    private bool askSkipIsOn;
 
-    private IEnumerator Start()
+    private void Start()
     {
         cutsceneMusic = GetComponent<AudioSource>();
+        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerInput = new ThirdPersonActionsAsset();
+    }
 
-        yield return new WaitForSeconds(5f);
-        //StartCutscene();
+    private void Update()
+    {
+        if (cutsceneIsOn == false)
+        {
+            return;
+        }
+
+        if (askSkipIsOn == true)
+        {
+            return;
+        }
+
+        if (playerInput.Cutscene.Skip.WasPressedThisFrame())
+        {
+            StartCoroutine(AskSkip());
+        }
     }
 
     public void StartCutscene()
     {
+        GlobalData.isAbleToPause = false;
+        playerController.DisableController();
+        playerInput.Enable();
+
         StartCoroutine(Cutscene());
+    }
+
+    private void ConfirmSkip()
+    {
+        StopAllCoroutines();
+
+        SceneLoader.Instance.BeginLoadScene("The Carcass", true);
     }
 
     IEnumerator Cutscene()
     {
-        GlobalData.isAbleToPause = false;
+        cutsceneIsOn = true;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -54,6 +89,31 @@ public class CutscenePlayer : MonoBehaviour
         StartCoroutine(FadeOut(cutsceneMusic, audioFadeTime));
 
         isFinished = true;
+        cutsceneIsOn = false;
+    }
+
+    IEnumerator AskSkip()
+    {
+        askSkipIsOn = true;
+        float elapsedTime = 0f;
+
+        yield return StartCoroutine(FadeIn(skipCanvas, 0.3f));
+
+        while (elapsedTime < 2f)
+        {
+            if (playerInput.Cutscene.Skip.WasPressedThisFrame())
+            {
+                ConfirmSkip();
+            }
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        yield return StartCoroutine(FadeOut(skipCanvas, 0.3f));
+
+        askSkipIsOn = false;
     }
 
     IEnumerator FadeIn(CanvasGroup canvasGroup, float transitionTime)
@@ -95,6 +155,25 @@ public class CutscenePlayer : MonoBehaviour
         }
 
         audioSource.volume = 1f;
+    }
+
+    IEnumerator FadeOut(CanvasGroup canvasGroup, float transitionTime)
+    {
+        float elapsedTime = 0f;
+        float t = 0f;
+
+        while (elapsedTime < transitionTime)
+        {
+            t = elapsedTime / transitionTime;
+
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0f;
     }
 
     IEnumerator FadeOut(AudioSource audioSource, float transitionTime)
