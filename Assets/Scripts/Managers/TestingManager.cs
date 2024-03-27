@@ -7,7 +7,7 @@ public class TestingManager : MonoBehaviour
 {
     public static TestingManager Instance;
 
-    private enum StatSkills
+    public enum StatSkills
     {
         NoSkill,
         Eruption,
@@ -24,7 +24,7 @@ public class TestingManager : MonoBehaviour
         DefenseMechanism
     }
 
-    private enum WeaponTypes
+    public enum WeaponTypes
     {
         AvocadoFlamberge,
         BambooPartisan,
@@ -37,12 +37,21 @@ public class TestingManager : MonoBehaviour
         FemurClub
     }
 
-    private enum SubspeciesSkills
+    public enum SubspeciesSkills
     {
+        NoSkill,
         FungalMight,
         DeathBlossom,
         FairyRing,
         Zombify
+    }
+
+    public enum SubspeciesNames
+    {
+        Default,
+        Poison,
+        Coral,
+        Cordyceps
     }
 
     [Header("Nutrients - Alpha1")]
@@ -64,11 +73,29 @@ public class TestingManager : MonoBehaviour
     [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill1;
     [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill2;
 
-    [Header("Weapon - Alpha5")]
-    [SerializeField][Tooltip("Alpha5 - Set Weapon")] private WeaponTypes weaponType;
+    [Header("Subspecies Skill - Alpha5")]
+    [SerializeField][Tooltip("Alpha5 - Set Subspecies Skill")] private SubspeciesSkills subspeciesSkill;
 
-    [Header("Subspecies Skill - Alpha6")]
-    [SerializeField][Tooltip("Alpha6 - Grow New Spore")] private SubspeciesSkills subspeciesSkill;
+    [Header("Weapon - Alpha6")]
+    [SerializeField][Tooltip("Alpha6 - Set Weapon")] private WeaponTypes weaponType;
+
+    [Header("Grow a custom Spore - K")]
+    [SerializeField][Tooltip("K - Grow a custom Spore")] private CustomSpore customSpore;
+
+    [Header("Go to Daybreak Arboretum - Alpha7")]
+    [SerializeField][Tooltip("Alpha7 - Go to Daybreak Arboretum")] private int daybreakBuildIndex = 3;
+
+    [Header("Go to Delta Crag - Alpha8")]
+    [SerializeField][Tooltip("Alpha8 - Go to Delta Crag")] private int cragBuildIndex = 4;
+
+    [Header("Go to Impact Barrens - Alpha9")]
+    [SerializeField][Tooltip("Alpha9 - Go to Impact Barrens")] private int barrensBuildIndex = 6;
+
+    [Header("Go to The Carcass - Alpha0")]
+    [SerializeField][Tooltip("Alpha0 - Go to The Carcass")] private int carcassBuildIndex = 2;
+
+    [Header("Go to the Tutorial - Minus")]
+    [SerializeField][Tooltip("Minus - Go to the Tutorial")] private int tutorialBuildIndex = 1;
 
     [Header("References")]
     [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
@@ -128,27 +155,32 @@ public class TestingManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            StartCoroutine(SetLevel(3));
+            StartCoroutine(SetLevel(daybreakBuildIndex));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            StartCoroutine(SetLevel(4));
+            StartCoroutine(SetLevel(cragBuildIndex));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            StartCoroutine(SetLevel(6));
+            StartCoroutine(SetLevel(barrensBuildIndex));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            StartCoroutine(SetLevel(2));
+            StartCoroutine(SetLevel(carcassBuildIndex));
         }
 
         if (Input.GetKeyDown(KeyCode.Minus))
         {
-            StartCoroutine(SetLevel(1));
+            StartCoroutine(SetLevel(tutorialBuildIndex));
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SpawnCustomSpore();
         }
     }
 
@@ -197,6 +229,15 @@ public class TestingManager : MonoBehaviour
         hudSkills.ChangeSkillIcon(skill2.ToString(), 2);
     }
 
+    IEnumerator SetPlayerSubspeciesSkill()
+    {
+        GetCurrentPlayer();
+
+        yield return null;
+        skillManager.SetSkill(subspeciesSkill.ToString(), 0, player);
+        hudSkills.ChangeSkillIcon(subspeciesSkill.ToString(), 0);
+    }
+
     IEnumerator SetPlayerWeapon()
     {
         GetCurrentPlayer();
@@ -212,21 +253,39 @@ public class TestingManager : MonoBehaviour
         }
     }
 
-    IEnumerator SetPlayerSubspeciesSkill()
-    {
-        GetCurrentPlayer();
-
-        yield return null;
-        skillManager.SetSkill(subspeciesSkill.ToString(), 0, player);
-        hudSkills.ChangeSkillIcon(subspeciesSkill.ToString(), 0);
-    }
-
     IEnumerator SetLevel(int buildIndex)
     {
         GetCurrentPlayer();
 
         yield return null;
         SceneLoader.Instance.BeginLoadScene(buildIndex, true);
+    }
+
+    void SpawnCustomSpore()
+    {
+        string test = customSpore.subspeciesSkill.ToString();
+
+        GameObject tempObject = new GameObject("wtf");
+
+        tempObject.AddComponent<CharacterStats>();
+        tempObject.AddComponent<DesignTracker>();
+
+        CharacterStats customStats = tempObject.GetComponent<CharacterStats>();
+        customStats.sporeName = customSpore.sporeName;
+        customStats.equippedSkills[0] = customSpore.subspeciesSkill.ToString();
+        customStats.equippedSkills[1] = customSpore.skill1.ToString();
+        customStats.equippedSkills[2] = customSpore.skill2.ToString();
+
+        DesignTracker customDesign = tempObject.GetComponent<DesignTracker>();
+        customDesign.capColor = customSpore.capColor;
+        customDesign.bodyColor = customSpore.bodyColor;
+        customDesign.EyeOption = customSpore.eyeTextureIndex;
+        customDesign.MouthOption = customSpore.mouthTextureIndex;
+
+
+        GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>().SpawnNewCharacter(customSpore.subspecies.ToString(), customStats, customDesign, customSpore.randomDesignFromSpecies);
+
+        Destroy(tempObject);
     }
 
     void GetCurrentPlayer()
@@ -239,5 +298,23 @@ public class TestingManager : MonoBehaviour
         skillManager = playerParent.GetComponent<SkillManager>(); //Alpha4
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         spawnCharacter = playerParent.GetComponent<SpawnCharacter>(); //Alpha6
+    }
+
+    [System.Serializable]
+    class CustomSpore
+    {
+        [Header("Stats")]
+        public string sporeName = "Gob";
+        public SubspeciesSkills subspeciesSkill = SubspeciesSkills.NoSkill;
+        public StatSkills skill1 = StatSkills.NoSkill;
+        public StatSkills skill2 = StatSkills.NoSkill;
+
+        [Header("Design")]
+        [Tooltip("Custom Spore's design is the same as just growing that subspecies")] public bool randomDesignFromSpecies = true;
+        public SubspeciesNames subspecies = SubspeciesNames.Default;
+        public Color capColor = Color.green;
+        public Color bodyColor = Color.blue;
+        [Range(0, 10)] public int eyeTextureIndex = 0;
+        [Range(0, 5)] public int mouthTextureIndex = 0;
     }
 }

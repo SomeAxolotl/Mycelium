@@ -64,55 +64,76 @@ public class SpawnCharacter : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnNewCharacter(string subspecies, CharacterStats customStats = null, DesignTracker customDesign = null, bool randomDesignFromSpecies = true)
     {
-        //TEMPORARY KEYCODE ~ WILL BE TURNED INTO UI MENU BUTTON IN THE FUTURE
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SpawnNewCharacter("Poison");
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SpawnNewCharacter("Default");
-        }
-    }
-    public void SpawnNewCharacter(string subspecies)
-    {
+        
         GameObject newCharacter = Instantiate(characterPrefab);
         newCharacter.GetComponent<IdleWalking>().enabled = false;
+
         string subspeciesSkill = "FungalMight";
-        switch (subspecies)
+        string statSkill1 = "NoSkill";
+        string statSkill2 = "NoSkill";
+        //If growing a Spore normally from Sporemother
+        if (customStats == null)
         {
-            case "Default":
-                subspeciesSkill = "FungalMight";
-                break;
+            switch (subspecies)
+            {
+                case "Default":
+                    subspeciesSkill = "FungalMight";
+                    break;
 
-            case "Poison":
-                subspeciesSkill = "DeathBlossom";
-                break;
+                case "Poison":
+                    subspeciesSkill = "DeathBlossom";
+                    break;
 
-            case "Coral":
-                subspeciesSkill = "FairyRing";
-                break;
+                case "Coral":
+                    subspeciesSkill = "FairyRing";
+                    break;
 
-            case "Cordyceps":
-                subspeciesSkill = "Zombify";
-                break;
+                case "Cordyceps":
+                    subspeciesSkill = "Zombify";
+                    break;
+            }
+
+            int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
+            newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
+            usedSporeNames.Add(sporeNames[randomNameIndex]);
+            sporeNames.Remove(sporeNames[randomNameIndex]);
         }
-        CreateSpeciesPalette(newCharacter, subspecies);
-        int randomMouthIndex = UnityEngine.Random.Range(0,MouthTextures.Count);
-        Debug.Log("Mouth: " + randomMouthIndex);
-        int randomEyeIndex = UnityEngine.Random.Range(0,EyeTextures.Count);
-        Debug.Log("Eye: " + randomEyeIndex);
-        DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
-        designTracker.EyeOption = randomEyeIndex;
-        designTracker.MouthOption = randomMouthIndex;
-        designTracker.EyeTexture = EyeTextures[randomEyeIndex];
-        designTracker.MouthTexture = MouthTextures[randomMouthIndex];
-        designTracker.UpdateColorsAndTexture();
+        else
+        {
+            subspeciesSkill = customStats.equippedSkills[0];
+            statSkill1 = customStats.equippedSkills[1];
+            statSkill2 = customStats.equippedSkills[2];
+
+            newCharacter.GetComponent<CharacterStats>().sporeName = customStats.sporeName;
+        }
+
         skillManager.SetSkill(subspeciesSkill, 0, newCharacter);
+        skillManager.SetSkill(statSkill1, 1, newCharacter);
+        skillManager.SetSkill(statSkill2, 2, newCharacter);
+
+        if (randomDesignFromSpecies)
+        {
+            CreateSpeciesPalette(newCharacter, subspecies);
+            int randomMouthIndex = UnityEngine.Random.Range(0,MouthTextures.Count);
+            int randomEyeIndex = UnityEngine.Random.Range(0,EyeTextures.Count);
+            DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
+            designTracker.EyeOption = randomEyeIndex;
+            designTracker.MouthOption = randomMouthIndex;
+            designTracker.EyeTexture = EyeTextures[randomEyeIndex];
+            designTracker.MouthTexture = MouthTextures[randomMouthIndex];
+            designTracker.UpdateColorsAndTexture();
+        }
+        else
+        {
+            DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
+            designTracker.SetCapColor(customDesign.capColor);
+            designTracker.SetBodyColor(customDesign.bodyColor);
+            designTracker.EyeTexture = EyeTextures[customDesign.EyeOption];
+            designTracker.MouthTexture = MouthTextures[customDesign.MouthOption];
+            designTracker.UpdateColorsAndTexture();
+        }
 
         swapCharacter.characters.Add(newCharacter);
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
@@ -122,15 +143,9 @@ public class SpawnCharacter : MonoBehaviour
         }
         newCharacter.GetComponent<Animator>().Play("Sprout");
         StartCoroutine(ResetCamera(newCharacter));
-
-        int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
-        newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
-        usedSporeNames.Add(sporeNames[randomNameIndex]);
-        sporeNames.Remove(sporeNames[randomNameIndex]);
-        //newCharacter.GetComponent<CharacterStats>().ShowNametag();
-        //newCharacter.GetComponent<CharacterStats>().UpdateNametagText();
     }
-    IEnumerator ResetCamera(GameObject newCharacter)
+
+    public IEnumerator ResetCamera(GameObject newCharacter)
     { 
         yield return new WaitForSeconds(2.5f);
         if (sporeCam != null)

@@ -125,7 +125,7 @@ public class Skill : MonoBehaviour
     //Clears Fungal Might for attacking and skills
     public void ClearAllFungalMights()
     {
-        GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+        GameObject skillLoadout = player.transform.Find("SkillLoadout").gameObject;
         foreach (Transform child in skillLoadout.transform)
         {
             Skill skill = child.gameObject.GetComponent<Skill>();
@@ -138,7 +138,10 @@ public class Skill : MonoBehaviour
         GameObject[] fungalMightParticles = GameObject.FindGameObjectsWithTag("FungalMightParticles");
         foreach (GameObject particle in fungalMightParticles)
         {
-            particle.GetComponent<ParticleSystem>().Stop();
+            if (particle.transform.IsChildOf(player.transform))
+            {
+                particle.GetComponent<ParticleSystem>().Stop();
+            }
         }
     }
 

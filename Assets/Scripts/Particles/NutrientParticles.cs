@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NutrientParticles : MonoBehaviour
 {
+    [SerializeField] private int amountPerParticle = 20;
     [SerializeField] private float absorbTime = 1.5f;
     [SerializeField] private float timeBeforeAbsorb = 1.5f;
     private GameObject targetObject;
@@ -50,7 +51,7 @@ public class NutrientParticles : MonoBehaviour
             yield return null;
         }
 
-        nutrientTrackerScript.AddNutrients(200); //BEEFING THIS UP FOR ALPHA
+        nutrientTrackerScript.AddNutrients(amountPerParticle);
         designTrackerScript.StartNutrientGlow();
 
         GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(nutrientHealAmount);
