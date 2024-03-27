@@ -25,7 +25,7 @@ public class NutrientParticles : MonoBehaviour
         yield return new WaitForSeconds(timeBeforeAbsorb);
 
         ParticleSystem particleSystem = GetComponent<ParticleSystem>();
-        ParticleSystem.Particle[] particles = new ParticleSystem.Particle[100];
+        ParticleSystem.Particle[] particles = new ParticleSystem.Particle[1];
 
         int particleCount = particleSystem.GetParticles(particles);
 
@@ -40,7 +40,7 @@ public class NutrientParticles : MonoBehaviour
 
                 if (Vector3.Distance(particles[i].position, targetObject.transform.position + new Vector3(0, 1, 0)) < 0.1f)
                 {
-                    particles[i].remainingLifetime = 0f;
+                    particleSystem.Clear();
                     absorbCounter += absorbCounter;
                 }
             }
