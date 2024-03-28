@@ -49,7 +49,7 @@ public class ScreenshotMaker : MonoBehaviour
             type = true;
         }
 
-        byte[] pictureBytes = I360Render.Capture(width, type, cameraToUse, false);
+        byte[] pictureBytes = I360Render.Capture(width, type, cameraToUse, true);
 
         if(pictureBytes != null)
         {
