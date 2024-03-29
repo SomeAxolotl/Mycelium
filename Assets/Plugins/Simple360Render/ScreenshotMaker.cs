@@ -20,11 +20,11 @@ public class ScreenshotMaker : MonoBehaviour
 
     public void TakeScreenshot()
     {
-        if(Application.isPlaying == false)
-        {
-            Debug.LogError("Must be in Play Mode to take 360 Screenshot");
-            return;
-        }
+        //if(Application.isPlaying == false)
+        //{
+        //    Debug.LogError("Must be in Play Mode to take 360 Screenshot");
+        //    return;
+        //}
 
         if(Mathf.CeilToInt(Mathf.Log(width, 2) / Mathf.Log(2, 2)) != Mathf.FloorToInt(Mathf.Log(width, 2) / Mathf.Log(2, 2)))
         {
@@ -37,7 +37,7 @@ public class ScreenshotMaker : MonoBehaviour
             return;
         }
 
-        if(cameraToUse == null)
+        if (cameraToUse == null)
         {
             Debug.LogError("cameraToUse is null");
             return;
