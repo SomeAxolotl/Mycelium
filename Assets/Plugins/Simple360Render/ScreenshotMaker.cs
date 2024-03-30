@@ -37,7 +37,7 @@ public class ScreenshotMaker : MonoBehaviour
             return;
         }
 
-        if(cameraToUse == null)
+        if (cameraToUse == null)
         {
             Debug.LogError("cameraToUse is null");
             return;
