@@ -121,7 +121,7 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            profileManagerScript.tutorialIsDone = true;
+            profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
 
             cutscenePlayer.StartCutscene();
 

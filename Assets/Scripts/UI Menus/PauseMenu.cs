@@ -158,6 +158,25 @@ public class PauseMenu : MonoBehaviour
         string sporeFilePath;
         string profileFilePath;
 
+        for(int i = 0; i <= 2; i++)
+        {
+            if (Application.isEditor)
+            {
+                sporeFilePath = Application.dataPath + "/SporeData" + i + ".json";
+                profileFilePath = Application.dataPath + "/ProfileData" + i + ".json";
+            }
+            else
+            {
+                sporeFilePath = Application.persistentDataPath + "/SporeData" + i + ".json";
+                profileFilePath = Application.persistentDataPath + "/ProfileData" + i + ".json";
+            }
+
+            File.Delete(sporeFilePath);
+            File.Delete(profileFilePath);
+            profileManagerScript.tutorialIsDone[i] = false;
+        }
+
+        //This is to remove old data files off the computer
         if (Application.isEditor)
         {
             sporeFilePath = Application.dataPath + "/SporeData.json";
@@ -169,10 +188,10 @@ public class PauseMenu : MonoBehaviour
             profileFilePath = Application.persistentDataPath + "/ProfileData.json";
         }
 
-        PlayerPrefs.DeleteAll();
         File.Delete(sporeFilePath);
         File.Delete(profileFilePath);
-        profileManagerScript.tutorialIsDone = false;
+
+        PlayerPrefs.DeleteAll();
     }
 
     private void OnEnable()

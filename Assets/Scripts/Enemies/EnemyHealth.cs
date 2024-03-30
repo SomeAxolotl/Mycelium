@@ -99,7 +99,7 @@ public class EnemyHealth : MonoBehaviour
         if (gameObject.name == "Giga Beetle")
         {
             //GameManager.Instance.OnExitToHub();
-            profileManagerScript.tutorialIsDone = true;
+            profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
         }
 

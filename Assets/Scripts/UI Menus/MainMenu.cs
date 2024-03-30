@@ -55,7 +55,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        if (profileManagerScript.tutorialIsDone == true)
+        if (profileManagerScript.tutorialIsDone[GlobalData.profileNumber] == true)
         {
             sceneLoaderScript.BeginLoadScene(SceneManager.GetActiveScene().buildIndex + 2, true);
         }

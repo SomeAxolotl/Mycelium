@@ -62,7 +62,8 @@ public class CutscenePlayer : MonoBehaviour
     {
         StopAllCoroutines();
 
-        SceneLoader.Instance.BeginLoadScene("The Carcass", true);
+        isFinished = true;
+        cutsceneIsOn = false;
     }
 
     IEnumerator Cutscene()

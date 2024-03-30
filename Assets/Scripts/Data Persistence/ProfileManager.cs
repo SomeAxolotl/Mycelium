@@ -10,45 +10,26 @@ public class ProfileManager : MonoBehaviour
     private ProfileData profileData;
     private NutrientTracker nutrientTrackerScript;
 
-    [HideInInspector] public bool tutorialIsDone;
+    [HideInInspector] public List<bool> tutorialIsDone = new List<bool>();
 
     [SerializeField] private ProfileData defaultProfileData;
 
-    // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            nutrientTrackerScript = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
-        }
+        tutorialIsDone.Add(false);
+        tutorialIsDone.Add(false);
+        tutorialIsDone.Add(false);
 
-        //Begin Reading ProfileData.json
-        if (Application.isEditor)
-        {
-            filePath = Application.dataPath + "/ProfileData.json";
-        }
-        else
-        {
-            filePath = Application.persistentDataPath + "/ProfileData.json";
-        }
+        GlobalData.profileNumber = 0;
 
-        try
-        {
-            //Debug.Log("File Path: " + filePath);
-            //Debug.Log(System.IO.File.ReadAllText(filePath));
-            profileData = JsonUtility.FromJson<ProfileData>(System.IO.File.ReadAllText(filePath));
-            //Debug.Log(profileData);
-        }
-        catch
-        {
-            //Debug.Log("NO PROFILE DATA FOUND!!! ---LOADING DEFAULT PROFILE DATA---");
-
-            profileData = defaultProfileData;
-            //Debug.Log(profileData);
-        }
+        SetFilePath();
 
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
+            //Do this when we are NOT on the Main Menu
+
+            nutrientTrackerScript = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+
             LoadProfile(profileData);
         }
 
@@ -60,6 +41,39 @@ public class ProfileManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
             Save();
+        }
+    }
+
+    void SetFilePath()
+    {
+        //Check profile number
+        if(GlobalData.profileNumber > 2 || GlobalData.profileNumber < 0)
+        {
+            Debug.LogError("Bad profile number! Profile numbers must be 0, 1, or 2");
+        }
+
+        //Set the file path
+        if (Application.isEditor)
+        {
+            filePath = Application.dataPath + "/ProfileData" + GlobalData.profileNumber + ".json";
+        }
+        else
+        {
+            filePath = Application.persistentDataPath + "/ProfileData" + GlobalData.profileNumber + ".json";
+        }
+
+        //Begin Reading ProfileData.json
+        try
+        {
+            //Debug.Log("File Path: " + filePath);
+            profileData = JsonUtility.FromJson<ProfileData>(System.IO.File.ReadAllText(filePath));
+            //Debug.Log(profileData);
+        }
+        catch
+        {
+            //Debug.Log("NO PROFILE DATA FOUND!!! ---LOADING DEFAULT PROFILE DATA---");
+            profileData = defaultProfileData;
+            //Debug.Log(profileData);
         }
     }
 
@@ -75,12 +89,12 @@ public class ProfileManager : MonoBehaviour
 
     void LoadTutorialCompletion(ProfileData data)
     {
-        tutorialIsDone = data.tutroialIsDone;
+        tutorialIsDone[GlobalData.profileNumber] = data.tutroialIsDone;
     }
 
-    bool CheckTutorialCompletion(int profileNumber)
+    bool CheckTutorialCompletion()
     {
-        return tutorialIsDone;
+        return tutorialIsDone[GlobalData.profileNumber];
     }
 
     public void Save()
@@ -91,6 +105,7 @@ public class ProfileManager : MonoBehaviour
 
         if(SceneManager.GetActiveScene().buildIndex == 2)
         {
+            //If in DA then dont save materials when quitting.
             newProfileData.log = nutrientTrackerScript.storedLog;
             newProfileData.exoskeleton = nutrientTrackerScript.storedExoskeleton;
             newProfileData.calcite = nutrientTrackerScript.storedCalcite;
@@ -98,13 +113,14 @@ public class ProfileManager : MonoBehaviour
         }
         else
         {
+            //If not, save the materials when quitting
             newProfileData.log = profileData.log;
             newProfileData.exoskeleton = profileData.exoskeleton;
             newProfileData.calcite = profileData.calcite;
             newProfileData.flesh = profileData.flesh;
         }
         
-        newProfileData.tutroialIsDone = tutorialIsDone;
+        newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         //Debug.Log(json);
@@ -122,7 +138,7 @@ public class ProfileManager : MonoBehaviour
         newProfileData.calcite = nutrientTrackerScript.storedCalcite;
         newProfileData.flesh = nutrientTrackerScript.storedFlesh;
 
-        newProfileData.tutroialIsDone = tutorialIsDone;
+        newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         Debug.Log(json);
