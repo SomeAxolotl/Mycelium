@@ -26,7 +26,14 @@ public class WeaponCollision : MonoBehaviour
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
             Debug.Log(other.gameObject);
-            other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
+            if (other.GetComponent<EnemyHealth>() != null)
+            {
+                other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
+            }
+            else if(other.GetComponent<BossHealth2>() != null)
+            {
+                other.GetComponent<BossHealth2>().EnemyTakeDamage(dmgDealt);
+            }
             if(relentlessFury != null)
             {
                 if(relentlessFury.isFrenzied)

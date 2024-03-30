@@ -2,114 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class TempMovement : MonoBehaviour
 {
-    public bool playerSeen;
-    [SerializeField] private float turnModifier = .5f;
-    public bool attacking = false;
-    //private bool startedPatrol = false;
-    //private float patrolRadius = 10f;
-    [HideInInspector] public float speed;
-    private float rerouteTimer;
-    [HideInInspector] public float attackStopdistance;
-    private Vector3 previousPosition;
-    private Collider[] playerColliders;
-    public LayerMask playerLayer;
-    public LayerMask obstacleLayer;
-    [HideInInspector] public Transform player;
-    [SerializeField] private float fieldOfView = 60f;
-    [SerializeField] private float detectionRange = 30f;
-    [SerializeField] private float backwardsDetectionRange = 15f;
-    public bool undergrowthSpeed;
-
-    // turning
-    /*[HideInInspector] */public bool playerIsRight;
-    /*[HideInInspector] */public bool playerIsLeft;
-    public float previousRotationY;
+    private Transform player;
 
     // Start is called before the first frame update
     void Start()
     {
-        //transform.rotation = Quaternion.Euler(46, 0, 0);
-        previousPosition = transform.position;
-        previousRotationY = transform.eulerAngles.y;
-        playerIsRight = false;
-        playerIsLeft = false;
+        player = GameObject.FindWithTag("currentPlayer").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // transform.rotation = Quaternion.Euler(46, 0, 0);
-        Vector3 currentVelocity = (transform.position - previousPosition) / Time.deltaTime;
-        previousPosition = transform.position;
-        speed = currentVelocity.magnitude;
 
-        playerColliders = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
-        foreach (var playerCollider in playerColliders)
-        {
-            player = playerCollider.transform;
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            float dstToPlayer = Vector3.Distance(transform.position, player.position);
-            var newRotation = Quaternion.LookRotation(dirToPlayer);
-
-            float angleToPlayer = Vector3.SignedAngle(transform.forward, dirToPlayer, Vector3.up);
-
-            if ((angleToPlayer < fieldOfView && !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), dirToPlayer, dstToPlayer, obstacleLayer)) ||
-                dstToPlayer <= backwardsDetectionRange)
-            {
-                playerSeen = true;
-                //startedPatrol = false;
-
-                if (!attacking)
-                {
-                    newRotation = new Quaternion (transform.rotation.x, Quaternion.LookRotation(dirToPlayer).y, transform.rotation.z, transform.rotation.w);
-                    //transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * turnModifier);
-                    //newRotation.eulerAngles = new Vector3(46f, newRotation.eulerAngles.y, newRotation.eulerAngles.z);
-                    transform.rotation = newRotation;
-
-                    float deltaYRotation = Mathf.DeltaAngle(previousRotationY, transform.eulerAngles.y);
-                    //turningRight = deltaYRotation > 0;
-                    //turningLeft = deltaYRotation < 0;
-                    previousRotationY = transform.eulerAngles.y;
-
-                    if (angleToPlayer > 0)
-                    {
-                        // Perform the action when the player is to the right
-                        playerIsRight = true;
-                        playerIsLeft = false;
-                    }
-
-                    if (angleToPlayer < 0)
-                    {
-                        // Perform the action when the player is to the right
-                        playerIsLeft = true;
-                        playerIsRight = false;
-                    }
-                }
-                else if (attacking)
-                {
-                    // newRotation = new Quaternion (transform.rotation.x, Quaternion.LookRotation(dirToPlayer).y, transform.rotation.z, transform.rotation.w);
-                    // transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * turnModifier / 5);
-                    //newRotation.eulerAngles = new Vector3(46f, newRotation.eulerAngles.y, newRotation.eulerAngles.z);
-                    //transform.rotation = newRotation;
-                }
-            }
-            else
-            {
-
-                playerSeen = false;
-            }
-        }
-
-        if (speed < .25f && !playerSeen)
-        {
-            rerouteTimer += Time.deltaTime;
-        }
-        else
-        {
-            rerouteTimer = 0;
-        }
+    }
+    private void FixedUpdate()
+    {
+        Vector3 dirToPlayer = (transform.position - player.position).normalized;
+        Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
+        float desiredYRotation = desiredRotation.eulerAngles.y + 180f;
+        Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
+        float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
+        float maxAngleThisFrame = 1f * Time.fixedDeltaTime;
+        //float fractionOfTurn = Mathf.Min(maxAngleThisFrame / angleToTarget, 1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxAngleThisFrame);
     }
 }

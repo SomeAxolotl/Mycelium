@@ -7,14 +7,12 @@ using UnityEngine.EventSystems;
 
 public class MonsterBossAttack : MonoBehaviour
 {
-    private TempMovement bossMovement;
-    [SerializeField] public float attractionForce = 25.0f;
+    [SerializeField] public float attractionForce = 200f;
     [SerializeField] public float attractionRadius = 20.0f;
     [SerializeField] public float pullInterval = 5.0f;
     public float pullDistance = 2f;
     public float pullHeightOffset = 1f;
     private float elapsedTime = 0.0f;
-    public Transform pullOrigin;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
     public bool canAttack = true;
@@ -53,7 +51,6 @@ public class MonsterBossAttack : MonoBehaviour
     void Start()
     {
         PlayerController playerController = GetComponent<PlayerController>();
-        bossMovement = GetComponent<TempMovement>();
         attack = this.Attack(damage);
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;
@@ -73,11 +70,7 @@ public class MonsterBossAttack : MonoBehaviour
             
             elapsedTime = 0.0f; // Reset the timer
         }
-        if (!bossMovement.playerSeen)
-        {
-            CancelAttack();
-        }
-        else if (bossMovement.playerSeen && canAttack && dstToPlayer <= 12f)
+        else if (canAttack && dstToPlayer <= 12f)
         {
             isTailAttacking = false;
             if (!isRandomOnCooldown)
@@ -85,7 +78,7 @@ public class MonsterBossAttack : MonoBehaviour
                 StartCoroutine(TriggerRandomAttacksWithDelay());
             }
         }
-        if (dstToPlayer > 12f && bossMovement.playerSeen && canAttack)
+        if (dstToPlayer > 12f && canAttack)
         {
 
             if (!isTailAttacking && !tailAttackOnCooldown)
@@ -132,18 +125,6 @@ public class MonsterBossAttack : MonoBehaviour
         canAttack = true;
         isAttacking = false;
     }
-
-    public void CancelAttack()
-    {
-        StopAllCoroutines();
-        attack = Attack(damage);
-        isAttacking = false;
-        playerDamaged = false;
-        playerHit.Clear();
-        canAttack = true;
-        resetAttack = 0f;
-    }
-
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "currentPlayer" && other.gameObject.GetComponentInParent<PlayerController>().isInvincible == false && !playerHit.Contains(other.gameObject) && isAttacking)
@@ -186,13 +167,11 @@ public class MonsterBossAttack : MonoBehaviour
     private void PullPlayers()
     {
         ParticleManager.Instance.SpawnParticles("BossSandPullParticles", gameObject.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
-        playerColliders = Physics.OverlapSphere(pullOrigin.position, attractionRadius, playerLayer);
-        foreach (var playerCollider in playerColliders)
+        float disToPlayer = Vector3.Distance(transform.position, player.position);
+        if(disToPlayer <= attractionRadius)
         {
-            if (playerCollider.CompareTag("currentPlayer"))
-            {
-                StartCoroutine(ApplyAttractionForceOverTime(playerCollider.transform));
-            }
+            StartCoroutine(ApplyAttractionForceOverTime());
+            Debug.Log("PULLED");
         }
     }
     private void OnDrawGizmosSelected()
@@ -200,21 +179,19 @@ public class MonsterBossAttack : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attractionRadius);
     }
-    private IEnumerator ApplyAttractionForceOverTime(Transform playerTransform)
+    private IEnumerator ApplyAttractionForceOverTime()
     {
         float elapsedTime = 0.0f;
-        Vector3 initialPosition = playerTransform.position;
 
         while (elapsedTime < 5.0f) // Change 5.0f to the desired duration
         {
-            Vector3 direction = pullOrigin.position - playerTransform.position;
+            Vector3 direction = new Vector3(transform.position.x, player.position.y, transform.position.z) - player.position;
             float distance = direction.magnitude;
 
-            if (distance <= attractionRadius)
-            {
-                float strength = (1.0f - distance / attractionRadius) * attractionForce;
-                playerTransform.GetComponentInParent<Rigidbody>().AddForce(direction.normalized * strength);
-            }
+            float strength = (1.0f - distance / attractionRadius) * attractionForce;
+            Vector3 pullForce = (direction.normalized * strength);
+            Debug.Log("pullforce: " + pullForce);
+            player.GetComponent<Rigidbody>().AddForce(pullForce, ForceMode.Force);
 
             elapsedTime += Time.deltaTime;
             yield return null;

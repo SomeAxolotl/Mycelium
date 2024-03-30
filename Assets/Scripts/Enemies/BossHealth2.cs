@@ -20,10 +20,14 @@ public class BossHealth2 : EnemyHealth
         ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
 
         HUDBoss hudBoss = GameObject.Find("HUD").GetComponent<HUDBoss>();
-        hudBoss.UpdateBossHealthUI(currentHealth, maxHealth);
-
-        if(currentHealth <= 0 && !alreadyDead)
+        if (currentHealth + dmgTaken > 0)
         {
+            hudBoss.UpdateBossHealthUI(currentHealth, maxHealth);
+        }
+
+        if (currentHealth <= 0 && !alreadyDead)
+        {
+            hudBoss.UpdateBossHealthUI(0f, maxHealth);
             StartCoroutine(Death());
         }
 
