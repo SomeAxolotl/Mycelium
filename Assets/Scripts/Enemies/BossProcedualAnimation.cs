@@ -105,8 +105,8 @@ public class BossProcedualAnimation : MonoBehaviour
             {
                 yield return new WaitForSeconds(delayTime);
 
-                playerIsRight = tempMovement.playerIsRight;
-                playerIsLeft = tempMovement.playerIsLeft;
+                //playerIsRight = tempMovement.playerIsRight;
+                //playerIsLeft = tempMovement.playerIsLeft;
 
                 if (playerIsRight)
                 {
@@ -139,7 +139,7 @@ public class BossProcedualAnimation : MonoBehaviour
         // move left arm
         yield return StartCoroutine(MoveLeftSecondArm());
         // move head
-        yield return StartCoroutine(RotateBody());
+        //yield return StartCoroutine(RotateBody());
         // Lean the body
         // yield return StartCoroutine(LeanBody());
         // resetting
@@ -155,7 +155,7 @@ public class BossProcedualAnimation : MonoBehaviour
         // move left arm
         yield return StartCoroutine(MoveRightSecondArm());
         // move head
-        yield return StartCoroutine(RotateBody());
+        //yield return StartCoroutine(RotateBody());
         // Lean the body
         // yield return StartCoroutine(LeanBody());
         // resetting
@@ -257,7 +257,7 @@ public class BossProcedualAnimation : MonoBehaviour
     }
 
     // turning body based on head
-    IEnumerator RotateBody()
+    /*IEnumerator RotateBody()
     {
         // do this over a certain amount of time
         float elapsedTime = 0.0f;
@@ -277,7 +277,7 @@ public class BossProcedualAnimation : MonoBehaviour
             yield return null;
         }
         spine.rotation = Quaternion.Euler(originalBodyRotation.eulerAngles.x, spine.rotation.eulerAngles.y, originalBodyRotation.eulerAngles.z);
-    }
+    }*/
 
     IEnumerator LeanBody()
     {
