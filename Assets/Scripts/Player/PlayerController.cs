@@ -91,8 +91,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!canUseAttack && animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
             {
-                StopCoroutine(playerAttack.attackstart);
-                StopCoroutine(playerAttack.lunge);
+                playerAttack.StopAllCoroutines();
                 playerAttack.animator.Rebind();
                 moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
                 playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
