@@ -70,24 +70,19 @@ public class MonsterBossAttack : MonoBehaviour
             
             elapsedTime = 0.0f; // Reset the timer
         }
-        if (dstToPlayer > 12f && canAttack)
+        
+        
+        if (!tailAttackOnCooldown && this.gameObject != null && dstToPlayer > 12f)
         {
-
-            if (!isTailAttacking && !tailAttackOnCooldown)
-            {
-                isTailAttacking = true;
-                StartCoroutine(TailAttack());
-            }
+           StartCoroutine(TailAttack());
         }
-        else if (canAttack && dstToPlayer <= 12f)
+        
+        
+        if (!isRandomOnCooldown && this.gameObject != null && dstToPlayer <= 12f)
         {
-            isTailAttacking = false;
-            tailAttackOnCooldown = true;
-            if (!isRandomOnCooldown)
-            {
-                StartCoroutine(TriggerRandomAttacksWithDelay());
-            }
+           StartCoroutine(TriggerRandomAttacksWithDelay());
         }
+        
         if (isAttacking)
         {
             resetAttack += Time.deltaTime;
@@ -200,10 +195,6 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private IEnumerator TailAttack()
     {
-        if (tailAttackOnCooldown)
-            {
-                yield break;
-            }
             tailAttackOnCooldown = true;
             //animator.SetTrigger("TailAttack");
             //Debug.Log("TAIL ATTACK!");
@@ -219,7 +210,7 @@ public class MonsterBossAttack : MonoBehaviour
             spawnPosition += Vector3.up * yOffset;
             Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
             GameObject bossTailInstance = Instantiate(bossTail, spawnPosition + new Vector3(0, -5f, 0), rotation, null);
-            ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition, Quaternion.Euler(-90,0,0));
+            ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition, Quaternion.Euler(-90, 0, 0));
             yield return new WaitForSeconds(1.0f);
             StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
             StartCoroutine(Attack(tailAttackDamage));
@@ -227,16 +218,17 @@ public class MonsterBossAttack : MonoBehaviour
             ApplyKnockbackToPlayer();
 
             yield return new WaitForSeconds(5f);
-        //Debug.Log("Tail Attack off cooldown!");
-        if (bossTailInstance != null)
-        {
-            Destroy(bossTailInstance);
-            bossTailInstance = null;
-        }
-
-        tailAttackOnCooldown = false;
+            //Debug.Log("Tail Attack off cooldown!");
+            if (bossTailInstance != null)
+            {
+                Destroy(bossTailInstance);
+                bossTailInstance = null;
+            }
+            tailAttackOnCooldown = false;
 
             isTailAttacking = false;
+        
+        
         
     }
     private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
@@ -337,8 +329,6 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private IEnumerator TriggerRandomAttacksWithDelay()
     {
-        while (true)
-        {
             if (!isRandomOnCooldown)
             {
                 TriggerRandomAttack();
@@ -351,7 +341,7 @@ public class MonsterBossAttack : MonoBehaviour
             {
                 yield return null;
             }
-        }
+        
     }
 }
 
