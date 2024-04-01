@@ -70,14 +70,6 @@ public class MonsterBossAttack : MonoBehaviour
             
             elapsedTime = 0.0f; // Reset the timer
         }
-        else if (canAttack && dstToPlayer <= 12f)
-        {
-            isTailAttacking = false;
-            if (!isRandomOnCooldown)
-            {
-                StartCoroutine(TriggerRandomAttacksWithDelay());
-            }
-        }
         if (dstToPlayer > 12f && canAttack)
         {
 
@@ -85,6 +77,15 @@ public class MonsterBossAttack : MonoBehaviour
             {
                 isTailAttacking = true;
                 StartCoroutine(TailAttack());
+            }
+        }
+        else if (canAttack && dstToPlayer <= 12f)
+        {
+            isTailAttacking = false;
+            tailAttackOnCooldown = true;
+            if (!isRandomOnCooldown)
+            {
+                StartCoroutine(TriggerRandomAttacksWithDelay());
             }
         }
         if (isAttacking)
@@ -199,10 +200,7 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private IEnumerator TailAttack()
     {
-
-        while (true)
-        {
-            if (tailAttackOnCooldown)
+        if (tailAttackOnCooldown)
             {
                 yield break;
             }
@@ -229,13 +227,16 @@ public class MonsterBossAttack : MonoBehaviour
             ApplyKnockbackToPlayer();
 
             yield return new WaitForSeconds(5f);
-            //Debug.Log("Tail Attack off cooldown!");
+        //Debug.Log("Tail Attack off cooldown!");
+        if (bossTailInstance != null)
+        {
             Destroy(bossTailInstance);
+            bossTailInstance = null;
+        }
 
-            tailAttackOnCooldown = false;
+        tailAttackOnCooldown = false;
 
             isTailAttacking = false;
-        }
         
     }
     private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
