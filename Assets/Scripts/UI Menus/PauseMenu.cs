@@ -21,6 +21,8 @@ public class PauseMenu : MonoBehaviour
     SceneLoader sceneLoaderScript;
     bool isOnMainMenu;
     private string audioTag;
+    [HideInInspector] public int profileToDelete;
+    [HideInInspector] public Button profileToSelect;
 
     private SporeManager sporeManagerScript;
     private ProfileManager profileManagerScript;
@@ -151,6 +153,32 @@ public class PauseMenu : MonoBehaviour
         Destroy(weapon);
         //GameManager.Instance.OnExitToHub();
         sceneLoaderScript.BeginLoadScene(2, true);
+    }
+
+    public void SelectProfileButton()
+    {
+        profileToSelect.Select();
+    }
+
+    public void DeleteProfile()
+    {
+        string sporeFilePath;
+        string profileFilePath;
+
+        if (Application.isEditor)
+        {
+            sporeFilePath = Application.dataPath + "/SporeData" + profileToDelete + ".json";
+            profileFilePath = Application.dataPath + "/ProfileData" + profileToDelete + ".json";
+        }
+        else
+        {
+            sporeFilePath = Application.persistentDataPath + "/SporeData" + profileToDelete + ".json";
+            profileFilePath = Application.persistentDataPath + "/ProfileData" + profileToDelete + ".json";
+        }
+
+        File.Delete(sporeFilePath);
+        File.Delete(profileFilePath);
+        profileManagerScript.tutorialIsDone[profileToDelete] = false;
     }
 
     public void DeleteAllSaveData()

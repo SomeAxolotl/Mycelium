@@ -13,6 +13,18 @@ public class CharacterStats : MonoBehaviour
         {"NoSkill"}
     };
 
+    public enum SporePersonalities
+    {
+        Energetic,
+        Lazy,
+        Friendly,
+        Curious,
+        Playful
+    }
+    public SporePersonalities sporePersonality;
+
+    public float sporeHappiness = 0.5f;
+
     //Able to be equipped
     public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
     {
@@ -57,7 +69,7 @@ public class CharacterStats : MonoBehaviour
     public int levelUpCost;
     private NutrientTracker nutrientTracker;
     private DesignTracker designTracker;
-    private SporeAttributeIncrements sporeAttributeIncrements;
+    private SporeAttributeRanges sporeAttributeRanges;
     private PlayerController playerController;
     private SkillManager skillManager;
     public GameObject ConfirmPrimal;
@@ -75,7 +87,7 @@ public class CharacterStats : MonoBehaviour
         designTracker = GetComponent<DesignTracker>();
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
-        sporeAttributeIncrements = playerParent.GetComponent<SporeAttributeIncrements>();
+        sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
         
     }
 
@@ -802,11 +814,11 @@ public class CharacterStats : MonoBehaviour
 
     IEnumerator CalculateAttributes()
     {
-        primalDmg = Mathf.RoundToInt(sporeAttributeIncrements.attackDamageBase + ((primalLevel - 1) * sporeAttributeIncrements.attackDamageIncrement));
-        baseHealth = Mathf.RoundToInt(sporeAttributeIncrements.healthBase + ((vitalityLevel - 1) * sporeAttributeIncrements.healthIncrement));
-        baseRegen = sporeAttributeIncrements.regenBase + ((vitalityLevel - 1) * sporeAttributeIncrements.regenIncrement);
-        moveSpeed = sporeAttributeIncrements.moveSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.moveSpeedIncrement);
-        animatorSpeed = sporeAttributeIncrements.attackSpeedBase + ((speedLevel - 1) * sporeAttributeIncrements.attackSpeedIncrement);
+        primalDmg = Mathf.RoundToInt(sporeAttributeRanges.attackDamageBase + ((primalLevel - 1) * sporeAttributeRanges.attackDamageIncrement));
+        baseHealth = Mathf.RoundToInt(sporeAttributeRanges.healthBase + ((vitalityLevel - 1) * sporeAttributeRanges.healthIncrement));
+        baseRegen = sporeAttributeRanges.regenBase + ((vitalityLevel - 1) * sporeAttributeRanges.regenIncrement);
+        moveSpeed = sporeAttributeRanges.moveSpeedBase + ((speedLevel - 1) * sporeAttributeRanges.moveSpeedIncrement);
+        animatorSpeed = sporeAttributeRanges.attackSpeedBase + ((speedLevel - 1) * sporeAttributeRanges.attackSpeedIncrement);
 
         //Debug.Log(primalLevel + "---" + sentienceLevel + "---" + speedLevel + "---" + vitalityLevel);
 

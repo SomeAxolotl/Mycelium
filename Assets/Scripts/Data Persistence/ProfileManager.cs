@@ -16,13 +16,12 @@ public class ProfileManager : MonoBehaviour
 
     void Start()
     {
-        tutorialIsDone.Add(false);
-        tutorialIsDone.Add(false);
-        tutorialIsDone.Add(false);
+        if(GlobalData.gameIsStarting == true)
+        {
+            GlobalData.profileNumber = 0;
+        }
 
-        GlobalData.profileNumber = 0;
-
-        SetFilePath();
+        SetPathAndData(GlobalData.profileNumber);
 
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
@@ -33,7 +32,7 @@ public class ProfileManager : MonoBehaviour
             LoadProfile(profileData);
         }
 
-        LoadTutorialCompletion(profileData);
+        LoadTutorialCompletion();
     }
 
     void OnApplicationQuit()
@@ -44,10 +43,10 @@ public class ProfileManager : MonoBehaviour
         }
     }
 
-    void SetFilePath()
+    void SetPathAndData(int profileNumber)
     {
         //Check profile number
-        if(GlobalData.profileNumber > 2 || GlobalData.profileNumber < 0)
+        if(profileNumber > 2 || profileNumber < 0)
         {
             Debug.LogError("Bad profile number! Profile numbers must be 0, 1, or 2");
         }
@@ -55,11 +54,11 @@ public class ProfileManager : MonoBehaviour
         //Set the file path
         if (Application.isEditor)
         {
-            filePath = Application.dataPath + "/ProfileData" + GlobalData.profileNumber + ".json";
+            filePath = Application.dataPath + "/ProfileData" + profileNumber + ".json";
         }
         else
         {
-            filePath = Application.persistentDataPath + "/ProfileData" + GlobalData.profileNumber + ".json";
+            filePath = Application.persistentDataPath + "/ProfileData" + profileNumber + ".json";
         }
 
         //Begin Reading ProfileData.json
@@ -87,14 +86,15 @@ public class ProfileManager : MonoBehaviour
         nutrientTrackerScript.storedFlesh = data.flesh;
     }
 
-    void LoadTutorialCompletion(ProfileData data)
+    void LoadTutorialCompletion()
     {
-        tutorialIsDone[GlobalData.profileNumber] = data.tutroialIsDone;
-    }
+        for(int i = 0; i <= 2; i++)
+        {
+            SetPathAndData(i);
+            tutorialIsDone.Add(profileData.tutroialIsDone);
+        }
 
-    bool CheckTutorialCompletion()
-    {
-        return tutorialIsDone[GlobalData.profileNumber];
+        SetPathAndData(GlobalData.profileNumber);
     }
 
     public void Save()

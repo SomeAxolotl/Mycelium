@@ -6,9 +6,17 @@ using RonaldSunglassesEmoji.Interaction;
 public class WeaponInteraction : MonoBehaviour, IInteractable
 {
     SwapWeapon swapWeapon;
+    [SerializeField] private int nutrientsSalvaged = 200;
+    NutrientTracker nutrientTracker;
+    ThirdPersonActionsAsset playerActionsAsset;
+    GameObject player;
 
     void Start()
     {
+        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset.Player.Enable();
+        player = GameObject.FindWithTag("currentPlayer");
+        nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         swapWeapon = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
     }
 
@@ -46,7 +54,10 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     public void Salvage(GameObject interactObject)
     {
-        //buh
+        if (interactObject.transform.tag == "Weapon" && interactObject.transform.tag != "currentWeapon")
+        {
+            SalvageNutrients(nutrientsSalvaged);
+        }
     }
 
     public void CreateTooltip(GameObject interactObject)
@@ -92,17 +103,26 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         string weaponName = newStats.wpnName;
         string buttonText = "<color=#3cdb4e>A</color>";
         TooltipManager.Instance.CreateTooltip
-            (weapon.gameObject, 
-            weaponName, 
-            "Speed: " + newStats.wpnSpeed + 
-            "\nDamage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + 
-            "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, 
-            "Press "+buttonText+" to Swap"
+            (
+                weapon.gameObject, 
+                weaponName, 
+                "Speed: " + newStats.wpnSpeed + 
+                "\nDamage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + 
+                "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, 
+                "Press "+buttonText+" to Swap",
+                "Hold "+buttonText+" to Salvage"
             );
     }
 
     public void DestroyTooltip(GameObject interactObject)
     {
         TooltipManager.Instance.DestroyTooltip();
+    }
+    void SalvageNutrients(int nutrientAmount)
+    {
+        nutrientTracker.AddNutrients(nutrientAmount);
+        ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientAmount / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        TooltipManager.Instance.DestroyTooltip();
+        Destroy(this.gameObject);
     }
 }

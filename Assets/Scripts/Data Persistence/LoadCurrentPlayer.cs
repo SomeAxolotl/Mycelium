@@ -32,27 +32,7 @@ public class LoadCurrentPlayer : MonoBehaviour
         swapCharacterScript.characters.RemoveAll(item => item == null);
         swapCharacterScript.currentCharacterIndex = swapCharacterScript.characters.IndexOf(GameObject.FindWithTag("currentPlayer"));
 
-        //Begin Reading SporeData.json
-        if (Application.isEditor)
-        {
-            filePath = Application.dataPath + "/SporeData.json";
-        }
-        else
-        {
-            filePath = Application.persistentDataPath + "/SporeData.json";
-        }
-
-        try
-        {
-            sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
-        }
-        catch
-        {
-            Debug.LogWarning("No SporeData.json file! If this is the tutorial or main menu this is ok.");
-
-            //Application.Quit();
-
-        }
+        SetPathAndData(GlobalData.profileNumber);
 
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
@@ -68,6 +48,28 @@ public class LoadCurrentPlayer : MonoBehaviour
                     LoadSpores(sporeData);
                 }
             }
+        }
+    }
+
+    void SetPathAndData(int profileNumber)
+    {
+        //Begin Reading SporeData.json
+        if (Application.isEditor)
+        {
+            filePath = Application.dataPath + "/SporeData" + profileNumber + ".json";
+        }
+        else
+        {
+            filePath = Application.persistentDataPath + "/SporeData" + profileNumber + ".json";
+        }
+
+        try
+        {
+            sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
+        }
+        catch
+        {
+            Debug.LogWarning("No SporeData.json file! If this is the tutorial or main menu this is ok.");
         }
     }
 

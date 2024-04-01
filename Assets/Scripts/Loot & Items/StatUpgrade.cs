@@ -10,6 +10,8 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     ThirdPersonActionsAsset playerActionsAsset;
     GameObject player;
     CharacterStats characterStats;
+    int statNumber1;
+    int statNumber2;
     string upgradeStat1;
     string upgradeStat2;
 
@@ -20,9 +22,9 @@ public class StatUpgrade : MonoBehaviour, IInteractable
         playerActionsAsset.Player.Enable();
 
         List<int> statNumbers = new List<int> {0, 1, 2, 3};
-        int statNumber1 = statNumbers[Random.Range(0, statNumbers.Count)];
+        statNumber1 = statNumbers[Random.Range(0, statNumbers.Count)];
         statNumbers.Remove(statNumber1);
-        int statNumber2 = statNumbers[Random.Range(0, statNumbers.Count)];
+        statNumber2 = statNumbers[Random.Range(0, statNumbers.Count)];
 
         upgradeStat1 = NumberToStat(statNumber1);
         upgradeStat2 = NumberToStat(statNumber2);
@@ -69,7 +71,13 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     public void CreateTooltip(GameObject interactObject)
     {
         string buttonText = "<color=#3cdb4e>A</color>";
-        TooltipManager.Instance.CreateTooltip(gameObject, "Nutrient Deposit", "Press "+buttonText+" - " + multiplyAmount + "x " + upgradeStat1 + "\nOR" + "\nHold "+buttonText+" - " + multiplyAmount + "x " +upgradeStat2, "Choose One");
+        TooltipManager.Instance.CreateTooltip
+        (
+            gameObject, 
+            "Nutrient Deposit", 
+            "Press "+buttonText+"  <sprite="+statNumber1+"> x " + multiplyAmount + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> x " + multiplyAmount, 
+            "Choose One"
+        );
     }
 
     public void DestroyTooltip(GameObject interactObject)

@@ -38,17 +38,30 @@ public class SporeManager : MonoBehaviour
         swapCharacterScript.characters.RemoveAll(item => item == null);
         swapCharacterScript.currentCharacterIndex = swapCharacterScript.characters.IndexOf(GameObject.FindWithTag("currentPlayer"));
 
-        //if(PlayerParent.activeSelf == true)                   //Necessary to have the SwapCharacters function work, unless SwapCharacters is reworked separately
-        //    PlayerParent.SetActive(false);
+        SetPathAndData(GlobalData.profileNumber);
 
+        //For each SporeData in the json, populate its stats and design
+        foreach (SporeData sporeData in sporeDataList.Spore_Data)
+        {
+            LoadSpores(sporeData);
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    void SetPathAndData(int profileNumber)
+    {
         //Begin Reading SporeData.json
         if (Application.isEditor)
         {
-            filePath = Application.dataPath + "/SporeData.json";
+            filePath = Application.dataPath + "/SporeData" + profileNumber + ".json";
         }
         else
         {
-            filePath = Application.persistentDataPath + "/SporeData.json";
+            filePath = Application.persistentDataPath + "/SporeData" + profileNumber + ".json";
         }
 
         try
@@ -65,17 +78,6 @@ public class SporeManager : MonoBehaviour
             sporeDataList = defaultSporeData;
             //Debug.Log(sporeDataList);
         }
-
-        //For each SporeData in the json, populate its stats and design
-        foreach (SporeData sporeData in sporeDataList.Spore_Data)
-        {
-            LoadSpores(sporeData);
-        }
-    }
-
-    void OnApplicationQuit()
-    {
-        Save();
     }
 
     void LoadSpores(SporeData sporeData)
@@ -134,13 +136,6 @@ public class SporeManager : MonoBehaviour
 
         //Run Spore Setup functions
         StartCoroutine(RunSporeSetup(sporeData, stats, design));
-
-        //-------Some Dylan Comments-----------
-        //design.ForceUpdateBlendshaped(sporeData.lvlSentience,sporeData.lvlPrimal,sporeData.lvlVitality, sporeData.lvlSpeed);      //<---- Moved to Start() for CharacterStats
-        //PlayerParent.GetComponent<SwapCharacter>().characters.Add(Spore);     //<---- Unnecessary if PlayerParent does not exist in Spore Manager
-
-        //PlayerParent.SetActive(true);
-        //testingManager.gameObject.SetActive(true);
     }
 
     IEnumerator RunSporeSetup(SporeData sporeData, CharacterStats stats, DesignTracker design)
