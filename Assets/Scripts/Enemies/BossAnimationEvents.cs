@@ -11,6 +11,8 @@ public class BossAnimationEvents : MonoBehaviour
         GameObject player = GameObject.FindWithTag("PlayerParent");
         player.GetComponent<PlayerController>().playerActionsAsset.Player.Enable();
         player.GetComponent<PlayerAttack>().playerActionsAsset.Player.Enable();
+        GameObject colliderObj = GameObject.Find("StartAnimBoss");
+        colliderObj.SetActive(false);
     }
     
     void Finish()
