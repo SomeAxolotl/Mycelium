@@ -36,20 +36,20 @@ public class SporeInteraction : MonoBehaviour, IInteractable
         //coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(capColor) + ">"+characterStats.sporeName+"</color>";
 
         string buttonText = "<color=#3cdb4e>A</color>";
-        int subspeciesSkillIconIndex = 4;
+        int subspeciesSkillIconIndex = 8;
         switch (characterStats.equippedSkills[0])
         {
             case "FungalMight":
-                subspeciesSkillIconIndex = 4;
+                subspeciesSkillIconIndex = 8;
                 break;
             case "DeathBlossom":
-                subspeciesSkillIconIndex = 5;
+                subspeciesSkillIconIndex = 9;
                 break;
             case "FairyRing":
-                subspeciesSkillIconIndex = 6;
+                subspeciesSkillIconIndex = 10;
                 break;
             case "Zombify":
-                subspeciesSkillIconIndex = 7;
+                subspeciesSkillIconIndex = 11;
                 break;
         }
         TooltipManager.Instance.CreateTooltip
