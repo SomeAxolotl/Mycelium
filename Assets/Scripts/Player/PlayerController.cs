@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private GameObject currentPlayer;
     public Rigidbody rb;
     public Vector3 forceDirection = Vector3.zero;
-    [HideInInspector] public float moveSpeed;
+     public float moveSpeed;
     private float gravityForce = -25f;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;

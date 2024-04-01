@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class BossAnimationEvents : MonoBehaviour
 {
+    void IntroAnim()
+    {
+        GameObject boss = GameObject.Find("Rival Colony Leader");
+        boss.GetComponent<MonsterBossAttack>().enabled = true;
+        GameObject player = GameObject.FindWithTag("PlayerParent");
+        player.GetComponent<PlayerController>().playerActionsAsset.Player.Enable();
+        player.GetComponent<PlayerAttack>().playerActionsAsset.Player.Enable();
+    }
+    
     void Finish()
     {
         GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject curWeapon;
-    private ThirdPersonActionsAsset playerActionsAsset;
+    [HideInInspector] public ThirdPersonActionsAsset playerActionsAsset;
     private InputAction attack;
     private SwapCharacter swapCharacter;
     public float dmgDealt;

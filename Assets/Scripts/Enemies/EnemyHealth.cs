@@ -125,17 +125,9 @@ public class EnemyHealth : MonoBehaviour
         boss.GetComponent<Animator>().SetTrigger("Death");
 
         GameObject player = GameObject.FindWithTag("PlayerParent");
-        player.GetComponent<PlayerController>().moveSpeed = 0;
+        player.GetComponent<PlayerController>().playerActionsAsset.Player.Disable();
+        player.GetComponent<PlayerAttack>().playerActionsAsset.Player.Disable();
         yield return null;
-        // if (bossDead == true)
-        // {
-        //     Debug.Log("true");
-        //     yield return null;
-        // }
-        // GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();
-        // alreadyDead = true;
-        // ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
-        // this.gameObject.SetActive(false);
     }
 
     public bool HasTakenDamage()
