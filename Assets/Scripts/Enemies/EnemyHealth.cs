@@ -15,7 +15,7 @@ public class EnemyHealth : MonoBehaviour
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     public Transform centerPoint;
     protected bool hasTakenDamage = false;
-    protected bool alreadyDead = false;
+    [HideInInspector] public bool alreadyDead = false;
     Animator animator;
 
     private ProfileManager profileManagerScript;
@@ -104,6 +104,38 @@ public class EnemyHealth : MonoBehaviour
         }
 
         this.gameObject.SetActive(false);
+    }
+    protected IEnumerator BossDeath()
+    {
+        GameObject boss = GameObject.Find("Rival Colony Leader");
+
+        Collider[] bossCollider = boss.GetComponents<Collider>();
+        foreach (Collider collider in bossCollider)
+        {
+            collider.enabled = false;
+        }
+        Collider[] childColliders = boss.GetComponentsInChildren<Collider>();
+        foreach (Collider collider in childColliders)
+        {
+            collider.enabled = false;
+        }
+
+        boss.GetComponent<MonsterBossAttack>().enabled = false;
+        boss.GetComponent<TempMovement>().enabled = false;
+        boss.GetComponent<Animator>().SetTrigger("Death");
+
+        GameObject player = GameObject.FindWithTag("PlayerParent");
+        player.GetComponent<PlayerController>().moveSpeed = 0;
+        yield return null;
+        // if (bossDead == true)
+        // {
+        //     Debug.Log("true");
+        //     yield return null;
+        // }
+        // GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();
+        // alreadyDead = true;
+        // ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        // this.gameObject.SetActive(false);
     }
 
     public bool HasTakenDamage()

@@ -28,7 +28,7 @@ public class BossHealth2 : EnemyHealth
         if (currentHealth <= 0 && !alreadyDead)
         {
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
-            StartCoroutine(Death());
+            StartCoroutine(BossDeath());
         }
 
         hasTakenDamage = true;
