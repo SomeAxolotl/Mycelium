@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tutorial_Ground
-  m_Shader: {fileID: -6465566751694194690, guid: d54c0ac1b96ea9b48a3358031e09d919,
+  m_Shader: {fileID: -6465566751694194690, guid: eb825c6d87911424b81faa3e15d173f4,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -17,9 +17,8 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -81,6 +80,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RampTexture:
+        m_Texture: {fileID: 2800000, guid: 47c910ed0450f174aad86b59fe472a4e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -110,11 +113,15 @@ Material:
     - _ClearCoatSmoothness: 0
     - _CliffRockHeight: 0.5
     - _CliffRockThreshold: -134.65
-    - _CliffTiling: 7
+    - _CliffTiling: 4
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DiffuseTiling1: 4.77
+    - _DiffuseTiling2: 5
+    - _DiffuseTiling3: 5
+    - _DirtTiling: 3
     - _Disable_Fresnel: 1
     - _Disable_Specular: 1
     - _DstBlend: 0
@@ -126,7 +133,10 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _GrassBlendLength: 3.06
+    - _GrassHeight: 0
     - _GrassHeightBlend: 2.92
+    - _GrassThreshold: 0
+    - _GrassTiling: 3
     - _LightingCutoff: 0.211
     - _LowGrassHeight: 0
     - _LowGrassThreshold: 0
@@ -156,6 +166,9 @@ Material:
     - _Blending_Edges: {r: 0.4, g: 0.9, b: 0, a: 0}
     - _CliffAdjustmentColor: {r: 0.87169814, g: 0.9851321, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DiffuseTint1: {r: 1, g: 1, b: 1, a: 0}
+    - _DiffuseTint2: {r: 1, g: 1, b: 1, a: 0}
+    - _DiffuseTint3: {r: 1, g: 1, b: 1, a: 0}
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
     - _DirtAdjustmentColor: {r: 0.708319, g: 0.7691902, b: 0.90199995, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
