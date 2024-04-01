@@ -16,6 +16,7 @@ public class CutscenePlayer : MonoBehaviour
     [SerializeField] private float textInbetweenTime;
     [SerializeField] private float textReadTime;
     [SerializeField] private float audioFadeTime;
+    [SerializeField] private float cutsceneVolume;
 
     [HideInInspector] public bool isFinished = false;
     private AudioSource cutsceneMusic;
@@ -148,14 +149,14 @@ public class CutscenePlayer : MonoBehaviour
         {
             t = elapsedTime / transitionTime;
 
-            audioSource.volume = Mathf.Lerp(0f, 1f, t);
+            audioSource.volume = Mathf.Lerp(0f, cutsceneVolume, t);
 
             elapsedTime += Time.unscaledDeltaTime;
 
             yield return null;
         }
 
-        audioSource.volume = 1f;
+        audioSource.volume = cutsceneVolume;
     }
 
     IEnumerator FadeOut(CanvasGroup canvasGroup, float transitionTime)
@@ -182,13 +183,13 @@ public class CutscenePlayer : MonoBehaviour
         float elapsedTime = 0f;
         float t = 0f;
 
-        audioSource.volume = 1f;
+        audioSource.volume = cutsceneVolume;
 
         while (elapsedTime < transitionTime)
         {
             t = elapsedTime / transitionTime;
 
-            audioSource.volume = Mathf.Lerp(1f, 0f, t);
+            audioSource.volume = Mathf.Lerp(cutsceneVolume, 0f, t);
 
             elapsedTime += Time.unscaledDeltaTime;
 
