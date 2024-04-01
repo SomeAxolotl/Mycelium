@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7616319732570910047}
   - component: {fileID: 4021176450805001202}
   - component: {fileID: 3781213606584534904}
+  - component: {fileID: 913215597922872107}
   m_Layer: 6
   m_Name: SkeleBossFinalRigged
   m_TagString: Enemy
@@ -42,7 +43,7 @@ Transform:
   - {fileID: 4499188861641692748}
   - {fileID: 209836089352171670}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5425697708136170599
 Animator:
@@ -129,7 +130,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2965256658085211421
 MonoBehaviour:
@@ -143,12 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd775ab3fa056e9479c68231850fb71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionForce: 100
+  attractionForce: 200
   attractionRadius: 20
   pullInterval: 15
   pullDistance: 2
   pullHeightOffset: 1
-  pullOrigin: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -180,25 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e940b332b3ccfeb48ad132838b6391dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSeen: 0
-  turnModifier: 0.9
-  attacking: 0
-  speed: 0
-  attackStopdistance: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 4352
-  player: {fileID: 0}
-  fieldOfView: 60
-  detectionRange: 30
-  backwardsDetectionRange: 15
-  undergrowthSpeed: 0
-  playerIsRight: 0
-  playerIsLeft: 0
-  previousRotationY: 0
 --- !u!114 &7616319732570910047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +216,7 @@ MonoBehaviour:
   currentHealth: 0
   nutrientDrop: 50
   centerPoint: {fileID: 784935255972377450}
+  alreadyDead: 0
 --- !u!65 &3781213606584534904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -256,6 +238,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.3985863, y: 6.7732153, z: 1.7686447}
   m_Center: {x: 0.08619952, y: 1.4624071, z: -0.20874342}
+--- !u!114 &913215597922872107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37849426356805691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5969ff2d7532fdb45a3d8ca2610d1582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &119060742889349563
 GameObject:
   m_ObjectHideFlags: 0
