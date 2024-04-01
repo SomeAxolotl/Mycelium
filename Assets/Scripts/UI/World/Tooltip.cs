@@ -10,6 +10,7 @@ public class Tooltip : MonoBehaviour
     [SerializeField] public TMP_Text tooltipTitle;
     [SerializeField] public TMP_Text tooltipDescription;
     [SerializeField] public TMP_Text tooltipInteract;
+    [SerializeField] public TMP_Text tooltipInteract2;
     [SerializeField] private float popDuration = 0.25f;
     private Camera mainCamera;
 

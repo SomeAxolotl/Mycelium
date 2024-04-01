@@ -62,25 +62,37 @@ public class GetMaterial : MonoBehaviour, IInteractable
     public void CreateTooltip(GameObject interactObject)
     {
         string subspeciesText = "N/A";
+        int materialIconIndex = 8;
         switch (materialName)
         {
             case "Rotten Log":
                 subspeciesText = "sporelius";
+                materialIconIndex = 8;
                 break;
             case "Fresh Exoskeleton":
                 subspeciesText = "toxitious";
+                materialIconIndex = 9;
                 break;
             case "Calcite Deposit":
                 subspeciesText = "costaalis";
+                materialIconIndex = 10;
                 break;
             case "Flesh":
                 subspeciesText = "gloomacea";
+                materialIconIndex = 11;
                 break;
         }
         string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";
 
         string buttonText = "<color=#3cdb4e>A</color>";
-        TooltipManager.Instance.CreateTooltip(gameObject, materialName, "Used to grow and upgrade " + subspeciesColoredText + " Spores", "Press "+buttonText+" to Pick Up\n(Hold "+buttonText+" to Salvage)");
+        TooltipManager.Instance.CreateTooltip
+        (
+            gameObject, 
+            "<sprite=" + materialIconIndex + ">  " + materialName + "  <sprite=" + materialIconIndex + ">", 
+            "Used to grow and upgrade " + subspeciesColoredText + " Spores", 
+            "Press "+buttonText+" to Pick Up", 
+            "(Hold "+buttonText+" to Salvage)"
+        );
     }
 
     public void DestroyTooltip(GameObject interactObject)

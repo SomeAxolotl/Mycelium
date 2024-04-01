@@ -55,7 +55,13 @@ public class LootCache : MonoBehaviour, IInteractable
     public void CreateTooltip(GameObject interactObject)
     {
         string buttonText = "<color=#3cdb4e>A</color>";
-        TooltipManager.Instance.CreateTooltip(this.gameObject, "Loot Cache", "Contains Rewards!", "Press "+buttonText+" to Open");
+        TooltipManager.Instance.CreateTooltip
+        (
+            this.gameObject, 
+            "Loot Cache", 
+            "Contains Rewards!", 
+            "Press "+buttonText+" to Open"
+        );
     }
 
     public void DestroyTooltip(GameObject interactObject)

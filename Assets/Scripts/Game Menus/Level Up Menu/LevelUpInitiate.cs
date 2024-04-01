@@ -48,7 +48,16 @@ public class LevelUpInitiate : MonoBehaviour, IInteractable
     public void CreateTooltip(GameObject interactObject)
     {
         string buttonText = "<color=#3cdb4e>A</color>";
-        TooltipManager.Instance.CreateTooltip(gameObject, "Sporemother", "Upgrade, equip, and grow new Spores!", "Press " + buttonText + " to Interact", false, verticalOffset);
+        TooltipManager.Instance.CreateTooltip
+        (
+            gameObject, 
+            "Sporemother", 
+            "Upgrade, equip, and grow new Spores!", 
+            "Press " + buttonText + " to Interact", 
+            "", 
+            false, 
+            verticalOffset
+        );
     }
 
     public void DestroyTooltip(GameObject interactObject)
