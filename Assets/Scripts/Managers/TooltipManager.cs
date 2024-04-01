@@ -22,7 +22,7 @@ public class TooltipManager : MonoBehaviour
         }
     }
 
-    public void CreateTooltip(GameObject parent, string title, string description, string interactString, string interactString2 = "", bool shouldParent = false, float verticalOffset = 0f)
+    public void CreateTooltip(GameObject parent, string title, string description, string interactString, string interactString2 = "", bool shouldParent = false, float verticalOffset = 0f, bool descriptionShouldWrap = true)
     {
         if (currentParent != parent)
         {
@@ -44,6 +44,8 @@ public class TooltipManager : MonoBehaviour
             tooltip.tooltipDescription.text = description;
             tooltip.tooltipInteract.text = interactString;
             tooltip.tooltipInteract2.text = interactString2;
+
+            tooltip.tooltipDescription.enableWordWrapping = descriptionShouldWrap;
         }
     }
 

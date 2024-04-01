@@ -82,11 +82,6 @@ public class PlayerController : MonoBehaviour
         inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
         LookAt();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         if (dodge.triggered && canUseDodge && canAct)
         {
             if (!canUseAttack && animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))

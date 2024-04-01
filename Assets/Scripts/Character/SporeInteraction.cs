@@ -63,7 +63,8 @@ public class SporeInteraction : MonoBehaviour, IInteractable
             "Press " + buttonText + " to Swap",
             "",
             true,
-            1f
+            1f,
+            false
         );
     }
 

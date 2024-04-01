@@ -215,6 +215,8 @@ public class TestingManager : MonoBehaviour
 
         playerStats.StartCalculateAttributes();
         playerStats.UpdateLevel();
+        if (GameObject.FindWithTag("PlayerParent") != null)
+        playerParent.GetComponent<PlayerHealth>().ResetHealth();
     }
 
     IEnumerator SetPlayerSkills()

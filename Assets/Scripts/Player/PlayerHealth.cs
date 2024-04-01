@@ -61,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
-        if (currentHealth > 0 && !playerController.isInvincible)
+        if (currentHealth > 0)
         {
             StartCoroutine(HurtSound());
 
@@ -126,11 +126,14 @@ public class PlayerHealth : MonoBehaviour
             cutscenePlayer.StartCutscene();
 
             //Lobotomize the Giga Beetle
-            foreach (Component component in GameObject.Find("Giga Beetle").GetComponents<Component>())
+            if (GameObject.Find("Giga Beetle") != null)
             {
-                if (component.GetType() != typeof(Transform) && component.GetType() != typeof(MeshRenderer) && component.GetType() != typeof(MeshFilter))
+                foreach (Component component in GameObject.Find("Giga Beetle").GetComponents<Component>())
                 {
-                    Destroy(component);
+                    if (component.GetType() != typeof(Transform) && component.GetType() != typeof(MeshRenderer) && component.GetType() != typeof(MeshFilter))
+                    {
+                        Destroy(component);
+                    }
                 }
             }
 
