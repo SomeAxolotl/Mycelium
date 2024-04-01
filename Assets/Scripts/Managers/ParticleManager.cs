@@ -59,6 +59,8 @@ public class ParticleManager : MonoBehaviour
 
     IEnumerator SpawnParticleFlurryCoroutine(string particleName, int flurryCount, float flurryInterval, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
     {
+        float initialFlurryInterval = flurryInterval;
+
         float flurryCounter = 0f;
         while (flurryCounter < flurryCount)
         {
@@ -74,6 +76,11 @@ public class ParticleManager : MonoBehaviour
             StartCoroutine(DestroyParticlesWhenDone(spawnedParticle));
 
             flurryCounter++;
+
+            float t = flurryCounter / flurryCount;
+            float easeOutFactor = 1f - Mathf.Pow(1f - t, 3f);
+            flurryInterval = initialFlurryInterval * easeOutFactor;
+
             yield return new WaitForSeconds(flurryInterval);
         }
     }

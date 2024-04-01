@@ -22,201 +22,22 @@ public class SoundEffectManager : MonoBehaviour
         }
     }
 
-    [Header("Impact SFX")]
-    [SerializeField] private float impactVolume = 1f;
-    [SerializeField] private float impactPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> impactSounds = new List<AudioClip>();
-
-    [Header("Slash SFX")]
-    [SerializeField] private float slashVolume = 1f;
-    [SerializeField] private float slashPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> slashSounds = new List<AudioClip>();
-
-    [Header("Stab SFX")]
-    [SerializeField] private float stabVolume = 1f;
-    [SerializeField] private float stabPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> stabSounds = new List<AudioClip>();
-
-    [Header("Smash SFX")]
-    [SerializeField] private float smashVolume = 1f;
-    [SerializeField] private float smashPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> smashSounds = new List<AudioClip>();
-
-    [Header("Projectile SFX")]
-    [SerializeField] private float projectileVolume = 1f;
-    [SerializeField] private float projectilePitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> projectileSounds = new List<AudioClip>();
-
-    [Header("Explosion SFX")]
-    [SerializeField] private float explosionVolume = 1f;
-    [SerializeField] private float explosionPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> explosionSounds = new List<AudioClip>();
-
-    [Header("Beetle Charge SFX")]
-    [SerializeField] private float beetleChargeVolume = 1f;
-    [SerializeField] private float beetleChargePitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> beetleChargeSounds = new List<AudioClip>();
-
-    [Header("Stickbug Shoot SFX")]
-    [SerializeField] private float stickbugShootVolume = 1f;
-    [SerializeField] private float stickbugShootPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> stickbugShootSounds = new List<AudioClip>();
-
-    [Header("Footstep 1 SFX")]
-    [SerializeField] private float footstep1Volume = 1f;
-    [SerializeField] private float footstep1PitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> footstep1Sounds = new List<AudioClip>();
-
-    [Header("Footstep 2 SFX")]
-    [SerializeField] private float footstep2Volume = 1f;
-    [SerializeField] private float footstep2PitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> footstep2Sounds = new List<AudioClip>();
-
-    [Header("Panting SFX")]
-    [SerializeField] private float pantingVolume = 1f;
-    [SerializeField] private float pantingPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> pantingSounds = new List<AudioClip>();
-
-    [Header("Pickup SFX")]
-    [SerializeField] private float pickupVolume = 1f;
-    [SerializeField] private float pickupPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> pickupSounds = new List<AudioClip>();
-
-    [Header("Hurt SFX")]
-    [SerializeField] private float hurtVolume = 1f;
-    [SerializeField] private float hurtPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> hurtSounds = new List<AudioClip>();
-
-    [Header("Damaged SFX")]
-    [SerializeField] private float damagedVolume = 1f;
-    [SerializeField] private float damagedPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> damagedSounds = new List<AudioClip>();
-
-    [Header("UIMove SFX")]
-    [SerializeField] private float uiMoveVolume = 1f;
-    [SerializeField] private float uiMovePitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> uiMoveSounds = new List<AudioClip>();
-
-    [Header("UISelect SFX")]
-    [SerializeField] private float uiSelectVolume = 1f;
-    [SerializeField] private float uiSelectPitchRange = 0.25f;
-    [SerializeField] private List<AudioClip> uiSelectSounds = new List<AudioClip>();
-
+    [SerializeField] private List<SoundEffect> soundEffects;
 
     public void PlaySound(string clipName, Vector3 position)
     {   
-        List<AudioClip> clipList = new List<AudioClip>();
-        float clipVolume = 1f;
-        float clipPitchRange = 0f;
-        switch (clipName)
+        foreach (SoundEffect sfx in soundEffects)
         {
-            case "Impact":
-        clipList = impactSounds;
-        clipPitchRange = impactPitchRange;
-        clipVolume = impactVolume;
-        break;
+            if (clipName == sfx.sfxName)
+            {
+                int randomNumber = Random.Range(0, sfx.sfxSounds.Count);
+                AudioSource audioSource = PlayClipAtPointAndGetSource(sfx.sfxSounds[randomNumber], position, sfx.sfxVolume);
+                audioSource.outputAudioMixerGroup = audioMixerGroup;
 
-        case "Slash":
-            clipList = slashSounds;
-            clipPitchRange = slashPitchRange;
-            clipVolume = slashVolume;
-            break;
-
-        case "Stab":
-            clipList = stabSounds;
-            clipPitchRange = stabPitchRange;
-            clipVolume = stabVolume;
-            break;
-
-        case "Smash":
-            clipList = smashSounds;
-            clipPitchRange = smashPitchRange;
-            clipVolume = smashVolume;
-            break;
-
-        case "UIMove":
-            clipList = uiMoveSounds;
-            clipPitchRange = uiMovePitchRange;
-            clipVolume = uiMoveVolume;
-            break;
-
-        case "UISelect":
-            clipList = uiSelectSounds;
-            clipPitchRange = uiSelectPitchRange;
-            clipVolume = uiSelectVolume;
-            break;
-
-        case "Projectile":
-            clipList = projectileSounds;
-            clipPitchRange = projectilePitchRange;
-            clipVolume = projectileVolume;
-            break;
-
-        case "Explosion":
-            clipList = explosionSounds;
-            clipPitchRange = explosionPitchRange;
-            clipVolume = explosionVolume;
-            break;
-
-        case "Beetle Charge":
-            clipList = beetleChargeSounds;
-            clipPitchRange = beetleChargePitchRange;
-            clipVolume = beetleChargeVolume;
-            break;
-
-        case "Stickbug Shoot":
-            clipList = stickbugShootSounds;
-            clipPitchRange = stickbugShootPitchRange;
-            clipVolume = stickbugShootVolume;
-            break;
-
-        case "Footstep 1":
-            clipList = footstep1Sounds;
-            clipPitchRange = footstep1PitchRange;
-            clipVolume = footstep1Volume;
-            break;
-
-        case "Footstep 2":
-            clipList = footstep2Sounds;
-            clipPitchRange = footstep2PitchRange;
-            clipVolume = footstep2Volume;
-            break;
-
-        case "Panting":
-            clipList = pantingSounds;
-            clipPitchRange = pantingPitchRange;
-            clipVolume = pantingVolume;
-            break;
-
-        case "Pickup":
-            clipList = pickupSounds;
-            clipPitchRange = pickupPitchRange;
-            clipVolume = pickupVolume;
-            break;
-
-        case "Hurt":
-            clipList = hurtSounds;
-            clipPitchRange = hurtPitchRange;
-            clipVolume = hurtVolume;
-            break;
-        
-        case "Damaged":
-            clipList = damagedSounds;
-            clipPitchRange = damagedPitchRange;
-            clipVolume = damagedVolume;
-            break;
-
-        default:
-            Debug.LogWarning($"PlaySound: Unrecognized clipName '{clipName}'");
-            return;
+                float randomPitchModifier = Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
+                audioSource.pitch += randomPitchModifier;
+            }
         }
-
-        int randomNumber = Random.Range(0, clipList.Count);
-        AudioSource audioSource = PlayClipAtPointAndGetSource(clipList[randomNumber], position, clipVolume);
-        audioSource.outputAudioMixerGroup = audioMixerGroup;
-
-        float randomPitchModifier = Random.Range(-clipPitchRange, clipPitchRange);
-        audioSource.pitch += randomPitchModifier;
     }
 
     AudioSource PlayClipAtPointAndGetSource(AudioClip clip, Vector3 position, float volume)
@@ -230,6 +51,15 @@ public class SoundEffectManager : MonoBehaviour
       audioSource.Play();
       Object.Destroy((Object) gameObject, clip.length * ((double) Time.timeScale < 0.009999999776482582 ? 0.01f : Time.timeScale));
       return audioSource;
+    }
+
+    [System.Serializable]
+    class SoundEffect
+    {
+        [SerializeField] public string sfxName = "[Name]";
+        [SerializeField] public float sfxVolume = 1f;
+        [SerializeField] public float sfxPitchRange = 0.25f;
+        [SerializeField] public List<AudioClip> sfxSounds = new List<AudioClip>();
     }
 
     //These are from when I was trying to use Reflection to dynamically change variable references

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class SmackableGlowShroomController : MonoBehaviour
 {
@@ -19,6 +21,11 @@ public class SmackableGlowShroomController : MonoBehaviour
     [SerializeField] private float HitGlowUpDuration = 1;
     [SerializeField] private float HitGlowDownDuration = 2;
     [SerializeField] private float HitGlowAmount = 1;
+    [SerializeField] int minNutrientParticles = 2;
+    [SerializeField] int maxNutrientParticles = 4;
+    [SerializeField] float nutrientYOffset = 1f;
+
+    bool wasSmacked = false;
 
     private void Start(){
         audioSource.pitch = 1/((gameObject.transform.localScale.x + gameObject.transform.localScale.z)/2);
@@ -35,6 +42,13 @@ public class SmackableGlowShroomController : MonoBehaviour
     }
     private void Bounce(){
         Debug.Log("Smacked!");
+        if (!wasSmacked ) //SceneManager.GetActiveScene().name != "New Tutorial"
+        {
+            int randNutrientAmount = Random.Range(minNutrientParticles, maxNutrientParticles);
+            ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", randNutrientAmount, 0.1f, this.gameObject.transform.position + new Vector3(0f, nutrientYOffset, 0f), Quaternion.Euler(-90f, 0f, 0f));
+            wasSmacked = true;
+        }
+        
         Anim.SetTrigger("Bounce");
         audioSource.PlayOneShot(audioClip);
         StartCoroutine(GlowAttacked());
