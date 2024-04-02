@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 //using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
@@ -74,7 +75,7 @@ public class MonsterBossAttack : MonoBehaviour
         
         if (!tailAttackOnCooldown && this.gameObject != null && dstToPlayer > 12f)
         {
-           StartCoroutine(TailAttack());
+            StartCoroutine(TailAttack());
         }
         
         
@@ -123,7 +124,7 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "currentPlayer" && other.gameObject.GetComponentInParent<PlayerController>().isInvincible == false && !playerHit.Contains(other.gameObject) && isAttacking)
+        if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
             Debug.Log("collided with player");
             collidedWithPlayer = true;
@@ -186,7 +187,6 @@ public class MonsterBossAttack : MonoBehaviour
 
             float strength = (1.0f - distance / attractionRadius) * attractionForce;
             Vector3 pullForce = (direction.normalized * strength);
-            Debug.Log("pullforce: " + pullForce);
             player.GetComponent<Rigidbody>().AddForce(pullForce, ForceMode.Force);
 
             elapsedTime += Time.deltaTime;
@@ -195,76 +195,37 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private IEnumerator TailAttack()
     {
-            tailAttackOnCooldown = true;
-            //animator.SetTrigger("TailAttack");
-            //Debug.Log("TAIL ATTACK!");
-            float customDuration = 3.0f; // Replace with your custom duration
-            //Debug.Log("Waiting for " + customDuration + " seconds...");
-            yield return new WaitForSeconds(customDuration);
-
-            //Debug.Log("Tail Attack Animation Finished!");
-            Vector3 playerPosition = player.position;
-            Vector3 spawnPosition = playerPosition + transform.forward * -1f;
-            float yOffset = -1.85f; // Adjust this value as needed
-                                    // Add the height offset and a Vector3.up movement to the spawn position
-            spawnPosition += Vector3.up * yOffset;
-            Quaternion rotation = Quaternion.Euler(-21.7f, 0f, 0f);
-            GameObject bossTailInstance = Instantiate(bossTail, spawnPosition + new Vector3(0, -5f, 0), rotation, null);
-            ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition, Quaternion.Euler(-90, 0, 0));
-            yield return new WaitForSeconds(1.0f);
-            StartCoroutine(MoveTailUpwards(bossTailInstance, yOffset));
-            StartCoroutine(Attack(tailAttackDamage));
-            knockbackForce = tailKnockback;
-            ApplyKnockbackToPlayer();
-
-            yield return new WaitForSeconds(5f);
-            //Debug.Log("Tail Attack off cooldown!");
-            if (bossTailInstance != null)
-            {
-                Destroy(bossTailInstance);
-                bossTailInstance = null;
-            }
-            tailAttackOnCooldown = false;
-
-            isTailAttacking = false;
-        
-        
-        
-    }
-    private IEnumerator MoveTailUpwards(GameObject bossTailInstance, float yOffset)
-    {
-        // Get the initial position of the tail
-        Vector3 initialPosition = bossTailInstance.transform.position;
-
-        // Define the target position to move the tail upwards
-        Vector3 targetPosition = initialPosition + Vector3.up * 3f;
-
-        // Define the duration of the upward movement
-        float moveDuration = 0.2f; // Adjust the duration as needed
-
-        // Track the elapsed time during the movement
-        float elapsedTime = 0.0f;
-
-        // Move the tail upwards over time
-        while (elapsedTime < moveDuration)
+        tailAttackOnCooldown = true;
+        Vector3 spawnPosition = player.position + new Vector3(0f, -4.5f, 0f);
+        Quaternion tailRotation = Quaternion.Euler(-21.7f, 0f, 0f);
+        GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, tailRotation, null);
+        bossTailInstance.GetComponentInChildren<TailCollision>().damage = tailAttackDamage;
+        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition + new Vector3(0f, 2.75f, 0f), Quaternion.Euler(-90, 0, 0));
+        yield return new WaitForSeconds(1.75f);
+        float timeElapsed = 0f;
+        float duration = 0.5f;
+        Vector3 startPosition = bossTailInstance.transform.position;
+        Vector3 endPosition = bossTailInstance.transform.position + new Vector3(0f, 4f, 0f);
+        while (timeElapsed < duration)
         {
-            // Calculate the interpolation factor based on elapsed time and duration
-            float t = elapsedTime / moveDuration;
-
-            // Interpolate between the initial and target positions to move the tail smoothly
-            bossTailInstance.transform.position = Vector3.Slerp(initialPosition, targetPosition, t);
-
-            // Increment the elapsed time
-            elapsedTime += Time.deltaTime;
-
-            // Wait for the next frame
+            bossTailInstance.transform.position = Vector3.Lerp(startPosition, endPosition, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
             yield return null;
         }
-
-        // Ensure the tail reaches the exact target position
-        bossTailInstance.transform.position = targetPosition;
+        yield return new WaitForSeconds(1f);
+        float timeElapsed_02 = 0f;
+        float duration_02 = 1f;
+        while (timeElapsed_02 < duration_02)
+        {
+            bossTailInstance.transform.position = Vector3.Lerp(endPosition, startPosition + new Vector3(0f, -3f, 0f), timeElapsed_02 / duration_02);
+            timeElapsed_02 += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(bossTailInstance);
+        yield return new WaitForSeconds(5f);
+        tailAttackOnCooldown = false;
+        isTailAttacking = false;   
     }
-
     private IEnumerator SwipeAttack()
     {
         isSwipeAttacking = true;
