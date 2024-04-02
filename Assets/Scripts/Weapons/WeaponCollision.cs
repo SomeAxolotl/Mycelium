@@ -11,6 +11,7 @@ public class WeaponCollision : MonoBehaviour
     List<GameObject> enemiesHit = new List<GameObject>();
     WeaponStats weaponStats;
     RelentlessFury relentlessFury;
+    public bool hitStopping = false;
     void Start()
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
@@ -70,6 +71,8 @@ public class WeaponCollision : MonoBehaviour
 
     IEnumerator HitStop()
     {
+        hitStopping = true;
+
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
 
         Animator animator = currentPlayer.GetComponent<Animator>();
@@ -85,6 +88,8 @@ public class WeaponCollision : MonoBehaviour
         }
 
         animator.speed = currentPlayer.GetComponent<CharacterStats>().animatorSpeed;
+
+        hitStopping = false;
     }
 
     public void ClearEnemyList()
