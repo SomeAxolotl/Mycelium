@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SporeAnimationEvents : MonoBehaviour
 {
-    GameObject slashParticle;
-    ParticleSystem slashParticleSystem;
-    ParticleSystem.EmissionModule slashParticleSystemEmission;
+    [SerializeField] float particleFadeOutTime = 0.5f;
+
+    ParticleSystem.MainModule currentSlashParticle;
 
     void Footstep1()
     {
@@ -23,26 +23,33 @@ public class SporeAnimationEvents : MonoBehaviour
     {
         SoundEffectManager.Instance.PlaySound("Slash", transform.position);
 
-        slashParticle = GameObject.FindWithTag("currentWeapon").transform.Find("SlashParticle").gameObject;
-        slashParticle.SetActive(true);
+        Transform particleHolder = GameObject.FindWithTag("currentWeapon").transform.Find("ParticleHolder");
 
-        //slashParticleSystem = GameObject.FindWithTag("currentWeapon").transform.Find("SlashParticle").GetComponent<ParticleSystem>();
-
-        /*slashParticleSystemEmission = GameObject.FindWithTag("currentWeapon").transform.Find("SlashParticle").GetComponent<ParticleSystem>().emission;
-        if (slashParticleSystem != null)
-        {
-            slashParticleSystemEmission.enabled = true;
-        }*/
+        currentSlashParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("SlashParticle", particleHolder.position, Quaternion.identity, particleHolder.gameObject).main;
     }
 
     void SlashDone()
     {
-        /*if (slashParticleSystem != null)
-        {
-            slashParticleSystemEmission.enabled = false;
-        }*/
+        StartCoroutine(FadeOutParticle(currentSlashParticle));
+    }
 
-        slashParticle.SetActive(false);
+    IEnumerator FadeOutParticle(ParticleSystem.MainModule slashParticleMain)
+    {
+        Color startingColor = slashParticleMain.startColor.color;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < particleFadeOutTime)
+        {
+            float t = elapsedTime / particleFadeOutTime;
+
+            slashParticleMain.startColor = new Color(startingColor.r, startingColor.g, startingColor.b, Mathf.Lerp(1f, 0f, t));
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        slashParticleMain.startColor = new Color(startingColor.r, startingColor.g, startingColor.b, 0f);
     }
 
     void Stab()

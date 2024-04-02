@@ -73,9 +73,12 @@ public class LivingCyclone : Skill
             while (spinCounter < spinDuration)
             {
                 float rotationAmount = 360f / spinDuration * Time.deltaTime;
-                player.transform.Rotate(Vector3.down, rotationAmount);
+                if (!weaponCollision.hitStopping)
+                {
+                    player.transform.Rotate(Vector3.down, rotationAmount);
+                    spinCounter += Time.deltaTime;
+                }
 
-                spinCounter += Time.deltaTime;
                 yield return new WaitForFixedUpdate();
             }
             currentWeapon.GetComponent<Collider>().enabled = false;

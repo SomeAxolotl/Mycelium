@@ -31,6 +31,24 @@ public class ParticleManager : MonoBehaviour
         StartCoroutine(SpawnParticlesCoroutine(particleName, particleSpawnPosition, particleRotation, particleParent));
     }
 
+    public ParticleSystem SpawnParticlesAndGetParticleSystem(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
+    {
+        GameObject spawnedParticle;
+        if (particleParent != null)
+        {
+            spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation, particleParent.transform);
+        }
+        else
+        {
+           spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation);
+        }
+        StartCoroutine(DestroyParticlesWhenDone(spawnedParticle));
+
+        ParticleSystem returnParticleSystem = spawnedParticle.GetComponent<ParticleSystem>();
+
+        return returnParticleSystem;
+    }
+
     IEnumerator SpawnParticlesCoroutine(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
     {
         GameObject spawnedParticle;

@@ -79,6 +79,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            ThirdPersonActionsAsset actions = new ThirdPersonActionsAsset();
+            actions.UI.Disable();
+            //actions.Player.Disable();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ThirdPersonActionsAsset actions = new ThirdPersonActionsAsset();
+            actions.UI.Enable();
+            //actions.Player.Enable();
+        }
+
         inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
         LookAt();
 
