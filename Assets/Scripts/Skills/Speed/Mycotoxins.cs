@@ -50,6 +50,7 @@ public class Mycotoxins : Skill
         {
             // Spawn a spore cone
             GameObject sporeCone = Instantiate(sporeConePrefab, transform.position - transform.forward * 2f, Quaternion.identity);
+            sporeCone.GetComponent<DamageArea>().finalDamageValue = finalSkillValue;
             spawnCount++;
             if (sporeCone != null)
             {

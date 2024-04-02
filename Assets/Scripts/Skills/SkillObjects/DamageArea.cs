@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DamageArea : Mycotoxins
+public class DamageArea : MonoBehaviour
 {
+    public float finalDamageValue;
     [SerializeField] private float damageOverTimeDuration = 3f;
     [SerializeField] private float timeElapsed = 0f;
     private IEnumerator DamageOverTime(EnemyHealth enemyHealth, float damage)
@@ -22,7 +23,7 @@ public class DamageArea : Mycotoxins
     }
     void OnTriggerEnter(Collider other)
     {
-        float damage = finalSkillValue;
+        float damage = finalDamageValue;
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();

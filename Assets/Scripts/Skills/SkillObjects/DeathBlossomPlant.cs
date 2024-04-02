@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DeathBlossomPlant : DeathBlossom
+public class DeathBlossomPlant : MonoBehaviour
 {
     [SerializeField] private float destroyTime = 2f;
     [SerializeField] private float burstRadius = 2f;
@@ -15,6 +15,7 @@ public class DeathBlossomPlant : DeathBlossom
     [SerializeField] private Light thisLight;
     private Color StartGlow;
     private float startLightIntensity;
+    public float finalDamageValue;
     void Start()
     {
         StartCoroutine(ExplodeAfterDelay());
@@ -81,7 +82,7 @@ public class DeathBlossomPlant : DeathBlossom
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);
 
-        float damage = finalSkillValue;
+        float damage = finalDamageValue;
         Debug.Log("FinalSkillValue: " + damage);
         foreach (Collider collider in colliders)
         {

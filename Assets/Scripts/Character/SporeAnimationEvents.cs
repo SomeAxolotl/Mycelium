@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class SporeAnimationEvents : MonoBehaviour
 {
+    GameObject slashParticle;
+    ParticleSystem slashParticleSystem;
+    ParticleSystem.EmissionModule slashParticleSystemEmission;
+
     void Footstep1()
     {
         SoundEffectManager.Instance.PlaySound("Footstep 1", transform.position);
@@ -18,6 +22,27 @@ public class SporeAnimationEvents : MonoBehaviour
     void Slash()
     {
         SoundEffectManager.Instance.PlaySound("Slash", transform.position);
+
+        slashParticle = GameObject.FindWithTag("currentWeapon").transform.Find("SlashParticle").gameObject;
+        slashParticle.SetActive(true);
+
+        //slashParticleSystem = GameObject.FindWithTag("currentWeapon").transform.Find("SlashParticle").GetComponent<ParticleSystem>();
+
+        /*slashParticleSystemEmission = GameObject.FindWithTag("currentWeapon").transform.Find("SlashParticle").GetComponent<ParticleSystem>().emission;
+        if (slashParticleSystem != null)
+        {
+            slashParticleSystemEmission.enabled = true;
+        }*/
+    }
+
+    void SlashDone()
+    {
+        /*if (slashParticleSystem != null)
+        {
+            slashParticleSystemEmission.enabled = false;
+        }*/
+
+        slashParticle.SetActive(false);
     }
 
     void Stab()
