@@ -31,7 +31,7 @@ public class HUDHealth : MonoBehaviour
             healthBar.color = lowColor;
         }
         
-        healthNumberText.text = Mathf.FloorToInt(currentHealth) + "/" + Mathf.FloorToInt(maxHealth);
+        healthNumberText.text = Mathf.Ceil(currentHealth) + "/" + Mathf.Ceil(maxHealth);
     }
 
     public void SetSporeName(string name)
