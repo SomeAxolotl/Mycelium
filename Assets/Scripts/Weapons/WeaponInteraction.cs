@@ -8,13 +8,13 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     SwapWeapon swapWeapon;
     [SerializeField] private int nutrientsSalvaged = 200;
     NutrientTracker nutrientTracker;
-    ThirdPersonActionsAsset playerActionsAsset;
+    //ThirdPersonActionsAsset playerActionsAsset;
     GameObject player;
 
     void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
-        playerActionsAsset.Player.Enable();
+        //playerActionsAsset = new ThirdPersonActionsAsset();
+        //playerActionsAsset.Player.Enable();
         player = GameObject.FindWithTag("currentPlayer");
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         swapWeapon = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();

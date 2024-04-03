@@ -20,7 +20,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
     [SerializeField] private GameObject calcite;
     [SerializeField] private GameObject flesh;
 
-    ThirdPersonActionsAsset playerActionsAsset;
+    //ThirdPersonActionsAsset playerActionsAsset;
     GameObject player;
     NutrientTracker nutrientTracker;
 
@@ -29,8 +29,8 @@ public class GetMaterial : MonoBehaviour, IInteractable
     // Start is called before the first frame update
     void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
-        playerActionsAsset.Player.Enable();
+        //playerActionsAsset = new ThirdPersonActionsAsset();
+        //playerActionsAsset.Player.Enable();
         player = GameObject.FindWithTag("currentPlayer");
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         hudItem = GameObject.Find("HUD").GetComponent<HUDItem>();
