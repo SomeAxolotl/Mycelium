@@ -7,7 +7,7 @@ public class SporeAnimationEvents : MonoBehaviour
 {
     [SerializeField] float particleFadeOutTime = 0.5f;
 
-    ParticleSystem.MainModule currentSlashParticle;
+    ParticleSystem currentSlashParticle;
 
     void Footstep1()
     {
@@ -25,12 +25,16 @@ public class SporeAnimationEvents : MonoBehaviour
 
         Transform particleHolder = GameObject.FindWithTag("currentWeapon").transform.Find("ParticleHolder");
 
-        currentSlashParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("SlashParticle", particleHolder.position, Quaternion.identity, particleHolder.gameObject).main;
+        currentSlashParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("SlashParticle", particleHolder.position, Quaternion.identity, particleHolder.gameObject);
     }
 
     void SlashDone()
     {
-        StartCoroutine(FadeOutParticle(currentSlashParticle));
+        //StartCoroutine(FadeOutParticle(currentSlashParticle));
+        if (currentSlashParticle != null)
+        {
+            Destroy(currentSlashParticle.gameObject);
+        }
     }
 
     IEnumerator FadeOutParticle(ParticleSystem.MainModule slashParticleMain)
