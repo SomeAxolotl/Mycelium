@@ -26,11 +26,11 @@ public class LevelEnd : MonoBehaviour
             other.GetComponentInParent<PlayerHealth>().currentHealth = other.GetComponentInParent<PlayerHealth>().maxHealth;
 
             weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
-            Debug.Log(weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", ""));
+            //Debug.Log(weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", ""));
 
             GlobalData.currentWeapon = SceneManager.GetActiveScene().name + "/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
 
-            Debug.Log(GlobalData.currentWeapon);
+            //Debug.Log(GlobalData.currentWeapon);
 
             if (sceneIndexToGoTo == 2)
             {

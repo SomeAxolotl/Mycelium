@@ -69,7 +69,7 @@ public class HUDBoss : BaseEnemyHealthBar
         {
             StartCoroutine(DefeatingEnemyCoroutine());
             fightingBoss = false;
-            Debug.Log("DEFEATING ENEMY");
+            //Debug.Log("DEFEATING ENEMY");
         }
     }
 

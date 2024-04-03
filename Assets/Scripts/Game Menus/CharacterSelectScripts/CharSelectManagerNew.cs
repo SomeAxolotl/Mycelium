@@ -32,7 +32,7 @@ public class CharSelectManagerNew : MonoBehaviour
     {
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerController.DisableController();
-        controls = new ThirdPersonActionsAsset();
+        controls = InputManager.actionAsset;
         startButton.Select();
         HUD.GetComponent<HUDController>().FadeOutHUD();
         controls.UI.Close.performed += ctx => Close();

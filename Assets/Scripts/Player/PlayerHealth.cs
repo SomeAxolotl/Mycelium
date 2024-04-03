@@ -68,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
             if (animator.GetBool("Hurt") == true)
             {
-                Debug.Log("that hurt is true yo");
+                //Debug.Log("that hurt is true yo");
                 GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
             }
             if (isDefending)
@@ -95,7 +95,7 @@ public class PlayerHealth : MonoBehaviour
         if (animator.GetBool("Hurt") == true)
         {
             animator.SetBool("Hurt", false);
-            Debug.Log("no more hurty");
+            //Debug.Log("no more hurty");
         }
         if (currentHealth > maxHealth)
         {
@@ -118,7 +118,7 @@ public class PlayerHealth : MonoBehaviour
             animator.SetBool("Death", true);
         }
         yield return new WaitForSeconds(3f);
-        Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
+        //Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;

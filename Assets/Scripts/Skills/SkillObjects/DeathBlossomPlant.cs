@@ -61,13 +61,13 @@ public class DeathBlossomPlant : MonoBehaviour
     }
     private IEnumerator ApplyDamageOverTime(EnemyHealth enemyHealth, float damage)
     {
-        Debug.Log("ApplyDamageOverTime started");
+        //Debug.Log("ApplyDamageOverTime started");
         float timeElapsed = 0f;
         float damageInterval = damage / damageOverTimeDuration;
 
         while (timeElapsed < damageOverTimeDuration)
         {
-            Debug.Log("Applying damage: " + damageInterval);
+            //Debug.Log("Applying damage: " + damageInterval);
             enemyHealth.EnemyTakeDamage(damageInterval);
             yield return new WaitForSeconds(1f);
             timeElapsed++;
@@ -83,14 +83,14 @@ public class DeathBlossomPlant : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);
 
         float damage = finalDamageValue;
-        Debug.Log("FinalSkillValue: " + damage);
+        //Debug.Log("FinalSkillValue: " + damage);
         foreach (Collider collider in colliders)
         {
             EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 StartCoroutine(ApplyDamageOverTime(enemyHealth, damage));
-                Debug.Log("Death Blossom hit!");
+                //Debug.Log("Death Blossom hit!");
             }
         }
         StartCoroutine(DestroyAfterTime());

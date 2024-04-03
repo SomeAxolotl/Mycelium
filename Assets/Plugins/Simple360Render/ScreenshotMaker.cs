@@ -55,7 +55,7 @@ public class ScreenshotMaker : MonoBehaviour
         {
             string filePath = Application.dataPath + "/Plugins/Simple360Render/Screenshots/360Shot_" + Timestamp() + (type ? ".jpeg" : ".png");
             File.WriteAllBytes(filePath, pictureBytes);
-            Debug.Log("360 Screenshot saved to" + filePath, gameObject);
+            //Debug.Log("360 Screenshot saved to" + filePath, gameObject);
         }
     }
 

@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
 
         if (isOnMainMenu == false)
         {
-            playerInput = new ThirdPersonActionsAsset();
+            playerInput = InputManager.actionAsset;
             nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
             playerParent = GameObject.FindWithTag("PlayerParent");
             HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
@@ -226,16 +226,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (isOnMainMenu == false)
         {
-            playerInput.Enable();
             resumeButton.Select();
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (isOnMainMenu == false)
-        {
-            playerInput.Disable();
         }
     }
 }

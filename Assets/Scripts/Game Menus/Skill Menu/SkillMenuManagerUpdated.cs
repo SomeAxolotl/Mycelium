@@ -105,7 +105,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     {  
         fog.SetActive(!fog.isActive);  
         LevelUI.SetActive(false);
-        controls = new ThirdPersonActionsAsset();
+        controls = InputManager.actionAsset;
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.Close.performed += ctx => CloseSkill();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
@@ -243,7 +243,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     {
         if(controls.UISub.AssignX.triggered && EruptionActive == true || controls.UISub.AssignYKB.triggered && EruptionActive == true)
         {
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
            if (currentstats.equippedSkills[2] == "Eruption")
           {
             skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
@@ -271,7 +271,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         //Checks B button press with same conditionals
         else if(controls.UISub.AssignB.triggered && EruptionActive == true || controls.UISub.AssignBKB.triggered && EruptionActive == true)
         {
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           
           
           if (currentstats.equippedSkills[1] == "Eruption")
@@ -301,7 +301,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -313,7 +313,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
              skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
             hudSkills.UpdateHUDIcons();
-             Debug.Log("X Pressed");
+            //Debug.Log("X Pressed");
           skillmanager.SetSkill("LivingCyclone", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("LivingCyclone", 1);
           
@@ -325,7 +325,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("LivingCyclone", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("LivingCyclone", 1);
           
@@ -346,7 +346,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
              skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
             hudSkills.UpdateHUDIcons();
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("LivingCyclone", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("LivingCyclone", 2);
           controls.UISub.Disable();
@@ -369,7 +369,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
             return;
         }  
     }
@@ -381,7 +381,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("RelentlessFury", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("RelentlessFury", 1);
           controls.UISub.Disable();
@@ -392,7 +392,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("RelentlessFury", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("RelentlessFury", 1);
           controls.UISub.Disable();
@@ -410,7 +410,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           skillmanager.SetSkill("RelentlessFury", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("RelentlessFury", 2);
           controls.UISub.Disable();
@@ -421,7 +421,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
             }
           else
           {
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           skillmanager.SetSkill("RelentlessFury", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("RelentlessFury", 2);
           controls.UISub.Disable();
@@ -434,7 +434,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
             return;
         }  
     }
@@ -446,7 +446,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Blitz", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Blitz", 1);
           controls.UISub.Disable();
@@ -457,7 +457,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Blitz", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Blitz", 1);
           controls.UISub.Disable();
@@ -475,7 +475,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();  
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           skillmanager.SetSkill("Blitz", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Blitz", 2);
           controls.UISub.Disable();
@@ -486,7 +486,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
             }
           else
           {
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           skillmanager.SetSkill("Blitz", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Blitz", 2);
           controls.UISub.Disable();
@@ -499,7 +499,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
             return;
         }  
     }
@@ -512,7 +512,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("TrophicCascade", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("TrophicCascade", 1);
           controls.UISub.Disable();
@@ -523,7 +523,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-            Debug.Log("X Pressed");
+           //Debug.Log("X Pressed");
           skillmanager.SetSkill("TrophicCascade", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("TrophicCascade", 1);
           controls.UISub.Disable();
@@ -542,7 +542,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
              skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("TrophicCascade", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("TrophicCascade", 2);
            controls.UISub.Disable();
@@ -553,7 +553,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
          else
          {
-           Debug.Log("B Pressed");
+          //Debug.Log("B Pressed");
           skillmanager.SetSkill("TrophicCascade", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("TrophicCascade", 2);
            controls.UISub.Disable();
@@ -566,7 +566,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -579,7 +579,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Mycotoxins", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Mycotoxins", 1);
           controls.UISub.Disable();
@@ -590,7 +590,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-            Debug.Log("X Pressed");
+           //Debug.Log("X Pressed");
           skillmanager.SetSkill("Mycotoxins", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Mycotoxins", 1);
           controls.UISub.Disable();
@@ -610,7 +610,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           skillmanager.SetSkill("Mycotoxins", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Mycotoxins", 2);
           controls.UISub.Disable();
@@ -621,7 +621,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("Mycotoxins", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Mycotoxins", 2);
           controls.UISub.Disable();
@@ -634,7 +634,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -647,7 +647,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Spineshot", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Spineshot", 1);
           controls.UISub.Disable();
@@ -658,7 +658,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Spineshot", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Spineshot", 1);
           controls.UISub.Disable();
@@ -678,7 +678,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           skillmanager.SetSkill("Spineshot", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Spineshot", 2);
           controls.UISub.Disable();
@@ -689,7 +689,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-          Debug.Log("B Pressed");
+         //Debug.Log("B Pressed");
           skillmanager.SetSkill("Spineshot", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Spineshot", 2);
           controls.UISub.Disable();
@@ -702,7 +702,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -715,7 +715,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("UnstablePuffball", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("UnstablePuffball", 1);
           controls.UISub.Disable();
@@ -726,7 +726,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("UnstablePuffball", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("UnstablePuffball", 1);
           controls.UISub.Disable();
@@ -746,7 +746,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
              skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("UnstablePuffball", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("UnstablePuffball", 2);
           controls.UISub.Disable();
@@ -757,7 +757,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-             Debug.Log("B Pressed");
+            //Debug.Log("B Pressed");
           skillmanager.SetSkill("UnstablePuffball", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("UnstablePuffball", 2);
           controls.UISub.Disable();
@@ -771,7 +771,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -784,7 +784,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Undergrowth", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Undergrowth", 1);
           controls.UISub.Disable();
@@ -795,7 +795,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Undergrowth", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Undergrowth", 1);
           controls.UISub.Disable();
@@ -815,7 +815,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("Undergrowth", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Undergrowth", 2);
           controls.UISub.Disable();
@@ -826,7 +826,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-             Debug.Log("B Pressed");
+            //Debug.Log("B Pressed");
           skillmanager.SetSkill("Undergrowth", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Undergrowth", 2);
           controls.UISub.Disable();
@@ -840,7 +840,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -853,7 +853,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("LeechingSpore", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("LeechingSpore", 1);
           controls.UISub.Disable();
@@ -864,7 +864,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-            Debug.Log("X Pressed");
+           //Debug.Log("X Pressed");
           skillmanager.SetSkill("LeechingSpore", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("LeechingSpore", 1);
           controls.UISub.Disable();
@@ -883,7 +883,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();  
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("LeechingSpore", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("LeechingSpore", 2);
           controls.UISub.Disable();
@@ -894,7 +894,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-             Debug.Log("B Pressed");
+            //Debug.Log("B Pressed");
           skillmanager.SetSkill("LeechingSpore", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("LeechingSpore", 2);
           controls.UISub.Disable();
@@ -908,7 +908,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -921,7 +921,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("Sporeburst", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Sporeburst", 1);
           controls.UISub.Disable();
@@ -932,7 +932,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-            Debug.Log("X Pressed");
+           //Debug.Log("X Pressed");
           skillmanager.SetSkill("Sporeburst", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Sporeburst", 1);
           controls.UISub.Disable();
@@ -952,7 +952,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
             skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();  
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("Sporeburst", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Sporeburst", 2);
            controls.UISub.Disable();
@@ -963,7 +963,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("Sporeburst", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("Sporeburst", 2);
            controls.UISub.Disable();
@@ -977,7 +977,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
+         //Debug.Log("return");
           return;
         }  
     }
@@ -990,7 +990,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
           skillmanager.SetSkill("NoSkill", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
-          Debug.Log("X Pressed");
+         //Debug.Log("X Pressed");
           skillmanager.SetSkill("DefenseMechanism", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("DefenseMechanism", 1);
           controls.UISub.Disable();
@@ -1001,7 +1001,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-             Debug.Log("X Pressed");
+            //Debug.Log("X Pressed");
           skillmanager.SetSkill("DefenseMechanism", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("DefenseMechanism", 1);
           controls.UISub.Disable();
@@ -1021,7 +1021,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           {
             skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();  
-            Debug.Log("B Pressed");
+           //Debug.Log("B Pressed");
           skillmanager.SetSkill("DefenseMechanism", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("DefenseMechanism", 2);
           controls.UISub.Disable();
@@ -1032,7 +1032,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           }
           else
           {
-             Debug.Log("B Pressed");
+            //Debug.Log("B Pressed");
           skillmanager.SetSkill("DefenseMechanism", 2, GameObject.FindWithTag("currentPlayer"));
           hudSkills.ChangeSkillIcon("DefenseMechanism", 2);
           controls.UISub.Disable();

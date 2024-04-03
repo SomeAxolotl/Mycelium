@@ -35,7 +35,7 @@ public class GrowMenuButtonController : MonoBehaviour
     void OnEnable()
     {
         ClearList();
-        controls = new ThirdPersonActionsAsset();
+        controls = InputManager.actionAsset;
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
         controls.UI.Close.performed += ctx => Close();

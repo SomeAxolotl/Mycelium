@@ -29,7 +29,7 @@ public class CutscenePlayer : MonoBehaviour
     {
         cutsceneMusic = GetComponent<AudioSource>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        playerInput = new ThirdPersonActionsAsset();
+        playerInput = InputManager.actionAsset;
     }
 
     private void Update()

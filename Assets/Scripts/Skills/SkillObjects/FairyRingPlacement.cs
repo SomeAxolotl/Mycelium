@@ -23,7 +23,7 @@ public class FairyRingPlacement : FairyRing
         float damageInterval = damage / lifetime;
         while (timeElapsed < lifetime && enemyInsideFairyRing)
         {
-            Debug.Log("Applying damage: " + damageInterval);
+            //Debug.Log("Applying damage: " + damageInterval);
             enemyHealth.EnemyTakeDamage(damageInterval);
             ReworkedEnemyNavigation enemyNav = other.gameObject.GetComponent<ReworkedEnemyNavigation>();
             if (enemyNav != null && enemyInsideFairyRing)
@@ -64,7 +64,7 @@ public class FairyRingPlacement : FairyRing
                     }
                 }
                 StartCoroutine(DamageOverTime(enemyHealth, other, damage));
-                Debug.Log("Fairy Ring hit!");
+                //Debug.Log("Fairy Ring hit!");
             }
         }
     }

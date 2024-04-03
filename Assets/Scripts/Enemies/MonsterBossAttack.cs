@@ -126,7 +126,7 @@ public class MonsterBossAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
-            Debug.Log("collided with player");
+            //Debug.Log("collided with player");
             collidedWithPlayer = true;
         
         if (isTailAttacking && !isSlamAttacking || !isSwipeAttacking)
@@ -168,7 +168,7 @@ public class MonsterBossAttack : MonoBehaviour
         if(disToPlayer <= attractionRadius)
         {
             StartCoroutine(ApplyAttractionForceOverTime());
-            Debug.Log("PULLED");
+            //Debug.Log("PULLED");
         }
     }
     private void OnDrawGizmosSelected()
@@ -245,7 +245,7 @@ public class MonsterBossAttack : MonoBehaviour
         }
 
         //animator.SetTrigger("SwipeAttack");
-        Debug.Log("SWIPE ATTACK!");
+        //Debug.Log("SWIPE ATTACK!");
         yield return new WaitForSeconds(swipeAttackAnimationDuration);
         StartCoroutine(Attack(swipeAttackDamage));
         ApplyKnockbackToPlayer();
@@ -257,7 +257,7 @@ public class MonsterBossAttack : MonoBehaviour
         isSlamAttacking = true;
         //StartCoroutine(bossProcedualAnimation.SmashAttack());
         animator.SetTrigger("Smash");
-        // Debug.Log("SLAM ATTACK!");
+        //Debug.Log("SLAM ATTACK!");
         yield return new WaitForSeconds(slamAttackAnimationDuration);
         StartCoroutine(Attack(slamAttackDamage));
 

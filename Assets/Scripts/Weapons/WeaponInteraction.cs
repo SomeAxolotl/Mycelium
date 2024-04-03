@@ -13,7 +13,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset = InputManager.actionAsset;
         playerActionsAsset.Player.Enable();
         player = GameObject.FindWithTag("currentPlayer");
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();

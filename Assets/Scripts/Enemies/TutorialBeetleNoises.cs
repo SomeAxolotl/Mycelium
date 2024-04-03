@@ -12,7 +12,7 @@ public class TutorialBeetleNoises : MonoBehaviour
         while (!IsNearPlayer())
         {
             SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
-            Debug.Log("playing beetle sound");
+            //Debug.Log("playing beetle sound");
             yield return new WaitForSeconds(noiseInterval);
         }
     }

@@ -18,7 +18,7 @@ public class CamTracker : MonoBehaviour
     private InputAction lockon;
     private void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset = InputManager.actionAsset;
         playerActionsAsset.Player.Enable();
         lockon = playerActionsAsset.Player.LockOn;
     }
@@ -35,7 +35,7 @@ public class CamTracker : MonoBehaviour
 
         if (lockon.triggered)
         {
-            Debug.Log("Lockon triggered!");
+            //Debug.Log("Lockon triggered!");
             //ToggleLockOn();
         }
         

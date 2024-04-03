@@ -20,7 +20,7 @@ public class LootCache : MonoBehaviour, IInteractable
     GameObject player;
     private void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset = InputManager.actionAsset;
         playerActionsAsset.Player.Enable();
         interact = playerActionsAsset.Player.Interact;
         player = GameObject.FindWithTag("currentPlayer");

@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = new ThirdPersonActionsAsset();
+        playerInput = InputManager.actionAsset;
 
         //NOTE TO SELF: Probably eventually find a way to detect if someone is using a controller
         Cursor.visible = false;
@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour
             if(randomValue<=currentChance)
             {
                 selectedMenu = menuType;
-                Debug.Log("Menu Randomly Selected!");
+                //Debug.Log("Menu Randomly Selected!");
                 break;
             }
         }
@@ -50,7 +50,7 @@ public class MainMenu : MonoBehaviour
     public void QuitTheGame()
     {
         Application.Quit();
-        Debug.Log("QUIT THE GAME");
+        //Debug.Log("QUIT THE GAME");
     }
 
     public void StartGame()
@@ -67,13 +67,7 @@ public class MainMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInput.Enable();
         playButton.Select();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.Disable();
     }
 
     private void Update()

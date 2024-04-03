@@ -92,7 +92,7 @@ public class LevelUpManagerNew : MonoBehaviour
       
       Camera.SetActive(true);
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
-      controls = new ThirdPersonActionsAsset();
+      controls = InputManager.actionAsset;
       controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();

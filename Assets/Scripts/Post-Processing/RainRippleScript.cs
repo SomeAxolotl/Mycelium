@@ -40,7 +40,7 @@ public class RainRippleScript : MonoBehaviour
         timer.Add(0f);
         timer.Add(0f);
 
-        Debug.Log("Reset Ripple Lists");
+        //Debug.Log("Reset Ripple Lists");
     }
 
     void Update()

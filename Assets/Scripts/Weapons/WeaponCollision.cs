@@ -26,7 +26,7 @@ public class WeaponCollision : MonoBehaviour
         {
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
-            Debug.Log(other.gameObject);
+            //Debug.Log(other.gameObject);
             if (other.GetComponent<EnemyHealth>() != null)
             {
                 other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);

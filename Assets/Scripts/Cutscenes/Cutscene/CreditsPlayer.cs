@@ -24,8 +24,6 @@ public class CreditsPlayer : MonoBehaviour
     private void Start()
     {
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        playerInput = new ThirdPersonActionsAsset();
-        playerInput.Disable();
     }
     
     private void Update()
@@ -50,7 +48,6 @@ public class CreditsPlayer : MonoBehaviour
     {
         GlobalData.isAbleToPause = false;
         playerController.DisableController();
-        playerInput.Enable();
 
         StartCoroutine(PlayCredits());
     }

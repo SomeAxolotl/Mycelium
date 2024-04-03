@@ -26,7 +26,7 @@ public class SwapCharacter : MonoBehaviour
         swapWeapon = GetComponent<SwapWeapon>();
         playerHealth = GetComponent<PlayerHealth>();
         playerAttack = GetComponent<PlayerAttack>();
-        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset = InputManager.actionAsset;
         skillManager = GetComponent<SkillManager>();
         playerActionsAsset.Player.Enable();
         swapCharacter = playerActionsAsset.Player.Interact;

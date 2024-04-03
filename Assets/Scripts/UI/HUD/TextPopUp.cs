@@ -39,7 +39,7 @@ public class TextPopUp : MonoBehaviour
 
     void Awake()
     {
-        playerInput = new ThirdPersonActionsAsset();
+        playerInput = InputManager.actionAsset;
 
         textPopUpCanvasGroup = GameObject.Find("TextPopUpCanvas").GetComponent<CanvasGroup>();
         textPopUp = GameObject.Find("TextPopUpCanvas").transform.GetChild(0).GetComponent<TMP_Text>();
@@ -237,13 +237,4 @@ public class TextPopUp : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        playerInput.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.Disable();
-    }
 }

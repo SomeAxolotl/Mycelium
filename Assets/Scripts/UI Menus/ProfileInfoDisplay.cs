@@ -74,7 +74,7 @@ public class ProfileInfoDisplay : MonoBehaviour
     public void SetGlobalProfileNumber()
     {
         GlobalData.profileNumber = profileNumber;
-        Debug.Log("Now using profile " + profileNumber);
+        //Debug.Log("Now using profile " + profileNumber);
     }
 
     public void PrepareProfileDelete()
@@ -99,6 +99,6 @@ public class ProfileInfoDisplay : MonoBehaviour
 
         pauseMenuScript.profileToDelete = profileNumber;
         pauseMenuScript.profileToSelect = GetComponent<Button>();
-        Debug.Log("Preparing to delete profile " + profileNumber);
+        //Debug.Log("Preparing to delete profile " + profileNumber);
     }
 }

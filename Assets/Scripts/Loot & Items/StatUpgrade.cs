@@ -18,7 +18,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     [SerializeField] float multiplyAmount = 1.0f;
     void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset = InputManager.actionAsset;
         playerActionsAsset.Player.Enable();
 
         List<int> statNumbers = new List<int> {0, 1, 2, 3};

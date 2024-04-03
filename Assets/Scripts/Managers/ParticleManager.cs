@@ -113,7 +113,7 @@ public class ParticleManager : MonoBehaviour
             }
         }
 
-        Debug.Log("PARTICLE NAME NOT FOUND");
+        Debug.LogError("PARTICLE NAME NOT FOUND");
         return null;
     }
 

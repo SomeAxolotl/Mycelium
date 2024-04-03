@@ -15,7 +15,7 @@ public class DamageArea : MonoBehaviour
 
             float damageInterval = damage / damageOverTimeDuration;
 
-            Debug.Log("Applying damage: " + damageInterval);
+            //Debug.Log("Applying damage: " + damageInterval);
             enemyHealth.EnemyTakeDamage(damageInterval);
             yield return new WaitForSeconds(1f);
             timeElapsed++;
@@ -30,7 +30,7 @@ public class DamageArea : MonoBehaviour
             if (enemyHealth != null)
             {
                 StartCoroutine(DamageOverTime(enemyHealth, damage));
-                Debug.Log("Toxins hit!");
+                //Debug.Log("Toxins hit!");
             }
         }
     }

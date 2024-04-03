@@ -24,7 +24,7 @@ public class SwapWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset = InputManager.actionAsset;
         playerActionsAsset.Player.Enable();
         swapCharacter = GetComponent<SwapCharacter>();
         playerController = GetComponent<PlayerController>();

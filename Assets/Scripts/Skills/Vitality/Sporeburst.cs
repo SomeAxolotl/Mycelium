@@ -30,7 +30,7 @@ public class Sporeburst : Skill
                 enemiesHit.Add(enemy.gameObject);
                 enemy.gameObject.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
                 HealPlayer(enemy.gameObject);
-                Debug.Log("Sporeburst hit!");
+                //Debug.Log("Sporeburst hit!");
             }
 
             if (enemy.gameObject.GetComponent<EnemyAttack>() != null)

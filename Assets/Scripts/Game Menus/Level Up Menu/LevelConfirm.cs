@@ -20,7 +20,7 @@ public class LevelConfirm : MonoBehaviour
     public Image Material;
    void OnEnable()
    {
-    controls = new ThirdPersonActionsAsset();
+    controls = InputManager.actionAsset;
     currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
     levelscript = LevelMenu.GetComponent<LevelUpManagerNew>();
     nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
@@ -81,7 +81,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedLog--;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -95,7 +95,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedLog -= 2;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -109,7 +109,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedLog -= 3;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -123,7 +123,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedExoskeleton--;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -137,7 +137,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedExoskeleton-= 2;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -151,7 +151,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedExoskeleton-= 3;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -165,7 +165,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedCalcite--;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -179,7 +179,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedCalcite -= 2;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -193,7 +193,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedCalcite -= 3;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -207,7 +207,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedFlesh--;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -221,7 +221,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedFlesh-= 2;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -235,7 +235,7 @@ public class LevelConfirm : MonoBehaviour
         {
         currentstats.primalLevel++;
         nutrientTracker.storedFlesh-= 3;
-        Debug.Log("Leveled Primal");
+       //Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();

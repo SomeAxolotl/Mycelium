@@ -20,7 +20,7 @@ public class SentLevelConfirm : MonoBehaviour
     public Image Material;
    void OnEnable()
    {
-    controls = new ThirdPersonActionsAsset();
+    controls = InputManager.actionAsset;
     currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
     levelscript = LevelMenu.GetComponent<LevelUpManagerNew>();
     nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();

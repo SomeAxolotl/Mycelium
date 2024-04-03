@@ -29,7 +29,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
     // Start is called before the first frame update
     void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
+        playerActionsAsset = InputManager.actionAsset;
         playerActionsAsset.Player.Enable();
         player = GameObject.FindWithTag("currentPlayer");
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();

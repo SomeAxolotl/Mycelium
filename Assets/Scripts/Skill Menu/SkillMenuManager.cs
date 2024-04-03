@@ -32,7 +32,7 @@ public class SkillMenuManager : MonoBehaviour
     void OnEnable()
     {
         LevelUI.SetActive(false);
-        controls = new ThirdPersonActionsAsset();
+        controls = InputManager.actionAsset;
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.Close.performed += ctx => CloseSkill();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();

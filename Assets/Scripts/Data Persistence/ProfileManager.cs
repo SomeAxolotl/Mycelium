@@ -141,7 +141,7 @@ public class ProfileManager : MonoBehaviour
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
-        Debug.Log(json);
+        //Debug.Log(json);
         System.IO.File.WriteAllText(filePath, json);
     }
 

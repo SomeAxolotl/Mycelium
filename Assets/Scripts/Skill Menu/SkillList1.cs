@@ -16,7 +16,7 @@ public class SkillList1 : MonoBehaviour
     }
     void OnEnable()
     {
-      controls = new ThirdPersonActionsAsset();
+      controls = InputManager.actionAsset;
       controls.UI.Close.performed += ctx => CloseMenu();
     }
     void CloseMenu()

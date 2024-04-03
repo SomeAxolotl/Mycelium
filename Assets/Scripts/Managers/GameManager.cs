@@ -111,9 +111,9 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            nutrientTracker.SubtractNutrients(1);
-
             yield return new WaitForSeconds(nutrientDrainRate);
+
+            nutrientTracker.SubtractNutrients(1);
         }
     }
 }

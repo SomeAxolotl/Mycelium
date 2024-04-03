@@ -30,7 +30,7 @@ public class GrowMenuButtonList : MonoBehaviour
     public void OnClick()
     {
      int buttonIndex = buttoncontroller.buttons.IndexOf(this.gameObject);
-     Debug.Log(buttonIndex);
+     //Debug.Log(buttonIndex);
      swapCharacterscript.SwitchCharacterGrowMenu(buttonIndex);
     }
 

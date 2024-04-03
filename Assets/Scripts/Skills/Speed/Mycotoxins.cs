@@ -54,11 +54,11 @@ public class Mycotoxins : Skill
             spawnCount++;
             if (sporeCone != null)
             {
-                Debug.Log("Spore damage cone spawned");
+                //Debug.Log("Spore damage cone spawned");
             }
             if (sporeCone == null)
             {
-                Debug.Log("Toxic Failure");
+                //Debug.Log("Toxic Failure");
             }
             Destroy(sporeCone, 3f);
 
