@@ -20,9 +20,9 @@ public class LootCache : MonoBehaviour, IInteractable
     GameObject player;
     private void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
-        playerActionsAsset.Player.Enable();
-        interact = playerActionsAsset.Player.Interact;
+        //playerActionsAsset = new ThirdPersonActionsAsset();
+        //playerActionsAsset.Player.Enable();
+        //interact = playerActionsAsset.Player.Interact;
         player = GameObject.FindWithTag("currentPlayer");
 
         //THIS IS A TEMPORARY FIX FOR CACHES!!! PLEASE GO INTO THE CHUNKS AND MANUALLY FIX THE NUTRIENT VALUES.
