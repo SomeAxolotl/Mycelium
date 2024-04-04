@@ -65,6 +65,7 @@ public class MonsterBossAttack : MonoBehaviour
         
         float dstToPlayer = Vector3.Distance(transform.position, player.position);
         elapsedTime += Time.deltaTime;
+        Debug.Log("attacking? " + isAttacking);
         if (elapsedTime >= pullInterval)
         {
             PullPlayers();
@@ -96,10 +97,8 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator Attack(float damage)
     {
         canAttack = false;
-        isAttacking = true;
 
         // Windup time before attacking
-        yield return new WaitForSeconds(attackWindupTime);
 
         // Perform attack animation or action
         //animator.SetTrigger("Attack");
@@ -120,7 +119,7 @@ public class MonsterBossAttack : MonoBehaviour
         yield return new WaitForSeconds(attackInterval);
 
         canAttack = true;
-        isAttacking = false;
+
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -229,6 +228,7 @@ public class MonsterBossAttack : MonoBehaviour
     private IEnumerator SwipeAttack()
     {
         isSwipeAttacking = true;
+        isAttacking = true;
         int randomSwipeAttack = Random.Range(0, 2);
 
         switch (randomSwipeAttack)
@@ -250,11 +250,13 @@ public class MonsterBossAttack : MonoBehaviour
         StartCoroutine(Attack(swipeAttackDamage));
         ApplyKnockbackToPlayer();
         isSwipeAttacking = false;
+        isAttacking = false;
     }
 
     private IEnumerator SlamAttack()
     {
         isSlamAttacking = true;
+        isAttacking = true;
         //StartCoroutine(bossProcedualAnimation.SmashAttack());
         animator.SetTrigger("Smash");
         // Debug.Log("SLAM ATTACK!");
@@ -263,6 +265,7 @@ public class MonsterBossAttack : MonoBehaviour
 
         ApplyKnockbackToPlayer();
         isSlamAttacking = false;
+        isAttacking = false;
     }
 
     private void ApplyKnockbackToPlayer()
