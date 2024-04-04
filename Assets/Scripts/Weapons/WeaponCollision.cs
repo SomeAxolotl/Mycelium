@@ -12,6 +12,7 @@ public class WeaponCollision : MonoBehaviour
     WeaponStats weaponStats;
     RelentlessFury relentlessFury;
     public bool hitStopping = false;
+    public bool isCycloning = false;
     void Start()
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
@@ -26,7 +27,7 @@ public class WeaponCollision : MonoBehaviour
         {
             enemiesHit.Add(other.gameObject);
             float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
-            Debug.Log(other.gameObject);
+            //Debug.Log(other.gameObject);
             if (other.GetComponent<EnemyHealth>() != null)
             {
                 other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
@@ -87,7 +88,11 @@ public class WeaponCollision : MonoBehaviour
             yield return null;
         }
 
-        animator.speed = currentPlayer.GetComponent<CharacterStats>().animatorSpeed;
+        if (!isCycloning)
+        {
+            Debug.Log("resetting animator");
+            animator.speed = currentPlayer.GetComponent<CharacterStats>().animatorSpeed;
+        }
 
         hitStopping = false;
     }

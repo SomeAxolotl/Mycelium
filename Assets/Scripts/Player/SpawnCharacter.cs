@@ -6,21 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SpawnCharacter : MonoBehaviour
 {
-    private enum TestSkills
-    {
-        LivingCyclone,
-        RelentlessFury,
-        Blitz,
-        TrophicCascade,
-        Mycotoxins,
-        Spineshot,
-        UnstablePuffball,
-        Undergrowth,
-        LeechingSpore,
-        Sporeburst,
-        DefenseMechanism
-    }
-
     [SerializeField] private List<string> sporeNames = new List<string>()
     {
         "Gob"

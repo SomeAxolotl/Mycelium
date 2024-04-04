@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: 0.02591, y: 0.69313, z: 0.73067}
   m_LocalScale: {x: 0.5652236, y: 0.5652236, z: 0.5652236}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 4246217452605026878}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
@@ -122,6 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentienceBonusDamage: 0
   reflectBonusDamage: 0
+  hitStopping: 0
+  isCycloning: 0
 --- !u!114 &69671975620290457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,3 +163,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nutrientsSalvaged: 200
+--- !u!1 &7724574420017901453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4246217452605026878}
+  m_Layer: 0
+  m_Name: ParticleHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4246217452605026878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724574420017901453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.112, z: 2.192}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7847540888918249016}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

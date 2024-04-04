@@ -18,7 +18,4 @@ public class SporeAttributeRanges : MonoBehaviour
 
     public float regenBase = 1f;
     public float regenIncrement = 0.2f;
-
-    public float minimumHappinessMultiplier = 0.5f;
-    public float maximumHappinessMultiplier = 2.5f;
 }

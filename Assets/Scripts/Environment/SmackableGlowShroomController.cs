@@ -41,7 +41,7 @@ public class SmackableGlowShroomController : MonoBehaviour
         }
     }
     private void Bounce(){
-        Debug.Log("Smacked!");
+        //Debug.Log("Smacked!");
         if (!wasSmacked ) //SceneManager.GetActiveScene().name != "New Tutorial"
         {
             int randNutrientAmount = Random.Range(minNutrientParticles, maxNutrientParticles);

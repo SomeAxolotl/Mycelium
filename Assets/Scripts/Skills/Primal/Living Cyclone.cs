@@ -10,8 +10,12 @@ public class LivingCyclone : Skill
 
     private GameObject currentWeapon;
 
+    int spinNumber = 0;
+
     public override void DoSkill()
-    {
+    {   
+        spinNumber = 0;
+
         if (isPlayerCurrentPlayer())
         {
             playerController.EnableController();
@@ -28,6 +32,8 @@ public class LivingCyclone : Skill
 
     IEnumerator ExtendArm()
     {
+        //string animationName = currentWeapon.GetComponent<WeaponStats>().weaponType.ToString();
+
         float storedAnimatorSpeed = currentAnimator.speed;
         currentAnimator.Play("Slash", 0, 0f);
 
@@ -41,29 +47,37 @@ public class LivingCyclone : Skill
             playerController.looking = false;
         }
         
+        currentWeapon.GetComponent<WeaponCollision>().isCycloning = true;
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
+        currentWeapon.GetComponent<WeaponCollision>().isCycloning = false;
         
         if (isPlayerCurrentPlayer())
         {
             playerController.looking = true;
         }
         
-
-        currentAnimator.speed = storedAnimatorSpeed;
+        currentAnimator.speed = characterStats.animatorSpeed;
 
         yield return new WaitUntil (() => !currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
+
         EndSkill();
     }
 
     IEnumerator Spin()
     {
+        spinNumber++;
+
         if(currentWeapon != null) 
         {
             WeaponCollision weaponCollision = currentWeapon.GetComponent<WeaponCollision>();
 
-            SoundEffectManager.Instance.PlaySound("Slash", player.transform.position);
+            if (spinNumber > 1)
+            {
+                SoundEffectManager.Instance.PlaySound("Slash", player.transform.position);
+            }
+            
             weaponCollision.ClearEnemyList();
             currentWeapon.GetComponent<Collider>().enabled = true;
             weaponCollision.sentienceBonusDamage = finalSkillValue;
