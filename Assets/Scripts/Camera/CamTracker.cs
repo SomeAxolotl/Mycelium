@@ -3,123 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using static System.TimeZoneInfo;
 
 public class CamTracker : MonoBehaviour
 {
-    private Transform currentPlayer;
-    public Camera mainCam;
-    public CinemachineFreeLook freeLookCamera;
-    public CinemachineTargetGroup targetGroup;
-    public Transform currentTarget;
-    public Crosshair crosshair;
-    public bool isLockedOn = false;
+    private Transform centerPoint;
+    private GameObject currentPlayer;
 
-    private ThirdPersonActionsAsset playerActionsAsset;
-    private InputAction lockon;
+    public Transform currentTarget;
+
+    [SerializeField] private CinemachineBrain cineBrain;
+    [SerializeField] private CinemachineVirtualCamera virtualResetCamera;
+
+    private ThirdPersonActionsAsset playerInput;
+
+    private void Awake()
+    {
+        playerInput = new ThirdPersonActionsAsset();
+    }
+
     private void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
-        playerActionsAsset.Player.Enable();
-        lockon = playerActionsAsset.Player.LockOn;
+        currentPlayer = GameObject.FindWithTag("currentPlayer");
     }
+
     private void Update()
     {
-        if(GameObject.FindWithTag("currentPlayer").transform.Find("CenterPoint") != null)
+        //Null check for Current Player and Center Point
+        if (GameObject.FindWithTag("currentPlayer").transform.Find("CenterPoint") != null)
         {
-            currentPlayer = GameObject.FindWithTag("currentPlayer").transform.Find("CenterPoint");
-            transform.position = currentPlayer.position;
-        }
-        
-        
-        isLockedOn = false;
+            //Camera Tracker position is set to Center Point position
+            centerPoint = GameObject.FindWithTag("currentPlayer").transform.Find("CenterPoint");
+            transform.position = centerPoint.position;
 
-        if (lockon.triggered)
-        {
-            Debug.Log("Lockon triggered!");
-            //ToggleLockOn();
-        }
-        
-        if(isLockedOn)
-        {
-            freeLookCamera.Follow = null;
-            freeLookCamera.LookAt = transform;
-            crosshair.crosshairImage.enabled = true;
-            crosshair.target = currentTarget;
-
-            Vector3 directionToTarget = currentTarget.position - currentPlayer.position;
-            directionToTarget.y = 0f;
-
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-            currentPlayer.rotation = Quaternion.Slerp(currentPlayer.rotation, targetRotation, 15f * Time.deltaTime);
-
-            Vector3 relativePosition = -currentPlayer.forward * 12f + currentPlayer.up * 4.5f;
-            Vector3 targetPosition = currentPlayer.position + relativePosition;
-            mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, targetPosition, 10f * Time.deltaTime);
-
-            Quaternion targetCameraRotation = Quaternion.Euler(20f, currentPlayer.rotation.eulerAngles.y, 0f);
-            mainCam.transform.rotation = Quaternion.Slerp(mainCam.transform.rotation, targetCameraRotation, 100f * Time.deltaTime);
-            if (Vector3.Distance(currentPlayer.position, currentTarget.position) > 25f)
+            //Make sure we have the correct reference to the Current Player and then rotate the Camera Tracker
+            if (currentPlayer.tag != "currentPlayer")
             {
-                //ToggleLockOn();
+                currentPlayer = GameObject.FindWithTag("currentPlayer");
             }
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentPlayer.transform.eulerAngles.y, transform.eulerAngles.z);
+        }
+
+        if(playerInput.Player.ResetCamera.WasPressedThisFrame() && cineBrain.IsBlending == false)
+        {
+            StartCoroutine(ResetCameraPosition());
         }
     }
-    public void ToggleLockOn()
-    {
-        if (isLockedOn)
-        {
-            isLockedOn = false;
-            targetGroup.m_Targets = new CinemachineTargetGroup.Target[0];
-            targetGroup.enabled = false;
-            crosshair.crosshairImage.enabled = false;
-            freeLookCamera.LookAt = transform;
-            freeLookCamera.Follow = transform;
-        }
-        else
-        {
 
-            currentTarget = FindClosestEnemy();
-            if (currentTarget != null)
-            {
-                isLockedOn = true;
-                targetGroup.enabled = true;
-                targetGroup.AddMember(currentPlayer, 1f, 0f);
-                targetGroup.AddMember(currentTarget, 1f, 0f);
-            }
+    IEnumerator ResetCameraPosition()
+    {
+        float elapsedTime = 0f;
+
+        virtualResetCamera.enabled = true;
+
+        while (elapsedTime < cineBrain.m_DefaultBlend.m_Time)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+
+        virtualResetCamera.enabled = false;
     }
-    Transform FindClosestEnemy()
+
+    private void OnEnable()
     {
-        //Bounds on the screen of where to search for enemies
-        float startX = 0.3f;
-        float startY = 0.3f;
-        float endX = 0.7f;
-        float endY = 0.7f;
+        playerInput.Player.Enable();
+    }
 
-        int rayCountX = 20; //The number of rays in the X direction
-        int rayCountY = 20; //The number of rays in the Y direction
-
-        for (int i = 0; i < rayCountX; i++)
-        {
-            for (int j = 0; j < rayCountY; j++)
-            {
-                //Calculate the current viewport point
-                float viewportX = Mathf.Lerp(startX, endX, (float)i / (rayCountX - 1));
-                float viewportY = Mathf.Lerp(startY, endY, (float)j / (rayCountY - 1));
-
-                Ray ray = Camera.main.ViewportPointToRay(new Vector3(viewportX, viewportY, 0));
-
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.CompareTag("Enemy") && Vector3.Distance(currentPlayer.position, hit.collider.transform.position) < 25f || hit.collider.CompareTag("Boss") && Vector3.Distance(currentPlayer.position, hit.collider.transform.position) < 25f)
-                    {
-                        return hit.transform;
-                    }
-                }
-            }
-        }
-        return null;
+    private void OnDisable()
+    {
+        playerInput.Player.Disable();
     }
 }

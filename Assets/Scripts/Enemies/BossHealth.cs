@@ -13,14 +13,12 @@ public class BossHealth : MonoBehaviour
     List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     Transform player;
     EnemyNavigation enemyNavigation;
-    CamTracker camTracker;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         player = GameObject.FindWithTag("currentPlayer").transform;
         enemyNavigation = GetComponent<EnemyNavigation>();
-        camTracker = GameObject.FindWithTag("Camtracker").GetComponent<CamTracker>();
     }
     void Update()
     {
@@ -41,7 +39,6 @@ public class BossHealth : MonoBehaviour
         {
             //GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(nutrientDrop);
             ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
-            camTracker.ToggleLockOn();
             this.gameObject.SetActive(false);
         }
     }

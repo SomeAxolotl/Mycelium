@@ -118,7 +118,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""LockOn"",
+                    ""name"": ""ResetCamera"",
                     ""type"": ""Button"",
                     ""id"": ""961ec318-8175-42f5-bca7-b25b3622ee79"",
                     ""expectedControlType"": ""Button"",
@@ -419,7 +419,18 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""interactions"": ""Press(pressPoint=1,behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LockOn"",
+                    ""action"": ""ResetCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82339281-48d4-4902-bef5-c4c15fe8d85a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1818,7 +1829,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_Player_Stat_Skill_2 = m_Player.FindAction("Stat_Skill_2", throwIfNotFound: true);
         m_Player_GetStats = m_Player.FindAction("GetStats", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
-        m_Player_LockOn = m_Player.FindAction("LockOn", throwIfNotFound: true);
+        m_Player_ResetCamera = m_Player.FindAction("ResetCamera", throwIfNotFound: true);
         m_Player_Salvage = m_Player.FindAction("Salvage", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1946,7 +1957,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_Player_Stat_Skill_2;
     private readonly InputAction m_Player_GetStats;
     private readonly InputAction m_Player_Pause;
-    private readonly InputAction m_Player_LockOn;
+    private readonly InputAction m_Player_ResetCamera;
     private readonly InputAction m_Player_Salvage;
     public struct PlayerActions
     {
@@ -1962,7 +1973,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @Stat_Skill_2 => m_Wrapper.m_Player_Stat_Skill_2;
         public InputAction @GetStats => m_Wrapper.m_Player_GetStats;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
-        public InputAction @LockOn => m_Wrapper.m_Player_LockOn;
+        public InputAction @ResetCamera => m_Wrapper.m_Player_ResetCamera;
         public InputAction @Salvage => m_Wrapper.m_Player_Salvage;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -2003,9 +2014,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
-            @LockOn.started += instance.OnLockOn;
-            @LockOn.performed += instance.OnLockOn;
-            @LockOn.canceled += instance.OnLockOn;
+            @ResetCamera.started += instance.OnResetCamera;
+            @ResetCamera.performed += instance.OnResetCamera;
+            @ResetCamera.canceled += instance.OnResetCamera;
             @Salvage.started += instance.OnSalvage;
             @Salvage.performed += instance.OnSalvage;
             @Salvage.canceled += instance.OnSalvage;
@@ -2043,9 +2054,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
-            @LockOn.started -= instance.OnLockOn;
-            @LockOn.performed -= instance.OnLockOn;
-            @LockOn.canceled -= instance.OnLockOn;
+            @ResetCamera.started -= instance.OnResetCamera;
+            @ResetCamera.performed -= instance.OnResetCamera;
+            @ResetCamera.canceled -= instance.OnResetCamera;
             @Salvage.started -= instance.OnSalvage;
             @Salvage.performed -= instance.OnSalvage;
             @Salvage.canceled -= instance.OnSalvage;
@@ -2584,7 +2595,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnStat_Skill_2(InputAction.CallbackContext context);
         void OnGetStats(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnLockOn(InputAction.CallbackContext context);
+        void OnResetCamera(InputAction.CallbackContext context);
         void OnSalvage(InputAction.CallbackContext context);
     }
     public interface IUIActions

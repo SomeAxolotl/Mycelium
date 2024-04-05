@@ -19,7 +19,6 @@ public class PlayerHealth : MonoBehaviour
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     PlayerController playerController;
-    CamTracker camTracker;
     Animator animator;
     SceneLoader sceneLoaderScript;
     ProfileManager profileManagerScript;
@@ -39,7 +38,6 @@ public class PlayerHealth : MonoBehaviour
         hudItem = GameObject.Find("HUD").GetComponent<HUDItem>();
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
-        camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
         animator = GameObject.Find("Spore").GetComponent<Animator>();
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         isDefending = false;
@@ -109,10 +107,6 @@ public class PlayerHealth : MonoBehaviour
         swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
         CancelInvoke("Regen");
         hudHealth.UpdateHealthUI(0, maxHealth);
-        if (camTracker.isLockedOn)
-        {
-            camTracker.ToggleLockOn();
-        }
         if (animator.GetBool("Death") == false)
         {
             animator.SetBool("Death", true);
