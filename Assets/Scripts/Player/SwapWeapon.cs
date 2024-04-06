@@ -39,6 +39,11 @@ public class SwapWeapon : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        playerActionsAsset.Disable();
+    }
+
 
     /*public void UpdateCharacter(GameObject currentPlayer)
     {

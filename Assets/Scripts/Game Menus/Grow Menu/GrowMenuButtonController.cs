@@ -31,11 +31,23 @@ public class GrowMenuButtonController : MonoBehaviour
     public GameObject Camera;
     public NutrientTracker currentnutrients;
 
+    private void Awake()
+    {
+        controls = new ThirdPersonActionsAsset();
+    }
+
+    void Start()
+    {
+        HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
+        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
+        skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+        spawnCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>();
+    }
 
     void OnEnable()
     {
         ClearList();
-        controls = new ThirdPersonActionsAsset();
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
         controls.UI.Close.performed += ctx => Close();
@@ -67,14 +79,7 @@ public class GrowMenuButtonController : MonoBehaviour
         MenuSwapRight();
       }
     }
-   void Start()
-   {
-        HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
-        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
-        playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
-        skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
-        spawnCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>();
-    }
+   
    void MenuSwapLeft()
    {
     SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform.position);

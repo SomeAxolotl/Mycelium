@@ -21,6 +21,11 @@ public class CharSelectManagerNew : MonoBehaviour
     private SporeManager sporeManagerScript;
     private ProfileManager profileManagerScript;
 
+    private void Awake()
+    {
+        controls = new ThirdPersonActionsAsset();
+    }
+
     void Start()
     {
         swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
@@ -32,11 +37,15 @@ public class CharSelectManagerNew : MonoBehaviour
     {
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerController.DisableController();
-        controls = new ThirdPersonActionsAsset();
         startButton.Select();
         HUD.GetComponent<HUDController>().FadeOutHUD();
         controls.UI.Close.performed += ctx => Close();
-        
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 
     public void Close()

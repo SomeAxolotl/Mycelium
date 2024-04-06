@@ -7,7 +7,6 @@ using RonaldSunglassesEmoji.Interaction;
 
 public class StatUpgrade : MonoBehaviour, IInteractable
 {
-    ThirdPersonActionsAsset playerActionsAsset;
     GameObject player;
     CharacterStats characterStats;
     int statNumber1;
@@ -18,9 +17,6 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     [SerializeField] float multiplyAmount = 1.0f;
     void Start()
     {
-        playerActionsAsset = new ThirdPersonActionsAsset();
-        playerActionsAsset.Player.Enable();
-
         List<int> statNumbers = new List<int> {0, 1, 2, 3};
         statNumber1 = statNumbers[Random.Range(0, statNumbers.Count)];
         statNumbers.Remove(statNumber1);

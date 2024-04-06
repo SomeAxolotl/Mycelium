@@ -10,13 +10,12 @@ public class SkillList1 : MonoBehaviour
 {
    ThirdPersonActionsAsset controls;
    public GameObject SkillList;
-    void Start()
+    void Awake()
     {
-        
+        controls = new ThirdPersonActionsAsset();
     }
     void OnEnable()
     {
-      controls = new ThirdPersonActionsAsset();
       controls.UI.Close.performed += ctx => CloseMenu();
     }
     void CloseMenu()
@@ -24,9 +23,8 @@ public class SkillList1 : MonoBehaviour
         SkillList.SetActive(false);
     }
 
-    
-    void Update()
+    private void OnDisable()
     {
-        
+        controls.Disable();
     }
 }

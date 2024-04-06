@@ -27,12 +27,14 @@ public class SkillMenuManager : MonoBehaviour
     public GameObject SkillDescription;
     public GameObject GrowMenu;
 
-    
-    
+    private void Awake()
+    {
+        controls = new ThirdPersonActionsAsset();
+    }
+
     void OnEnable()
     {
         LevelUI.SetActive(false);
-        controls = new ThirdPersonActionsAsset();
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.Close.performed += ctx => CloseSkill();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();

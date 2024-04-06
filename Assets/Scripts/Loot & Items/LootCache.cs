@@ -15,14 +15,9 @@ public class LootCache : MonoBehaviour, IInteractable
     [SerializeField][Tooltip("Legacy. Used only for reference.")] private List<GameObject> possibleDrops;
     [SerializeField] private int nutrientMin = 50;
     [SerializeField] private int nutrientMax = 200;
-    ThirdPersonActionsAsset playerActionsAsset;
-    private InputAction interact;
     GameObject player;
     private void Start()
     {
-        //playerActionsAsset = new ThirdPersonActionsAsset();
-        //playerActionsAsset.Player.Enable();
-        //interact = playerActionsAsset.Player.Interact;
         player = GameObject.FindWithTag("currentPlayer");
 
         //THIS IS A TEMPORARY FIX FOR CACHES!!! PLEASE GO INTO THE CHUNKS AND MANUALLY FIX THE NUTRIENT VALUES.

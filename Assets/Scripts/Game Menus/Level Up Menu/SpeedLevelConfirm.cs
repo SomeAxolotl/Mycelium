@@ -18,9 +18,14 @@ public class SpeedLevelConfirm : MonoBehaviour
     public Button Speed;
     public TMP_Text confirmtext;
     public Image Material;
-   void OnEnable()
+
+    private void Awake()
+    {
+        controls = new ThirdPersonActionsAsset();
+    }
+
+    void OnEnable()
    {
-    controls = new ThirdPersonActionsAsset();
     currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
     levelscript = LevelMenu.GetComponent<LevelUpManagerNew>();
     nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();

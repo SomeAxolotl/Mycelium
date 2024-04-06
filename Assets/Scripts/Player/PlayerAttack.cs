@@ -160,4 +160,9 @@ public class PlayerAttack : MonoBehaviour
             particle.GetComponent<ParticleSystem>().Stop();
         }
     }
+
+    private void OnDisable()
+    {
+        playerActionsAsset.Disable();
+    }
 }

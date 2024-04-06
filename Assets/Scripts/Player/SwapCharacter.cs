@@ -9,8 +9,6 @@ public class SwapCharacter : MonoBehaviour
     public List<GameObject> characters;
     public int currentCharacterIndex = 0;
     public CharacterStats currentCharacterStats;
-    private InputAction swapCharacter;
-    private ThirdPersonActionsAsset playerActionsAsset;
     private PlayerController playerController;
     private SwapWeapon swapWeapon;
     private PlayerHealth playerHealth;
@@ -26,10 +24,7 @@ public class SwapCharacter : MonoBehaviour
         swapWeapon = GetComponent<SwapWeapon>();
         playerHealth = GetComponent<PlayerHealth>();
         playerAttack = GetComponent<PlayerAttack>();
-        playerActionsAsset = new ThirdPersonActionsAsset();
         skillManager = GetComponent<SkillManager>();
-        playerActionsAsset.Player.Enable();
-        swapCharacter = playerActionsAsset.Player.Interact;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
 
         SwitchCharacter(currentCharacterIndex);
@@ -40,15 +35,15 @@ public class SwapCharacter : MonoBehaviour
     {
         //TEMPORARY KEYCODES ~ WILL BE TURNED INTO LEFT AND RIGHT MENU ARROWS IN THE FUTURE
         
-        if (Input.GetKeyDown(KeyCode.N) && currentCharacterIndex < characters.Count - 1)
-        {
-            SwitchToNextCharacter();
-        }
+        //if (Input.GetKeyDown(KeyCode.N) && currentCharacterIndex < characters.Count - 1)
+        //{
+        //    SwitchToNextCharacter();
+        //}
         
-        if (Input.GetKeyDown(KeyCode.B) && currentCharacterIndex != 0)
-        {
-            SwitchToLastCharacter();
-        }
+        //if (Input.GetKeyDown(KeyCode.B) && currentCharacterIndex != 0)
+        //{
+        //    SwitchToLastCharacter();
+        //}
     }
 
     public void SwitchCharacter(int index)

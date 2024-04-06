@@ -75,8 +75,12 @@ public class LevelUpManagerNew : MonoBehaviour
     [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
     public GameObject GrowMenu;
-   
-  
+
+    private void Awake()
+    {
+        controls = new ThirdPersonActionsAsset();
+    }
+
     void Start()
     {
         hudController = GameObject.Find("HUD").GetComponent<HUDController>();
@@ -92,7 +96,6 @@ public class LevelUpManagerNew : MonoBehaviour
       
       Camera.SetActive(true);
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
-      controls = new ThirdPersonActionsAsset();
       controls.UI.Close.performed += ctx => Close();
        currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
        playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();

@@ -101,11 +101,16 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     private bool CharacterButtonsSelected = false;
     public GameObject DescriptionPanel;
     public TMP_Text DescriptionText;
+
+    private void Awake()
+    {
+        controls = new ThirdPersonActionsAsset();
+    }
+
     void OnEnable()
     {  
         fog.SetActive(!fog.isActive);  
         LevelUI.SetActive(false);
-        controls = new ThirdPersonActionsAsset();
         controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.Close.performed += ctx => CloseSkill();
         controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();

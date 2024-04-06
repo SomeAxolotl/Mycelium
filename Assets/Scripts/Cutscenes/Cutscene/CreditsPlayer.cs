@@ -57,6 +57,7 @@ public class CreditsPlayer : MonoBehaviour
 
     private void ConfirmSkip()
     {
+        playerInput.Disable();
         StopAllCoroutines();
 
         SceneLoader.Instance.BeginLoadScene("The Carcass", true);

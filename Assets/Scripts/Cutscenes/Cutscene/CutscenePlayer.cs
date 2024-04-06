@@ -30,6 +30,7 @@ public class CutscenePlayer : MonoBehaviour
         cutsceneMusic = GetComponent<AudioSource>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerInput = new ThirdPersonActionsAsset();
+        playerInput.Disable();
     }
 
     private void Update()
@@ -61,6 +62,7 @@ public class CutscenePlayer : MonoBehaviour
 
     private void ConfirmSkip()
     {
+        playerInput.Disable();
         StopAllCoroutines();
 
         isFinished = true;
