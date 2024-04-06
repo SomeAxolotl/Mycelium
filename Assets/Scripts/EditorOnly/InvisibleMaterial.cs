@@ -23,9 +23,9 @@ public class InvisibleMaterial : MonoBehaviour
     {
         MeshRenderer mr;
 
-        if (Application.isPlaying == false)
+        if (Application.isPlaying == false && GetComponent<MeshRenderer>().enabled == true)
         {
-            return;
+            Debug.LogWarning("Don't forget to make them visible again! -ryan");
         }
 
         foreach(GameObject singleObject in GameObject.FindGameObjectsWithTag("InvisibleWalls"))

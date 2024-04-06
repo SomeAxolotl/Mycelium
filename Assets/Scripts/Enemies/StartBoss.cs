@@ -20,6 +20,9 @@ public class StartBoss : MonoBehaviour
             GameObject player = GameObject.FindWithTag("PlayerParent");
             player.GetComponent<PlayerController>().playerActionsAsset.Player.Disable();
             player.GetComponent<PlayerAttack>().playerActionsAsset.Player.Disable();
+
+            //Ryan's Camera Stuff
+            GameObject.Find("Cutscene VCams").GetComponent<BossCam>().StartBossCutscene();
         }
     }
 }
