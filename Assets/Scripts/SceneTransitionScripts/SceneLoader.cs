@@ -49,7 +49,6 @@ public class SceneLoader : MonoBehaviour
 
     //SceneUtility and SceneManager stuff
     private int totalSceneCount;
-    private List<string> sceneNames = new List<string>();
 
     private void Awake()
     {
@@ -140,6 +139,11 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
+        if (GameObject.Find("HUD") != null)
+        {
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+        }
+
         if (doGoodTransition == true)
         {
             StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime));
@@ -150,19 +154,17 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void BeginLoadScene(int sceneIndex, bool doGoodTransition, float transitionTime)
+    public void BeginLoadScene(int sceneIndex, string notificationText)
     {
-        if (doGoodTransition == true)
+        if (GameObject.Find("HUD") != null)
         {
-            StartCoroutine(LoadSceneGood(sceneIndex, transitionTime));
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
         }
-        else
-        {
-            StartCoroutine(LoadSceneBad(sceneIndex, transitionTime));
-        }
+
+         StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime, notificationText));
     }
 
-    public void BeginLoadScene(string sceneName, bool doGoodTransition, float transitionTime)
+    public void BeginLoadScene(string sceneName, string notificationText)
     {
         int sceneIndex;
 
@@ -174,22 +176,16 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
-        if (doGoodTransition == true)
+        if (GameObject.Find("HUD") != null)
         {
-            StartCoroutine(LoadSceneGood(sceneIndex, transitionTime));
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
         }
-        else
-        {
-            StartCoroutine(LoadSceneBad(sceneIndex, transitionTime));
-        }
+
+        StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime, notificationText));
     }
 
     IEnumerator FinishLoadScene(float transitionTime, bool isOnStartup)
     {
-        /*if(SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>().Resume();
-        }*/
         
         if (isOnStartup == true)
         {
@@ -265,6 +261,22 @@ public class SceneLoader : MonoBehaviour
 
         loadBar.fillAmount = 0;
         ChangeFunText(funText);
+
+        yield return StartCoroutine(FadeCanvasIn(loadingCanvasGroup, transitionTime));
+
+        StartCoroutine(StartLoading(sceneIndex));
+    }
+
+    IEnumerator LoadSceneGood(int sceneIndex, float transitionTime, string notificationText)
+    {
+        isLoading = true;
+
+        loadBar.fillAmount = 0;
+        ChangeFunText(funText);
+
+        yield return StartCoroutine(FadeCanvasIn(blackCanvasGroup, transitionTime));
+
+        yield return new WaitForSecondsRealtime(transitionTime);
 
         yield return StartCoroutine(FadeCanvasIn(loadingCanvasGroup, transitionTime));
 
