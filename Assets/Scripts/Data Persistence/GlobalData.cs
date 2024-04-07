@@ -18,6 +18,9 @@ public static class GlobalData
     public static float currentWeaponDamage { get; set; }
     public static float currentWeaponKnockback { get; set; }
 
+    //Nutrient Deposit Stuff
+    public static List<int> currentSporeStats = new List<int>();
+
     //Save Data Stuff
     public static int profileNumber { get; set; }
 }

@@ -53,7 +53,7 @@ public class WeaponStats : MonoBehaviour
             transform.parent.transform.localEulerAngles = rotationOffset;
         }
 
-        InvokeRepeating("SayStats", 1f, 1f);
+        //InvokeRepeating("SayStats", 1f, 1f);
     }
 
     // Update is called once per frame

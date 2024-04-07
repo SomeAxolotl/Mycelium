@@ -12,12 +12,14 @@ public class LevelEnd : MonoBehaviour
     SwapWeapon swapWeapon;
     ProfileManager profileManager;
     WeaponStats weaponStats;
+    CharacterStats characterStats;
     void Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
         swapWeapon = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
         profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
+        characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -27,11 +29,16 @@ public class LevelEnd : MonoBehaviour
 
             weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
 
+            //Save Current Weapon
             GlobalData.currentWeapon = SceneManager.GetActiveScene().name + "/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
             GlobalData.currentWeaponDamage = weaponStats.wpnDamage;
             GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
 
-            Debug.Log(GlobalData.currentWeapon);
+            //Save Current Stats
+            GlobalData.currentSporeStats.Add(characterStats.primalLevel);
+            GlobalData.currentSporeStats.Add(characterStats.speedLevel);
+            GlobalData.currentSporeStats.Add(characterStats.sentienceLevel);
+            GlobalData.currentSporeStats.Add(characterStats.vitalityLevel);
 
             if (sceneIndexToGoTo == 2)
             {
