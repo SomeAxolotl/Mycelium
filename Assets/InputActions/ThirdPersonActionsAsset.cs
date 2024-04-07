@@ -127,6 +127,15 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""NavigateCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""eed6e4f8-4e94-4124-8cc5-6ee8ff7e983a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Salvage"",
                     ""type"": ""Button"",
                     ""id"": ""b1817591-6b4f-478f-b2c0-24c90b21aec9"",
@@ -453,6 +462,28 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Salvage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0c2589e-bf40-473f-9848-de073349541c"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c57c0df-6f54-4bee-80e8-bdf4b80e4ea8"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1830,6 +1861,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_Player_GetStats = m_Player.FindAction("GetStats", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_ResetCamera = m_Player.FindAction("ResetCamera", throwIfNotFound: true);
+        m_Player_NavigateCamera = m_Player.FindAction("NavigateCamera", throwIfNotFound: true);
         m_Player_Salvage = m_Player.FindAction("Salvage", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1958,6 +1990,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_Player_GetStats;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_ResetCamera;
+    private readonly InputAction m_Player_NavigateCamera;
     private readonly InputAction m_Player_Salvage;
     public struct PlayerActions
     {
@@ -1974,6 +2007,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @GetStats => m_Wrapper.m_Player_GetStats;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @ResetCamera => m_Wrapper.m_Player_ResetCamera;
+        public InputAction @NavigateCamera => m_Wrapper.m_Player_NavigateCamera;
         public InputAction @Salvage => m_Wrapper.m_Player_Salvage;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -2017,6 +2051,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @ResetCamera.started += instance.OnResetCamera;
             @ResetCamera.performed += instance.OnResetCamera;
             @ResetCamera.canceled += instance.OnResetCamera;
+            @NavigateCamera.started += instance.OnNavigateCamera;
+            @NavigateCamera.performed += instance.OnNavigateCamera;
+            @NavigateCamera.canceled += instance.OnNavigateCamera;
             @Salvage.started += instance.OnSalvage;
             @Salvage.performed += instance.OnSalvage;
             @Salvage.canceled += instance.OnSalvage;
@@ -2057,6 +2094,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @ResetCamera.started -= instance.OnResetCamera;
             @ResetCamera.performed -= instance.OnResetCamera;
             @ResetCamera.canceled -= instance.OnResetCamera;
+            @NavigateCamera.started -= instance.OnNavigateCamera;
+            @NavigateCamera.performed -= instance.OnNavigateCamera;
+            @NavigateCamera.canceled -= instance.OnNavigateCamera;
             @Salvage.started -= instance.OnSalvage;
             @Salvage.performed -= instance.OnSalvage;
             @Salvage.canceled -= instance.OnSalvage;
@@ -2596,6 +2636,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnGetStats(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnResetCamera(InputAction.CallbackContext context);
+        void OnNavigateCamera(InputAction.CallbackContext context);
         void OnSalvage(InputAction.CallbackContext context);
     }
     public interface IUIActions
