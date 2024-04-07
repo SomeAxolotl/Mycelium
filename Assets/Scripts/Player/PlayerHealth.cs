@@ -93,7 +93,7 @@ public class PlayerHealth : MonoBehaviour
         if (animator.GetBool("Hurt") == true)
         {
             animator.SetBool("Hurt", false);
-            Debug.Log("no more hurty");
+            //Debug.Log("no more hurty");
         }
         if (currentHealth > maxHealth)
         {
@@ -103,6 +103,17 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator Death()
     {
+        string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
+        string deathMessage = "<color=#8B0000>YOU DIED</color>";
+        if (heldMaterial != "")
+        {
+            NotificationManager.Instance.Notification(deathMessage, heldMaterial + " dropped!", null, heldMaterial);
+        }
+        else
+        {
+            NotificationManager.Instance.Notification(deathMessage);
+        }
+
         dead = true;
         swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
         CancelInvoke("Regen");

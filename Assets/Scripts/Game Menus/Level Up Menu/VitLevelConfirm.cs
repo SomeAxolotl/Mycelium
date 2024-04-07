@@ -65,13 +65,13 @@ public class VitLevelConfirm : MonoBehaviour
         switch(currentstats.equippedSkills[0])
         {
             case "FungalMight":
-                Material.sprite = Resources.Load<Sprite>("RottenLog"); 
+                Material.sprite = Resources.Load<Sprite>("Rotten Log"); 
                 break;
             case "DeathBlossom":
-                Material.sprite =Resources.Load<Sprite>("FreshExoskeleton"); 
+                Material.sprite =Resources.Load<Sprite>("Fresh Exoskeleton"); 
                 break;
             case "FairyRing":
-                Material.sprite = Resources.Load<Sprite>("CalciteDeposit");
+                Material.sprite = Resources.Load<Sprite>("Calcite Deposit");
                 break;
             case "Zombify":
                 Material.sprite = Resources.Load<Sprite>("Flesh");

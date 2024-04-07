@@ -90,7 +90,7 @@ public class WeaponCollision : MonoBehaviour
 
         if (!isCycloning)
         {
-            Debug.Log("resetting animator");
+            //Debug.Log("resetting animator");
             animator.speed = currentPlayer.GetComponent<CharacterStats>().animatorSpeed;
         }
 

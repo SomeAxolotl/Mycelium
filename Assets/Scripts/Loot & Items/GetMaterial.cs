@@ -116,7 +116,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
                 nutrientTracker.heldItem.SetActive(true);
                 nutrientTracker.heldItem = log;
             }
-            hudItem.PickUpItem("RottenLog");
+            hudItem.PickUpItem("Rotten Log");
         }
 
         if (gameObject.name == "Exoskeleton" || gameObject.name == "Exoskeleton(Clone)")
@@ -132,7 +132,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
                 nutrientTracker.heldItem.SetActive(true);
                 nutrientTracker.heldItem = exoskeleton;
             }
-            hudItem.PickUpItem("FreshExoskeleton");
+            hudItem.PickUpItem("Fresh Exoskeleton");
         }
 
         if (gameObject.name == "Calcite" || gameObject.name == "Calcite(Clone)")
@@ -148,7 +148,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
                 nutrientTracker.heldItem.SetActive(true);
                 nutrientTracker.heldItem = calcite;
             }
-            hudItem.PickUpItem("CalciteDeposit");
+            hudItem.PickUpItem("Calcite Deposit");
         }
 
         if (gameObject.name == "Flesh" || gameObject.name == "Flesh(Clone)")

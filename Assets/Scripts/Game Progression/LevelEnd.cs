@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelEnd : MonoBehaviour
 {
+    bool hasCollided = false;
+
     [SerializeField] int sceneIndexToGoTo;
 
     NutrientTracker nutrientTracker;
@@ -25,6 +27,8 @@ public class LevelEnd : MonoBehaviour
     {
         if (other.tag == "currentPlayer")
         {
+            hasCollided = true;
+
             other.GetComponentInParent<PlayerHealth>().currentHealth = other.GetComponentInParent<PlayerHealth>().maxHealth;
 
             weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
@@ -50,9 +54,23 @@ public class LevelEnd : MonoBehaviour
                 GlobalData.currentWeapon = null;
             }
             nutrientTracker.KeepMaterials();
+
+            string currentHeldMaterial = nutrientTracker.GetCurrentHeldMaterial();
+            string completeMessage = "<color=#7FFF00>AREA COMPLETE</color>";
+            if (currentHeldMaterial != "")
+            {
+                Debug.Log("wtf");
+                NotificationManager.Instance.Notification(completeMessage, currentHeldMaterial + " stored at the Carcass", null, currentHeldMaterial);
+            }
+            /*else
+            {
+                NotificationManager.Instance.Notification(completeMessage);
+            }*/
+
             nutrientTracker.LoseMaterials();
             profileManager.SaveOverride();
-            sceneLoaderScript.BeginLoadScene(sceneIndexToGoTo, true);
+
+            sceneLoaderScript.BeginLoadScene(sceneIndexToGoTo, "Dylan is a tree");
         }
     }
 }

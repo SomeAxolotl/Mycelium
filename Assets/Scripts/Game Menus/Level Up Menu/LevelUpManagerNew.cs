@@ -72,7 +72,6 @@ public class LevelUpManagerNew : MonoBehaviour
     public GameObject Camera;
     
     ThirdPersonActionsAsset controls;
-    [SerializeField] private SkillUnlockNotifications skillUnlockNotifications;
     List<string> newlyUnlockedSkills = new List<string>();
     public GameObject GrowMenu;
 
@@ -237,13 +236,13 @@ public class LevelUpManagerNew : MonoBehaviour
       switch(currentstats.equippedSkills[0])
       {
       case "FungalMight":
-      PrimalArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      PrimalArrowUp.sprite = Resources.Load<Sprite>("Rotten Log");
       break;
       case "DeathBlossom":
-      PrimalArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      PrimalArrowUp.sprite = Resources.Load<Sprite>("Fresh Exoskeleton");
       break;
       case "FairyRing":
-      PrimalArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      PrimalArrowUp.sprite = Resources.Load<Sprite>("Calcite Deposit");
       break;
       case "Zombify":
       PrimalArrowUp.sprite = Resources.Load<Sprite>("Flesh");
@@ -257,13 +256,13 @@ public class LevelUpManagerNew : MonoBehaviour
       switch(currentstats.equippedSkills[0])
       {
       case "FungalMight":
-      SpeedArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      SpeedArrowUp.sprite = Resources.Load<Sprite>("Rotten Log");
       break;
       case "DeathBlossom":
-      SpeedArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      SpeedArrowUp.sprite = Resources.Load<Sprite>("Fresh Exoskeleton");
       break;
       case "FairyRing":
-      SpeedArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      SpeedArrowUp.sprite = Resources.Load<Sprite>("Calcite Deposit");
       break;
       case "Zombify":
       SpeedArrowUp.sprite = Resources.Load<Sprite>("Flesh");
@@ -277,13 +276,13 @@ public class LevelUpManagerNew : MonoBehaviour
       switch(currentstats.equippedSkills[0])
       {
       case "FungalMight":
-      SentienceArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      SentienceArrowUp.sprite = Resources.Load<Sprite>("Rotten Log");
       break;
       case "DeathBlossom":
-      SentienceArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      SentienceArrowUp.sprite = Resources.Load<Sprite>("Fresh Exoskeleton");
       break;
       case "FairyRing":
-      SentienceArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      SentienceArrowUp.sprite = Resources.Load<Sprite>("Calcite Deposit");
       break;
       case "Zombify":
       SentienceArrowUp.sprite = Resources.Load<Sprite>("Flesh");
@@ -297,13 +296,13 @@ public class LevelUpManagerNew : MonoBehaviour
       switch(currentstats.equippedSkills[0])
       {
       case "FungalMight":
-      VitalityArrowUp.sprite = Resources.Load<Sprite>("RottenLog");
+      VitalityArrowUp.sprite = Resources.Load<Sprite>("Rotten Log");
       break;
       case "DeathBlossom":
-      VitalityArrowUp.sprite = Resources.Load<Sprite>("FreshExoskeleton");
+      VitalityArrowUp.sprite = Resources.Load<Sprite>("Fresh Exoskeleton");
       break;
       case "FairyRing":
-      VitalityArrowUp.sprite = Resources.Load<Sprite>("CalciteDeposit");
+      VitalityArrowUp.sprite = Resources.Load<Sprite>("Calcite Deposit");
       break;
       case "Zombify":
       VitalityArrowUp.sprite = Resources.Load<Sprite>("Flesh");
@@ -759,11 +758,11 @@ public class LevelUpManagerNew : MonoBehaviour
       UnlockConditional("DefenseMechanism", currentStat, 15);
       if (newlyUnlockedSkills.Count == 1)
       {
-        skillUnlockNotifications.NotifySkillUnlock(newlyUnlockedSkills[0], hudSkills.GetSkillSprite(newlyUnlockedSkills[0]));
+        NotificationManager.Instance.Notification(newlyUnlockedSkills[0] + " Unlocked", "Equip at Sporemother", hudSkills.GetSkillSprite(newlyUnlockedSkills[0]));
       }
       else if (newlyUnlockedSkills.Count > 1)
       {
-        skillUnlockNotifications.NotifyMultipleSkillUnlocks(newlyUnlockedSkills.Count);
+        NotificationManager.Instance.Notification(newlyUnlockedSkills.Count + " New Skills Unlocked", "Equip at Sporemother");
       }
     }
     void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)

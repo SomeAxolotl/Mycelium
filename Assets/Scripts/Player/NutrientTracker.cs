@@ -84,6 +84,30 @@ public class NutrientTracker : MonoBehaviour
         }
     }
 
+    public string GetCurrentHeldMaterial()
+    {
+        string heldMaterial = "";
+
+        if (heldLog != 0)
+        {
+            heldMaterial = "Rotten Log";
+        }
+        else if (heldExoskeleton != 0)
+        {
+            heldMaterial = "Fresh Exoskeleton";
+        }
+        else if (heldCalcite != 0)
+        {
+            heldMaterial = "Calcite Deposit";
+        }
+        else if (heldFlesh != 0)
+        {
+            heldMaterial = "Flesh";
+        }
+
+        return heldMaterial;
+    }
+
     public void SpendLog(int cost)
     {
         storedLog -= cost;

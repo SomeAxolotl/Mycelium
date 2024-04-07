@@ -47,11 +47,17 @@ public class LivingCyclone : Skill
             playerController.looking = false;
         }
         
-        currentWeapon.GetComponent<WeaponCollision>().isCycloning = true;
+        if (isPlayerCurrentPlayer())
+        {
+            currentWeapon.GetComponent<WeaponCollision>().isCycloning = true;
+        }
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
-        currentWeapon.GetComponent<WeaponCollision>().isCycloning = false;
+        if (isPlayerCurrentPlayer())
+        {
+            currentWeapon.GetComponent<WeaponCollision>().isCycloning = false;
+        }
         
         if (isPlayerCurrentPlayer())
         {

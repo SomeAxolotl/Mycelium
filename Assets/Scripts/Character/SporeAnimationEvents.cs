@@ -23,9 +23,14 @@ public class SporeAnimationEvents : MonoBehaviour
     {
         SoundEffectManager.Instance.PlaySound("Slash", transform.position);
 
-        Transform particleHolder = GameObject.FindWithTag("currentWeapon").transform.Find("ParticleHolder");
+        GameObject currentWeapon = GameObject.FindWithTag("currentWeapon");
 
-        currentSlashParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("SlashParticle", particleHolder.position, Quaternion.identity, particleHolder.gameObject);
+        if (currentWeapon != null)
+        {
+            Transform particleHolder = currentWeapon.transform.Find("ParticleHolder");
+
+            currentSlashParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("SlashParticle", particleHolder.position, Quaternion.identity, particleHolder.gameObject);
+        }
     }
 
     void SlashDone()

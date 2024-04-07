@@ -83,7 +83,7 @@ public class DeathBlossomPlant : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, burstRadius, enemyLayerMask);
 
         float damage = finalDamageValue;
-        Debug.Log("FinalSkillValue: " + damage);
+        //Debug.Log("FinalSkillValue: " + damage);
         foreach (Collider collider in colliders)
         {
             EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
