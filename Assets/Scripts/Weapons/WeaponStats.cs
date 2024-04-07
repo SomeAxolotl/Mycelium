@@ -19,11 +19,11 @@ public class WeaponStats : MonoBehaviour
 
     [SerializeField] float wpnDamageMin = 10f;
     [SerializeField] float wpnDamageMax = 50f;
-    public float wpnDamage {get; private set;}
+    public float wpnDamage {get; set;}
 
     [SerializeField] float wpnKnockbackMin = 10f;
     [SerializeField] float wpnKnockbackMax = 50f;
-    public float wpnKnockback {get; private set;}
+    public float wpnKnockback {get; set;}
 
     public float wpnAttackSpeedModifier = 1.0f;
 
@@ -52,6 +52,8 @@ public class WeaponStats : MonoBehaviour
             Vector3 rotationOffset = holdRotationOffset;
             transform.parent.transform.localEulerAngles = rotationOffset;
         }
+
+        InvokeRepeating("SayStats", 1f, 1f);
     }
 
     // Update is called once per frame
@@ -64,6 +66,14 @@ public class WeaponStats : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0f, rotationSpeed * Time.deltaTime, 0f) * transform.rotation;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, tiltAngle);
+        }
+    }
+
+    void SayStats()
+    {
+        if(wpnName != "Stick")
+        {
+            Debug.Log("Name: " + wpnName + "\tDamage: " + wpnDamage + "\tKnockback: " + wpnKnockback, gameObject);
         }
     }
 }

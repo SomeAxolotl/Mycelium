@@ -70,6 +70,7 @@ public class LevelGenerator : MonoBehaviour
         if (GlobalData.currentWeapon != null)
         {
             GameObject previousWeapon = Instantiate(Resources.Load(GlobalData.currentWeapon), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            StartCoroutine(SetPreviousWeaponStats(previousWeapon));
             if (previousWeapon.GetComponent<WeaponStats>().wpnName != "Stick")
             {
                 previousWeapon.transform.localScale = previousWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
@@ -143,5 +144,12 @@ public class LevelGenerator : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
         player.transform.position = spawnpoint.position;
         player.transform.rotation = spawnpoint.rotation;
+    }
+
+    IEnumerator SetPreviousWeaponStats(GameObject previousWeapon)
+    {
+        yield return null;
+        previousWeapon.GetComponent<WeaponStats>().wpnDamage = GlobalData.currentWeaponDamage;
+        previousWeapon.GetComponent<WeaponStats>().wpnKnockback = GlobalData.currentWeaponKnockback;
     }
 }
