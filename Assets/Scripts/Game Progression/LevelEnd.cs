@@ -25,7 +25,7 @@ public class LevelEnd : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "currentPlayer")
+        if (other.tag == "currentPlayer" && !hasCollided)
         {
             hasCollided = true;
 

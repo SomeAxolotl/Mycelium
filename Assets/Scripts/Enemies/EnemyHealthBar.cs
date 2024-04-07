@@ -7,15 +7,20 @@ using TMPro;
 public class EnemyHealthBar : BaseEnemyHealthBar
 {
     [SerializeField] private Canvas enemyHealthCanvas;
+    [SerializeField] private Image enemyHealthPanel;
+    [SerializeField] private Color enemyHealthPanelDeathColor;
     [SerializeField] private GameObject damageTextObject;
     private TMP_Text damageText;
     [SerializeField] private RectTransform damageTextAnchorRectTransform;
     [SerializeField] [Tooltip("How high the damage text goes during the animation")] private float damageTextHeightScalar = 1.0f;
     [SerializeField] [Tooltip("Duration of damage number floating")] private float floatingTime = 1.0f;
+    [SerializeField] [Tooltip("Duration of fade out on death")] private float fadeOutDuration = 0.75f;
     private Camera mainCamera;
 
     void Start()
     {
+        GetComponent<CanvasGroup>().alpha = 0f;
+
         mainCamera = Camera.main;
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;
     }
@@ -25,6 +30,12 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         float currentHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().currentHealth;
         float maxHealth = transform.parent.gameObject.GetComponent<EnemyHealth>().maxHealth;
         float healthRatio = currentHealth / maxHealth;
+
+        if (healthRatio < 1.0)
+        {
+            GetComponent<CanvasGroup>().alpha = 1f;
+        }
+
         enemyHealthBar.fillAmount = healthRatio;
         if (healthRatio > 0.66)
         {
@@ -37,6 +48,12 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         else
         {
             enemyHealthBar.color = lowColor;
+        }
+
+        if (healthRatio <= 0)
+        {
+            StartCoroutine(LerpPanelColor());
+            //enemyHealthPanel.color = enemyHealthPanelDeathColor;
         }
     }
 
@@ -76,8 +93,32 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         Destroy(damageTextInstance);
     }
 
+    IEnumerator LerpPanelColor()
+    {
+        Color startingColor = enemyHealthPanel.color;
+
+        float timer = 0f;
+        while (timer < fadeOutDuration)
+        {
+            float t = EaseOutQuart(timer / fadeOutDuration);
+
+            enemyHealthPanel.color = Color.Lerp(startingColor, enemyHealthPanelDeathColor, t);
+
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        enemyHealthPanel.color = enemyHealthPanelDeathColor;
+    }
+
     void Update()
     {
         enemyHealthCanvas.transform.rotation = Quaternion.LookRotation(enemyHealthCanvas.transform.position - mainCamera.transform.position);
+    }
+
+    float EaseOutQuart(float x)
+    {
+        return 1f - Mathf.Pow(1f - x, 4);
     }
 }
