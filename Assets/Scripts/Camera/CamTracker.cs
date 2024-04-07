@@ -15,13 +15,6 @@ public class CamTracker : MonoBehaviour
     [SerializeField] private CinemachineBrain cineBrain;
     [SerializeField] private CinemachineVirtualCamera virtualResetCamera;
 
-    private ThirdPersonActionsAsset playerInput;
-
-    private void Awake()
-    {
-        playerInput = new ThirdPersonActionsAsset();
-    }
-
     private void Start()
     {
         currentPlayer = GameObject.FindWithTag("currentPlayer");
@@ -35,16 +28,19 @@ public class CamTracker : MonoBehaviour
             //Camera Tracker position is set to Center Point position
             centerPoint = GameObject.FindWithTag("currentPlayer").transform.Find("CenterPoint");
             transform.position = centerPoint.position;
-
-            //Make sure we have the correct reference to the Current Player and then rotate the Camera Tracker
-            if (currentPlayer.tag != "currentPlayer")
-            {
-                currentPlayer = GameObject.FindWithTag("currentPlayer");
-            }
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentPlayer.transform.eulerAngles.y, transform.eulerAngles.z);
         }
+    }
 
-        if(playerInput.Player.ResetCamera.WasPressedThisFrame() && cineBrain.IsBlending == false)
+    private void OnResetCamera()
+    {
+        //Make sure we have the correct reference to the Current Player and then rotate the Camera Tracker
+        if (currentPlayer.tag != "currentPlayer")
+        {
+            currentPlayer = GameObject.FindWithTag("currentPlayer");
+        }
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentPlayer.transform.eulerAngles.y, transform.eulerAngles.z);
+
+        if (cineBrain.IsBlending == false)
         {
             StartCoroutine(ResetCameraPosition());
         }
@@ -54,7 +50,11 @@ public class CamTracker : MonoBehaviour
     {
         float elapsedTime = 0f;
 
+        float oldBlendTime = cineBrain.m_DefaultBlend.m_Time;
+        float newBlendTime = 0.1f;
+
         virtualResetCamera.enabled = true;
+        cineBrain.m_DefaultBlend.m_Time = newBlendTime;
 
         while (elapsedTime < cineBrain.m_DefaultBlend.m_Time)
         {
@@ -63,15 +63,7 @@ public class CamTracker : MonoBehaviour
         }
 
         virtualResetCamera.enabled = false;
-    }
-
-    private void OnEnable()
-    {
-        playerInput.Player.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.Player.Disable();
+        yield return new WaitForSeconds(newBlendTime);
+        cineBrain.m_DefaultBlend.m_Time = oldBlendTime;
     }
 }
