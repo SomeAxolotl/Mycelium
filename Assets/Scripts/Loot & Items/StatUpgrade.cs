@@ -70,13 +70,27 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     public void CreateTooltip(GameObject interactObject)
     {
         string buttonText = "<color=#3cdb4e>A</color>";
-        TooltipManager.Instance.CreateTooltip
-        (
-            gameObject, 
-            "Nutrient Deposit", 
-            "Press "+buttonText+"  <sprite="+statNumber1+"> +" + ((multiplyAmount * 100) - 100f) + "%" + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> +" + ((multiplyAmount * 100f) - 100f) + "%", 
-            "Choose One"
-        );
+        if (doesMultiply)
+        {
+            TooltipManager.Instance.CreateTooltip
+            (
+                gameObject, 
+                "Nutrient Deposit", 
+                "Press "+buttonText+"  <sprite="+statNumber1+"> +" + ((multiplyAmount * 100) - 100f) + "%" + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> +" + ((multiplyAmount * 100f) - 100f) + "%", 
+                "Choose One"
+            );
+        }
+        else
+        {
+            TooltipManager.Instance.CreateTooltip
+            (
+                gameObject, 
+                "Nutrient Deposit", 
+                "Press "+buttonText+"  <sprite="+statNumber1+"> +" + statIncreaseAmount + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> +" + statIncreaseAmount, 
+                "Choose One"
+            );
+        }
+        
     }
 
     public void DestroyTooltip(GameObject interactObject)
