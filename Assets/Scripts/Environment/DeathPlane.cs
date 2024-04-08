@@ -8,13 +8,13 @@ public class DeathPlane : MonoBehaviour
     [SerializeField] float percentHealthTaken = 0.2f;
     [SerializeField][Tooltip("The range at which an enemy falling will drop nutrients")] float rangeForEnemyDropNutrients = 20f;
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "currentPlayer" || other.gameObject.tag == "Player")
         {
             RespawnObject(other.gameObject);
         }
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && !other.gameObject.name.Contains("Crab"))
         {
             if (Vector3.Distance(other.gameObject.transform.position, GameObject.FindWithTag("currentPlayer").transform.position) < rangeForEnemyDropNutrients)
             {
