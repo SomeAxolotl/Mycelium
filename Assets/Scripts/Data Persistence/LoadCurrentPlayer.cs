@@ -8,33 +8,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class LoadCurrentPlayer : MonoBehaviour
+public class LoadCurrentPlayer : SporeManagerSystem
 {
-    [Tooltip("A custom class that is a list of sporeData objects")] private SporeDataList sporeDataList;
-    [Tooltip("Where the .json is")] private string filePath;
     [SerializeField] private SporeData tutorialSpore;
-    [SerializeField] private List<Texture2D> MouthTextures;
-    [SerializeField] private List<Texture2D> EyeTextures;
-    SwapCharacter swapCharacterScript;
-    SkillManager skillManagerScript;
-    PlayerHealth playerHealthScript;
-    PlayerController playerControllerScript;
-    GameObject currentPlayerSpore;
 
-    void Start()
+    protected override void Start()
     {
-        swapCharacterScript = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
-        skillManagerScript = GameObject.Find("PlayerParent").GetComponent<SkillManager>();
-        playerHealthScript = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
-        playerControllerScript = GameObject.Find("PlayerParent").GetComponent<PlayerController>();
-        currentPlayerSpore = GameObject.Find("Spore");
-
-        swapCharacterScript.characters.RemoveAll(item => item == null);
-        swapCharacterScript.currentCharacterIndex = swapCharacterScript.characters.IndexOf(GameObject.FindWithTag("currentPlayer"));
+        base.Start();
 
         SetPathAndData(GlobalData.profileNumber);
 
-        if(SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             LoadSpores(tutorialSpore);
         }
@@ -106,57 +90,26 @@ public class LoadCurrentPlayer : MonoBehaviour
         design.EyeTexture = EyeTextures[sporeData.eyeOption];
         design.MouthTexture = MouthTextures[sporeData.mouthOption];
 
-
-
         //Run Spore Setup functions
         StartCoroutine(RunSporeSetup(sporeData, stats, design));
     }
 
-    IEnumerator RunSporeSetup(SporeData sporeData, CharacterStats stats, DesignTracker design)
+    public void DeleteCurrentPlayerSpore()
     {
-        //Delay by one frame
-        yield return null;
-
-        stats.UpdateSporeName();
-        stats.StartCalculateAttributes();
-        design.UpdateBlendshape(sporeData.lvlSentience, sporeData.lvlPrimal, sporeData.lvlVitality, sporeData.lvlSpeed);
-        design.UpdateColorsAndTexture();
-        playerHealthScript.ResetHealth();
-        playerControllerScript.GetStats();
-        stats.GetComponent<Animator>().speed = stats.animatorSpeed;
-    }
-
-    IEnumerator StaggerSkillSets(SporeData sporeData, GameObject Spore)
-    {
-        try
+        if(sporeDataList == null)
         {
-            skillManagerScript.SetSkill(sporeData.skillSlot0, 0, Spore);
-        }
-        catch
-        {
-
+            Debug.LogError("No sporeDataList exists. Go bother ryan about this", gameObject);
+            return;
         }
 
-        yield return new WaitForSecondsRealtime(0.1f);
-
-        try
+        foreach (SporeData sporeData in sporeDataList.Spore_Data)
         {
-            skillManagerScript.SetSkill(sporeData.skillSlot1, 1, Spore);
-        }
-        catch
-        {
-
+            if (sporeData.sporeTag == "currentPlayer")
+            {
+                sporeDataList.Spore_Data.Remove(sporeData);
+            }
         }
 
-        yield return new WaitForSecondsRealtime(0.1f);
-
-        try
-        {
-            skillManagerScript.SetSkill(sporeData.skillSlot2, 2, Spore);
-        }
-        catch
-        {
-
-        }        
+        sporeDataList.Spore_Data[0].sporeTag = "currentPlayer";
     }
 }

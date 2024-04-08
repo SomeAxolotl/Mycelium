@@ -6,37 +6,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SporeManager : MonoBehaviour
+public class SporeManager : SporeManagerSystem
 {
     [Tooltip("The list of Spores to be saved. Populates on saving.")] private List<GameObject> spores;
-    [Tooltip("What is saved to json. A custom class that is a list of sporeData objects")] private SporeDataList sporeDataList;
-    [Tooltip("Where we are saving our json.")] private string filePath;
     [Tooltip("The Spore Spawnpoint transform")] private Transform spawnTransform;
-    [SerializeField] private List<Texture2D> MouthTextures;
-    [SerializeField] private List<Texture2D> EyeTextures;
-    SwapCharacter swapCharacterScript;
-    SkillManager skillManagerScript;
-    PlayerHealth playerHealthScript;
-    PlayerController playerControllerScript;
-    GameObject currentPlayerSpore;
 
     [SerializeField] private GameObject SporePrefab;
     [SerializeField][Tooltip("The range on the x and z axis around the spawn transform where spores should be generated")][Range(0f, 10f)] private float spawnRange;
     [SerializeField] SporeDataList defaultSporeData;
 
-    
-
-    void Start()
+    protected override void Start()
     {
-        spawnTransform = gameObject.transform;
-        swapCharacterScript = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
-        skillManagerScript = GameObject.Find("PlayerParent").GetComponent<SkillManager>();
-        playerHealthScript = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
-        playerControllerScript = GameObject.Find("PlayerParent").GetComponent<PlayerController>();
-        currentPlayerSpore = GameObject.Find("Spore");
+        base.Start();
 
-        swapCharacterScript.characters.RemoveAll(item => item == null);
-        swapCharacterScript.currentCharacterIndex = swapCharacterScript.characters.IndexOf(GameObject.FindWithTag("currentPlayer"));
+        spawnTransform = gameObject.transform;
 
         SetPathAndData(GlobalData.profileNumber);
 
@@ -45,11 +28,6 @@ public class SporeManager : MonoBehaviour
         {
             LoadSpores(sporeData);
         }
-    }
-
-    void OnApplicationQuit()
-    {
-        Save();
     }
 
     void SetPathAndData(int profileNumber)
@@ -78,6 +56,11 @@ public class SporeManager : MonoBehaviour
             sporeDataList = defaultSporeData;
             //Debug.Log(sporeDataList);
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        Save();
     }
 
     void LoadSpores(SporeData sporeData)
@@ -132,24 +115,8 @@ public class SporeManager : MonoBehaviour
         design.EyeTexture = EyeTextures[sporeData.eyeOption];
         design.MouthTexture = MouthTextures[sporeData.mouthOption];
 
-
-
         //Run Spore Setup functions
         StartCoroutine(RunSporeSetup(sporeData, stats, design));
-    }
-
-    IEnumerator RunSporeSetup(SporeData sporeData, CharacterStats stats, DesignTracker design)
-    {
-        //Delay by one frame
-        yield return null;
-
-        stats.UpdateSporeName();
-        stats.StartCalculateAttributes();
-        design.UpdateBlendshape(sporeData.lvlSentience, sporeData.lvlPrimal, sporeData.lvlVitality, sporeData.lvlSpeed);
-        design.UpdateColorsAndTexture();
-        playerHealthScript.ResetHealth();
-        playerControllerScript.GetStats();
-        stats.GetComponent<Animator>().speed = stats.animatorSpeed;
     }
 
     public void Save()
@@ -198,40 +165,6 @@ public class SporeManager : MonoBehaviour
             //Debug.Log(json);
             System.IO.File.WriteAllText(filePath, json);
         }
-    }
-
-    IEnumerator StaggerSkillSets(SporeData sporeData, GameObject Spore)
-    {
-        try
-        {
-            skillManagerScript.SetSkill(sporeData.skillSlot0, 0, Spore);
-        }
-        catch
-        {
-
-        }
-
-        yield return new WaitForSecondsRealtime(0.1f);
-
-        try
-        {
-            skillManagerScript.SetSkill(sporeData.skillSlot1, 1, Spore);
-        }
-        catch
-        {
-
-        }
-
-        yield return new WaitForSecondsRealtime(0.1f);
-
-        try
-        {
-            skillManagerScript.SetSkill(sporeData.skillSlot2, 2, Spore);
-        }
-        catch
-        {
-
-        }        
     }
 }
 
