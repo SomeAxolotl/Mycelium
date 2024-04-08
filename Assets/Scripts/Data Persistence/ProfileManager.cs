@@ -6,13 +6,28 @@ using UnityEngine.SceneManagement;
 
 public class ProfileManager : MonoBehaviour
 {
+    public static ProfileManager Instance;
+
     private string filePath;
     private ProfileData profileData;
     private NutrientTracker nutrientTrackerScript;
 
     [HideInInspector] public List<bool> tutorialIsDone = new List<bool>();
+    [HideInInspector] public List<bool> permadeathIsOn = new List<bool>();
 
     [SerializeField] private ProfileData defaultProfileData;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {
@@ -33,6 +48,7 @@ public class ProfileManager : MonoBehaviour
         }
 
         LoadTutorialCompletion();
+        LoadPermadeathData();
     }
 
     void OnApplicationQuit()
@@ -97,6 +113,17 @@ public class ProfileManager : MonoBehaviour
         SetPathAndData(GlobalData.profileNumber);
     }
 
+    void LoadPermadeathData()
+    {
+        for (int i = 0; i <= 2; i++)
+        {
+            SetPathAndData(i);
+            permadeathIsOn.Add(profileData.permadeathIsOn);
+        }
+
+        SetPathAndData(GlobalData.profileNumber);
+    }
+
     public void Save()
     {
         ProfileData newProfileData = new ProfileData();
@@ -121,6 +148,7 @@ public class ProfileManager : MonoBehaviour
         }
         
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
+        newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         //Debug.Log(json);
@@ -156,6 +184,7 @@ public class ProfileManager : MonoBehaviour
         public int flesh;
 
         public bool tutroialIsDone;
+        public bool permadeathIsOn;
 
         public override string ToString()
         {
