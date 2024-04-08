@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrabMeleeHitbox : MonoBehaviour
 {
-    private float HitboxActivateDelay = 2.25f;
+    private float HitboxActivateDelay = 1.75f;
     [HideInInspector] public float knockbackForce;
     [HideInInspector] public float damage;
     [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();

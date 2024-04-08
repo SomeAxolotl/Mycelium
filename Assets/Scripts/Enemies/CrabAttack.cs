@@ -13,9 +13,9 @@ public class CrabAttack : EnemyAttack
     private float attackTimer;
     private float disFromPlayer;
     private bool holdingShell = true;
-    private float attackCooldown = 2f;
-    [SerializeField] private float meleeDamage = 20f;
-    [SerializeField] private float movementSpeed = 2f;
+    private float attackCooldown = 1.5f;
+    [SerializeField] private float meleeDamage = 70f;
+    [SerializeField] private float movementSpeed = 3f;
     private float shellthrowWindup = 1.5f;
     private float knockbackForce = 30f;
     IEnumerator attack;
@@ -130,7 +130,7 @@ public class CrabAttack : EnemyAttack
                 animator.SetTrigger("Attack");
                 //animator.Play("Attack", 0, 0.5f);
                 crabMeleeHitbox.StartCoroutine(crabMeleeHitbox.ActivateHitbox());
-                yield return new WaitForSeconds(attackCooldown + 2f);
+                yield return new WaitForSeconds(attackCooldown + 1.7f);
             }
             else
             {

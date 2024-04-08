@@ -8,7 +8,7 @@ public class ShellVelocity : MonoBehaviour
     private Transform player;
     private float launchAngle = 45f;
     private Vector3 gravity = new Vector3(0, -20f, 0);
-    [SerializeField] private float damage = 30f;
+    [SerializeField] private float damage = 50f;
     [SerializeField] private GameObject particles;
     // Start is called before the first frame update
     void OnEnable()
