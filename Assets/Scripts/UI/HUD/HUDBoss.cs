@@ -37,6 +37,11 @@ public class HUDBoss : BaseEnemyHealthBar
         }*/
 
         bossHealthText.text = Mathf.FloorToInt(currentHealth) + "/" + Mathf.FloorToInt(maxHealth);
+
+        if (currentHealth <= 0)
+        {
+            DefeatEnemy();
+        }
     }
 
     public void EncounterBoss(string bossName, float currentHealth, float maxHealth)

@@ -50,7 +50,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
             enemyHealthBar.color = lowColor;
         }
 
-        if (healthRatio <= 0)
+        if (currentHealth <= 0)
         {
             StartCoroutine(LerpPanelColor());
             //enemyHealthPanel.color = enemyHealthPanelDeathColor;

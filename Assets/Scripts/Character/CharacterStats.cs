@@ -920,4 +920,27 @@ public class CharacterStats : MonoBehaviour
         UpdateLevel();
         designTracker.UpdateBlendshape(sentienceLevel, primalLevel, vitalityLevel, speedLevel); 
     }
+
+    public void AddStat(string statName, int addAmount)
+    {
+        switch (statName)
+        {
+            case "Primal":
+                primalLevel += addAmount;
+                break;
+            case "Sentience":
+                sentienceLevel += addAmount;
+                break;
+            case "Speed":
+                speedLevel += addAmount;
+                break;
+            case "Vitality":
+                vitalityLevel += addAmount;
+                break;
+        }
+
+        StartCalculateAttributes();
+        UpdateLevel();
+        designTracker.UpdateBlendshape(sentienceLevel, primalLevel, vitalityLevel, speedLevel); 
+    }
 }

@@ -14,7 +14,10 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     string upgradeStat1;
     string upgradeStat2;
 
+    [SerializeField] bool doesMultiply = false;
     [SerializeField] float multiplyAmount = 1.0f;
+    [SerializeField] int statIncreaseAmount = 2;
+
     void Start()
     {
         List<int> statNumbers = new List<int> {0, 1, 2, 3};
@@ -33,9 +36,9 @@ public class StatUpgrade : MonoBehaviour, IInteractable
             case 0:
                 return "Primal";
             case 1:
-                return "Sentience";
-            case 2:
                 return "Speed";
+            case 2:
+                return "Sentience";
             case 3:
                 return "Vitality";
         }
@@ -71,7 +74,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
         (
             gameObject, 
             "Nutrient Deposit", 
-            "Press "+buttonText+"  <sprite="+statNumber1+"> x " + multiplyAmount + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> x " + multiplyAmount, 
+            "Press "+buttonText+"  <sprite="+statNumber1+"> +" + ((multiplyAmount * 100) - 100f) + "%" + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> +" + ((multiplyAmount * 100f) - 100f) + "%", 
             "Choose One"
         );
     }
@@ -85,7 +88,16 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     {
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
-        characterStats.MultiplyStat(upgradeStat1, multiplyAmount);
+
+        if (doesMultiply)
+        {
+            characterStats.MultiplyStat(upgradeStat1, multiplyAmount);
+        }
+        else
+        {
+            characterStats.AddStat(upgradeStat1, statIncreaseAmount);
+        }
+        
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
         TooltipManager.Instance.DestroyTooltip();
         Destroy(this.gameObject);
@@ -95,7 +107,16 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     {
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
-        characterStats.MultiplyStat(upgradeStat2, multiplyAmount);
+
+        if (doesMultiply)
+        {
+            characterStats.MultiplyStat(upgradeStat2, multiplyAmount);
+        }
+        else
+        {
+            characterStats.AddStat(upgradeStat2, statIncreaseAmount);
+        }
+
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
         TooltipManager.Instance.DestroyTooltip();
         Destroy(this.gameObject);
