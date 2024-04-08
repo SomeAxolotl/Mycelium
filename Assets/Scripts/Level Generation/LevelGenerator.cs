@@ -25,12 +25,14 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private List<GameObject> Theme1A_MiddleChunkPrefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> Theme1A_CapPrefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> Theme1A_GoalChunkPrefabs = new List<GameObject>();
+    [SerializeField] private GameObject CheckpointAChunk;
 
     [Header("Theme 1B Lists")]
     [SerializeField] private List<GameObject> Theme1B_StartChunkPrefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> Theme1B_MiddleChunkPrefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> Theme1B_CapPrefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> Theme1B_GoalChunkPrefabs = new List<GameObject>();
+    [SerializeField] private GameObject CheckpointBChunk;
 
     [Header("Level Configuration")]
     [SerializeField] private int MaxNumberOfPieces;
@@ -171,6 +173,35 @@ public class LevelGenerator : MonoBehaviour
         {
             if (i == selectedAttatchPoint)
             {
+                if(CheckpointAChunk!=null && NumberOfPieces==(MaxNumberOfPieces+1)/2)
+                    GenerateAMidpoint(attachPoints[i]);
+                else if (NumberOfPieces <= MaxNumberOfPieces)
+                    GenerateAChunk(attachPoints[i]);
+                else
+                    Instantiate(Theme1A_GoalChunkPrefabs[Random.Range(0, Theme1A_GoalChunkPrefabs.Count)], attachPoints[i]);
+            }
+            else
+                GenerateAEndcap(attachPoints[i]);
+        }
+        return Apiece;
+    }
+
+    private GameObject GenerateAMidpoint(Transform transform)
+    {
+        GameObject Apiece = Instantiate(CheckpointAChunk, transform);
+        NumberOfPieces++;
+
+        List<Transform> attachPoints = new List<Transform>();
+        foreach (Transform child in Apiece.transform)
+        {
+            if (child.tag == "Attach")
+                attachPoints.Add(child);
+        }
+        int selectedAttatchPoint = Random.Range(0, attachPoints.Count);
+        for (int i = 0; i < attachPoints.Count; i++)
+        {
+            if (i == selectedAttatchPoint)
+            {
                 if (NumberOfPieces <= MaxNumberOfPieces)
                     GenerateAChunk(attachPoints[i]);
                 else
@@ -180,18 +211,6 @@ public class LevelGenerator : MonoBehaviour
                 GenerateAEndcap(attachPoints[i]);
         }
         return Apiece;
-
-
-        //Debug.Log("Chunk Index: " + chunkIndex);
-
-
-
-
-
-        //Debug.Log("Chunk Index: " + chunkIndex);
-
-
-
     }
 
     private GameObject GenerateBChunk(Transform transform)
@@ -219,7 +238,9 @@ public class LevelGenerator : MonoBehaviour
         {
             if (i == selectedAttatchPoint)
             {
-                if (NumberOfPieces <= MaxNumberOfPieces)
+                if(CheckpointAChunk!=null && NumberOfPieces==(MaxNumberOfPieces+1)/2)
+                    GenerateBMidpoint(attachPoints[i]);
+                else if (NumberOfPieces <= MaxNumberOfPieces)
                     GenerateBChunk(attachPoints[i]);
                 else
                     Instantiate(Theme1B_GoalChunkPrefabs[Random.Range(0, Theme1B_GoalChunkPrefabs.Count)], attachPoints[i]);
@@ -269,5 +290,33 @@ public class LevelGenerator : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
         player.transform.position = spawnpoint.position;
         player.transform.rotation = spawnpoint.rotation;
+    }
+
+    
+    private GameObject GenerateBMidpoint(Transform transform)
+    {
+        GameObject Bpiece = Instantiate(CheckpointBChunk, transform);
+        NumberOfPieces++;
+
+        List<Transform> attachPoints = new List<Transform>();
+        foreach (Transform child in Bpiece.transform)
+        {
+            if (child.tag == "Attach")
+                attachPoints.Add(child);
+        }
+        int selectedAttatchPoint = Random.Range(0, attachPoints.Count);
+        for (int i = 0; i < attachPoints.Count; i++)
+        {
+            if (i == selectedAttatchPoint)
+            {
+                if (NumberOfPieces <= MaxNumberOfPieces)
+                    GenerateAChunk(attachPoints[i]);
+                else
+                    Instantiate(Theme1A_GoalChunkPrefabs[Random.Range(0, Theme1A_GoalChunkPrefabs.Count)], attachPoints[i]);
+            }
+            else
+                GenerateAEndcap(attachPoints[i]);
+        }
+        return Bpiece;
     }
 }
