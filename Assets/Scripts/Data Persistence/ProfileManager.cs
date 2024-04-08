@@ -167,6 +167,21 @@ public class ProfileManager : MonoBehaviour
         newProfileData.flesh = nutrientTrackerScript.storedFlesh;
 
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
+        newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
+
+        string json = JsonUtility.ToJson(newProfileData);
+        Debug.Log(json);
+        System.IO.File.WriteAllText(filePath, json);
+    }
+
+    public void ActivatePermadeath() //ONLY USE THIS FUNCTION WHEN CREATING A NEW PROFILE!!! WILL SET EVERYTHING ELSE TO DEFAULT VALUES!!!
+    {
+        ProfileData newProfileData = new ProfileData();
+
+        SetPathAndData(GlobalData.profileNumber);
+
+        permadeathIsOn[GlobalData.profileNumber] = true;
+        newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         Debug.Log(json);
