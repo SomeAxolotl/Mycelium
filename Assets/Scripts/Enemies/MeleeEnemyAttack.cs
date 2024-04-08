@@ -15,7 +15,7 @@ public class MeleeEnemyAttack : EnemyAttack
     private float resetAttack;
     [SerializeField] private float damage = 20f;
     private float knockbackForce = 30f;
-    public float chargeSpeed;
+    [HideInInspector] public float chargeSpeed;
     IEnumerator attack;
     Animator animator;
     List<GameObject> playerHit = new List<GameObject>();
@@ -64,7 +64,7 @@ public class MeleeEnemyAttack : EnemyAttack
         }
 
         RaycastHit groundHit;
-        if (Physics.Raycast(center.position, -transform.up, out groundHit, 5f, enviromentLayer))
+        if (Physics.Raycast(center.position, -transform.up, out groundHit, 3f, enviromentLayer))
         {
             Quaternion groundRotation = Quaternion.FromToRotation(transform.up, groundHit.normal) * transform.rotation;
             float groundXRotation = groundRotation.eulerAngles.x;

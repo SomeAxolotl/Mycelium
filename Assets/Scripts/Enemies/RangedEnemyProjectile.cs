@@ -28,7 +28,7 @@ public class RangedEnemyProjectile : MonoBehaviour
             Instantiate(ExplosionVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.layer == 8 || collision.gameObject.layer == 12)
+        else if (collision.gameObject.layer == 8 && !collision.isTrigger || collision.gameObject.layer == 12 && !collision.isTrigger || collision.gameObject.layer == 0 && !collision.isTrigger)
         {
             Destroy(gameObject);
         }

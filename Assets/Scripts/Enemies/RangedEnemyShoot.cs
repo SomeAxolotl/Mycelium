@@ -50,7 +50,7 @@ public class RangedEnemyShoot : EnemyAttack
         }
 
         RaycastHit groundHit;
-        if (Physics.Raycast(center.position, -transform.up, out groundHit, 5f, enviromentLayer))
+        if (Physics.Raycast(center.position, -transform.up, out groundHit, 3f, enviromentLayer))
         {
             Quaternion groundRotation = Quaternion.FromToRotation(transform.up, groundHit.normal) * transform.rotation;
             float groundXRotation = groundRotation.eulerAngles.x;
