@@ -145,12 +145,12 @@ public class TestingManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            StartCoroutine(SetPlayerWeapon());
+            StartCoroutine(SetPlayerSubspeciesSkill());
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            StartCoroutine(SetPlayerSubspeciesSkill());
+            StartCoroutine(SetPlayerWeapon());
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha7))

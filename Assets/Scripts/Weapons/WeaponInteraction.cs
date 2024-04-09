@@ -40,16 +40,24 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         
         swapWeapon.curWeapon = GameObject.FindWithTag("currentWeapon");
         curWeapon = swapWeapon.curWeapon;
-        
+
+        ApplyWeaponPositionAndRotation(curWeapon);
+
+        TooltipManager.Instance.DestroyTooltip();
+    }
+
+    public void ApplyWeaponPositionAndRotation(GameObject curWeapon)
+    {
+        swapWeapon.curWeapon = GameObject.FindWithTag("currentWeapon");
+        Transform weaponHolder = swapWeapon.weaponHolder;
+
         curWeapon.transform.parent = weaponHolder.transform;
         curWeapon.transform.rotation = weaponHolder.transform.rotation;
 
         Vector3 positionOffset = curWeapon.GetComponent<WeaponStats>().holdPositionOffset;
         curWeapon.transform.localPosition = positionOffset;
         Vector3 rotationOffset = curWeapon.GetComponent<WeaponStats>().holdRotationOffset;
-        weaponHolder.transform.localEulerAngles = rotationOffset;
-
-        TooltipManager.Instance.DestroyTooltip();
+        weaponHolder.localEulerAngles = rotationOffset;
     }
 
     public void Salvage(GameObject interactObject)
