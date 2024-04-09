@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 public class TempMovement : MonoBehaviour
 {
     private Transform player;
-    private RigBuilder rigBuilder;
     Animator animator;
 
     // Start is called before the first frame update
@@ -16,7 +15,6 @@ public class TempMovement : MonoBehaviour
     {
         player = GameObject.FindWithTag("currentPlayer").transform;
         animator = GetComponent<Animator>();
-        rigBuilder = GetComponent<RigBuilder>();
     }
 
     // Update is called once per frame
@@ -39,17 +37,14 @@ public class TempMovement : MonoBehaviour
 
         if (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f && angletoPlayer > 10f)
         {
-            // rigBuilder.enabled = false;
             float yRotationDifference = Quaternion.Angle(transform.rotation, targetRotation);
             if (yRotationDifference > 0f)
             {
                 animator.SetTrigger("TurnLeft");
-                Debug.Log("Turning left");
             }
             else if (yRotationDifference < 0f)
             {
                 animator.SetTrigger("TurnRight");
-                Debug.Log("Turning right");
             }
         }
     }
