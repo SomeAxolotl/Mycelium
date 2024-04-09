@@ -34,7 +34,7 @@ public class LevelEnd : MonoBehaviour
             weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
 
             //Save Current Weapon
-            GlobalData.currentWeapon = SceneManager.GetActiveScene().name + "/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+            GlobalData.currentWeapon = "Daybreak Arboretum/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
             GlobalData.currentWeaponDamage = weaponStats.wpnDamage;
             GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
 

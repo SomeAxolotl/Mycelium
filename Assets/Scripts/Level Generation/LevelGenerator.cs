@@ -108,7 +108,9 @@ public class LevelGenerator : MonoBehaviour
 
         if (GlobalData.currentWeapon != null)
         {
+            //Restore Previous Weapon
             GameObject previousWeapon = Instantiate(Resources.Load(GlobalData.currentWeapon), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            StartCoroutine(SetPreviousWeaponStats(previousWeapon));
             if (previousWeapon.GetComponent<WeaponStats>().wpnName != "Stick")
             {
                 previousWeapon.transform.localScale = previousWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
@@ -118,7 +120,15 @@ public class LevelGenerator : MonoBehaviour
             GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = previousWeapon;
             previousWeapon.tag = "currentWeapon";
 
+            //Restore Previous Stats
+            CharacterStats stats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+            stats.primalLevel = GlobalData.currentSporeStats[0];
+            stats.speedLevel = GlobalData.currentSporeStats[1];
+            stats.sentienceLevel = GlobalData.currentSporeStats[2];
+            stats.vitalityLevel = GlobalData.currentSporeStats[3];
+
             GlobalData.currentWeapon = null;
+            GlobalData.currentSporeStats.Clear();
 
             //Debug.Log("GLOBAL DATA WEAPON FOUND");
         }
@@ -133,6 +143,14 @@ public class LevelGenerator : MonoBehaviour
             //Debug.Log("NO GLOBAL DATA WEAPON FOUND");
         }
     }
+
+    IEnumerator SetPreviousWeaponStats(GameObject previousWeapon)
+    {
+        yield return null;
+        previousWeapon.GetComponent<WeaponStats>().wpnDamage = GlobalData.currentWeaponDamage;
+        previousWeapon.GetComponent<WeaponStats>().wpnKnockback = GlobalData.currentWeaponKnockback;
+    }
+
     private GameObject GetStartChunkPrefab()
     {
 
