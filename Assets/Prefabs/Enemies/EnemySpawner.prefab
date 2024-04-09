@@ -33,7 +33,7 @@ Transform:
   - {fileID: 2398517226301497260}
   - {fileID: 4782189015668729939}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1710457778544223438
 MonoBehaviour:
@@ -51,6 +51,8 @@ MonoBehaviour:
   spawnInterval: 5
   spawnRange: 0.4
   enemiesSpawnedLimit: 5
+  verticalSpawnRange: 2
+  verticalSpawn: 0
   particleEffect: {fileID: 4998216517191608297}
   spawnAll: 0
   spawnOnStart: 0
@@ -200,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 8057002236239356745, guid: bf41303130b53194d91aeafbdd87083d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.298
       objectReference: {fileID: 0}
     - target: {fileID: 8057002236239356745, guid: bf41303130b53194d91aeafbdd87083d,
         type: 3}
@@ -241,6 +243,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9180649009217599889, guid: bf41303130b53194d91aeafbdd87083d,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.2392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 9180649009217599889, guid: bf41303130b53194d91aeafbdd87083d,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.2627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 9180649009217599889, guid: bf41303130b53194d91aeafbdd87083d,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.3254902
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
