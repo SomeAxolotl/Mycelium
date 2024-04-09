@@ -135,7 +135,7 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 4 && primalLevel != 9 && primalLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 9 && primalLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
@@ -143,27 +143,19 @@ public class CharacterStats : MonoBehaviour
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && primalLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && primalLevel == 9)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && primalLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && primalLevel == 14)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && primalLevel == 14)
-        {
-            levelscript.ConfirmPrimal.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && primalLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && primalLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && primalLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && primalLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && primalLevel == 14)
         {
             return;
         }
@@ -175,7 +167,7 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 4 && primalLevel != 9 && primalLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 9 && primalLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
@@ -183,27 +175,19 @@ public class CharacterStats : MonoBehaviour
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && primalLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && primalLevel == 9)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && primalLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && primalLevel == 14)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 3 && primalLevel == 14)
-        {
-            levelscript.ConfirmPrimal.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && primalLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && primalLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && primalLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 3 && primalLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && primalLevel == 14)
         {
             return;
         }
@@ -215,7 +199,7 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 4 && primalLevel != 9 && primalLevel != 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 9 && primalLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
@@ -223,27 +207,19 @@ public class CharacterStats : MonoBehaviour
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && primalLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && primalLevel == 9)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && primalLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && primalLevel == 14)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 3 && primalLevel == 14)
-        {
-            levelscript.ConfirmPrimal.SetActive(true);
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && primalLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && primalLevel == 9)
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && primalLevel == 9)
-        {
-            return;
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 3 && primalLevel == 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && primalLevel == 14)
         {
             return;
         }
@@ -255,7 +231,7 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 4 && primalLevel != 9 && primalLevel != 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && primalLevel != 9 && primalLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             primalLevel++;
@@ -263,27 +239,19 @@ public class CharacterStats : MonoBehaviour
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && primalLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && primalLevel == 9)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && primalLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && primalLevel == 14)
         {
             levelscript.ConfirmPrimal.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 3 && primalLevel == 14)
-        {
-            levelscript.ConfirmPrimal.SetActive(true);
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && primalLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && primalLevel == 9)
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && primalLevel == 9)
-        {
-            return;
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 3 && primalLevel == 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && primalLevel == 14)
         {
             return;
         }
@@ -311,34 +279,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 4 && speedLevel != 9 && speedLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 9 && speedLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             speedLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && speedLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && speedLevel == 9)
         {
             levelscript.ConfirmSpeed.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && speedLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && speedLevel == 14)
         {
             levelscript.ConfirmSpeed.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && speedLevel == 14)
-        {
-            levelscript.ConfirmSpeed.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && speedLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && speedLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && speedLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && speedLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && speedLevel == 14)
         {
             return;
         }
@@ -351,34 +311,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 4 && speedLevel != 9 && speedLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 9 && speedLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             speedLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && speedLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && speedLevel == 9)
         {
             levelscript.ConfirmSpeed.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && speedLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && speedLevel == 14)
         {
             levelscript.ConfirmSpeed.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 3 && speedLevel == 14)
-        {
-            levelscript.ConfirmSpeed.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && speedLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && speedLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && speedLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 3 && speedLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && speedLevel == 14)
         {
             return;
         }
@@ -391,34 +343,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 4 && speedLevel != 9 && speedLevel != 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 9 && speedLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             speedLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && speedLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && speedLevel == 9)
         {
             levelscript.ConfirmSpeed.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && speedLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && speedLevel == 14)
         {
             levelscript.ConfirmSpeed.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 3 && speedLevel == 14)
-        {
-            levelscript.ConfirmSpeed.SetActive(true);
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && speedLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && speedLevel == 9)
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && speedLevel == 9)
-        {
-            return;
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 3 && speedLevel == 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && speedLevel == 14)
         {
             return;
         }
@@ -430,34 +374,26 @@ public class CharacterStats : MonoBehaviour
             {
                 return;
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 4 && speedLevel != 9 && speedLevel != 14)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && speedLevel != 9 && speedLevel != 14)
             {
                 nutrientTracker.SubtractNutrients(levelUpCost);
                 speedLevel++;
                 StartCalculateAttributes();
                 UpdateLevel();
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && speedLevel == 4)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && speedLevel == 9)
             {
                 levelscript.ConfirmSpeed.SetActive(true);
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && speedLevel == 9)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && speedLevel == 14)
             {
                 levelscript.ConfirmSpeed.SetActive(true);
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 3 && speedLevel == 14)
-            {
-                levelscript.ConfirmSpeed.SetActive(true);
-            }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && speedLevel == 4)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && speedLevel == 9)
             {
                 return;
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && speedLevel == 9)
-            {
-                return;
-            }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 3 && speedLevel == 14)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && speedLevel == 14)
             {
                 return;
             }
@@ -485,34 +421,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 4 && sentienceLevel != 9 && sentienceLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 9 && sentienceLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             sentienceLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && sentienceLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && sentienceLevel == 9)
         {
             levelscript.ConfirmSent.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && sentienceLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && sentienceLevel == 14)
         {
             levelscript.ConfirmSent.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && sentienceLevel == 14)
-        {
-            levelscript.ConfirmSent.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && sentienceLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && sentienceLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && sentienceLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && sentienceLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && sentienceLevel == 14)
         {
             return;
         }
@@ -524,34 +452,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 4 && sentienceLevel != 9 && sentienceLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 9 && sentienceLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             sentienceLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && sentienceLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && sentienceLevel == 9)
         {
             levelscript.ConfirmSent.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && sentienceLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && sentienceLevel == 14)
         {
             levelscript.ConfirmSent.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 3 && sentienceLevel == 14)
-        {
-            levelscript.ConfirmSent.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && sentienceLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && sentienceLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && sentienceLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 3 && sentienceLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && sentienceLevel == 14)
         {
             return;
         }
@@ -563,34 +483,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 4 && sentienceLevel != 9 && sentienceLevel != 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 9 && sentienceLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             sentienceLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && sentienceLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && sentienceLevel == 9)
         {
             levelscript.ConfirmSent.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && sentienceLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && sentienceLevel == 14)
         {
             levelscript.ConfirmSent.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 3 && sentienceLevel == 14)
-        {
-            levelscript.ConfirmSent.SetActive(true);
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && sentienceLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && sentienceLevel == 9)
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && sentienceLevel == 9)
-        {
-            return;
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 3 && sentienceLevel == 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && sentienceLevel == 14)
         {
             return;
         }
@@ -602,34 +514,26 @@ public class CharacterStats : MonoBehaviour
             {
                 return;
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 4 && sentienceLevel != 9 && sentienceLevel != 14)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && sentienceLevel != 9 && sentienceLevel != 14)
             {
                 nutrientTracker.SubtractNutrients(levelUpCost);
                 sentienceLevel++;
                 StartCalculateAttributes();
                 UpdateLevel();
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && sentienceLevel == 4)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && sentienceLevel == 9)
             {
                 levelscript.ConfirmSent.SetActive(true);
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && sentienceLevel == 9)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && sentienceLevel == 14)
             {
                 levelscript.ConfirmSent.SetActive(true);
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 3 && sentienceLevel == 14)
-            {
-                levelscript.ConfirmSent.SetActive(true);
-            }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && sentienceLevel == 4)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && sentienceLevel == 9)
             {
                 return;
             }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && sentienceLevel == 9)
-            {
-                return;
-            }
-            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 3 && sentienceLevel == 14)
+            else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && sentienceLevel == 14)
             {
                 return;
             }
@@ -655,34 +559,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 4 && vitalityLevel != 9 && vitalityLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 9 && vitalityLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             vitalityLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && vitalityLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 1 && vitalityLevel == 9)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && vitalityLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 2 && vitalityLevel == 14)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog >= 3 && vitalityLevel == 14)
-        {
-            levelscript.ConfirmVit.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && vitalityLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 1 && vitalityLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && vitalityLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 3 && vitalityLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedLog < 2 && vitalityLevel == 14)
         {
             return;
         }
@@ -695,34 +591,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 4 && vitalityLevel != 9 && vitalityLevel != 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost  && vitalityLevel != 9 && vitalityLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             vitalityLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && vitalityLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 1 && vitalityLevel == 9)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && vitalityLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 2 && vitalityLevel == 14)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton >= 3 && vitalityLevel == 14)
-        {
-            levelscript.ConfirmVit.SetActive(true);
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && vitalityLevel == 4)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 1 && vitalityLevel == 9)
         {
             return;
         }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && vitalityLevel == 9)
-        {
-            return;
-        }
-        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 3 && vitalityLevel == 14)
+        else if(nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedExoskeleton < 2 && vitalityLevel == 14)
         {
             return;
         }
@@ -735,34 +623,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 4 && vitalityLevel != 9 && vitalityLevel != 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 9 && vitalityLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             vitalityLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && vitalityLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 1 && vitalityLevel == 9)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && vitalityLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 2 && vitalityLevel == 14)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite >= 3 && vitalityLevel == 14)
-        {
-            levelscript.ConfirmVit.SetActive(true);
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && vitalityLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 1 && vitalityLevel == 9)
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && vitalityLevel == 9)
-        {
-            return;
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 3 && vitalityLevel == 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedCalcite < 2 && vitalityLevel == 14)
         {
             return;
         }
@@ -775,34 +655,26 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 4 && vitalityLevel != 9 && vitalityLevel != 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && vitalityLevel != 9 && vitalityLevel != 14)
         {
             nutrientTracker.SubtractNutrients(levelUpCost);
             vitalityLevel++;
             StartCalculateAttributes();
             UpdateLevel();
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && vitalityLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 1 && vitalityLevel == 9)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && vitalityLevel == 9)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 2 && vitalityLevel == 14)
         {
             levelscript.ConfirmVit.SetActive(true);
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh >= 3 && vitalityLevel == 14)
-        {
-            levelscript.ConfirmVit.SetActive(true);
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && vitalityLevel == 4)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 1 && vitalityLevel == 9)
         {
             return;
         }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && vitalityLevel == 9)
-        {
-            return;
-        }
-        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 3 && vitalityLevel == 14)
+        else if (nutrientTracker.currentNutrients >= levelUpCost && nutrientTracker.storedFlesh < 2 && vitalityLevel == 14)
         {
             return;
         }

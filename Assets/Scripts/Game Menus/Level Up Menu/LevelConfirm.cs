@@ -46,17 +46,13 @@ public class LevelConfirm : MonoBehaviour
    }
    void SetText()
    {
-    if(currentstats.primalLevel == 4)
+    if(currentstats.primalLevel == 9)
     {
         confirmtext.text = "Would you like to use x1 <br> to level?";
     }
-    else if(currentstats.primalLevel == 9)
-    {
-        confirmtext.text = "Would you like to use x2 <br> to level?";
-    }
     else if(currentstats.primalLevel == 14)
     {
-        confirmtext.text = "Would you like to use x3 <br> to level?";
+        confirmtext.text = "Would you like to use x2 <br> to level?";
     }
    }
    void SetMaterial()
@@ -82,24 +78,10 @@ public class LevelConfirm : MonoBehaviour
 
     void Confirm()
     {
-        if(currentstats.primalLevel == 4 && currentstats.equippedSkills[0] == "FungalMight")
+        if(currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedLog--;
-        Debug.Log("Leveled Primal");
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.SpeedDeselect();
-        levelscript.VitalityDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.PrimalSave = currentstats.primalLevel;
-        }
-        else if(currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
-        {
-        currentstats.primalLevel++;
-        nutrientTracker.storedLog -= 2;
+        nutrientTracker.storedLog -= 1;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -113,21 +95,7 @@ public class LevelConfirm : MonoBehaviour
         else if(currentstats.primalLevel == 14 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedLog -= 3;
-        Debug.Log("Leveled Primal");
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.SpeedDeselect();
-        levelscript.VitalityDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.PrimalSave = currentstats.primalLevel;
-        }
-        else if (currentstats.primalLevel == 4 && currentstats.equippedSkills[0] == "DeathBlossom")
-        {
-        currentstats.primalLevel++;
-        nutrientTracker.storedExoskeleton--;
+        nutrientTracker.storedLog -= 2;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -141,7 +109,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedExoskeleton-= 2;
+        nutrientTracker.storedExoskeleton-= 1;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -155,21 +123,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 14 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedExoskeleton-= 3;
-        Debug.Log("Leveled Primal");
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.SpeedDeselect();
-        levelscript.VitalityDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.PrimalSave = currentstats.primalLevel;
-        }
-        else if (currentstats.primalLevel == 4 && currentstats.equippedSkills[0] == "FairyRing")
-        {
-        currentstats.primalLevel++;
-        nutrientTracker.storedCalcite--;
+        nutrientTracker.storedExoskeleton-= 2;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -183,7 +137,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedCalcite -= 2;
+        nutrientTracker.storedCalcite -= 1;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -197,21 +151,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 14 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedCalcite -= 3;
-        Debug.Log("Leveled Primal");
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.SpeedDeselect();
-        levelscript.VitalityDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.PrimalSave = currentstats.primalLevel;
-        }
-        else if (currentstats.primalLevel == 4 && currentstats.equippedSkills[0] == "Zombify")
-        {
-        currentstats.primalLevel++;
-        nutrientTracker.storedFlesh--;
+        nutrientTracker.storedCalcite -= 2;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -225,7 +165,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedFlesh-= 2;
+        nutrientTracker.storedFlesh-= 1;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -239,7 +179,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 14 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedFlesh-= 3;
+        nutrientTracker.storedFlesh-= 2;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();

@@ -47,17 +47,13 @@ public class VitLevelConfirm : MonoBehaviour
    }
    void SetText()
    {
-    if(currentstats.vitalityLevel == 4)
+    if(currentstats.vitalityLevel == 9)
     {
         confirmtext.text = "Would you like to use x1 <br> to level?";
     }
-    else if(currentstats.vitalityLevel == 9)
-    {
-        confirmtext.text = "Would you like to use x2 <br> to level?";
-    }
     else if(currentstats.vitalityLevel == 14)
     {
-        confirmtext.text = "Would you like to use x3 <br> to level?";
+        confirmtext.text = "Would you like to use x2 <br> to level?";
     }
    }
    void SetMaterial()
@@ -83,23 +79,10 @@ public class VitLevelConfirm : MonoBehaviour
 
     void Confirm()
     {
-        if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "FungalMight")
+        if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedLog--;
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.PrimalDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.SpeedDeselect();
-        levelscript.VitalitySave = currentstats.vitalityLevel;
-        }
-        else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
-        {
-        currentstats.vitalityLevel++;
-        nutrientTracker.storedLog -= 2;
+        nutrientTracker.storedLog -= 1;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -112,7 +95,7 @@ public class VitLevelConfirm : MonoBehaviour
         else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedLog -= 3;
+        nutrientTracker.storedLog -= 2;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -120,25 +103,12 @@ public class VitLevelConfirm : MonoBehaviour
         levelscript.PrimalDeselect();
         levelscript.SpeedDeselect();
         levelscript.SentienceDeselect();
-        levelscript.VitalitySave = currentstats.vitalityLevel;
-        }
-        else  if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "DeathBlossom")
-        {
-        currentstats.vitalityLevel++;
-        nutrientTracker.storedExoskeleton--;
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.PrimalDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.SpeedDeselect();
         levelscript.VitalitySave = currentstats.vitalityLevel;
         }
         else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedExoskeleton -= 2;
+        nutrientTracker.storedExoskeleton -= 1;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -151,7 +121,7 @@ public class VitLevelConfirm : MonoBehaviour
         else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedExoskeleton -= 3;
+        nutrientTracker.storedExoskeleton -= 2;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -159,25 +129,12 @@ public class VitLevelConfirm : MonoBehaviour
         levelscript.PrimalDeselect();
         levelscript.SpeedDeselect();
         levelscript.SentienceDeselect();
-        levelscript.VitalitySave = currentstats.vitalityLevel;
-        }
-        else  if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "FairyRing")
-        {
-        currentstats.vitalityLevel++;
-        nutrientTracker.storedCalcite--;
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.PrimalDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.SpeedDeselect();
         levelscript.VitalitySave = currentstats.vitalityLevel;
         }
         else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedCalcite -= 2;
+        nutrientTracker.storedCalcite -= 1;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -190,7 +147,7 @@ public class VitLevelConfirm : MonoBehaviour
         else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedCalcite -= 3;
+        nutrientTracker.storedCalcite -= 2;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -198,25 +155,12 @@ public class VitLevelConfirm : MonoBehaviour
         levelscript.PrimalDeselect();
         levelscript.SpeedDeselect();
         levelscript.SentienceDeselect();
-        levelscript.VitalitySave = currentstats.vitalityLevel;
-        }
-        else  if(currentstats.vitalityLevel == 4 && currentstats.equippedSkills[0] == "Zombify")
-        {
-        currentstats.vitalityLevel++;
-        nutrientTracker.storedFlesh--;
-        currentstats.StartCalculateAttributes();
-        currentstats.UpdateLevel();
-        levelscript.UIUpdate();
-        ConfirmPanel.SetActive(false);
-        levelscript.PrimalDeselect();
-        levelscript.SentienceDeselect();
-        levelscript.SpeedDeselect();
         levelscript.VitalitySave = currentstats.vitalityLevel;
         }
         else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedFlesh -= 2;
+        nutrientTracker.storedFlesh -= 1;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -229,7 +173,7 @@ public class VitLevelConfirm : MonoBehaviour
         else if(currentstats.vitalityLevel == 14 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedFlesh -= 3;
+        nutrientTracker.storedFlesh -= 2;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();

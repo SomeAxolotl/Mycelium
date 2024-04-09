@@ -313,7 +313,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void PrimalArrowIncrease()
     {
-      if(currentstats.primalLevel == 4 || currentstats.primalLevel == 9 || currentstats.primalLevel == 14)
+      if(currentstats.primalLevel == 9 || currentstats.primalLevel == 14)
       {
         PrimalArrowSprite();
       }
@@ -325,7 +325,7 @@ public class LevelUpManagerNew : MonoBehaviour
     
     void SpeedArrowIncrease()
     {
-      if(currentstats.speedLevel == 4 || currentstats.speedLevel == 9 || currentstats.speedLevel == 14)
+      if(currentstats.speedLevel == 9 || currentstats.speedLevel == 14)
       {
         SpeedArrowSprite(); 
       }
@@ -336,7 +336,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void SentienceArrowIncrease()
     {
-      if(currentstats.sentienceLevel == 4 || currentstats.sentienceLevel == 9 || currentstats.sentienceLevel == 14)
+      if(currentstats.sentienceLevel == 9 || currentstats.sentienceLevel == 14)
       {
         SentienceArrowSprite(); 
       }
@@ -347,7 +347,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void VitalityArrowIncrease()
     {
-      if(currentstats.vitalityLevel == 4 || currentstats.vitalityLevel == 9 || currentstats.vitalityLevel == 14)
+      if(currentstats.vitalityLevel == 9 || currentstats.vitalityLevel == 14)
       {
         VitalityArrowSprite(); 
       }
