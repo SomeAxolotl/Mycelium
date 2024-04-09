@@ -24,7 +24,7 @@ public class MonsterBossAttack : MonoBehaviour
     private bool isSwipeAttacking = false;
     public bool tailAttackOnCooldown = false;
     private bool isRandomOnCooldown = false;
-    [SerializeField] private float attackInterval = 2f;
+    private float attackInterval = 2f;
     private float attackWindupTime = .5f;
     private float resetAttack;
     [SerializeField] private float damage = 20f;
@@ -37,14 +37,15 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private GameObject bossTail;
     PlayerController playerController;
     //[SerializeField] private float tailAttackAnimationDuration = 1.5f;
-    [SerializeField] private float swipeAttackAnimationDuration = 1.0f;
-    [SerializeField] private float slamAttackAnimationDuration = 2.0f;
+    private float swipeAttackAnimationDuration = 1.0f;
+    private float slamAttackAnimationDuration = 2.0f;
     [SerializeField] private float tailAttackDamage = 30f;
     [SerializeField] private float swipeAttackDamage = 25f;
     [SerializeField] private float slamAttackDamage = 35f;
     [SerializeField] private float tailKnockback = 50f;
     private bool collidedWithPlayer = false;
     [SerializeField] private float distanceInFront = 2.0f;
+    [SerializeField] private float customDelayDuration;
 
     //BossProcedualAnimation bossProcedualAnimation;
 
@@ -297,7 +298,6 @@ public class MonsterBossAttack : MonoBehaviour
             {
                 TriggerRandomAttack();
                 isRandomOnCooldown = true;
-                float customDelayDuration = 5.0f; // Replace with your custom duration
                 yield return new WaitForSeconds(customDelayDuration);
                 isRandomOnCooldown = false;
             }
