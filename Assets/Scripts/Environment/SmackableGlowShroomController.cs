@@ -28,7 +28,7 @@ public class SmackableGlowShroomController : MonoBehaviour
     bool wasSmacked = false;
 
     private void Start(){
-        audioSource.pitch = 1/((gameObject.transform.localScale.x + gameObject.transform.localScale.z)/2);
+        audioSource.pitch = Mathf.Clamp(1/((gameObject.transform.localScale.x + gameObject.transform.localScale.z)/2), 0.1f, 100f);
     }
     private void OnTriggerEnter(Collider other){
         if (other.gameObject.tag == "currentWeapon" && Attackable == true)

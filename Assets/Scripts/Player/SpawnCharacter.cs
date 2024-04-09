@@ -121,6 +121,7 @@ public class SpawnCharacter : MonoBehaviour
         }
 
         swapCharacter.characters.Add(newCharacter);
+        GameObject.Find("HUD").GetComponent<HUDHappiness>().UpdateHappinessMeter();
         newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         if(sporeCam != null )
         {

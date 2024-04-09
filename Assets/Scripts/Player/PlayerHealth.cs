@@ -105,8 +105,17 @@ public class PlayerHealth : MonoBehaviour
     {
         //Notification stuff
         string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
+        DesignTracker designTracker = GameObject.FindWithTag("currentPlayer").GetComponent<DesignTracker>();
+        CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">"+characterStats.sporeName+"</color>";
         string deathMessage = "<color=#8B0000>YOU DIED</color>";
-        if (heldMaterial != "")
+        string permaDeathMessage = "<color=#8B0000> has died for good.</color>";
+        if (profileManagerScript.permadeathIsOn[GlobalData.profileNumber] == true)
+        {
+            NotificationManager.Instance.Notification(coloredSporeName + permaDeathMessage);
+            GlobalData.sporePermaDied = characterStats.sporeName;
+        }
+        else if (heldMaterial != "") //&& SceneManager.GetActiveScene().name != "New Tutorial"
         {
             NotificationManager.Instance.Notification(deathMessage, heldMaterial + " dropped!", null, heldMaterial);
         }
@@ -124,6 +133,9 @@ public class PlayerHealth : MonoBehaviour
         {
             animator.SetBool("Death", true);
         }
+
+        float happinessLostOnDying = HappinessManager.Instance.happinessOnDying;
+        characterStats.ModifyHappiness(happinessLostOnDying);
 
         //Wait a bit
         yield return new WaitForSeconds(3f);

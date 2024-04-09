@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using RonaldSunglassesEmoji.Personalities;
 
 public class LoadCurrentPlayer : SporeManagerSystem
 {
@@ -90,6 +91,10 @@ public class LoadCurrentPlayer : SporeManagerSystem
         stats.sporeName = sporeData.sporeName;
         //Spore.gameObject.tag = sporeData.sporeTag;
 
+        stats.sporeHappiness = sporeData.sporeHappiness;
+        stats.sporePersonality = (SporePersonalities)sporeData.sporePersonality;
+        stats.sporeEnergy = sporeData.sporeEnergy;
+
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
         stats.primalLevel = sporeData.lvlPrimal;
@@ -113,6 +118,7 @@ public class LoadCurrentPlayer : SporeManagerSystem
         if(sporeDataList == null)
         {
             Debug.LogError("No sporeDataList exists. Go bother ryan about this", gameObject);
+            //yo
             return;
         }
 

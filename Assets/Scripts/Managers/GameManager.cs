@@ -38,13 +38,60 @@ public class GameManager : MonoBehaviour
 
         if (scene.buildIndex == 2)
         {
-            StartCoroutine(SproutPlayer());
+            if (GlobalData.sporePermaDied != null)
+            {
+                HappinessManager.Instance.FriendlySporePermaDied();
+            }
+            else
+            {
+                StartCoroutine(SproutPlayer());
+
+                GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+                currentPlayer.GetComponent<CharacterStats>().ModifyEnergy(-GlobalData.areasCleared);
+
+                HappinessManager.Instance.RestOtherSpores(currentPlayer);
+            }
+
+            GlobalData.areasCleared = 0;
+            GlobalData.sporePermaDied = null;
+        }
+        else
+        {
+            if (GameObject.Find("HUD") != null)
+            {
+                HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
+                hudHappiness.HideColonyHappinessMeter();
+            }
+        }
+
+        if (scene.buildIndex == 3)
+        {
+            StartCoroutine(ApplyHappinessBuffToCurrentPlayer());
         }
 
         if (scene.buildIndex > 2)
         {
             StartCoroutine(DrainNutrients());
         }
+    }
+
+    IEnumerator ApplyHappinessBuffToCurrentPlayer()
+    {
+        yield return null;
+
+        CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+
+        if (HappinessManager.Instance.doesHappinessMultiply)
+        {
+            characterStats.MultiplyStat("All", GlobalData.happinessStatMultiplier);
+        }
+        else
+        {
+            characterStats.AddStat("All", GlobalData.happinessStatIncrement);
+        }
+
+        GlobalData.happinessStatMultiplier = 1f;
+        GlobalData.happinessStatIncrement = 0;
     }
 
     IEnumerator SproutPlayer()
@@ -111,9 +158,9 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            nutrientTracker.SubtractNutrients(1);
-
             yield return new WaitForSeconds(nutrientDrainRate);
+
+            nutrientTracker.SubtractNutrients(1);
         }
     }
 }

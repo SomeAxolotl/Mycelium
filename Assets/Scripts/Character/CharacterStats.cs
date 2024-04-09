@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RonaldSunglassesEmoji.Personalities;
 
 public class CharacterStats : MonoBehaviour
 {
@@ -13,17 +14,10 @@ public class CharacterStats : MonoBehaviour
         {"NoSkill"}
     };
 
-    public enum SporePersonalities
-    {
-        Energetic,
-        Lazy,
-        Friendly,
-        Curious,
-        Playful
-    }
     public SporePersonalities sporePersonality;
 
     public float sporeHappiness = 0.5f;
+    public int sporeEnergy = 3;
 
     //Able to be equipped
     public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
@@ -94,10 +88,46 @@ public class CharacterStats : MonoBehaviour
     void Update()
     {
         totalLevel = primalLevel + speedLevel + sentienceLevel + vitalityLevel;
-        levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);
-
-        
+        levelUpCost = Mathf.RoundToInt((.15f * Mathf.Pow(totalLevel, 3f)) + (3.26f * Mathf.Pow(totalLevel, 2f)) + (80.6f * totalLevel) + 101);   
     }
+
+    public void ModifyHappiness(float modifyAmount)
+    {
+        sporeHappiness = Mathf.Clamp(sporeHappiness + modifyAmount, 0f, 1f);
+        Debug.Log(sporeName + " Happiness: " + sporeHappiness);
+
+        HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
+        if (hudHappiness != null)
+        {
+            hudHappiness.UpdateHappinessMeter();
+        }
+    }
+
+    public void ModifyEnergy(int modifyAmount)
+    {
+        int minEnergy = HappinessManager.Instance.minEnergy;
+        int maxEnergy = HappinessManager.Instance.maxEnergy;
+        sporeEnergy = Mathf.Clamp(sporeEnergy + modifyAmount, minEnergy, maxEnergy);
+
+        //If a Spore spends energy,
+        if (modifyAmount < 0)
+        {
+            float happinessModifier;
+            //it gets happier above 0 energy
+            if (sporeEnergy >= 0)
+            {
+                happinessModifier = HappinessManager.Instance.happinessOnSpendingEnergy;
+            }
+            //or gets sad below 0 energy
+            else
+            {
+                happinessModifier = HappinessManager.Instance.happinessOnExhaustingEnergy;
+            }
+
+            ModifyHappiness(happinessModifier);
+        }
+    }
+
     public void LevelPrimal()
     {        
         levelscript = GameObject.FindWithTag("LevelController").GetComponent<LevelUpManagerNew>();
@@ -787,9 +817,10 @@ public class CharacterStats : MonoBehaviour
             else
             {
             vitalityLevel--;
+            
             UpdateLevel();
             nutrientTracker.AddNutrients(levelUpCost);  
-            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);  
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel); 
             }   
     }
 
@@ -916,6 +947,12 @@ public class CharacterStats : MonoBehaviour
             case "Vitality":
                 vitalityLevel = Mathf.RoundToInt(vitalityLevel * multiplier);
                 break;
+            case "All":
+                primalLevel = Mathf.RoundToInt(primalLevel * multiplier);
+                sentienceLevel = Mathf.RoundToInt(sentienceLevel * multiplier);
+                speedLevel = Mathf.RoundToInt(speedLevel * multiplier);
+                vitalityLevel = Mathf.RoundToInt(vitalityLevel * multiplier);
+                break;
         }
 
         StartCalculateAttributes();
@@ -928,16 +965,22 @@ public class CharacterStats : MonoBehaviour
         switch (statName)
         {
             case "Primal":
-                primalLevel += addAmount;
+                primalLevel = Mathf.Clamp(primalLevel + addAmount, 1, 99);
                 break;
             case "Sentience":
-                sentienceLevel += addAmount;
+                sentienceLevel = Mathf.Clamp(sentienceLevel + addAmount, 1, 99);
                 break;
             case "Speed":
-                speedLevel += addAmount;
+                speedLevel = Mathf.Clamp(speedLevel + addAmount, 1, 99);
                 break;
             case "Vitality":
-                vitalityLevel += addAmount;
+                vitalityLevel = Mathf.Clamp(vitalityLevel + addAmount, 1, 99);
+                break;
+            case "All":
+                primalLevel = Mathf.Clamp(primalLevel + addAmount, 1, 99);
+                sentienceLevel = Mathf.Clamp(sentienceLevel + addAmount, 1, 99);
+                speedLevel = Mathf.Clamp(speedLevel + addAmount, 1, 99);
+                vitalityLevel = Mathf.Clamp(vitalityLevel + addAmount, 1, 99);
                 break;
         }
 

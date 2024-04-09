@@ -15,7 +15,6 @@ public class WeaponStats : MonoBehaviour
     public WeaponTypes weaponType;
 
     [SerializeField] public string wpnName = "Wooden Sword";
-    [SerializeField] public string wpnSpeed = "Normal";
 
     [SerializeField] float wpnDamageMin = 10f;
     [SerializeField] float wpnDamageMax = 50f;

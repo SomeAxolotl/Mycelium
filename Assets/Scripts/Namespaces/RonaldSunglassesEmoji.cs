@@ -10,3 +10,15 @@ namespace RonaldSunglassesEmoji.Interaction
         void DestroyTooltip(GameObject interactObject);
     }
 }
+
+namespace RonaldSunglassesEmoji.Personalities
+{
+    public enum SporePersonalities
+    {
+        Energetic,
+        Lazy,
+        Friendly,
+        Curious,
+        Playful
+    }
+}

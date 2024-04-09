@@ -44,6 +44,9 @@ public class LevelEnd : MonoBehaviour
             GlobalData.currentSporeStats.Add(characterStats.sentienceLevel);
             GlobalData.currentSporeStats.Add(characterStats.vitalityLevel);
 
+            //Increment Area Completion Count
+            GlobalData.areasCleared++;
+
             if (sceneIndexToGoTo == 2)
             {
                 swapWeapon.curWeapon.tag = "Weapon";
@@ -62,10 +65,10 @@ public class LevelEnd : MonoBehaviour
                 Debug.Log("wtf");
                 NotificationManager.Instance.Notification(completeMessage, currentHeldMaterial + " stored at the Carcass", null, currentHeldMaterial);
             }
-            /*else
+            else
             {
                 NotificationManager.Instance.Notification(completeMessage);
-            }*/
+            }
 
             nutrientTracker.LoseMaterials();
             profileManager.SaveOverride();

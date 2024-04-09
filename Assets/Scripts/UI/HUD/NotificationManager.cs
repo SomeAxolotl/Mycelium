@@ -25,8 +25,6 @@ public class NotificationManager : MonoBehaviour
     [SerializeField] private Sprite noSkill;
     [SerializeField] private List<Sprite> notificationSprites;
 
-    private HUDSkills hudSkills;
-
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,7 +39,6 @@ public class NotificationManager : MonoBehaviour
 
     void Start()
     {
-        hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         notificationCanvasGroup.alpha = 0f;
         notificationHolder.transform.localScale = Vector3.zero;
     }

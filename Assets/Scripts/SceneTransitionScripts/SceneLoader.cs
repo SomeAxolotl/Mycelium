@@ -291,6 +291,17 @@ public class SceneLoader : MonoBehaviour
         ChangeFunText(funText);
 
         StartCoroutine(FadeCanvasIn(blackCanvasGroup, transitionTime));
+
+        ProfileManager profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
+        if (profileManager.permadeathIsOn[GlobalData.profileNumber])
+        {
+            NotificationManager.Instance.Notification("Your colony mourns " + GlobalData.sporePermaDied + "'s <b>death</b>", "<color=#8B0000>-Colony Happiness</color>");
+        }
+        else
+        {
+            NotificationManager.Instance.Notification("<i>Rise</i> my child,", "our colony must <b>persist</b>.");
+        }
+
         yield return StartCoroutine(FadeCanvasIn(deathCanvasGroup, transitionTime));
 
         yield return new WaitForSecondsRealtime(deathCanvasTime);

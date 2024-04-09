@@ -52,7 +52,8 @@ public class SporeInteraction : MonoBehaviour, IInteractable
                 subspeciesSkillIconIndex = 11;
                 break;
         }
-        TooltipManager.Instance.CreateTooltip
+        
+        Tooltip sporeTooltip = TooltipManager.Instance.CreateTooltip
         (
             gameObject, 
             "<sprite=" + subspeciesSkillIconIndex + ">  " + coloredSporeName + "  <sprite=" + subspeciesSkillIconIndex + ">", 
@@ -66,6 +67,10 @@ public class SporeInteraction : MonoBehaviour, IInteractable
             1f,
             false
         );
+        if (sporeTooltip != null)
+        {  
+            sporeTooltip.ShowHappiness(characterStats.sporeHappiness);
+        }
     }
 
     public void DestroyTooltip(GameObject interactObject)

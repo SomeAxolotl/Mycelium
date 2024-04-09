@@ -106,7 +106,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
             (
                 weapon.gameObject, 
                 weaponName, 
-                "Speed: " + newStats.wpnSpeed + 
+                "Type: " + newStats.weaponType.ToString() + 
                 "\nDamage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + 
                 "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, 
                 "Press "+buttonText+" to Swap",

@@ -5,6 +5,7 @@ using System.Linq;
 //using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.UIElements;
+using RonaldSunglassesEmoji.Personalities;
 
 public class SporeManager : SporeManagerSystem
 {
@@ -101,6 +102,10 @@ public class SporeManager : SporeManagerSystem
         stats.sporeName = sporeData.sporeName;
         //Spore.gameObject.tag = sporeData.sporeTag;
 
+        stats.sporeHappiness = sporeData.sporeHappiness;
+        stats.sporePersonality = (SporePersonalities)sporeData.sporePersonality;
+        stats.sporeEnergy = sporeData.sporeEnergy;
+
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
         stats.primalLevel = sporeData.lvlPrimal;
@@ -138,6 +143,10 @@ public class SporeManager : SporeManagerSystem
                 //From the Character Stats
                 currentSporeData.sporeName = currentSporeStats.sporeName;
                 currentSporeData.sporeTag = spore.tag;
+
+                currentSporeData.sporeHappiness = currentSporeStats.sporeHappiness;
+                currentSporeData.sporePersonality = (int)currentSporeStats.sporePersonality;
+                currentSporeData.sporeEnergy = currentSporeStats.sporeEnergy;
 
                 currentSporeData.skillSlot0 = currentSporeStats.equippedSkills[0];
                 currentSporeData.skillSlot1 = currentSporeStats.equippedSkills[1];
@@ -181,6 +190,10 @@ public class SporeData
 {
     public string sporeName;
     public string sporeTag;
+
+    public float sporeHappiness;
+    public int sporePersonality;
+    public int sporeEnergy;
 
     public string skillSlot0;
     public string skillSlot1;

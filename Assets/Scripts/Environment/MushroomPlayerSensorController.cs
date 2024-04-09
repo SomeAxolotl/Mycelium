@@ -17,6 +17,7 @@ public class MushroomPlayerSensorController : MonoBehaviour
     [SerializeField] private bool DisableOnExit = true;
     private Color StartGlow;
     private float startLightIntensity;
+    bool entered = false;
 
 
     private void Start(){
@@ -35,8 +36,9 @@ public class MushroomPlayerSensorController : MonoBehaviour
         }
     }
     private void OnTriggerEnter(Collider other){
-        if(other.gameObject.tag == "currentPlayer"){
+        if(other.gameObject.tag == "currentPlayer" && entered == false){
             StartCoroutine(Illuminate());
+            entered = true;
         }
 
     }

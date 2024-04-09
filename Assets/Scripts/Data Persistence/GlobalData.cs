@@ -23,4 +23,11 @@ public static class GlobalData
 
     //Save Data Stuff
     public static int profileNumber { get; set; }
+
+    //Happiness Stuff
+    public static float happinessStatMultiplier = 1f;
+    public static int happinessStatIncrement = 0;
+    public static int areasCleared = 0;
+    public static string sporeDied = null;
+    public static string sporePermaDied = null;
 }

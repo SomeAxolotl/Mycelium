@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Tooltip : MonoBehaviour
@@ -11,6 +12,7 @@ public class Tooltip : MonoBehaviour
     [SerializeField] public TMP_Text tooltipDescription;
     [SerializeField] public TMP_Text tooltipInteract;
     [SerializeField] public TMP_Text tooltipInteract2;
+    [SerializeField] public Slider happinessSlider;
     [SerializeField] private float popDuration = 0.25f;
     private Camera mainCamera;
 
@@ -32,6 +34,12 @@ public class Tooltip : MonoBehaviour
             popCounter += Time.deltaTime;
             yield return null;  
         }
+    }
+
+    public void ShowHappiness(float happinessValue)
+    {
+        happinessSlider.gameObject.SetActive(true);
+        happinessSlider.value = happinessValue;
     }
 
     float EaseOutQuart(float x)
