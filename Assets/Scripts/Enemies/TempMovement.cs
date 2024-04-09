@@ -39,7 +39,7 @@ public class TempMovement : MonoBehaviour
 
         if (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f && angletoPlayer > 10f)
         {
-            rigBuilder.enabled = false;
+            // rigBuilder.enabled = false;
             float yRotationDifference = Quaternion.Angle(transform.rotation, targetRotation);
             if (yRotationDifference > 0f)
             {
@@ -51,14 +51,6 @@ public class TempMovement : MonoBehaviour
                 animator.SetTrigger("TurnRight");
                 Debug.Log("Turning right");
             }
-            else
-            {
-                rigBuilder.enabled = true;
-            }
-        }
-        else
-        {
-            rigBuilder.enabled = true;
         }
     }
 }

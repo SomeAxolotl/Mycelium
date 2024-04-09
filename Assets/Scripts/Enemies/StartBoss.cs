@@ -17,7 +17,7 @@ public class StartBoss : MonoBehaviour
 
     IEnumerator ReEnableStuff()
     {
-        yield return new WaitForSeconds(17.583f);
+        yield return new WaitForSeconds(35f);
         GameObject boss = GameObject.Find("Rival Colony Leader");
         boss.GetComponent<MonsterBossAttack>().enabled = true;
         tempMovement.enabled = true;
