@@ -149,6 +149,10 @@ public class LevelGenerator : MonoBehaviour
         yield return null;
         previousWeapon.GetComponent<WeaponStats>().wpnDamage = GlobalData.currentWeaponDamage;
         previousWeapon.GetComponent<WeaponStats>().wpnKnockback = GlobalData.currentWeaponKnockback;
+
+        yield return new WaitForSeconds(0.1f);
+        previousWeapon.GetComponent<WeaponInteraction>().ApplyWeaponPositionAndRotation();
+
     }
 
     private GameObject GetStartChunkPrefab()
