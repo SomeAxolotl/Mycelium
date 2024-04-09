@@ -103,6 +103,7 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator Death()
     {
+        //Notification stuff
         string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
         string deathMessage = "<color=#8B0000>YOU DIED</color>";
         if (heldMaterial != "")
@@ -114,6 +115,7 @@ public class PlayerHealth : MonoBehaviour
             NotificationManager.Instance.Notification(deathMessage);
         }
 
+        //Setup and Animation stuff
         dead = true;
         swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
         CancelInvoke("Regen");
@@ -122,9 +124,12 @@ public class PlayerHealth : MonoBehaviour
         {
             animator.SetBool("Death", true);
         }
+
+        //Wait a bit
         yield return new WaitForSeconds(3f);
-        Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+
+        //See what scene we are in
+        if (SceneManager.GetActiveScene().name == "New Tutorial")
         {
             profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
 
@@ -142,14 +147,29 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
 
+            //Wait until the cutscene finishes
             while (cutscenePlayer.isFinished == false)
             {
                 yield return null;
             }
         }
+        else if(profileManagerScript.permadeathIsOn[GlobalData.profileNumber] == true)
+        {
+            //If we died we must be in one of the levels
+            LoadCurrentPlayer.Instance.DeleteCurrentPlayerSpore();
+
+            //wait one frame
+            yield return null;
+        }
+
+        //Save Profile Stuff
         profileManagerScript.Save();
+
+        //Start loading the next scene
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        sceneLoaderScript.BeginLoadScene(2, false);
+        sceneLoaderScript.BeginLoadScene("The Carcass", false);
+
+        //Wait until the scene finishes loading and then do some final stuff
         yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);

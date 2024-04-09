@@ -125,7 +125,7 @@ public class LevelUpManagerNew : MonoBehaviour
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
-      ControlEnable();
+      Invoke("ControlEnable", 0.25f);
       Camera.SetActive(true);
       Invoke("MenuSwapDelay", 0.25f);
 

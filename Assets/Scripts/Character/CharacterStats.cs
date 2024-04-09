@@ -787,7 +787,9 @@ public class CharacterStats : MonoBehaviour
             else
             {
             vitalityLevel--;
-            
+            UpdateLevel();
+            nutrientTracker.AddNutrients(levelUpCost);  
+            designTracker.ForceUpdateBlendshaped(sentienceLevel,primalLevel,vitalityLevel,speedLevel);  
             }   
     }
 

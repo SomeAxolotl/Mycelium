@@ -1,16 +1,29 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-//using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class LoadCurrentPlayer : SporeManagerSystem
 {
+    public static LoadCurrentPlayer Instance;
+
     [SerializeField] private SporeData tutorialSpore;
+
+    private SporeData currentPlayerSporeData;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     protected override void Start()
     {
@@ -30,6 +43,7 @@ public class LoadCurrentPlayer : SporeManagerSystem
                 if (sporeData.sporeTag == "currentPlayer")
                 {
                     LoadSpores(sporeData);
+                    currentPlayerSporeData = sporeData;
                 }
             }
         }
@@ -102,14 +116,23 @@ public class LoadCurrentPlayer : SporeManagerSystem
             return;
         }
 
-        foreach (SporeData sporeData in sporeDataList.Spore_Data)
-        {
-            if (sporeData.sporeTag == "currentPlayer")
-            {
-                sporeDataList.Spore_Data.Remove(sporeData);
-            }
-        }
+        sporeDataList.Spore_Data.Remove(currentPlayerSporeData);
 
-        sporeDataList.Spore_Data[0].sporeTag = "currentPlayer";
+        if(sporeDataList.Spore_Data.Count != 0)
+        {
+            sporeDataList.Spore_Data[0].sporeTag = "currentPlayer";
+
+            string json = JsonUtility.ToJson(sporeDataList);
+
+            json = json.Replace(":[{", ":[\n\t{");
+            json = json.Replace("},{", "},\n\t{");
+            json = json.Replace("]}", "\n]}");
+
+            File.WriteAllText(filePath, json);
+        }
+        else
+        {
+            File.Delete(filePath);
+        }
     }
 }
