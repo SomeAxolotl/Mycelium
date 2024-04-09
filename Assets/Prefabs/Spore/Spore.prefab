@@ -2969,6 +2969,7 @@ Transform:
   - {fileID: 3998511184661822156}
   - {fileID: 4704628897148904376}
   - {fileID: 2513877424520030225}
+  - {fileID: 4272597802966690801}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3039,6 +3040,8 @@ MonoBehaviour:
   - NoSkill
   - NoSkill
   - NoSkill
+  sporePersonality: 0
+  sporeHappiness: 0.5
   primalLevel: 1
   primalDmg: 10
   speedLevel: 1
@@ -3143,6 +3146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d479ff8278fa73e4dac4c494d1ffd803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleFadeOutTime: 0.5
 --- !u!82 &3315170148169550044
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8221,6 +8225,37 @@ Transform:
   m_Children:
   - {fileID: 5375232801515164072}
   m_Father: {fileID: 204832380143493656}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4392029461405486882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4272597802966690801}
+  m_Layer: 3
+  m_Name: Launch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4272597802966690801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392029461405486882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.54, z: 0.751}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2509756702752052893}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4400171859032966495

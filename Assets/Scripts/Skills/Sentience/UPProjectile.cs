@@ -8,24 +8,20 @@ public class UPProjectile : MonoBehaviour
     Rigidbody rb;
     [SerializeField] private float AOERange = 2;
     [SerializeField] private float speed = 12f;
+    [SerializeField] private float upRange = 2f;
     UnstablePuffball unstablePuffball;
-    CamTracker camTracker;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         unstablePuffball = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<UnstablePuffball>();
-        camTracker = GameObject.FindWithTag("Camtracker").GetComponentInChildren<CamTracker>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetDir = camTracker.currentTarget.position - transform.position;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, speed * Time.deltaTime, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDir);
-        Vector3 launchDirection = (transform.up * 0.2f + transform.forward).normalized;
+        Vector3 launchDirection = (transform.up * upRange + transform.forward).normalized;
         transform.position += launchDirection * speed * Time.deltaTime;
     }
 
