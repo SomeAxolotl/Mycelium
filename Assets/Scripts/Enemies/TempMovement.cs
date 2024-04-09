@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.EventSystems;
 
 public class TempMovement : MonoBehaviour
 {
     private Transform player;
-    private MonsterBossAttack monsterBossAttack;
+    private RigBuilder rigBuilder;
     Animator animator;
-    float currentYRot;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("currentPlayer").transform;
-        monsterBossAttack = GetComponent<MonsterBossAttack>();
         animator = GetComponent<Animator>();
-        currentYRot = transform.rotation.y;
+        rigBuilder = GetComponent<RigBuilder>();
     }
 
     // Update is called once per frame
@@ -33,19 +32,33 @@ public class TempMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
         float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
         float maxAngleThisFrame = 1f * Time.fixedDeltaTime;
-        //float fractionOfTurn = Mathf.Min(maxAngleThisFrame / angleToTarget, 1f);
+
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxAngleThisFrame);
 
         float angletoPlayer = Vector3.Angle(transform.forward, player.position);
-        currentYRot = transform.rotation.y;
 
-        if(transform.rotation.y > currentYRot && angletoPlayer > 10f)
+        if (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f && angletoPlayer > 10f)
         {
-            animator.Play("LeftTurn");
+            rigBuilder.enabled = false;
+            float yRotationDifference = Quaternion.Angle(transform.rotation, targetRotation);
+            if (yRotationDifference > 0f)
+            {
+                animator.SetTrigger("TurnLeft");
+                Debug.Log("Turning left");
+            }
+            else if (yRotationDifference < 0f)
+            {
+                animator.SetTrigger("TurnRight");
+                Debug.Log("Turning right");
+            }
+            else
+            {
+                rigBuilder.enabled = true;
+            }
         }
-        else if(transform.rotation.y < currentYRot && angletoPlayer > 10f)
+        else
         {
-            animator.Play("RightTurn");
+            rigBuilder.enabled = true;
         }
     }
 }

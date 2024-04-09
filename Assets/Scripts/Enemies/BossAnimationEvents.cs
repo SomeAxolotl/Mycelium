@@ -8,6 +8,7 @@ public class BossAnimationEvents : MonoBehaviour
     {
         GameObject boss = GameObject.Find("Rival Colony Leader");
         boss.GetComponent<MonsterBossAttack>().enabled = true;
+        boss.GetComponent<TempMovement>().enabled = true;
         GameObject player = GameObject.FindWithTag("PlayerParent");
         player.GetComponent<PlayerController>().playerActionsAsset.Player.Enable();
         player.GetComponent<PlayerAttack>().playerActionsAsset.Player.Enable();
