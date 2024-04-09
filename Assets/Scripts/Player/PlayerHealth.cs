@@ -19,7 +19,6 @@ public class PlayerHealth : MonoBehaviour
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     PlayerController playerController;
-    CamTracker camTracker;
     Animator animator;
     SceneLoader sceneLoaderScript;
     ProfileManager profileManagerScript;
@@ -39,7 +38,6 @@ public class PlayerHealth : MonoBehaviour
         hudItem = GameObject.Find("HUD").GetComponent<HUDItem>();
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
-        camTracker = GameObject.Find("CameraTracker").GetComponent<CamTracker>();
         animator = GameObject.Find("Spore").GetComponent<Animator>();
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         isDefending = false;
@@ -61,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
-        if (currentHealth > 0 && !playerController.isInvincible)
+        if (currentHealth > 0)
         {
             StartCoroutine(HurtSound());
 
@@ -95,7 +93,7 @@ public class PlayerHealth : MonoBehaviour
         if (animator.GetBool("Hurt") == true)
         {
             animator.SetBool("Hurt", false);
-            Debug.Log("no more hurty");
+            //Debug.Log("no more hurty");
         }
         if (currentHealth > maxHealth)
         {
@@ -105,43 +103,73 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator Death()
     {
+        //Notification stuff
+        string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
+        string deathMessage = "<color=#8B0000>YOU DIED</color>";
+        if (heldMaterial != "")
+        {
+            NotificationManager.Instance.Notification(deathMessage, heldMaterial + " dropped!", null, heldMaterial);
+        }
+        else
+        {
+            NotificationManager.Instance.Notification(deathMessage);
+        }
+
+        //Setup and Animation stuff
         dead = true;
         swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
         CancelInvoke("Regen");
         hudHealth.UpdateHealthUI(0, maxHealth);
-        if (camTracker.isLockedOn)
-        {
-            camTracker.ToggleLockOn();
-        }
         if (animator.GetBool("Death") == false)
         {
             animator.SetBool("Death", true);
         }
+
+        //Wait a bit
         yield return new WaitForSeconds(3f);
-        Debug.Log("BUILD INDEX: " + SceneManager.GetActiveScene().buildIndex);
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+
+        //See what scene we are in
+        if (SceneManager.GetActiveScene().name == "New Tutorial")
         {
-            profileManagerScript.tutorialIsDone = true;
+            profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
 
             cutscenePlayer.StartCutscene();
 
             //Lobotomize the Giga Beetle
-            foreach (Component component in GameObject.Find("Giga Beetle").GetComponents<Component>())
+            if (GameObject.Find("Giga Beetle") != null)
             {
-                if (component.GetType() != typeof(Transform) && component.GetType() != typeof(MeshRenderer) && component.GetType() != typeof(MeshFilter))
+                foreach (Component component in GameObject.Find("Giga Beetle").GetComponents<Component>())
                 {
-                    Destroy(component);
+                    if (component.GetType() != typeof(Transform) && component.GetType() != typeof(MeshRenderer) && component.GetType() != typeof(MeshFilter))
+                    {
+                        Destroy(component);
+                    }
                 }
             }
 
+            //Wait until the cutscene finishes
             while (cutscenePlayer.isFinished == false)
             {
                 yield return null;
             }
         }
+        else if(profileManagerScript.permadeathIsOn[GlobalData.profileNumber] == true)
+        {
+            //If we died we must be in one of the levels
+            LoadCurrentPlayer.Instance.DeleteCurrentPlayerSpore();
+
+            //wait one frame
+            yield return null;
+        }
+
+        //Save Profile Stuff
         profileManagerScript.Save();
+
+        //Start loading the next scene
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        sceneLoaderScript.BeginLoadScene(2, false);
+        sceneLoaderScript.BeginLoadScene("The Carcass", false);
+
+        //Wait until the scene finishes loading and then do some final stuff
         yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);

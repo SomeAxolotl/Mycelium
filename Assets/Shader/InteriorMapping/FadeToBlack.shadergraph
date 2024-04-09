@@ -80,6 +80,9 @@
         },
         {
             "m_Id": "1dab7abd38b742f49805d7e069c8754a"
+        },
+        {
+            "m_Id": "ede48328ee054119a67238be224586fa"
         }
     ],
     "m_GroupDatas": [],
@@ -310,6 +313,9 @@
             },
             {
                 "m_Id": "07a10795661c400f98119dbd1543d119"
+            },
+            {
+                "m_Id": "ede48328ee054119a67238be224586fa"
             }
         ]
     },
@@ -1507,6 +1513,21 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "906745c2fc0f47978136d62c31a01ae0",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha Clip Threshold",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "AlphaClipThreshold",
+    "m_StageCapability": 2,
+    "m_Value": 0.5,
+    "m_DefaultValue": 0.5,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "90e8c0f100244fc7bf63d0e9f424eed4",
     "m_Id": 1,
     "m_DisplayName": "X",
@@ -1938,7 +1959,7 @@
     "m_ActiveSubTarget": {
         "m_Id": "621b7003f56940a997bbbe4cfa6a7e3c"
     },
-    "m_AllowMaterialOverride": false,
+    "m_AllowMaterialOverride": true,
     "m_SurfaceType": 1,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
@@ -2144,6 +2165,40 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "ede48328ee054119a67238be224586fa",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.AlphaClipThreshold",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "906745c2fc0f47978136d62c31a01ae0"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.AlphaClipThreshold"
 }
 
 {
