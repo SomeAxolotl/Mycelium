@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static System.TimeZoneInfo;
 
 public class CreditsPlayer : MonoBehaviour
 {
+    [Header("==Credits Section==")]
     [SerializeField] private CanvasGroup blackCanvas;
     [SerializeField] private CanvasGroup creditsCanvas;
     [SerializeField] private CanvasGroup skipCanvas;
@@ -19,48 +21,68 @@ public class CreditsPlayer : MonoBehaviour
     private PlayerController playerController;
     private bool creditsIsOn = false;
     private bool askSkipIsOn = false;
-    private ThirdPersonActionsAsset playerInput;
+
+    [Header("==End Of Run Section==")]
+    [SerializeField] private CanvasGroup endOfRunCanvas;
+    [SerializeField] private float fadeTimeEndOfRunCanvas;
 
     private void Start()
     {
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        playerInput = new ThirdPersonActionsAsset();
-        playerInput.Disable();
     }
-    
-    private void Update()
+
+    private void OnSkip()
     {
-        if(creditsIsOn == false)
+        if (creditsIsOn == false)
         {
             return;
         }
 
         if (askSkipIsOn == true)
         {
+            ConfirmSkip();
             return;
         }
 
-        if (playerInput.Cutscene.Skip.WasPressedThisFrame())
-        {
-            StartCoroutine(AskSkip());
-        }
+        StartCoroutine(AskSkip());
     }
 
     public void StartPlayCredits()
     {
         GlobalData.isAbleToPause = false;
         playerController.DisableController();
-        playerInput.Enable();
 
         StartCoroutine(PlayCredits());
     }
 
     private void ConfirmSkip()
     {
-        playerInput.Disable();
         StopAllCoroutines();
 
+        StartCoroutine(EndOfRun());
+    }
+
+    public void LoopRun()
+    {
+
+    }
+
+    public void ReturnToCarcass()
+    {
         SceneLoader.Instance.BeginLoadScene("The Carcass", true);
+    }
+
+    IEnumerator AskSkip()
+    {
+        askSkipIsOn = true;
+
+        yield return StartCoroutine(FadeIn(skipCanvas, 0.3f));
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        yield return StartCoroutine(FadeOut(skipCanvas, 0.3f));
+
+        askSkipIsOn = false;
     }
 
     IEnumerator PlayCredits()
@@ -83,33 +105,24 @@ public class CreditsPlayer : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        SceneLoader.Instance.BeginLoadScene("The Carcass", true);
+        StartCoroutine(EndOfRun());
 
         creditsIsOn = false;
     }
 
-    IEnumerator AskSkip()
+    IEnumerator EndOfRun()
     {
-        askSkipIsOn = true;
-        float elapsedTime = 0f;
-
-        yield return StartCoroutine(FadeIn(skipCanvas, 0.3f));
-
-        while (elapsedTime < 2f)
+        if(askSkipIsOn == true)
         {
-            if (playerInput.Cutscene.Skip.WasPressedThisFrame())
-            {
-                ConfirmSkip();
-            }
+            StartCoroutine(FadeOut(creditsCanvas, 0.5f));
+            yield return StartCoroutine(FadeOut(skipCanvas, 0.5f));
 
-            elapsedTime += Time.unscaledDeltaTime;
-
-            yield return null;
+            creditsIsOn = false;
+            askSkipIsOn = false;
         }
 
-        yield return StartCoroutine(FadeOut(skipCanvas, 0.3f));
-
-        askSkipIsOn = false;
+        yield return StartCoroutine(FadeIn(endOfRunCanvas, fadeTimeEndOfRunCanvas));
+        GameObject.Find("ContinueButton").GetComponent<Button>().Select();
     }
 
     IEnumerator MoveText()
