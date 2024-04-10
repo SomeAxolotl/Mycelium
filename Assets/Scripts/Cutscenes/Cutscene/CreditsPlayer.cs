@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static System.TimeZoneInfo;
 
@@ -18,17 +19,19 @@ public class CreditsPlayer : MonoBehaviour
     [SerializeField][Tooltip("Time in seconds")] private float creditsTime;
     [SerializeField] private float pauseTime;
 
-    private PlayerController playerController;
-    private bool creditsIsOn = false;
-    private bool askSkipIsOn = false;
-
     [Header("==End Of Run Section==")]
     [SerializeField] private CanvasGroup endOfRunCanvas;
     [SerializeField] private float fadeTimeEndOfRunCanvas;
 
+    private PlayerController playerController;
+    private GameObject camTracker;
+    private bool creditsIsOn = false;
+    private bool askSkipIsOn = false;
+
     private void Start()
     {
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        camTracker = GameObject.FindWithTag("Camtracker");
     }
 
     private void OnSkip()
@@ -52,14 +55,14 @@ public class CreditsPlayer : MonoBehaviour
         GlobalData.isAbleToPause = false;
         playerController.DisableController();
 
-        StartCoroutine(PlayCredits());
+        StartCoroutine(EndOfRun());
     }
 
     private void ConfirmSkip()
     {
         StopAllCoroutines();
 
-        StartCoroutine(EndOfRun());
+        SceneLoader.Instance.BeginLoadScene("The Carcass", true);
     }
 
     public void LoopRun()
@@ -67,9 +70,20 @@ public class CreditsPlayer : MonoBehaviour
 
     }
 
-    public void ReturnToCarcass()
+    public void FinishRun()
     {
-        SceneLoader.Instance.BeginLoadScene("The Carcass", true);
+        EventSystem.current.SetSelectedGameObject(null);
+        StartCoroutine(PlayCredits());
+    }
+
+    public void PlaySelectSound()
+    {
+        SoundEffectManager.Instance.PlaySound("UISelect", camTracker.transform.position);
+    }
+
+    public void PlayMoveSound()
+    {
+        SoundEffectManager.Instance.PlaySound("UIMove", camTracker.transform.position);
     }
 
     IEnumerator AskSkip()
@@ -89,40 +103,35 @@ public class CreditsPlayer : MonoBehaviour
     {
         creditsIsOn = true;
 
-        yield return StartCoroutine(FadeIn(blackCanvas, fadeTimeBlackCanvas));
+        yield return StartCoroutine(FadeOut(endOfRunCanvas, fadeTimeEndOfRunCanvas));
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(pauseTime);
 
         yield return StartCoroutine(FadeIn(creditsCanvas, fadeTimeCreditsCanvas));
 
-        yield return new WaitForSeconds(pauseTime);
+        yield return new WaitForSecondsRealtime(pauseTime);
 
         yield return StartCoroutine(MoveText());
 
-        yield return new WaitForSeconds(pauseTime);
+        yield return new WaitForSecondsRealtime(pauseTime);
 
         yield return StartCoroutine(FadeOut(creditsCanvas, fadeTimeCreditsCanvas));
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
-        StartCoroutine(EndOfRun());
+        SceneLoader.Instance.BeginLoadScene("The Carcass", true);
 
         creditsIsOn = false;
     }
 
     IEnumerator EndOfRun()
     {
-        if(askSkipIsOn == true)
-        {
-            StartCoroutine(FadeOut(creditsCanvas, 0.5f));
-            yield return StartCoroutine(FadeOut(skipCanvas, 0.5f));
+        yield return StartCoroutine(FadeIn(blackCanvas, fadeTimeBlackCanvas));
 
-            creditsIsOn = false;
-            askSkipIsOn = false;
-        }
+        yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(FadeIn(endOfRunCanvas, fadeTimeEndOfRunCanvas));
         GameObject.Find("ContinueButton").GetComponent<Button>().Select();
+        yield return StartCoroutine(FadeIn(endOfRunCanvas, fadeTimeEndOfRunCanvas));
     }
 
     IEnumerator MoveText()
