@@ -30,7 +30,7 @@ public class SporeburstParticles : MonoBehaviour
         {
             for (int i = 0; i <= particleCount - 1; i++)
             {
-                float t = EaseOutQuart(expandCounter / expandTime);
+                float t = DylanTree.EaseOutQuart(expandCounter / expandTime);
                 particles[i].position = Vector3.Lerp(particles[i].position, endingPositions[i], t);
                 particleSystem.SetParticles(particles, particleCount);
             }
@@ -38,10 +38,5 @@ public class SporeburstParticles : MonoBehaviour
             expandCounter += Time.deltaTime;
             yield return null;
         }
-    }
-
-    float EaseOutQuart(float x)
-    {
-        return 1f - Mathf.Pow(1f - x, 4);
     }*/
 }

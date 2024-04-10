@@ -6,7 +6,7 @@ public class TooltipManager : MonoBehaviour
 {
     public static TooltipManager Instance;
 
-    private GameObject currentTooltip;
+    public GameObject currentTooltip;
     private GameObject currentParent;
     [SerializeField] private GameObject tooltipCanvasPrefab;
 

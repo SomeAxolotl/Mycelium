@@ -28,7 +28,7 @@ public class Tooltip : MonoBehaviour
         float popCounter = 0f;
         while (popCounter < popDuration)
         {
-            float popLerp = EaseOutQuart(popCounter / popDuration);
+            float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
             tooltipHolder.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, popLerp);
 
             popCounter += Time.deltaTime;
@@ -40,11 +40,6 @@ public class Tooltip : MonoBehaviour
     {
         happinessSlider.gameObject.SetActive(true);
         happinessSlider.value = happinessValue;
-    }
-
-    float EaseOutQuart(float x)
-    {
-        return 1f - Mathf.Pow(1f - x, 4);
     }
 
     void Update()

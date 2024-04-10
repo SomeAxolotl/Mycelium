@@ -18,6 +18,9 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     [SerializeField] float multiplyAmount = 1.0f;
     [SerializeField] int statIncreaseAmount = 2;
 
+    HUDStats hudStats;
+    bool destroyIsFromUpgrading = false;
+
     void Start()
     {
         List<int> statNumbers = new List<int> {0, 1, 2, 3};
@@ -27,6 +30,8 @@ public class StatUpgrade : MonoBehaviour, IInteractable
 
         upgradeStat1 = NumberToStat(statNumber1);
         upgradeStat2 = NumberToStat(statNumber2);
+
+        hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();
     }
 
     string NumberToStat(int statNumber)
@@ -69,6 +74,11 @@ public class StatUpgrade : MonoBehaviour, IInteractable
 
     public void CreateTooltip(GameObject interactObject)
     {
+        if (TooltipManager.Instance.currentTooltip == null)
+        {
+            hudStats.ShowStats();
+        }
+
         string buttonText = "<color=#3cdb4e>A</color>";
         if (doesMultiply)
         {
@@ -90,16 +100,22 @@ public class StatUpgrade : MonoBehaviour, IInteractable
                 "Choose One"
             );
         }
-        
     }
 
     public void DestroyTooltip(GameObject interactObject)
     {
+        if (TooltipManager.Instance.currentTooltip != null && !destroyIsFromUpgrading)
+        {
+            hudStats.HideStats();
+        }
+
         TooltipManager.Instance.DestroyTooltip();
     }
 
     void Upgrade1()
     {
+        destroyIsFromUpgrading = true;
+
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
 
@@ -113,12 +129,15 @@ public class StatUpgrade : MonoBehaviour, IInteractable
         }
         
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
-        TooltipManager.Instance.DestroyTooltip();
+        DestroyTooltip(this.gameObject);
+        hudStats.ImproveStat(upgradeStat1);
         Destroy(this.gameObject);
     }
 
     void Upgrade2()
     {
+        destroyIsFromUpgrading = true;
+
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
 
@@ -132,7 +151,8 @@ public class StatUpgrade : MonoBehaviour, IInteractable
         }
 
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
-        TooltipManager.Instance.DestroyTooltip();
+        DestroyTooltip(this.gameObject);
+        hudStats.ImproveStat(upgradeStat2);
         Destroy(this.gameObject);
     }
 }

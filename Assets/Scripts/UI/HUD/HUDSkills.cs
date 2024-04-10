@@ -200,7 +200,7 @@ public class HUDSkills : MonoBehaviour
         float popCounter = 0f;
         while (popCounter < popDuration)
         {
-            float popLerp = EaseOutQuart(popCounter / popDuration);
+            float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
             icon.transform.localScale = Vector3.Lerp(iconStartingScale, popSize, popLerp);
 
             popCounter += Time.deltaTime;
@@ -234,11 +234,6 @@ public class HUDSkills : MonoBehaviour
     public Sprite GetSkillSprite(string skillName)
     {
         return NameToSkillSprite(skillName);
-    }
-
-    float EaseOutQuart(float x)
-    {
-        return 1f - Mathf.Pow(1f - x, 4);
     }
 
     /*void Update()

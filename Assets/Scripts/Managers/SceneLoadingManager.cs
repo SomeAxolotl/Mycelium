@@ -114,11 +114,6 @@ public class SceneLoadingManager : MonoBehaviour
         funText.text = funTexts[funTextArrayCount];
     }
 
-    float EaseOutQuart(float x)
-    {
-        return 1f - Mathf.Pow(1f - x, 4);
-    }
-
     IEnumerator FadeCanvasIn()
     {
         float canvasGroupAlpha = 0f;

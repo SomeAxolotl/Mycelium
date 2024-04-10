@@ -58,7 +58,7 @@ public class HUDBoss : BaseEnemyHealthBar
         float popCounter = 0f;
         while (popCounter < popDuration)
         {
-            float popLerp = EaseOutQuart(popCounter / popDuration);
+            float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
             bossHealthHolder.transform.localScale = new Vector3(Vector3.Lerp(Vector3.zero, Vector3.one, popLerp).x, bossHealthHolder.transform.localScale.y, bossHealthHolder.transform.localScale.z);
 
             popCounter += Time.deltaTime;
@@ -83,7 +83,7 @@ public class HUDBoss : BaseEnemyHealthBar
         float popCounter = 0f;
         while (popCounter < popDuration)
         {
-            float popLerp = EaseOutQuart(popCounter / popDuration);
+            float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
             bossHealthHolder.transform.localScale = new Vector3(Vector3.Lerp(Vector3.one, Vector3.zero, popLerp).x, bossHealthHolder.transform.localScale.y, bossHealthHolder.transform.localScale.z);
 
             popCounter += Time.deltaTime;
@@ -91,10 +91,5 @@ public class HUDBoss : BaseEnemyHealthBar
         }
 
         bossHealthHolder.transform.localScale = new Vector3(0f, bossHealthHolder.transform.localScale.y, bossHealthHolder.transform.localScale.z);
-    }
-
-    float EaseOutQuart(float x)
-    {
-        return 1f - Mathf.Pow(1f - x, 4);
     }
 }

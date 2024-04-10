@@ -5,14 +5,19 @@ using UnityEngine.UI;
 
 public class HUDItem : MonoBehaviour
 {
-    [SerializeField] GameObject itemPanel;
+    [SerializeField] RectTransform itemPanel;
+    [SerializeField] RectTransform materialOutsideTarget;
+    [SerializeField] RectTransform materialInsideTarget;
     [SerializeField] List<Sprite> itemSprites = new List<Sprite>();
     [SerializeField] Image itemImage;
+
+    [SerializeField] float materialSwitchingInterval = 0.25f;
     //[SerializeField] float zipDuration = 0.5f;
 
     public void PickUpItem(string itemName)
     {
-        itemPanel.SetActive(true);
+        // itemPanel.SetActive(true);
+        
         foreach(Sprite sprite in itemSprites)
         {
             if (itemName.Contains(sprite.name))
@@ -20,11 +25,15 @@ public class HUDItem : MonoBehaviour
                 itemImage.sprite = sprite;
             }
         }
+
+        GetComponent<HUDController>().SlideHUDElement(itemPanel, materialOutsideTarget, materialInsideTarget);
     }
 
     public void LostItem()
     {
-        itemPanel.SetActive(false);
+        //itemPanel.SetActive(false);
+
+        GetComponent<HUDController>().SlideHUDElement(itemPanel, materialInsideTarget, materialOutsideTarget);
     }
 
     /*IEnumerator PickUpAnimation(Sprite itemSprite)

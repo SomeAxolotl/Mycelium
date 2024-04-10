@@ -7,6 +7,33 @@ using UnityEngine;
 public class HUDController : MonoBehaviour
 {
     [SerializeField] private float hudFadeTransitionTime = 0.25f;
+    [SerializeField] private float slideTransitionTime = 0.25f;
+
+    public void SlideHUDElement(RectTransform element, RectTransform fromTarget, RectTransform toTarget)
+    {
+        StopAllCoroutines();
+        StartCoroutine(SlideHUDElementCoroutine(element, fromTarget, toTarget));
+    }
+
+    IEnumerator SlideHUDElementCoroutine(RectTransform element, RectTransform fromTarget, RectTransform toTarget)
+    {
+        float elapsedTime = 0f;
+        float t;
+
+        while (elapsedTime < slideTransitionTime)
+        {
+            t = DylanTree.EaseOutQuart(elapsedTime / slideTransitionTime);
+
+            element.localPosition = Vector3.Lerp(fromTarget.localPosition, toTarget.localPosition, t);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        element.localPosition = toTarget.localPosition;
+    }
+
 
     public void FadeInHUD()
     {

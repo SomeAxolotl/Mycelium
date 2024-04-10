@@ -100,7 +100,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         float timer = 0f;
         while (timer < fadeOutDuration)
         {
-            float t = EaseOutQuart(timer / fadeOutDuration);
+            float t = DylanTree.EaseOutQuart(timer / fadeOutDuration);
 
             enemyHealthPanel.color = Color.Lerp(startingColor, enemyHealthPanelDeathColor, t);
 
@@ -115,10 +115,5 @@ public class EnemyHealthBar : BaseEnemyHealthBar
     void Update()
     {
         enemyHealthCanvas.transform.rotation = Quaternion.LookRotation(enemyHealthCanvas.transform.position - mainCamera.transform.position);
-    }
-
-    float EaseOutQuart(float x)
-    {
-        return 1f - Mathf.Pow(1f - x, 4);
     }
 }
