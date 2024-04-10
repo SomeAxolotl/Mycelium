@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float nutrientDrainRate = 1f;
     [SerializeField] float timeUntilHubSprout = 10f;
 
+    GameObject vcamHolder;
+
     public static GameManager Instance;
 
     void Awake()
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Scene scene = SceneManager.GetActiveScene();
+        vcamHolder = GameObject.Find("VCamHolder");
 
         //RemoveHUDMaterial();
         if (GameObject.FindWithTag("currentPlayer") != null)
@@ -71,8 +74,21 @@ public class GameManager : MonoBehaviour
 
         if (scene.buildIndex > 2)
         {
+            NavigateCamera();
             StartCoroutine(DrainNutrients());
         }
+    }
+
+    public void NavigateCamera()
+    {
+        StartCoroutine(NavigateCameraCoroutine());
+    }
+
+    IEnumerator NavigateCameraCoroutine()
+    {
+        yield return null;
+
+        vcamHolder.GetComponent<VCamRotator>().OnNavigateCamera();
     }
 
     IEnumerator ApplyHappinessBuffToCurrentPlayer()

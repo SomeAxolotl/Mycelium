@@ -10,6 +10,8 @@ public class VCamRotator : MonoBehaviour
     private GameObject camTracker;
     private GameObject levelGoal;
 
+    [SerializeField] private float blendTime = 0.2f;
+
     [SerializeField] private CinemachineBrain cineBrain;
     [SerializeField] private CinemachineVirtualCamera virtualResetCamera;
     [SerializeField] private CinemachineVirtualCamera virtualNavigationCamera;
@@ -49,7 +51,7 @@ public class VCamRotator : MonoBehaviour
         transform.position = camTracker.transform.position;
     }
 
-    private void OnResetCamera()
+    public void OnResetCamera()
     {
         if (currentPlayer.tag != "currentPlayer")
         {
@@ -63,10 +65,14 @@ public class VCamRotator : MonoBehaviour
         }
     }
 
-    private void OnNavigateCamera()
+    public void OnNavigateCamera()
     {
+        Debug.Log("navigating");
+
         if (levelGoal == null)
         {
+            Debug.Log("navigating returning");
+
             return;
         }
 
@@ -87,7 +93,7 @@ public class VCamRotator : MonoBehaviour
         float elapsedTime = 0f;
 
         float oldBlendTime = cineBrain.m_DefaultBlend.m_Time;
-        float newBlendTime = 0.1f;
+        float newBlendTime = blendTime;
 
         vCam.enabled = true;
         cineBrain.m_DefaultBlend.m_Time = newBlendTime;

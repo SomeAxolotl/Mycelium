@@ -51,6 +51,7 @@ public class DeathPlane : MonoBehaviour
             float clampedDamageValue = Mathf.Clamp(healthFraction, 1f, playerHealth.currentHealth);
 
             playerHealth.PlayerTakeDamage(clampedDamageValue);
+            GameManager.Instance.NavigateCamera();
         }
     }
 
