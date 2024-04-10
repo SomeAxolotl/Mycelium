@@ -25,6 +25,8 @@ public class NotificationManager : MonoBehaviour
     [SerializeField] private Sprite noSkill;
     [SerializeField] private List<Sprite> notificationSprites;
 
+    [HideInInspector] public float totalDuration;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,6 +43,8 @@ public class NotificationManager : MonoBehaviour
     {
         notificationCanvasGroup.alpha = 0f;
         notificationHolder.transform.localScale = Vector3.zero;
+
+        totalDuration = popDuration + waitDuration + fadeDuration;
     }
 
     public void Notification(string notification, string helper = "", Sprite notificationSprite = null, string notificationSpriteString = "")

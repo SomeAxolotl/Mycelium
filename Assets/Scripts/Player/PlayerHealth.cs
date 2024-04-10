@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth;
     private float regenRate;
     public bool isDefending;
+    public bool isInvincible;
     private bool dead = false;
     private float realDmgTaken;
     [HideInInspector] public float deathTimer;
@@ -41,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         animator = GameObject.Find("Spore").GetComponent<Animator>();
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         isDefending = false;
+        isInvincible = false;
     }
 
     // Update is called once per frame
@@ -59,6 +61,11 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerTakeDamage(float dmgTaken)
     {
+        if(isInvincible == true)
+        {
+            return;
+        }
+
         if (currentHealth > 0)
         {
             StartCoroutine(HurtSound());
