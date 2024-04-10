@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private InputAction subspecies_skill;
     private InputAction interact;
     private InputAction salvage;
+    private InputAction showStats;
+    private InputAction hideStats;
     public bool canUseDodge = true;
     public bool canUseAttack = true;
     public bool canUseSkill = true;
@@ -51,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
     private HUDSkills hudSkills;
     Animator animator;
+
+    HUDStats hudStats;
 
     // Start is called before the first frame update
     private void Start()
@@ -69,10 +73,13 @@ public class PlayerController : MonoBehaviour
         subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
         interact = playerActionsAsset.Player.Interact;
         salvage = playerActionsAsset.Player.Salvage;
+        showStats = playerActionsAsset.Player.ShowStats;
+        hideStats = playerActionsAsset.Player.HideStats;
         gravity = new Vector3(0f, gravityForce, 0f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();
         clipLength = rollClip.length / 6f;
     }
 
@@ -157,6 +164,16 @@ public class PlayerController : MonoBehaviour
                 closestInteractableObject.GetComponent<IInteractable>().Salvage(closestInteractableObject);
                 sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
             }
+        }
+
+        if (showStats.triggered)
+        {
+            hudStats.ShowStats();
+        }
+
+        if (hideStats.triggered)
+        {
+            hudStats.HideStats();
         }
     }
 

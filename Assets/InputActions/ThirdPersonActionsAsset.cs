@@ -143,6 +143,24 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowStats"",
+                    ""type"": ""Button"",
+                    ""id"": ""6aa538e5-8026-4724-827c-5c583e3f72ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HideStats"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b66e752-8878-4235-92ee-2477439a3334"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -484,6 +502,72 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""NavigateCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08e6e2f4-86e5-4675-81e1-a94d3f05a06e"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32364358-cf09-41b1-afcb-647376e55c9c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4857d721-0510-4f8d-868e-7fe7086ea73b"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c06ce78-e901-457e-85d1-d51d1816b4e0"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HideStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74188d1e-a0e1-432b-bc94-d805bde45a12"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HideStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4e4d79c-055b-41f4-9f13-8e74d79fb7f6"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HideStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1863,6 +1947,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_Player_ResetCamera = m_Player.FindAction("ResetCamera", throwIfNotFound: true);
         m_Player_NavigateCamera = m_Player.FindAction("NavigateCamera", throwIfNotFound: true);
         m_Player_Salvage = m_Player.FindAction("Salvage", throwIfNotFound: true);
+        m_Player_ShowStats = m_Player.FindAction("ShowStats", throwIfNotFound: true);
+        m_Player_HideStats = m_Player.FindAction("HideStats", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1992,6 +2078,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private readonly InputAction m_Player_ResetCamera;
     private readonly InputAction m_Player_NavigateCamera;
     private readonly InputAction m_Player_Salvage;
+    private readonly InputAction m_Player_ShowStats;
+    private readonly InputAction m_Player_HideStats;
     public struct PlayerActions
     {
         private @ThirdPersonActionsAsset m_Wrapper;
@@ -2009,6 +2097,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public InputAction @ResetCamera => m_Wrapper.m_Player_ResetCamera;
         public InputAction @NavigateCamera => m_Wrapper.m_Player_NavigateCamera;
         public InputAction @Salvage => m_Wrapper.m_Player_Salvage;
+        public InputAction @ShowStats => m_Wrapper.m_Player_ShowStats;
+        public InputAction @HideStats => m_Wrapper.m_Player_HideStats;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2057,6 +2147,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Salvage.started += instance.OnSalvage;
             @Salvage.performed += instance.OnSalvage;
             @Salvage.canceled += instance.OnSalvage;
+            @ShowStats.started += instance.OnShowStats;
+            @ShowStats.performed += instance.OnShowStats;
+            @ShowStats.canceled += instance.OnShowStats;
+            @HideStats.started += instance.OnHideStats;
+            @HideStats.performed += instance.OnHideStats;
+            @HideStats.canceled += instance.OnHideStats;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -2100,6 +2196,12 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Salvage.started -= instance.OnSalvage;
             @Salvage.performed -= instance.OnSalvage;
             @Salvage.canceled -= instance.OnSalvage;
+            @ShowStats.started -= instance.OnShowStats;
+            @ShowStats.performed -= instance.OnShowStats;
+            @ShowStats.canceled -= instance.OnShowStats;
+            @HideStats.started -= instance.OnHideStats;
+            @HideStats.performed -= instance.OnHideStats;
+            @HideStats.canceled -= instance.OnHideStats;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -2638,6 +2740,8 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         void OnResetCamera(InputAction.CallbackContext context);
         void OnNavigateCamera(InputAction.CallbackContext context);
         void OnSalvage(InputAction.CallbackContext context);
+        void OnShowStats(InputAction.CallbackContext context);
+        void OnHideStats(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
