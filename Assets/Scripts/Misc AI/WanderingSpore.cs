@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.AI;
 using RonaldSunglassesEmoji.Personalities;
-using UnityEngine.Scripting.APIUpdating;
 
 public class WanderingSpore : MonoBehaviour
 {
