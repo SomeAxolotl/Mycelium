@@ -18,7 +18,10 @@ public class BedCurio : CurioStats
 
         wanderingSpore.GetComponent<Animator>().SetBool("Lay(Beg)", false);
         wanderingSpore.GetComponent<Animator>().SetBool("Lay(End)", true);
-        wanderingSpore.GetComponent<Animator>().SetBool(wanderingSpore.GetWalkAnimation(), true);
+
+
+        yield return new WaitForSeconds(2f);
+        wanderingSpore.GetComponent<Animator>().SetBool("Lay(End)", false);
 
         EndEvent();
     }

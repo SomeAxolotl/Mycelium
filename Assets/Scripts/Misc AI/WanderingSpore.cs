@@ -428,7 +428,7 @@ public class WanderingSpore : MonoBehaviour
 
         yield return StartCoroutine(curioStats.CurioEvent(this));
 
-        //CalculateNextState();
+        CalculateNextState();
     }
 
     Vector3 GetRandomPointNearbyNavMesh(Vector3 center, float radius)
