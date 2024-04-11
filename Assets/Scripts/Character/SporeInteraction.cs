@@ -17,12 +17,15 @@ public class SporeInteraction : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactObject)
     {
-        SwapCharacter swapCharacter = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
+        if (!interactObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Sprout"))
+        {
+            SwapCharacter swapCharacter = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
 
-        int characterIndex = swapCharacter.GetCharacterIndex(interactObject);
-        swapCharacter.SwitchCharacterGrowMenu(characterIndex);
+            int characterIndex = swapCharacter.GetCharacterIndex(interactObject);
+            swapCharacter.SwitchCharacterGrowMenu(characterIndex);
 
-        DestroyTooltip(gameObject);
+            DestroyTooltip(gameObject);
+        }
     }
 
     public void Salvage(GameObject interactObject)

@@ -205,7 +205,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       InstantiatedSpore.GetComponent<AudioSource>().enabled = false;
       InstantiatedSpore.GetComponent<DesignTracker>().enabled = false;
       InstantiatedSpore.GetComponent<CharacterStats>().enabled = false;
-      InstantiatedSpore.GetComponent<IdleWalking>().enabled = false;
+      InstantiatedSpore.GetComponent<WanderingSpore>().enabled = false;
       InstantiatedSpore.GetComponent<AudioSource>().enabled = false;
       InstantiatedSpore.GetComponent<SphereCollider>().enabled = false;
       InstantiatedSpore.GetComponent<SporeInteractableFinder>().enabled = false;

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (GameObject.FindWithTag("currentPlayer") != null)
         {
             StartCoroutine(UpdateHUDNutrients());
-            StartCoroutine(PlacePlayer());
+            PlaceSpore(GameObject.FindWithTag("currentPlayer"));
             StartCoroutine(RefreshCutoutMaskUI());
         }
 
@@ -138,20 +138,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator PlacePlayer()
+    public void PlaceSpore(GameObject spore)
     {
-        GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
-        GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
-        Rigidbody playerRB = currentPlayer.GetComponent<Rigidbody>();
+        StartCoroutine(PlaceSporeCoroutine(spore));
+    }
 
-        if (currentPlayer != null && spawnPoint != null)
+    IEnumerator PlaceSporeCoroutine(GameObject spore)
+    {
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("PlayerSpawn");
+        Rigidbody sporeRB = spore.GetComponent<Rigidbody>();
+
+        int randomSpawnNumber = Random.Range(0, spawnPoints.Length);
+        GameObject selectedSpawnPoint = spawnPoints[randomSpawnNumber];
+
+        if (spore != null && selectedSpawnPoint != null)
         {
-            currentPlayer.transform.position = spawnPoint.transform.position;
-            currentPlayer.transform.rotation = spawnPoint.transform.rotation;
-            playerRB.constraints = RigidbodyConstraints.FreezePosition; //To avoid falling out of map with high velocity
+            Vector3 randomOffset = Random.insideUnitCircle * 0.5f;
+            Vector3 newPosition = selectedSpawnPoint.transform.position + new Vector3(randomOffset.x, 0, randomOffset.y);
+            spore.transform.position = newPosition;
+            spore.transform.rotation = selectedSpawnPoint.transform.rotation;
+            sporeRB.constraints = RigidbodyConstraints.FreezePosition; //To avoid falling out of map with high velocity
 
             yield return new WaitForEndOfFrame();
-            playerRB.constraints = RigidbodyConstraints.FreezeRotation;
+            sporeRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 

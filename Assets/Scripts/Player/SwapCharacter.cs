@@ -51,7 +51,7 @@ public class SwapCharacter : MonoBehaviour
         // Switch to the new character
         currentCharacterIndex = index;
         characters[currentCharacterIndex].tag = "currentPlayer";
-        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = false;
+        characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = false;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         playerAttack.animator = characters[currentCharacterIndex].GetComponent<Animator>();
@@ -79,11 +79,11 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
-        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = true;
         currentCharacterIndex = index;
         //characters[currentCharacterIndex].GetComponent<CharacterStats>().HideNametag();
         characters[currentCharacterIndex].tag = "currentPlayer";
-        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = false;
+        characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = false;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         swapWeapon.currentCharacter = characters[currentCharacterIndex];
@@ -103,7 +103,7 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
-        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = true;
         int nextCharacterIndex = (currentCharacterIndex + 1) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {
@@ -119,7 +119,7 @@ public class SwapCharacter : MonoBehaviour
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
-        characters[currentCharacterIndex].GetComponent<IdleWalking>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = true;
         int lastCharacterIndex = (currentCharacterIndex - 1 + characters.Count) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {

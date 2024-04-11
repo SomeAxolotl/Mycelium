@@ -53,7 +53,7 @@ public class SpawnCharacter : MonoBehaviour
     {
         
         GameObject newCharacter = Instantiate(characterPrefab);
-        newCharacter.GetComponent<IdleWalking>().enabled = false;
+        newCharacter.GetComponent<WanderingSpore>().enabled = false;
 
         string subspeciesSkill = "FungalMight";
         string statSkill1 = "NoSkill";
@@ -122,7 +122,7 @@ public class SpawnCharacter : MonoBehaviour
 
         swapCharacter.characters.Add(newCharacter);
         GameObject.Find("HUD").GetComponent<HUDHappiness>().UpdateHappinessMeter();
-        newCharacter.transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
+        newCharacter.transform.position = GameObject.Find("GrowSpawn").transform.position;
         if(sporeCam != null )
         {
             sporeCam.SwitchCamera("GrowCamera");
@@ -138,7 +138,7 @@ public class SpawnCharacter : MonoBehaviour
         {
             sporeCam.SwitchCamera("Main Camera");
         }
-        newCharacter.GetComponent<IdleWalking>().enabled = true;
+        newCharacter.GetComponent<WanderingSpore>().enabled = true;
 
     }
 

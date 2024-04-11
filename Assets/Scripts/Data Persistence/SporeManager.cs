@@ -86,7 +86,10 @@ public class SporeManager : SporeManagerSystem
             //Debug.Log("Loading Other Spore: " + sporeData.sporeName);
 
             //Spawn Spore Prefab
-            Spore = Instantiate(SporePrefab, new Vector3(UnityEngine.Random.Range(spawnTransform.position.x - spawnRange, spawnTransform.position.x + spawnRange), spawnTransform.position.y, UnityEngine.Random.Range(spawnTransform.position.z - spawnRange, spawnTransform.position.z + spawnRange)), spawnTransform.rotation);
+            //Spore = Instantiate(SporePrefab, new Vector3(UnityEngine.Random.Range(spawnTransform.position.x - spawnRange, spawnTransform.position.x + spawnRange), spawnTransform.position.y, UnityEngine.Random.Range(spawnTransform.position.z - spawnRange, spawnTransform.position.z + spawnRange)), spawnTransform.rotation);
+            Spore = Instantiate(SporePrefab);
+            Spore.GetComponent<WanderingSpore>().enabled = true;
+            GameManager.Instance.PlaceSpore(Spore);
 
             //Set references to prefab's components
             stats = Spore.GetComponent<CharacterStats>();
