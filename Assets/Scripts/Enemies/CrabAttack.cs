@@ -153,20 +153,4 @@ public class CrabAttack : EnemyAttack
 
         return moveDirection.normalized;
     }
-    public override void CancelAttack()
-    {
-        /*StopAllCoroutines();
-        crabMeleeHitbox.GetComponent<Collider>().enabled = false;
-        if(shell != null)
-        {
-            Destroy(shell);
-        }
-        holdingShell = false;
-        attack = Attack();
-        meleeAttackStarted = false;
-        attackTimer = 0f;
-        crabMeleeHitbox.playerHit.Clear();
-        animator.SetBool("IsMoving", true);
-        canAttack = true;*/
-    }
 }

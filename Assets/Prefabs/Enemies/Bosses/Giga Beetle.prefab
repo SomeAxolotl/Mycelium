@@ -452,17 +452,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.3976192
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.3976192
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.3976192
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
@@ -513,6 +513,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8520324882645957884, guid: 9736732e8cd801c4ca762253aa9d22d9,
         type: 3}
@@ -916,7 +921,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2258808290045968250}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -948,6 +953,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 1.5
+  attackWindupTimeMin: 0.7
+  attackWindupTimeMax: 0.9
   damage: 75
   chargeSpeed: 0
   enviromentLayer:

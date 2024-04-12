@@ -67,7 +67,7 @@ public class EnemyHealth : MonoBehaviour
             gameObject.GetComponent<EnemyAttack>().CancelAttack();
             gameObject.GetComponent<EnemyAttack>().enabled = false;
             gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
-            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
         }
         else
         {
@@ -76,10 +76,7 @@ public class EnemyHealth : MonoBehaviour
 
 
         alreadyDead = true;
-        
-        rb.velocity = Vector3.zero;
-        rb.constraints = RigidbodyConstraints.FreezePosition;
-        
+
         animator.Rebind();
         animator.SetTrigger("Death");
         yield return new WaitForSeconds(1.25f);
@@ -98,36 +95,38 @@ public class EnemyHealth : MonoBehaviour
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         if (gameObject.name == "Giga Beetle")
         {
-            //GameManager.Instance.OnExitToHub();
             profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
-            GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene(2, false);
+            GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene("The Carcass", false);
         }
 
         this.gameObject.SetActive(false);
     }
     protected IEnumerator BossDeath()
     {
-        GameObject boss = GameObject.Find("Rival Colony Leader");
-
-        Collider[] bossCollider = boss.GetComponents<Collider>();
-        foreach (Collider collider in bossCollider)
+        if(GameObject.Find("Rival Colony Leader") != null)
         {
-            collider.enabled = false;
-        }
-        Collider[] childColliders = boss.GetComponentsInChildren<Collider>();
-        foreach (Collider collider in childColliders)
-        {
-            collider.enabled = false;
-        }
+            GameObject boss = GameObject.Find("Rival Colony Leader");
 
-        boss.GetComponent<MonsterBossAttack>().enabled = false;
-        boss.GetComponent<TempMovement>().enabled = false;
-        boss.GetComponent<Animator>().SetTrigger("Death");
+            Collider[] bossCollider = boss.GetComponents<Collider>();
+            foreach (Collider collider in bossCollider)
+            {
+                collider.enabled = false;
+            }
+            Collider[] childColliders = boss.GetComponentsInChildren<Collider>();
+            foreach (Collider collider in childColliders)
+            {
+                collider.enabled = false;
+            }
 
-        GameObject player = GameObject.FindWithTag("PlayerParent");
-        player.GetComponent<PlayerController>().playerActionsAsset.Player.Disable();
-        player.GetComponent<PlayerAttack>().playerActionsAsset.Player.Disable();
-        yield return null;
+            boss.GetComponent<MonsterBossAttack>().enabled = false;
+            boss.GetComponent<TempMovement>().enabled = false;
+            boss.GetComponent<Animator>().SetTrigger("Death");
+
+            GameObject player = GameObject.FindWithTag("PlayerParent");
+            player.GetComponent<PlayerController>().playerActionsAsset.Player.Disable();
+            player.GetComponent<PlayerAttack>().playerActionsAsset.Player.Disable();
+            yield return null;
+        }
     }
 
     public bool HasTakenDamage()

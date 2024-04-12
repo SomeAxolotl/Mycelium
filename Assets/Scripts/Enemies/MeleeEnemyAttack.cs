@@ -12,6 +12,9 @@ public class MeleeEnemyAttack : EnemyAttack
     private bool playerDamaged = false;
     [SerializeField] private float attackCooldown = 2f;
     private float attackWindupTime;
+    [SerializeField] private float attackWindupTimeMin = 0.7f;
+    [SerializeField] private float attackWindupTimeMax = 0.9f;
+    private float hitStun;
     private float resetAttack;
     [SerializeField] private float damage = 20f;
     private float knockbackForce = 30f;
@@ -85,11 +88,11 @@ public class MeleeEnemyAttack : EnemyAttack
     {
         canAttack = false;
         attackStarted = true;
-        animator.speed = 0f;
+        animator.speed = 0.5f;
         reworkedEnemyNavigation.moveSpeed = 0f;
         chargeSpeed = 8f;
-        attackWindupTime = Random.Range(.8f, 1f);
-        yield return new WaitForSeconds(attackWindupTime);
+        attackWindupTime = Random.Range(attackWindupTimeMin, attackWindupTimeMax);
+        yield return new WaitForSeconds(attackWindupTime + hitStun);
         SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
         animator.speed = 3f;
         attackStarted = false;
@@ -108,6 +111,7 @@ public class MeleeEnemyAttack : EnemyAttack
         animator.speed = 1f;
         animator.SetTrigger("Attack");
         isAttacking = false;
+        hitStun = 0f;
         reworkedEnemyNavigation.moveSpeed = 3f;
         playerDamaged = false;
         playerHit.Clear();
@@ -120,6 +124,7 @@ public class MeleeEnemyAttack : EnemyAttack
         attack = Attack();
         animator.speed = 1f;
         isAttacking = false;
+        hitStun = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().secondsTilHitstopSpeedup;
         reworkedEnemyNavigation.moveSpeed = 3f;
         chargeSpeed = 8f;
         playerDamaged = false;

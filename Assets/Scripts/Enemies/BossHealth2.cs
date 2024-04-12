@@ -28,7 +28,14 @@ public class BossHealth2 : EnemyHealth
         if (currentHealth <= 0 && !alreadyDead)
         {
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
-            StartCoroutine(BossDeath());
+            if(gameObject.name == "Rival Colony Leader")
+            {
+                StartCoroutine(BossDeath());
+            }
+            else if(gameObject.name == "Giga Beetle")
+            {
+                StartCoroutine(Death());
+            }
         }
 
         hasTakenDamage = true;
