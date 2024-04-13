@@ -112,6 +112,8 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition)
     {
+        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+
         if (GameObject.Find("HUD") != null)
         {
             GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
@@ -129,6 +131,8 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(string sceneName, bool doGoodTransition)
     {
+        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+
         int sceneIndex;
 
         sceneIndex = GlobalData.sceneNames.IndexOf(sceneName);
@@ -156,6 +160,8 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(int sceneIndex, string notificationText)
     {
+        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+
         if (GameObject.Find("HUD") != null)
         {
             GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
@@ -166,6 +172,8 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(string sceneName, string notificationText)
     {
+        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+
         int sceneIndex;
 
         sceneIndex = GlobalData.sceneNames.IndexOf(sceneName);
@@ -361,7 +369,7 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator StartLoading(int sceneIndex)
     {
-        Application.backgroundLoadingPriority = ThreadPriority.Low;
+        //Application.backgroundLoadingPriority = ThreadPriority.Low;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
@@ -374,7 +382,7 @@ public class SceneLoader : MonoBehaviour
         }
         while (!operation.isDone);
 
-        Application.backgroundLoadingPriority = ThreadPriority.Normal;
+        //Application.backgroundLoadingPriority = ThreadPriority.Normal;
 
         isLoading = false;
     }
