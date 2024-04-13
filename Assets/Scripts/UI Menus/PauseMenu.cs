@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject confirmMenu;
     [SerializeField] Button resumeButton;
+
+    [SerializeField] AudioMixerSnapshot unpausedSnapshot;
+    [SerializeField] AudioMixerSnapshot pausedSnapshot;
+    [SerializeField] float muffleTransitionTime = 0.1f;
 
     CanvasGroup HUD = null;
 
@@ -89,6 +94,7 @@ public class PauseMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         confirmMenu.SetActive(false);
         HUD.GetComponent<HUDController>().FadeInHUD();
+        unpausedSnapshot.TransitionTo(muffleTransitionTime);
         Time.timeScale = 1f;
         GlobalData.isGamePaused = false;
         //Cursor.visible = false;
@@ -100,6 +106,7 @@ public class PauseMenu : MonoBehaviour
         SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
         pauseMenu.SetActive(true);
         HUD.GetComponent<HUDController>().FadeOutHUD();
+        pausedSnapshot.TransitionTo(muffleTransitionTime);
         Time.timeScale = 0f;
         GlobalData.isGamePaused = true;
 
