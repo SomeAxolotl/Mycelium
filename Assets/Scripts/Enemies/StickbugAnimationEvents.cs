@@ -6,6 +6,9 @@ public class StickbugAnimationEvents : MonoBehaviour
 {
     void Shoot()
     {
-        SoundEffectManager.Instance.PlaySound("Stickbug Shoot", transform.position);
+        if (GlobalData.isAbleToPause)
+        {
+            SoundEffectManager.Instance.PlaySound("Stickbug Shoot", transform.position);
+        }
     }
 }

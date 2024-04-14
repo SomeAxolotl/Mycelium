@@ -93,7 +93,12 @@ public class MeleeEnemyAttack : EnemyAttack
         chargeSpeed = 8f;
         attackWindupTime = Random.Range(attackWindupTimeMin, attackWindupTimeMax);
         yield return new WaitForSeconds(attackWindupTime + hitStun);
-        SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+        
+        if (GlobalData.isAbleToPause)
+        {
+            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+        }
+        
         animator.speed = 3f;
         attackStarted = false;
         isAttacking = true;

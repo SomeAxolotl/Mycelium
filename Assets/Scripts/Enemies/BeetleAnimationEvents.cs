@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class BeetleAnimationEvents : MonoBehaviour
 {
+    //NOT BEING CALLED
     void Charge()
     {
-        SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+        if (GlobalData.isAbleToPause)
+        {
+            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+        }
     }
 }

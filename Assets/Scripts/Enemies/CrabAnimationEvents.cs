@@ -6,7 +6,10 @@ public class CrabAnimationEvents : MonoBehaviour
 {
     void CrabSmash()
     {
-        ParticleManager.Instance.SpawnParticles("SmashParticle", transform.Find("SmashParticleHolder").position, Quaternion.Euler(-90,0,0));
-        SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+        if (GlobalData.isAbleToPause)
+        {
+            ParticleManager.Instance.SpawnParticles("SmashParticle", transform.Find("SmashParticleHolder").position, Quaternion.Euler(-90,0,0));
+            SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+        }
     }
 }
