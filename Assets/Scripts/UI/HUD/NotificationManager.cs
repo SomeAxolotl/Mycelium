@@ -105,11 +105,11 @@ public class NotificationManager : MonoBehaviour
             float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
             notificationHolder.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, popLerp);
 
-            popCounter += Time.deltaTime;
+            popCounter += Time.unscaledDeltaTime;
             yield return null;  
         }
 
-        yield return new WaitForSeconds(waitDuration);
+        yield return new WaitForSecondsRealtime(waitDuration);
 
         float fadeCounter = 0f;
         while (fadeCounter < fadeDuration)
@@ -117,7 +117,7 @@ public class NotificationManager : MonoBehaviour
             float fadeLerp = DylanTree.EaseOutQuart(fadeCounter / fadeDuration);
             notificationCanvasGroup.alpha = Mathf.Lerp(1f, 0f, fadeLerp);
 
-            fadeCounter += Time.deltaTime;
+            fadeCounter += Time.unscaledDeltaTime;
             yield return null;
         }
 

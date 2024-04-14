@@ -6,20 +6,23 @@ using RonaldSunglassesEmoji.Personalities;
 
 public class WanderingSpore : MonoBehaviour
 {
+    [Header("Curio Detection")]
     [SerializeField][Tooltip("Radius at which Wandering Spores can notice curio")] float curioRadius = 20f;
-    [SerializeField][Tooltip("Angle at which Wandering Spores can notice curio (360 for any angle)")] float curioAngle = 90f;
 
-    [SerializeField][Tooltip("How many zoomies Wandering Spores perform")] int zoomieCount = 2;
-
+    [Header("Wandering")]
     [SerializeField][Tooltip("How fast a wandering Spore moves (Scalar with its speed stat)")] float wanderSpeed = 1f;
     [SerializeField][Tooltip("How fast a wandering Spore can rotate")] float maxRotationSpeed = 300f;
     [SerializeField][Tooltip("Minimum radius for the random wandering state")] float minWanderRadius = 5f;
     [SerializeField][Tooltip("Maximum radius for the random wandering state")] float maxWanderRadius = 10f;
-    [SerializeField][Tooltip("How much a Spore moves to avoid before trying to go to the waypoint again -- Only if it can't find a raycast target")] float avoidRadius = 1f;
+
+    [Header("Avoidance")]
+    [SerializeField][Tooltip("How much a Spore moves to avoid before trying to go to the waypoint again")] float avoidRadius = 1f;
+    [SerializeField][Tooltip("The angle offset for how much it moves out of the way")] float avoidAngleOffset = -45f;
+    [SerializeField][Tooltip("How much time blocked until the Spore reroutes")] float rerouteTime = 0.75f;
+    [SerializeField][Tooltip("How much speed until the reroute timer starts ticking up")] float rerouteSpeedThreshold = 1f;
+    //[SerializeField][Tooltip("Multiplies with the reroute speed check to scale with speed and avoid properly")] float rerouteSpeedThresholdMultiplier = 0.5f;
     [SerializeField][Tooltip("How much time a Spore will try to run against an obstacle until giving up with the task altogether")] float timeUntilGivingUp = 1.5f;
     float wanderRadius;
-
-    public List<GameObject> NEARBYCURIO;
 
     CharacterStats characterStats;
     Animator animator;
@@ -133,7 +136,7 @@ public class WanderingSpore : MonoBehaviour
         previousPosition = transform.position;
         currentSpeed = currentVelocity.magnitude;
 
-        if (currentSpeed <= 2f && (currentState == WanderingStates.Traveling || currentState == WanderingStates.Avoiding))
+        if (currentSpeed <= rerouteSpeedThreshold && (currentState == WanderingStates.Traveling || currentState == WanderingStates.Avoiding))
         {
             rerouteTimer += Time.deltaTime;
         }
@@ -146,7 +149,7 @@ public class WanderingSpore : MonoBehaviour
         {
             CalculateNextState();
         }
-        else if (rerouteTimer > 0.5f && waypoints.Count > 0 && currentState == WanderingStates.Traveling)
+        else if (rerouteTimer > rerouteTime && waypoints.Count > 0 && currentState == WanderingStates.Traveling)
         {
             StartCoroutine(AvoidObstacle());
 
@@ -159,7 +162,7 @@ public class WanderingSpore : MonoBehaviour
     {
         Vector3 originalWaypoint = waypoints[0];
 
-        CalculatePath(transform.position,  GetRandomPointNearbyNavMesh(transform.position, avoidRadius), true);
+        CalculatePath(transform.position,  GetPerpendicularPointNearbyNavMesh(transform.position, moveDirection, avoidRadius), true);
 
         yield return new WaitUntil(() => currentState == WanderingStates.Avoided);
 
@@ -352,8 +355,6 @@ public class WanderingSpore : MonoBehaviour
     //Returns all nearby fun stuff for a wandering Spore--the player, other Spores, and furniture
     List<CurioStats> GetNearbyCurio()
     {
-        NEARBYCURIO.Clear();
-
         int playerLayer = LayerMask.GetMask("Player");
         int furnitureLayer = LayerMask.GetMask("Furniture");
         int combinedLayers = playerLayer | furnitureLayer;
@@ -364,7 +365,6 @@ public class WanderingSpore : MonoBehaviour
         
         foreach (Collider col in colliders)
         {
-            NEARBYCURIO.Add(col.gameObject);
             foreach (CurioStats curioStats in col.gameObject.GetComponents<CurioStats>())
             {
                 nearbyCurio.Add(curioStats);
@@ -443,12 +443,42 @@ public class WanderingSpore : MonoBehaviour
         {
             if (radius == 100f)
             {
-                Debug.LogError("Nowhere for " + gameObject.name + " to move in a radius of 100f");
+                Debug.LogError("Nowhere for " + gameObject.GetComponent<CharacterStats>().sporeName + " to move in a radius of 100f");
                 return Vector3.zero;
             }
 
             //Recursion :O
             return GetRandomPointNearbyNavMesh(center, radius + 1f);
+        }
+    }
+
+    Vector3 GetPerpendicularPointNearbyNavMesh(Vector3 center, Vector3 direction, float radius)
+    {
+        Vector3 perpendicular = new Vector3(-direction.z, 0, direction.x).normalized;
+
+        float randomDistance = (Random.Range(0, 2) == 0) ? -radius : radius;
+
+        Quaternion rotation = Quaternion.AngleAxis(avoidAngleOffset * randomDistance, Vector3.up);
+        perpendicular = rotation * perpendicular;
+
+        Vector3 newPoint = center + (perpendicular * randomDistance);
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(newPoint, out hit, radius, NavMesh.AllAreas))
+        {
+            return hit.position;
+        }
+        else
+        {
+            // If the point is not within the navmesh, handle it accordingly
+            if (radius == 100f)
+            {
+                Debug.LogError("Nowhere perpendicular for " + gameObject.GetComponent<CharacterStats>().sporeName + " to move in a radius of 100f");
+                return Vector3.zero;
+            }
+
+            // Recursively try again with a larger radius
+            return GetPerpendicularPointNearbyNavMesh(center, direction, radius + 1f);
         }
     }
 }

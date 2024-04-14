@@ -27,7 +27,7 @@ public static class GlobalData
     //Happiness Stuff
     public static float happinessStatMultiplier = 1f;
     public static int happinessStatIncrement = 0;
-    public static int areasCleared = 0;
+    public static bool areaCleared = false;
     public static string sporeDied = null;
     public static string sporePermaDied = null;
 }

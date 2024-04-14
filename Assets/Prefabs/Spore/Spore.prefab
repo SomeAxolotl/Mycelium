@@ -2935,6 +2935,7 @@ GameObject:
   - component: {fileID: 2509756702752052893}
   - component: {fileID: 265313421675274675}
   - component: {fileID: 9149449153972693433}
+  - component: {fileID: 9180559162371306582}
   - component: {fileID: 7536311544792119249}
   - component: {fileID: 2379302324268303564}
   - component: {fileID: 1131853324052152694}
@@ -2944,7 +2945,6 @@ GameObject:
   - component: {fileID: 7309809706582082505}
   - component: {fileID: 9137682804701217071}
   - component: {fileID: 5155620943360445244}
-  - component: {fileID: 9180559162371306582}
   m_Layer: 3
   m_Name: Spore
   m_TagString: Player
@@ -3023,6 +3023,33 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!114 &9180559162371306582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833743133119944518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66d8e51f773af0429bf09479847715a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curioRadius: 20
+  wanderSpeed: 0.4
+  maxRotationSpeed: 500
+  minWanderRadius: 7
+  maxWanderRadius: 15
+  avoidRadius: 2
+  avoidAngleOffset: 15
+  rerouteTime: 0.75
+  rerouteSpeedThreshold: 1.4
+  timeUntilGivingUp: 1.5
+  NEARBYCURIO: []
+  center: {fileID: 0}
+  lookTarget: {x: 0, y: 0, z: 0}
+  currentSpeed: 0
+  currentState: 0
 --- !u!114 &7536311544792119249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3243,7 +3270,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 5
   m_Center: {x: 0, y: 0.7, z: 0}
@@ -3254,7 +3281,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833743133119944518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 653fa405385fa964f8a56dfb6db8ad52, type: 3}
   m_Name: 
@@ -3274,31 +3301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762afe0e436de51499747a3e90401103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9180559162371306582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1833743133119944518}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66d8e51f773af0429bf09479847715a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curioRadius: 20
-  curioAngle: 90
-  zoomieCount: 2
-  wanderSpeed: 0.4
-  maxRotationSpeed: 500
-  minWanderRadius: 5
-  maxWanderRadius: 10
-  avoidRadius: 1.5
-  timeUntilGivingUp: 1.5
-  NEARBYCURIO: []
-  center: {fileID: 3998511184661822156}
-  currentSpeed: 0
-  currentState: 0
 --- !u!1 &1865234690160273150
 GameObject:
   m_ObjectHideFlags: 0

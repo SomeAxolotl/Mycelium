@@ -125,10 +125,12 @@ public class PlayerHealth : MonoBehaviour
         else if (heldMaterial != "") //&& SceneManager.GetActiveScene().name != "New Tutorial"
         {
             NotificationManager.Instance.Notification(deathMessage, heldMaterial + " dropped!", null, heldMaterial);
+            GlobalData.sporeDied = characterStats.sporeName;
         }
         else
         {
             NotificationManager.Instance.Notification(deathMessage);
+            GlobalData.sporeDied = characterStats.sporeName;
         }
 
         //Setup and Animation stuff
@@ -148,10 +150,11 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         //See what scene we are in
+        bool diedInTutorial = false;
         if (SceneManager.GetActiveScene().name == "New Tutorial")
         {
             profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
-
+            diedInTutorial = true;
             cutscenePlayer.StartCutscene();
 
             //Lobotomize the Giga Beetle
@@ -186,7 +189,7 @@ public class PlayerHealth : MonoBehaviour
 
         //Start loading the next scene
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        sceneLoaderScript.BeginLoadScene("The Carcass", false);
+        sceneLoaderScript.BeginLoadScene("The Carcass", false, diedInTutorial);
 
         //Wait until the scene finishes loading and then do some final stuff
         yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);

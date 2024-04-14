@@ -21,6 +21,11 @@ public class HUDHappiness : MonoBehaviour
         happinessSlider.gameObject.SetActive(false);
     }
 
+    public void ShowColonyHappinessMeter()
+    {
+        happinessSlider.gameObject.SetActive(true);
+    }
+
     public void UpdateHappinessMeter()
     {
         float averageColonyHappiness = HappinessManager.Instance.GetAverageColonyHappiness();

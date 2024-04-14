@@ -110,7 +110,7 @@ public class SceneLoader : MonoBehaviour
         return scenePath;
     }
 
-    public void BeginLoadScene(int sceneIndex, bool doGoodTransition)
+    public void BeginLoadScene(int sceneIndex, bool doGoodTransition, bool diedInTutorial = false)
     {
         StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
 
@@ -125,11 +125,11 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            StartCoroutine(LoadSceneBad(sceneIndex, defaultTransitionTime));
+            StartCoroutine(LoadSceneBad(sceneIndex, defaultTransitionTime, diedInTutorial));
         }
     }
 
-    public void BeginLoadScene(string sceneName, bool doGoodTransition)
+    public void BeginLoadScene(string sceneName, bool doGoodTransition,  bool diedInTutorial = false)
     {
         StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
 
@@ -154,11 +154,11 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            StartCoroutine(LoadSceneBad(sceneIndex, defaultTransitionTime));
+            StartCoroutine(LoadSceneBad(sceneIndex, defaultTransitionTime, diedInTutorial));
         }
     }
 
-    public void BeginLoadScene(int sceneIndex, string notificationText)
+    public void BeginLoadScene(int sceneIndex, string notificationText,  bool diedInTutorial = false)
     {
         StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
 
@@ -194,7 +194,6 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator FinishLoadScene(float transitionTime, bool isOnStartup)
     {
-        
         if (isOnStartup == true)
         {
             GlobalData.gameIsStarting = false;
@@ -291,7 +290,7 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(StartLoading(sceneIndex));
     }
 
-    IEnumerator LoadSceneBad(int sceneIndex, float transitionTime)
+    IEnumerator LoadSceneBad(int sceneIndex, float transitionTime, bool diedInTutorial = false)
     {
         isLoading = true;
 
@@ -301,7 +300,8 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(FadeCanvasIn(blackCanvasGroup, transitionTime));
 
         ProfileManager profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
-        if (profileManager.permadeathIsOn[GlobalData.profileNumber])
+
+        if (profileManager.permadeathIsOn[GlobalData.profileNumber] && !diedInTutorial)
         {
             NotificationManager.Instance.Notification("Your colony mourns " + GlobalData.sporePermaDied + "'s <b>death</b>", "<color=#8B0000>-Colony Happiness</color>");
         }

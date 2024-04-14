@@ -30,33 +30,54 @@ public class GameManager : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         vcamHolder = GameObject.Find("VCamHolder");
+        GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
 
-        //RemoveHUDMaterial();
-        if (GameObject.FindWithTag("currentPlayer") != null)
+        //If there's a current player,
+        if (currentPlayer != null)
         {
             StartCoroutine(UpdateHUDNutrients());
-            PlaceSpore(GameObject.FindWithTag("currentPlayer"));
+            PlaceSpore(currentPlayer);
             StartCoroutine(RefreshCutoutMaskUI());
         }
 
+        //At the Carcass,
         if (scene.buildIndex == 2)
         {
             if (GlobalData.sporePermaDied != null)
             {
+                if (GlobalData.areaCleared)
+                {
+                    HappinessManager.Instance.RestAllSpores();
+                }
+
                 HappinessManager.Instance.FriendlySporePermaDied();
             }
             else
             {
+                if (GlobalData.areaCleared)
+                {
+                    currentPlayer.GetComponent<CharacterStats>().ModifyEnergy(-1);
+                    HappinessManager.Instance.RestOtherSpores(currentPlayer);
+                }
+
+                if (GlobalData.sporeDied != null)
+                {
+                    currentPlayer.GetComponent<CharacterStats>().ModifyHappiness(HappinessManager.Instance.happinessOnDying);
+                }
+
                 StartCoroutine(SproutPlayer());
-
-                GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
-                currentPlayer.GetComponent<CharacterStats>().ModifyEnergy(-GlobalData.areasCleared);
-
-                HappinessManager.Instance.RestOtherSpores(currentPlayer);
             }
 
-            GlobalData.areasCleared = 0;
+
+            HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
+            if (GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>().characters.Count < 2)
+            {
+                hudHappiness.HideColonyHappinessMeter();
+            }
+
+            GlobalData.areaCleared = false;
             GlobalData.sporePermaDied = null;
+            GlobalData.sporeDied = null;
         }
         else
         {

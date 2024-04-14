@@ -71,57 +71,60 @@ public class CharSelectManagerNew : MonoBehaviour
         UIEnable.SetActive(false);
         GlobalData.isAbleToPause = true;
 
-        float happinessStatMultiplier;
-        int happinessStatIncrement;
-        if (HappinessManager.Instance.doesHappinessMultiply)
+        if (GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>().characters.Count > 1)
         {
-            happinessStatMultiplier = HappinessManager.Instance.GetHappinessStatMultiplier();
-            string colonyHappinessWord;
-            if (happinessStatMultiplier > 1f)
+            float happinessStatMultiplier;
+            int happinessStatIncrement;
+            if (HappinessManager.Instance.doesHappinessMultiply)
             {
-                colonyHappinessWord = "<color=#38DB35>Happy</color>";
-            }
-            else if (happinessStatMultiplier < 1f)
-            {
-                colonyHappinessWord = "<color=#C83434>Unhappy</color>";
+                happinessStatMultiplier = HappinessManager.Instance.GetHappinessStatMultiplier();
+                string colonyHappinessWord;
+                if (happinessStatMultiplier > 1f)
+                {
+                    colonyHappinessWord = "<color=#38DB35>Happy</color>";
+                }
+                else if (happinessStatMultiplier < 1f)
+                {
+                    colonyHappinessWord = "<color=#C83434>Unhappy</color>";
+                }
+                else
+                {
+                    colonyHappinessWord = "<color=#FFD700>Neutral</color>";
+                }
+                NotificationManager.Instance.Notification("Your Colony is " + colonyHappinessWord, "All Stats +" + ((happinessStatMultiplier * 100f) - 100f) + "%");
+
+                GlobalData.happinessStatMultiplier = happinessStatMultiplier;
             }
             else
             {
-                colonyHappinessWord = "<color=#FFD700>Neutral</color>";
-            }
-            NotificationManager.Instance.Notification("Your Colony is " + colonyHappinessWord, "All Stats +" + ((happinessStatMultiplier * 100f) - 100f) + "%");
+                happinessStatIncrement = HappinessManager.Instance.GetHappinessStatIncrement();
+                string colonyHappinessWord;
+                string plusMinus;
+                string colorHex;
+                if (happinessStatIncrement > 0f)
+                {
+                    colonyHappinessWord = "<color=#38DB35>Happy</color>";
+                    plusMinus = "+";
+                    colorHex = "38DB35";
+                }
+                else if (happinessStatIncrement < 0f)
+                {
+                    colonyHappinessWord = "<color=#C83434>Unhappy</color>";
+                    plusMinus = "-";
+                    colorHex = "C83434";
+                }
+                else
+                {
+                    colonyHappinessWord = "<color=#FFD700>Neutral</color>";
+                    plusMinus = "+";
+                    colorHex = "FFD700";
+                }
 
-            GlobalData.happinessStatMultiplier = happinessStatMultiplier;
-        }
-        else
-        {
-            happinessStatIncrement = HappinessManager.Instance.GetHappinessStatIncrement();
-            string colonyHappinessWord;
-            string plusMinus;
-            string colorHex;
-            if (happinessStatIncrement > 0f)
-            {
-                colonyHappinessWord = "<color=#38DB35>Happy</color>";
-                plusMinus = "+";
-                colorHex = "38DB35";
+                int absoluteHappinessStatModifier = (int)Mathf.Abs(happinessStatIncrement);
+                NotificationManager.Instance.Notification("Your Colony is " + colonyHappinessWord, "All Stats " + "<color=#"+colorHex+">" + plusMinus + absoluteHappinessStatModifier + "</color>");
+            
+                GlobalData.happinessStatIncrement = happinessStatIncrement;
             }
-            else if (happinessStatIncrement < 0f)
-            {
-                colonyHappinessWord = "<color=#C83434>Unhappy</color>";
-                plusMinus = "-";
-                colorHex = "C83434";
-            }
-            else
-            {
-                colonyHappinessWord = "<color=#FFD700>Neutral</color>";
-                plusMinus = "+";
-                colorHex = "FFD700";
-            }
-
-            int absoluteHappinessStatModifier = (int)Mathf.Abs(happinessStatIncrement);
-            NotificationManager.Instance.Notification("Your Colony is " + colonyHappinessWord, "All Stats " + "<color=#"+colorHex+">" + plusMinus + absoluteHappinessStatModifier + "</color>");
-        
-            GlobalData.happinessStatIncrement = happinessStatIncrement;
         }
 
         SceneLoader.Instance.BeginLoadScene(3, "Dylano");

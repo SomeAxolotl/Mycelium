@@ -85,7 +85,7 @@ public class HappinessManager : MonoBehaviour
     {
         SwapCharacter swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
 
-        if (swapCharacter.characters.Count > 0)
+        if (swapCharacter.characters.Count > 1)
         {
             foreach (GameObject character in swapCharacter.characters)
             {
@@ -104,6 +104,16 @@ public class HappinessManager : MonoBehaviour
             {
                 character.GetComponent<CharacterStats>().ModifyEnergy(1);
             }
+        }
+    }
+
+    public void RestAllSpores()
+    {
+        SwapCharacter swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
+
+        foreach (GameObject character in swapCharacter.characters)
+        {
+            character.GetComponent<CharacterStats>().ModifyEnergy(1);
         }
     }
 }

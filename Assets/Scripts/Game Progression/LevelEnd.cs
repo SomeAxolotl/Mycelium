@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class LevelEnd : MonoBehaviour
@@ -15,7 +16,6 @@ public class LevelEnd : MonoBehaviour
     ProfileManager profileManager;
     WeaponStats weaponStats;
     CharacterStats characterStats;
-
 
     void Start()
     {
@@ -39,13 +39,15 @@ public class LevelEnd : MonoBehaviour
             string completeMessage = "<color=#7FFF00>AREA COMPLETE</color>";
             if (currentHeldMaterial != "")
             {
-                Debug.Log("wtf");
                 NotificationManager.Instance.Notification(completeMessage, currentHeldMaterial + " stored at the Carcass", null, currentHeldMaterial);
             }
             else
             {
                 NotificationManager.Instance.Notification(completeMessage);
             }
+
+            //Increment Area Completion Count
+            GlobalData.areaCleared = true;
 
             nutrientTracker.KeepMaterials();
             nutrientTracker.LoseMaterials();
@@ -76,9 +78,6 @@ public class LevelEnd : MonoBehaviour
         GlobalData.currentSporeStats.Add(characterStats.speedLevel);
         GlobalData.currentSporeStats.Add(characterStats.sentienceLevel);
         GlobalData.currentSporeStats.Add(characterStats.vitalityLevel);
-
-        //Increment Area Completion Count
-        GlobalData.areasCleared++;
 
         SceneLoader.Instance.BeginLoadScene(sceneIndexToGoTo, "Dylan is a tree");
     }

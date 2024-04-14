@@ -52,6 +52,8 @@ public class SwapCharacter : MonoBehaviour
         currentCharacterIndex = index;
         characters[currentCharacterIndex].tag = "currentPlayer";
         characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = false;
+        characters[currentCharacterIndex].GetComponent<SporeInteractableFinder>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<SphereCollider>().enabled = true;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         playerAttack.animator = characters[currentCharacterIndex].GetComponent<Animator>();
@@ -80,10 +82,14 @@ public class SwapCharacter : MonoBehaviour
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
         characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<SporeInteractableFinder>().enabled = false;
+        characters[currentCharacterIndex].GetComponent<SphereCollider>().enabled = false;
         currentCharacterIndex = index;
         //characters[currentCharacterIndex].GetComponent<CharacterStats>().HideNametag();
         characters[currentCharacterIndex].tag = "currentPlayer";
         characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = false;
+        characters[currentCharacterIndex].GetComponent<SporeInteractableFinder>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<SphereCollider>().enabled = true;
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = true;
         characters[currentCharacterIndex].transform.parent = gameObject.transform;
         swapWeapon.currentCharacter = characters[currentCharacterIndex];
@@ -104,6 +110,8 @@ public class SwapCharacter : MonoBehaviour
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
         characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<SporeInteractableFinder>().enabled = false;
+        characters[currentCharacterIndex].GetComponent<SphereCollider>().enabled = false;
         int nextCharacterIndex = (currentCharacterIndex + 1) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {
@@ -120,6 +128,8 @@ public class SwapCharacter : MonoBehaviour
         transform.DetachChildren();
         characters[currentCharacterIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
         characters[currentCharacterIndex].GetComponent<WanderingSpore>().enabled = true;
+        characters[currentCharacterIndex].GetComponent<SporeInteractableFinder>().enabled = false;
+        characters[currentCharacterIndex].GetComponent<SphereCollider>().enabled = false;
         int lastCharacterIndex = (currentCharacterIndex - 1 + characters.Count) % characters.Count;
         if (currentCharacterIndex==characters.Count)
         {

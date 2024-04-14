@@ -121,7 +121,11 @@ public class SpawnCharacter : MonoBehaviour
         }
 
         swapCharacter.characters.Add(newCharacter);
-        GameObject.Find("HUD").GetComponent<HUDHappiness>().UpdateHappinessMeter();
+
+        HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
+        hudHappiness.ShowColonyHappinessMeter();
+        hudHappiness.UpdateHappinessMeter();
+
         newCharacter.transform.position = GameObject.Find("GrowSpawn").transform.position;
         if(sporeCam != null )
         {
@@ -129,6 +133,8 @@ public class SpawnCharacter : MonoBehaviour
         }
         newCharacter.GetComponent<Animator>().Play("Sprout");
         StartCoroutine(ResetCamera(newCharacter));
+
+        //GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassSong>().PlayCarcassSong();
     }
 
     public IEnumerator ResetCamera(GameObject newCharacter)
