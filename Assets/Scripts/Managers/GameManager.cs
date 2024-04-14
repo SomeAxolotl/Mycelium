@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
         {
             if (GlobalData.sporePermaDied != null)
             {
+                HappinessManager.Instance.FriendlySporePermaDied();
+                
                 if (GlobalData.areaCleared)
                 {
                     HappinessManager.Instance.RestAllSpores();
