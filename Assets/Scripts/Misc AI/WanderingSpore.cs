@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using RonaldSunglassesEmoji.Personalities;
+using UnityEngine.Scripting.APIUpdating;
 
 public class WanderingSpore : MonoBehaviour
 {
-    [Header("Curio Detection")]
+    [Header("curio Detection")]
     [SerializeField][Tooltip("Radius at which Wandering Spores can notice curio")] float curioRadius = 20f;
 
     [Header("Wandering")]
@@ -14,6 +15,8 @@ public class WanderingSpore : MonoBehaviour
     [SerializeField][Tooltip("How fast a wandering Spore can rotate")] float maxRotationSpeed = 300f;
     [SerializeField][Tooltip("Minimum radius for the random wandering state")] float minWanderRadius = 5f;
     [SerializeField][Tooltip("Maximum radius for the random wandering state")] float maxWanderRadius = 10f;
+    [SerializeField][Tooltip("Rigidbody mass when they're standing or doing something")] int rbActiveMass = 10000;
+    [SerializeField][Tooltip("How close is considered arrived for the Spore")] float arrivedDistance = 0.1f;
 
     [Header("Avoidance")]
     [SerializeField][Tooltip("How much a Spore moves to avoid before trying to go to the waypoint again")] float avoidRadius = 1f;
@@ -23,6 +26,12 @@ public class WanderingSpore : MonoBehaviour
     //[SerializeField][Tooltip("Multiplies with the reroute speed check to scale with speed and avoid properly")] float rerouteSpeedThresholdMultiplier = 0.5f;
     [SerializeField][Tooltip("How much time a Spore will try to run against an obstacle until giving up with the task altogether")] float timeUntilGivingUp = 1.5f;
     float wanderRadius;
+
+    [Header("Standing")]
+    [SerializeField][Tooltip("Minimum for how long a spore stands at minimum happiness")] float minHappinessMinStandingTime = 8f;
+    [SerializeField][Tooltip("Maximum for how long a spore stands at minimum happiness")] float minHappinessMaxStandingTime = 12f;
+    [SerializeField][Tooltip("Minimum for how long a spore stands at maximum happiness")] float maxHappinessMinStandingTime = 2f;
+    [SerializeField][Tooltip("Maximum for how long a spore stands at maximum happiness")] float maxHappinessMaxStandingTime = 6f;
 
     CharacterStats characterStats;
     Animator animator;
@@ -37,7 +46,8 @@ public class WanderingSpore : MonoBehaviour
     float rerouteTimer = 0f;
     int calculatePathAttempts = 0;
 
-    CurioStats previousCurio = null;
+    Curio previousCurio = null;
+    public Curio interactingCurio = null;
 
     Vector3 previousPosition;
     public float currentSpeed;
@@ -49,7 +59,7 @@ public class WanderingSpore : MonoBehaviour
         Avoiding,
         Ready,
         Avoided,
-        Interacting,
+        Interacting
     }
     public WanderingStates currentState;
 
@@ -60,8 +70,18 @@ public class WanderingSpore : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
 
-        currentState = WanderingStates.Standing;
         StartCoroutine(StartingCoroutine());
+    }
+
+    IEnumerator StartingCoroutine()
+    {
+        currentState = WanderingStates.Standing;
+
+        float randomStartingTime = Random.Range(1f, 2f);
+
+        yield return new WaitForSeconds(randomStartingTime);
+
+        CalculateNextState();
     }
 
     void OnDisable()
@@ -69,36 +89,52 @@ public class WanderingSpore : MonoBehaviour
         animator.SetBool("HappyWalk", false);
         animator.SetBool("SadWalk", false);
 
+
+        EndInteractingCurioEvent();
+
         StopAllCoroutines();
     }
 
-    IEnumerator StartingCoroutine()
+    void EndInteractingCurioEvent()
     {
-        yield return new WaitForEndOfFrame();
+        if (interactingCurio != null)
+        {
+            interactingCurio.EndEvent(this);
+        }
+        interactingCurio = null;
 
-        CalculateNextState();
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            animator.Rebind();
+        }
     }
 
     //Calculates and switches to a new state
     void CalculateNextState()
     {   
+        EndInteractingCurioEvent();
+
         StopAllCoroutines();
 
         //Flip flops between standing and interacting/wandering
         if (currentState != WanderingStates.Standing)
         {
+            rb.mass = rbActiveMass;
+
             StartCoroutine(Stand());
         }
         else
         {
+            rb.mass = 0;
+
             //Makes a list of the CurioAttraction class, sending in this Spore's personality to get the corresponding weight
             SporePersonalities sporePersonality = GetComponent<CharacterStats>().sporePersonality;
             List<CurioAttraction> curioAttractions = new List<CurioAttraction>();
-            foreach (CurioStats curioStats in GetNearbyCurio())
+            foreach (Curio curio in GetNearbyCurio())
             {
-                if (curioStats != null && !curioStats.inUse && curioStats != previousCurio)
+                if (curio != null && curio.CanUse() && curio != previousCurio)
                 {
-                    CurioAttraction curioAttraction = new CurioAttraction(curioStats, sporePersonality);
+                    CurioAttraction curioAttraction = new CurioAttraction(curio, sporePersonality);
                     curioAttractions.Add(curioAttraction);
                 }
             }
@@ -119,7 +155,7 @@ public class WanderingSpore : MonoBehaviour
             {
                 int randomCurioNumber = Random.Range(0, possibleCurios.Count);
 
-                CurioStats selectedCurio = possibleCurios[randomCurioNumber].stats;
+                Curio selectedCurio = possibleCurios[randomCurioNumber].stats;
                 StartCoroutine(InteractWithCurio(selectedCurio));
             }
             else
@@ -200,6 +236,10 @@ public class WanderingSpore : MonoBehaviour
         {
             LookAtTarget(lookTarget);
         }
+        else if (moveDirection != Vector3.zero)
+        {
+            LookAtTarget(moveDirection);
+        }
 
         //Only move and rotate if there's a waypoint
         if (waypoints.Count > 0)
@@ -243,7 +283,7 @@ public class WanderingSpore : MonoBehaviour
     //Returns true if the current position is close to the current waypoint
     bool HasArrivedAtWaypoint()
     {
-        if (Vector3.Distance(transform.position, currentWaypoint) <= 0.5f)
+        if (Vector3.Distance(transform.position, currentWaypoint) <= arrivedDistance)
         {
             return true;
         }
@@ -263,7 +303,7 @@ public class WanderingSpore : MonoBehaviour
     //Smoothly looks at a target position
     public void LookAtTarget(Vector3 lookDirection)
     {
-        Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
+        Quaternion desiredRotation = Quaternion.LookRotation(lookDirection);
         Quaternion targetRotation = Quaternion.Euler(0f, desiredRotation.eulerAngles.y, 0f);
 
         float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
@@ -324,50 +364,50 @@ public class WanderingSpore : MonoBehaviour
     //Custom class just to get a specialized personality weight for each curio
     class CurioAttraction
     {
-        public CurioStats stats;
+        public Curio stats;
         public float attraction;
 
-        public CurioAttraction(CurioStats curioStats, SporePersonalities sporePersonality)
+        public CurioAttraction(Curio curio, SporePersonalities sporePersonality)
         {
-            stats = curioStats;
+            stats = curio;
 
             switch(sporePersonality)
             {
                 case SporePersonalities.Curious:
-                    attraction = curioStats.curiousAttraction;
+                    attraction = curio.curiousAttraction;
                     break;
                 case SporePersonalities.Playful:
-                    attraction = curioStats.playfulAttraction;
+                    attraction = curio.playfulAttraction;
                     break;
                 case SporePersonalities.Friendly:
-                    attraction = curioStats.friendlyAttraction;
+                    attraction = curio.friendlyAttraction;
                     break;
                 case SporePersonalities.Lazy:
-                    attraction = curioStats.lazyAttraction;
+                    attraction = curio.lazyAttraction;
                     break;
                 case SporePersonalities.Energetic:
-                    attraction = curioStats.energeticAttraction;
+                    attraction = curio.energeticAttraction;
                     break;
             }
         }
     }
 
     //Returns all nearby fun stuff for a wandering Spore--the player, other Spores, and furniture
-    List<CurioStats> GetNearbyCurio()
+    List<Curio> GetNearbyCurio()
     {
         int playerLayer = LayerMask.GetMask("Player");
         int furnitureLayer = LayerMask.GetMask("Furniture");
         int combinedLayers = playerLayer | furnitureLayer;
 
-        List<CurioStats> nearbyCurio = new List<CurioStats>();
+        List<Curio> nearbyCurio = new List<Curio>();
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, curioRadius, combinedLayers);
         
         foreach (Collider col in colliders)
         {
-            foreach (CurioStats curioStats in col.gameObject.GetComponents<CurioStats>())
+            foreach (Curio curio in col.gameObject.GetComponents<Curio>())
             {
-                nearbyCurio.Add(curioStats);
+                nearbyCurio.Add(curio);
             }
         }
 
@@ -402,7 +442,13 @@ public class WanderingSpore : MonoBehaviour
 
         animator.SetBool(GetWalkAnimation(), false);
 
-        yield return new WaitForSeconds(5f);
+        float happiness = characterStats.sporeHappiness;
+        float minStandingTime = Mathf.Lerp(minHappinessMinStandingTime, maxHappinessMinStandingTime, happiness);
+        float maxStandingTime = Mathf.Lerp(minHappinessMaxStandingTime, maxHappinessMaxStandingTime, happiness);
+        float randomStandingTime = Random.Range(minStandingTime, maxStandingTime);
+        //Debug.Log(randomStandingTime);
+
+        yield return new WaitForSeconds(randomStandingTime);
 
         CalculateNextState();
     }
@@ -418,13 +464,18 @@ public class WanderingSpore : MonoBehaviour
     }
 
     //Calls and yields the respective curio event before going to the next state
-    IEnumerator InteractWithCurio(CurioStats curioStats)
+    IEnumerator InteractWithCurio(Curio curio)
     {
         yield return null;
 
+        rb.mass = rbActiveMass;
+
+        previousCurio = curio;
+
         currentState = WanderingStates.Interacting;
 
-        yield return StartCoroutine(curioStats.CurioEvent(this));
+        interactingCurio = curio;
+        yield return StartCoroutine(curio.CurioEvent(this));
 
         CalculateNextState();
     }

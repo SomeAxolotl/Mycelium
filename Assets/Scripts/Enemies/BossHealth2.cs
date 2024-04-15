@@ -5,6 +5,8 @@ using UnityEngine;
 public class BossHealth2 : EnemyHealth
 {
     bool hudPopup = false;
+   [SerializeField] private List<GameObject> enemySpawners = new List<GameObject>();
+
     void OnTriggerEnter(Collider other)
     {
         HUDBoss hudBoss = GameObject.Find("HUD").GetComponent<HUDBoss>();
@@ -27,8 +29,18 @@ public class BossHealth2 : EnemyHealth
             hudBoss.UpdateBossHealthUI(currentHealth, maxHealth);
         }
 
+        if ((currentHealth <= maxHealth / 2) && (!alreadyDead) && (currentHealth >= 1))
+        {
+            // activate all enemy spawners when health is less than 50%
+            foreach (var enemy in enemySpawners)
+            {
+                enemy.SetActive(true);
+            }
+        }
+
         if (currentHealth <= 0 && !alreadyDead)
         {
+            DestroyNonBossEnemies();
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
             if(gameObject.name == "Rival Colony Leader")
             {
@@ -43,5 +55,18 @@ public class BossHealth2 : EnemyHealth
         }
 
         hasTakenDamage = true;
+    }
+
+    public void DestroyNonBossEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var enemyObj in enemies)
+        {
+            if (enemyObj.name != "Rival Colony Leader")
+            {
+                Debug.Log("Enemy Spawner: " + enemyObj.name);
+                enemyObj.SetActive(false);
+            }
+        }
     }
 }

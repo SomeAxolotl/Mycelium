@@ -17,7 +17,6 @@ public class HUDStats : MonoBehaviour
 
     [SerializeField] Color statColorFlash = Color.green;
     [SerializeField] float colorFlashTime = 0.25f;
-    [SerializeField] float colorFlashBackTime = 0.25f;
     [SerializeField] float timeBetweenFlashAndSlide = 0.5f;
 
     public void ShowStats()
