@@ -111,7 +111,10 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator Death()
     {
         GlobalData.isAbleToPause = false;
-        
+        GlobalData.currentLoop = 1;
+        PlayerPrefs.SetInt("CurrentLoop", GlobalData.currentLoop);
+        PlayerPrefs.Save();
+
         //Notification stuff
         string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
         DesignTracker designTracker = GameObject.FindWithTag("currentPlayer").GetComponent<DesignTracker>();

@@ -65,14 +65,23 @@ public class CreditsPlayer : MonoBehaviour
         SceneLoader.Instance.BeginLoadScene("The Carcass", true);
     }
 
-    public void LoopRun()
+    public void LoopRun(int currentLoop)
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        GlobalData.currentLoop++;
+        PlayerPrefs.SetInt("CurrentLoop", GlobalData.currentLoop);
+        PlayerPrefs.Save();
 
+        SceneLoader.Instance.BeginLoadScene("Daybreak Arboretum", true);
+        creditsIsOn = false;
     }
 
     public void FinishRun()
     {
         EventSystem.current.SetSelectedGameObject(null);
+        GlobalData.currentLoop = 1;
+        PlayerPrefs.SetInt("CurrentLoop", GlobalData.currentLoop);
+        PlayerPrefs.Save();
         StartCoroutine(PlayCredits());
     }
 

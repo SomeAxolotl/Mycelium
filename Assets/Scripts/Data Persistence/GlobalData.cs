@@ -34,4 +34,7 @@ public static class GlobalData
 
     //Audio Stuff
     public static AudioMixerSnapshot currentAudioMixerSnapshot;
+
+    //Loop Difficulty Stuff
+    public static int currentLoop = 1;
 }

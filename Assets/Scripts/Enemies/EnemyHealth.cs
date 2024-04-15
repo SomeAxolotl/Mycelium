@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 using System;
+using UnityEngine.SceneManagement;
 //using UnityEditor.Rendering.Universal.ShaderGUI;
 
 public class EnemyHealth : MonoBehaviour
@@ -19,11 +20,12 @@ public class EnemyHealth : MonoBehaviour
     Animator animator;
 
     private ProfileManager profileManagerScript;
-
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        int savedCurrentLoop = PlayerPrefs.GetInt("CurrentLoop", 1); // Default value is 1
+        GlobalData.currentLoop = savedCurrentLoop;
+        currentHealth = maxHealth * GlobalData.currentLoop;
         this.transform.parent = null;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
