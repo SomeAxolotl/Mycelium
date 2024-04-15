@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Animations.Rigging;
 using UnityEngine.EventSystems;
 
 public class TempMovement : MonoBehaviour
 {
-    private Transform player;
+    Transform player;
     Animator animator;
+    MonsterBossAttack monsterBossAttack;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("currentPlayer").transform;
         animator = GetComponent<Animator>();
+        monsterBossAttack = GetComponent<MonsterBossAttack>();
     }
 
     // Update is called once per frame
@@ -31,21 +31,40 @@ public class TempMovement : MonoBehaviour
         float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
         float maxAngleThisFrame = 1f * Time.fixedDeltaTime;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxAngleThisFrame);
-
-        float angletoPlayer = Vector3.Angle(transform.forward, player.position);
-
-        if (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f && angletoPlayer > 10f)
+        if(!monsterBossAttack.isAttacking)
         {
-            float yRotationDifference = Quaternion.Angle(transform.rotation, targetRotation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxAngleThisFrame);
+        }
+
+        /*float angletoPlayer = Vector3.Angle(transform.forward, player.position);
+        //Debug.DrawRay(transform.position, transform.forward, Color.green, 2f);
+        Debug.Log("angletoplayer - " + angletoPlayer);
+        Debug.Log("angletotarget - " + angleToTarget);
+        if (angletoPlayer > 10f && !monsterBossAttack.isAttacking)
+        {
+            float yRotationDifference = angleToTarget;
+            if (yRotationDifference > 0f)
+            {
+                animator.SetTrigger("TurnRight");
+            }
+            else if (yRotationDifference < 0f)
+            {
+                animator.SetTrigger("TurnLeft");
+            }
+        }*/
+        /*Vector3 relativeDirToPlayer = transform.InverseTransformDirection(dirToPlayer);
+        float yRotationDifference = Mathf.Atan2(relativeDirToPlayer.x, relativeDirToPlayer.z) * Mathf.Rad2Deg;
+
+        if (angleToTarget > 0.1f && Mathf.Abs(yRotationDifference) > 10f && !monsterBossAttack.isAttacking)
+        {
             if (yRotationDifference > 0f)
             {
                 animator.SetTrigger("TurnLeft");
             }
-            else if (yRotationDifference < 0f)
+            else
             {
                 animator.SetTrigger("TurnRight");
             }
-        }
+        }*/
     }
 }

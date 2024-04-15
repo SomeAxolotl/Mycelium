@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BossHealth2 : EnemyHealth
 {
+    bool hudPopup = false;
     void OnTriggerEnter(Collider other)
     {
         HUDBoss hudBoss = GameObject.Find("HUD").GetComponent<HUDBoss>();
 
-        if (other.gameObject.CompareTag("currentPlayer") && !hudBoss.fightingBoss)
+        if (other.gameObject.CompareTag("currentPlayer") && !hudPopup)
         {
+            hudPopup = true;
             hudBoss.EncounterBoss(gameObject.name, currentHealth, maxHealth);
         }
     }
@@ -31,6 +33,8 @@ public class BossHealth2 : EnemyHealth
             if(gameObject.name == "Rival Colony Leader")
             {
                 StartCoroutine(BossDeath());
+                gameObject.GetComponent<MonsterBossAttack>().enabled = false;
+                gameObject.GetComponent<TempMovement>().enabled = false;
             }
             else if(gameObject.name == "Giga Beetle")
             {
