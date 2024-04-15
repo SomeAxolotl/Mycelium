@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BedCurio : CurioStats
+public class BedCurio : Curio
 {
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
-        Debug.Log("BEDDING!!!");
-
         wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
 
         yield return new WaitForSeconds(1f);
@@ -22,7 +20,5 @@ public class BedCurio : CurioStats
 
         yield return new WaitForSeconds(2f);
         wanderingSpore.GetComponent<Animator>().SetBool("Lay(End)", false);
-
-        EndEvent();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class SporeAnimationEvents : MonoBehaviour
 {
     [SerializeField] float slashDonePercent = 0.5f;
-    [SerializeField] float stabDonePercent = 0.5f;
+    //[SerializeField] float stabDonePercent = 0.5f;
 
     ParticleSystem currentSlashParticle;
 

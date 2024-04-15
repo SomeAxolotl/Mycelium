@@ -3035,19 +3035,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66d8e51f773af0429bf09479847715a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curioRadius: 20
+  curioRadius: 50
   wanderSpeed: 0.4
-  maxRotationSpeed: 500
+  maxRotationSpeed: 300
   minWanderRadius: 7
   maxWanderRadius: 15
+  rbActiveMass: 5000
+  arrivedDistance: 0.25
   avoidRadius: 2
-  avoidAngleOffset: 15
+  avoidAngleOffset: 0
   rerouteTime: 0.75
   rerouteSpeedThreshold: 1.4
   timeUntilGivingUp: 1.5
-  NEARBYCURIO: []
+  minHappinessMinStandingTime: 3.5
+  minHappinessMaxStandingTime: 4.5
+  maxHappinessMinStandingTime: 1.5
+  maxHappinessMaxStandingTime: 2.5
   center: {fileID: 0}
   lookTarget: {x: 0, y: 0, z: 0}
+  interactingCurio: {fileID: 0}
   currentSpeed: 0
   currentState: 0
 --- !u!114 &7536311544792119249
@@ -3156,7 +3162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d479ff8278fa73e4dac4c494d1ffd803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleFadeOutTime: 0.5
+  slashDonePercent: 0.5
 --- !u!82 &3315170148169550044
 AudioSource:
   m_ObjectHideFlags: 0

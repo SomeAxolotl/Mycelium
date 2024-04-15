@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using RonaldSunglassesEmoji.Personalities;
 
 public class SpawnCharacter : MonoBehaviour
 {
@@ -84,6 +84,9 @@ public class SpawnCharacter : MonoBehaviour
             newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
             usedSporeNames.Add(sporeNames[randomNameIndex]);
             sporeNames.Remove(sporeNames[randomNameIndex]);
+
+            SporePersonalities randomSporePersonality = (SporePersonalities) Random.Range(0, 5);
+            newCharacter.GetComponent<CharacterStats>().sporePersonality = randomSporePersonality;
         }
         else
         {
@@ -92,6 +95,8 @@ public class SpawnCharacter : MonoBehaviour
             statSkill2 = customStats.equippedSkills[2];
 
             newCharacter.GetComponent<CharacterStats>().sporeName = customStats.sporeName;
+
+            newCharacter.GetComponent<CharacterStats>().sporePersonality = customStats.sporePersonality;
         }
 
         skillManager.SetSkill(subspeciesSkill, 0, newCharacter);

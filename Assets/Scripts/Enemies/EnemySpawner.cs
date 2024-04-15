@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField][Tooltip("Vertical Spaw Range")] private float waterfallOffset = 2;
     [SerializeField][Tooltip("Spawn enemies vertically")] private bool spawnerIsVertical = false; 
     private int enemiesSpawnedCount = 0;
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    [HideInInspector] public List<GameObject> spawnedEnemies = new List<GameObject>();
     [SerializeField]private GameObject particleEffect;
     [SerializeField][Tooltip("Spawns the enemiesSpawnedLimit at once")] private bool spawnAll = false;
     private bool hasSpawned = false;

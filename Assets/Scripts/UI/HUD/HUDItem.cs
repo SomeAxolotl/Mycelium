@@ -10,8 +10,6 @@ public class HUDItem : MonoBehaviour
     [SerializeField] RectTransform materialInsideTarget;
     [SerializeField] List<Sprite> itemSprites = new List<Sprite>();
     [SerializeField] Image itemImage;
-
-    [SerializeField] float materialSwitchingInterval = 0.25f;
     //[SerializeField] float zipDuration = 0.5f;
 
     public void PickUpItem(string itemName)

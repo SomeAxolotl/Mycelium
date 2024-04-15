@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using RonaldSunglassesEmoji.Personalities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -277,6 +278,7 @@ public class TestingManager : MonoBehaviour
         customStats.equippedSkills[0] = customSpore.subspeciesSkill.ToString();
         customStats.equippedSkills[1] = customSpore.skill1.ToString();
         customStats.equippedSkills[2] = customSpore.skill2.ToString();
+        customStats.sporePersonality = customSpore.sporePersonality;
 
         DesignTracker customDesign = tempObject.GetComponent<DesignTracker>();
         customDesign.capColor = customSpore.capColor;
@@ -310,6 +312,7 @@ public class TestingManager : MonoBehaviour
         public SubspeciesSkills subspeciesSkill = SubspeciesSkills.NoSkill;
         public StatSkills skill1 = StatSkills.NoSkill;
         public StatSkills skill2 = StatSkills.NoSkill;
+        public SporePersonalities sporePersonality = SporePersonalities.Energetic;
 
         [Header("Design")]
         [Tooltip("Custom Spore's design is the same as just growing that subspecies")] public bool randomDesignFromSpecies = true;
