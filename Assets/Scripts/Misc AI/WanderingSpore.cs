@@ -107,6 +107,11 @@ public class WanderingSpore : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void SetWaypoints(List<Vector3> waypointPositions)
+    {
+        waypoints = waypointPositions;
+    }
+
     void EndInteractingCurioEvent()
     {
         if (interactingCurio != null)
@@ -381,7 +386,7 @@ public class WanderingSpore : MonoBehaviour
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90, 0, 0));
     }
 
-    void UpdateWaypointVisuals(List<Vector3> waypointPositions)
+    public void UpdateWaypointVisuals(List<Vector3> waypointPositions)
     {
         foreach (GameObject currentWayPointVisual in currentWaypointVisuals)
         {

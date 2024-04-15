@@ -76,10 +76,51 @@ public class CreditsPlayer : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         GlobalData.currentLoop++;
 
+        ProfileManager.Instance.SaveOverride();
+
+        StartCoroutine(NotificationWithDelay());
+
         levelEndScript.SpecialCreditsLoopFunction();
 
-        SceneLoader.Instance.BeginLoadScene("Daybreak Arboretum", true);
+        SceneLoader.Instance.BeginLoadScene("Daybreak Arboretum", "Meow");
         creditsIsOn = false;
+    }
+
+    IEnumerator NotificationWithDelay()
+    {
+        yield return StartCoroutine(FadeOut(endOfRunCanvas, fadeTimeEndOfRunCanvas));
+
+        string coloredUnlockString = "";
+        switch (GlobalData.currentLoop)
+        {
+            case 2:
+                FurnitureManager.Instance.bedIsUnlocked = true;
+                coloredUnlockString = "Bed";
+                break;
+            case 3:
+                FurnitureManager.Instance.chairIsUnlocked = true;
+                coloredUnlockString = "Chair";
+                break;
+            case 4:
+                FurnitureManager.Instance.fireIsUnlocked = true;
+                coloredUnlockString = "Bonfire";
+                break;
+            case 5:
+                FurnitureManager.Instance.fireflyIsUnlocked = true;
+                coloredUnlockString = "Firefly";
+                break;
+            case 6:
+                FurnitureManager.Instance.gameboardIsUnlocked = true;
+                coloredUnlockString = "Gameboard";
+                break;
+            case 7:
+                FurnitureManager.Instance.drumIsUnlocked = true;
+                coloredUnlockString = "Beetle Drum";
+                break;
+
+        }
+
+        NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + coloredUnlockString + "</color>!", "Check it out at the Carcass!");
     }
 
     public void FinishRun()

@@ -44,7 +44,7 @@ public class FurnitureManager : MonoBehaviour
             case "gameboard":
                 return gameboardIsUnlocked;
 
-            case "fire":
+            case "Bonfire":
                 return fireIsUnlocked;
 
             default:
