@@ -6,11 +6,20 @@ public class WaveCurio : Curio
 {
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
-        wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
+        wanderingSpore.animator.SetTrigger("Wave");
 
-        Animator animator = wanderingSpore.animator;
-        animator.SetTrigger("Wave");
+        StartCoroutine(LookAtSpore(wanderingSpore));
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitUntil(() => !wanderingSpore.animator.GetCurrentAnimatorStateInfo(0).IsName("HelloAnim"));
+    }
+
+    IEnumerator LookAtSpore(WanderingSpore wanderingSpore)
+    {     
+        while (wanderingSpore.animator.GetCurrentAnimatorStateInfo(0).IsName("HelloAnim"))
+        {
+            wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
+
+            yield return null;
+        }
     }
 }

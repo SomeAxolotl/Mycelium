@@ -25,6 +25,14 @@ public abstract class Curio : MonoBehaviour
     [Header("Event")]
     [SerializeField] bool meow;
 
+    void Start()
+    {
+        if (!selfCurio && !gameObject.name.Contains("Spore"))
+        {
+            gameObject.SetActive(FurnitureManager.Instance.FurnitureIsUnlocked(gameObject.name));
+        }
+    }
+
     public IEnumerator CurioEvent(WanderingSpore wanderingSpore)
     {
         if (traversalTransforms == null)
