@@ -11,6 +11,7 @@ public class ProfileManager : MonoBehaviour
     private string filePath;
     private ProfileData profileData;
     private NutrientTracker nutrientTrackerScript;
+    private FurnitureManager furnitureManagerScript;
 
     [HideInInspector] public List<bool> tutorialIsDone = new List<bool>();
     [HideInInspector] public List<bool> permadeathIsOn = new List<bool>();
@@ -43,6 +44,7 @@ public class ProfileManager : MonoBehaviour
             //Do this when we are NOT on the Main Menu
 
             nutrientTrackerScript = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
+            furnitureManagerScript = GameObject.Find("FurnitureManager").GetComponent<FurnitureManager>();
 
             LoadProfile(profileData);
         }
@@ -100,6 +102,13 @@ public class ProfileManager : MonoBehaviour
         nutrientTrackerScript.storedExoskeleton = data.exoskeleton;
         nutrientTrackerScript.storedCalcite = data.calcite;
         nutrientTrackerScript.storedFlesh = data.flesh;
+
+        furnitureManagerScript.bedIsUnlocked = data.bedIsUnlocked;
+        furnitureManagerScript.drumIsUnlocked = data.drumIsUnlocked;
+        furnitureManagerScript.chairIsUnlocked = data.chairIsUnlocked;
+        furnitureManagerScript.fireflyIsUnlocked = data.fireflyIsUnlocked;
+        furnitureManagerScript.gameboardIsUnlocked = data.gameboardIsUnlocked;
+        furnitureManagerScript.fireIsUnlocked = data.fireIsUnlocked;
     }
 
     void LoadTutorialCompletion()
@@ -146,7 +155,14 @@ public class ProfileManager : MonoBehaviour
             newProfileData.calcite = profileData.calcite;
             newProfileData.flesh = profileData.flesh;
         }
-        
+
+        newProfileData.bedIsUnlocked = furnitureManagerScript.bedIsUnlocked;
+        newProfileData.drumIsUnlocked = furnitureManagerScript.drumIsUnlocked;
+        newProfileData.chairIsUnlocked = furnitureManagerScript.chairIsUnlocked;
+        newProfileData.fireflyIsUnlocked = furnitureManagerScript.fireflyIsUnlocked;
+        newProfileData.gameboardIsUnlocked = furnitureManagerScript.gameboardIsUnlocked;
+        newProfileData.fireIsUnlocked = furnitureManagerScript.fireIsUnlocked;
+
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
         newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
 
@@ -165,6 +181,13 @@ public class ProfileManager : MonoBehaviour
         newProfileData.exoskeleton = nutrientTrackerScript.storedExoskeleton;
         newProfileData.calcite = nutrientTrackerScript.storedCalcite;
         newProfileData.flesh = nutrientTrackerScript.storedFlesh;
+
+        newProfileData.bedIsUnlocked = furnitureManagerScript.bedIsUnlocked;
+        newProfileData.drumIsUnlocked = furnitureManagerScript.drumIsUnlocked;
+        newProfileData.chairIsUnlocked = furnitureManagerScript.chairIsUnlocked;
+        newProfileData.fireflyIsUnlocked = furnitureManagerScript.fireflyIsUnlocked;
+        newProfileData.gameboardIsUnlocked = furnitureManagerScript.gameboardIsUnlocked;
+        newProfileData.fireIsUnlocked = furnitureManagerScript.fireIsUnlocked;
 
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
         newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
@@ -200,6 +223,13 @@ public class ProfileManager : MonoBehaviour
 
         public bool tutroialIsDone;
         public bool permadeathIsOn;
+
+        public bool bedIsUnlocked;
+        public bool drumIsUnlocked;
+        public bool chairIsUnlocked;
+        public bool fireflyIsUnlocked;
+        public bool gameboardIsUnlocked;
+        public bool fireIsUnlocked;
 
         public override string ToString()
         {
