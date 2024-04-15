@@ -118,4 +118,26 @@ public class LevelEnd : MonoBehaviour
         playerHealth.isInvincible = false;
         playerController.EnableController();
     }
+
+    public void SpecialCreditsLoopFunction()
+    {
+        //This is only meant to be used by the credits player
+
+        nutrientTracker.KeepMaterials();
+        nutrientTracker.LoseMaterials();
+        profileManager.SaveOverride();
+
+        weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
+
+        //Save Current Weapon
+        GlobalData.currentWeapon = "Daybreak Arboretum/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+        GlobalData.currentWeaponDamage = weaponStats.wpnDamage;
+        GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
+
+        //Save Current Stats
+        GlobalData.currentSporeStats.Add(characterStats.primalLevel);
+        GlobalData.currentSporeStats.Add(characterStats.speedLevel);
+        GlobalData.currentSporeStats.Add(characterStats.sentienceLevel);
+        GlobalData.currentSporeStats.Add(characterStats.vitalityLevel);
+    }
 }

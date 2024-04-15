@@ -26,6 +26,7 @@ public class CreditsPlayer : MonoBehaviour
     [SerializeField] private float fadeTimeEndOfRunCanvas;
 
     private PlayerController playerController;
+    private LevelEnd levelEndScript;
     private GameObject camTracker;
     private bool creditsIsOn = false;
     private bool askSkipIsOn = false;
@@ -33,6 +34,7 @@ public class CreditsPlayer : MonoBehaviour
     private void Start()
     {
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        levelEndScript = GameObject.Find("LevelEndObject").GetComponent<LevelEnd>();
         camTracker = GameObject.FindWithTag("Camtracker");
     }
 
@@ -57,7 +59,7 @@ public class CreditsPlayer : MonoBehaviour
         GlobalData.isAbleToPause = false;
         playerController.DisableController();
 
-        difficultyText.text = "Enemy Stats +" + (GlobalData.currentLoop + 1) * 100 + "%";
+        difficultyText.text = "Enemy Stats +" + (GlobalData.currentLoop) * 100 + "%";
 
         StartCoroutine(EndOfRun());
     }
@@ -73,7 +75,8 @@ public class CreditsPlayer : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         GlobalData.currentLoop++;
-        
+
+        levelEndScript.SpecialCreditsLoopFunction();
 
         SceneLoader.Instance.BeginLoadScene("Daybreak Arboretum", true);
         creditsIsOn = false;
