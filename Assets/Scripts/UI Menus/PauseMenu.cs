@@ -164,6 +164,10 @@ public class PauseMenu : MonoBehaviour
 
         profileManagerScript.Save();
 
+        GlobalData.currentLoop = 1;
+        PlayerPrefs.SetInt("CurrentLoop", GlobalData.currentLoop);
+        PlayerPrefs.Save();
+
         nutrientTracker.LoseMaterials();
         playerParent.GetComponent<SwapWeapon>().curWeapon.tag = "Weapon";
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");

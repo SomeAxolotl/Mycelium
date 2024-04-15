@@ -28,6 +28,9 @@ public class MonsterBossAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tailAttackDamage = tailAttackDamage * GlobalData.currentLoop;
+        swipeAttackDamage = swipeAttackDamage * GlobalData.currentLoop;
+        slamAttackDamage = slamAttackDamage * GlobalData.currentLoop;
         player = GameObject.FindWithTag("currentPlayer").transform;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();

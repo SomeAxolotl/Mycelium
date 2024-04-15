@@ -13,6 +13,7 @@ public class ShellVelocity : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
+        damage = damage * GlobalData.currentLoop;
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindWithTag("currentPlayer").transform;
     }
