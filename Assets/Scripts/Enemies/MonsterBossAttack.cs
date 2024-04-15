@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -52,7 +51,6 @@ public class MonsterBossAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerController playerController = GetComponent<PlayerController>();
         attack = this.Attack(damage);
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;

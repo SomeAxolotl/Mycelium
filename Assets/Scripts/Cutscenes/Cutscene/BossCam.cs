@@ -10,22 +10,23 @@ public class BossCam : MonoBehaviour
 
     private CinemachineTrackedDolly vCamDolly;
     private CinemachineBrain mainBrain;
+    private GameObject boss;
     private Transform bossHead;
-
+    private GameObject playerParent;
     // Start is called before the first frame update
     void Start()
     {
         vCamDolly = vCam.GetCinemachineComponent<CinemachineTrackedDolly>();
         mainBrain = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineBrain>();
+        boss = GameObject.Find("Rival Colony Leader");
         bossHead = GameObject.Find("Rival Colony Leader").transform.Find("Armature.001").GetChild(0).GetChild(1).GetChild(0).GetChild(0);
         vCam.m_LookAt = bossHead;
+        playerParent = GameObject.FindWithTag("PlayerParent");
     }
-
     public void StartBossCutscene()
     {
         StartCoroutine(BossCutscene());
     }
-
     IEnumerator BossCutscene()
     {
         float time = 16f;
@@ -55,6 +56,11 @@ public class BossCam : MonoBehaviour
         vCam.enabled = false;
         GlobalData.isAbleToPause = true;
         yield return new WaitForSeconds(newBlendTime);
+        playerParent.GetComponent<PlayerController>().playerActionsAsset.Player.Enable();
+        playerParent.GetComponent<PlayerAttack>().playerActionsAsset.Player.Enable();
+        boss.GetComponent<TempMovement>().enabled = true;
+        boss.GetComponent<MonsterBossAttack>().enabled = true;
+        boss.GetComponent<Animator>().SetBool("IsAttacking", false);
         mainBrain.m_DefaultBlend.m_Time = oldBlendTime;
     }
 }
