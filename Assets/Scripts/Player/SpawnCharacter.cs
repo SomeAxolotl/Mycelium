@@ -126,6 +126,8 @@ public class SpawnCharacter : MonoBehaviour
         hudHappiness.ShowColonyHappinessMeter();
         hudHappiness.UpdateHappinessMeter();
 
+        GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassMuffling>().CalculateMuffleSnapshot();
+
         newCharacter.transform.position = GameObject.Find("GrowSpawn").transform.position;
         if(sporeCam != null )
         {

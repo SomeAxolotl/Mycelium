@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public static class GlobalData
 {
@@ -30,4 +31,7 @@ public static class GlobalData
     public static bool areaCleared = false;
     public static string sporeDied = null;
     public static string sporePermaDied = null;
+
+    //Audio Stuff
+    public static AudioMixerSnapshot currentAudioMixerSnapshot;
 }

@@ -14,7 +14,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject confirmMenu;
     [SerializeField] Button resumeButton;
 
-    [SerializeField] AudioMixerSnapshot unpausedSnapshot;
+    AudioMixerSnapshot unpausedSnapshot;
+    [SerializeField] AudioMixer audioMixer;
     [SerializeField] AudioMixerSnapshot pausedSnapshot;
     [SerializeField] float muffleTransitionTime = 0.1f;
 
@@ -67,6 +68,12 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        GlobalData.currentAudioMixerSnapshot = audioMixer.FindSnapshot("Default");
+        GlobalData.currentAudioMixerSnapshot.TransitionTo(0f);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -95,6 +102,7 @@ public class PauseMenu : MonoBehaviour
         confirmMenu.SetActive(false);
         HUD.GetComponent<HUDController>().FadeInHUD();
         unpausedSnapshot.TransitionTo(muffleTransitionTime);
+        GlobalData.currentAudioMixerSnapshot = unpausedSnapshot;
         Time.timeScale = 1f;
         GlobalData.isGamePaused = false;
         //Cursor.visible = false;
@@ -103,10 +111,13 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        unpausedSnapshot = GlobalData.currentAudioMixerSnapshot;
+
         SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
         pauseMenu.SetActive(true);
         HUD.GetComponent<HUDController>().FadeOutHUD();
         pausedSnapshot.TransitionTo(muffleTransitionTime);
+        GlobalData.currentAudioMixerSnapshot = pausedSnapshot;
         Time.timeScale = 0f;
         GlobalData.isGamePaused = true;
 

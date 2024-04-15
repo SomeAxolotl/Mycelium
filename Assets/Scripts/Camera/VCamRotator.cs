@@ -67,7 +67,7 @@ public class VCamRotator : MonoBehaviour
 
     public void OnNavigateCamera()
     {
-        Debug.Log("navigating");
+        //Debug.Log("navigating");
 
         if (levelGoal == null)
         {
