@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZoomiesCurio : CurioStats
+public class ZoomiesCurio : Curio
 {
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
