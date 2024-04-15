@@ -29,7 +29,7 @@ public class BossHealth2 : EnemyHealth
             hudBoss.UpdateBossHealthUI(currentHealth, maxHealth);
         }
 
-        if ((currentHealth <= maxHealth / 2) && (!alreadyDead))
+        if ((currentHealth <= maxHealth / 2) && (!alreadyDead) && (currentHealth >= 1))
         {
             // activate all enemy spawners when health is less than 50%
             foreach (var enemy in enemySpawners)
@@ -40,6 +40,7 @@ public class BossHealth2 : EnemyHealth
 
         if (currentHealth <= 0 && !alreadyDead)
         {
+            DestroyNonBossEnemies();
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
             if(gameObject.name == "Rival Colony Leader")
             {
@@ -54,5 +55,18 @@ public class BossHealth2 : EnemyHealth
         }
 
         hasTakenDamage = true;
+    }
+
+    public void DestroyNonBossEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var enemyObj in enemies)
+        {
+            if (enemyObj.name != "Rival Colony Leader")
+            {
+                Debug.Log("Enemy Spawner: " + enemyObj.name);
+                enemyObj.SetActive(false);
+            }
+        }
     }
 }
