@@ -5,6 +5,8 @@ using UnityEngine;
 public class BossHealth2 : EnemyHealth
 {
     bool hudPopup = false;
+   [SerializeField] private List<GameObject> enemySpawners = new List<GameObject>();
+
     void OnTriggerEnter(Collider other)
     {
         HUDBoss hudBoss = GameObject.Find("HUD").GetComponent<HUDBoss>();
@@ -25,6 +27,15 @@ public class BossHealth2 : EnemyHealth
         if (currentHealth + dmgTaken > 0)
         {
             hudBoss.UpdateBossHealthUI(currentHealth, maxHealth);
+        }
+
+        if ((currentHealth <= maxHealth / 2) && (!alreadyDead))
+        {
+            // activate all enemy spawners when health is less than 50%
+            foreach (var enemy in enemySpawners)
+            {
+                enemy.SetActive(true);
+            }
         }
 
         if (currentHealth <= 0 && !alreadyDead)
