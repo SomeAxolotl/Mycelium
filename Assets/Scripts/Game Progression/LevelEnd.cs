@@ -8,14 +8,16 @@ public class LevelEnd : MonoBehaviour
 {
     bool hasCollided = false;
 
-    [SerializeField] int sceneIndexToGoTo;
-    [SerializeField] bool isCheckpoint;
+    [SerializeField] private int sceneIndexToGoTo;
+    [SerializeField] public bool isCheckpoint;
 
     NutrientTracker nutrientTracker;
     SwapWeapon swapWeapon;
     ProfileManager profileManager;
     WeaponStats weaponStats;
     CharacterStats characterStats;
+    PlayerHealth playerHealth;
+    PlayerController playerController;
 
     void Start()
     {
@@ -23,6 +25,8 @@ public class LevelEnd : MonoBehaviour
         swapWeapon = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
         profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        playerHealth = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
+        playerController = GameObject.Find("PlayerParent").GetComponent<PlayerController>();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -31,41 +35,48 @@ public class LevelEnd : MonoBehaviour
             hasCollided = true;
             GlobalData.isAbleToPause = false;
 
-            other.GetComponentInParent<PlayerHealth>().currentHealth = other.GetComponentInParent<PlayerHealth>().maxHealth;
-            other.GetComponentInParent<PlayerHealth>().isInvincible = true;
-            other.GetComponentInParent<PlayerController>().DisableController();            
-
-            string currentHeldMaterial = nutrientTracker.GetCurrentHeldMaterial();
-            string completeMessage = "<color=#7FFF00>AREA COMPLETE</color>";
-            if (currentHeldMaterial != "")
-            {
-                NotificationManager.Instance.Notification(completeMessage, currentHeldMaterial + " stored at the Carcass", null, currentHeldMaterial);
-            }
-            else
-            {
-                NotificationManager.Instance.Notification(completeMessage);
-            }
-
-            //Increment Area Completion Count
-            GlobalData.areaCleared = true;
-
-            nutrientTracker.KeepMaterials();
-            nutrientTracker.LoseMaterials();
-            profileManager.SaveOverride();
+            playerHealth.isInvincible = true;
+            playerController.DisableController();            
 
             if(isCheckpoint == true)
             {
-                GoToTheCarcass();
+                EndOfLevelCanvasStuff.Instance.StartEndOfLevel(this);
             }
             else
             {
+                //notification stuff
+                string currentHeldMaterial = nutrientTracker.GetCurrentHeldMaterial();
+                string completeMessage = "<color=#7FFF00>AREA COMPLETE</color>";
+                if (currentHeldMaterial != "")
+                {
+                    NotificationManager.Instance.Notification(completeMessage, currentHeldMaterial + " stored at the Carcass", null, currentHeldMaterial);
+                }
+                else
+                {
+                    NotificationManager.Instance.Notification(completeMessage);
+                }
+
+                //Increment Area Completion Count
+                GlobalData.areaCleared = true;
+
                 EndOfLevelCanvasStuff.Instance.StartEndOfLevel(this);
             }
         }
     }
 
+    public void SceneChangeSetup()
+    {
+        playerHealth.currentHealth = playerHealth.maxHealth;
+
+        nutrientTracker.KeepMaterials();
+        nutrientTracker.LoseMaterials();
+        profileManager.SaveOverride();
+    }
+
     public void GoToNextLevel()
     {
+        SceneChangeSetup();
+
         weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
 
         //Save Current Weapon
@@ -84,6 +95,8 @@ public class LevelEnd : MonoBehaviour
 
     public void GoToTheCarcass()
     {
+        SceneChangeSetup();
+
         swapWeapon.curWeapon.tag = "Weapon";
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
@@ -93,5 +106,14 @@ public class LevelEnd : MonoBehaviour
         GlobalData.currentWeapon = null;
 
         SceneLoader.Instance.BeginLoadScene("The Carcass", "Dylan is a tree");
+    }
+
+    public void GoBackToGameplay()
+    {
+        hasCollided = false;
+        GlobalData.isAbleToPause = true;
+
+        playerHealth.isInvincible = false;
+        playerController.EnableController();
     }
 }
