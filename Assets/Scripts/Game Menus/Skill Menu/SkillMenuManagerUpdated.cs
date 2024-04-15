@@ -1596,61 +1596,73 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       {
         DescriptionText.text = "Eruption: <br> <size=25>Stomp the ground with primal strength <br> dealing damage to all enemies around you.<br> Deals additional damage to enemies closer to you.";
         EruptionUnlocked.navigation = NoneNav;
+        EruptionUnlocked.onClick.RemoveListener(EruptionsSlot1);
       }
       else if(LCDescrip == true)
       {
         DescriptionText.text = "Living Cyclone: <br> <size=25>Spin relentlessly striking all enemies<br> around you with your currently equipped weapon. <br> You are able to move while Living Cyclone is active.";
         LivingCycloneUnlocked.navigation = NoneNav;
+        LivingCycloneUnlocked.onClick.RemoveListener(LivingCycloneSlot1);
       }
       else if(RelentDescrip == true)
       {
         DescriptionText.text = "Relentless Fury: <br> <size=25>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25%<br> of weapon damage.";
         RelentlessFuryUnlocked.navigation = NoneNav; 
+        RelentlessFuryUnlocked.onClick.RemoveListener(RelentlessFurySlot1);
       }
       else if (BlitzDescrip == true)
       {
         DescriptionText.text = "Blitz: <br> <size=25>Dash in a straight line damaging all enemies hit.<br> If an enemy is hit the cooldown of Blitz<br> is reduced by 50%.";
         BlitzUnlocked.navigation = NoneNav;
+        BlitzUnlocked.onClick.RemoveListener(BlitzSlot1);
       }
       else if (TrophicDescrip == true)
       {
         DescriptionText.text = "Trophic Cascade: <br> <size=25>Release a flurry of attacks slashing<br> all enemies around you.";
         TrophicCascadeUnlocked.navigation = NoneNav;
+        TrophicCascadeUnlocked.onClick.RemoveListener(TrophicCascadeSlot1);
       }
       else if (MycoDescrip == true)
       {
         DescriptionText.text = "Mycotoxins: <br> <size=25>Gain 50% bonus movement speed and release a trail of spores behind you. Enemies hit by these spores are damaged.";
         MycotoxinsUnlocked.navigation = NoneNav;
+        MycotoxinsUnlocked.onClick.RemoveListener(MycotoxinsSlot1);
       }
       else if (SpineDescrip == true)
       {
         DescriptionText.text = "Spineshot: <br> <size=25>Fire out a spine damaging the first enemy hit.";
         SpineshotUnlocked.navigation = NoneNav;
+        SpineshotUnlocked.onClick.RemoveListener(SpineShotSlot1);
       }
       else if (UnstableDescrip == true)
       {
         DescriptionText.text = "Unstable Puffball: <br><size=25>Fires a puffball that explodes and damages all enemies upon contact.";
         UnstablePuffBallUnlocked.navigation = NoneNav;
+        UnstablePuffBallUnlocked.onClick.RemoveListener(UnstablePuffballSlot1);
       }
       else if (UnderDescrip == true)
       {
         DescriptionText.text = "Undergrowth: <br><size=25> An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit.";
         UndergrowthUnlocked.navigation = NoneNav;
+        UndergrowthUnlocked.onClick.RemoveListener(UndergrowthSlot1);
       }
       else if(LeechDescrip == true)
       {
         DescriptionText.text = "Leeching Spores: <br><size=25>Infest a nearby enemy with a leeching spore. The spore steals health every second from the enemy and restores it to you.";
         LeechingSporesUnlocked.navigation = NoneNav;
+        LeechingSporesUnlocked.onClick.RemoveListener(LeechingSporeSlot1);
       }
       else if(SporeDescrip == true)
       {
         DescriptionText.text = "Sporeburst: <br><size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.";
         SporeburstUnlocked.navigation = NoneNav;
+        SporeburstUnlocked.onClick.RemoveListener(SporeBurstSlot1);
       }
       else if (DefenseDescrip == true)
       {
         DescriptionText.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Attacks against you while Defense Mechanism is active is stored as bonus damage on your next attack equal to 50% of the damage absorbed.";
         DefenseMechanismUnlocked.navigation = NoneNav;
+        DefenseMechanismUnlocked.onClick.RemoveListener(DefenseMechanismSlot1);
       }
       }
       if(controls.UISub.Cancel.triggered && DescriptionActive == true)
@@ -1672,6 +1684,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         DefenseMechanismUnlocked.navigation = AutoNav;
         DescriptionActive = false;
         DescriptionPanelHolder.SetActive(false);
+        ButtonListeners();
     }
   }
   }

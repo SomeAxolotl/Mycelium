@@ -81,7 +81,7 @@ public class SentLevelConfirm : MonoBehaviour
         if(currentstats.sentienceLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.sentienceLevel++;
-        nutrientTracker.storedLog -= 1;
+        nutrientTracker.storedLog--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -107,7 +107,7 @@ public class SentLevelConfirm : MonoBehaviour
         else if(currentstats.sentienceLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.sentienceLevel++;
-        nutrientTracker.storedExoskeleton -= 1;
+        nutrientTracker.storedExoskeleton--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -133,7 +133,7 @@ public class SentLevelConfirm : MonoBehaviour
         else if(currentstats.sentienceLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.sentienceLevel++;
-        nutrientTracker.storedCalcite -= 1;
+        nutrientTracker.storedCalcite--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -159,7 +159,7 @@ public class SentLevelConfirm : MonoBehaviour
         else if(currentstats.sentienceLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.sentienceLevel++;
-        nutrientTracker.storedFlesh -= 1;
+        nutrientTracker.storedFlesh--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
