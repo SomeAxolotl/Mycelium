@@ -74,24 +74,22 @@ public class PauseMenu : MonoBehaviour
         GlobalData.currentAudioMixerSnapshot.TransitionTo(0f);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnPause()
     {
-        if (isOnMainMenu == false)
+        if (isOnMainMenu == true || GlobalData.isAbleToPause == false)
         {
-            if (playerInput.Player.Pause.WasPressedThisFrame() && GlobalData.isAbleToPause == true)
-            {
-                if (GlobalData.isGamePaused == true)
-                {
-                    Resume();
-                    SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
-                }
-                else
-                {
-                    Pause();
-                    resumeButton.Select();
-                }
-            }
+            return;
+        }
+
+        if (GlobalData.isGamePaused == true)
+        {
+            Resume();
+            SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
+        }
+        else
+        {
+            Pause();
+            resumeButton.Select();
         }
     }
 
