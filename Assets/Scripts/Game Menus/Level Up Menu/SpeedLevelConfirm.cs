@@ -81,7 +81,7 @@ public class SpeedLevelConfirm : MonoBehaviour
         if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.speedLevel++;
-        nutrientTracker.storedLog -= 1;
+        nutrientTracker.storedLog--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -107,7 +107,7 @@ public class SpeedLevelConfirm : MonoBehaviour
         else if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.speedLevel++;
-        nutrientTracker.storedExoskeleton -= 1;
+        nutrientTracker.storedExoskeleton--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -133,7 +133,7 @@ public class SpeedLevelConfirm : MonoBehaviour
         else if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.speedLevel++;
-        nutrientTracker.storedCalcite -= 1;
+        nutrientTracker.storedCalcite--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -159,7 +159,7 @@ public class SpeedLevelConfirm : MonoBehaviour
         else if(currentstats.speedLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.speedLevel++;
-        nutrientTracker.storedFlesh -= 1;
+        nutrientTracker.storedFlesh--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();

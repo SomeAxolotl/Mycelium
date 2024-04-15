@@ -82,7 +82,7 @@ public class VitLevelConfirm : MonoBehaviour
         if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedLog -= 1;
+        nutrientTracker.storedLog--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -108,7 +108,7 @@ public class VitLevelConfirm : MonoBehaviour
         else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedExoskeleton -= 1;
+        nutrientTracker.storedExoskeleton--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -134,7 +134,7 @@ public class VitLevelConfirm : MonoBehaviour
         else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedCalcite -= 1;
+        nutrientTracker.storedCalcite--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();
@@ -160,7 +160,7 @@ public class VitLevelConfirm : MonoBehaviour
         else if(currentstats.vitalityLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.vitalityLevel++;
-        nutrientTracker.storedFlesh -= 1;
+        nutrientTracker.storedFlesh--;
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
         levelscript.UIUpdate();

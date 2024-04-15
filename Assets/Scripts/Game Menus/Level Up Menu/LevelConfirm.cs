@@ -81,7 +81,7 @@ public class LevelConfirm : MonoBehaviour
         if(currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "FungalMight")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedLog -= 1;
+        nutrientTracker.storedLog--;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -109,7 +109,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "DeathBlossom")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedExoskeleton-= 1;
+        nutrientTracker.storedExoskeleton--;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -137,7 +137,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "FairyRing")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedCalcite -= 1;
+        nutrientTracker.storedCalcite--;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
@@ -165,7 +165,7 @@ public class LevelConfirm : MonoBehaviour
         else if (currentstats.primalLevel == 9 && currentstats.equippedSkills[0] == "Zombify")
         {
         currentstats.primalLevel++;
-        nutrientTracker.storedFlesh-= 1;
+        nutrientTracker.storedFlesh--;
         Debug.Log("Leveled Primal");
         currentstats.StartCalculateAttributes();
         currentstats.UpdateLevel();
