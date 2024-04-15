@@ -23,8 +23,6 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int savedCurrentLoop = PlayerPrefs.GetInt("CurrentLoop", 1); // Default value is 1
-        GlobalData.currentLoop = savedCurrentLoop;
         currentHealth = maxHealth * GlobalData.currentLoop;
         maxHealth = maxHealth * GlobalData.currentLoop;
         this.transform.parent = null;

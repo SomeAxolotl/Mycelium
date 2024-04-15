@@ -73,8 +73,7 @@ public class CreditsPlayer : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         GlobalData.currentLoop++;
-        PlayerPrefs.SetInt("CurrentLoop", GlobalData.currentLoop);
-        PlayerPrefs.Save();
+        
 
         SceneLoader.Instance.BeginLoadScene("Daybreak Arboretum", true);
         creditsIsOn = false;
@@ -84,8 +83,7 @@ public class CreditsPlayer : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         GlobalData.currentLoop = 1;
-        PlayerPrefs.SetInt("CurrentLoop", GlobalData.currentLoop);
-        PlayerPrefs.Save();
+        
         StartCoroutine(PlayCredits());
     }
 
