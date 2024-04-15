@@ -16,6 +16,7 @@ public class WanderingSpore : MonoBehaviour
     [SerializeField][Tooltip("Minimum radius for the random wandering state")] float minWanderRadius = 5f;
     [SerializeField][Tooltip("Maximum radius for the random wandering state")] float maxWanderRadius = 10f;
     [SerializeField][Tooltip("Rigidbody mass when they're standing or doing something")] int rbActiveMass = 10000;
+    [SerializeField][Tooltip("Rigidbody mass when they're walking or disabled")] int rbInactiveMass = 1;
     [SerializeField][Tooltip("How close is considered arrived for the Spore")] float arrivedDistance = 0.1f;
 
     [Header("Avoidance")]
@@ -25,6 +26,7 @@ public class WanderingSpore : MonoBehaviour
     [SerializeField][Tooltip("How much speed until the reroute timer starts ticking up")] float rerouteSpeedThreshold = 1f;
     //[SerializeField][Tooltip("Multiplies with the reroute speed check to scale with speed and avoid properly")] float rerouteSpeedThresholdMultiplier = 0.5f;
     [SerializeField][Tooltip("How much time a Spore will try to run against an obstacle until giving up with the task altogether")] float timeUntilGivingUp = 1.5f;
+    [SerializeField][Tooltip("How much time a Spore will spend stuck until poofing away and respawning")] float timeUntilRespawn = 5f;
     float wanderRadius;
 
     [Header("Standing")]
@@ -34,7 +36,7 @@ public class WanderingSpore : MonoBehaviour
     [SerializeField][Tooltip("Maximum for how long a spore stands at maximum happiness")] float maxHappinessMaxStandingTime = 6f;
 
     CharacterStats characterStats;
-    Animator animator;
+    public Animator animator;
     Rigidbody rb;
     [SerializeField] Transform center;
 
@@ -51,6 +53,10 @@ public class WanderingSpore : MonoBehaviour
 
     Vector3 previousPosition;
     public float currentSpeed;
+
+    [Header("Testing")]
+    [SerializeField] GameObject waypointVisual;
+    List<GameObject> currentWaypointVisuals = new List<GameObject>();
 
     public enum WanderingStates
     {
@@ -89,6 +95,12 @@ public class WanderingSpore : MonoBehaviour
         animator.SetBool("HappyWalk", false);
         animator.SetBool("SadWalk", false);
 
+        rb.mass = rbInactiveMass;
+
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            animator.Rebind();
+        }
 
         EndInteractingCurioEvent();
 
@@ -102,11 +114,6 @@ public class WanderingSpore : MonoBehaviour
             interactingCurio.EndEvent(this);
         }
         interactingCurio = null;
-
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            animator.Rebind();
-        }
     }
 
     //Calculates and switches to a new state
@@ -125,14 +132,14 @@ public class WanderingSpore : MonoBehaviour
         }
         else
         {
-            rb.mass = 0;
+            rb.mass = rbInactiveMass;
 
             //Makes a list of the CurioAttraction class, sending in this Spore's personality to get the corresponding weight
             SporePersonalities sporePersonality = GetComponent<CharacterStats>().sporePersonality;
             List<CurioAttraction> curioAttractions = new List<CurioAttraction>();
             foreach (Curio curio in GetNearbyCurio())
             {
-                if (curio != null && curio.CanUse() && curio != previousCurio)
+                if (curio != null && curio.CanUse() && curio != previousCurio && ((curio.selfCurio && this.gameObject == curio.gameObject) || (!curio.selfCurio && this.gameObject != curio.gameObject)))
                 {
                     CurioAttraction curioAttraction = new CurioAttraction(curio, sporePersonality);
                     curioAttractions.Add(curioAttraction);
@@ -181,7 +188,11 @@ public class WanderingSpore : MonoBehaviour
             rerouteTimer = 0f;
         }
 
-        if (rerouteTimer > timeUntilGivingUp)
+        if (rerouteTimer > timeUntilRespawn)
+        {
+            RespawnSpore();
+        }
+        else if (rerouteTimer > timeUntilGivingUp)
         {
             CalculateNextState();
         }
@@ -276,6 +287,8 @@ public class WanderingSpore : MonoBehaviour
 
                 //Remove the current waypoint
                 waypoints.RemoveAt(0);
+
+                UpdateWaypointVisuals(waypoints);
             }
         }
     }
@@ -343,6 +356,8 @@ public class WanderingSpore : MonoBehaviour
             {   
                 currentState = WanderingStates.Traveling;
             }
+
+            UpdateWaypointVisuals(waypoints);
         }
         //Else...
         else
@@ -351,13 +366,33 @@ public class WanderingSpore : MonoBehaviour
 
             if (calculatePathAttempts > 10)
             {
-                SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
-                ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90, 0, 0));
-                GameManager.Instance.PlaceSpore(gameObject);
-                ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90, 0, 0));
+                RespawnSpore();
             }
 
             CalculateNextState();
+        }
+    }
+
+    void RespawnSpore()
+    {
+        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90, 0, 0));
+        GameManager.Instance.PlaceSpore(gameObject);
+        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90, 0, 0));
+    }
+
+    void UpdateWaypointVisuals(List<Vector3> waypointPositions)
+    {
+        foreach (GameObject currentWayPointVisual in currentWaypointVisuals)
+        {
+            Destroy(currentWayPointVisual);
+        }
+        
+        currentWaypointVisuals.Clear();
+
+        foreach (Vector3 waypointPosition in waypoints)
+        {
+            currentWaypointVisuals.Add(Instantiate(waypointVisual, waypointPosition, Quaternion.identity));
         }
     }
 

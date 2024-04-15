@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class BedCurio : Curio
 {
+    [SerializeField] float minLayTime = 10f;
+    [SerializeField] float maxLayTime = 20f;
+
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
         wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
 
+        Animator animator = wanderingSpore.animator;
+
         yield return new WaitForSeconds(1f);
 
-        wanderingSpore.GetComponent<Animator>().SetBool("Lay(Beg)", true);
+        animator.SetBool("Lay(Beg)", true);
 
-        yield return new WaitForSeconds(7f);
+        float randomSitTime = Random.Range(minLayTime, maxLayTime);
+        yield return new WaitForSeconds(randomSitTime);
 
-        wanderingSpore.GetComponent<Animator>().SetBool("Lay(Beg)", false);
-        wanderingSpore.GetComponent<Animator>().SetBool("Lay(End)", true);
+        animator.SetBool("Lay(Beg)", false);
+        animator.SetBool("Lay(End)", true);
 
 
         yield return new WaitForSeconds(2f);
-        wanderingSpore.GetComponent<Animator>().SetBool("Lay(End)", false);
+        animator.SetBool("Lay(End)", false);
     }
 }

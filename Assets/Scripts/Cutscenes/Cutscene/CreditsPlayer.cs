@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 using static System.TimeZoneInfo;
 
 public class CreditsPlayer : MonoBehaviour
@@ -21,6 +22,7 @@ public class CreditsPlayer : MonoBehaviour
 
     [Header("==End Of Run Section==")]
     [SerializeField] private CanvasGroup endOfRunCanvas;
+    [SerializeField] private TMP_Text difficultyText;
     [SerializeField] private float fadeTimeEndOfRunCanvas;
 
     private PlayerController playerController;
@@ -54,6 +56,8 @@ public class CreditsPlayer : MonoBehaviour
     {
         GlobalData.isAbleToPause = false;
         playerController.DisableController();
+
+        difficultyText.text = "Enemy Stats +" + (GlobalData.currentLoop + 1) * 100 + "%";
 
         StartCoroutine(EndOfRun());
     }
