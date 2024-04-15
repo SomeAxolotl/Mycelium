@@ -48,6 +48,7 @@ public class FurnitureManager : MonoBehaviour
                 return fireIsUnlocked;
 
             default:
+                Debug.LogError("Invalid furniture name");
                 return false;
         }
     }
