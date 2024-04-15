@@ -5,12 +5,15 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Cinemachine;
+using UnityEngine.SceneManagement;
 using System.Xml.Linq;
 
 public class OptionsScript : MonoBehaviour
 {
     [SerializeField] AudioMixer masterMixer;
     [SerializeField] Volume gammaVolume;
+    private CinemachineFreeLook freeLookCamera;
 
     [Header("The Sliders")]
     [SerializeField] Slider masterSlider;
@@ -18,6 +21,7 @@ public class OptionsScript : MonoBehaviour
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider gammaSlider;
     [SerializeField] Slider renderSlider;
+    [SerializeField] Slider sensitivitySlider;
 
     ColorAdjustments colorAdjust;
 
@@ -28,6 +32,12 @@ public class OptionsScript : MonoBehaviour
 
     private void Start()
     {
+        // if (SceneManager.GetActiveScene().buildIndex != 0)
+        // {
+        //     GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        //     freeLookCamera = cameraObject.GetComponent<CinemachineFreeLook>();
+        // }
+
         LoadOptionValues();
     }
 
@@ -64,6 +74,15 @@ public class OptionsScript : MonoBehaviour
         cameraCulling.SetRenderDistance(sliderValue);
     }
 
+    public void SetSensitivityValue(float sliderValue)
+    {
+        // if (SceneManager.GetActiveScene().buildIndex != 0)
+        // {
+        //     freeLookCamera.m_XAxis.m_MaxSpeed = sliderValue;
+        // }
+    }
+
+
     public void SaveOptionValues()
     {
         float masterValue = masterSlider.value;
@@ -71,12 +90,14 @@ public class OptionsScript : MonoBehaviour
         float sfxValue = sfxSlider.value;
         float gammaValue = gammaSlider.value;
         float renderValue = renderSlider.value;
+        float sensitivityValue = sensitivitySlider.value;
 
         PlayerPrefs.SetFloat("MasterVolumeValue", masterValue);
         PlayerPrefs.SetFloat("BGMVolumeValue", bgmValue);
         PlayerPrefs.SetFloat("SFXVolumeValue", sfxValue);
         PlayerPrefs.SetFloat("GammaValue", gammaValue);
         PlayerPrefs.SetFloat("RenderValue", renderValue);
+        PlayerPrefs.SetFloat("SensitivityValue", sensitivityValue);
 
         LoadOptionValues();
     }
@@ -88,17 +109,20 @@ public class OptionsScript : MonoBehaviour
         float sfxValue = PlayerPrefs.GetFloat("SFXVolumeValue", 1);
         float gammaValue = PlayerPrefs.GetFloat("GammaValue", 0);
         float renderValue = PlayerPrefs.GetFloat("RenderValue", 550f);
+        float sensitivityValue = PlayerPrefs.GetFloat("SensitivityValue", 300);
 
         masterSlider.value = masterValue;
         bgmSlider.value = bgmValue;
         sfxSlider.value = sfxValue;
         gammaSlider.value = gammaValue;
         renderSlider.value = renderValue;
+        sensitivitySlider.value = sensitivityValue;
 
         SetMasterVolume(masterValue);
         SetBGMVolume(bgmValue);
         SetSFXVolume(sfxValue);
         SetGammaValue(gammaValue);
         SetRenderValue(renderValue);
+        SetSensitivityValue(sensitivityValue);
     }
 }
