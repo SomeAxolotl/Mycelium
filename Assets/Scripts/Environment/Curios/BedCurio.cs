@@ -9,22 +9,43 @@ public class BedCurio : Curio
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
-        wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
+        bool isSleeping = (Random.Range(0, 2) == 0) ? true : false;
 
-        Animator animator = wanderingSpore.animator;
+        if (isSleeping)
+        {
+            wanderingSpore.lookTarget = -(transform.position - wanderingSpore.transform.position);
 
-        yield return new WaitForSeconds(1f);
+            Animator animator = wanderingSpore.animator;
 
-        animator.SetBool("Lay(Beg)", true);
+            yield return new WaitForSeconds(1f);
 
-        float randomSitTime = Random.Range(minLayTime, maxLayTime);
-        yield return new WaitForSeconds(randomSitTime);
+            animator.SetBool("InActionState", true);
+            animator.SetTrigger("Sleep");
 
-        animator.SetBool("Lay(Beg)", false);
-        animator.SetBool("Lay(End)", true);
+            float randomSitTime = Random.Range(minLayTime, maxLayTime);
+            yield return new WaitForSeconds(randomSitTime);
 
+            animator.SetBool("InActionState", false);
 
-        yield return new WaitForSeconds(2f);
-        animator.SetBool("Lay(End)", false);
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
+
+            Animator animator = wanderingSpore.animator;
+
+            yield return new WaitForSeconds(1f);
+
+            animator.SetBool("InActionState", true);
+            animator.SetTrigger("Lay");
+
+            float randomSitTime = Random.Range(minLayTime, maxLayTime);
+            yield return new WaitForSeconds(randomSitTime);
+
+            animator.SetBool("InActionState", false);
+
+            yield return new WaitForSeconds(2f);
+        }
     }
 }

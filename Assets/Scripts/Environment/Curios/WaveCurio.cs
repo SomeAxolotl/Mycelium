@@ -11,20 +11,20 @@ public class WaveCurio : Curio
     {
         wanderingSpore.animator.SetTrigger("Wave");
 
-        StartCoroutine(LookAtSpore(wanderingSpore));
+        GameObject randomSpore = wanderingSpore.GetRandomNearbySpore();
 
-        //StartCoroutine(GoadWaveBack());
+        StartCoroutine(LookAtSpore(wanderingSpore, randomSpore));
 
         yield return new WaitForSeconds(waveTime);
     }
 
-    IEnumerator LookAtSpore(WanderingSpore wanderingSpore)
+    IEnumerator LookAtSpore(WanderingSpore wanderingSpore, GameObject randomSpore)
     {     
         float timer = 0f;
 
         while(timer < waveTime)
         {
-            wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
+            wanderingSpore.lookTarget = randomSpore.transform.position - wanderingSpore.transform.position;
 
             timer += Time.deltaTime;
 

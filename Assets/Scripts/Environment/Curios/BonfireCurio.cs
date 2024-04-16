@@ -9,16 +9,20 @@ public class BonfireCurio : Curio
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
-        wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
-        
-        Animator animator = wanderingSpore.GetComponent<Animator>();
+       wanderingSpore.lookTarget = transform.position - wanderingSpore.transform.position;
 
-        animator.SetBool("Sitting", true);
+        Animator animator = wanderingSpore.animator;
+
+        yield return new WaitForSeconds(1f);
+
         animator.SetTrigger("SitFloor");
+        animator.SetBool("InActionState", true);
 
         float randomSitTime = Random.Range(minSitTime, maxSitTime);
         yield return new WaitForSeconds(randomSitTime);
 
-        animator.SetBool("Sitting", false);
+        animator.SetBool("InActionState", false);
+
+        yield return new WaitForSeconds(2f);
     }
 }

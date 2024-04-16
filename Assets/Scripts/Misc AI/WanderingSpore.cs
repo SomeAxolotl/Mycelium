@@ -454,6 +454,36 @@ public class WanderingSpore : MonoBehaviour
         return nearbyCurio;
     }
 
+    //i used chatgpt for this fuck you
+    // Returns a random nearby Spore GameObject
+    public GameObject GetRandomNearbySpore()
+    {
+        int playerLayer = LayerMask.GetMask("Player");
+
+        List<GameObject> nearbySpores = new List<GameObject>();
+
+        // Find all colliders within the specified radius and player layer
+        Collider[] colliders = Physics.OverlapSphere(transform.position, curioRadius, playerLayer);
+
+        // Extract GameObjects tagged as "Spore" from the colliders
+        foreach (Collider col in colliders)
+        {
+            if (col.gameObject != this.gameObject)
+            {
+                nearbySpores.Add(col.gameObject);
+            }
+        }
+
+        // If no nearby spores found, return null
+        if (nearbySpores.Count == 0)
+        {
+            return null;
+        }
+
+        // Return a random spore from the list of nearby spores
+        return nearbySpores[Random.Range(0, nearbySpores.Count)];
+    }
+
     public string GetWalkAnimation()
     {
         float happiness = GetComponent<CharacterStats>().sporeHappiness;
