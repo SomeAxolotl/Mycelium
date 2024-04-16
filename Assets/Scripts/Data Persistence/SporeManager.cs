@@ -55,6 +55,10 @@ public class SporeManager : SporeManagerSystem
             //Debug.Log("NO SPORES FOUND!!! ---LOADING DEFAULT SPORE DATA---");
 
             sporeDataList = defaultSporeData;
+            if(ProfileManager.Instance.profileData.nutrients != 0)
+            {
+                sporeDataList.Spore_Data[0].sporeName = SpawnCharacter.Instance.GenerateRandomSporeName();
+            }
             //Debug.Log(sporeDataList);
         }
     }
