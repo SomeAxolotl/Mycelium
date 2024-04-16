@@ -29,9 +29,9 @@ public class BossCam : MonoBehaviour
     }
     IEnumerator BossCutscene()
     {
-        float time = 16f;
-        float elapsedTime = 0f;
-        float t = 0f;
+        //float time = 16f;
+        //float elapsedTime = 0f;
+        //float t = 0f;
 
         float oldBlendTime = mainBrain.m_DefaultBlend.m_Time;
         float newBlendTime = 1f;
@@ -40,7 +40,7 @@ public class BossCam : MonoBehaviour
         GlobalData.isAbleToPause = false;
         mainBrain.m_DefaultBlend.m_Time = newBlendTime;
 
-        while (elapsedTime < time)
+        /*while (elapsedTime < time)
         {
             t = elapsedTime / time;
 
@@ -49,7 +49,9 @@ public class BossCam : MonoBehaviour
             elapsedTime += Time.unscaledDeltaTime;
 
             yield return null;
-        }
+        }*/
+
+        yield return new WaitUntil(() => !boss.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Intro"));
 
         vCamDolly.m_PathPosition = 1;
 

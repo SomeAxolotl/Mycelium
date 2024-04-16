@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class ZoomiesCurio : Curio
 {
-    public int zoomiesCount = 3;
-    public float radius = 5f;
-    public int numPoints = 10; 
+    [SerializeField] int zoomiesCount = 3;
+    [SerializeField] float radius = 5f;
+    [SerializeField] int numPoints = 10; 
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
+        Debug.Log("ZOOMIES");
         
         // Calculate the angle between each point
         float angleIncrement = 360f / numPoints;
 
+        List<Vector3> points = new List<Vector3>();
         for (int z = 0; z < zoomiesCount; z++)
         {
-            List<Vector3> points = new List<Vector3>();
             for (int i = 0; i < numPoints; i++)
             {
                 float angle = i * angleIncrement;

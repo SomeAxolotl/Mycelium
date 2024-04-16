@@ -504,7 +504,7 @@ public class WanderingSpore : MonoBehaviour
     }
 
     //Calls and yields the respective curio event before going to the next state
-    IEnumerator InteractWithCurio(Curio curio)
+    public IEnumerator InteractWithCurio(Curio curio)
     {
         yield return null;
 
