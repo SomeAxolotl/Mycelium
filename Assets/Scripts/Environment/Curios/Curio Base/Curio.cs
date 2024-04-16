@@ -25,9 +25,11 @@ public abstract class Curio : MonoBehaviour
     [Header("Event")]
     [SerializeField] bool meow;
 
-    void Start()
+    IEnumerator Start()
     {
-        if (!selfCurio && !gameObject.name.Contains("Spore"))
+        yield return null;
+
+        if (!selfCurio && !gameObject.name.Contains("Spore") && !gameObject.name.Contains("Keeper"))
         {
             gameObject.SetActive(FurnitureManager.Instance.FurnitureIsUnlocked(gameObject.name));
         }
@@ -35,11 +37,6 @@ public abstract class Curio : MonoBehaviour
 
     public IEnumerator CurioEvent(WanderingSpore wanderingSpore)
     {
-        if (traversalTransforms == null)
-        {
-            traversalTransforms[0] = new TraversalTransform(transform);
-        }
-
         currentUserCount++;
 
         List<TraversalTransform> possibleTraversalTransforms = new List<TraversalTransform>();
@@ -78,7 +75,7 @@ public abstract class Curio : MonoBehaviour
     public class TraversalTransform
     {
         public Transform transform;
-        [HideInInspector] public WanderingSpore interactingSpore;
+        [HideInInspector] public WanderingSpore interactingSpore = null;
 
         public TraversalTransform(Transform argTransform)
         {

@@ -111,7 +111,7 @@ public class CreditsPlayer : MonoBehaviour
                 break;
             case 6:
                 FurnitureManager.Instance.gameboardIsUnlocked = true;
-                coloredUnlockString = "Gameboard";
+                coloredUnlockString = "Game Board";
                 break;
             case 7:
                 FurnitureManager.Instance.drumIsUnlocked = true;

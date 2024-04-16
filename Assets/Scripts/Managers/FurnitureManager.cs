@@ -27,21 +27,22 @@ public class FurnitureManager : MonoBehaviour
 
     public bool FurnitureIsUnlocked(string furnitureName)
     {
+        Debug.Log(furnitureName);
         switch(furnitureName)
         {
-            case "bed":
+            case "Bed":
                 return bedIsUnlocked;
 
-            case "drum":
+            case "Drum":
                 return drumIsUnlocked;
 
-            case "chair":
+            case "Chair":
                 return chairIsUnlocked;
 
-            case "firefly":
+            case "Firefly":
                 return fireflyIsUnlocked;
 
-            case "gameboard":
+            case "Gameboard":
                 return gameboardIsUnlocked;
 
             case "Bonfire":
