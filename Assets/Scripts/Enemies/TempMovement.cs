@@ -52,6 +52,7 @@ public class TempMovement : MonoBehaviour
                 animator.SetTrigger("TurnLeft");
             }
         }*/
+
         /*Vector3 relativeDirToPlayer = transform.InverseTransformDirection(dirToPlayer);
         float yRotationDifference = Mathf.Atan2(relativeDirToPlayer.x, relativeDirToPlayer.z) * Mathf.Rad2Deg;
 

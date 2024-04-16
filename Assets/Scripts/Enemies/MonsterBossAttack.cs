@@ -23,8 +23,8 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float slamAttackDamage = 70f;
     [HideInInspector] public bool isAttacking = false;
     private int numberofAttacks = 2;
-    private float swipeAttackAnimationDuration = 3.0f;
-    private float slamAttackAnimationDuration = 2.0f;
+    private float swipeAttackAnimationDuration = 2.7f;
+    private float slamAttackAnimationDuration = 1.7f;
     // Start is called before the first frame update
     void Start()
     {
@@ -161,7 +161,7 @@ public class MonsterBossAttack : MonoBehaviour
     {
         if(collision.gameObject.tag == "currentPlayer" && !collision.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(collision.gameObject) && isAttacking)
         {
-            collision.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(30f);
+            collision.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(slamAttackDamage);
             playerHit.Add(collision.gameObject);
         }
     }

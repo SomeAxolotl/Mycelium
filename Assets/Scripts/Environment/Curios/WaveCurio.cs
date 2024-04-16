@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveCurio : Curio
 {
     float waveTime = 3f;
-    float goadWaveBackTime = 0.75f;
+    //float goadWaveBackTime = 0.75f;
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
@@ -13,7 +13,10 @@ public class WaveCurio : Curio
 
         GameObject randomSpore = wanderingSpore.GetRandomNearbySpore();
 
-        StartCoroutine(LookAtSpore(wanderingSpore, randomSpore));
+        if(randomSpore != null)
+        {
+            StartCoroutine(LookAtSpore(wanderingSpore, randomSpore));
+        }
 
         yield return new WaitForSeconds(waveTime);
     }
