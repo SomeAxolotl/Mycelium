@@ -111,30 +111,35 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     {  
         fog.SetActive(!fog.isActive);  
         LevelUI.SetActive(false);
-        controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
         controls.UI.Close.performed += ctx => CloseSkill();
-        controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
         swapcharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
         UpdateUI();
-        Invoke("ControlEnable", 0.25f);
+        Invoke("ControlEnable", 0.50f);
+        Invoke("MenuSwapDelay", 0.60f);
         GrowMenu.SetActive(false);
         Camera.SetActive(true);
         EruptionUnlocked.Select();
         ErupDescrip = true;
         ButtonListeners();
-        
         Invoke("InstantiateCurrentSpore", 0.01f);
         //Primal Unlock Statements
         
         
     }
+    public void MenuSwapDelay()
+    {
+      controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
+      controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
+    }
    
      void OnDisable()
     {
+      controls.UI.MenuSwapL.performed -= ctx => MenuSwapLeft();
+      controls.UI.MenuSwapR.performed -= ctx => MenuSwapRight();
       controls.UI.Disable();
       Destroy(InstantiatedSpore);
       fog.SetActive(!fog.isActive); 
@@ -1073,15 +1078,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         LeechCheck();
         DefenseMechCheck();
         SkillDescriptions();
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
-      {
-        MenuSwapLeft();
-      }
-      if(Input.GetKeyDown(KeyCode.RightBracket))
-      {
-        MenuSwapRight();
-      }
-      
     }
 
     public void EruptionsSlot1()

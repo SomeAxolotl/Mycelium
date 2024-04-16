@@ -48,14 +48,13 @@ public class GrowMenuButtonController : MonoBehaviour
     void OnEnable()
     {
         ClearList();
-        controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
-        controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
         controls.UI.Close.performed += ctx => Close();
         swapCharacterscript = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
         //currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
-        Invoke("ControlEnable", 0.25f);
+        Invoke("ControlEnable", 0.50f);
+        Invoke("MenuSwapDelay", 0.60f);
         SkillMenu.SetActive(false);
         buttons = new List<GameObject>();
         button.Select();
@@ -70,14 +69,12 @@ public class GrowMenuButtonController : MonoBehaviour
     }
     void Update()
     {
-         if(Input.GetKeyDown(KeyCode.LeftBracket))
-      {
-        MenuSwapLeft();
-      }
-      if(Input.GetKeyDown(KeyCode.RightBracket))
-      {
-        MenuSwapRight();
-      }
+        
+    }
+    public void MenuSwapDelay()
+    {
+      controls.UI.MenuSwapL.performed += ctx => MenuSwapLeft();
+      controls.UI.MenuSwapR.performed += ctx => MenuSwapRight();
     }
    
    void MenuSwapLeft()
@@ -96,6 +93,8 @@ public class GrowMenuButtonController : MonoBehaviour
     }
     void OnDisable()
     {
+      controls.UI.MenuSwapL.performed -= ctx => MenuSwapLeft();
+      controls.UI.MenuSwapR.performed -= ctx => MenuSwapRight();
       controls.UI.Disable();
       Camera.SetActive(false);
     }

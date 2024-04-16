@@ -125,30 +125,30 @@ public class LevelUpManagerNew : MonoBehaviour
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
-      Invoke("ControlEnable", 0.25f);
       Camera.SetActive(true);
-      Invoke("MenuSwapDelay", 0.25f);
+      ControlEnable();
+      Invoke("MenuSwapDelay", 0.60f);
+      
 
     }
     void Update()
     {
-      if(Input.GetKeyDown(KeyCode.LeftBracket))
-      {
-        MenuSwapL();
-      }
-      if(Input.GetKeyDown(KeyCode.RightBracket))
-      {
-        MenuSwap();
-      }
+
     }
     public void ControlEnable()
     {
-       controls.UI.Enable();  
+       controls.UI.Enable();
+        controls.UI.MenuSwapR.started += ctx => MenuDoNothing();
+      controls.UI.MenuSwapL.started += ctx => MenuDoNothing();  
     }
     void MenuSwapDelay()
     {
       controls.UI.MenuSwapR.performed += ctx => MenuSwap();
       controls.UI.MenuSwapL.performed += ctx => MenuSwapL();
+    }
+    void MenuDoNothing()
+    {
+      return;
     }
     void OnDisable()
     {
@@ -658,7 +658,7 @@ public class LevelUpManagerNew : MonoBehaviour
       switch(currentstats.equippedSkills[0])
       {
         case "FungalMight":
-        currentstats.LevelVitalityPoison();
+        currentstats.LevelVitality();
         StartCoroutine(UpdateUI());
         break;
         case "DeathBlossom":
