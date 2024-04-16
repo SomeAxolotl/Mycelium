@@ -76,13 +76,15 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         WeaponStats oldStats = curWeapon.GetComponent<WeaponStats>();
         WeaponStats newStats = weapon.gameObject.GetComponent<WeaponStats>();
         string damageComparisonText;
+        float damageDifference = newStats.wpnDamage - oldStats.wpnDamage;
+        float knockDifference = newStats.wpnKnockback - oldStats.wpnKnockback;
         if (newStats.wpnDamage > oldStats.wpnDamage)
         {
-            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +</color>";
+            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + damageDifference.ToString("F1") + ")" + "</color>";
         }
         else if (newStats.wpnDamage < oldStats.wpnDamage)
         {
-            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -</color>";
+            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(damageDifference).ToString("F1") + ")" + "</color>";
         }
         else
         {
@@ -91,11 +93,11 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         string knockbackComparisonText;
         if (newStats.wpnKnockback > oldStats.wpnKnockback)
         {
-            knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +</color>";
+            knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + knockDifference.ToString("F1") + ")" + "</color>";
         }
         else if (newStats.wpnKnockback < oldStats.wpnKnockback)
         {
-            knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -</color>";
+            knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(knockDifference).ToString("F1") + ")" + "</color>";
         }
         else
         {
