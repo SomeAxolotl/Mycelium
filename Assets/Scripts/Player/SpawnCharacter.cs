@@ -6,6 +6,8 @@ using RonaldSunglassesEmoji.Personalities;
 
 public class SpawnCharacter : MonoBehaviour
 {
+    public static SpawnCharacter Instance;
+
     [SerializeField] private List<string> sporeNames = new List<string>()
     {
         "Gob"
@@ -34,6 +36,19 @@ public class SpawnCharacter : MonoBehaviour
     SwapCharacter swapCharacter;
     SkillManager skillManager;
     NewSporeCam sporeCam;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -188,5 +203,11 @@ public class SpawnCharacter : MonoBehaviour
                 character.GetComponent<DesignTracker>().SetBodyColor(cordycepsBodyColors[randomColorIndex]);
                 break;
         }
+    }
+
+    public string GenerateRandomSporeName()
+    {
+        int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
+        return sporeNames[randomNameIndex];
     }
 }

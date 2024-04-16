@@ -9,7 +9,7 @@ public class ProfileManager : MonoBehaviour
     public static ProfileManager Instance;
 
     private string filePath;
-    private ProfileData profileData;
+    public ProfileData profileData;
     private NutrientTracker nutrientTrackerScript;
     private FurnitureManager furnitureManagerScript;
 
