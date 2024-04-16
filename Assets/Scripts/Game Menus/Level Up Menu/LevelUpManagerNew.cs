@@ -97,7 +97,8 @@ public class LevelUpManagerNew : MonoBehaviour
     void OnEnable()
     {
       EventSystem.SetActive(false);
-      Invoke("EnableEvent", 0.51f);
+      Invoke("EnableEvent", 0.60f);
+      Invoke("Commitbuttonselect", 0.65f);
       Camera.SetActive(true);
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
       controls.UI.Close.performed += ctx => Close();
@@ -116,7 +117,6 @@ public class LevelUpManagerNew : MonoBehaviour
        damagesave = currentstats.primalDmg;
        totalLevelsave = currentstats.totalLevel;
        levelupsave = currentstats.levelUpCost;
-       Commitbutton.Select();
        SkillCD();
        SkillDam();
        StartCoroutine(UpdateUI());
@@ -126,10 +126,6 @@ public class LevelUpManagerNew : MonoBehaviour
        SpeedBarFill();
        SentienceBarFill();
        VitalityBarFill();
-       PrimalDeselect();
-       SpeedDeselect();
-       SentienceDeselect();
-       VitalityDeselect();
        PrimalSelected = false;
        SpeedSelected = false;
        SentienceSelected = false;
@@ -139,7 +135,7 @@ public class LevelUpManagerNew : MonoBehaviour
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
       Camera.SetActive(true);
-      Invoke("ControlEnable", 0.50f);
+      Invoke("ControlEnable", 0.60f);
       Invoke("MenuSwapDelay", 0.60f);
     }
     void Update()
@@ -149,11 +145,16 @@ public class LevelUpManagerNew : MonoBehaviour
     void EnableEvent()
     {
      EventSystem.SetActive(true);
-     Commitbutton.Select();
+     
+    }
+    void Commitbuttonselect()
+    {
+      Commitbutton.Select();
     }
     public void ControlEnable()
     {
        controls.UI.Enable();
+       
     }
     void MenuSwapDelay()
     {
