@@ -11,8 +11,9 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 2f;
     [SerializeField][Tooltip("The radius around the EnemySpawner that the Enemy will randomly spawn in")][Min(0)] private float spawnRange = 0.4f;
     [SerializeField][Tooltip("The number of enemies spawned before this spawner destructs")] private int enemiesSpawnedLimit = 20;
-    [SerializeField][Tooltip("Vertical Spaw Range")] private float waterfallOffset = 2;
-    [SerializeField][Tooltip("Spawn enemies vertically")] private bool spawnerIsVertical = false; 
+    [SerializeField][Tooltip("Vertical Spawn Range")] private float waterfallOffset = 2;
+    [SerializeField][Tooltip("Spawn enemies vertically")] private bool spawnerIsVertical = false;
+    [SerializeField][Tooltip("Delay the spawner's start time by the spawn interval")] private bool spawnDelay = false;
     private int enemiesSpawnedCount = 0;
     [HideInInspector] public List<GameObject> spawnedEnemies = new List<GameObject>();
     [SerializeField]private GameObject particleEffect;
@@ -20,59 +21,75 @@ public class EnemySpawner : MonoBehaviour
     private bool hasSpawned = false;
     [SerializeField][Tooltip("Spawns enemies on Start()")] private bool spawnOnStart = false;
     private int totalEnemyWeight = 0;
-    
+
     private List<GameObject> weightedEnemyList = new List<GameObject>();
     void Start()
     {
         //Fills a list of potential enemy spawns with amounts based on their weight
-        foreach(EnemySpawn enemySpawn in EnemyList)
+        foreach (EnemySpawn enemySpawn in EnemyList)
         {
             totalEnemyWeight += enemySpawn.weight;
-            for(int i=0; i<enemySpawn.weight; i++)
+            for (int i = 0; i < enemySpawn.weight; i++)
                 weightedEnemyList.Add(enemySpawn.EnemyPrefab);
         }
 
-        if(!hasSpawned && spawnOnStart)
+        if (!hasSpawned && spawnOnStart)
+        {
+            if (spawnAll)
             {
-                if(spawnAll)
-                {
-                    SpawnAllEnemies();
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    StartCoroutine(SpawnEnemiesWithInterval());
-                }
+                SpawnAllEnemies();
+                Destroy(gameObject);
             }
+            else
+            {
+                StartCoroutine(SpawnEnemiesWithInterval());
+            }
+        }
     }
     IEnumerator SpawnEnemiesWithInterval()
     {
         while (enemiesSpawnedCount < enemiesSpawnedLimit)
         {
-            SpawnEnemy();
-            enemiesSpawnedCount++;
-            //Debug.Log("Spawn count: " + enemiesSpawnedCount);
-            yield return new WaitForSeconds(spawnInterval);
+            if (spawnDelay == true)
+            {
+                yield return new WaitForSeconds(spawnInterval);
+                SpawnEnemy();
+                enemiesSpawnedCount++;
+            }
+            else
+            {
+                SpawnEnemy();
+                enemiesSpawnedCount++;
+                //Debug.Log("Spawn count: " + enemiesSpawnedCount);
+                yield return new WaitForSeconds(spawnInterval);
+            }
+
         }
-            
+
         hasSpawned = true;
+        Destroy(gameObject);
+    }
+    IEnumerator SpawnAllWithInterval()
+    {
+        yield return new WaitForSeconds(spawnInterval);
+        SpawnAllEnemies();
         Destroy(gameObject);
     }
 
     void SpawnEnemy()
     {
-        if(spawnerIsVertical == true)
+        if (spawnerIsVertical == true)
         {
-            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0,weightedEnemyList.Count - 1)], new Vector3(transform.position.x + waterfallOffset, transform.position.y, transform.position.z), Quaternion.identity);
+            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + waterfallOffset, transform.position.y, transform.position.z), Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
         }
         else
         {
-            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0,weightedEnemyList.Count - 1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
+            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
         }
         //Selects a random enemy from the weightedEnemyList, and spawns it
-        
+
     }
 
     void SpawnAllEnemies()
@@ -84,15 +101,20 @@ public class EnemySpawner : MonoBehaviour
         }
         hasSpawned = true;
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
         GameObject player = GameObject.FindGameObjectWithTag("currentPlayer");
-        if(other.gameObject == player)
+        if (other.gameObject == player)
         {
-            if(!hasSpawned)
+            if (!hasSpawned)
             {
-                if(spawnAll)
+                if (spawnDelay && spawnAll)
+                {
+                    Debug.Log("Ran");
+                    StartCoroutine(SpawnAllWithInterval());
+                }
+                else if (spawnAll && !spawnDelay)
                 {
                     SpawnAllEnemies();
                 }
@@ -100,7 +122,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     StartCoroutine(SpawnEnemiesWithInterval());
                 }
-            }            
+            }
         }
     }
 }
@@ -113,7 +135,8 @@ class EnemySpawn
     public string name = "Enemy";
     [Tooltip("The prefab of the enemy to spawn")]
     public GameObject EnemyPrefab = null;
-    
-    [Range(1,10)][Tooltip("The spawn weight of an enemy. The higher the weight compared to other enemies, the more likely the enemy will spawn.")]
+
+    [Range(1, 10)]
+    [Tooltip("The spawn weight of an enemy. The higher the weight compared to other enemies, the more likely the enemy will spawn.")]
     public int weight = 1;
-} 
+}
