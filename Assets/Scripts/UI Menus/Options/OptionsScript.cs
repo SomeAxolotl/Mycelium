@@ -32,11 +32,11 @@ public class OptionsScript : MonoBehaviour
 
     private void Start()
     {
-        // if (SceneManager.GetActiveScene().buildIndex != 0)
-        // {
-        //     GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
-        //     freeLookCamera = cameraObject.GetComponent<CinemachineFreeLook>();
-        // }
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+            freeLookCamera = cameraObject.GetComponent<CinemachineFreeLook>();
+        }
 
         LoadOptionValues();
     }
@@ -76,10 +76,10 @@ public class OptionsScript : MonoBehaviour
 
     public void SetSensitivityValue(float sliderValue)
     {
-        // if (SceneManager.GetActiveScene().buildIndex != 0)
-        // {
-        //     freeLookCamera.m_XAxis.m_MaxSpeed = sliderValue;
-        // }
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            freeLookCamera.m_XAxis.m_MaxSpeed = sliderValue;
+        }
     }
 
 
