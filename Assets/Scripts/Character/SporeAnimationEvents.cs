@@ -41,6 +41,11 @@ public class SporeAnimationEvents : MonoBehaviour
         SoundEffectManager.Instance.PlaySound("Stab", transform.position);
     }
 
+    void StabTip()
+    {
+        //leo code here
+    }
+
     void Smash()
     {
         SoundEffectManager.Instance.PlaySound("Smash", transform.position);
