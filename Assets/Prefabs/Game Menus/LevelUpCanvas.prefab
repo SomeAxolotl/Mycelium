@@ -4479,6 +4479,7 @@ MonoBehaviour:
   VitalityArrowDown: {fileID: 6444860507967540929}
   Camera: {fileID: 0}
   GrowMenu: {fileID: 0}
+  EventSystem: {fileID: 0}
 --- !u!114 &1562541848511119821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11289,6 +11290,22 @@ MonoBehaviour:
         - m_Target: {fileID: 1562541848511119821}
           m_TargetAssemblyTypeName: MenuSoundManager, Assembly-CSharp
           m_MethodName: PlayUIMoveSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5725637710287622626}
+          m_TargetAssemblyTypeName: LevelUpManagerNew, Assembly-CSharp
+          m_MethodName: CommitSelect
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

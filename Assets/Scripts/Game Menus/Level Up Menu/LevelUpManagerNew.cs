@@ -70,10 +70,14 @@ public class LevelUpManagerNew : MonoBehaviour
     public Image VitalityArrowUp;
     public Image VitalityArrowDown;
     public GameObject Camera;
-    
+    private bool PrimalSelected;
+    private bool SpeedSelected;
+    private bool SentienceSelected;
+    private bool VitalitySelected;
     ThirdPersonActionsAsset controls;
     List<string> newlyUnlockedSkills = new List<string>();
     public GameObject GrowMenu;
+    public GameObject EventSystem;
 
     private void Awake()
     {
@@ -92,7 +96,8 @@ public class LevelUpManagerNew : MonoBehaviour
 
     void OnEnable()
     {
-      
+      EventSystem.SetActive(false);
+      Invoke("EnableEvent", 0.51f);
       Camera.SetActive(true);
       currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
       controls.UI.Close.performed += ctx => Close();
@@ -121,34 +126,39 @@ public class LevelUpManagerNew : MonoBehaviour
        SpeedBarFill();
        SentienceBarFill();
        VitalityBarFill();
+       PrimalDeselect();
+       SpeedDeselect();
+       SentienceDeselect();
+       VitalityDeselect();
+       PrimalSelected = false;
+       SpeedSelected = false;
+       SentienceSelected = false;
+       VitalitySelected = false;
        List<Sprite> equippedSkillSprites = hudSkills.GetAllSkillSprites();
         Skill1Image.GetComponent<Image>().sprite = equippedSkillSprites[0];
         Skill2Image.GetComponent<Image>().sprite = equippedSkillSprites[1];
         Skill3Image.GetComponent<Image>().sprite = equippedSkillSprites[2];
       Camera.SetActive(true);
-      ControlEnable();
+      Invoke("ControlEnable", 0.50f);
       Invoke("MenuSwapDelay", 0.60f);
-      
-
     }
     void Update()
     {
 
     }
+    void EnableEvent()
+    {
+     EventSystem.SetActive(true);
+     Commitbutton.Select();
+    }
     public void ControlEnable()
     {
        controls.UI.Enable();
-        controls.UI.MenuSwapR.started += ctx => MenuDoNothing();
-      controls.UI.MenuSwapL.started += ctx => MenuDoNothing();  
     }
     void MenuSwapDelay()
     {
       controls.UI.MenuSwapR.performed += ctx => MenuSwap();
       controls.UI.MenuSwapL.performed += ctx => MenuSwapL();
-    }
-    void MenuDoNothing()
-    {
-      return;
     }
     void OnDisable()
     {
@@ -372,6 +382,7 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
       SkillMenu.SetActive(true);
+
     }
     void MenuSwapL()
     {
@@ -400,7 +411,12 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalBarLevelUp()
     {
-      
+      PrimalSelected = true;
+      SpeedSelected = false;
+      SentienceSelected = false;
+      VitalitySelected = false;
+      if(PrimalSelected == true && SpeedSelected == false && SentienceSelected == false && VitalitySelected == false)
+      {
       controls.UI.KeyLevelUpPrimal.Enable();
       controls.UI.KeyLevelDownPrimal.Enable();
       controls.UI.PrimalLevelRight.Enable();
@@ -413,6 +429,10 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.PrimalLevelRightStick.started += ctx => PrimalUP(); 
       controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
       controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
+      SpeedDeselect();
+      SentienceDeselect();
+      VitalityDeselect();
+      }
     }
     public void UIUpdate()
     {
@@ -473,6 +493,12 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SpeedBarLevelUp()
     {
+      PrimalSelected = false;
+      SpeedSelected = true;
+      SentienceSelected = false;
+      VitalitySelected = false;
+      if(SpeedSelected == true && PrimalSelected == false && SentienceSelected == false && VitalitySelected == false)
+      {
       controls.UI.KeyLevelUpSpeed.Enable();
       controls.UI.KeyLevelDownSpeed.Enable();
       controls.UI.SpeedLevelRight.Enable();
@@ -485,6 +511,10 @@ public class LevelUpManagerNew : MonoBehaviour
      controls.UI.SpeedLevelRightStick.started += ctx => SpeedUP(); 
      controls.UI.SpeedLevelLeft.started += ctx => SpeedDown(); 
       controls.UI.SpeedLevelLeftStick.started += ctx => SpeedDown();
+      PrimalDeselect();
+       SentienceDeselect();
+       VitalityDeselect();
+      }
     }
   
     public void SpeedUP()
@@ -542,18 +572,28 @@ public class LevelUpManagerNew : MonoBehaviour
     }
       public void SentienceBarLevelUp()
     {
-       controls.UI.KeyLevelUpSentience.Enable();
-       controls.UI.KeyLevelDownSentience.Enable();
-       controls.UI.SentienceLevelRight.Enable();
+      PrimalSelected = false;
+      SpeedSelected = false;
+      SentienceSelected = true;
+      VitalitySelected = false;
+      if(SentienceSelected == true && PrimalSelected == false && SpeedSelected == false && VitalitySelected == false)
+      {
+      controls.UI.KeyLevelUpSentience.Enable();
+      controls.UI.KeyLevelDownSentience.Enable();
+      controls.UI.SentienceLevelRight.Enable();
       controls.UI.SentienceLevelLeft.Enable();
       controls.UI.SentienceLevelRightStick.Enable();
       controls.UI.SentienceLevelLeftStick.Enable();
       controls.UI.KeyLevelUpSentience.started += ctx => SentienceUP();
       controls.UI.KeyLevelDownSentience.started += ctx => SentienceDown();
       controls.UI.SentienceLevelRight.started += ctx => SentienceUP();
-       controls.UI.SentienceLevelRightStick.started += ctx => SentienceUP(); 
-       controls.UI.SentienceLevelLeft.started += ctx => SentienceDown(); 
-       controls.UI.SentienceLevelLeftStick.started += ctx => SentienceDown();
+      controls.UI.SentienceLevelRightStick.started += ctx => SentienceUP(); 
+      controls.UI.SentienceLevelLeft.started += ctx => SentienceDown(); 
+      controls.UI.SentienceLevelLeftStick.started += ctx => SentienceDown();
+      PrimalDeselect();
+      SpeedDeselect();
+      VitalityDeselect();
+      }
     }
     public void SentienceUP()
     {
@@ -631,6 +671,12 @@ public class LevelUpManagerNew : MonoBehaviour
     }
       public void VitalityBarLevelUp()
     {
+      PrimalSelected = false;
+      SpeedSelected = false;
+      SentienceSelected = false;
+      VitalitySelected = true;
+      if(VitalitySelected == true && PrimalSelected == false && SpeedSelected == false && SentienceSelected == false)
+      {
       controls.UI.KeyLevelUpVitality.Enable();
       controls.UI.KeyLevelDownVitality.Enable();
       controls.UI.VitalityLevelRight.Enable();
@@ -643,6 +689,10 @@ public class LevelUpManagerNew : MonoBehaviour
       controls.UI.VitalityLevelRightStick.started += ctx => VitalityUP(); 
       controls.UI.VitalityLevelLeft.started += ctx => VitalityDown(); 
       controls.UI.VitalityLevelLeftStick.started += ctx => VitalityDown();
+      PrimalDeselect();
+       SpeedDeselect();
+       SentienceDeselect();
+      }
     }
     public void VitalityDeselect()
     {
@@ -706,6 +756,13 @@ public class LevelUpManagerNew : MonoBehaviour
 
       //This helps fix the bug where you could pause in the shop
       GlobalData.isAbleToPause = true;
+    }
+    public void CommitSelect()
+    {
+      PrimalDeselect();
+       SpeedDeselect();
+       SentienceDeselect();
+       VitalityDeselect();
     }
     /*public void CloseController()
     {

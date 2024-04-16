@@ -37,4 +37,7 @@ public static class GlobalData
 
     //Loop Difficulty Stuff
     public static int currentLoop = 1;
+
+    //Coroutine
+    public static Coroutine delayTimer = null;
 }

@@ -311,7 +311,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -379,7 +378,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
             return;
         }  
     }
@@ -444,7 +442,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
             return;
         }  
     }
@@ -509,7 +506,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
             return;
         }  
     }
@@ -576,7 +572,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -644,7 +639,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -712,7 +706,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -781,7 +774,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -850,7 +842,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -918,7 +909,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -987,7 +977,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          Debug.Log("return");
           return;
         }  
     }
@@ -1056,7 +1045,6 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         }
         else
         {
-          //Debug.Log("return");
           return;
         }  
     }
