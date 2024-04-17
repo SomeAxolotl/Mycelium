@@ -6,9 +6,11 @@ using UnityEngine;
 public class SporeAnimationEvents : MonoBehaviour
 {
     [SerializeField] float slashDonePercent = 0.5f;
-    //[SerializeField] float stabDonePercent = 0.5f;
+    [SerializeField] float stabDonePercent = 0.8f;
 
     ParticleSystem currentSlashParticle;
+
+    ParticleSystem currentStabParticle;
 
     void Footstep1()
     {
@@ -41,9 +43,26 @@ public class SporeAnimationEvents : MonoBehaviour
         SoundEffectManager.Instance.PlaySound("Stab", transform.position);
     }
 
+    void StabDone()
+    {
+        //StartCoroutine(FadeOutParticle(currentSlashParticle));
+        if (currentStabParticle != null)
+        {
+            Destroy(currentStabParticle.gameObject);
+        }
+    }
+
     void StabTip()
     {
+        GameObject currentWeapon = GameObject.FindWithTag("currentWeapon");
         //leo code here
+         if (currentWeapon != null)
+        {
+            Transform particleHolder = currentWeapon.transform.Find("ParticleHolder");
+
+            currentStabParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("StabParticle", particleHolder.position, Quaternion.Euler(particleHolder.transform.position));
+            StartCoroutine(DestroyParticleAfterDone(currentStabParticle.gameObject, "Stab", stabDonePercent)); 
+        }
     }
 
     void Smash()
@@ -55,7 +74,6 @@ public class SporeAnimationEvents : MonoBehaviour
     {
         SoundEffectManager.Instance.PlaySound("Panting", transform.position);
     }
-
     void SmashPart()
     {
         Transform particleHolder = GameObject.FindWithTag("currentWeapon").transform.Find("ParticleHolder");
