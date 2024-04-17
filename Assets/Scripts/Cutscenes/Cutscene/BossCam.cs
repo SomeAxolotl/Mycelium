@@ -11,6 +11,7 @@ public class BossCam : MonoBehaviour
     private CinemachineTrackedDolly vCamDolly;
     private CinemachineBrain mainBrain;
     private GameObject boss;
+    private Animator bossAnimator;
     private Transform bossHead;
     private GameObject playerParent;
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class BossCam : MonoBehaviour
         vCamDolly = vCam.GetCinemachineComponent<CinemachineTrackedDolly>();
         mainBrain = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineBrain>();
         boss = GameObject.Find("Rival Colony Leader");
+        bossAnimator = boss.GetComponent<Animator>();
         bossHead = GameObject.Find("Rival Colony Leader").transform.Find("Armature.001").GetChild(0).GetChild(0).GetChild(0).GetChild(0);
         vCam.m_LookAt = bossHead;
         playerParent = GameObject.FindWithTag("PlayerParent");
@@ -29,40 +31,33 @@ public class BossCam : MonoBehaviour
     }
     IEnumerator BossCutscene()
     {
-        //float time = 16f;
-        //float elapsedTime = 0f;
-        //float t = 0f;
-
         float oldBlendTime = mainBrain.m_DefaultBlend.m_Time;
         float newBlendTime = 1f;
         
         vCam.enabled = true;
         GlobalData.isAbleToPause = false;
+
         mainBrain.m_DefaultBlend.m_Time = newBlendTime;
 
-        /*while (elapsedTime < time)
+        while (bossAnimator.GetCurrentAnimatorStateInfo(0).IsName("Intro") == true)
         {
-            t = elapsedTime / time;
-
-            vCamDolly.m_PathPosition = Mathf.Lerp(0f, 1f, t);
-
-            elapsedTime += Time.unscaledDeltaTime;
+            vCamDolly.m_PathPosition = Mathf.Lerp(0f, 1f, bossAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
             yield return null;
-        }*/
-
-        yield return new WaitUntil(() => !boss.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Intro"));
+        }
 
         vCamDolly.m_PathPosition = 1;
 
         vCam.enabled = false;
         GlobalData.isAbleToPause = true;
+
         yield return new WaitForSeconds(newBlendTime);
+        mainBrain.m_DefaultBlend.m_Time = oldBlendTime;
+
         playerParent.GetComponent<PlayerController>().playerActionsAsset.Player.Enable();
         playerParent.GetComponent<PlayerAttack>().playerActionsAsset.Player.Enable();
         boss.GetComponent<TempMovement>().enabled = true;
         boss.GetComponent<MonsterBossAttack>().enabled = true;
         boss.GetComponent<Animator>().SetBool("IsAttacking", false);
-        mainBrain.m_DefaultBlend.m_Time = oldBlendTime;
     }
 }

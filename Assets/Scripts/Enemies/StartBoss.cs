@@ -7,11 +7,18 @@ public class StartBoss : MonoBehaviour
 {
     [SerializeField] private GameObject boss;
     private GameObject playerParent;
+    private Animator bossAnimator;
+    private float defaultAnimatorSpeed;
     void Start()
     {
+        bossAnimator = boss.GetComponent<Animator>();
+
         boss.GetComponent<TempMovement>().enabled = false;
         boss.GetComponent<MonsterBossAttack>().enabled = false;
-        boss.SetActive(false);
+
+        defaultAnimatorSpeed = bossAnimator.speed;
+        bossAnimator.speed = 0f;
+
         playerParent = GameObject.FindWithTag("PlayerParent");
     }
     void OnTriggerEnter(Collider collider)
@@ -19,6 +26,8 @@ public class StartBoss : MonoBehaviour
         if (collider.gameObject.CompareTag("currentPlayer"))
         {
             boss.SetActive(true);
+            bossAnimator.speed = defaultAnimatorSpeed;
+
             playerParent.GetComponent<PlayerController>().playerActionsAsset.Player.Disable();
             playerParent.GetComponent<PlayerAttack>().playerActionsAsset.Player.Disable();
 
