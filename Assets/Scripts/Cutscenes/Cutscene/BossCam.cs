@@ -24,6 +24,8 @@ public class BossCam : MonoBehaviour
         bossHead = GameObject.Find("Rival Colony Leader").transform.Find("Armature.001").GetChild(0).GetChild(0).GetChild(0).GetChild(0);
         vCam.m_LookAt = bossHead;
         playerParent = GameObject.FindWithTag("PlayerParent");
+
+        transform.position = boss.transform.position;
     }
     public void StartBossCutscene()
     {
