@@ -90,7 +90,7 @@ public class TestingManager : MonoBehaviour
     [SerializeField][Tooltip("Alpha8 - Go to Delta Crag")] private int cragBuildIndex = 4;
 
     [Header("Go to Impact Barrens - Alpha9")]
-    [SerializeField][Tooltip("Alpha9 - Go to Impact Barrens")] private int barrensBuildIndex = 6;
+    [SerializeField][Tooltip("Alpha9 - Go to Impact Barrens")] private int barrensBuildIndex = 5;
 
     [Header("Go to The Carcass - Alpha0")]
     [SerializeField][Tooltip("Alpha0 - Go to The Carcass")] private int carcassBuildIndex = 2;

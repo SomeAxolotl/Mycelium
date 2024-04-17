@@ -27,7 +27,7 @@ public class UPProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
+        if (collision.gameObject.tag == "Enemy")
         {
             ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
             DamageEnemies();
@@ -47,19 +47,14 @@ public class UPProjectile : MonoBehaviour
         SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
 
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
-        int bossLayerMask = 1 << LayerMask.NameToLayer("Boss");
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, AOERange, enemyLayerMask | bossLayerMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, AOERange, enemyLayerMask);
         
         foreach (Collider collider in colliders)
         {
             if (collider.GetComponent<EnemyHealth>() != null)
             {
                 collider.GetComponent<EnemyHealth>().EnemyTakeDamage(unstablePuffball.finalSkillValue);
-            }
-            else if (collider.GetComponent<BossHealth>() != null)
-            {
-                collider.GetComponent<BossHealth>().EnemyTakeDamage(unstablePuffball.finalSkillValue);
             }
         }
         Destroy(gameObject);

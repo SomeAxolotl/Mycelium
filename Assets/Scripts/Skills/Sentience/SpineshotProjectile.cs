@@ -26,15 +26,11 @@ public class SpineshotProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
+        if (collision.gameObject.tag == "Enemy")
         {
             if (collision.GetComponent<EnemyHealth>() != null)
             {
                 collision.GetComponent<EnemyHealth>().EnemyTakeDamage(spineshot.finalSkillValue);
-            }
-            else if (collision.GetComponent<BossHealth>() != null)
-            {
-                collision.GetComponent<BossHealth>().EnemyTakeDamage(spineshot.finalSkillValue);
             }
             Instantiate(ExplosionVFX, transform.position, transform.rotation);
             Destroy(gameObject);
