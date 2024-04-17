@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class StartBoss : MonoBehaviour
 {
@@ -21,6 +24,7 @@ public class StartBoss : MonoBehaviour
 
         playerParent = GameObject.FindWithTag("PlayerParent");
     }
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("currentPlayer"))
@@ -40,4 +44,51 @@ public class StartBoss : MonoBehaviour
             this.gameObject.SetActive(false);
         }
     }
+
+    public void PauseAnimator()
+    {
+        if(Application.isPlaying == true)
+        {
+            bossAnimator.speed = 0f;
+        }
+    }
+
+    public void UnpauseAnimator()
+    {
+        if (Application.isPlaying == true)
+        {
+            bossAnimator.speed = 1f;
+        }
+    }
 }
+
+//RYAN'S FANCY BUTTON STUFF
+#if UNITY_EDITOR
+[CustomEditor(typeof(StartBoss))]
+class StartBossEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        //Setup Stuff
+        base.OnInspectorGUI();
+
+        var startBoss = (StartBoss)target;
+        if (startBoss == null) return;
+
+        //Actual Stuff
+        GUILayout.BeginHorizontal();
+
+        if (GUILayout.Button("Pause Animator"))
+        {
+            startBoss.PauseAnimator();
+        }
+
+        if (GUILayout.Button("Unpause Animator"))
+        {
+            startBoss.UnpauseAnimator();
+        }
+
+        GUILayout.EndHorizontal();
+    }
+}
+#endif
