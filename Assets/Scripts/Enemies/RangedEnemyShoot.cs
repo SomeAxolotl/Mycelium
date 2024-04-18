@@ -50,7 +50,7 @@ public class RangedEnemyShoot : EnemyAttack
         }
 
         RaycastHit groundHit;
-        if (Physics.Raycast(center.position, -transform.up, out groundHit, 3f, enviromentLayer))
+        if (Physics.Raycast(center.position, -transform.up, out groundHit, 2f, enviromentLayer))
         {
             Quaternion groundRotation = Quaternion.FromToRotation(transform.up, groundHit.normal) * transform.rotation;
             float groundXRotation = groundRotation.eulerAngles.x;
@@ -63,6 +63,10 @@ public class RangedEnemyShoot : EnemyAttack
             {
                 targetRotation = Quaternion.Euler(groundXRotation, transform.eulerAngles.y, groundZRotation);
             }
+        }
+        else
+        {
+            targetRotation = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
         }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 8f);
