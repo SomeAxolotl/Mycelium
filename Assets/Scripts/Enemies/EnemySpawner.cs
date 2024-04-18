@@ -22,9 +22,22 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField][Tooltip("Spawns enemies on Start()")] private bool spawnOnStart = false;
     private int totalEnemyWeight = 0;
 
+    [SerializeField] private bool NOTspawnIndefinitelySmile = false;
+    [SerializeField] private int maxSpawnCount = 5;
+    [SerializeField] private float indefiniteSpawnInterval = 4f;
+
+    [SerializeField] private bool apofjiapfoijefpoaiefjapeofijaef;
+
     private List<GameObject> weightedEnemyList = new List<GameObject>();
+    
+
     void Start()
     {
+        if (NOTspawnIndefinitelySmile)
+        {
+            StartCoroutine(SpawnEnemiesIndefinitely());
+        }
+
         //Fills a list of potential enemy spawns with amounts based on their weight
         foreach (EnemySpawn enemySpawn in EnemyList)
         {
@@ -46,6 +59,23 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
+
+    IEnumerator SpawnEnemiesIndefinitely()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(indefiniteSpawnInterval);
+
+            int spawnerChildCount = transform.childCount;
+            if (spawnerChildCount < maxSpawnCount + 2)
+            {
+                GameObject a = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity, transform);
+                yield return null;
+                a.transform.parent = this.transform;
+            }
+        }
+    }
+
     IEnumerator SpawnEnemiesWithInterval()
     {
         while (enemiesSpawnedCount < enemiesSpawnedLimit)
@@ -118,7 +148,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     SpawnAllEnemies();
                 }
-                else
+                else if (apofjiapfoijefpoaiefjapeofijaef)
                 {
                     StartCoroutine(SpawnEnemiesWithInterval());
                 }
