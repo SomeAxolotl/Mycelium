@@ -388,7 +388,7 @@ public class WanderingSpore : MonoBehaviour
 
     public void UpdateWaypointVisuals(List<Vector3> waypointPositions)
     {
-        foreach (GameObject currentWayPointVisual in currentWaypointVisuals)
+        /*foreach (GameObject currentWayPointVisual in currentWaypointVisuals)
         {
             Destroy(currentWayPointVisual);
         }
@@ -398,7 +398,7 @@ public class WanderingSpore : MonoBehaviour
         foreach (Vector3 waypointPosition in waypoints)
         {
             currentWaypointVisuals.Add(Instantiate(waypointVisual, waypointPosition, Quaternion.identity));
-        }
+        }*/
     }
 
     //Custom class just to get a specialized personality weight for each curio
