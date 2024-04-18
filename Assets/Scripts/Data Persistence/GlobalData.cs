@@ -40,4 +40,7 @@ public static class GlobalData
 
     //Coroutine
     public static Coroutine delayTimer = null;
+
+    //Environment Stuff
+    public static bool isDay = true;
 }

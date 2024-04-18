@@ -27,7 +27,6 @@ public class FurnitureManager : MonoBehaviour
 
     public bool FurnitureIsUnlocked(string furnitureName)
     {
-        Debug.Log(furnitureName);
         switch(furnitureName)
         {
             case "Bed":
@@ -52,5 +51,15 @@ public class FurnitureManager : MonoBehaviour
                 Debug.LogError("Invalid furniture name");
                 return false;
         }
+    }
+
+    public void UnlockAllFurniture()
+    {
+        bedIsUnlocked = true;
+        drumIsUnlocked = true;
+        chairIsUnlocked = true;
+        fireflyIsUnlocked = true;
+        gameboardIsUnlocked = true;
+        fireIsUnlocked = true;
     }
 }

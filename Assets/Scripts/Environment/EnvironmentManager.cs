@@ -29,9 +29,8 @@ public class CarcassEnvironmentManager : MonoBehaviour, ISerializationCallbackRe
         UpdateEnvironments();
     }
 
-
     [ContextMenu("Update Environments")]
-    private void UpdateEnvironments()
+    public void UpdateEnvironments()
     {
         foreach(Environment env in Environments)
         {
@@ -49,6 +48,8 @@ public class CarcassEnvironmentManager : MonoBehaviour, ISerializationCallbackRe
         }
     }
 }
+
+
 
 [System.Serializable]
 public class Environment

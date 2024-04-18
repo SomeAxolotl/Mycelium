@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float nutrientDrainRate = 1f;
     [SerializeField] float timeUntilHubSprout = 10f;
 
+    [SerializeField] CarcassEnvironmentManager environmentManager;
+
     GameObject vcamHolder;
 
     public static GameManager Instance;
@@ -43,6 +45,18 @@ public class GameManager : MonoBehaviour
         //At the Carcass,
         if (scene.buildIndex == 2)
         {
+            if (GlobalData.isDay)
+            {
+                environmentManager.Selection = "Day";
+                environmentManager.UpdateEnvironments();
+            }
+            else
+            {
+                environmentManager.Selection = "Dawn";
+                environmentManager.UpdateEnvironments();
+            }
+            GlobalData.isDay = !GlobalData.isDay;
+
             if (GlobalData.sporePermaDied != null)
             {
                 HappinessManager.Instance.FriendlySporePermaDied();

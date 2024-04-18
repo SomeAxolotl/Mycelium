@@ -98,6 +98,9 @@ public class TestingManager : MonoBehaviour
     [Header("Go to the Tutorial - Minus")]
     [SerializeField][Tooltip("Minus - Go to the Tutorial")] private int tutorialBuildIndex = 1;
 
+    [Header("Unlock all Furniture - L")]
+    [SerializeField][Tooltip("L - Unlock all Furniture")] private bool meow = true;
+
     [Header("References")]
     [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
 
@@ -183,6 +186,11 @@ public class TestingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             SpawnCustomSpore();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            UnlockAllFurniture();
         }
     }
 
@@ -291,6 +299,13 @@ public class TestingManager : MonoBehaviour
         GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>().SpawnNewCharacter(customSpore.subspecies.ToString(), customStats, customDesign, customSpore.randomDesignFromSpecies);
 
         Destroy(tempObject);
+    }
+
+    void UnlockAllFurniture()
+    {
+        FurnitureManager furnitureManager = GameObject.Find("FurnitureManager").GetComponent<FurnitureManager>();
+
+        furnitureManager.UnlockAllFurniture();
     }
 
     void GetCurrentPlayer()
