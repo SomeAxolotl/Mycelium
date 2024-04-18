@@ -26,17 +26,21 @@ public class MonsterBossAttack : MonoBehaviour
     private float swipeAttackAnimationDuration = 2.7f;
     private float slamAttackAnimationDuration = 1.7f;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         tailAttackDamage = tailAttackDamage * GlobalData.currentLoop;
         swipeAttackDamage = swipeAttackDamage * GlobalData.currentLoop;
         slamAttackDamage = slamAttackDamage * GlobalData.currentLoop;
-        player = GameObject.FindWithTag("currentPlayer").transform;
+        if(GameObject.FindWithTag("currentPlayer") != null )
+        {
+            player = GameObject.FindWithTag("currentPlayer").transform;
+        }
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         InvokeRepeating("PullPlayer", 5f, (pullCooldown + pullDuration));
         InvokeRepeating("DoTailAttack", 8f, (tailCooldown + 5.0f)); // 5 sec buffer for when tail attack is actually happening
         Invoke("DoRandomAttack", 2f);
+        Debug.Log("????");
     }
 
     // Update is called once per frame
@@ -59,13 +63,15 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private void PullPlayer()
     {
+        Debug.Log("pull called_");
+
         StartCoroutine(ApplyPullForce());
     }
     private IEnumerator ApplyPullForce()
     {
         ParticleManager.Instance.SpawnParticles("BossSandPullParticles", gameObject.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
         float elapsedTime = 0.0f;
-
+        Debug.Log("pull called");
         while (elapsedTime < pullDuration)
         {
             Vector3 direction = (new Vector3(transform.position.x, player.position.y - 2f, transform.position.z) - player.position).normalized;
