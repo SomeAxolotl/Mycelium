@@ -50,6 +50,7 @@ public class WanderingSpore : MonoBehaviour
 
     Curio previousCurio = null;
     public Curio interactingCurio = null;
+    public bool canGainHappiness = false;
 
     Vector3 previousPosition;
     public float currentSpeed;
@@ -75,6 +76,11 @@ public class WanderingSpore : MonoBehaviour
         characterStats = GetComponent<CharacterStats>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        if (GlobalData.areaCleared)
+        {
+            canGainHappiness = true;
+        }
 
         StartCoroutine(StartingCoroutine());
     }
@@ -144,7 +150,7 @@ public class WanderingSpore : MonoBehaviour
             List<CurioAttraction> curioAttractions = new List<CurioAttraction>();
             foreach (Curio curio in GetNearbyCurio())
             {
-                if (curio != null && curio.CanUse() && curio != previousCurio && ((curio.selfCurio && this.gameObject == curio.gameObject) || (!curio.selfCurio && this.gameObject != curio.gameObject)))
+                if (curio != null && curio.CanUse() && previousCurio != curio && ((curio.selfCurio && this.gameObject == curio.gameObject) || (!curio.selfCurio && this.gameObject != curio.gameObject)))
                 {
                     CurioAttraction curioAttraction = new CurioAttraction(curio, sporePersonality);
                     curioAttractions.Add(curioAttraction);

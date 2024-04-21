@@ -63,7 +63,7 @@ public class HappinessManager : MonoBehaviour
         //Debug.Log("Average Happiness: " + averageColonyHappiness);
         //Debug.Log("Lerp: " + Mathf.Lerp(minHappinessIncrementPerSpore, maxHappinessIncrementPerSpore, averageColonyHappiness) * colonySporeCount);
 
-        int statIncrement = Mathf.RoundToInt(Mathf.Clamp(Mathf.Lerp(minHappinessIncrementPerSpore, maxHappinessIncrementPerSpore, averageColonyHappiness) * colonySporeCount, minFinalHappinessIncrement, maxFinalHappinessMultiplier));
+        int statIncrement = Mathf.RoundToInt(Mathf.Clamp(Mathf.Lerp(minHappinessIncrementPerSpore, maxHappinessIncrementPerSpore, averageColonyHappiness) * colonySporeCount, minFinalHappinessIncrement, maxFinalHappinessIncrement));
         return statIncrement;
     }
 
