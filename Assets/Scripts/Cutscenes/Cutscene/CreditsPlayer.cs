@@ -107,7 +107,7 @@ public class CreditsPlayer : MonoBehaviour
                 break;
             case 5:
                 FurnitureManager.Instance.fireflyIsUnlocked = true;
-                coloredUnlockString = "Firefly";
+                coloredUnlockString = "FireflyBottle";
                 break;
             case 6:
                 FurnitureManager.Instance.gameboardIsUnlocked = true;

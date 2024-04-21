@@ -16,13 +16,17 @@ public class StatUpgrade : MonoBehaviour, IInteractable
 
     [SerializeField] bool doesMultiply = false;
     [SerializeField] float multiplyAmount = 1.0f;
-    [SerializeField] int statIncreaseAmount = 2;
+    [SerializeField] int statIncreaseStartingAmount = 2;
+    int statIncreaseAmount;
 
     HUDStats hudStats;
     bool destroyIsFromUpgrading = false;
 
     void Start()
     {
+        //Every 3 loops, the stat increase goes up by 1
+        statIncreaseAmount = statIncreaseStartingAmount + (GlobalData.currentLoop / 3);
+
         List<int> statNumbers = new List<int> {0, 1, 2, 3};
         statNumber1 = statNumbers[Random.Range(0, statNumbers.Count)];
         statNumbers.Remove(statNumber1);

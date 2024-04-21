@@ -27,6 +27,7 @@ public class WanderingSpore : MonoBehaviour
     //[SerializeField][Tooltip("Multiplies with the reroute speed check to scale with speed and avoid properly")] float rerouteSpeedThresholdMultiplier = 0.5f;
     [SerializeField][Tooltip("How much time a Spore will try to run against an obstacle until giving up with the task altogether")] float timeUntilGivingUp = 1.5f;
     [SerializeField][Tooltip("How much time a Spore will spend stuck until poofing away and respawning")] float timeUntilRespawn = 5f;
+    [SerializeField][Tooltip("How many avoids until the Spore gives up on avoiding")] float avoidsUntilGivingUp = 3;
     float wanderRadius;
 
     [Header("Standing")]
@@ -47,6 +48,8 @@ public class WanderingSpore : MonoBehaviour
 
     float rerouteTimer = 0f;
     int calculatePathAttempts = 0;
+    int avoidCount = 0;
+    
 
     Curio previousCurio = null;
     public Curio interactingCurio = null;
@@ -223,8 +226,16 @@ public class WanderingSpore : MonoBehaviour
         CalculatePath(transform.position,  GetPerpendicularPointNearbyNavMesh(transform.position, moveDirection, avoidRadius), true);
 
         yield return new WaitUntil(() => currentState == WanderingStates.Avoided);
+        avoidCount++;
 
-        CalculatePath(transform.position, originalWaypoint);
+        if (avoidCount < avoidsUntilGivingUp)
+        {
+            CalculatePath(transform.position, originalWaypoint);
+        }
+        else
+        {
+            CalculateNextState();
+        }
     }
 
     //Experimental Raycast Object Detection

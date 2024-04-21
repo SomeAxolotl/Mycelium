@@ -1,0 +1,1 @@
+The firefly bottles in here do NOT have curio components, they are purely cosmetic. The FireflyBottlesDEPRECATED object holds the one with curios--they are disabled for now.

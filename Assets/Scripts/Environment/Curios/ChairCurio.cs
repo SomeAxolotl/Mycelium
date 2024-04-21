@@ -7,9 +7,11 @@ public class ChairCurio : Curio
     [SerializeField] float minSitTime = 10f;
     [SerializeField] float maxSitTime = 20f;
 
+    [SerializeField] float rotationOffset = 20f;
+
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
-        wanderingSpore.lookTarget = -(transform.position - wanderingSpore.transform.position);
+        wanderingSpore.lookTarget = Quaternion.Euler(0, rotationOffset, 0) * -(transform.position - wanderingSpore.transform.position);
 
         Animator animator = wanderingSpore.animator;
 
