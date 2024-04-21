@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public abstract class Curio : MonoBehaviour
 {
@@ -25,11 +26,13 @@ public abstract class Curio : MonoBehaviour
     [Header("Event")]
     [SerializeField] bool meow;
 
+    public event Action OnPlayingDone;
+
     IEnumerator Start()
     {
         yield return null;
 
-        if (!selfCurio && !gameObject.name.Contains("Spore") && !gameObject.name.Contains("Keeper"))
+        if (!selfCurio && !gameObject.name.Contains("Spore") && !gameObject.name.Contains("Keeper") && !gameObject.name.Contains("DancePad"))
         {
             gameObject.SetActive(FurnitureManager.Instance.FurnitureIsUnlocked(gameObject.name));
         }
@@ -63,13 +66,16 @@ public abstract class Curio : MonoBehaviour
         wanderingSpore.CalculatePath(wanderingSpore.transform.position, closestPossibleTraversalTransform.transform.position);
 
         yield return new WaitUntil(() => wanderingSpore.currentState == WanderingSpore.WanderingStates.Ready || wanderingSpore.interactingCurio == null);
-        wanderingSpore.GetComponent<Animator>().SetBool(wanderingSpore.GetWalkAnimation(), false);
-
-        IncreaseHappiness(wanderingSpore);
-
-        if (wanderingSpore != null)
+        if (wanderingSpore.interactingCurio != null)
         {
-            yield return wanderingSpore.StartCoroutine(DoEvent(wanderingSpore));
+            wanderingSpore.GetComponent<Animator>().SetBool(wanderingSpore.GetWalkAnimation(), false);
+
+            IncreaseHappiness(wanderingSpore);
+
+            if (wanderingSpore != null)
+            {
+                yield return wanderingSpore.StartCoroutine(DoEvent(wanderingSpore));
+            }
         }
     }
 
@@ -107,6 +113,10 @@ public abstract class Curio : MonoBehaviour
                 traversalTransform.interactingSpore = null;
             }
         }
+
+        wanderingSpore.rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        OnPlayingDone?.Invoke();
     }
 
     protected void IncreaseHappiness(WanderingSpore wanderingSpore)

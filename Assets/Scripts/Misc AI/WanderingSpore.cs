@@ -38,7 +38,7 @@ public class WanderingSpore : MonoBehaviour
 
     CharacterStats characterStats;
     public Animator animator;
-    Rigidbody rb;
+    public Rigidbody rb;
     [SerializeField] Transform center;
 
     Vector3 moveDirection;

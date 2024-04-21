@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4860720367100373001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2499721201866292607}
+  - component: {fileID: 7434357999259861579}
+  - component: {fileID: 4854531584866388351}
+  m_Layer: 20
+  m_Name: DancePad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2499721201866292607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4860720367100373001}
+  m_LocalRotation: {x: -0, y: -0.69753873, z: -0, w: 0.71654713}
+  m_LocalPosition: {x: 2.718624, y: 14.631189, z: 52.32896}
+  m_LocalScale: {x: 0.61993, y: 0.61992997, z: 0.61993}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7434357999259861579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4860720367100373001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c34f2c8c6c14e41a6da3675041519e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traversalTransforms:
+  - transform: {fileID: 2499721201866292607}
+    interactingSpore: {fileID: 0}
+  maxUserCount: 1
+  currentUserCount: 0
+  selfCurio: 0
+  happinessToIncrease: 0.1
+  energeticAttraction: 0.8
+  lazyAttraction: 0.4
+  friendlyAttraction: 0.7
+  curiousAttraction: 0.6
+  playfulAttraction: 0.7
+  meow: 0
+--- !u!65 &4854531584866388351
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4860720367100373001}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
