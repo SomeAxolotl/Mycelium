@@ -98,8 +98,19 @@ public class TestingManager : MonoBehaviour
     [Header("Go to the Tutorial - Minus")]
     [SerializeField][Tooltip("Minus - Go to the Tutorial")] private int tutorialBuildIndex = 1;
 
+    #pragma warning disable 0414
     [Header("Unlock all Furniture - L")]
     [SerializeField][Tooltip("L - Unlock all Furniture")] private bool meow = true;
+
+    [Header("Fade HUD In - Z")]
+    [SerializeField][Tooltip("Z - Fade HUD In")] private bool meower = true;
+
+    [Header("Fade HUD Out - X")]
+    [SerializeField][Tooltip("X - Fade HUD Out")] private bool meowing = true;
+
+    [Header("Set GlobalData.areaCleared to true - C")]
+    [SerializeField][Tooltip("C - Set GlobalData.areaCleared to true")] private bool meoww = true;
+    #pragma warning restore 0414
 
     [Header("References")]
     [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
@@ -191,6 +202,21 @@ public class TestingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             UnlockAllFurniture();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GlobalData.areaCleared = true;
         }
     }
 

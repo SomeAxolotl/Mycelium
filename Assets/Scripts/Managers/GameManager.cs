@@ -90,10 +90,6 @@ public class GameManager : MonoBehaviour
             {
                 hudHappiness.HideColonyHappinessMeter();
             }
-
-            GlobalData.areaCleared = false;
-            GlobalData.sporePermaDied = null;
-            GlobalData.sporeDied = null;
         }
         else
         {

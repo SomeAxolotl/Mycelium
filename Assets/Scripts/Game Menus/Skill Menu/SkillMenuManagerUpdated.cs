@@ -109,7 +109,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
 
     void OnEnable()
     {  
-        //fog.SetActive(!fog.isActive);  
+        fog.SetActive(!fog.isActive);  
         LevelUI.SetActive(false);
         controls.UI.Close.performed += ctx => CloseSkill();
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
@@ -142,7 +142,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       controls.UI.MenuSwapR.performed -= ctx => MenuSwapRight();
       controls.UI.Disable();
       Destroy(InstantiatedSpore);
-      //fog.SetActive(!fog.isActive); 
+      fog.SetActive(!fog.isActive); 
     }
     void MenuSwapLeft()
     {

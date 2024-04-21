@@ -65,6 +65,8 @@ public abstract class Curio : MonoBehaviour
         yield return new WaitUntil(() => wanderingSpore.currentState == WanderingSpore.WanderingStates.Ready || wanderingSpore.interactingCurio == null);
         wanderingSpore.GetComponent<Animator>().SetBool(wanderingSpore.GetWalkAnimation(), false);
 
+        IncreaseHappiness(wanderingSpore);
+
         if (wanderingSpore != null)
         {
             yield return wanderingSpore.StartCoroutine(DoEvent(wanderingSpore));
@@ -109,6 +111,16 @@ public abstract class Curio : MonoBehaviour
 
     protected void IncreaseHappiness(WanderingSpore wanderingSpore)
     {
-        wanderingSpore.gameObject.GetComponent<CharacterStats>().ModifyHappiness(happinessToIncrease);
+        if (wanderingSpore.canGainHappiness)
+        {
+            wanderingSpore.gameObject.GetComponent<CharacterStats>().ModifyHappiness(happinessToIncrease);
+
+            if (happinessToIncrease > 0)
+            {
+                wanderingSpore.canGainHappiness = false;
+
+                //Debug.Log("Increasing " + wanderingSpore.gameObject + " happiness.");
+            }
+        }
     }
 }

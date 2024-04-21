@@ -124,6 +124,10 @@ public class CharSelectManagerNew : MonoBehaviour
                 NotificationManager.Instance.Notification("Your Colony is " + colonyHappinessWord, "All Stats " + "<color=#"+colorHex+">" + plusMinus + absoluteHappinessStatModifier + "</color>");
             
                 GlobalData.happinessStatIncrement = happinessStatIncrement;
+
+                GlobalData.areaCleared = false;
+                GlobalData.sporePermaDied = null;
+                GlobalData.sporeDied = null;
             }
         }
 

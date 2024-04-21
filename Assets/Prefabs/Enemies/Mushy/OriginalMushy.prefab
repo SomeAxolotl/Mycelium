@@ -15753,7 +15753,6 @@ GameObject:
   - component: {fileID: 3912299891280454327}
   - component: {fileID: 4925392269757838548}
   - component: {fileID: 8710304890196564788}
-  - component: {fileID: 2648272951777916068}
   - component: {fileID: 1383023459686913582}
   - component: {fileID: 4687821941402857685}
   - component: {fileID: 170888680105541904}
@@ -15863,26 +15862,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2648272951777916068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8189928568833746430}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ba501784d43f294caf918106aa4d742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCooldown: 1.5
-  attackWindupTimeMin: 0.7
-  attackWindupTimeMax: 0.9
-  damage: 10
-  chargeSpeed: 0
-  enviromentLayer:
-    serializedVersion: 2
-    m_Bits: 4096
 --- !u!114 &1383023459686913582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16027,9 +16006,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfde3eb943c69b142b273429df023af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttacking: 0
+  playerDamaged: 0
   attackCooldown: 1.5
   damage: 10
+  knockbackForce: 30
   chargeSpeed: 0
+  playerHit: []
   enviromentLayer:
     serializedVersion: 2
     m_Bits: 4096
