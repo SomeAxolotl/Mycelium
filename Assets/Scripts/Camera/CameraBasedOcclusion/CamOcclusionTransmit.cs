@@ -30,6 +30,7 @@ public class CamOcclusionTransmit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Calculate Distance and Direction from Camera to Player
         playerDirection = (camTracker.position - transform.position).normalized;
         playerDistance = Vector3.Distance(camTracker.position, transform.position);
 
@@ -41,8 +42,6 @@ public class CamOcclusionTransmit : MonoBehaviour
     void CastOcclusionRay()
     {
         numOfHits = Physics.SphereCastNonAlloc(occlusionCheckRay, 0.5f, hits, playerDistance, occludedLayers, QueryTriggerInteraction.Ignore);
-
-
 
         if (numOfHits > 0)
         {

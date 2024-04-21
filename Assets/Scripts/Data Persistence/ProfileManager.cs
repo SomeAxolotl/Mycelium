@@ -82,15 +82,12 @@ public class ProfileManager : MonoBehaviour
         //Begin Reading ProfileData.json
         try
         {
-            //Debug.Log("File Path: " + filePath);
             profileData = JsonUtility.FromJson<ProfileData>(System.IO.File.ReadAllText(filePath));
-            //Debug.Log(profileData);
         }
         catch
         {
-            //Debug.Log("NO PROFILE DATA FOUND!!! ---LOADING DEFAULT PROFILE DATA---");
+            //If no ProfileData.json exists, use default profile data
             profileData = defaultProfileData;
-            //Debug.Log(profileData);
         }
     }
 
@@ -171,7 +168,7 @@ public class ProfileManager : MonoBehaviour
         System.IO.File.WriteAllText(filePath, json);
     }
 
-    public void SaveOverride()
+    public void SaveProfile()
     {
         ProfileData newProfileData = new ProfileData();
 

@@ -70,7 +70,7 @@ public class LevelEnd : MonoBehaviour
 
         nutrientTracker.KeepMaterials();
         nutrientTracker.LoseMaterials();
-        profileManager.SaveOverride();
+        profileManager.SaveProfile();
     }
 
     public void GoToNextLevel()
@@ -125,7 +125,7 @@ public class LevelEnd : MonoBehaviour
 
         nutrientTracker.KeepMaterials();
         nutrientTracker.LoseMaterials();
-        profileManager.SaveOverride();
+        profileManager.SaveProfile();
 
         weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
 

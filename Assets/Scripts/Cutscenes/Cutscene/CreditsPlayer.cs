@@ -76,7 +76,7 @@ public class CreditsPlayer : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         GlobalData.currentLoop++;
 
-        ProfileManager.Instance.SaveOverride();
+        ProfileManager.Instance.SaveProfile();
 
         StartCoroutine(NotificationWithDelay());
 

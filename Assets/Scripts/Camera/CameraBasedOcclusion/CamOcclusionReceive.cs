@@ -101,6 +101,11 @@ public class CamOcclusionReceive : MonoBehaviour
 
             yield return null;
         }
+
+        foreach (Material material in materials)
+        {
+            material.SetFloat("_OpacityOverride", 0);
+        }
     }
 
     IEnumerator FadeIn()
