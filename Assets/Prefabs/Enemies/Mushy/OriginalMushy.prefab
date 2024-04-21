@@ -15755,12 +15755,11 @@ GameObject:
   - component: {fileID: 8710304890196564788}
   - component: {fileID: 1383023459686913582}
   - component: {fileID: 4687821941402857685}
-  - component: {fileID: 170888680105541904}
-  - component: {fileID: 33760743765277084}
   - component: {fileID: 7720849401059015138}
   - component: {fileID: 5003647206915577058}
   - component: {fileID: 5232234030615179641}
   - component: {fileID: 8462651889484642246}
+  - component: {fileID: 3111656265398352804}
   m_Layer: 6
   m_Name: OriginalMushy
   m_TagString: Enemy
@@ -15896,47 +15895,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 4096
---- !u!114 &170888680105541904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8189928568833746430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f422708099589747a19ed5df796860e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSeen: 0
-  startedPatrol: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  enviromentLayer:
-    serializedVersion: 2
-    m_Bits: 4352
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 4416
-  fieldOfView: 60
-  forwardDetectionRange: 25
-  backwardsDetectionRange: 15
-  moveSpeed: 3
-  animator: {fileID: 0}
---- !u!114 &33760743765277084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8189928568833746430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 682cb258e5f6f5f45b1d78b1dcd5a582, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableDistance: 75
 --- !u!65 &7720849401059015138
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16016,6 +15974,34 @@ MonoBehaviour:
   enviromentLayer:
     serializedVersion: 2
     m_Bits: 4096
+--- !u!114 &3111656265398352804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189928568833746430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751e4de30f0a67444983998ae2b3d70f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSeen: 0
+  startedPatrol: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  enviromentLayer:
+    serializedVersion: 2
+    m_Bits: 4352
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 4416
+  fieldOfView: 60
+  forwardDetectionRange: 25
+  backwardsDetectionRange: 15
+  moveSpeed: 3
+  animator: {fileID: 0}
 --- !u!1 &8192228383558640738
 GameObject:
   m_ObjectHideFlags: 0
