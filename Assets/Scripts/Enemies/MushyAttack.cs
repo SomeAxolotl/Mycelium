@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MushyAttack : EnemyAttack
 {
-    private MushyNavigation mushyNavigation;
+    private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private bool canAttack = true;
     [HideInInspector] public bool isAttacking = false;
     private bool attackStarted = false;
@@ -32,7 +32,7 @@ public class MushyAttack : EnemyAttack
     void Start()
     {
         damage = damage * GlobalData.currentLoop;
-        mushyNavigation = GetComponent<MushyNavigation>();
+        reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         attack = this.Attack();
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;
@@ -43,7 +43,7 @@ public class MushyAttack : EnemyAttack
     // Update is called once per frame
     void Update()
     {
-        if (mushyNavigation.playerSeen && canAttack)
+        if (reworkedEnemyNavigation.playerSeen && canAttack)
         {  
             StartCoroutine(Attack());
         }
@@ -99,7 +99,7 @@ public class MushyAttack : EnemyAttack
         canAttack = false;
         attackStarted = true;
         animator.speed = 0.5f;
-        mushyNavigation.moveSpeed = 0f;
+        reworkedEnemyNavigation.moveSpeed = 0f;
         chargeSpeed = 8f;
         // attackWindupTime = Random.Range(attackWindupTimeMin, attackWindupTimeMax);
         // yield return new WaitForSeconds(attackWindupTime + hitStun);
@@ -127,7 +127,7 @@ public class MushyAttack : EnemyAttack
         animator.SetTrigger("Attack");
         isAttacking = false;
         hitStun = 0f;
-        mushyNavigation.moveSpeed = 3f;
+        reworkedEnemyNavigation.moveSpeed = 3f;
         playerDamaged = false;
         playerHit.Clear();
         yield return new WaitForSeconds(attackCooldown);
@@ -140,7 +140,7 @@ public class MushyAttack : EnemyAttack
         animator.speed = 1f;
         isAttacking = false;
         hitStun = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().secondsTilHitstopSpeedup;
-        mushyNavigation.moveSpeed = 3f;
+        reworkedEnemyNavigation.moveSpeed = 3f;
         chargeSpeed = 8f;
         playerDamaged = false;
         playerHit.Clear();
