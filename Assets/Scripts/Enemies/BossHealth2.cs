@@ -14,6 +14,7 @@ public class BossHealth2 : EnemyHealth
         if (other.gameObject.CompareTag("currentPlayer") && !hudPopup)
         {
             hudPopup = true;
+            GameObject.Find("Rival Colony Leader").GetComponent<MonsterBossAttack>().DoRandomAttack();
             hudBoss.EncounterBoss(gameObject.name, currentHealth, maxHealth);
         }
     }

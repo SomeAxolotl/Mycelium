@@ -8,11 +8,11 @@ public class MonsterBossAttack : MonoBehaviour
     Transform player;
     Rigidbody rb;
     Animator animator;
-    private List<GameObject> playerHit = new List<GameObject>();
-    //[SerializeField] private List<Collider> leftArmColliders = new List<Collider>();
-    //[SerializeField] private List<Collider> rightArmColliders = new List<Collider>();
+    [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();
+    [SerializeField] private BossMeleeHitbox leftArmHitbox;
+    [SerializeField] private BossMeleeHitbox rightArmHitbox;
     [SerializeField] private GameObject bossTail;
-    [SerializeField] private float pullForce = 200f;
+    [SerializeField] private float pullForce = 100f;
     [SerializeField] private float pullDuration = 5.0f;
     [SerializeField] private float pullCooldown = 5.0f;
     [SerializeField] private float tailCooldown = 5.0f;
@@ -23,6 +23,8 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float slamAttackDamage = 70f;
     [HideInInspector] public bool isAttacking = false;
     private int numberofAttacks = 2;
+    private float swipeHitboxActivationDelay = 2.0f;
+    private float slamHitboxActivationDelay = 1.1f;
     private float swipeAttackAnimationDuration = 2.7f;
     private float slamAttackAnimationDuration = 1.7f;
     // Start is called before the first frame update
@@ -31,7 +33,7 @@ public class MonsterBossAttack : MonoBehaviour
         tailAttackDamage = tailAttackDamage * GlobalData.currentLoop;
         swipeAttackDamage = swipeAttackDamage * GlobalData.currentLoop;
         slamAttackDamage = slamAttackDamage * GlobalData.currentLoop;
-        if(GameObject.FindWithTag("currentPlayer") != null )
+        if (GameObject.FindWithTag("currentPlayer") != null )
         {
             player = GameObject.FindWithTag("currentPlayer").transform;
         }
@@ -39,8 +41,6 @@ public class MonsterBossAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         InvokeRepeating("PullPlayer", 5f, (pullCooldown + pullDuration));
         InvokeRepeating("DoTailAttack", 8f, (tailCooldown + 5.0f)); // 5 sec buffer for when tail attack is actually happening
-        Invoke("DoRandomAttack", 2f);
-        Debug.Log("????");
     }
 
     // Update is called once per frame
@@ -48,7 +48,7 @@ public class MonsterBossAttack : MonoBehaviour
     {
 
     }
-    private void DoRandomAttack() // Picks either slam or swipe attack
+    public void DoRandomAttack() // Picks either slam or swipe attack
     {
         int randomAttack = Random.Range(0, numberofAttacks);
 
@@ -63,15 +63,12 @@ public class MonsterBossAttack : MonoBehaviour
     }
     private void PullPlayer()
     {
-        Debug.Log("pull called_");
-
         StartCoroutine(ApplyPullForce());
     }
     private IEnumerator ApplyPullForce()
     {
         ParticleManager.Instance.SpawnParticles("BossSandPullParticles", gameObject.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
         float elapsedTime = 0.0f;
-        Debug.Log("pull called");
         while (elapsedTime < pullDuration)
         {
             Vector3 direction = (new Vector3(transform.position.x, player.position.y - 2f, transform.position.z) - player.position).normalized;
@@ -128,18 +125,24 @@ public class MonsterBossAttack : MonoBehaviour
         if (randomSwipeAttack == 0)
         {
             animator.SetTrigger("AttackLeft");
+            leftArmHitbox.hitboxActivateDelay = swipeHitboxActivationDelay;
+            leftArmHitbox.damage = swipeAttackDamage;
+            leftArmHitbox.StartCoroutine(leftArmHitbox.ActivateHitbox());
         }
         else if (randomSwipeAttack == 1)
         {
             animator.SetTrigger("AttackRight");
+            rightArmHitbox.hitboxActivateDelay = swipeHitboxActivationDelay;
+            rightArmHitbox.damage = swipeAttackDamage;
+            rightArmHitbox.StartCoroutine(rightArmHitbox.ActivateHitbox());
         }
-
+        yield return new WaitForEndOfFrame();
+        animator.SetBool("IsAttacking", false);
         Debug.Log("SWIPE ATTACK!");
         yield return new WaitForSeconds(swipeAttackAnimationDuration);
         isAttacking = false;
         playerHit.Clear();
-        animator.SetBool("IsAttacking", false);
-        yield return new WaitForSeconds(cooldownAfterSwipe);
+        yield return new WaitForSeconds(cooldownAfterSwipe + swipeAttackAnimationDuration);
         DoRandomAttack();
     }
 
@@ -148,12 +151,19 @@ public class MonsterBossAttack : MonoBehaviour
         isAttacking = true;
         animator.SetBool("IsAttacking", true);
         animator.SetTrigger("Smash");
+        leftArmHitbox.hitboxActivateDelay = slamHitboxActivationDelay;
+        leftArmHitbox.damage = slamAttackDamage;
+        rightArmHitbox.hitboxActivateDelay = slamHitboxActivationDelay;
+        rightArmHitbox.damage = slamAttackDamage;
+        leftArmHitbox.StartCoroutine(leftArmHitbox.ActivateHitbox());
+        rightArmHitbox.StartCoroutine(rightArmHitbox.ActivateHitbox());
+        yield return new WaitForEndOfFrame();
+        animator.SetBool("IsAttacking", false);
         Debug.Log("SLAM ATTACK!");
         yield return new WaitForSeconds(slamAttackAnimationDuration);
         isAttacking = false;
         playerHit.Clear();
-        animator.SetBool("IsAttacking", false);
-        yield return new WaitForSeconds(cooldownAfterSlam);
+        yield return new WaitForSeconds(cooldownAfterSlam + slamAttackAnimationDuration);
         DoRandomAttack();
     }
     public void OnDisable()
@@ -162,14 +172,6 @@ public class MonsterBossAttack : MonoBehaviour
         CancelInvoke("PullPlayer");
         CancelInvoke("DoTailAttack");
         isAttacking = false;
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "currentPlayer" && !collision.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(collision.gameObject) && isAttacking)
-        {
-            collision.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(slamAttackDamage);
-            playerHit.Add(collision.gameObject);
-        }
     }
 }
 
