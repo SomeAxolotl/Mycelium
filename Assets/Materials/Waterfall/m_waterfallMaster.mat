@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: m_foam
+  m_Name: m_waterfallMaster
   m_Shader: {fileID: -6465566751694194690, guid: adcbf4c4e37ed6045a298914970b2190,
     type: 3}
   m_Parent: {fileID: 0}
@@ -34,8 +34,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: TransparentCutout
-  disabledShaderPasses:
-  - SHADOWCASTER
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -57,16 +56,16 @@ Material:
     - _AlphaClip: 1
     - _AlphaToMask: 1
     - _Blend: 0
-    - _CastShadows: 0
+    - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 0
-    - _Erosion: 0.44
-    - _FoamEdge: 17
+    - _Erosion: 0
+    - _FoamEdge: 9.71
     - _FoamSpeed: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RippleDensity: 6
-    - _RipplePower: 4.39
+    - _RipplePower: 3
     - _RippleSize: 0.06
     - _RippleSpeed: 3
     - _SrcBlend: 1
@@ -78,9 +77,9 @@ Material:
     - _ZWriteControl: 0
     - _vo: 0
     m_Colors:
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FoamColor: {r: 2.828427, g: 2.828427, b: 2.828427, a: 1}
     - _FoamSpeed: {r: 0, g: -0.5, b: 0, a: 0}
-    - _RippleColor: {r: 2.1733787, g: 2.3930972, b: 2.4335718, a: 0}
+    - _RippleColor: {r: 0, g: 0.9767728, b: 1.7207955, a: 0}
     - _RippleSpeed: {r: 0, g: 0.87, b: 0, a: 0}
     - _VertexOffsetAmount: {r: -0.7, g: -0.5, b: 0, a: 0}
     - _WaterSpeed: {r: 0, g: 0.5, b: 0, a: 0}
