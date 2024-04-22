@@ -121,6 +121,12 @@ public class ReworkedEnemyNavigation : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, fractionOfTurn);
             }
         }
+        else if (playerSeen && player != null && gameObject.name.Contains("Mushy"))
+        {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * maxRotationSpeed);
+        }
     }
     Vector3 ObstacleAvoidance(Vector3 desiredDirection)
     {
