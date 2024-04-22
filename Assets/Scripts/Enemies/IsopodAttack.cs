@@ -102,8 +102,7 @@ public class IsopodAttack : EnemyAttack
         {
             SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
         }
-
-        animator.speed = 3f;
+        animator.speed = 2f;
         attackStarted = false;
         isAttacking = true;
         Transform target = player;
@@ -118,7 +117,12 @@ public class IsopodAttack : EnemyAttack
             yield return null;
         }
         animator.speed = 1f;
-        animator.SetTrigger("Attack");
+        animator.SetTrigger("StartAttack");
+        yield return new WaitForEndOfFrame();
+        if(playerHit.Count == 0)
+        {
+            animator.SetTrigger("MissAttack");
+        }
         isAttacking = false;
         hitStun = 0f;
         reworkedEnemyNavigation.moveSpeed = 3f;
@@ -132,6 +136,8 @@ public class IsopodAttack : EnemyAttack
         StopAllCoroutines();
         attack = Attack();
         animator.speed = 1f;
+        animator.Rebind();
+        animator.SetBool("IsMoving", true);
         isAttacking = false;
         hitStun = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().secondsTilHitstopSpeedup;
         reworkedEnemyNavigation.moveSpeed = 3f;
@@ -145,6 +151,7 @@ public class IsopodAttack : EnemyAttack
     {
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
+            animator.SetTrigger("HitAttack");
             playerDamaged = true;
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
