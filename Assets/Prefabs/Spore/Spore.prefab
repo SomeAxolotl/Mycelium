@@ -2977,6 +2977,7 @@ GameObject:
   - component: {fileID: 9137682804701217071}
   - component: {fileID: 5155620943360445244}
   - component: {fileID: 4784717851346712737}
+  - component: {fileID: -455043381474946802}
   - component: {fileID: 2614818006104013554}
   m_Layer: 3
   m_Name: Spore
@@ -3389,6 +3390,31 @@ MonoBehaviour:
   curiousAttraction: 0.4
   playfulAttraction: 0.6
   meow: 1
+--- !u!114 &-455043381474946802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833743133119944518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6611cadc694ee27428078e23e300194d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traversalTransforms:
+  - transform: {fileID: 2509756702752052893}
+    interactingSpore: {fileID: 0}
+  maxUserCount: 1
+  currentUserCount: 0
+  selfCurio: 1
+  happinessToIncrease: 0
+  energeticAttraction: 0.7
+  lazyAttraction: 0.3
+  friendlyAttraction: 0.5
+  curiousAttraction: 0.6
+  playfulAttraction: 0.7
+  meow: 0
 --- !u!208 &2614818006104013554
 NavMeshObstacle:
   m_ObjectHideFlags: 0

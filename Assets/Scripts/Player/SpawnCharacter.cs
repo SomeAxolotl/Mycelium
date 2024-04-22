@@ -144,6 +144,7 @@ public class SpawnCharacter : MonoBehaviour
 
         HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
         hudHappiness.ShowColonyHappinessMeter();
+        HappinessManager.Instance.SporeGrown(newCharacter);
         hudHappiness.UpdateHappinessMeter();
 
         GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassMuffling>().CalculateMuffleSnapshot();

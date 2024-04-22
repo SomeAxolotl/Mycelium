@@ -63,7 +63,6 @@ public class DrumCurio : Curio
 
             if (Mathf.FloorToInt(boingSampledTime) != lastBoing)
             {
-                Debug.Log(playingCounter);
                 if (lastBoing != -1 && lastBoingSampledTime != -1 && boingSampledTime - lastBoingSampledTime > 0 && playingCounter > 0.7f)
                 {
                     SoundEffectManager.Instance.PlaySound("Impact", transform.position);

@@ -11,13 +11,16 @@ public class HappinessManager : MonoBehaviour
     public float averageColonyHappiness {private set; get;}
     public int colonySporeCount {private set; get;}
 
+    [Header("Energy")]
+    [SerializeField][Tooltip("Max amount of energy a Spore can have")] public int maxEnergy = 3;
+    [SerializeField][Tooltip("Min amount of energy a Spore can have")] public int minEnergy = -2;
+
     [Header("Individual Happiness")]
     [SerializeField][Range(-0.5f, 0.5f)][Tooltip("When a Spore has >0 energy, the happiness they gain on completing an area")] public float happinessOnSpendingEnergy = 0.1f;
     [SerializeField][Range(-0.5f, 0.5f)][Tooltip("When a Spore has <=0 energy, the happiness they gain on completing an area")] public float happinessOnExhaustingEnergy = -0.1f;
-    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness a Spore loses on dying")] public float happinessOnDying = -0.15f;
-    [SerializeField][Tooltip("Max amount of energy a Spore can have")] public int maxEnergy = 3;
-    [SerializeField][Tooltip("Min amount of energy a Spore can have")] public int minEnergy = -2;
-    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness a Spore loses on another Spore dying in hardcore mode")] public float happinessOnAFriendDyingForever = -0.1f;
+    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness change when a Spore dies")] public float happinessOnDying = -0.15f;
+    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness change for all Spores when another Spore dies in hardcore mode")] public float happinessOnAFriendDyingForever = -0.1f;
+    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness change for all Sporse when a Spore is grown")] public float happinessOnSporeGrown = 0.1f;
 
     [Header("Colony Happiness")]
     [SerializeField][Tooltip("Whether colony happiness multiplies or adds to Spore stats")] public bool doesHappinessMultiply = false;
@@ -90,6 +93,22 @@ public class HappinessManager : MonoBehaviour
             foreach (GameObject character in swapCharacter.characters)
             {
                 character.GetComponent<CharacterStats>().ModifyHappiness(happinessOnAFriendDyingForever);
+            }
+        }
+    }
+
+    public void SporeGrown(GameObject spore)
+    {
+        SwapCharacter swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
+
+        if (swapCharacter.characters.Count > 1)
+        {
+            foreach (GameObject character in swapCharacter.characters)
+            {
+                if (character != spore)
+                {
+                    character.GetComponent<CharacterStats>().ModifyHappiness(happinessOnSporeGrown);
+                }
             }
         }
     }
