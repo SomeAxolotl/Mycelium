@@ -27,7 +27,7 @@ public class BossCam : MonoBehaviour
 
         transform.position = boss.transform.position;
     }
-    public void StartBossCutscene()
+    public void StartBossIntroCutscene()
     {
         StartCoroutine(BossCutscene());
     }

@@ -36,7 +36,7 @@ public class StartBoss : MonoBehaviour
             playerParent.GetComponent<PlayerAttack>().playerActionsAsset.Player.Disable();
 
             //Ryan's Camera Stuff
-            GameObject.Find("Cutscene VCams").GetComponent<BossCam>().StartBossCutscene();
+            GameObject.Find("Cutscene VCams").GetComponent<BossCam>().StartBossIntroCutscene();
 
             //Ronald's Music Stuff :o
             GameObject.Find("BackgroundMusicPlayer").GetComponent<AudioSource>().Play();
