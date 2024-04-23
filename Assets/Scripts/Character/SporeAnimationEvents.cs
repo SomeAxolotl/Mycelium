@@ -60,7 +60,7 @@ public class SporeAnimationEvents : MonoBehaviour
         {
             Transform particleHolder = currentWeapon.transform.Find("ParticleHolder");
 
-            currentStabParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("StabParticle", particleHolder.position, Quaternion.Euler(particleHolder.transform.position));
+            currentStabParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("StabParticle", particleHolder.position, particleHolder.transform.rotation, particleHolder.gameObject);
             StartCoroutine(DestroyParticleAfterDone(currentStabParticle.gameObject, "Stab", stabDonePercent)); 
         }
     }
