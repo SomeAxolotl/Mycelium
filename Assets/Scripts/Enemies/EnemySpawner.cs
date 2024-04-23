@@ -22,18 +22,18 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField][Tooltip("Spawns enemies on Start()")] private bool spawnOnStart = false;
     private int totalEnemyWeight = 0;
 
-    [SerializeField] private bool NOTspawnIndefinitelySmile = false;
+    [SerializeField] private bool spawnIndefinitely = false;
     [SerializeField] private int maxSpawnCount = 5;
     [SerializeField] private float indefiniteSpawnInterval = 4f;
 
-    [SerializeField] private bool apofjiapfoijefpoaiefjapeofijaef;
+    [SerializeField] private bool spawnWithInterval = false;
 
     private List<GameObject> weightedEnemyList = new List<GameObject>();
     
 
     void Start()
     {
-        if (NOTspawnIndefinitelySmile)
+        if (spawnIndefinitely)
         {
             StartCoroutine(SpawnEnemiesIndefinitely());
         }
@@ -148,7 +148,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     SpawnAllEnemies();
                 }
-                else if (apofjiapfoijefpoaiefjapeofijaef)
+                else if (spawnWithInterval)
                 {
                     StartCoroutine(SpawnEnemiesWithInterval());
                 }
