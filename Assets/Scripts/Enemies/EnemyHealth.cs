@@ -110,6 +110,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if(GameObject.Find("Rival Colony Leader") != null)
         {
+            BossCam.Instance.StartBossDeathCutscene();
+
             GameObject boss = GameObject.Find("Rival Colony Leader");
 
             Collider[] bossCollider = boss.GetComponents<Collider>();
