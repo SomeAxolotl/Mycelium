@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using RonaldSunglassesEmoji.Personalities;
+using UnityEngine.Playables;
+using System.ComponentModel.Design;
 
 public class SpawnCharacter : MonoBehaviour
 {
@@ -12,8 +14,6 @@ public class SpawnCharacter : MonoBehaviour
     {
         "Gob"
     };
-    private List<string> usedSporeNames = new List<string>();
-
 
     [SerializeField] private GameObject characterPrefab;
     [SerializeField] private List<Texture2D> MouthTextures;
@@ -96,9 +96,33 @@ public class SpawnCharacter : MonoBehaviour
             }
 
             int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
-            newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
-            usedSporeNames.Add(sporeNames[randomNameIndex]);
-            sporeNames.Remove(sporeNames[randomNameIndex]);
+            string randomName = sporeNames[randomNameIndex];
+
+            if (swapCharacter.characters.Count >= sporeNames.Count)
+            {
+                newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
+            }
+            else
+            {
+                while (true)
+                {
+                    randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count);
+                    randomName = sporeNames[randomNameIndex];
+                    foreach (GameObject character in swapCharacter.characters)
+                    {
+                        if (character.GetComponent<CharacterStats>().sporeName != randomName)
+                        {
+                            newCharacter.GetComponent<CharacterStats>().sporeName = randomName;
+                            break;
+                        }
+                    }
+
+                    if (newCharacter.GetComponent<CharacterStats>().sporeName != null)
+                    {
+                        break;
+                    }
+                }
+            }
 
             SporePersonalities randomSporePersonality = (SporePersonalities) Random.Range(0, 5);
             newCharacter.GetComponent<CharacterStats>().sporePersonality = randomSporePersonality;
@@ -118,12 +142,12 @@ public class SpawnCharacter : MonoBehaviour
         skillManager.SetSkill(statSkill1, 1, newCharacter);
         skillManager.SetSkill(statSkill2, 2, newCharacter);
 
+        DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
         if (randomDesignFromSpecies)
         {
             CreateSpeciesPalette(newCharacter, subspecies);
             int randomMouthIndex = UnityEngine.Random.Range(0,MouthTextures.Count);
             int randomEyeIndex = UnityEngine.Random.Range(0,EyeTextures.Count);
-            DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
             designTracker.EyeOption = randomEyeIndex;
             designTracker.MouthOption = randomMouthIndex;
             designTracker.EyeTexture = EyeTextures[randomEyeIndex];
@@ -132,13 +156,15 @@ public class SpawnCharacter : MonoBehaviour
         }
         else
         {
-            DesignTracker designTracker = newCharacter.GetComponent<DesignTracker>();
             designTracker.SetCapColor(customDesign.capColor);
             designTracker.SetBodyColor(customDesign.bodyColor);
             designTracker.EyeTexture = EyeTextures[customDesign.EyeOption];
             designTracker.MouthTexture = MouthTextures[customDesign.MouthOption];
             designTracker.UpdateColorsAndTexture();
         }
+
+        string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">" + newCharacter.GetComponent<CharacterStats>().sporeName+"</color>";
+        NotificationManager.Instance.Notification(coloredSporeName + " was born");
 
         swapCharacter.characters.Add(newCharacter);
 

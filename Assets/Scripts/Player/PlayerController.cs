@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
 
     public void CalculateDodgeCooldown()
     {
-        finalDodgeCooldown = baseDodgeCooldown + (GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>().speedLevel * dodgeCooldownIncrement);
+        finalDodgeCooldown = Mathf.Clamp(baseDodgeCooldown + (GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>().speedLevel * dodgeCooldownIncrement), baseDodgeCooldown * 0.2f, baseDodgeCooldown);
     }
     
     IEnumerator Dodging()

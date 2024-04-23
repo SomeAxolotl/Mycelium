@@ -69,5 +69,11 @@ public class BossHealth2 : EnemyHealth
                 enemyObj.SetActive(false);
             }
         }
+
+        EnemySpawner[] enemySpawners = GameObject.FindObjectsOfType<EnemySpawner>();
+        foreach (EnemySpawner enemySpawner in enemySpawners)
+        {
+            Destroy(enemySpawner.gameObject);
+        }
     }
 }

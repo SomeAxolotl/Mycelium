@@ -15,18 +15,17 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField][Tooltip("Spawn enemies vertically")] private bool spawnerIsVertical = false;
     [SerializeField][Tooltip("Delay the spawner's start time by the spawn interval")] private bool spawnDelay = false;
     private int enemiesSpawnedCount = 0;
-    [HideInInspector] public List<GameObject> spawnedEnemies = new List<GameObject>();
+    public List<GameObject> spawnedEnemies = new List<GameObject>();
     [SerializeField]private GameObject particleEffect;
     [SerializeField][Tooltip("Spawns the enemiesSpawnedLimit at once")] private bool spawnAll = false;
     private bool hasSpawned = false;
     [SerializeField][Tooltip("Spawns enemies on Start()")] private bool spawnOnStart = false;
-    private int totalEnemyWeight = 0;
 
     [SerializeField] private bool spawnIndefinitely = false;
     [SerializeField] private int maxSpawnCount = 5;
     [SerializeField] private float indefiniteSpawnInterval = 4f;
 
-    [SerializeField] private bool spawnWithInterval = false;
+    [SerializeField] private bool dontSpawnWithInterval = false;
 
     private List<GameObject> weightedEnemyList = new List<GameObject>();
     
@@ -41,7 +40,6 @@ public class EnemySpawner : MonoBehaviour
         //Fills a list of potential enemy spawns with amounts based on their weight
         foreach (EnemySpawn enemySpawn in EnemyList)
         {
-            totalEnemyWeight += enemySpawn.weight;
             for (int i = 0; i < enemySpawn.weight; i++)
                 weightedEnemyList.Add(enemySpawn.EnemyPrefab);
         }
@@ -66,12 +64,24 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(indefiniteSpawnInterval);
 
-            int spawnerChildCount = transform.childCount;
-            if (spawnerChildCount < maxSpawnCount + 2)
+            List<GameObject> enemiesToRemove = new List<GameObject>();
+            foreach (GameObject spawnedEnemy in spawnedEnemies)
             {
-                GameObject a = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity, transform);
-                yield return null;
-                a.transform.parent = this.transform;
+                if (!spawnedEnemy.activeSelf)
+                {
+                    enemiesToRemove.Add(spawnedEnemy);
+                }
+            }
+            foreach (GameObject enemyToRemove in enemiesToRemove)
+            {
+                spawnedEnemies.Remove(enemyToRemove);
+            }
+
+
+            if (spawnedEnemies.Count < maxSpawnCount)
+            {
+                spawnedEnemies.Add(Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity));
+            
             }
         }
     }
@@ -148,7 +158,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     SpawnAllEnemies();
                 }
-                else if (spawnWithInterval)
+                else if (!dontSpawnWithInterval)
                 {
                     StartCoroutine(SpawnEnemiesWithInterval());
                 }

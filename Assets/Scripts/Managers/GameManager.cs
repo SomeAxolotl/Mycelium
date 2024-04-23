@@ -208,6 +208,7 @@ public class GameManager : MonoBehaviour
         yield return null;
 
         GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(0);
+        GameObject.Find("HUD").GetComponent<HUDNutrients>().UpdateNutrientMultiplierUI();
     }
 
     IEnumerator DrainNutrients()
