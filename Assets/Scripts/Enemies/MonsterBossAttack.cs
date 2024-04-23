@@ -88,7 +88,7 @@ public class MonsterBossAttack : MonoBehaviour
         Vector3 spawnPosition = player.position + new Vector3(0f, -4.5f, 0f);
         Quaternion tailRotation = Quaternion.Euler(-21.7f, 0f, 0f);
         GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, tailRotation, null); //Spawns tail under player
-        bossTailInstance.GetComponentInChildren<TailCollision>().damage = tailAttackDamage;
+        bossTailInstance.GetComponentInChildren<TailCollision>().damage = tailAttackDamage * GlobalData.currentLoop;
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition + new Vector3(0f, 2.75f, 0f), Quaternion.Euler(-90, 0, 0));
         yield return new WaitForSeconds(1.75f);
         float timeElapsed = 0f;
@@ -123,14 +123,14 @@ public class MonsterBossAttack : MonoBehaviour
         {
             animator.SetTrigger("AttackLeft");
             leftArmHitbox.hitboxActivateDelay = swipeHitboxActivationDelay;
-            leftArmHitbox.damage = swipeAttackDamage;
+            leftArmHitbox.damage = swipeAttackDamage * GlobalData.currentLoop;
             leftArmHitbox.StartCoroutine(leftArmHitbox.ActivateHitbox());
         }
         else if (randomSwipeAttack == 1)
         {
             animator.SetTrigger("AttackRight");
             rightArmHitbox.hitboxActivateDelay = swipeHitboxActivationDelay;
-            rightArmHitbox.damage = swipeAttackDamage;
+            rightArmHitbox.damage = swipeAttackDamage * GlobalData.currentLoop;
             rightArmHitbox.StartCoroutine(rightArmHitbox.ActivateHitbox());
         }
         yield return new WaitForEndOfFrame();
@@ -149,9 +149,9 @@ public class MonsterBossAttack : MonoBehaviour
         animator.SetBool("IsAttacking", true);
         animator.SetTrigger("Smash");
         leftArmHitbox.hitboxActivateDelay = slamHitboxActivationDelay;
-        leftArmHitbox.damage = slamAttackDamage;
+        leftArmHitbox.damage = slamAttackDamage * GlobalData.currentLoop;
         rightArmHitbox.hitboxActivateDelay = slamHitboxActivationDelay;
-        rightArmHitbox.damage = slamAttackDamage;
+        rightArmHitbox.damage = slamAttackDamage * GlobalData.currentLoop;
         leftArmHitbox.StartCoroutine(leftArmHitbox.ActivateHitbox());
         rightArmHitbox.StartCoroutine(rightArmHitbox.ActivateHitbox());
         yield return new WaitForEndOfFrame();
