@@ -171,6 +171,10 @@ public class GetMaterial : MonoBehaviour, IInteractable
 
     void SalvageNutrients(int nutrientAmount)
     {
+        if (GlobalData.currentLoop >= 2)
+        {
+            nutrientAmount = (nutrientAmount * (GlobalData.currentLoop / 2));
+        }
         nutrientTracker.AddNutrients(nutrientAmount);
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientAmount / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         TooltipManager.Instance.DestroyTooltip();

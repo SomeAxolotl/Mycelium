@@ -82,6 +82,10 @@ public class LootCache : MonoBehaviour, IInteractable
         Instantiate(droppedItem.LootPrefab, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
         
         int randomNutrientValue = UnityEngine.Random.Range(nutrientMin, nutrientMax);
+        if (GlobalData.currentLoop >= 2)
+        {
+            randomNutrientValue = (randomNutrientValue * (GlobalData.currentLoop / 2));
+        }
         //GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>().AddNutrients(randomNutrientValue);
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", randomNutrientValue, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
     }
