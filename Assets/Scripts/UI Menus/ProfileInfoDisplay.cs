@@ -21,7 +21,8 @@ public class ProfileInfoDisplay : MonoBehaviour
     [SerializeField] private TMP_Text confirmDeleteText;
 
     [Header("==Misc.==")]
-    [SerializeField] private GameObject modeImage;
+    [SerializeField] private GameObject easyModeImage;
+    [SerializeField] private GameObject hardModeImage;
     [SerializeField] private Button deleteProfileButton;
     [SerializeField] private GameObject modeMenu;
 
@@ -29,12 +30,12 @@ public class ProfileInfoDisplay : MonoBehaviour
     private ProfileData profileData;
 
     private PauseMenu pauseMenuScript;
-    private Vector3 originalProfileTextPos;
+    private Vector3 offsetProfileTextPos = new Vector3(-25, 200, 0);
+    private Vector3 centeredProfileTextPos = new Vector3(0, 200, 0);
 
     private void Start()
     {
         pauseMenuScript = GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>();
-        originalProfileTextPos = new Vector3(0, 200, 0);
 
         RefreshProfileText();
     }
@@ -56,12 +57,11 @@ public class ProfileInfoDisplay : MonoBehaviour
             filePath = Application.persistentDataPath + "/ProfileData" + profileNumber + ".json";
         }
 
-        profileText.rectTransform.localPosition = originalProfileTextPos;
-        modeImage.SetActive(false);
-
         try
         {
             profileData = JsonUtility.FromJson<ProfileData>(System.IO.File.ReadAllText(filePath));
+
+            profileText.rectTransform.localPosition = offsetProfileTextPos;
 
             nutrientText.text = profileData.nutrients.ToString();
             logText.text = profileData.log.ToString();
@@ -71,12 +71,14 @@ public class ProfileInfoDisplay : MonoBehaviour
 
             if(profileData.permadeathIsOn == true)
             {
-                profileText.rectTransform.localPosition = originalProfileTextPos + new Vector3(-25, 0, 0);
-                modeImage.SetActive(true);
+                easyModeImage.SetActive(false);
+                hardModeImage.SetActive(true);
             }
         }
         catch
         {
+            profileText.rectTransform.localPosition = centeredProfileTextPos;
+
             nutrientText.transform.parent.gameObject.SetActive(false);
             logText.transform.parent.gameObject.SetActive(false);
             exoText.transform.parent.gameObject.SetActive(false);
@@ -85,6 +87,9 @@ public class ProfileInfoDisplay : MonoBehaviour
 
             createText.gameObject.SetActive(true);
             deleteProfileButton.gameObject.SetActive(false);
+
+            easyModeImage.SetActive(false);
+            hardModeImage.SetActive(false);
         }
     }
 
