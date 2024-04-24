@@ -12,15 +12,15 @@ public class HappinessManager : MonoBehaviour
     public int colonySporeCount {private set; get;}
 
     [Header("Energy")]
-    [SerializeField][Tooltip("Max amount of energy a Spore can have")] public int maxEnergy = 3;
+    [SerializeField][Tooltip("Max amount of energy a Spore can have")] public int maxEnergy = 2;
     [SerializeField][Tooltip("Min amount of energy a Spore can have")] public int minEnergy = -2;
 
     [Header("Individual Happiness")]
-    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("When a Spore has >0 energy, the happiness they gain on completing an area")] public float happinessOnSpendingEnergy = 0.1f;
-    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("When a Spore has <=0 energy, the happiness they gain on completing an area")] public float happinessOnExhaustingEnergy = -0.1f;
-    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness change when a Spore dies")] public float happinessOnDying = -0.15f;
-    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness change for all Spores when another Spore dies in hardcore mode")] public float happinessOnAFriendDyingForever = -0.1f;
-    [SerializeField][Range(-0.5f, 0.5f)][Tooltip("The happiness change for all Sporse when a Spore is grown")] public float happinessOnSporeGrown = 0.1f;
+    [SerializeField][Tooltip("When a Spore has >0 energy, the happiness they gain on completing an area")] public float happinessOnSpendingEnergy = 0.1f;
+    [SerializeField][Tooltip("When a Spore has <=0 energy, the happiness they gain on completing an area")] public float happinessOnExhaustingEnergy = -0.1f;
+    [SerializeField][Tooltip("The happiness change when a Spore dies")] public float happinessOnDying = -0.15f;
+    [SerializeField][Tooltip("The happiness change for all Spores when another Spore dies in hardcore mode")] public float happinessOnAFriendDyingForever = -0.1f;
+    [SerializeField][Tooltip("The happiness change for all Sporse when a Spore is grown")] public float happinessOnSporeGrown = 0.1f;
 
     [Header("Colony Happiness")]
     [SerializeField][Tooltip("Whether colony happiness multiplies or adds to Spore stats")] public bool doesHappinessMultiply = false;
