@@ -142,11 +142,7 @@ public class PlayerHealth : MonoBehaviour
         swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
         CancelInvoke("Regen");
         hudHealth.UpdateHealthUI(0, maxHealth);
-        if (animator.GetBool("Death") == false)
-        {
-            animator.SetBool("Death", true);
-        }
-
+        animator.SetBool("Death", true);
         float happinessLostOnDying = HappinessManager.Instance.happinessOnDying;
         characterStats.ModifyHappiness(happinessLostOnDying);
 

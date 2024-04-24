@@ -63,18 +63,10 @@ public class EnemyHealth : MonoBehaviour
 
     protected IEnumerator Death()
     {
-        if (gameObject.name != "Rival Colony Leader")
-        {
-            gameObject.GetComponent<EnemyAttack>().CancelAttack();
-            gameObject.GetComponent<EnemyAttack>().enabled = false;
-            gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
-            gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
-        }
-        else
-        {
-            GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();
-        }
-
+        gameObject.GetComponent<EnemyAttack>().CancelAttack();
+        gameObject.GetComponent<EnemyAttack>().enabled = false;
+        gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 
         alreadyDead = true;
 

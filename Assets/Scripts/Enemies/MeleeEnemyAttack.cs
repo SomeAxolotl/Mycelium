@@ -18,7 +18,9 @@ public class MeleeEnemyAttack : EnemyAttack
     private float resetAttack;
     [SerializeField] private float damage = 20f;
     private float knockbackForce = 30f;
-    [HideInInspector] public float chargeSpeed;
+    public float chargeSpeed = 8f;
+    private float storedMoveSpeed;
+    private float storedChargeSpeed;
     IEnumerator attack;
     Animator animator;
     List<GameObject> playerHit = new List<GameObject>();
@@ -38,6 +40,8 @@ public class MeleeEnemyAttack : EnemyAttack
         player = GameObject.FindWithTag("currentPlayer").transform;
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
+        storedMoveSpeed = reworkedEnemyNavigation.moveSpeed;
+        storedChargeSpeed = chargeSpeed;
     }
 
     // Update is called once per frame
@@ -95,7 +99,6 @@ public class MeleeEnemyAttack : EnemyAttack
         attackStarted = true;
         animator.speed = 0.5f;
         reworkedEnemyNavigation.moveSpeed = 0f;
-        chargeSpeed = 8f;
         attackWindupTime = Random.Range(attackWindupTimeMin, attackWindupTimeMax);
         yield return new WaitForSeconds(attackWindupTime + hitStun);
         
@@ -122,7 +125,7 @@ public class MeleeEnemyAttack : EnemyAttack
         animator.SetTrigger("Attack");
         isAttacking = false;
         hitStun = 0f;
-        reworkedEnemyNavigation.moveSpeed = 3f;
+        reworkedEnemyNavigation.moveSpeed = storedMoveSpeed;
         playerDamaged = false;
         playerHit.Clear();
         yield return new WaitForSeconds(attackCooldown);
@@ -135,8 +138,8 @@ public class MeleeEnemyAttack : EnemyAttack
         animator.speed = 1f;
         isAttacking = false;
         hitStun = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().secondsTilHitstopSpeedup;
-        reworkedEnemyNavigation.moveSpeed = 3f;
-        chargeSpeed = 8f;
+        reworkedEnemyNavigation.moveSpeed = storedMoveSpeed;
+        chargeSpeed = storedChargeSpeed;
         playerDamaged = false;
         playerHit.Clear();
         attackStarted = false;
