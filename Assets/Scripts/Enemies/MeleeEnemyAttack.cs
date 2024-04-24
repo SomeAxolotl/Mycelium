@@ -33,7 +33,6 @@ public class MeleeEnemyAttack : EnemyAttack
     // Start is called before the first frame update
     void Start()
     {
-        damage = damage * GlobalData.currentLoop;
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         attack = this.Attack();
         animator = GetComponent<Animator>();
@@ -150,7 +149,7 @@ public class MeleeEnemyAttack : EnemyAttack
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
             playerDamaged = true;
-            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
         }

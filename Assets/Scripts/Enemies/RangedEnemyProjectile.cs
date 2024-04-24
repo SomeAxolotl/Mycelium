@@ -12,7 +12,6 @@ public class RangedEnemyProjectile : MonoBehaviour
 
     private void Start()
     {
-        damage = damage * GlobalData.currentLoop;
         Destroy(gameObject, 5f);
         gravity = new Vector3(0f, gravityForce, 0f);
         rb = GetComponent<Rigidbody>();
@@ -25,7 +24,7 @@ public class RangedEnemyProjectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
-            collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
+            collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             Instantiate(ExplosionVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }

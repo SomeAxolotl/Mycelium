@@ -15,7 +15,7 @@ public class CrabAttack : EnemyAttack
     private bool holdingShell = true;
     [HideInInspector] public bool zombified = false;
     private float attackCooldown = 1.5f;
-    [SerializeField] private float meleeDamage = 70f;
+    [SerializeField] private float meleeDamage = 50f;
     [SerializeField] private float movementSpeed = 3f;
     private float shellthrowWindup = 1.5f;
     private float knockbackForce = 30f;

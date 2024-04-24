@@ -31,7 +31,6 @@ public class MushyAttack : EnemyAttack
     // Start is called before the first frame update
     void Start()
     {
-        damage = damage * GlobalData.currentLoop;
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         attack = this.Attack();
         animator = GetComponent<Animator>();
