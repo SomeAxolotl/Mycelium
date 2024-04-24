@@ -86,6 +86,12 @@ public class HappinessManager : MonoBehaviour
 
     public void FriendlySporePermaDied()
     {
+        StartCoroutine(FriendlySporePermaDiedWithDelay());
+    }
+    IEnumerator FriendlySporePermaDiedWithDelay()
+    {
+        yield return null;
+
         SwapCharacter swapCharacter = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>();
 
         if (swapCharacter.characters.Count > 1)

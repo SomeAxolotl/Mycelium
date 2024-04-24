@@ -80,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (spawnedEnemies.Count < maxSpawnCount)
             {
-                spawnedEnemies.Add(Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity));
+                spawnedEnemies.Add(Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity));
             
             }
         }
@@ -120,12 +120,12 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnerIsVertical == true)
         {
-            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + waterfallOffset, transform.position.y, transform.position.z), Quaternion.identity);
+            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + waterfallOffset, transform.position.y, transform.position.z), Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
         }
         else
         {
-            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count - 1)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
+            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
         }
         //Selects a random enemy from the weightedEnemyList, and spawns it

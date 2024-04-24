@@ -61,19 +61,20 @@ public class DrumCurio : Curio
             float boingSampledTime = carcassAudioSource.timeSamples / (carcassAudioSource.clip.frequency * (60f / (carcassSongBPM / 3.5f)));
             float hitSampledTime = (carcassAudioSource.timeSamples + (hitTimeOffset / (speedLevel * hitTimeOffsetSpeedScalar))) / (carcassAudioSource.clip.frequency * (60f / (carcassSongBPM / 3.5f)));
 
-            if (Mathf.FloorToInt(boingSampledTime) != lastBoing)
+            if (Mathf.FloorToInt(boingSampledTime) != lastBoing && Time.timeScale > 0)
             {
                 if (lastBoing != -1 && lastBoingSampledTime != -1 && boingSampledTime - lastBoingSampledTime > 0 && playingCounter > 0.7f)
                 {
                     SoundEffectManager.Instance.PlaySound("Impact", transform.position);
                     SoundEffectManager.Instance.PlaySound("DrumSmack", transform.position);
+                    GetComponent<Animator>().SetTrigger("Smack");
                 }
 
                 lastBoing = Mathf.FloorToInt(boingSampledTime);
                 lastBoingSampledTime = boingSampledTime;
             }
 
-            if (Mathf.FloorToInt(hitSampledTime) != lastHit)
+            if (Mathf.FloorToInt(hitSampledTime) != lastHit && Time.timeScale > 0)
             {
                 if (lastHit != -1 && lastHitSampledTime != -1 && hitSampledTime - lastHitSampledTime > 0)
                 {   
