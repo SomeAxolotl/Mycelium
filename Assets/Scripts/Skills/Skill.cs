@@ -52,7 +52,7 @@ public class Skill : MonoBehaviour
 
         //Tentative value math -- Lerps between ValueAt1Sentience and ValueAt15Sentience depending on what ur sentience lvl is
         //finalSkillValue = Mathf.RoundToInt(Mathf.Lerp(ValueAt1Sentience, ValueAt15Sentience, lerpValue));
-        finalSkillValue = valueBase + ((characterStats.sentienceLevel - 1) * valueIncrement);
+        finalSkillValue = (valueBase + ((characterStats.sentienceLevel - 1) * valueIncrement)) * fungalMightBonus;
 
         //Tentative cooldown math -- Lerps between CooldownAt1Sentience and CooldownAt15Sentience depending on what ur sentience lvl is
         //finalSkillCooldown = Mathf.Lerp(CooldownAt1Sentience, CooldownAt15Sentience, lerpValue);

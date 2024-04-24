@@ -89,7 +89,7 @@ public class CharSelectManagerNew : MonoBehaviour
                 }
                 else
                 {
-                    colonyHappinessWord = "<color=#FFD700>Neutral</color>";
+                    colonyHappinessWord = "<color=#FFD700>Content</color>";
                 }
                 NotificationManager.Instance.Notification("Your Colony is " + colonyHappinessWord, "All Stats +" + ((happinessStatMultiplier * 100f) - 100f) + "%");
 
@@ -115,7 +115,7 @@ public class CharSelectManagerNew : MonoBehaviour
                 }
                 else
                 {
-                    colonyHappinessWord = "<color=#FFD700>Neutral</color>";
+                    colonyHappinessWord = "<color=#FFD700>Content</color>";
                     plusMinus = "+";
                     colorHex = "FFD700";
                 }
