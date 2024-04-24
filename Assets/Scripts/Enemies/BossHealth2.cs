@@ -14,7 +14,10 @@ public class BossHealth2 : EnemyHealth
         if (other.gameObject.CompareTag("currentPlayer") && !hudPopup)
         {
             hudPopup = true;
-            GameObject.Find("Rival Colony Leader").GetComponent<MonsterBossAttack>().DoRandomAttack();
+            if (GameObject.Find("Rival Colony Leader") != null)
+            {
+                GameObject.Find("Rival Colony Leader").GetComponent<MonsterBossAttack>().DoRandomAttack();
+            }
             hudBoss.EncounterBoss(gameObject.name, currentHealth, maxHealth);
         }
     }
@@ -41,10 +44,10 @@ public class BossHealth2 : EnemyHealth
 
         if (currentHealth <= 0 && !alreadyDead)
         {
-            DestroyNonBossEnemies();
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
             if(gameObject.name == "Rival Colony Leader")
             {
+                DestroyNonBossEnemies();
                 StartCoroutine(BossDeath());
                 gameObject.GetComponent<MonsterBossAttack>().enabled = false;
                 gameObject.GetComponent<TempMovement>().enabled = false;
