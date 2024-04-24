@@ -33,7 +33,6 @@ public class CrabAttack : EnemyAttack
     // Start is called before the first frame update
     void Start()
     {
-        meleeDamage = meleeDamage * GlobalData.currentLoop;
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         enemyHealth = GetComponent<EnemyHealth>();
         attack = this.Attack();

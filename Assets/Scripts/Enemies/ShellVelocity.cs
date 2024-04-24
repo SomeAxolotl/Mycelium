@@ -13,7 +13,6 @@ public class ShellVelocity : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        damage = damage * GlobalData.currentLoop;
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindWithTag("currentPlayer").transform;
     }
@@ -48,7 +47,7 @@ public class ShellVelocity : MonoBehaviour
     {
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
-            collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
+            collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(gameObject);
         }
