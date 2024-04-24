@@ -322,7 +322,7 @@ public class TestingManager : MonoBehaviour
         customDesign.MouthOption = customSpore.mouthTextureIndex;
 
 
-        GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>().SpawnNewCharacter(customSpore.subspecies.ToString(), customStats, customDesign, customSpore.randomDesignFromSpecies);
+        GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>().SpawnNewCharacter(customSpore.subspecies.ToString(), customStats, customDesign, customSpore.randomDesignFromSpecies, customSpore.randomName);
 
         Destroy(tempObject);
     }
@@ -351,6 +351,7 @@ public class TestingManager : MonoBehaviour
     {
         [Header("Stats")]
         public string sporeName = "Gob";
+        [Tooltip("Custom Spore's nanme is just a random name in the pool")] public bool randomName = true;
         public SubspeciesSkills subspeciesSkill = SubspeciesSkills.NoSkill;
         public StatSkills skill1 = StatSkills.NoSkill;
         public StatSkills skill2 = StatSkills.NoSkill;

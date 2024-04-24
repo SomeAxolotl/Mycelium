@@ -19,7 +19,7 @@ public class HUDNutrients : MonoBehaviour
     {
         if (GlobalData.currentLoop >= 2)
         {
-            nutrientMultiplierText.text = "+" + ((GlobalData.currentLoop / 2) * 50 ) + "%";
+            nutrientMultiplierText.text = "+" + ((GlobalData.currentLoop - 1) * 50) + "%";
         }
         else
         {

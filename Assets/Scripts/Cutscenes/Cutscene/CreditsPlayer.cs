@@ -90,39 +90,39 @@ public class CreditsPlayer : MonoBehaviour
     {
         yield return StartCoroutine(FadeOut(endOfRunCanvas, fadeTimeEndOfRunCanvas));
 
-        string coloredUnlockString = "";
+        string unlockString = "";
         switch (GlobalData.currentLoop)
         {
             case 2:
                 FurnitureManager.Instance.bedIsUnlocked = true;
-                coloredUnlockString = "Bed";
+                unlockString = "Bed";
                 break;
             case 3:
                 FurnitureManager.Instance.chairIsUnlocked = true;
-                coloredUnlockString = "Chair";
+                unlockString = "Chair";
                 break;
             case 4:
                 FurnitureManager.Instance.fireIsUnlocked = true;
-                coloredUnlockString = "Bonfire";
+                unlockString = "Bonfire";
                 break;
             case 5:
                 FurnitureManager.Instance.fireflyIsUnlocked = true;
-                coloredUnlockString = "FireflyBottle";
+                unlockString = "FireflyBottle";
                 break;
             case 6:
                 FurnitureManager.Instance.gameboardIsUnlocked = true;
-                coloredUnlockString = "Game Board";
+                unlockString = "Game Board";
                 break;
             case 7:
                 FurnitureManager.Instance.drumIsUnlocked = true;
-                coloredUnlockString = "Beetle Drum";
+                unlockString = "Beetle Drum";
                 break;
 
         }
 
-        if (GlobalData.currentLoop < 7)
+        if (GlobalData.currentLoop < 7 && !FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
         {
-            NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + coloredUnlockString + "</color>!", "Check it out at the Carcass!");
+            NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + unlockString + "</color>!", "Check it out at the Carcass!");
         }
     }
 

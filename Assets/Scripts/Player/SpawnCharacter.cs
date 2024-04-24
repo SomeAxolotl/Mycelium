@@ -64,7 +64,7 @@ public class SpawnCharacter : MonoBehaviour
         }
     }
 
-    public void SpawnNewCharacter(string subspecies, CharacterStats customStats = null, DesignTracker customDesign = null, bool randomDesignFromSpecies = true)
+    public void SpawnNewCharacter(string subspecies, CharacterStats customStats = null, DesignTracker customDesign = null, bool randomDesignFromSpecies = true, bool isRandomName = true)
     {
         
         GameObject newCharacter = Instantiate(characterPrefab);
@@ -95,45 +95,25 @@ public class SpawnCharacter : MonoBehaviour
                     break;
             }
 
-            int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
-            string randomName;
-
-            if (swapCharacter.characters.Count >= sporeNames.Count)
-            {
-                newCharacter.GetComponent<CharacterStats>().sporeName = sporeNames[randomNameIndex];
-            }
-            else
-            {
-                while (true)
-                {
-                    randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count);
-                    randomName = sporeNames[randomNameIndex];
-                    foreach (GameObject character in swapCharacter.characters)
-                    {
-                        if (character.GetComponent<CharacterStats>().sporeName != randomName)
-                        {
-                            newCharacter.GetComponent<CharacterStats>().sporeName = randomName;
-                            break;
-                        }
-                    }
-
-                    if (newCharacter.GetComponent<CharacterStats>().sporeName != null)
-                    {
-                        break;
-                    }
-                }
-            }
+            newCharacter.GetComponent<CharacterStats>().sporeName = GetRandomUniqueName();
 
             SporePersonalities randomSporePersonality = (SporePersonalities) Random.Range(0, 5);
             newCharacter.GetComponent<CharacterStats>().sporePersonality = randomSporePersonality;
         }
         else
         {
+            if (isRandomName)
+            {
+                newCharacter.GetComponent<CharacterStats>().sporeName = GetRandomUniqueName();
+            }
+            else 
+            {
+                newCharacter.GetComponent<CharacterStats>().sporeName = customStats.sporeName;
+            }
+
             subspeciesSkill = customStats.equippedSkills[0];
             statSkill1 = customStats.equippedSkills[1];
             statSkill2 = customStats.equippedSkills[2];
-
-            newCharacter.GetComponent<CharacterStats>().sporeName = customStats.sporeName;
 
             newCharacter.GetComponent<CharacterStats>().sporePersonality = customStats.sporePersonality;
         }
@@ -184,6 +164,39 @@ public class SpawnCharacter : MonoBehaviour
         StartCoroutine(ResetCamera(newCharacter));
 
         //GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassSong>().PlayCarcassSong();
+    }
+
+    string GetRandomUniqueName()
+    {
+        int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
+        string randomName;
+
+        if (swapCharacter.characters.Count >= sporeNames.Count)
+        {
+            return sporeNames[randomNameIndex];
+        }
+        else
+        {
+            while (true)
+            {
+                randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count);
+                randomName = sporeNames[randomNameIndex];
+                bool nameIsUnique = true;
+                foreach (GameObject character in swapCharacter.characters)
+                {
+                    if (character.GetComponent<CharacterStats>().sporeName == randomName)
+                    {
+                        nameIsUnique = false;
+                        break;
+                    }
+                }
+
+                if (nameIsUnique)
+                {
+                    return randomName;
+                }
+            }
+        }
     }
 
     public IEnumerator ResetCamera(GameObject newCharacter)
