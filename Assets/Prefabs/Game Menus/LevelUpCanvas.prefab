@@ -747,6 +747,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1195857904604958107}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlaySelectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 11
     callback:
       m_PersistentCalls:
@@ -792,6 +804,18 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 6125089007826113519}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlayDeselectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1195857904604958107}
           m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
           m_MethodName: PlayDeselectAnimation
           m_Mode: 1
@@ -5178,6 +5202,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3395550563245475607}
+  - component: {fileID: 4537153819426705111}
+  - component: {fileID: 1195857904604958107}
   m_Layer: 5
   m_Name: Skills
   m_TagString: Untagged
@@ -5206,11 +5232,46 @@ RectTransform:
   m_Father: {fileID: 8911378446948100792}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -188, y: 84}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 274, y: -265}
   m_SizeDelta: {x: 511.4165, y: 159.44293}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &4537153819426705111
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280200282357668378}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09189547a418d1847834f5430b9fdcf7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1195857904604958107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280200282357668378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0248a4e78f875d64aa3d35883d8bd1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSelected: 0
+  animator: {fileID: 4537153819426705111}
 --- !u!1 &3354318682978670087
 GameObject:
   m_ObjectHideFlags: 0
@@ -7121,6 +7182,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 7999901250697583614}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlaySelectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 11
     callback:
       m_PersistentCalls:
@@ -7166,6 +7239,18 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 9174916695770885554}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlayDeselectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 7999901250697583614}
           m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
           m_MethodName: PlayDeselectAnimation
           m_Mode: 1
@@ -9907,6 +9992,7 @@ GameObject:
   - component: {fileID: 1515515397218611370}
   - component: {fileID: 4119875857322971373}
   - component: {fileID: 609272312116153212}
+  - component: {fileID: 3090329901134889695}
   m_Layer: 5
   m_Name: Attack Damage
   m_TagString: Untagged
@@ -10054,6 +10140,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3090329901134889695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016596268613451606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0248a4e78f875d64aa3d35883d8bd1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSelected: 0
+  animator: {fileID: 609272312116153212}
 --- !u!1 &6154259769337331358
 GameObject:
   m_ObjectHideFlags: 0
@@ -10066,6 +10166,7 @@ GameObject:
   - component: {fileID: 8413521229456980073}
   - component: {fileID: 5594059296676218600}
   - component: {fileID: 3057943843463141667}
+  - component: {fileID: 7999901250697583614}
   m_Layer: 5
   m_Name: Speed
   m_TagString: Untagged
@@ -10213,6 +10314,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7999901250697583614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6154259769337331358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0248a4e78f875d64aa3d35883d8bd1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSelected: 0
+  animator: {fileID: 3057943843463141667}
 --- !u!1 &6221914828015503360
 GameObject:
   m_ObjectHideFlags: 0
@@ -13210,6 +13325,7 @@ GameObject:
   - component: {fileID: 1083890756017827302}
   - component: {fileID: 8580049328137722771}
   - component: {fileID: 374229860379745299}
+  - component: {fileID: 6473412229503332722}
   m_Layer: 5
   m_Name: maxHealth
   m_TagString: Untagged
@@ -13357,6 +13473,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6473412229503332722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8067430130011757364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0248a4e78f875d64aa3d35883d8bd1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSelected: 0
+  animator: {fileID: 374229860379745299}
 --- !u!1 &8088810470122582260
 GameObject:
   m_ObjectHideFlags: 0
@@ -14326,6 +14456,7 @@ GameObject:
   - component: {fileID: 3618811819817042798}
   - component: {fileID: 4191760195452995025}
   - component: {fileID: 2177583711407020760}
+  - component: {fileID: 6905541419713872442}
   m_Layer: 5
   m_Name: Regen
   m_TagString: Untagged
@@ -14473,6 +14604,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6905541419713872442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388352295497317029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0248a4e78f875d64aa3d35883d8bd1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSelected: 0
+  animator: {fileID: 2177583711407020760}
 --- !u!1 &8400309933440461231
 GameObject:
   m_ObjectHideFlags: 0
@@ -14925,6 +15070,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 3090329901134889695}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlaySelectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 11
     callback:
       m_PersistentCalls:
@@ -14970,6 +15127,18 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 3157719336718478021}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlayDeselectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3090329901134889695}
           m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
           m_MethodName: PlayDeselectAnimation
           m_Mode: 1
@@ -16202,6 +16371,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 6905541419713872442}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlaySelectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6473412229503332722}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlaySelectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 11
     callback:
       m_PersistentCalls:
@@ -16247,6 +16440,30 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 571614129315384444}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlayDeselectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6905541419713872442}
+          m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
+          m_MethodName: PlayDeselectAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6473412229503332722}
           m_TargetAssemblyTypeName: MenuSelectAnimation, Assembly-CSharp
           m_MethodName: PlayDeselectAnimation
           m_Mode: 1
