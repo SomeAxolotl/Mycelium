@@ -13,6 +13,7 @@ public class CrabAttack : EnemyAttack
     private float attackTimer;
     private float disFromPlayer;
     private bool holdingShell = true;
+    [HideInInspector] public bool zombified = false;
     private float attackCooldown = 1.5f;
     [SerializeField] private float meleeDamage = 70f;
     [SerializeField] private float movementSpeed = 3f;
@@ -127,20 +128,30 @@ public class CrabAttack : EnemyAttack
             meleeAttackStarted = false;
             attackTimer = 0f;
             disFromPlayer = Vector3.Distance(transform.position, player.position);
+            yield return null;
             if (disFromPlayer <= 5f)
             {
                 yield return new WaitForSeconds(0.5f);
-                attackStarted = false;
-                animator.SetTrigger("Attack");
-                //animator.Play("Attack", 0, 0.5f);
-                crabMeleeHitbox.StartCoroutine(crabMeleeHitbox.ActivateHitbox());
-                yield return new WaitForSeconds(attackCooldown + 1.7f);
+                if(!zombified)
+                {
+                    attackStarted = false;
+                    animator.SetTrigger("Attack");
+                    crabMeleeHitbox.StartCoroutine(crabMeleeHitbox.ActivateHitbox());
+                }
+                yield return new WaitForSeconds(attackCooldown + 1.7f); //1.7 buffer for the actual animation
             }
             else
             {
                 yield return null;
             }
         }
+        canAttack = true;
+    }
+    public void StopAttack()
+    { 
+        StopAllCoroutines();
+        zombified = true;
+        attackStarted = false;
         canAttack = true;
     }
 
