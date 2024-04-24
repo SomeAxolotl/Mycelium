@@ -8,7 +8,7 @@ public class BottleDisabler : MonoBehaviour
     {
         yield return null;
 
-        if (!FurnitureManager.Instance.FurnitureIsUnlocked("FireflyBottle"))
+        if (!FurnitureManager.Instance.FurnitureIsUnlocked("Firefly Bottles"))
         {
             gameObject.SetActive(false);
         }

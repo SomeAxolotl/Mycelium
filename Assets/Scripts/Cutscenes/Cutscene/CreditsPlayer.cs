@@ -78,8 +78,6 @@ public class CreditsPlayer : MonoBehaviour
 
         StartCoroutine(NotificationWithDelay());
 
-        ProfileManager.Instance.SaveOverride();
-
         levelEndScript.SpecialCreditsLoopFunction();
 
         SceneLoader.Instance.BeginLoadScene("Daybreak Arboretum", "Meow");
@@ -88,79 +86,129 @@ public class CreditsPlayer : MonoBehaviour
 
     IEnumerator NotificationWithDelay()
     {
-        yield return StartCoroutine(FadeOut(endOfRunCanvas, fadeTimeEndOfRunCanvas));
-
         string unlockString = "";
+        bool wasUnlocked = false;
         switch (GlobalData.currentLoop)
         {
             case 2:
-                FurnitureManager.Instance.bedIsUnlocked = true;
                 unlockString = "Bed";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
+                FurnitureManager.Instance.bedIsUnlocked = true;
                 break;
             case 3:
+                unlockString = "Stump Chairs";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.chairIsUnlocked = true;
-                unlockString = "Chair";
                 break;
             case 4:
-                FurnitureManager.Instance.fireIsUnlocked = true;
                 unlockString = "Bonfire";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
+                FurnitureManager.Instance.fireIsUnlocked = true;
                 break;
             case 5:
+                unlockString = "Firefly Bottle";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.fireflyIsUnlocked = true;
-                unlockString = "FireflyBottle";
                 break;
             case 6:
-                FurnitureManager.Instance.gameboardIsUnlocked = true;
                 unlockString = "Game Board";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
+                FurnitureManager.Instance.gameboardIsUnlocked = true;
                 break;
             case 7:
-                FurnitureManager.Instance.drumIsUnlocked = true;
                 unlockString = "Beetle Drum";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
+                FurnitureManager.Instance.drumIsUnlocked = true;
                 break;
-
         }
 
-        if (GlobalData.currentLoop < 7 && !FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+        if (!wasUnlocked && GlobalData.currentLoop <= 7)
         {
             NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + unlockString + "</color>!", "Check it out at the Carcass!");
         }
+
+        ProfileManager.Instance.SaveOverride();
+
+        yield return StartCoroutine(FadeOut(endOfRunCanvas, fadeTimeEndOfRunCanvas));
     }
 
     public void FinishRun()
     {
-        string coloredUnlockString = "";
+        string unlockString = "";
+        bool wasUnlocked = false;
         switch (GlobalData.currentLoop + 1)
         {
             case 2:
+                unlockString = "Bed";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.bedIsUnlocked = true;
-                coloredUnlockString = "Bed";
                 break;
             case 3:
+                unlockString = "Stump Chairs";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.chairIsUnlocked = true;
-                coloredUnlockString = "Chair";
                 break;
             case 4:
+                unlockString = "Bonfire";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.fireIsUnlocked = true;
-                coloredUnlockString = "Bonfire";
                 break;
             case 5:
+                unlockString = "Firefly Bottles";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.fireflyIsUnlocked = true;
-                coloredUnlockString = "FireflyBottle";
                 break;
             case 6:
+                unlockString = "Game Board";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.gameboardIsUnlocked = true;
-                coloredUnlockString = "Game Board";
                 break;
             case 7:
+                unlockString = "Beetle Drum";
+                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                {
+                    wasUnlocked = true;
+                }
                 FurnitureManager.Instance.drumIsUnlocked = true;
-                coloredUnlockString = "Beetle Drum";
                 break;
-
         }
 
-        if (GlobalData.currentLoop + 1 < 7)
+        if (!wasUnlocked && GlobalData.currentLoop + 1 <= 7)
         {
-            NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + coloredUnlockString + "</color>!", "Check it out at the Carcass!");
+            NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + unlockString + "</color>!", "Check it out at the Carcass!");
         }
 
         EventSystem.current.SetSelectedGameObject(null);

@@ -32,19 +32,16 @@ public class FurnitureManager : MonoBehaviour
             case "Bed":
                 return bedIsUnlocked;
 
-            case "Drum":
+            case "Beetle Drum":
                 return drumIsUnlocked;
 
-            case "Chair":
+            case "Stump Chairs":
                 return chairIsUnlocked;
 
-            case "FireflyBottle":
+            case "Firefly Bottles":
                 return fireflyIsUnlocked;
 
-            case "FireflyBottleNight":
-                return fireflyIsUnlocked;
-
-            case "Gameboard":
+            case "Game Board":
                 return gameboardIsUnlocked;
 
             case "Bonfire":

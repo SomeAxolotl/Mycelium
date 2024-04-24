@@ -110,6 +110,9 @@ public class TestingManager : MonoBehaviour
 
     [Header("Set GlobalData.areaCleared to true - C")]
     [SerializeField][Tooltip("C - Set GlobalData.areaCleared to true")] private bool meoww = true;
+
+    [Header("Increment GlobalData.currentLoop by 1 - B")]
+    [SerializeField][Tooltip("B - Increment GlobalData.currentLoop by 1")] private bool meeeeeow = true;
     #pragma warning restore 0414
 
     [Header("References")]
@@ -217,6 +220,12 @@ public class TestingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             GlobalData.areaCleared = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GlobalData.currentLoop++;
+            Debug.Log("Current Loop: " + GlobalData.currentLoop);
         }
     }
 
