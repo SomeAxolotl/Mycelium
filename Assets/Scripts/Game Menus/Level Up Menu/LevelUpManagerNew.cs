@@ -433,18 +433,10 @@ public class LevelUpManagerNew : MonoBehaviour
       VitalitySelected = false;
       if(PrimalSelected == true && SpeedSelected == false && SentienceSelected == false && VitalitySelected == false)
       {
-      controls.UI.KeyLevelUpPrimal.Enable();
-      controls.UI.KeyLevelDownPrimal.Enable();
       controls.UI.PrimalLevelRight.Enable();
       controls.UI.PrimalLevelLeft.Enable();
-      controls.UI.PrimalLevelRightStick.Enable();
-      controls.UI.PrimalLevelLeftStick.Enable();
-      controls.UI.KeyLevelUpPrimal.started += ctx => PrimalUP();
-      controls.UI.KeyLevelDownPrimal.started += ctx => PrimalDown();
       controls.UI.PrimalLevelRight.started += ctx => PrimalUP();
-      controls.UI.PrimalLevelRightStick.started += ctx => PrimalUP(); 
       controls.UI.PrimalLevelLeft.started += ctx => PrimalDown(); 
-      controls.UI.PrimalLevelLeftStick.started += ctx => PrimalDown();
       SpeedDeselect();
       SentienceDeselect();
       VitalityDeselect();
@@ -493,12 +485,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void PrimalDeselect()
     {
-      controls.UI.KeyLevelDownPrimal.Disable();
-      controls.UI.KeyLevelUpPrimal.Disable();
       controls.UI.PrimalLevelRight.Disable();
       controls.UI.PrimalLevelLeft.Disable();
-      controls.UI.PrimalLevelRightStick.Disable();
-      controls.UI.PrimalLevelLeftStick.Disable();
     }
        public void SpeedBarFill()
     {
@@ -515,18 +503,10 @@ public class LevelUpManagerNew : MonoBehaviour
       VitalitySelected = false;
       if(SpeedSelected == true && PrimalSelected == false && SentienceSelected == false && VitalitySelected == false)
       {
-      controls.UI.KeyLevelUpSpeed.Enable();
-      controls.UI.KeyLevelDownSpeed.Enable();
       controls.UI.SpeedLevelRight.Enable();
       controls.UI.SpeedLevelLeft.Enable();
-      controls.UI.SpeedLevelRightStick.Enable();
-      controls.UI.SpeedLevelLeftStick.Enable();
-      controls.UI.KeyLevelUpSpeed.started += ctx => SpeedUP();
-      controls.UI.KeyLevelDownSpeed.started += ctx => SpeedDown();
       controls.UI.SpeedLevelRight.started += ctx => SpeedUP();
-     controls.UI.SpeedLevelRightStick.started += ctx => SpeedUP(); 
      controls.UI.SpeedLevelLeft.started += ctx => SpeedDown(); 
-      controls.UI.SpeedLevelLeftStick.started += ctx => SpeedDown();
       PrimalDeselect();
        SentienceDeselect();
        VitalityDeselect();
@@ -571,12 +551,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
      public void SpeedDeselect()
     {
-      controls.UI.KeyLevelDownSpeed.Disable();
-      controls.UI.KeyLevelUpSpeed.Disable();
       controls.UI.SpeedLevelRight.Disable();
       controls.UI.SpeedLevelLeft.Disable();
-      controls.UI.SpeedLevelRightStick.Disable();
-      controls.UI.SpeedLevelLeftStick.Disable();
     }
     
      public void SentienceBarFill()
@@ -594,18 +570,10 @@ public class LevelUpManagerNew : MonoBehaviour
       VitalitySelected = false;
       if(SentienceSelected == true && PrimalSelected == false && SpeedSelected == false && VitalitySelected == false)
       {
-      controls.UI.KeyLevelUpSentience.Enable();
-      controls.UI.KeyLevelDownSentience.Enable();
       controls.UI.SentienceLevelRight.Enable();
       controls.UI.SentienceLevelLeft.Enable();
-      controls.UI.SentienceLevelRightStick.Enable();
-      controls.UI.SentienceLevelLeftStick.Enable();
-      controls.UI.KeyLevelUpSentience.started += ctx => SentienceUP();
-      controls.UI.KeyLevelDownSentience.started += ctx => SentienceDown();
       controls.UI.SentienceLevelRight.started += ctx => SentienceUP();
-      controls.UI.SentienceLevelRightStick.started += ctx => SentienceUP(); 
       controls.UI.SentienceLevelLeft.started += ctx => SentienceDown(); 
-      controls.UI.SentienceLevelLeftStick.started += ctx => SentienceDown();
       PrimalDeselect();
       SpeedDeselect();
       VitalityDeselect();
@@ -671,12 +639,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void SentienceDeselect()
     {
-      controls.UI.KeyLevelDownSentience.Disable();
-      controls.UI.KeyLevelUpSentience.Disable();
       controls.UI.SentienceLevelRight.Disable();
       controls.UI.SentienceLevelLeft.Disable();
-      controls.UI.SentienceLevelRightStick.Disable();
-      controls.UI.SentienceLevelLeftStick.Disable();
     }
     public void VitalityBarFill()
     {
@@ -693,18 +657,10 @@ public class LevelUpManagerNew : MonoBehaviour
       VitalitySelected = true;
       if(VitalitySelected == true && PrimalSelected == false && SpeedSelected == false && SentienceSelected == false)
       {
-      controls.UI.KeyLevelUpVitality.Enable();
-      controls.UI.KeyLevelDownVitality.Enable();
       controls.UI.VitalityLevelRight.Enable();
       controls.UI.VitalityLevelLeft.Enable();
-      controls.UI.VitalityLevelRightStick.Enable();
-      controls.UI.VitalityLevelLeftStick.Enable();
-       controls.UI.KeyLevelUpVitality.started += ctx => VitalityUP();
-       controls.UI.KeyLevelDownVitality.started += ctx => VitalityDown();
-       controls.UI.VitalityLevelRight.started += ctx => VitalityUP();
-      controls.UI.VitalityLevelRightStick.started += ctx => VitalityUP(); 
+      controls.UI.VitalityLevelRight.started += ctx => VitalityUP();
       controls.UI.VitalityLevelLeft.started += ctx => VitalityDown(); 
-      controls.UI.VitalityLevelLeftStick.started += ctx => VitalityDown();
       PrimalDeselect();
        SpeedDeselect();
        SentienceDeselect();
@@ -712,12 +668,8 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     public void VitalityDeselect()
     {
-      controls.UI.KeyLevelDownVitality.Disable();
-      controls.UI.KeyLevelUpVitality.Disable();
       controls.UI.VitalityLevelRight.Disable();
       controls.UI.VitalityLevelLeft.Disable();
-      controls.UI.VitalityLevelRightStick.Disable();
-      controls.UI.VitalityLevelLeftStick.Disable();
     }
     public void VitalityUP()
     {
