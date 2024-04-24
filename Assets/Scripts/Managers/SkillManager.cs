@@ -36,6 +36,8 @@ public class SkillManager : MonoBehaviour
 
             newSkill = Instantiate(noSkill, skillLoadout.transform);
             newSkill.transform.SetSiblingIndex(slot);
+
+            SetEquippedCharacterSkill(skillName, slot, player);
         }
     }
 
