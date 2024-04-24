@@ -168,7 +168,7 @@ public class SpawnCharacter : MonoBehaviour
 
     string GetRandomUniqueName()
     {
-        int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
+        int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count);
         string randomName;
 
         if (swapCharacter.characters.Count >= sporeNames.Count)
