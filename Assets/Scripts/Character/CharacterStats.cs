@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using RonaldSunglassesEmoji.Personalities;
 
 public class CharacterStats : MonoBehaviour
@@ -83,6 +84,20 @@ public class CharacterStats : MonoBehaviour
         skillManager = playerParent.GetComponent<SkillManager>();
         sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
         
+        if (SceneManager.GetActiveScene().name == "The Carcass")
+        {
+            StartCoroutine(CheckForSweat());
+        }
+    }
+
+    IEnumerator CheckForSweat()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (sporeEnergy <= 0)
+        {
+            transform.Find("SweatParticles").GetComponent<ParticleSystem>().Play();
+        }
     }
 
     void Update()
