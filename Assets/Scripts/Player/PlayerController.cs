@@ -324,6 +324,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        playerActionsAsset.Disable();
+        if (playerActionsAsset != null)
+        {
+            playerActionsAsset.Disable();
+        }
     }
 }

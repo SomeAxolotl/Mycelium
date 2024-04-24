@@ -254,7 +254,10 @@ public class PauseMenu : MonoBehaviour
     {
         if (isOnMainMenu == false)
         {
-            playerInput.Disable();
+            if(playerInput != null)
+            {
+                playerInput.Disable();
+            }
         }
     }
 }

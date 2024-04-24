@@ -163,6 +163,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDisable()
     {
-        playerActionsAsset.Disable();
+        if (playerActionsAsset != null)
+        {
+            playerActionsAsset.Disable();
+        }
     }
 }

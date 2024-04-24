@@ -41,7 +41,10 @@ public class SwapWeapon : MonoBehaviour
 
     private void OnDisable()
     {
-        playerActionsAsset.Disable();
+        if(playerActionsAsset != null)
+        {
+            playerActionsAsset.Disable();
+        }
     }
 
 

@@ -39,6 +39,10 @@ public class Zombify : Skill
             {
                 enemy.GetComponent<CrabAttack>().StopAttack();
             }
+            if (enemy.GetComponent<MushyAttack>() != null)
+            {
+                enemy.GetComponent<MushyAttack>().StopAttack();
+            }
             enemy.GetComponent<EnemyAttack>().CancelAttack();
             enemy.GetComponent<EnemyAttack>().enabled = false;
             enemy.GetComponent<NavEnabler>().enabled = false;

@@ -112,6 +112,10 @@ public class ZombifiedMovement : MonoBehaviour
         {
             gameObject.GetComponent<CrabAttack>().zombified = false;
         }
+        if (gameObject.GetComponent<MushyAttack>() != null)
+        {
+            gameObject.GetComponent<MushyAttack>().zombified = false;
+        }
         gameObject.GetComponent<EnemyAttack>().enabled = true;
         gameObject.GetComponent<NavEnabler>().enabled = true;
         gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = true;

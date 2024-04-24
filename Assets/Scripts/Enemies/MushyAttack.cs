@@ -1,30 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class MushyAttack : EnemyAttack
 {
-    private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private bool canAttack = true;
-    [HideInInspector] public bool isAttacking = false;
     private bool attackStarted = false;
-    [HideInInspector] public bool playerDamaged = false;
-    [SerializeField] private float attackCooldown = 2f;
-    // private float attackWindupTime;
-    // [SerializeField] private float attackWindupTimeMin = 0.7f;
-    // [SerializeField] private float attackWindupTimeMax = 0.9f;
+    private float attackTimer;
+    private float disFromPlayer;
     private float hitStun;
     private float resetAttack;
+    private float moveSpeed = 4f;
+    [HideInInspector] public bool zombified = false;
+    [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] public float damage = 20f;
     [HideInInspector] public float knockbackForce = 30f;
-    [HideInInspector] public float chargeSpeed;
     IEnumerator attack;
-    Animator animator;
-    [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();
+    private Animator animator;
     private Transform player;
     private Transform center;
     private Rigidbody rb;
+    private ReworkedEnemyNavigation reworkedEnemyNavigation;
+    [SerializeField] private GameObject mushyWeapon;
+    private MushyWeaponCollision mushyWeaponCollision;
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
 
@@ -38,6 +38,9 @@ public class MushyAttack : EnemyAttack
         player = GameObject.FindWithTag("currentPlayer").transform;
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
+        mushyWeaponCollision = mushyWeapon.GetComponent<MushyWeaponCollision>();
+        mushyWeaponCollision.damage = damage;
+        mushyWeaponCollision.knockbackForce = knockbackForce;
     }
 
     // Update is called once per frame
@@ -48,7 +51,7 @@ public class MushyAttack : EnemyAttack
             StartCoroutine(Attack());
         }
 
-        if(isAttacking)
+        if(attackStarted)
         {
             resetAttack += Time.deltaTime;
         }
@@ -62,14 +65,9 @@ public class MushyAttack : EnemyAttack
         if (attackStarted)
         {
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
-            if (dirToPlayer != Vector3.zero)
-            {
-                Quaternion lookRotation = Quaternion.LookRotation(dirToPlayer);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * chargeSpeed);
-            }
-            // Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
-            // float desiredYRotation = desiredRotation.eulerAngles.y;
-            // targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
+            Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
+            float desiredYRotation = desiredRotation.eulerAngles.y;
+            targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
         }
 
         RaycastHit groundHit;
@@ -78,13 +76,15 @@ public class MushyAttack : EnemyAttack
             Quaternion groundRotation = Quaternion.FromToRotation(transform.up, groundHit.normal) * transform.rotation;
             float groundXRotation = groundRotation.eulerAngles.x;
             float groundZRotation = groundRotation.eulerAngles.z;
-            if (attackStarted)
+            if (!canAttack)
             {
-                targetRotation = Quaternion.Euler(groundXRotation, targetRotation.eulerAngles.y, groundZRotation);
+                //targetRotation = Quaternion.Euler(groundXRotation, targetRotation.eulerAngles.y, groundZRotation);
+                targetRotation = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
             }
             else
             {
-                targetRotation = Quaternion.Euler(groundXRotation, transform.eulerAngles.y, groundZRotation);
+                //targetRotation = Quaternion.Euler(groundXRotation, transform.eulerAngles.y, groundZRotation);
+                targetRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
             }
         }
         else
@@ -98,63 +98,66 @@ public class MushyAttack : EnemyAttack
     {
         canAttack = false;
         attackStarted = true;
-        animator.speed = 0.5f;
-        reworkedEnemyNavigation.moveSpeed = 0f;
-        chargeSpeed = 8f;
-        // attackWindupTime = Random.Range(attackWindupTimeMin, attackWindupTimeMax);
-        // yield return new WaitForSeconds(attackWindupTime + hitStun);
-        
-        // if (GlobalData.isAbleToPause)
-        // {
-        //     SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
-        // }
-        
-        animator.speed = 3f;
-        attackStarted = false;
-        isAttacking = true;
-        Transform target = player;
-        Vector3 playerPos = player.position;
-        Vector3 moveDirection = (target.position - transform.position).normalized;
-        moveDirection.y = 0f;
-        float distanceToPlayer = Vector3.Distance(transform.position, playerPos);
-        while (distanceToPlayer > 0.25f && !playerDamaged && resetAttack < 1.5f)
+        disFromPlayer = Vector3.Distance(transform.position, player.position);
+        while (disFromPlayer > 2f && attackTimer < 3f)
         {
-            distanceToPlayer = Vector3.Distance(transform.position, playerPos);
-            rb.velocity = new Vector3((moveDirection * chargeSpeed).x, rb.velocity.y, (moveDirection * chargeSpeed).z);
+            reworkedEnemyNavigation.playerSeen = true;
+            disFromPlayer = Vector3.Distance(transform.position, player.position);
+            Vector3 moveDirection = ObstacleAvoidance(player.position - transform.position);
+            rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
             yield return null;
         }
-        animator.speed = 1f;
-        animator.SetTrigger("Attack");
-        isAttacking = false;
-        hitStun = 0f;
-        reworkedEnemyNavigation.moveSpeed = 3f;
-        playerDamaged = false;
-        playerHit.Clear();
-        yield return new WaitForSeconds(attackCooldown);
+        attackTimer = 0f;
+        disFromPlayer = Vector3.Distance(transform.position, player.position);
+        yield return null;
+        if (disFromPlayer <= 3f)
+        {
+            yield return new WaitForSeconds(0.3f);
+            if (!zombified)
+            {
+                attackStarted = false;
+                animator.SetTrigger("Attack");
+                mushyWeaponCollision.StartCoroutine(mushyWeaponCollision.ActivateHitbox());
+            }
+            yield return new WaitForSeconds(attackCooldown + 1f); //1 sec buffer for the actual animation
+        }
+        else
+        {
+            yield return null;
+        }
         canAttack = true;
     }
     public override void CancelAttack()
     {
         StopAllCoroutines();
         attack = Attack();
-        animator.speed = 1f;
-        isAttacking = false;
+        mushyWeapon.GetComponent<Collider>().enabled = false;
+        mushyWeaponCollision.playerHit.Clear();
         hitStun = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().secondsTilHitstopSpeedup;
-        reworkedEnemyNavigation.moveSpeed = 3f;
-        chargeSpeed = 8f;
-        playerDamaged = false;
-        playerHit.Clear();
         attackStarted = false;
         canAttack = true;
     }
-    // private void OnCollisionEnter(Collision other)
-    // {
-    //     if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
-    //     {
-    //         playerDamaged = true;
-    //         other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage);
-    //         other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
-    //         playerHit.Add(other.gameObject);
-    //     }
-    // }
+    public void StopAttack()
+    {
+        StopAllCoroutines();
+        attack = Attack();
+        mushyWeapon.GetComponent<Collider>().enabled = false;
+        mushyWeaponCollision.playerHit.Clear();
+        zombified = true;
+        attackStarted = false;
+        canAttack = true;
+    }
+    Vector3 ObstacleAvoidance(Vector3 desiredDirection)
+    {
+        Vector3 moveDirection = desiredDirection.normalized;
+
+        RaycastHit hit;
+        if (Physics.Raycast(center.position, transform.forward, out hit, 3f, enviromentLayer))
+        {
+            Vector3 avoidanceDirection = Vector3.Cross(Vector3.up, hit.normal);
+            moveDirection += avoidanceDirection * 1f;
+        }
+
+        return moveDirection.normalized;
+    }
 }

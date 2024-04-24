@@ -28,7 +28,7 @@ public class LeechingSpore : Skill
 
         if (closestEnemyObj != null)
         {
-            GameObject enemyAttach = closestEnemyObj.transform.Find("Attach").gameObject;
+            GameObject enemyAttach = closestEnemyObj.Find("Attach").gameObject;
             currentSpore = Instantiate(sporeObj, enemyAttach.transform);
             StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
             StartCoroutine(HealingPlayer(closestEnemyObj.gameObject));
