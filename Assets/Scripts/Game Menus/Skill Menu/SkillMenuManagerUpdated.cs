@@ -109,7 +109,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
 
     void OnEnable()
     {  
-        fog.SetActive(!fog.isActive);  
+        fog.SetActive(false);  
         LevelUI.SetActive(false);
         controls.UI.Close.performed += ctx => CloseSkill();
         HUDCanvasGroup = GameObject.Find("HUD").GetComponent<CanvasGroup>();
@@ -142,7 +142,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       controls.UI.MenuSwapR.performed -= ctx => MenuSwapRight();
       controls.UI.Disable();
       Destroy(InstantiatedSpore);
-      fog.SetActive(!fog.isActive); 
+      fog.SetActive(true); 
     }
     void MenuSwapLeft()
     {
@@ -546,7 +546,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
           
           if(currentstats.equippedSkills[1] == "TrophicCascade")
           {
-             skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
+          skillmanager.SetSkill("NoSkill", 1, GameObject.FindWithTag("currentPlayer"));
           hudSkills.UpdateHUDIcons();
             Debug.Log("B Pressed");
           skillmanager.SetSkill("TrophicCascade", 2, GameObject.FindWithTag("currentPlayer"));
