@@ -79,6 +79,11 @@ public class LevelUpManagerNew : MonoBehaviour
     public GameObject GrowMenu;
     public GameObject EventSystem;
 
+    int ogPrimalLevel;
+    int ogSentienceLevel;
+    int ogSpeedLevel;
+    int ogVitalityLevel;
+
     private void Awake()
     {
         controls = new ThirdPersonActionsAsset();
@@ -92,6 +97,14 @@ public class LevelUpManagerNew : MonoBehaviour
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
         StartCoroutine(UpdateUI());
+    }
+
+    void InitializeOGStats(CharacterStats currentStats)
+    {
+      ogPrimalLevel = currentStats.primalLevel;
+      ogSentienceLevel = currentStats.sentienceLevel;
+      ogSpeedLevel = currentStats.speedLevel;
+      ogVitalityLevel = currentStats.vitalityLevel;
     }
 
     void OnEnable()
@@ -137,6 +150,8 @@ public class LevelUpManagerNew : MonoBehaviour
       Camera.SetActive(true);
       Invoke("ControlEnable", 0.60f);
       Invoke("MenuSwapDelay", 0.60f);
+
+      InitializeOGStats(currentstats);
     }
     void Update()
     {
@@ -799,21 +814,25 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       newlyUnlockedSkills.Clear();
       int currentStat = currentstats.primalLevel;
-      UnlockConditional("Eruption", currentStat, 5);
-      UnlockConditional("LivingCyclone", currentStat, 10);
-      UnlockConditional("RelentlessFury", currentStat, 15);
+      int ogStat = ogPrimalLevel;
+      UnlockConditional("Eruption", currentStat, ogStat, 5);
+      UnlockConditional("LivingCyclone", currentStat, ogStat, 10);
+      UnlockConditional("RelentlessFury", currentStat, ogStat, 15);
       currentStat = currentstats.speedLevel;
-      UnlockConditional("Blitz", currentStat, 5);
-      UnlockConditional("TrophicCascade", currentStat, 10);
-      UnlockConditional("Mycotoxins", currentStat, 15);
+      ogStat = ogSpeedLevel;
+      UnlockConditional("Blitz", currentStat, ogStat, 5);
+      UnlockConditional("TrophicCascade", currentStat, ogStat, 10);
+      UnlockConditional("Mycotoxins", currentStat, ogStat, 15);
       currentStat = currentstats.sentienceLevel;
-      UnlockConditional("Spineshot", currentStat, 5);
-      UnlockConditional("UnstablePuffball", currentStat, 10);
-      UnlockConditional("Undergrowth", currentStat, 15);
+      ogStat = ogSentienceLevel;
+      UnlockConditional("Spineshot", currentStat, ogStat, 5);
+      UnlockConditional("UnstablePuffball", currentStat, ogStat, 10);
+      UnlockConditional("Undergrowth", currentStat, ogStat, 15);
       currentStat = currentstats.vitalityLevel;
-      UnlockConditional("LeechingSpore", currentStat, 5);
-      UnlockConditional("Sporeburst", currentStat, 10);
-      UnlockConditional("DefenseMechanism", currentStat, 15);
+      ogStat = ogVitalityLevel;
+      UnlockConditional("LeechingSpore", currentStat, ogStat, 5);
+      UnlockConditional("Sporeburst", currentStat, ogStat, 10);
+      UnlockConditional("DefenseMechanism", currentStat, ogStat, 15);
       if (newlyUnlockedSkills.Count == 1)
       {
         NotificationManager.Instance.Notification(newlyUnlockedSkills[0] + " Unlocked", "Equip at Sporemother", hudSkills.GetSkillSprite(newlyUnlockedSkills[0]));
@@ -823,9 +842,9 @@ public class LevelUpManagerNew : MonoBehaviour
         NotificationManager.Instance.Notification(newlyUnlockedSkills.Count + " New Skills Unlocked", "Equip at Sporemother");
       }
     }
-    void UnlockConditional(string skillName, int currentStatLevel, int targetStatLevel)
+    void UnlockConditional(string skillName, int currentStatLevel, int ogStatLevel, int targetStatLevel)
     {
-      if (currentStatLevel >= targetStatLevel && currentstats.skillEquippables[skillName] == false)
+      if (currentStatLevel >= targetStatLevel && ogStatLevel < targetStatLevel)
       { 
         newlyUnlockedSkills.Add(skillName);
         currentstats.UnlockSkill(skillName);
