@@ -28,11 +28,14 @@ public class LeechingSpore : Skill
 
         if (closestEnemyObj != null)
         {
-            GameObject enemyAttach = closestEnemyObj.Find("Attach").gameObject;
-            currentSpore = Instantiate(sporeObj, enemyAttach.transform);
-            StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
-            StartCoroutine(HealingPlayer(closestEnemyObj.gameObject));
-            StartCoroutine(DestroySpore(currentSpore));
+            GameObject enemyAttach = closestEnemyObj.Find("Attach")?.gameObject;
+            if (enemyAttach != null)
+            {
+                currentSpore = Instantiate(sporeObj, enemyAttach.transform);
+                StartCoroutine(DrainEnemy(closestEnemyObj.gameObject));
+                StartCoroutine(HealingPlayer(closestEnemyObj.gameObject));
+                StartCoroutine(DestroySpore(currentSpore));
+            }
         }
     }
 
@@ -41,6 +44,8 @@ public class LeechingSpore : Skill
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, attachRange, enemyLayerMask);
+
+        Debug.Log("Number of colliders detected: " + colliders.Length);
 
         Transform theTarget = null;
         float closestDistance = Mathf.Infinity;
@@ -67,6 +72,7 @@ public class LeechingSpore : Skill
 
         while (timer < sporeDuration)
         {  
+            Debug.Log("Draining enemy");
             float damage = finalSkillValue;  
             if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth > 0)
                 enemy.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
