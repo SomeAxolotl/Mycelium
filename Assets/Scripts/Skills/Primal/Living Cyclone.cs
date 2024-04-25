@@ -28,6 +28,10 @@ public class LivingCyclone : Skill
 
             StartCoroutine(ExtendArm());
         }
+        else
+        {
+            EndSkill();
+        }
     }
 
     IEnumerator ExtendArm()
