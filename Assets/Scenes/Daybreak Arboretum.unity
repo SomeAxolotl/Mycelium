@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028396, g: 0.22571427, b: 0.30692327, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028364, g: 0.22571364, b: 0.306922, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -164,7 +164,7 @@ MonoBehaviour:
   - {fileID: 1634313468}
   - {fileID: 1577411366}
   scaleWidth: 20.9
-  scaleHeight: 37
+  scaleHeight: 60
   distance: 464.45724
 --- !u!4 &12748756
 Transform:
@@ -174,7 +174,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12748754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -97, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -739,6 +739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 530751319}
   - component: {fileID: 530751318}
+  - component: {fileID: 530751320}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -806,14 +807,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530751317}
   m_LocalRotation: {x: 0, y: 0.92387956, z: 0, w: 0.38268346}
-  m_LocalPosition: {x: 328.4209, y: 69.9, z: -328.42096}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: 328.4209, y: 0, z: -328.42096}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1334337197}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &530751320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530751317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: 328.4209, y: -85, z: -328.421}
 --- !u!1 &538548994
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,6 +838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 538548996}
   - component: {fileID: 538548995}
+  - component: {fileID: 538548997}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -891,14 +906,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538548994}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  m_LocalPosition: {x: -0.000040604144, y: 69.9, z: -464.45724}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: -0.000040604144, y: 0, z: -464.45724}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 197281099}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &538548997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538548994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: -0.00004060414, y: -85, z: -464.4572}
 --- !u!1 &598019540
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 598019542}
   - component: {fileID: 598019541}
+  - component: {fileID: 598019543}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -976,14 +1005,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598019540}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 464.4573, y: 69.9, z: -0.00005536762}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: 464.4573, y: 0, z: -0.00005536762}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 987034880}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &598019543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598019540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: 464.4573, y: -85, z: -0.00005536762}
 --- !u!114 &702981660 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2283255758949530963, guid: a1f9d4a029c064c418ee715435e6c7b4,
@@ -1090,6 +1132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 830966985}
   - component: {fileID: 830966984}
+  - component: {fileID: 830966986}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -1157,14 +1200,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830966983}
   m_LocalRotation: {x: 0, y: 0.38268346, z: 0, w: 0.9238795}
-  m_LocalPosition: {x: 328.4209, y: 69.9, z: 328.42084}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: 328.4209, y: 0, z: 328.42084}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1014487398}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &830966986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830966983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: 328.4209, y: -85, z: 328.4208}
 --- !u!1 &917114208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6684679542835172446, guid: a1f9d4a029c064c418ee715435e6c7b4,
@@ -1227,6 +1283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 934787220}
   - component: {fileID: 934787219}
+  - component: {fileID: 934787221}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -1294,14 +1351,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934787218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 69.9, z: 464.45724}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 464.45724}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 718913944}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &934787221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934787218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: 0, y: -85, z: 464.4572}
 --- !u!1 &987034879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,17 +1918,17 @@ PrefabInstance:
     - target: {fileID: 6815607712795869092, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.01575914
+      value: -0.01575917
       objectReference: {fileID: 0}
     - target: {fileID: 6815607712795869092, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000032428545
+      value: 2.842171e-14
       objectReference: {fileID: 0}
     - target: {fileID: 6815607712795869092, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000026921082
+      value: -3.5527137e-15
       objectReference: {fileID: 0}
     - target: {fileID: 8789433095603841512, guid: a1f9d4a029c064c418ee715435e6c7b4,
         type: 3}
@@ -2344,6 +2414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1577411368}
   - component: {fileID: 1577411367}
+  - component: {fileID: 1577411369}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -2411,14 +2482,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577411366}
   m_LocalRotation: {x: 0, y: 0.3826835, z: 0, w: -0.9238795}
-  m_LocalPosition: {x: -328.4209, y: 69.9, z: 328.42084}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: -328.4209, y: 0, z: 328.42084}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1100333542}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1577411369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577411366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: -328.4209, y: -85, z: 328.4208}
 --- !u!1 &1634313468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,6 +2513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1634313470}
   - component: {fileID: 1634313469}
+  - component: {fileID: 1634313471}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -2496,14 +2581,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634313468}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
-  m_LocalPosition: {x: -464.4573, y: 69.9, z: -0.00005536762}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: -464.4573, y: 0, z: -0.00005536762}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 375890658}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1634313471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634313468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: -464.4573, y: -85, z: -0.00005536762}
 --- !u!1 &1661927256
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,6 +2612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1661927258}
   - component: {fileID: 1661927257}
+  - component: {fileID: 1661927259}
   m_Layer: 15
   m_Name: DA_Mountains(Clone)
   m_TagString: Untagged
@@ -2581,14 +2680,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661927256}
   m_LocalRotation: {x: 0, y: 0.92387956, z: 0, w: -0.3826834}
-  m_LocalPosition: {x: -328.42084, y: 69.9, z: -328.42096}
-  m_LocalScale: {x: 20.9, y: 37, z: 1}
+  m_LocalPosition: {x: -328.42084, y: 0, z: -328.42096}
+  m_LocalScale: {x: 20.9, y: 60, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 209424438}
   m_Father: {fileID: 12748756}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1661927259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661927256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c490291127d1b48bff90a61f02837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedPosition: {x: -328.4208, y: -85, z: -328.421}
 --- !u!1 &1871840737 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6725564103568261728, guid: a1f9d4a029c064c418ee715435e6c7b4,
@@ -3098,7 +3210,6 @@ MonoBehaviour:
   - {fileID: 8718047622167939682, guid: 31a9695a69fcabf4d9a54153894e9750, type: 3}
   - {fileID: 3254611503214765519, guid: 6dc64b9d89156d1469fb0b03e233f459, type: 3}
   - {fileID: 5886056400085577364, guid: c0cb1b8a01e4ed7448d3c12d7b9d02c5, type: 3}
-  - {fileID: 7598308147732505855, guid: 2be67a5e02cd93147ae09faae19a9c5e, type: 3}
   - {fileID: 132641854715731328, guid: 7c90ea846da44a24c83394b115bfb1d8, type: 3}
   - {fileID: 4958212890025687109, guid: dc949f4dd693df24480b3a830d411a05, type: 3}
   - {fileID: 4788950971429737312, guid: c8f24eac59d46a049b92ea48eadaa71f, type: 3}
@@ -3119,7 +3230,6 @@ MonoBehaviour:
   - {fileID: 8718047622167939682, guid: 31a9695a69fcabf4d9a54153894e9750, type: 3}
   - {fileID: 3254611503214765519, guid: 6dc64b9d89156d1469fb0b03e233f459, type: 3}
   - {fileID: 5886056400085577364, guid: c0cb1b8a01e4ed7448d3c12d7b9d02c5, type: 3}
-  - {fileID: 7598308147732505855, guid: 2be67a5e02cd93147ae09faae19a9c5e, type: 3}
   - {fileID: 132641854715731328, guid: 7c90ea846da44a24c83394b115bfb1d8, type: 3}
   - {fileID: 4958212890025687109, guid: dc949f4dd693df24480b3a830d411a05, type: 3}
   - {fileID: 4788950971429737312, guid: c8f24eac59d46a049b92ea48eadaa71f, type: 3}
