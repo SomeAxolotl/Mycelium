@@ -311,7 +311,7 @@ public class PlayerController : MonoBehaviour
         knockbackForce += -Vector3.forward * 3f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         animator.SetBool("Hurt", true);
-        animator.Play("Hurt");
+        //animator.Play("Hurt");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .5f);
         animator.SetBool("Hurt", false);
         EnableController();
