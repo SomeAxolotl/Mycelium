@@ -82,7 +82,7 @@ public class TrophicCascade : Skill
 
     void Extinguish(List<GameObject> enemies)
     {
-        float damagePerEnemy = finalSkillValue / enemies.Count;
+        float damagePerEnemy = finalSkillValue;// / enemies.Count;
         foreach (GameObject enemy in enemies)
         {
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();

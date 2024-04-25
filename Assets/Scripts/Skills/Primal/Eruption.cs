@@ -28,19 +28,21 @@ public class Eruption : Skill
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, largeRadius, enemyLayerMask);
         
-        float damage = finalSkillValue;
+        List<GameObject> enemies = new List<GameObject>();
         foreach (Collider collider in colliders)
         {
+            float finalDamage = finalSkillValue;
             float distanceToCollider = Vector3.Distance(transform.position, collider.transform.position);
 
             if (distanceToCollider >= smallRadius)
             {
-                damage *= sourSpotScalar;
+                finalDamage *= sourSpotScalar;
             }
-            if(collider.gameObject.GetComponent<EnemyHealth>() != null)
+            if(collider.gameObject.GetComponent<EnemyHealth>() != null && !enemies.Contains(collider.gameObject))
             {
+                enemies.Add(collider.gameObject);
                 EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
-                enemyHealth.EnemyTakeDamage(damage);
+                enemyHealth.EnemyTakeDamage(finalDamage);
             }
         }
     }
