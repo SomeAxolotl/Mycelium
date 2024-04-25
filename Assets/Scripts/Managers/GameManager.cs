@@ -139,6 +139,8 @@ public class GameManager : MonoBehaviour
             characterStats.AddStat("All", GlobalData.happinessStatIncrement);
         }
 
+        characterStats.transform.parent.GetComponent<PlayerHealth>().ResetHealth();
+
         GlobalData.happinessStatMultiplier = 1f;
         GlobalData.happinessStatIncrement = 0;
     }
