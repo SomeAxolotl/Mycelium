@@ -24,20 +24,24 @@ public class CarcassMuffling : MonoBehaviour
         int characterAmount = GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>().characters.Count;
 
         AudioMixerSnapshot selectedSnapshot;
+        float usedTransitionTime;
         if (characterAmount >= sporeCountForMuffleStage3)
         {
             selectedSnapshot = muffleSnapshots[2];
+            usedTransitionTime = transitionTime;
         }
         else if (characterAmount >= sporeCountForMuffleStage2)
         {
             selectedSnapshot = muffleSnapshots[1];
+            usedTransitionTime = transitionTime;
         }
         else
         {
             selectedSnapshot = muffleSnapshots[0];
+            usedTransitionTime = 0;
         }
 
-        selectedSnapshot.TransitionTo(transitionTime);
+        selectedSnapshot.TransitionTo(usedTransitionTime);
         GlobalData.currentAudioMixerSnapshot = selectedSnapshot;
     }
 }
