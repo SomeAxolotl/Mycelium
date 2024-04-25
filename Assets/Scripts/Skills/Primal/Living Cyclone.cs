@@ -25,9 +25,9 @@ public class LivingCyclone : Skill
         if(GameObject.FindWithTag("currentWeapon") != null) 
         {
             currentWeapon = GameObject.FindWithTag("currentWeapon");
-        }
 
-        StartCoroutine(ExtendArm());
+            StartCoroutine(ExtendArm());
+        }
     }
 
     IEnumerator ExtendArm()
