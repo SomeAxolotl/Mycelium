@@ -140,9 +140,14 @@ public class HUDSkills : MonoBehaviour
         return skillSprite;
     }
 
-    public void StartCooldownUI(int slot, float cooldown)
+    public void StopHUDCoroutine(Coroutine hudCooldownCoroutine)
     {
-        StartCoroutine(SkillCooldown(slot, cooldown));
+        StopCoroutine(hudCooldownCoroutine);
+    }
+
+    public Coroutine StartCooldownUI(int slot, float cooldown)
+    {
+        return StartCoroutine(SkillCooldown(slot, cooldown));
     }
 
     IEnumerator SkillCooldown(int slot, float cooldown)

@@ -13,6 +13,8 @@ public class Skill : MonoBehaviour
     [SerializeField] private float cooldownBase = 6f;
     [SerializeField] private float cooldownIncrement = -0.5f;
     public float finalSkillCooldown;
+    private Coroutine cooldownCoroutine = null;
+    private Coroutine hudCooldownCoroutine = null;
 
     private float fungalMightBonus = 1f;
 
@@ -81,7 +83,7 @@ public class Skill : MonoBehaviour
         skillSlot = slot;
 
         CalculateProperties();
-        StartCooldown();
+        StartCooldown(finalSkillCooldown);
         DoSkill();
 
         if (!this.name.Contains("FungalMight"))
@@ -95,21 +97,33 @@ public class Skill : MonoBehaviour
         //Overrided by subclasses
     }
 
-    public void StartCooldown()
+    public void StartCooldown(float skillCooldown)
     {
-        StartCoroutine(Cooldown());
+        if (cooldownCoroutine != null)
+        {
+            StopCoroutine(cooldownCoroutine);
+        }
+        if (hudCooldownCoroutine != null)
+        {
+            hudSkills.StopHUDCoroutine(hudCooldownCoroutine);
+        }
+
+        cooldownCoroutine = StartCoroutine(Cooldown(skillCooldown));
     }
 
-    IEnumerator Cooldown()
+    IEnumerator Cooldown(float skillCooldown)
     {
         if (isPlayerCurrentPlayer())
         {
-            hudSkills.StartCooldownUI(skillSlot, finalSkillCooldown);
+            hudCooldownCoroutine = hudSkills.StartCooldownUI(skillSlot, skillCooldown);
         }
 
         canSkill = false;
-        yield return new WaitForSeconds(finalSkillCooldown);
+        yield return new WaitForSeconds(skillCooldown);
         canSkill = true;
+
+        cooldownCoroutine = null;
+        hudCooldownCoroutine = null;
     }
 
     //Fungal Might for Skills
