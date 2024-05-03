@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class TrophicCascade : Skill
 {
     [SerializeField] private float vanishDuration = 2f;
     [SerializeField] private float cascadeRadius = 3f;
+    [SerializeField] private float cameraBlendTimeScalar = 0.75f;
 
     public override void DoSkill()
     {
@@ -62,9 +64,14 @@ public class TrophicCascade : Skill
 
         float cascadeDuration = vanishDuration / 2f;
 
-        foreach (GameObject enemy in enemies)
+
+        VCamRotator vcamRotator = GameObject.Find("VCamHolder").GetComponent<VCamRotator>();
+
+        for (int i = 0; i < enemies.Count; i++)
         {
-            Mark(enemy);
+            Mark(enemies[i]);
+            float blendTime = Mathf.Clamp(cascadeDuration / enemies.Count * cameraBlendTimeScalar, 0, cascadeDuration * cameraBlendTimeScalar * 0.5f);
+            vcamRotator.DramaticCamera(enemies[i].transform, blendTime);
             yield return new WaitForSeconds(cascadeDuration / enemies.Count);
         }
 

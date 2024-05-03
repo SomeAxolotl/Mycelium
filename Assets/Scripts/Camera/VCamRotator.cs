@@ -10,11 +10,12 @@ public class VCamRotator : MonoBehaviour
     private GameObject camTracker;
     private GameObject levelGoal;
 
-    [SerializeField] private float blendTime = 0.2f;
+    [SerializeField] private float navigationBlendTime = 0.2f;
 
     [SerializeField] private CinemachineBrain cineBrain;
     [SerializeField] private CinemachineVirtualCamera virtualResetCamera;
     [SerializeField] private CinemachineVirtualCamera virtualNavigationCamera;
+    [SerializeField] private CinemachineVirtualCamera virtualDramaticCamera;
 
     void Start()
     {
@@ -61,7 +62,7 @@ public class VCamRotator : MonoBehaviour
 
         if (cineBrain.IsBlending == false)
         {
-            StartCoroutine(SetCameraPosition(virtualResetCamera));
+            StartCoroutine(SetCameraPosition(virtualResetCamera, navigationBlendTime));
         }
     }
 
@@ -84,11 +85,32 @@ public class VCamRotator : MonoBehaviour
 
         if (cineBrain.IsBlending == false)
         {
-            StartCoroutine(SetCameraPosition(virtualNavigationCamera));
+            StartCoroutine(SetCameraPosition(virtualNavigationCamera, navigationBlendTime));
         }
     }
 
-    IEnumerator SetCameraPosition(CinemachineVirtualCamera vCam)
+    public void DramaticCamera(Transform target, float dramaticBlendTime)
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("Target is null.");
+            return;
+        }
+
+        Vector3 viewDir = (target.position - transform.position).normalized;
+
+        Quaternion newRotation = Quaternion.LookRotation(viewDir, Vector3.up);
+        newRotation.eulerAngles = new Vector3(0, newRotation.eulerAngles.y, 0);
+
+        transform.rotation = newRotation;
+
+        if (cineBrain.IsBlending == false)
+        {
+            StartCoroutine(SetCameraPosition(virtualDramaticCamera, dramaticBlendTime));
+        }
+    }
+
+    IEnumerator SetCameraPosition(CinemachineVirtualCamera vCam, float blendTime)
     {
         float elapsedTime = 0f;
 

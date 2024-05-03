@@ -77,6 +77,9 @@ public class ParticleManager : MonoBehaviour
 
     IEnumerator SpawnParticleFlurryCoroutine(string particleName, int flurryCount, float flurryInterval, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
     {
+        float minisculeRandomTime = Random.Range(0, 0.25f);
+        yield return new WaitForSeconds(minisculeRandomTime);
+
         float initialFlurryInterval = flurryInterval;
 
         float flurryCounter = 0f;
