@@ -22,21 +22,20 @@ public class LivingCyclone : Skill
             playerController.canAct = false;
         }
 
-        if(GameObject.FindWithTag("currentWeapon") != null) 
-        {
-            currentWeapon = GameObject.FindWithTag("currentWeapon");
+        currentWeapon = GameObject.FindWithTag("currentWeapon");
 
-            StartCoroutine(ExtendArm());
-        }
-        else
-        {
-            EndSkill();
-        }
+        StartCoroutine(ExtendArm());
     }
 
     IEnumerator ExtendArm()
     {
-        //string animationName = currentWeapon.GetComponent<WeaponStats>().weaponType.ToString();
+        if (isPlayerCurrentPlayer())
+        {
+            if (currentWeapon != null)
+            {
+                currentWeapon.GetComponent<WeaponCollision>().isCycloning = true;
+            }
+        }
 
         float storedAnimatorSpeed = currentAnimator.speed;
         currentAnimator.Play("Slash", 0, 0f);
@@ -45,32 +44,26 @@ public class LivingCyclone : Skill
 
         yield return new WaitUntil (() => currentAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > extendFreezePoint);
 
-        currentAnimator.speed = 0;
         if (isPlayerCurrentPlayer())
         {
             playerController.looking = false;
         }
-        
-        if (isPlayerCurrentPlayer())
-        {
-            currentWeapon.GetComponent<WeaponCollision>().isCycloning = true;
-        }
+        currentAnimator.speed = 0;
+
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
         yield return StartCoroutine(Spin());
-        if (isPlayerCurrentPlayer())
-        {
-            currentWeapon.GetComponent<WeaponCollision>().isCycloning = false;
-        }
-        
+
         if (isPlayerCurrentPlayer())
         {
             playerController.looking = true;
+            if (currentWeapon != null)
+            {
+                currentWeapon.GetComponent<WeaponCollision>().isCycloning = false;
+            }
         }
         
         currentAnimator.speed = characterStats.animatorSpeed;
-
-        yield return new WaitUntil (() => !currentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slash"));
 
         EndSkill();
     }

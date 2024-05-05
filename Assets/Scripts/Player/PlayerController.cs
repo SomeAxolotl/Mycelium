@@ -99,81 +99,84 @@ public class PlayerController : MonoBehaviour
         //    //actions.Player.Enable();
         //}
 
-        inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
-        LookAt();
-
-        if (dodge.triggered && canUseDodge && canAct)
+        if (!GlobalData.isGamePaused)
         {
-            if (!canUseAttack && animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
+            inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
+            LookAt();
+
+            if (dodge.triggered && canUseDodge && canAct)
             {
-                playerAttack.StopAllCoroutines();
-                playerAttack.animator.Rebind();
-                moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
-                playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
+                if (!canUseAttack && animator.GetCurrentAnimatorStateInfo(0).IsName(playerAttack.attackAnimation))
+                {
+                    playerAttack.StopAllCoroutines();
+                    playerAttack.animator.Rebind();
+                    moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
+                    playerAttack.curWeapon.GetComponent<Collider>().enabled = false;
+                }
+                StartCoroutine(Dodging());
             }
-            StartCoroutine(Dodging());
-        }
 
-        if (subspecies_skill.triggered && canUseSkill == true)
-        {
-            GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
-            Skill subskill = skillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
-            if (subskill.canSkill)
+            if (subspecies_skill.triggered && canUseSkill == true)
             {
-                subskill.ActivateSkill(0);
+                GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+                Skill subskill = skillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
+                if (subskill.canSkill)
+                {
+                    subskill.ActivateSkill(0);
+                }
             }
-        }
 
-        if (stat_skill_1.triggered && canUseSkill == true)
-        {
-            GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
-            Skill skill1 = skillLoadout.transform.GetChild(1).gameObject.GetComponent<Skill>();
-            if (skill1.canSkill)
+            if (stat_skill_1.triggered && canUseSkill == true)
             {
-                skill1.ActivateSkill(1);
+                GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+                Skill skill1 = skillLoadout.transform.GetChild(1).gameObject.GetComponent<Skill>();
+                if (skill1.canSkill)
+                {
+                    skill1.ActivateSkill(1);
+                }
             }
-        }
 
-        if (stat_skill_2.triggered && canUseSkill == true)
-        {
-            GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
-            Skill skill2 = skillLoadout.transform.GetChild(2).gameObject.GetComponent<Skill>();
-            if (skill2.canSkill)
+            if (stat_skill_2.triggered && canUseSkill == true)
             {
-                skill2.ActivateSkill(2);
+                GameObject skillLoadout = GameObject.FindWithTag("currentPlayer").transform.Find("SkillLoadout").gameObject;
+                Skill skill2 = skillLoadout.transform.GetChild(2).gameObject.GetComponent<Skill>();
+                if (skill2.canSkill)
+                {
+                    skill2.ActivateSkill(2);
+                }
             }
-        }
 
-        if (interact.triggered && canAct)
-        {
-            SporeInteractableFinder sporeInteractableFinder = GameObject.FindWithTag("currentPlayer").GetComponent<SporeInteractableFinder>();
-            GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
-            if (closestInteractableObject != null)
+            if (interact.triggered && canAct)
             {
-                closestInteractableObject.GetComponent<IInteractable>().Interact(closestInteractableObject);
-                sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
+                SporeInteractableFinder sporeInteractableFinder = GameObject.FindWithTag("currentPlayer").GetComponent<SporeInteractableFinder>();
+                GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
+                if (closestInteractableObject != null)
+                {
+                    closestInteractableObject.GetComponent<IInteractable>().Interact(closestInteractableObject);
+                    sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
+                }
             }
-        }
 
-        if (salvage.triggered && canAct)
-        {
-            SporeInteractableFinder sporeInteractableFinder = GameObject.FindWithTag("currentPlayer").GetComponent<SporeInteractableFinder>();
-            GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
-            if (closestInteractableObject != null)
+            if (salvage.triggered && canAct)
             {
-                closestInteractableObject.GetComponent<IInteractable>().Salvage(closestInteractableObject);
-                sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
+                SporeInteractableFinder sporeInteractableFinder = GameObject.FindWithTag("currentPlayer").GetComponent<SporeInteractableFinder>();
+                GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
+                if (closestInteractableObject != null)
+                {
+                    closestInteractableObject.GetComponent<IInteractable>().Salvage(closestInteractableObject);
+                    sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
+                }
             }
-        }
 
-        if (showStats.triggered)
-        {
-            hudStats.ShowStats();
-        }
+            if (showStats.triggered)
+            {
+                hudStats.ShowStats();
+            }
 
-        if (hideStats.triggered)
-        {
-            hudStats.HideStats();
+            if (hideStats.triggered)
+            {
+                hudStats.HideStats();
+            }
         }
     }
 
@@ -291,8 +294,10 @@ public class PlayerController : MonoBehaviour
         playerActionsAsset.Player.Enable();
     }
 
-    public void DisableController()
+    public void DisableController(string whatthefuck = null)
     {
+        //Debug.Log("Fucker: " + whatthefuck);
+
         canAct = false;
         canUseAttack = false;
         canUseSkill = false;
@@ -300,10 +305,14 @@ public class PlayerController : MonoBehaviour
     }
     public void Knockback(GameObject obj, float knockbackForce)
     {
-        isInvincible = true;
-        DisableController();
-        Vector3 dirFromobject = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(obj.transform.position.x, 0f, obj.transform.position.z)).normalized;
-        StartCoroutine(StartKnockback(dirFromobject, knockbackForce));
+        WeaponCollision currentWeaponCollision = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>();
+        if (!currentWeaponCollision.isCycloning)
+        {
+            isInvincible = true;
+            DisableController();
+            Vector3 dirFromobject = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(obj.transform.position.x, 0f, obj.transform.position.z)).normalized;
+            StartCoroutine(StartKnockback(dirFromobject, knockbackForce));
+        }
     }
     IEnumerator StartKnockback(Vector3 direction, float force)
     {
@@ -311,7 +320,7 @@ public class PlayerController : MonoBehaviour
         knockbackForce += -Vector3.forward * 3f;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         animator.SetBool("Hurt", true);
-        //animator.Play("Hurt");
+        animator.Play("Hurt");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .5f);
         animator.SetBool("Hurt", false);
         EnableController();

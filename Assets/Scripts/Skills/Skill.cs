@@ -21,6 +21,7 @@ public class Skill : MonoBehaviour
     public GameObject player;
     public CharacterStats characterStats;
     public PlayerController playerController;
+    public PlayerAttack playerAttack;
     public PlayerHealth playerHealth;
     public GameObject curWeapon;
 
@@ -36,6 +37,7 @@ public class Skill : MonoBehaviour
         currentAnimator = player.GetComponent<Animator>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerAttack>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
     }
 
@@ -78,6 +80,7 @@ public class Skill : MonoBehaviour
         if (isPlayerCurrentPlayer())
         {
             playerController.DisableController();
+            playerAttack.DisableAttack();
         }
 
         skillSlot = slot;
@@ -164,6 +167,7 @@ public class Skill : MonoBehaviour
         if (isPlayerCurrentPlayer())
         {
             playerController.EnableController();
+            playerAttack.EnableAttack();
         }
     }
 
