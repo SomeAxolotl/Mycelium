@@ -7,13 +7,22 @@ public class Zombify : Skill
 {
     [SerializeField] private float zombifyRange = 7f;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float reducedCooldownPercentZ = .7f; 
     private Collider[] enemyColliders;
     //Skill specific fields
 
     public override void DoSkill()
     {
-        DoZombify(GetClosestEnemy());
+        if(GetClosestEnemy() != null)
+        {
+            DoZombify(GetClosestEnemy()); 
+        }
+        else
+        {
+            StartCooldown(GetFinalCooldown() * reducedCooldownPercentZ);
+        }
         EndSkill();
+        
     }
     GameObject GetClosestEnemy()
     {

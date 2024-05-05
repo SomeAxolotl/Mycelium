@@ -10,6 +10,8 @@ public class LeechingSpore : Skill
     [SerializeField] private GameObject sporeObj;
     private GameObject currentSpore;
     [SerializeField] private float percentOfDamageHealed = 0.5f;
+    [SerializeField] private float reducedCooldownPercentL = .6f;
+
 
     public override void DoSkill()
     {
@@ -36,6 +38,10 @@ public class LeechingSpore : Skill
                 StartCoroutine(HealingPlayer(closestEnemyObj.gameObject));
                 StartCoroutine(DestroySpore(currentSpore));
             }
+        }
+       else
+        {
+            StartCooldown(GetFinalCooldown() * reducedCooldownPercentL);
         }
     }
 
