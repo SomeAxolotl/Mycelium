@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
 
     private List<GameObject> weightedEnemyList = new List<GameObject>();
     
+    [SerializeField] private float popDuration = 0.5f;
 
     void Start()
     {
@@ -80,8 +81,11 @@ public class EnemySpawner : MonoBehaviour
 
             if (spawnedEnemies.Count < maxSpawnCount)
             {
-                spawnedEnemies.Add(Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity));
-            
+                GameObject spawnedEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
+
+                spawnedEnemies.Add(spawnedEnemy);
+
+                StartCoroutine(PopEnemy(spawnedEnemy));
             }
         }
     }
@@ -116,27 +120,51 @@ public class EnemySpawner : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(bool spawningMultiple = false)
     {
+        GameObject newEnemy;
         if (spawnerIsVertical == true)
         {
-            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + waterfallOffset, transform.position.y, transform.position.z), Quaternion.identity);
+            newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + waterfallOffset, transform.position.y, transform.position.z), Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
         }
         else
         {
-            GameObject newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
+            newEnemy = Instantiate(weightedEnemyList[UnityEngine.Random.Range(0, weightedEnemyList.Count)], new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRange, spawnRange)), Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
         }
-        //Selects a random enemy from the weightedEnemyList, and spawns it
+        
+        if (!spawningMultiple)
+        {
+            StartCoroutine(PopEnemy(newEnemy));
+        }
+    }
 
+    IEnumerator PopEnemy(GameObject enemyToPop)
+    {
+        Vector3 originalEnemyScale = enemyToPop.transform.localScale;
+        enemyToPop.transform.localScale = Vector3.zero;     
+
+        float popCounter = 0f;
+        while (popCounter < popDuration)
+        {
+            float t = DylanTree.EaseOutQuart(popCounter / popDuration);
+
+            popCounter += Time.deltaTime;
+
+            enemyToPop.transform.localScale = Vector3.Lerp(Vector3.zero, originalEnemyScale, t);
+
+            yield return null;
+        }
+
+        enemyToPop.transform.localScale = originalEnemyScale;
     }
 
     void SpawnAllEnemies()
     {
         for (int i = 0; i < enemiesSpawnedLimit; i++)
         {
-            SpawnEnemy();
+            SpawnEnemy(true);
             Destroy(gameObject);
         }
         hasSpawned = true;
