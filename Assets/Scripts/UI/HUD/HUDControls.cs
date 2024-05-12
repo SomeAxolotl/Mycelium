@@ -23,7 +23,7 @@ public class HUDControls : MonoBehaviour
         }
         else
         {
-            subspeciesSkillHint.skillHintText.text = controller.subspeciesSkillHint.GenerateColoredHintString();
+            subspeciesSkillHint.skillHintText.text = controller.subspeciesSkillHint.GenerateColoredHintString(true);
             subspeciesSkillHint.ToggleText();
         }
 
@@ -34,7 +34,7 @@ public class HUDControls : MonoBehaviour
         }
         else
         {
-            statSkill1Hint.skillHintText.text = controller.statSkill1Hint.GenerateColoredHintString();
+            statSkill1Hint.skillHintText.text = controller.statSkill1Hint.GenerateColoredHintString(true);
             statSkill1Hint.ToggleText();
         }
 
@@ -45,11 +45,11 @@ public class HUDControls : MonoBehaviour
         }
         else
         {
-            statSkill2Hint.skillHintText.text = controller.statSkill2Hint.GenerateColoredHintString();
+            statSkill2Hint.skillHintText.text = controller.statSkill2Hint.GenerateColoredHintString(true);
             statSkill2Hint.ToggleText();
         }
 
-        dodgeSkillHintText.text = controller.dodgeHint.GenerateColoredHintString();
+        dodgeSkillHintText.text = controller.dodgeHint.GenerateColoredHintString(true);
     }
 
     [System.Serializable]

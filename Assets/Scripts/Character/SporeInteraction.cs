@@ -38,7 +38,7 @@ public class SporeInteraction : MonoBehaviour, IInteractable
         Color bodyColor = designTracker.bodyColor;
         coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(bodyColor) + ">"+characterStats.sporeName+"</color>";
 
-        string buttonText = "<color=#3cdb4e>A</color>";
+        string buttonText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         int subspeciesSkillIconIndex = 8;
         switch (characterStats.equippedSkills[0])
         {

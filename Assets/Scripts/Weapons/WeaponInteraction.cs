@@ -105,7 +105,8 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         }
 
         string weaponName = newStats.wpnName;
-        string buttonText = "<color=#3cdb4e>A</color>";
+        string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
+        string salvageText = InputManager.Instance.GetLatestController().salvageHint.GenerateColoredHintString();
         TooltipManager.Instance.CreateTooltip
             (
                 weapon.gameObject, 
@@ -113,8 +114,8 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 "Type: " + newStats.weaponType.ToString() + 
                 "\nDamage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + 
                 "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, 
-                "Press "+buttonText+" to Swap",
-                "Hold "+buttonText+" to Salvage"
+                "Press "+interactText+" to Swap",
+                "Hold "+salvageText+" to Salvage"
             );
     }
 

@@ -49,7 +49,7 @@ public class LootCache : MonoBehaviour, IInteractable
 
     public void CreateTooltip(GameObject interactObject)
     {
-        string buttonText = "<color=#3cdb4e>A</color>";
+        string buttonText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         TooltipManager.Instance.CreateTooltip
         (
             this.gameObject, 

@@ -84,14 +84,15 @@ public class GetMaterial : MonoBehaviour, IInteractable
         }
         string subspeciesColoredText = "<color=#" + ColorUtility.ToHtmlStringRGB(descriptionColor) + ">"+subspeciesText+"</color>";
 
-        string buttonText = "<color=#3cdb4e>A</color>";
+        string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
+        string salvageText = InputManager.Instance.GetLatestController().salvageHint.GenerateColoredHintString();
         TooltipManager.Instance.CreateTooltip
         (
             gameObject, 
             "<sprite=" + materialIconIndex + ">  " + materialName + "  <sprite=" + materialIconIndex + ">", 
             "Used to grow and upgrade " + subspeciesColoredText + " Spores", 
-            "Press "+buttonText+" to Pick Up", 
-            "(Hold "+buttonText+" to Salvage)"
+            "Press "+interactText+" to Pick Up", 
+            "(Press "+salvageText+" to Salvage)"
         );
     }
 

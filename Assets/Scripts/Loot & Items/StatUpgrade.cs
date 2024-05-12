@@ -83,14 +83,14 @@ public class StatUpgrade : MonoBehaviour, IInteractable
             hudStats.ShowStats();
         }
 
-        string buttonText = "<color=#3cdb4e>A</color>";
+        string buttonText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         if (doesMultiply)
         {
             TooltipManager.Instance.CreateTooltip
             (
                 gameObject, 
                 "Nutrient Deposit", 
-                "Press "+buttonText+"  <sprite="+statNumber1+"> +" + ((multiplyAmount * 100) - 100f) + "%" + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> +" + ((multiplyAmount * 100f) - 100f) + "%", 
+                "Press "+buttonText+"  <sprite="+statNumber1+"> +" + ((multiplyAmount * 100) - 100f) + "%" + "\nOR \nPress "+buttonText+"  <sprite="+statNumber2+"> +" + ((multiplyAmount * 100f) - 100f) + "%", 
                 "Choose One"
             );
         }
@@ -100,7 +100,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
             (
                 gameObject, 
                 "Nutrient Deposit", 
-                "Press "+buttonText+"  <sprite="+statNumber1+"> +" + statIncreaseAmount + "\nOR \nHold "+buttonText+"  <sprite="+statNumber2+"> +" + statIncreaseAmount, 
+                "Press "+buttonText+"  <sprite="+statNumber1+"> +" + statIncreaseAmount + "\nOR \nPress "+buttonText+"  <sprite="+statNumber2+"> +" + statIncreaseAmount, 
                 "Choose One"
             );
         }

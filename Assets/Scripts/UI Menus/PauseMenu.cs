@@ -125,8 +125,6 @@ public class PauseMenu : MonoBehaviour
 
             //Cursor.visible = true;
             //Cursor.lockState = CursorLockMode.None;
-
-            Debug.Log("PAUSE!");
         }
     }
 

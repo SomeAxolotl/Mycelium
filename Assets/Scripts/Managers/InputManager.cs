@@ -71,8 +71,6 @@ public class InputManager : MonoBehaviour
     {
         string deviceName = actionCallback.control.device.name;
 
-        UnityEngine.Debug.Log("Refreshing with device name: " + deviceName);
-
         //XBox
         if (deviceName.Contains("XBox"))
         {
@@ -92,6 +90,11 @@ public class InputManager : MonoBehaviour
         else
         {
             latestController = ControllerNames.Keyboard;
+        }
+
+        if (latestController != previousLatestController)
+        {
+            UnityEngine.Debug.Log("Refreshing UI with controller name: " + deviceName);
         }
 
         RefreshHUDHints();
@@ -132,7 +135,7 @@ public class InputManager : MonoBehaviour
         [SerializeField] public ColoredHint dodgeHint;
 
         [SerializeField] public ColoredHint interactHint;
-        [SerializeField] public ColoredHint swapHint;
+        [SerializeField] public ColoredHint salvageHint;
 
         [SerializeField] public ColoredHint attackHint;
         [SerializeField] public ColoredHint goalCameraHint;
@@ -153,15 +156,26 @@ public class InputManager : MonoBehaviour
 
         [SerializeField] public Sprite controlSprite;
 
-        public string GenerateColoredHintString()
+        public string GenerateColoredHintString(bool shouldRemoveBrackets = false)
         {
             if (controlColor.a == 0)
             {
-                controlColor = Color.white;
                 controlColor.a = 1;
             }
+            if (controlColor == Color.black)
+            {
+                controlColor = Color.white;
+            }
 
-            string coloredText = $"<color=#{ColorUtility.ToHtmlStringRGB(controlColor)}>{controlText}</color>";
+            string coloredText;
+            if (shouldRemoveBrackets)
+            {
+                coloredText = $"<color=#{ColorUtility.ToHtmlStringRGB(controlColor)}>{controlText}</color>";
+            }
+            else
+            {
+                coloredText = $"[<color=#{ColorUtility.ToHtmlStringRGB(controlColor)}>{controlText}</color>]";
+            }
 
             return coloredText;
         }
