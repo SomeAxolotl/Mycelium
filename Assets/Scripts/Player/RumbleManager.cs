@@ -5,15 +5,22 @@ using UnityEngine.InputSystem;
 
 public class RumbleManager : MonoBehaviour
 {
-    public PlayerInput playerInput;
+    public static RumbleManager Instance;
     private Gamepad pad;
     private IEnumerator currentRumble;
     private List<RumbleInfo> rumbles = new List<RumbleInfo>();
     private RumbleInfo highestRumble;
 
-    public void RumblePulse(float lowFrequency, float highFrequency, float duration){
-        if(playerInput.devices.Count == 0){return;}
-        InputDevice inputDevice = playerInput.devices[0];
+    private void Awake(){
+        if(Instance != null && Instance != this){
+            Destroy(this);
+        }else{
+            Instance = this;
+        }
+    }
+
+    public void RumblePulse(float duration = 1, float lowFrequency = 0.2f, float highFrequency = 0.2f){
+        InputDevice inputDevice = Gamepad.current;
         if(inputDevice is Gamepad gamepad){
             pad = gamepad;
             //Creates new instance of a rumble
