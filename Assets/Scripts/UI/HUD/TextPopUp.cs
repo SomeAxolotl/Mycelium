@@ -8,7 +8,7 @@ public class TextPopUp : MonoBehaviour
 {
     //Options for the dropdowns
     private enum HideVia {Timer, PlayerInput, LeavingTrigger}
-    private enum RequiredInput {Attack, Roll, SpeciesSkill}
+    private enum Input {Attack, Roll, SpeciesSkill, GoalCamera, None}
 
     //Text Pop Up stuff
     private CanvasGroup textPopUpCanvasGroup;
@@ -31,7 +31,7 @@ public class TextPopUp : MonoBehaviour
     [SerializeField] private float timeToDisplay;
 
     [Header("--If Hiding Via Player Input--")]
-    [SerializeField] private RequiredInput requiredInput;
+    [SerializeField] private Input requiredInput;
     [SerializeField][Min(1)] private int numberOfPressesRequired;
 
     [Header("--If Destroying Other--")]
@@ -62,19 +62,19 @@ public class TextPopUp : MonoBehaviour
             switch (hideVia)
             {
                 case HideVia.Timer:
-                    UpdateText(textToDisplay);
+                    UpdateText(GetHintFromRequiredInput(requiredInput));
                     StartCoroutine(ShowText(0.5f));
                     StartCoroutine(StartTimer(timeToDisplay + 0.5f));
                     break;
 
                 case HideVia.PlayerInput:
-                    UpdateText(textToDisplay);
+                    UpdateText(GetHintFromRequiredInput(requiredInput));
                     StartCoroutine(ShowText(0.5f));
                     StartCoroutine(WaitForInput(requiredInput, numberOfPressesRequired));
                     break;
 
                 case HideVia.LeavingTrigger:
-                    UpdateText(textToDisplay);
+                    UpdateText(GetHintFromRequiredInput(requiredInput));
                     StartCoroutine(ShowText(0.5f));
                     break;
 
@@ -112,30 +112,31 @@ public class TextPopUp : MonoBehaviour
         textPopUp.text = newText;
     }
 
-    private string CreatePlayerInputText(RequiredInput input)
+    /*private string CreatePlayerInputText(Input input)
     {
         string output = "null";
 
         switch(input)
         {
-            case RequiredInput.Attack:
+            case Input.Attack:
                 output = "Press RT to attack!";
                 break;
 
-            case RequiredInput.Roll:
+            case Input.Roll:
                 output = "Press B to roll!";
                 break;
 
-            case RequiredInput.SpeciesSkill:
+            case Input.SpeciesSkill:
                 output = "Press LT to use your species skill!";
                 break;
-
+            case Input.GoalCamera:
+                output
             default:
                 break;
         }
 
         return output;
-    }
+    }*/
 
     IEnumerator StartTimer(float time)
     {
@@ -143,7 +144,7 @@ public class TextPopUp : MonoBehaviour
         StartCoroutine(HideText(0.5f));
     }
 
-    IEnumerator WaitForInput(RequiredInput input, int requiredPresses)
+    IEnumerator WaitForInput(Input input, int requiredPresses)
     {
         int currentPresses = 0;
 
@@ -151,22 +152,29 @@ public class TextPopUp : MonoBehaviour
         {
             switch(input)
             {
-                case RequiredInput.Attack:
+                case Input.Attack:
                     if (playerInput.Player.Attack.WasPressedThisFrame())
                     {
                         currentPresses += 1;
                     }
                     break;
 
-                case RequiredInput.Roll:
+                case Input.Roll:
                     if (playerInput.Player.Dodge.WasPressedThisFrame())
                     {
                         currentPresses += 1;
                     }
                     break;
 
-                case RequiredInput.SpeciesSkill:
+                case Input.SpeciesSkill:
                     if (playerInput.Player.Subspecies_Skill.WasPressedThisFrame())
+                    {
+                        currentPresses += 1;
+                    }
+                    break;
+
+                case Input.GoalCamera:
+                    if (playerInput.Player.NavigateCamera.WasPressedThisFrame())
                     {
                         currentPresses += 1;
                     }
@@ -235,6 +243,29 @@ public class TextPopUp : MonoBehaviour
         {
             isActivated = false;
         }
+    }
+
+    string GetHintFromRequiredInput(Input requiredInput = Input.None)
+    {
+        string inputString;
+        switch (requiredInput)
+        {
+            case Input.Roll:
+                inputString = InputManager.Instance.GetLatestController().dodgeHint.GenerateColoredHintString();
+                break;
+            case Input.SpeciesSkill:
+                inputString = InputManager.Instance.GetLatestController().subspeciesSkillHint.GenerateColoredHintString();
+                break;
+            case Input.GoalCamera:
+                inputString = InputManager.Instance.GetLatestController().goalCameraHint.GenerateColoredHintString();
+                break;
+            default:
+                inputString = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
+                break;
+        }
+
+        string displayHint = textToDisplay.Replace("{RequiredInput}", inputString);
+        return displayHint;
     }
 
     private void OnEnable()

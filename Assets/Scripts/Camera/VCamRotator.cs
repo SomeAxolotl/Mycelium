@@ -25,6 +25,9 @@ public class VCamRotator : MonoBehaviour
         //Finding the Goal of the level
         switch(SceneManager.GetActiveScene().name)
         {
+            case "New Tutorial":
+                levelGoal = GameObject.Find("ParSys_GodRays");
+                break;
             case "The Carcass":
                 levelGoal = GameObject.Find("==StartRun==");
                 break;
