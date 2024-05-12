@@ -10,6 +10,8 @@ public class RumbleManager : MonoBehaviour
     private IEnumerator currentRumble;
     private List<RumbleInfo> rumbles = new List<RumbleInfo>();
     private RumbleInfo highestRumble;
+    //Changes how intense controller shakes are
+    public float shakeMult = 1;
 
     private void Awake(){
         if(Instance != null && Instance != this){
@@ -25,8 +27,8 @@ public class RumbleManager : MonoBehaviour
             pad = gamepad;
             //Creates new instance of a rumble
             RumbleInfo newRumble = new RumbleInfo();
-            newRumble.rumbleLow = lowFrequency;
-            newRumble.rumbleHigh = highFrequency;
+            newRumble.rumbleLow = lowFrequency * shakeMult;
+            newRumble.rumbleHigh = highFrequency * shakeMult;
             newRumble.currTime = duration;
             rumbles.Add(newRumble);
             PickHighestRumble();

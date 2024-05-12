@@ -36,6 +36,8 @@ public class CameraShakeManager : MonoBehaviour
         impulseListener.m_ReactionSettings.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
 
         impulseSource.GenerateImpulseWithForce(defaultShakeForce);
+
+        RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, defaultShakeForce/3, defaultShakeForce/3);
     }
 
     public void ShakeCamera(CinemachineImpulseSource impulseSource, float forceOverride)
@@ -43,5 +45,7 @@ public class CameraShakeManager : MonoBehaviour
         impulseListener.m_ReactionSettings.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
 
         impulseSource.GenerateImpulseWithForce(forceOverride);
+
+        RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, defaultShakeForce/3, defaultShakeForce/3);
     }
 }
