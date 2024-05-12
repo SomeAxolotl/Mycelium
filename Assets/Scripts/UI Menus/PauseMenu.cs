@@ -109,20 +109,25 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        unpausedSnapshot = GlobalData.currentAudioMixerSnapshot;
+        if (!GlobalData.isGamePaused)
+        {
+            unpausedSnapshot = GlobalData.currentAudioMixerSnapshot;
 
-        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
-        pauseMenu.SetActive(true);
-        HUD.GetComponent<HUDController>().FadeOutHUD();
-        pausedSnapshot.TransitionTo(muffleTransitionTime);
-        GlobalData.currentAudioMixerSnapshot = pausedSnapshot;
-        Time.timeScale = 0f;
-        GlobalData.isGamePaused = true;
+            SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
+            pauseMenu.SetActive(true);
+            HUD.GetComponent<HUDController>().FadeOutHUD();
+            pausedSnapshot.TransitionTo(muffleTransitionTime);
+            GlobalData.currentAudioMixerSnapshot = pausedSnapshot;
+            Time.timeScale = 0f;
+            GlobalData.isGamePaused = true;
 
-        resumeButton.Select();
+            resumeButton.Select();
 
-        //Cursor.visible = true;
-        //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+
+            Debug.Log("PAUSE!");
+        }
     }
 
     public void PlayUIMoveSound()

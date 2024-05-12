@@ -8,7 +8,7 @@ public class Skill : MonoBehaviour
 
     [SerializeField] private float valueBase = 10f;
     [SerializeField] private float valueIncrement = 2f;
-    public float finalSkillValue;
+    public float finalSkillValue {get; private set;}
 
     [SerializeField] private float cooldownBase = 6f;
     [SerializeField] private float cooldownIncrement = -0.5f;
