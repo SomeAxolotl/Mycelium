@@ -5,35 +5,47 @@ using UnityEngine;
 public class Poison : MonoBehaviour
 {
     private EnemyHealth healthScript;
+    //The path within the Resources folder to find the particle system
     private string particlePath = "Effects/PoisonParticles";
     [SerializeField] private GameObject poisonParticles;
 
-    public float maxPoisonTime = 5;
-    public float currPoisonTime = 5;
+    [SerializeField] private float maxPoisonTime = 5;
+    [HideInInspector] public float O_maxPoisonTime{get{return maxPoisonTime;}}
+    [SerializeField] private float currPoisonTime = 5;
+    [HideInInspector] public float O_currPoisonTime{get{return currPoisonTime;}}
     //How many seconds pass for the poison to activate
-    public float tickTime = 0.5f;
-    private float currTickTime;
-    public float poisonDamage = 0.5f;
+    [SerializeField] private float tickTime = 0.5f;
+    [HideInInspector] public float O_tickTime{get{return tickTime;}}
+    [SerializeField] private float currTickTime;
+    [HideInInspector] public float O_currTickTime{get{return currTickTime;}}
+    [SerializeField] private float poisonDamage = 0.5f;
+    [HideInInspector] public float O_poisonDamage{get{return poisonDamage;}}
 
+    //Sets relevant information of the poison, refreshes its time to be its max
+    //Will never go down in stats, only up when refreshing
     public void PoisonStats(float dmg = 0.5f, float tick = 0.5f, float maxTime = 5){
-        poisonDamage = dmg;
-        tickTime = tick;
-        maxPoisonTime = maxTime;
+        if(dmg > poisonDamage){poisonDamage = dmg;}
+        if(tick > tickTime){tickTime = tick;}
+        if(maxTime > maxPoisonTime){maxPoisonTime = maxTime;}
+        currPoisonTime = maxPoisonTime;
     }
 
     void Awake(){
+        //Checks to see if there are other instances of poison already on the target
+        Poison[] poisonInstances = GetComponents<Poison>();
+        if(poisonInstances.Length > 1){
+            //Refreshes the poison already on the target
+            foreach(Poison poisons in poisonInstances){
+                poisons.PoisonStats(poisonDamage, tickTime, maxPoisonTime);
+            }
+            Destroy(this);
+            return;
+        }
         healthScript = this.GetComponent<EnemyHealth>();
         currPoisonTime = maxPoisonTime;
         //Start the timer that deals damage every tick
         StartCoroutine(PoisonCoroutine());
         poisonParticles = Resources.Load<GameObject>(particlePath);
-    }
-
-    public void RefreshPoison(float dmg = 0.5f, float tick = 0.5f, float maxTime = 5){
-        if(dmg > poisonDamage){poisonDamage = dmg;}
-        if(tick > tickTime){tickTime = tick;}
-        if(maxTime > maxPoisonTime){maxPoisonTime = maxTime;}
-        currPoisonTime = maxPoisonTime;
     }
 
     private IEnumerator PoisonCoroutine(){

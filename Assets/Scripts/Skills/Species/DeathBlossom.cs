@@ -8,7 +8,6 @@ public class DeathBlossom : Skill
     [SerializeField] private float distanceInFront = 2.0f;
     public override void DoSkill()
     {
-
         SpawnDeathBlossom();
         EndSkill();
     }
