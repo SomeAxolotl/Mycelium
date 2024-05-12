@@ -10,9 +10,10 @@ public class VCamRotator : MonoBehaviour
     private GameObject camTracker;
     private GameObject levelGoal;
 
+    private CinemachineBrain cineBrain;
+
     [SerializeField] private float navigationBlendTime = 0.2f;
 
-    [SerializeField] private CinemachineBrain cineBrain;
     [SerializeField] private CinemachineVirtualCamera virtualResetCamera;
     [SerializeField] private CinemachineVirtualCamera virtualNavigationCamera;
     [SerializeField] private CinemachineVirtualCamera virtualDramaticCamera;
@@ -21,6 +22,8 @@ public class VCamRotator : MonoBehaviour
     {
         currentPlayer = GameObject.FindWithTag("currentPlayer");
         camTracker = GameObject.FindWithTag("Camtracker");
+
+        cineBrain = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineBrain>();
 
         //Finding the Goal of the level
         switch(SceneManager.GetActiveScene().name)
