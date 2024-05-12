@@ -170,7 +170,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -192,7 +192,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -203,7 +203,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -214,7 +214,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -225,7 +225,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -236,7 +236,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -247,7 +247,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -258,7 +258,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": ""InvertVector2"",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -269,7 +269,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": ""InvertVector2"",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -280,7 +280,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -291,7 +291,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -302,7 +302,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -313,7 +313,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -324,7 +324,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Subspecies_Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -335,7 +335,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Subspecies_Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -346,7 +346,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Stat_Skill_1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -357,7 +357,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Stat_Skill_1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -368,7 +368,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Stat_Skill_2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -379,7 +379,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Stat_Skill_2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -390,7 +390,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""GetStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -401,7 +401,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -412,7 +412,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -423,7 +423,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -434,7 +434,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightStickPress"",
                     ""interactions"": ""Press(pressPoint=1,behavior=2)"",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""ResetCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -445,7 +445,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""ResetCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -456,7 +456,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": ""Hold(duration=0.5)"",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Salvage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -467,7 +467,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": ""Hold(duration=0.5)"",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Salvage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -478,7 +478,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""NavigateCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -489,7 +489,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""NavigateCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -500,7 +500,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""ShowStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -511,7 +511,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""ShowStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -522,7 +522,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/backspace"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""ShowStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -533,7 +533,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""HideStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -544,7 +544,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""HideStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -555,7 +555,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/backspace"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""HideStats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -783,7 +783,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -794,7 +794,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -805,7 +805,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -816,7 +816,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -827,7 +827,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -838,7 +838,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -849,7 +849,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -860,7 +860,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -871,7 +871,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -893,7 +893,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Joystick>/stick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Joystick;Gamepad"",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -904,7 +904,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Joystick>/stick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Joystick;Gamepad"",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -915,7 +915,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Joystick>/stick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Joystick;Gamepad"",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -926,7 +926,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Joystick>/stick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Joystick;Gamepad"",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -948,7 +948,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -959,7 +959,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -970,7 +970,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -981,7 +981,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -992,7 +992,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1003,7 +1003,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1014,7 +1014,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1025,7 +1025,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;KeyboardMouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1036,7 +1036,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""*/{Submit}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Touch;Joystick;XR;KeyboardMouse;Gamepad"",
+                    ""groups"": ""Keyboard&Mouse;Touch;Joystick;XR"",
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1047,7 +1047,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""*/{Cancel}"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Touch;Joystick;XR;KeyboardMouse;Gamepad"",
+                    ""groups"": ""Keyboard&Mouse;Touch;Joystick;XR"",
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1190,7 +1190,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Menu Swap L"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1201,7 +1201,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftBracket"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Menu Swap L"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1212,7 +1212,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Menu Swap R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1223,7 +1223,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/rightBracket"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Menu Swap R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1234,7 +1234,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Close"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1245,7 +1245,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Primal Level Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1256,7 +1256,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Primal Level Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1267,7 +1267,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Primal Level Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1278,7 +1278,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Primal Level Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1289,7 +1289,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Primal Level Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1300,7 +1300,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Primal Level Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1311,7 +1311,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""VitalityLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1322,7 +1322,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""VitalityLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1333,7 +1333,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""VitalityLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1344,7 +1344,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""VitalityLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1355,7 +1355,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""VitalityLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1366,7 +1366,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""VitalityLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1377,7 +1377,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SpeedLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1388,7 +1388,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SpeedLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1399,7 +1399,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""SpeedLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1410,7 +1410,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SpeedLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1421,7 +1421,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SpeedLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1432,7 +1432,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""SpeedLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1443,7 +1443,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SentienceLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1454,7 +1454,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SentienceLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1465,7 +1465,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""SentienceLevelRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1476,7 +1476,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SentienceLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1487,7 +1487,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""SentienceLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1498,7 +1498,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""SentienceLevelLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1509,7 +1509,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""MoreInfo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1520,7 +1520,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/y"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""MoreInfo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1640,7 +1640,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Confirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1651,7 +1651,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Confirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1662,7 +1662,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""CancelConfirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1673,7 +1673,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/backspace"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""CancelConfirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1684,7 +1684,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Assign X"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1695,7 +1695,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""AssignB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1706,7 +1706,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Assign Y KB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1717,7 +1717,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Assign B KB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1728,7 +1728,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1739,7 +1739,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1750,7 +1750,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1778,7 +1778,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": """",
                     ""action"": ""Skip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1789,7 +1789,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Skip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1797,35 +1797,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             ]
         }
     ],
-    ""controlSchemes"": [
-        {
-            ""name"": ""KeyboardMouse"",
-            ""bindingGroup"": ""KeyboardMouse"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                },
-                {
-                    ""devicePath"": ""<Mouse>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Gamepad"",
-            ""bindingGroup"": ""Gamepad"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
-        }
-    ]
+    ""controlSchemes"": []
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
@@ -2476,24 +2448,6 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         }
     }
     public CutsceneActions @Cutscene => new CutsceneActions(this);
-    private int m_KeyboardMouseSchemeIndex = -1;
-    public InputControlScheme KeyboardMouseScheme
-    {
-        get
-        {
-            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardMouse");
-            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
-        }
-    }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
-        {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
-        }
-    }
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
