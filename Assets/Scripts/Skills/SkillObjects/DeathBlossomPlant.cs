@@ -59,6 +59,7 @@ public class DeathBlossomPlant : MonoBehaviour
         yield return new WaitForSeconds(damageOverTimeDuration);
         Destroy(this);
     }
+    /*
     private IEnumerator ApplyDamageOverTime(EnemyHealth enemyHealth, float damage)
     {
         Debug.Log("ApplyDamageOverTime started");
@@ -73,6 +74,7 @@ public class DeathBlossomPlant : MonoBehaviour
             timeElapsed++;
         }
     }
+    */
     void DamageEnemies()
     {
         SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
@@ -87,10 +89,15 @@ public class DeathBlossomPlant : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             EnemyHealth enemyHealth = collider.gameObject.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            if(enemyHealth != null)
             {
-                StartCoroutine(ApplyDamageOverTime(enemyHealth, damage));
-                Debug.Log("Death Blossom hit!");
+                Poison poisonEffect = collider.gameObject.GetComponent<Poison>();
+                if(poisonEffect != null){
+                    poisonEffect.RefreshPoison(damage / 5);
+                }else{
+                    poisonEffect = collider.gameObject.AddComponent<Poison>();
+                    poisonEffect.PoisonStats(damage / 5);
+                }
             }
         }
         StartCoroutine(DestroyAfterTime());
