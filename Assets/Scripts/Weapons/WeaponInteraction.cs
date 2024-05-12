@@ -115,7 +115,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 "\nDamage: " + newStats.wpnDamage.ToString("F1") + damageComparisonText + 
                 "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, 
                 "Press "+interactText+" to Swap",
-                "Hold "+salvageText+" to Salvage"
+                "Press "+salvageText+" to Salvage"
             );
     }
 
