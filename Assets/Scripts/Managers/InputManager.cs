@@ -15,6 +15,8 @@ public class InputManager : MonoBehaviour
     [Header("Controllers")]
     [SerializeField][Tooltip("The specified controller controls to display. The name should be Keyboard, XBox, Playstation, or Switch exactly")] List<Controller> controllers = new List<Controller>();
 
+    public InputDevice latestDevice {get; private set;}
+
     public enum ControllerNames
     {
         Keyboard,
@@ -69,6 +71,7 @@ public class InputManager : MonoBehaviour
 
     public void CheckDevice(InputAction.CallbackContext actionCallback)
     {
+        latestDevice = actionCallback.control.device;
         string deviceName = actionCallback.control.device.name;
 
         //XBox
