@@ -33,6 +33,7 @@ public class SoundEffectManager : MonoBehaviour
                 int randomNumber = Random.Range(0, sfx.sfxSounds.Count);
                 AudioSource audioSource = PlayClipAtPointAndGetSource(sfx.sfxSounds[randomNumber], position, sfx.sfxVolume);
                 audioSource.outputAudioMixerGroup = audioMixerGroup;
+                audioSource.dopplerLevel = 0;
 
                 float randomPitchModifier = Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
                 audioSource.pitch += randomPitchModifier;

@@ -102,6 +102,8 @@ public class SkillMenuManagerUpdated : MonoBehaviour
     public GameObject DescriptionPanel;
     public TMP_Text DescriptionText;
 
+    [SerializeField] TMP_Text menuSporeName;
+
     private void Awake()
     {
         controls = new ThirdPersonActionsAsset();
@@ -203,6 +205,10 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       //MenuSporePositioning sporePositioning = InstantiatedSpore.AddComponent<MenuSporePositioning>();
       //sporePositioning.verticalOffsetScalar = 0.5f;
       //sporePositioning.horizontalOffsetScalar = 0.8375f;
+
+      Color bodyColor = InstantiatedSpore.GetComponent<DesignTracker>().bodyColor;
+      string sporeName = InstantiatedSpore.GetComponent<CharacterStats>().sporeName;
+      menuSporeName.text = "<color=#" + ColorUtility.ToHtmlStringRGB(bodyColor) + ">"+sporeName+"</color>";
 
       Destroy(InstantiatedSpore.transform.Find("CenterPoint").gameObject);
       InstantiatedSpore.tag = "Tree";
