@@ -604,7 +604,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""type"": ""PassThrough"",
                     ""id"": ""98fbcb96-8f29-409f-9124-28b8bf44b609"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone(min=0.35)"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },

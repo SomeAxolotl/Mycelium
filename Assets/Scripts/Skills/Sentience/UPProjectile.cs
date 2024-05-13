@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class UPProjectile : MonoBehaviour
 {
+    [SerializeField] private float AOERange;
+    [SerializeField] private float speed;
+    [SerializeField] private LayerMask collidableLayers;
     Rigidbody rb;
-    [SerializeField] private float AOERange = 2;
-    [SerializeField] private float speed = 12f;
-    [SerializeField] private float upRange = 2f;
     UnstablePuffball unstablePuffball;
 
     // Start is called before the first frame update
@@ -16,26 +16,26 @@ public class UPProjectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         unstablePuffball = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<UnstablePuffball>();
+
+        //Launches the puffball with an initial force so it doesn't start falling right away
+        Vector3 knockbackForce = transform.forward * 5f;
+        knockbackForce += Vector3.up * 2f;
+        rb.AddForce(knockbackForce, ForceMode.Impulse);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 launchDirection = (transform.up * upRange + transform.forward).normalized;
-        transform.position += launchDirection * speed * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
-            DamageEnemies();
-        }
-
-        int enviornmentLayer = 8;
-        int wallLayer = 12;
-        if (collision.gameObject.layer == enviornmentLayer || collision.gameObject.layer == wallLayer)
+        //Kind of scuffed but this ignores the big trigger colliders on the bouncy shrooms
+        if (((1 << collision.gameObject.layer) & collidableLayers.value) != 0 
+            && collision.gameObject.GetComponent<SmackableGlowShroomController>() == null 
+            && collision.gameObject.GetComponent<SmackableShroomController>() == null
+            && collision.gameObject.GetComponent<MushroomPlayerSensorController>() == null)
         {
             ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
             DamageEnemies();
