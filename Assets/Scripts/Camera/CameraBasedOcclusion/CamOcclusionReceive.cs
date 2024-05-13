@@ -12,9 +12,7 @@ public class CamOcclusionReceive : MonoBehaviour
     private Coroutine fadeOut;
     private Coroutine fadeIn;
 
-    //private GameObject shadowCasterObject;
-
-    [HideInInspector] public bool isActivated = false;
+    [HideInInspector] public bool isFaded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +36,7 @@ public class CamOcclusionReceive : MonoBehaviour
 
         }
 
-        if(isActivated == false)
+        if(isFaded == false)
         {
             fadeOut = StartCoroutine(FadeOut());
 
@@ -79,7 +77,7 @@ public class CamOcclusionReceive : MonoBehaviour
 
     IEnumerator FadeOut()
     {
-        isActivated = true;
+        isFaded = true;
         float elapsedTime = 0f;
         float t = 0f;
         float time = 0.4f;
@@ -110,7 +108,7 @@ public class CamOcclusionReceive : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        isActivated = false;
+        isFaded = false;
         float elapsedTime = 0f;
         float t = 0f;
         float time = 0.3f;

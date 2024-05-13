@@ -14,6 +14,7 @@ public class CamOcclusionTransmit : MonoBehaviour
 
     private List<CamOcclusionReceive> latestReceiveScripts = new List<CamOcclusionReceive>();
     private List<CamOcclusionReceive> toBeFadedIn = new List<CamOcclusionReceive>();
+    private List<CamOcclusionReceive> markedForRemoval = new List<CamOcclusionReceive>();
 
     private Vector3 playerDirection;
     private float playerDistance;
@@ -42,12 +43,13 @@ public class CamOcclusionTransmit : MonoBehaviour
     {
         numOfHits = Physics.SphereCastNonAlloc(occlusionCheckRay, 0.5f, hits, playerDistance, occludedLayers, QueryTriggerInteraction.Ignore);
 
-
+        Debug.Log(latestReceiveScripts.Count);
 
         if (numOfHits > 0)
         {
-            Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.blue, 0f, false);
+            //Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.blue, 0f, false);
             latestReceiveScripts = FindTheReceiver();
+
             foreach(CamOcclusionReceive script in latestReceiveScripts)
             {
                 if(toBeFadedIn.Contains(script) == false)
@@ -56,15 +58,37 @@ public class CamOcclusionTransmit : MonoBehaviour
                     toBeFadedIn.Add(script);
                 }
             }
+
+            foreach(CamOcclusionReceive script in toBeFadedIn)
+            {
+                if(latestReceiveScripts.Contains(script) == false)
+                {
+                    script.StartFadeIn();
+                    markedForRemoval.Add(script);
+                }
+            }
+
+            foreach (CamOcclusionReceive script in markedForRemoval)
+            {
+                if (toBeFadedIn.Contains(script))
+                {
+                    toBeFadedIn.Remove(script);
+                }
+            }
+            markedForRemoval.Clear();
         }
         else
         {
-            Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.red, 0f, false);
+            //Debug.DrawRay(occlusionCheckRay.origin, occlusionCheckRay.direction * playerDistance, Color.red, 0f, false);
+            latestReceiveScripts.Clear();
+
             foreach (CamOcclusionReceive script in toBeFadedIn)
             {
                 script.StartFadeIn();
             }
+
             toBeFadedIn.Clear();
+
             foreach (GameObject clonedObject in GameObject.FindGameObjectsWithTag("Cloned"))
             {
                 clonedObject.GetComponent<DestroySelf>().InitiateSelfDestructSequence();
