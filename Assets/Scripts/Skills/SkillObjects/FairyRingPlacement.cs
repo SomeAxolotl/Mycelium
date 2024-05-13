@@ -28,11 +28,8 @@ public class FairyRingPlacement : FairyRing
             ReworkedEnemyNavigation enemyNav = other.gameObject.GetComponent<ReworkedEnemyNavigation>();
             if (enemyNav != null && enemyInsideFairyRing)
             {
-                enemyNav.moveSpeed *= speedReduction;
-                if (other.gameObject.GetComponent<MeleeEnemyAttack>() != null)
-                {
-                    other.gameObject.GetComponent<MeleeEnemyAttack>().chargeSpeed *= speedReduction;
-                }
+                SpeedChange speedChange = other.gameObject.AddComponent<SpeedChange>();
+                speedChange.InitializeSpeedChange(1f, -speedReduction);
             }
             yield return new WaitForSeconds(1f);
             timeElapsed++;
@@ -57,14 +54,11 @@ public class FairyRingPlacement : FairyRing
                 ReworkedEnemyNavigation enemyNav = other.gameObject.GetComponent<ReworkedEnemyNavigation>();
                 if (enemyNav != null && enemyInsideFairyRing)
                 {
-                    enemyNav.moveSpeed *= speedReduction;
-                    if(other.gameObject.GetComponent<MeleeEnemyAttack>() != null)
-                    {
-                        other.gameObject.GetComponent<MeleeEnemyAttack>().chargeSpeed *= speedReduction;
-                    }
+                    SpeedChange speedChange = other.gameObject.AddComponent<SpeedChange>();
+                    speedChange.InitializeSpeedChange(1f, -speedReduction);
                 }
                 StartCoroutine(DamageOverTime(enemyHealth, other, damage));
-                Debug.Log("Fairy Ring hit!");
+                //Debug.Log("Fairy Ring hit!");
             }
         }
     }

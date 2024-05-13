@@ -6,7 +6,7 @@ public class Mycotoxins : Skill
 {
     private PlayerController controller;
     private float timer = 0f;
-    [SerializeField] private float speedBoost = 1.5f;
+    [SerializeField] private float speedBoost = 50f;
     [SerializeField] private float speedDuration = 3f;
     [SerializeField] private int spawnCount = 0;
     private float originalMoveSpeed;
@@ -20,8 +20,8 @@ public class Mycotoxins : Skill
         controller = GetComponentInParent<PlayerController>();
         if (controller != null)
         {
-            originalMoveSpeed = controller.moveSpeed;
-            controller.moveSpeed *= speedBoost;
+            SpeedChange speedChange = controller.gameObject.AddComponent<SpeedChange>();
+            speedChange.InitializeSpeedChange(3f, speedBoost);
 
             StartCoroutine(ReleaseSpores());
 
@@ -39,7 +39,7 @@ public class Mycotoxins : Skill
 
         if (controller != null && timer >= speedDuration)
         {
-            controller.moveSpeed = originalMoveSpeed;
+            //controller.moveSpeed = originalMoveSpeed;
             // End the skill when duration is over
 
         }
