@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -66,7 +67,10 @@ public class InputManager : MonoBehaviour
 
     void PauseWhenDeviceChange(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
     {
-        GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>()?.Pause();
+        if (SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>()?.Pause();
+        }
     }
 
     public void CheckDevice(InputAction.CallbackContext actionCallback)

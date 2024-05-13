@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CamTracker : MonoBehaviour
 {
-    private Transform centerPoint;
-
-    public Transform currentTarget;
+    public Transform centerPoint;
 
     private void Update()
     {
