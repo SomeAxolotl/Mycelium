@@ -809,16 +809,16 @@ public class LevelUpManagerNew : MonoBehaviour
     {
       skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
       List<float> CDList = skillManager.GetEquippedSkillCooldowns(GameObject.FindWithTag("currentPlayer"));
-      Skill1CD.text = "Cooldown: <br>" + CDList[0].ToString("0.0") + " Seconds";
-      Skill2CD.text = "Cooldown: <br>" + CDList[1].ToString("0.0") + " Seconds";
-      Skill3CD.text = "Cooldown: <br>" + CDList[2].ToString("0.0") + " Seconds";
+      Skill1CD.text = "Cooldown: <color=#97F8D2>" + CDList[0].ToString("0.0") + " s</color>";
+      Skill2CD.text = "Cooldown: <color=#97F8D2>" + CDList[1].ToString("0.0") + " s</color>";
+      Skill3CD.text = "Cooldown: <color=#97F8D2>" + CDList[2].ToString("0.0") + " s</color>";
     }
     void SkillDam()
     {
       skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
       List<float> DamList = skillManager.GetEquippedSkillValues(GameObject.FindWithTag("currentPlayer"));
-      Skill1Dam.text = "Damage: " + DamList[0].ToString();
-      Skill2Dam.text =  "Damage: " + DamList[1].ToString();
-      Skill3Dam.text =  "Damage: " + DamList[2].ToString();
+      Skill1Dam.text = "Damage: <color=#97F8D2>" + DamList[0].ToString() + "</color>";
+      Skill2Dam.text = "Damage: <color=#97F8D2>" + DamList[1].ToString() + "</color>";
+      Skill3Dam.text = "Damage: <color=#97F8D2>" + DamList[2].ToString() + "</color>";
     }
 }
