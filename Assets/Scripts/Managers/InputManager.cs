@@ -67,7 +67,7 @@ public class InputManager : MonoBehaviour
 
     void PauseWhenDeviceChange(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
     {
-        if (SceneManager.GetActiveScene().name != "Main Menu")
+        if (SceneManager.GetActiveScene().name != "Main Menu" && GlobalData.isAbleToPause)
         {
             GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>()?.Pause();
         }
