@@ -41,7 +41,7 @@ public class Blitz : Skill
         }
         while (elapsedTime < activeBlitz)
         {
-            enemyColliders = Physics.OverlapSphere(player.transform.Find("CenterPoint").position, 3f, enemyLayer);
+            enemyColliders = Physics.OverlapSphere(player.transform.Find("CenterPoint").position, 2.5f, enemyLayer);
             foreach (var enemyCollider in enemyColliders)
             {
                 if (enemyCollider.GetComponent<EnemyHealth>() != null && !enemiesHit.Contains(enemyCollider.gameObject))

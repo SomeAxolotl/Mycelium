@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class BossHealth2 : EnemyHealth
 {
     bool hudPopup = false;
-   [SerializeField] private List<GameObject> enemySpawners = new List<GameObject>();
+    [SerializeField] Collider hudCollider;
+    [SerializeField] private List<GameObject> enemySpawners = new List<GameObject>();
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,6 +16,7 @@ public class BossHealth2 : EnemyHealth
         if (other.gameObject.CompareTag("currentPlayer") && !hudPopup)
         {
             hudPopup = true;
+            hudCollider.enabled = false;
             hudBoss.EncounterBoss(gameObject.name, currentHealth, maxHealth);
             if(SceneManager.GetActiveScene().name == "Impact Barrens")
             {
