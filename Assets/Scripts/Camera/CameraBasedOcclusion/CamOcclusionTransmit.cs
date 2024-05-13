@@ -43,7 +43,7 @@ public class CamOcclusionTransmit : MonoBehaviour
     {
         numOfHits = Physics.SphereCastNonAlloc(occlusionCheckRay, 0.5f, hits, playerDistance, occludedLayers, QueryTriggerInteraction.Ignore);
 
-        Debug.Log(latestReceiveScripts.Count);
+        //Debug.Log(latestReceiveScripts.Count);
 
         if (numOfHits > 0)
         {

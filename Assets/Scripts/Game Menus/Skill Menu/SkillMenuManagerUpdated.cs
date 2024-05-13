@@ -199,6 +199,11 @@ public class SkillMenuManagerUpdated : MonoBehaviour
         Destroy(InstantiatedSpore);
       }
       InstantiatedSpore = Instantiate(GameObject.FindWithTag("currentPlayer"), MenuSporeLocation.position, Quaternion.identity);
+
+      //MenuSporePositioning sporePositioning = InstantiatedSpore.AddComponent<MenuSporePositioning>();
+      //sporePositioning.verticalOffsetScalar = 0.5f;
+      //sporePositioning.horizontalOffsetScalar = 0.8375f;
+
       Destroy(InstantiatedSpore.transform.Find("CenterPoint").gameObject);
       InstantiatedSpore.tag = "Tree";
       Destroy(InstantiatedSpore.GetComponent<Rigidbody>());

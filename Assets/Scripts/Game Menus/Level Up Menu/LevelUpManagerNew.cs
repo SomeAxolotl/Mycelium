@@ -192,8 +192,8 @@ public class LevelUpManagerNew : MonoBehaviour
         Nutrients.text = currentnutrients.currentNutrients.ToString();
         CurrentLevel.text = currentstats.totalLevel.ToString();
         health.text = currentstats.baseHealth.ToString();
-        regen.text = currentstats.baseRegen.ToString("0.00") + " HPS";
-        movespeed.text = currentstats.moveSpeed.ToString("0.0") + " m/s";
+        regen.text = currentstats.baseRegen.ToString("0.00") + " hp/s";
+        movespeed.text = currentstats.moveSpeed.ToString("0.0") + "m/s";
         primaldam.text = currentstats.primalDmg.ToString();
         controls.Player.Disable();
         PrimalBarFill();
