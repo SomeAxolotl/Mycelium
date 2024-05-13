@@ -44,6 +44,10 @@ public class Zombify : Skill
     {
         if(enemy != null && enemy.GetComponent<EnemyAttack>() != null && enemy.GetComponent<NavEnabler>() != null && enemy.GetComponent<ReworkedEnemyNavigation>() != null && enemy.GetComponent<ZombifiedMovement>() != null)
         {
+            Madness madness = enemy.AddComponent<Madness>();
+            madness.ApplyMadness(finalSkillValue, 0.5f);
+
+            /*
             if(enemy.GetComponent<CrabAttack>() != null)
             {
                 enemy.GetComponent<CrabAttack>().StopAttack();
@@ -58,6 +62,7 @@ public class Zombify : Skill
             enemy.GetComponent<ReworkedEnemyNavigation>().enabled = false;
             enemy.GetComponent<ZombifiedMovement>().enabled = true;
             enemy.GetComponent<ZombifiedMovement>().explosionDamage = finalSkillValue;
+            */
         }
     }
 }

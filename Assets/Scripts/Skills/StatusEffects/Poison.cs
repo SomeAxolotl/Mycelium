@@ -21,6 +21,8 @@ public class Poison : MonoBehaviour
     [SerializeField] private float poisonDamage = 0.5f;
     [HideInInspector] public float O_poisonDamage{get{return poisonDamage;}}
 
+    private IEnumerator timer;
+
     //Sets relevant information of the poison, refreshes its time to be its max
     //Will never go down in stats, only up when refreshing
     public void PoisonStats(float dmg = 0.5f, float tick = 0.5f, float maxTime = 5){
@@ -31,6 +33,12 @@ public class Poison : MonoBehaviour
     }
 
     void Awake(){
+        //Checks to see if the target has a particle saver, if it does not add it. 
+        //Particle saver lets particles exist after target dies so they don't just dissapear instantly
+        ParticleSaver saver = GetComponent<ParticleSaver>();
+        if(saver == null){
+            gameObject.AddComponent<ParticleSaver>();
+        }
         //Checks to see if there are other instances of poison already on the target
         Poison[] poisonInstances = GetComponents<Poison>();
         if(poisonInstances.Length > 1){
@@ -44,7 +52,8 @@ public class Poison : MonoBehaviour
         healthScript = this.GetComponent<EnemyHealth>();
         currPoisonTime = maxPoisonTime;
         //Start the timer that deals damage every tick
-        StartCoroutine(PoisonCoroutine());
+        timer = PoisonCoroutine();
+        StartCoroutine(timer);
         poisonParticles = Resources.Load<GameObject>(particlePath);
     }
 
@@ -81,6 +90,7 @@ public class Poison : MonoBehaviour
         if(poisonParticles != null){
             GameObject tempObj = Instantiate(poisonParticles) as GameObject;
             tempObj.transform.position = this.transform.position;
+            tempObj.transform.parent = this.transform;
         }else{
             Debug.Log("Particles not set for poison effect");
         }
