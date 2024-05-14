@@ -6,12 +6,15 @@ public class AttributeBase : MonoBehaviour
 {
     [HideInInspector] public WeaponStats stats;
     [HideInInspector] public WeaponCollision hit;
+    [HideInInspector] public WeaponInteraction interact;
 
     [SerializeField] public string attName;
+    [SerializeField] public string attDesc;
 
     private void OnEnable(){
         stats = GetComponent<WeaponStats>();
         hit = GetComponent<WeaponCollision>();
+        interact = GetComponent<WeaponInteraction>();
         if(stats != null){
 
         }

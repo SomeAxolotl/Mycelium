@@ -10,6 +10,8 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     NutrientTracker nutrientTracker;
     GameObject player;
 
+    public string attributeDescription = "";
+
     void Start()
     {
         player = GameObject.FindWithTag("currentPlayer");
@@ -113,7 +115,8 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 weaponName, 
                 "Type: " + newStats.weaponType.ToString() + 
                 "\nDamage: " + newStats.wpnBaseDmg.ToString("F1") + damageComparisonText + 
-                "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText, 
+                "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText
+                + attributeDescription, 
                 "Press "+interactText+" to Swap",
                 "Press "+salvageText+" to Salvage"
             );
