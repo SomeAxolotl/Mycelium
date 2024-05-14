@@ -38,9 +38,13 @@ public class WeaponStats : MonoBehaviour
 
     public float secondsTilHitstopSpeedup = 0.25f;
 
+    public bool acceptingAttribute = true;
+
     void Start()
     {
-        AttributeAssigner.Instance.AddRandomAttribute(gameObject);
+        if(acceptingAttribute){
+            AttributeAssigner.Instance.AddRandomAttribute(gameObject);
+        }
 
         if (gameObject.tag == "currentWeapon")
         {
