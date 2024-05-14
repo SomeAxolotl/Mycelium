@@ -17,8 +17,7 @@ public class AttributeAssigner : MonoBehaviour
 
     [Serializable]
     public class AttributeChance{
-        public Component attribute;
-        [Range(0, 1)]
+        public AttributeBase attribute;
         public float chance;
     }
 
@@ -32,7 +31,9 @@ public class AttributeAssigner : MonoBehaviour
         float randomValue = UnityEngine.Random.Range(0f, totalChance);
         foreach(var att in attributes){
             if(randomValue < att.chance){
-                weapon.AddComponent(att.attribute.GetType());
+                Component newComponent = weapon.AddComponent(att.attribute.GetType());
+                AttributeBase newAttribute = newComponent as AttributeBase;
+                newAttribute.statChange = att.attribute.statChange;
                 break;
             }else{
                 randomValue -= att.chance;

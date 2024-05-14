@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RonaldSunglassesEmoji.Interaction;
+using System;
 
 public class WeaponInteraction : MonoBehaviour, IInteractable
 {
@@ -9,20 +10,45 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     [SerializeField] private int nutrientsSalvaged = 200;
     NutrientTracker nutrientTracker;
     GameObject player;
+    HUDStats hudStats;
 
     public string attributeDescription = "";
+    public Action WeaponEquipped;
+    public Action WeaponUnequipped;
 
     void Start()
     {
         player = GameObject.FindWithTag("currentPlayer");
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         swapWeapon = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
+        hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();
     }
 
+    GameObject curWeapon;
     public void Interact(GameObject interactObject)
     {
+        //What you have now
         GameObject curWeapon = swapWeapon.curWeapon;
+        AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
+        if(curAtt != null){curAtt.Unequipped();}
+        //What you swap into
         Transform weapon = interactObject.transform;
+        AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
+        if(newAtt != null){newAtt.Equipped();}
+
+        if(curAtt != null && newAtt != null){
+            if(newAtt.statChange || curAtt.statChange){
+                hudStats.ImproveStat("Sentience");
+            }
+        }else{
+            if(curAtt != null && curAtt.statChange){
+                hudStats.ImproveStat("Sentience");
+            }
+            if(newAtt != null && newAtt.statChange){
+                hudStats.ImproveStat("Sentience");
+            }
+        }
+
         Transform weaponHolder = swapWeapon.weaponHolder;
 
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
@@ -32,14 +58,13 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         weapon.transform.position = weaponHolder.position;
         curWeapon.layer = LayerMask.NameToLayer("Weapon");
         curWeapon.transform.parent = null;
+
         curWeapon.tag = "Weapon";
         weapon.gameObject.layer = LayerMask.NameToLayer("currentWeapon");
         weapon.GetComponent<Collider>().enabled = false;
         weapon.tag = "currentWeapon";
 
         ApplyWeaponPositionAndRotation();
-
-        TooltipManager.Instance.DestroyTooltip();
     }
 
     public void ApplyWeaponPositionAndRotation()
@@ -67,8 +92,41 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     public void CreateTooltip(GameObject interactObject)
     {
         GameObject curWeapon = swapWeapon.curWeapon;
+        AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
         Transform weapon = interactObject.transform;
+        AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
         Transform weaponHolder = swapWeapon.weaponHolder;
+
+        if (TooltipManager.Instance.currentTooltip == null)
+        {
+            if(curAtt != null && newAtt != null){
+                if(newAtt.statChange || curAtt.statChange){
+                    hudStats.ShowStats();
+                }
+            }else{
+                if(curAtt != null && curAtt.statChange){
+                    hudStats.ShowStats();
+                }
+                if(newAtt != null && newAtt.statChange){
+                    hudStats.ShowStats();
+                }
+            }
+        }
+        
+        /*
+        if(curAtt != null && newAtt != null){
+            if(newAtt.statChange || curAtt.statChange){
+                hudStats.ShowStats();
+            }
+        }else{
+            if(curAtt != null && curAtt.statChange){
+                hudStats.ShowStats();
+            }
+            if(newAtt != null && newAtt.statChange){
+                hudStats.ShowStats();
+            }
+        }
+        */
 
         Color betterStatColor = swapWeapon.betterStatColor;
         Color worseStatColor = swapWeapon.worseStatColor;
@@ -124,6 +182,25 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     public void DestroyTooltip(GameObject interactObject)
     {
+        GameObject curWeapon = swapWeapon.curWeapon;
+        AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
+        Transform weapon = interactObject.transform;
+        AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
+        if (TooltipManager.Instance.currentTooltip != null)
+        {
+            if(curAtt != null && newAtt != null){
+                if(newAtt.statChange || curAtt.statChange){
+                    hudStats.HideStats();
+                }
+            }else{
+                if(curAtt != null && curAtt.statChange){
+                    hudStats.HideStats();
+                }
+                if(newAtt != null && newAtt.statChange){
+                    hudStats.HideStats();
+                }
+            }
+        }
         TooltipManager.Instance.DestroyTooltip();
     }
     void SalvageNutrients(int nutrientAmount)

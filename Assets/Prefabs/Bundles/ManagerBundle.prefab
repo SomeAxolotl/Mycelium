@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4576710345071287621}
   - component: {fileID: 8945164403497291771}
   - component: {fileID: 7323201842744699600}
+  - component: {fileID: 702041653258203604}
   m_Layer: 0
   m_Name: AttributeManager
   m_TagString: Untagged
@@ -52,11 +53,13 @@ MonoBehaviour:
   - attribute: {fileID: 4067285412394339409}
     chance: 1
   - attribute: {fileID: 4576710345071287621}
-    chance: 1
+    chance: 0.7
   - attribute: {fileID: 8945164403497291771}
-    chance: 0.98
+    chance: 0.4
   - attribute: {fileID: 7323201842744699600}
-    chance: 1
+    chance: 0.8
+  - attribute: {fileID: 702041653258203604}
+    chance: 999
 --- !u!114 &4067285412394339409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +75,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   hit: {fileID: 0}
   interact: {fileID: 0}
+  statChange: 0
   attName: 
   attDesc: 
 --- !u!114 &4576710345071287621
@@ -89,6 +93,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   hit: {fileID: 0}
   interact: {fileID: 0}
+  statChange: 0
   attName: Nasty
   attDesc: 
 --- !u!114 &8945164403497291771
@@ -106,6 +111,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   hit: {fileID: 0}
   interact: {fileID: 0}
+  statChange: 0
   attName: Repulsive
   attDesc: 
 --- !u!114 &7323201842744699600
@@ -123,6 +129,25 @@ MonoBehaviour:
   stats: {fileID: 0}
   hit: {fileID: 0}
   interact: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+--- !u!114 &702041653258203604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993056706688276652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc60c2819cb6d247bff243d60476f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  statChange: 1
   attName: 
   attDesc: 
 --- !u!1 &5760888971066292467

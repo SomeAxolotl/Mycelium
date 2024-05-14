@@ -8,8 +8,10 @@ public class AttributeBase : MonoBehaviour
     [HideInInspector] public WeaponCollision hit;
     [HideInInspector] public WeaponInteraction interact;
 
-    [SerializeField] public string attName;
-    [SerializeField] public string attDesc;
+    public bool statChange = false;
+
+    [HideInInspector] public string attName;
+    [HideInInspector] public string attDesc;
 
     private void OnEnable(){
         stats = GetComponent<WeaponStats>();
@@ -21,6 +23,7 @@ public class AttributeBase : MonoBehaviour
         if(hit != null){
             hit.HitEnemy += Hit;
         }
+
         Initialize();
     }
     private void OnDisable(){
@@ -38,5 +41,13 @@ public class AttributeBase : MonoBehaviour
 
     public virtual void Hit(GameObject target, float damage){
         //Put on hit things here
+    }
+
+    public virtual void Equipped(){
+        //Put on equip things here
+    }
+
+    public virtual void Unequipped(){
+        //Put on unequip things here
     }
 }
