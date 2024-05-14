@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Smart : AttributeBase
+public class Strong : AttributeBase
 {
     GameObject player;
     CharacterStats characterStats;
@@ -17,17 +17,17 @@ public class Smart : AttributeBase
 
     public override void Initialize(){
         if(stats == null || hit == null){return;}
-        attName = "Smart";
-        attDesc = "\n<sprite="+2+"> +6";
+        attName = "Strong";
+        attDesc = "\n<sprite="+0+"> +6";
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }
 
     public override void Equipped(){
-        characterStats.AddStat("Sentience", 6);
+        characterStats.AddStat("Primal", 6);
     }
 
     public override void Unequipped(){
-        characterStats.AddStat("Sentience", -6);
+        characterStats.AddStat("Primal", -6);
     }
 }
