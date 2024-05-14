@@ -124,6 +124,8 @@ MonoBehaviour:
   sentienceBonusDamage: 0
   reflectBonusDamage: 0
   hitStopping: 0
+  isCycloning: 0
+  dmgDealt: 0
 --- !u!114 &4594901848681972440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,11 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   wpnName: Stick
-  wpnSpeed: Normal
-  wpnDamageMin: 5
-  wpnDamageMax: 5
-  wpnKnockbackMin: 3
-  wpnKnockbackMax: 3
+  baseDmg: 10
+  mult: 1
+  knockback: 0
   wpnAttackSpeedModifier: 1
   holdPositionOffset: {x: 0, y: 0, z: 0}
   holdRotationOffset: {x: 0, y: 130, z: 90}

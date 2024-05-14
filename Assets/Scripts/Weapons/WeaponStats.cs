@@ -16,13 +16,12 @@ public class WeaponStats : MonoBehaviour
 
     [SerializeField] public string wpnName = "Wooden Sword";
 
-    [SerializeField] float wpnDamageMin = 10f;
-    [SerializeField] float wpnDamageMax = 50f;
-    public float wpnDamage {get; set;}
-
-    [SerializeField] float wpnKnockbackMin = 10f;
-    [SerializeField] float wpnKnockbackMax = 50f;
-    public float wpnKnockback {get; set;}
+    [SerializeField] private float baseDmg = 10;
+    [HideInInspector] public float wpnBaseDmg{get{return baseDmg;}set{baseDmg = value;}}
+    [SerializeField] private float mult = 1;
+    [HideInInspector] public float wpnMult{get{return mult;}set{mult = value;}}
+    [SerializeField] private float knockback;
+    [HideInInspector] public float wpnKnockback{get{return knockback;}set{knockback = value;}}
 
     public float wpnAttackSpeedModifier = 1.0f;
 
@@ -41,8 +40,7 @@ public class WeaponStats : MonoBehaviour
 
     void Start()
     {
-        wpnDamage = Mathf.RoundToInt(Random.Range(wpnDamageMin, wpnDamageMax));
-        wpnKnockback = Random.Range(wpnKnockbackMin, wpnKnockbackMax);
+        AttributeAssigner.Instance.AddRandomAttribute(gameObject);
 
         if (gameObject.tag == "currentWeapon")
         {
@@ -72,7 +70,7 @@ public class WeaponStats : MonoBehaviour
     {
         if(wpnName != "Stick")
         {
-            Debug.Log("Name: " + wpnName + "\tDamage: " + wpnDamage + "\tKnockback: " + wpnKnockback, gameObject);
+            Debug.Log("Name: " + wpnName + "\tDamage: " + wpnMult + "\tKnockback: " + wpnKnockback, gameObject);
         }
     }
 }

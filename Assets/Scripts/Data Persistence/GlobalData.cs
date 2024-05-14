@@ -17,6 +17,7 @@ public static class GlobalData
     //Weapon Stuff
     public static string currentWeapon { get; set; }
     public static float currentWeaponDamage { get; set; }
+    public static float currentWeaponMult { get; set; }
     public static float currentWeaponKnockback { get; set; }
 
     //Nutrient Deposit Stuff

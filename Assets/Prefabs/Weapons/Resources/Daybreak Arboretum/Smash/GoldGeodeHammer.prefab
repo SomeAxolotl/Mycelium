@@ -158,6 +158,7 @@ MonoBehaviour:
   reflectBonusDamage: 0
   hitStopping: 0
   isCycloning: 0
+  dmgDealt: 0
 --- !u!114 &7451050018244110906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,10 +173,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   wpnName: Golden Hammer
-  wpnDamageMin: 16
-  wpnDamageMax: 26
-  wpnKnockbackMin: 30
-  wpnKnockbackMax: 33
+  baseDmg: 10
+  mult: 1
+  knockback: 0
   wpnAttackSpeedModifier: 1
   holdPositionOffset: {x: 0, y: -0.1, z: 0}
   holdRotationOffset: {x: 90, y: 0, z: 0}

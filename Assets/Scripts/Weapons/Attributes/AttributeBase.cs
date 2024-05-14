@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AttributeBase : MonoBehaviour
 {
-    private WeaponStats stats;
-    private WeaponCollision hit;
+    [HideInInspector] public WeaponStats stats;
+    [HideInInspector] public WeaponCollision hit;
 
-    [SerializeField] private string attName;
+    [SerializeField] public string attName;
 
     private void OnEnable(){
         stats = GetComponent<WeaponStats>();
@@ -29,16 +29,11 @@ public class AttributeBase : MonoBehaviour
         }
     }
 
-    private void Initialize(){
-        if(stats == null || hit == null){return;}
-        attName = "Nasty";
-        stats.wpnName = attName + " " + stats.wpnName;
+    public virtual void Initialize(){
+        //Add name here
     }
 
-    private void Hit(GameObject target, float damage){
-        Debug.Log("Target was hit");
-        hit.dmgDealt = 0;
-        Poison poisonEffect = target.AddComponent<Poison>();
-        poisonEffect.PoisonStats(damage / 2.5f);
+    public virtual void Hit(GameObject target, float damage){
+        //Put on hit things here
     }
 }

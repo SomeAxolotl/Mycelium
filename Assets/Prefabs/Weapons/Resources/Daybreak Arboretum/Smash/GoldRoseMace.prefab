@@ -156,6 +156,7 @@ MonoBehaviour:
   reflectBonusDamage: 0
   hitStopping: 0
   isCycloning: 0
+  dmgDealt: 0
 --- !u!114 &7451050018244110906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,10 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   wpnName: Golden Mace
-  wpnDamageMin: 12
-  wpnDamageMax: 22
-  wpnKnockbackMin: 20
-  wpnKnockbackMax: 24
+  baseDmg: 10
+  mult: 1
+  knockback: 0
   wpnAttackSpeedModifier: 1.15
   holdPositionOffset: {x: 0.02, y: 0.2, z: -0.02}
   holdRotationOffset: {x: 0, y: 90, z: 90}
