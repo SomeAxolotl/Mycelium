@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class WeaponCollision : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class WeaponCollision : MonoBehaviour
     RelentlessFury relentlessFury;
     public bool hitStopping = false;
     public bool isCycloning = false;
+    public float dmgDealt;
+    
+    public Action<GameObject, float> HitEnemy;
+
     void Start()
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
@@ -26,7 +31,8 @@ public class WeaponCollision : MonoBehaviour
         if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && other.GetType() != typeof(SphereCollider) && !enemiesHit.Contains(other.gameObject))
         {
             enemiesHit.Add(other.gameObject);
-            float dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
+            dmgDealt = playerAttack.dmgDealt + sentienceBonusDamage + reflectBonusDamage;
+            HitEnemy?.Invoke(other.gameObject, dmgDealt);
             //Debug.Log(other.gameObject);
             if (other.GetComponent<EnemyHealth>() != null)
             {
