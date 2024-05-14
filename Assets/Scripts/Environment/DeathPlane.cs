@@ -8,7 +8,7 @@ public class DeathPlane : MonoBehaviour
     [SerializeField] float percentHealthTaken = 0.2f;
     [SerializeField][Tooltip("The range at which an enemy falling will drop nutrients")] float rangeForEnemyDropNutrients = 20f;
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "currentPlayer" || other.gameObject.tag == "Player")
         {
