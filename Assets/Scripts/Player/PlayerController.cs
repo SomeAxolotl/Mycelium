@@ -19,13 +19,15 @@ public class PlayerController : MonoBehaviour
     private GameObject currentPlayer;
     public Rigidbody rb;
     public Vector3 forceDirection = Vector3.zero;
-     public float moveSpeed;
+    public float moveSpeed;
+    private float rollSpeed = 20f;
     private float gravityForce = -25f;
     Vector3 gravity;
     [SerializeField] private Camera playerCamera;
     public bool looking = true;
     [HideInInspector] public Vector3 inputDirection;
     [HideInInspector] public Vector3 targetVelocity;
+    private Vector3 rollVelocity;
     public AnimationClip rollClip;
     private float clipLength;
 
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
     public bool canAct = true;
     public bool activeDodge = false;
     public bool isInvincible = false;
+    private bool freeRoll = false;
     SwapCharacter swapCharacter;
     PlayerAttack playerAttack;
     PlayerHealth playerHealth;
@@ -189,9 +192,15 @@ public class PlayerController : MonoBehaviour
         //inputDirection = new Vector3(move.ReadValue<Vector2>().x, 0, move.ReadValue<Vector2>().y);
         targetVelocity = (GetCameraRight(playerCamera) * inputDirection.x + GetCameraForward(playerCamera) * inputDirection.z) * moveSpeed;
         targetVelocity.y = rb.velocity.y;
+        rollVelocity = (GetCameraRight(playerCamera) * inputDirection.x + GetCameraForward(playerCamera) * inputDirection.z) * rollSpeed;
+        rollVelocity.y = rb.velocity.y;
         if (!activeDodge)
         {
             rb.velocity = targetVelocity;
+        }
+        else if(freeRoll)
+        {
+            rb.velocity = rollVelocity;
         }
 
         animator.SetBool("Walk", rb.velocity.magnitude > 0.01f && inputDirection.magnitude > 0.01f);
@@ -232,19 +241,28 @@ public class PlayerController : MonoBehaviour
         animator.speed = 1.25f;
         animator.SetBool("Roll", true);
         animator.Play("Roll");
-        Vector3 rollDirection = rb.transform.forward * 20f;
+        Vector3 rollDirection = rb.transform.forward * rollSpeed;
         float rollTimer = 0f;
-        while (rollTimer < clipLength)
+        while (rollTimer <= (clipLength / 1.8f))
         {
             rollTimer += Time.deltaTime;
             rollDirection.y = rb.velocity.y;
             rb.velocity = rollDirection;
             yield return null;
         }
+        while (rollTimer <= clipLength && rollTimer > (clipLength / 1.8f))
+        {
+            rollTimer += Time.deltaTime;
+            looking = true;
+            freeRoll = true;
+            yield return null;
+        }
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
         SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
         hudSkills.StartCooldownUI(4, (finalDodgeCooldown + clipLength));
         yield return new WaitForSeconds(clipLength);
+        //yield return new WaitUntil(() => rollTimer >= clipLength);
+        freeRoll = false;
         isInvincible = false;
         activeDodge = false;
         canUseAttack = true;
