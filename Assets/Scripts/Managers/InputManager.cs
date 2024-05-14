@@ -16,8 +16,6 @@ public class InputManager : MonoBehaviour
     [Header("Controllers")]
     [SerializeField][Tooltip("The specified controller controls to display. The name should be Keyboard, XBox, Playstation, or Switch exactly")] List<Controller> controllers = new List<Controller>();
 
-    public InputDevice latestDevice {get; private set;}
-
     public enum ControllerNames
     {
         Keyboard,
@@ -26,8 +24,7 @@ public class InputManager : MonoBehaviour
         Switch,
         None
     }
-    private ControllerNames previousLatestController = ControllerNames.None;
-    public ControllerNames latestController {get; private set;}
+    public ControllerNames previousLatestController = ControllerNames.None;
 
     private void Awake()
     {
@@ -39,6 +36,11 @@ public class InputManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    void Start()
+    {
+        RefreshHUDHints();
     }
 
     void OnEnable()
@@ -75,45 +77,44 @@ public class InputManager : MonoBehaviour
 
     public void CheckDevice(InputAction.CallbackContext actionCallback)
     {
-        latestDevice = actionCallback.control.device;
         string deviceName = actionCallback.control.device.name;
 
         //XBox
         if (deviceName.Contains("XBox"))
         {
-            latestController = ControllerNames.XBox;
+            GlobalData.latestController = ControllerNames.XBox;
         }
         //Playstation
         else if (deviceName.Contains("DualShock"))
         {
-            latestController = ControllerNames.Playstation;
+            GlobalData.latestController = ControllerNames.Playstation;
         }
         //Switch or Pro Controller
         else if (deviceName.Contains("Switch"))
         {
-            latestController = ControllerNames.Switch;
+            GlobalData.latestController = ControllerNames.Switch;
         }
         //Catch with Keyboard
         else
         {
-            latestController = ControllerNames.Keyboard;
+            GlobalData.latestController = ControllerNames.Keyboard;
         }
 
-        if (latestController != previousLatestController)
+        if (GlobalData.latestController != previousLatestController)
         {
-            UnityEngine.Debug.Log("Refreshing UI with controller name: " + deviceName);
+            UnityEngine.Debug.Log("Refreshing HUD with controller name: " + deviceName);
         }
 
         RefreshHUDHints();
 
-        previousLatestController = latestController;
+        previousLatestController = GlobalData.latestController;
     }
 
     void RefreshHUDHints()
     {
-        if (latestController != previousLatestController)
+        if (GlobalData.latestController != previousLatestController)
         {
-            GameObject.Find("HUD").GetComponent<HUDControls>().ChangeHUDControls(GetLatestController());
+            GameObject.Find("HUD")?.GetComponent<HUDControls>().ChangeHUDControls(GetLatestController());
         }
     }
 
@@ -121,7 +122,7 @@ public class InputManager : MonoBehaviour
     {
         foreach (Controller controller in controllers)
         {
-            if (controller.controllerName == latestController)
+            if (controller.controllerName == GlobalData.latestController)
             {
                 return controller;
             }
@@ -149,8 +150,39 @@ public class InputManager : MonoBehaviour
         [SerializeField] public ColoredHint orientationCameraHint;
         [SerializeField] public ColoredHint showStatsHint;
 
-        [SerializeField] public ColoredHint uiSubConfirm;
-        [SerializeField] public ColoredHint uiSubCancelConfirm;
+        [SerializeField] public ColoredHint uiMenuSwapLHint;
+        [SerializeField] public ColoredHint uiMenuSwapRHint;
+
+        [SerializeField] public ColoredHint uiSubConfirmHint;
+        [SerializeField] public ColoredHint uiSubCancelConfirmHint;
+
+        [SerializeField] public ColoredHint moreInfoHint;
+
+        public ColoredHint GetHintFromInputActionReference(InputActionReference inputActionReference)
+        {
+            if (inputActionReference.action.name == Instance.actionsAsset.UI.MenuSwapL.name)
+            {
+                return uiMenuSwapLHint;
+            }
+            if (inputActionReference.action.name == Instance.actionsAsset.UI.MenuSwapR.name)
+            {
+                return uiMenuSwapRHint;
+            }
+            if (inputActionReference.action.name == Instance.actionsAsset.Player.Stat_Skill_1.name)
+            {
+                return statSkill1Hint;
+            }
+            if (inputActionReference.action.name == Instance.actionsAsset.Player.Stat_Skill_2.name)
+            {
+                return statSkill2Hint;
+            }
+            if (inputActionReference.action.name == Instance.actionsAsset.UI.MoreInfo.name)
+            {
+                return moreInfoHint;
+            }
+
+            return null;
+        }
     }
 
     [System.Serializable]

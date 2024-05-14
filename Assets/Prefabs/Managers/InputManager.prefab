@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActionsThatRefreshHints:
   - {fileID: -7209175347235084632, guid: 868a7a0e807ed0549a9fc7ebc5cda037, type: 3}
+  - {fileID: -3284248493640219711, guid: 868a7a0e807ed0549a9fc7ebc5cda037, type: 3}
+  - {fileID: 2988690935980051813, guid: 868a7a0e807ed0549a9fc7ebc5cda037, type: 3}
   controllers:
   - controllerName: 0
     subspeciesSkillHint:
@@ -98,14 +100,29 @@ MonoBehaviour:
       controlText: Spacebar
       controlColor: {r: 0, g: 0, b: 0, a: 0}
       controlSprite: {fileID: 0}
-    uiSubConfirm:
+    uiMenuSwapLHint:
+      isHintSprite: 0
+      controlText: '['
+      controlColor: {r: 0, g: 0, b: 0, a: 0}
+      controlSprite: {fileID: 0}
+    uiMenuSwapRHint:
+      isHintSprite: 0
+      controlText: ']'
+      controlColor: {r: 0, g: 0, b: 0, a: 0}
+      controlSprite: {fileID: 0}
+    uiSubConfirmHint:
       isHintSprite: 0
       controlText: Enter
       controlColor: {r: 0, g: 0, b: 0, a: 0}
       controlSprite: {fileID: 0}
-    uiSubCancelConfirm:
+    uiSubCancelConfirmHint:
       isHintSprite: 0
       controlText: Backspace
+      controlColor: {r: 0, g: 0, b: 0, a: 0}
+      controlSprite: {fileID: 0}
+    moreInfoHint:
+      isHintSprite: 0
+      controlText: Spacebar
       controlColor: {r: 0, g: 0, b: 0, a: 0}
       controlSprite: {fileID: 0}
   - controllerName: 2
@@ -162,14 +179,30 @@ MonoBehaviour:
       controlText: Select
       controlColor: {r: 0, g: 0, b: 0, a: 0}
       controlSprite: {fileID: 0}
-    uiSubConfirm:
+    uiMenuSwapLHint:
+      isHintSprite: 0
+      controlText: LB
+      controlColor: {r: 0, g: 0, b: 0, a: 0}
+      controlSprite: {fileID: 0}
+    uiMenuSwapRHint:
+      isHintSprite: 0
+      controlText: RB
+      controlColor: {r: 0, g: 0, b: 0, a: 0}
+      controlSprite: {fileID: 0}
+    uiSubConfirmHint:
       isHintSprite: 0
       controlText: X
       controlColor: {r: 0.4862745, g: 0.69803923, b: 0.9098039, a: 1}
       controlSprite: {fileID: 0}
-    uiSubCancelConfirm:
-      isHintSprite: 1
+    uiSubCancelConfirmHint:
+      isHintSprite: 0
       controlText: 
       controlColor: {r: 0, g: 0, b: 0, a: 0}
       controlSprite: {fileID: 2087344089, guid: cb33c383e6b1e3b47aab2e06071c3776,
         type: 3}
+    moreInfoHint:
+      isHintSprite: 0
+      controlText: Select
+      controlColor: {r: 0, g: 0, b: 0, a: 0}
+      controlSprite: {fileID: 0}
+  previousLatestController: 4

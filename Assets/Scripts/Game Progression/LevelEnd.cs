@@ -58,6 +58,7 @@ public class LevelEnd : MonoBehaviour
 
                 //Increment Area Completion Count
                 GlobalData.areaCleared = true;
+                GlobalData.areasClearedThisRun ++;
 
                 EndOfLevelCanvasStuff.Instance.StartEndOfLevel(this);
             }

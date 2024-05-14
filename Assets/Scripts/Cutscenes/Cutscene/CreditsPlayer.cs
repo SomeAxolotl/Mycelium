@@ -76,6 +76,10 @@ public class CreditsPlayer : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         GlobalData.currentLoop++;
 
+        //Increment Area Completion Counts
+        GlobalData.areaCleared = true;
+        GlobalData.areasClearedThisRun ++;
+
         StartCoroutine(NotificationWithDelay());
 
         levelEndScript.SpecialCreditsLoopFunction();

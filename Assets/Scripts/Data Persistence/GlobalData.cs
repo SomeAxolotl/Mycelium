@@ -30,6 +30,7 @@ public static class GlobalData
     public static float happinessStatMultiplier = 1f;
     public static int happinessStatIncrement = 0;
     public static bool areaCleared = false;
+    public static int areasClearedThisRun = 0;
     public static string sporeDied = null;
     public static string sporePermaDied = null;
 
@@ -44,4 +45,7 @@ public static class GlobalData
 
     //Environment Stuff
     public static bool isDay = true;
+
+    //Controller Stuff
+    public static InputManager.ControllerNames latestController;
 }
