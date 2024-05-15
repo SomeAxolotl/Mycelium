@@ -26,6 +26,26 @@ public class SpeedLevelConfirm : MonoBehaviour
 
     void OnEnable()
    {
+    TMP_Text confirmButtonText = transform.Find("ConfirmButton").GetComponent<TMP_Text>();
+    TMP_Text cancelButtonText = transform.Find("CancelButton").GetComponent<TMP_Text>();
+    Image cancelButtonImage = transform.Find("CancelImage").GetComponent<Image>();
+    InputManager.ColoredHint uiSubConfirmHint = InputManager.Instance.GetLatestController().uiSubConfirmHint;
+    InputManager.ColoredHint uiSubCancelConfirmHint = InputManager.Instance.GetLatestController().uiSubCancelConfirmHint;
+
+    confirmButtonText.text = uiSubConfirmHint.GenerateColoredHintString(true);
+    if (uiSubCancelConfirmHint.isHintSprite)
+    {
+        cancelButtonText.gameObject.SetActive(false);
+        cancelButtonImage.gameObject.SetActive(true);
+        cancelButtonImage.sprite = uiSubCancelConfirmHint.controlSprite;
+    }
+    else
+    {
+        cancelButtonImage.gameObject.SetActive(false);
+        cancelButtonText.gameObject.SetActive(true);
+        cancelButtonText.text = uiSubCancelConfirmHint.GenerateColoredHintString(true);
+    }
+
     currentstats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
     levelscript = LevelMenu.GetComponent<LevelUpManagerNew>();
     nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();

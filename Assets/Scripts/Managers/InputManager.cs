@@ -11,9 +11,10 @@ public class InputManager : MonoBehaviour
 
     [Header("Refresh Inputs")]
     public ThirdPersonActionsAsset actionsAsset;
-    [SerializeField][Tooltip("Which InputActions will trigger a hint refresh in the UI")] private List<InputActionReference> inputActionsThatRefreshHints = new List<InputActionReference>();
+    [SerializeField][Tooltip("Which InputActions will trigger a hint refresh in the UI")] List<InputActionReference> inputActionsThatRefreshHints = new List<InputActionReference>();
 
     [Header("Controllers")]
+    [SerializeField][Tooltip("Default color for hints if none is selected")] public Color defaultHintColor;
     [SerializeField][Tooltip("The specified controller controls to display. The name should be Keyboard, XBox, Playstation, or Switch exactly")] List<Controller> controllers = new List<Controller>();
 
     public enum ControllerNames
@@ -40,6 +41,9 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
+        UnityEngine.Debug.Log("Hey <color=ADD8E6>guys</color>! I just <color=green>realized</color> you can do <b>rich text</b> in <i>debug</i> logs!!!");
+
+
         RefreshHUDHints();
     }
 
@@ -80,7 +84,7 @@ public class InputManager : MonoBehaviour
         string deviceName = actionCallback.control.device.name;
 
         //XBox
-        if (deviceName.Contains("XBox"))
+        if (deviceName.Contains("XInput"))
         {
             GlobalData.latestController = ControllerNames.XBox;
         }
@@ -102,7 +106,7 @@ public class InputManager : MonoBehaviour
 
         if (GlobalData.latestController != previousLatestController)
         {
-            UnityEngine.Debug.Log("Refreshing HUD with controller name: " + deviceName);
+            //UnityEngine.Debug.Log("Refreshing HUD with controller name: " + deviceName);
         }
 
         RefreshHUDHints();
@@ -203,7 +207,7 @@ public class InputManager : MonoBehaviour
             }
             if (controlColor == Color.black)
             {
-                controlColor = Color.white;
+                controlColor = Instance.defaultHintColor;
             }
 
             string coloredText;
