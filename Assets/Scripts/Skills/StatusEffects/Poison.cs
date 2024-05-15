@@ -35,10 +35,10 @@ public class Poison : MonoBehaviour
     void Awake(){
         //Checks to see if the target has a particle saver, if it does not add it. 
         //Particle saver lets particles exist after target dies so they don't just dissapear instantly
-        ParticleSaver saver = GetComponent<ParticleSaver>();
-        if(saver == null){
-            gameObject.AddComponent<ParticleSaver>();
-        }
+        //ParticleSaver saver = GetComponent<ParticleSaver>();
+        //if(saver == null){
+        //    gameObject.AddComponent<ParticleSaver>();
+        //}
         //Checks to see if there are other instances of poison already on the target
         Poison[] poisonInstances = GetComponents<Poison>();
         if(poisonInstances.Length > 1){
@@ -63,6 +63,11 @@ public class Poison : MonoBehaviour
             currTickTime += Time.deltaTime;
             //When the tick time is under 0, deal damage
             CheckPoison();
+            if(healthScript.currentHealth <= 0)
+            {
+                Destroy(this);
+            }
+
             yield return null;
         }
         //Removes this poison script
