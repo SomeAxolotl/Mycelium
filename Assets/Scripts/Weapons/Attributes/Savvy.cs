@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Agile : AttributeBase
+public class Savvy : AttributeBase
 {
     GameObject player;
     CharacterStats characterStats;
@@ -17,17 +17,19 @@ public class Agile : AttributeBase
 
     public override void Initialize(){
         if(stats == null || hit == null){return;}
-        attName = "Agile";
-        attDesc = "\n<sprite="+1+"> +5";
+        attName = "Savvy";
+        attDesc = "\n<sprite="+2+"> +3 <sprite="+1+"> +3";
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }
 
     public override void Equipped(){
-        characterStats.AddStat("Speed", 5);
+        characterStats.AddStat("Sentience", 3);
+        characterStats.AddStat("Speed", 3);
     }
 
     public override void Unequipped(){
-        characterStats.AddStat("Speed", -5);
+        characterStats.AddStat("Sentience", -3);
+        characterStats.AddStat("Speed", -3);
     }
 }
