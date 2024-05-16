@@ -7,12 +7,20 @@ public class AttributeBase : MonoBehaviour
     [HideInInspector] public WeaponStats stats;
     [HideInInspector] public WeaponCollision hit;
     [HideInInspector] public WeaponInteraction interact;
-
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public CharacterStats characterStats;
+    [HideInInspector] public HUDStats hudStats;
     public bool statChange = false;
 
     [HideInInspector] public string attName;
     [HideInInspector] public string attDesc;
 
+    private void Start()
+    {
+        player = GameObject.FindWithTag("currentPlayer");
+        characterStats = player.GetComponent<CharacterStats>();
+        hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();
+    }
     private void OnEnable(){
         stats = GetComponent<WeaponStats>();
         hit = GetComponent<WeaponCollision>();

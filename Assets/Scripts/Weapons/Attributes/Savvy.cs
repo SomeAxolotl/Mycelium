@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class Savvy : AttributeBase
 {
-    GameObject player;
-    CharacterStats characterStats;
-
-    HUDStats hudStats;
-
-    void Awake(){
-        player = GameObject.FindWithTag("currentPlayer");
-        characterStats = player.GetComponent<CharacterStats>();
-        hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();
-    }
-
     public override void Initialize(){
         if(stats == null || hit == null){return;}
         attName = "Savvy";
