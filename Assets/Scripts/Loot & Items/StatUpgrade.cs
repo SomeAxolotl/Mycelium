@@ -20,7 +20,6 @@ public class StatUpgrade : MonoBehaviour, IInteractable
     int statIncreaseAmount;
 
     HUDStats hudStats;
-    bool destroyIsFromUpgrading = false;
 
     void Start()
     {
@@ -78,10 +77,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
 
     public void CreateTooltip(GameObject interactObject)
     {
-        if (TooltipManager.Instance.currentTooltip == null)
-        {
-            hudStats.ShowStats();
-        }
+        hudStats.ShowStats();
 
         string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         string salvageText = InputManager.Instance.GetLatestController().salvageHint.GenerateColoredHintString();
@@ -107,9 +103,9 @@ public class StatUpgrade : MonoBehaviour, IInteractable
         }
     }
 
-    public void DestroyTooltip(GameObject interactObject)
+    public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)
     {
-        if (TooltipManager.Instance.currentTooltip != null && !destroyIsFromUpgrading)
+        if (!isFromInteracting)
         {
             hudStats.HideStats();
         }
@@ -119,8 +115,6 @@ public class StatUpgrade : MonoBehaviour, IInteractable
 
     void Upgrade1()
     {
-        destroyIsFromUpgrading = true;
-
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
 
@@ -134,15 +128,14 @@ public class StatUpgrade : MonoBehaviour, IInteractable
         }
         
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
-        DestroyTooltip(this.gameObject);
-        hudStats.ImproveStat(upgradeStat1);
+        DestroyTooltip(this.gameObject, true);
+        hudStats.FlashHUDStats();
+        hudStats.HideStats(1.5f);
         Destroy(this.gameObject);
     }
 
     void Upgrade2()
     {
-        destroyIsFromUpgrading = true;
-
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
 
@@ -156,8 +149,9 @@ public class StatUpgrade : MonoBehaviour, IInteractable
         }
 
         SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
-        DestroyTooltip(this.gameObject);
-        hudStats.ImproveStat(upgradeStat2);
+        DestroyTooltip(this.gameObject, true);
+        hudStats.FlashHUDStats();
+        hudStats.HideStats(1.5f);
         Destroy(this.gameObject);
     }
 }

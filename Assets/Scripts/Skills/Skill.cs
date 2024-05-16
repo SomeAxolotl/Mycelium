@@ -75,7 +75,7 @@ public class Skill : MonoBehaviour
         return finalSkillCooldown;
     }
 
-    public void ActivateSkill(int slot)
+    public void ActivateSkill(int slot, bool isTriggered = false)
     {
         if (isPlayerCurrentPlayer())
         {
@@ -86,7 +86,10 @@ public class Skill : MonoBehaviour
         skillSlot = slot;
 
         CalculateProperties();
-        StartCooldown(finalSkillCooldown);
+        if (!isTriggered)
+        {   
+            StartCooldown(finalSkillCooldown);
+        }
         DoSkill();
 
         if (!this.name.Contains("FungalMight"))

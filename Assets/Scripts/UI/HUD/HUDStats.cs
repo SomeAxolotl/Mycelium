@@ -15,76 +15,107 @@ public class HUDStats : MonoBehaviour
     [SerializeField] TMP_Text speedText;
     [SerializeField] TMP_Text vitalityText;
 
-    [SerializeField] Color statColorFlash = Color.green;
+    public bool isShowingStats = false;
+    [SerializeField] Color goodStatFlashColor = Color.green;
+    [SerializeField] Color badStatFlashColor = Color.red;
     [SerializeField] float colorFlashTime = 0.25f;
-    [SerializeField] float timeBetweenFlashAndSlide = 0.5f;
+
+    int initialPrimalLevel;
+    int initialSpeedLevel;
+    int initialSentienceLevel;
+    int initialVitalityLevel;
 
     public void ShowStats()
     {
+        CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+
+        initialPrimalLevel = characterStats.primalLevel;
+        initialSpeedLevel = characterStats.speedLevel;
+        initialSentienceLevel = characterStats.sentienceLevel;
+        initialVitalityLevel = characterStats.vitalityLevel;
+
         RefreshStats();
-        GetComponent<HUDController>().SlideHUDElement(statsHolder, statsOutsideTarget, statsInsideTarget);
+        GetComponent<HUDController>().SlideHUDElement(statsHolder, statsInsideTarget);
     }
 
-    public void HideStats()
+    public void HideStats(float delay = 0f)
     {
-        RefreshStats();
-        GetComponent<HUDController>().SlideHUDElement(statsHolder, statsInsideTarget, statsOutsideTarget);
+        StartCoroutine(HideStatsCoroutine(delay));
     }
 
-    public void ImproveStat(string improvedStat)
+    IEnumerator HideStatsCoroutine(float delay)
     {
-        StartCoroutine(ImproveStatCoroutine(improvedStat));
+        yield return new WaitForSeconds(delay);
+
+        GetComponent<HUDController>().SlideHUDElement(statsHolder, statsOutsideTarget);
     }
 
-    IEnumerator ImproveStatCoroutine(string improvedStat)
+    public void FlashHUDStats()
     {
-        Debug.Log("1");
-        //Color Flash
-        yield return StartCoroutine(ColorFlashStat(improvedStat));
+        CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
 
-        Debug.Log("2");
+        for (int i = 0; i < 4; i++)
+        {   
+            int statModifier = 0;
+            TMP_Text statText = null;
+            switch ((CharacterStats.Stats)i)
+            {
+                case CharacterStats.Stats.Primal:
+                    statModifier = characterStats.primalLevel - initialPrimalLevel;
+                    statText = primalText;
+                    break; 
+                case CharacterStats.Stats.Speed:
+                    statModifier = characterStats.speedLevel - initialSpeedLevel;
+                    statText = speedText;
+                    break; 
+                case CharacterStats.Stats.Sentience:
+                    statModifier = characterStats.sentienceLevel - initialSentienceLevel;
+                    statText = sentienceText;
+                    break; 
+                case CharacterStats.Stats.Vitality:
+                    statModifier = characterStats.vitalityLevel - initialVitalityLevel;
+                    statText = vitalityText;
+                    break;
+                default:
+                    Debug.LogError("HUDStats: Invalid stat");
+                    break;
+            }
 
-        yield return new WaitForSeconds(timeBetweenFlashAndSlide);
-
-        Debug.Log("3");
-        //Then slide off
-        GetComponent<HUDController>().SlideHUDElement(statsHolder, statsInsideTarget, statsOutsideTarget);
-    }
-
-    IEnumerator ColorFlashStat(string improvedStat)
-    {
-        TMP_Text improvedStatText = primalText;
-        switch (improvedStat)
-        {
-            case "Primal":
-                improvedStatText = primalText;
-                break;
-            case "Sentience":
-                improvedStatText = sentienceText;
-                break;
-            case "Speed":
-                improvedStatText = speedText;
-                break;
-            case "Vitality":
-                improvedStatText = vitalityText;
-                break;
+            StartCoroutine(FlashStatColor(statText, (CharacterStats.Stats)i, statModifier));
         }
+    }
 
+    IEnumerator FlashStatColor(TMP_Text statText, CharacterStats.Stats stat, int statModifier)
+    {
         float flashElapsedTime = 0f;
         float t;
-        Color originalColor = improvedStatText.color;
+        Color originalColor = statText.color;
+        Color statFlashColor;
+        if (statModifier > 0)
+        {
+            statFlashColor = goodStatFlashColor;
+        }
+        else if (statModifier < 0)
+        {
+            statFlashColor = badStatFlashColor;
+        }
+        else
+        {
+            statFlashColor = originalColor;
+        }
+
         while (flashElapsedTime < colorFlashTime)
         {
             t = DylanTree.EaseOutQuart(flashElapsedTime / colorFlashTime);
 
-            improvedStatText.color = Color.Lerp(originalColor, statColorFlash, t);
+            statText.color = Color.Lerp(originalColor, statFlashColor, t);
 
             flashElapsedTime += Time.unscaledDeltaTime;
 
             yield return null;
         }
 
-        improvedStatText.color = statColorFlash;
+        statText.color = statFlashColor;
 
         RefreshStats();
 
@@ -93,14 +124,14 @@ public class HUDStats : MonoBehaviour
         {
             t = returnElapsedTime / colorFlashTime;
 
-            improvedStatText.color = Color.Lerp(statColorFlash, originalColor, t);
+            statText.color = Color.Lerp(statFlashColor, originalColor, t);
 
             returnElapsedTime += Time.unscaledDeltaTime;
 
             yield return null;
         }
 
-        improvedStatText.color = originalColor;
+        statText.color = originalColor;
     }
 
     void RefreshStats()

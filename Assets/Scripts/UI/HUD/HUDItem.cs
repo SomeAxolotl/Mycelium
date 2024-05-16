@@ -24,14 +24,14 @@ public class HUDItem : MonoBehaviour
             }
         }
 
-        GetComponent<HUDController>().SlideHUDElement(itemPanel, materialOutsideTarget, materialInsideTarget);
+        GetComponent<HUDController>().SlideHUDElement(itemPanel, materialInsideTarget);
     }
 
     public void LostItem()
     {
         //itemPanel.SetActive(false);
 
-        GetComponent<HUDController>().SlideHUDElement(itemPanel, materialInsideTarget, materialOutsideTarget);
+        GetComponent<HUDController>().SlideHUDElement(itemPanel, materialOutsideTarget);
     }
 
     /*IEnumerator PickUpAnimation(Sprite itemSprite)

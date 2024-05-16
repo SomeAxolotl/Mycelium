@@ -45,12 +45,12 @@ public class REvent
     [Tooltip("Triggers on entering a collider, rather than on start.")] public bool TriggerOnEnter = false;
     [NonSerialized] public bool goingToActivate = true;
     public void ActivateObjects(){
-        Debug.Log("Activating!");
+        //Debug.Log("Activating!");
         foreach(GameObject obj in ObjectsToActivate)
             obj.SetActive(true);
     }
     public void RemoveObjects(){
-        Debug.Log("Removing!");
+        //Debug.Log("Removing!");
         foreach (GameObject obj in ObjectsToRemove)
             obj.SetActive(false);
     }

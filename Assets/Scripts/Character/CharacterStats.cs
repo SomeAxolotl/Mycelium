@@ -76,6 +76,14 @@ public class CharacterStats : MonoBehaviour
     public float animatorSpeed;
     private LevelUpManagerNew levelscript;
 
+    public enum Stats
+    {
+        Primal,
+        Speed,
+        Sentience,
+        Vitality
+    }
+
     void Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();

@@ -59,7 +59,7 @@ public class LootCache : MonoBehaviour, IInteractable
         );
     }
 
-    public void DestroyTooltip(GameObject interactObject)
+    public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)
     {
         TooltipManager.Instance.DestroyTooltip();
     }

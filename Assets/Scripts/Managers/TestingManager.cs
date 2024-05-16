@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using RonaldSunglassesEmoji.Personalities;
@@ -78,7 +79,7 @@ public class TestingManager : MonoBehaviour
     [SerializeField][Tooltip("Alpha5 - Set Subspecies Skill")] private SubspeciesSkills subspeciesSkill;
 
     [Header("Weapon - Alpha6")]
-    [SerializeField][Tooltip("Alpha6 - Set Weapon")] private WeaponTypes weaponType;
+    [SerializeField][Tooltip("Alpha6 - Set Weapon")] private CustomWeapon customWeapon;
 
     [Header("Grow a custom Spore - K")]
     [SerializeField][Tooltip("K - Grow a custom Spore")] private CustomSpore customSpore;
@@ -113,10 +114,14 @@ public class TestingManager : MonoBehaviour
 
     [Header("Increment GlobalData.currentLoop by 1 - B")]
     [SerializeField][Tooltip("B - Increment GlobalData.currentLoop by 1")] private bool meeeeeow = true;
+
+    [Header("Spawn a Stat Upgrade")]
+    [SerializeField][Tooltip("U - Spawn a Stat Upgrade")] private bool meOw = true;
     #pragma warning restore 0414
 
     [Header("References")]
-    [SerializeField] List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
+    [SerializeField] protected List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
+    [SerializeField] GameObject statUpgradePrefab;
 
     private GameObject playerParent;
     private GameObject player;
@@ -227,6 +232,11 @@ public class TestingManager : MonoBehaviour
             GlobalData.currentLoop++;
             Debug.Log("Current Loop: " + GlobalData.currentLoop);
         }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            StartCoroutine(SpawnStatUpgrade());
+        }
     }
 
     IEnumerator SetPlayerNutrients()
@@ -290,14 +300,8 @@ public class TestingManager : MonoBehaviour
         GetCurrentPlayer();
 
         yield return null;
-        string weaponString = weaponType.ToString();
-        foreach (GameObject weapon in weaponPrefabs)
-        {
-            if (weapon.name == weaponString)
-            {
-                Instantiate(weapon, player.transform.position, Quaternion.identity);
-            }
-        }
+        
+        customWeapon.SpawnWeapon();
     }
 
     IEnumerator SetLevel(int buildIndex)
@@ -343,6 +347,16 @@ public class TestingManager : MonoBehaviour
         furnitureManager.UnlockAllFurniture();
     }
 
+    IEnumerator SpawnStatUpgrade()
+    {
+        GetCurrentPlayer();
+
+        yield return null;
+
+        Instantiate(statUpgradePrefab, player.transform.position, Quaternion.identity);
+
+    }
+
     void GetCurrentPlayer()
     {
         playerParent = GameObject.Find("PlayerParent");
@@ -373,5 +387,44 @@ public class TestingManager : MonoBehaviour
         public Color bodyColor = Color.blue;
         [Range(0, 10)] public int eyeTextureIndex = 0;
         [Range(0, 5)] public int mouthTextureIndex = 0;
+    }
+
+    [System.Serializable]
+    class CustomWeapon
+    {
+        [SerializeField] public bool randomWeaponType = true;
+        [SerializeField] public bool randomAttribute = true;
+        [SerializeField] public WeaponTypes weaponType;
+
+        public void SpawnWeapon()
+        {
+            if (!randomWeaponType)
+            {
+                string weaponString = weaponType.ToString();
+                GameObject instantiatedWeapon;
+                foreach (GameObject weapon in Instance.weaponPrefabs)
+                {
+                    if (weapon.name == weaponString)
+                    {
+                        instantiatedWeapon = Instantiate(weapon, Instance.player.transform.position, Quaternion.identity);
+                    }
+                }
+            }
+            else
+            {
+                int randomWeaponIndex = UnityEngine.Random.Range(0, Instance.weaponPrefabs.Count);
+
+                Instantiate(Instance.weaponPrefabs[randomWeaponIndex], Instance.player.transform.position, Quaternion.identity);
+            }
+
+            if (randomAttribute)
+            {
+                //AttributeAssigner.Instance.AddRandomAttribute(instantiatedWeapon);
+            }
+            else
+            {
+                //AttributeAssigner.Instance.AddSpecificAttribute(instantiatedWeapon);
+            }
+        }
     }
 }

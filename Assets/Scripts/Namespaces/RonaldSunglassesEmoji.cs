@@ -7,7 +7,7 @@ namespace RonaldSunglassesEmoji.Interaction
         void Interact(GameObject interactObject);
         void Salvage(GameObject interactObject);
         void CreateTooltip(GameObject interactObject);
-        void DestroyTooltip(GameObject interactObject);
+        void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false);
     }
 }
 

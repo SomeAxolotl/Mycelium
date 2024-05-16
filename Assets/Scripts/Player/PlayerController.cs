@@ -155,8 +155,8 @@ public class PlayerController : MonoBehaviour
                 GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
                 if (closestInteractableObject != null)
                 {
+                    sporeInteractableFinder.TriggerExited(closestInteractableObject.GetComponent<Collider>(), true);
                     closestInteractableObject.GetComponent<IInteractable>().Interact(closestInteractableObject);
-                    sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
                 }
             }
 
@@ -166,8 +166,8 @@ public class PlayerController : MonoBehaviour
                 GameObject closestInteractableObject = sporeInteractableFinder.closestInteractableObject;
                 if (closestInteractableObject != null)
                 {
+                    sporeInteractableFinder.TriggerExited(closestInteractableObject.GetComponent<Collider>(), true);
                     closestInteractableObject.GetComponent<IInteractable>().Salvage(closestInteractableObject);
-                    sporeInteractableFinder.OnTriggerExit(closestInteractableObject.GetComponent<Collider>());
                 }
             }
 

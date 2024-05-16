@@ -36,17 +36,13 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
         if(newAtt != null){newAtt.Equipped();}
 
-        if(curAtt != null && newAtt != null){
-            if(newAtt.statChange || curAtt.statChange){
-                hudStats.ImproveStat("Sentience");
-            }
-        }else{
-            if(curAtt != null && curAtt.statChange){
-                hudStats.ImproveStat("Sentience");
-            }
-            if(newAtt != null && newAtt.statChange){
-                hudStats.ImproveStat("Sentience");
-            }
+        if (curAtt != null && curAtt.statChange)
+        {
+            hudStats.FlashHUDStats();
+        }
+        else if (newAtt != null && newAtt.statChange)
+        {
+            hudStats.FlashHUDStats();
         }
 
         Transform weaponHolder = swapWeapon.weaponHolder;
@@ -97,20 +93,17 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
         Transform weaponHolder = swapWeapon.weaponHolder;
 
-        if (TooltipManager.Instance.currentTooltip == null)
+        if (curAtt != null && curAtt.statChange)
         {
-            if(curAtt != null && newAtt != null){
-                if(newAtt.statChange || curAtt.statChange){
-                    hudStats.ShowStats();
-                }
-            }else{
-                if(curAtt != null && curAtt.statChange){
-                    hudStats.ShowStats();
-                }
-                if(newAtt != null && newAtt.statChange){
-                    hudStats.ShowStats();
-                }
-            }
+            hudStats.ShowStats();
+        }
+        else if (newAtt != null && newAtt.statChange)
+        {
+            hudStats.ShowStats();
+        }
+        else
+        {
+            hudStats.HideStats();
         }
         
         /*
@@ -180,27 +173,25 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
             );
     }
 
-    public void DestroyTooltip(GameObject interactObject)
+    public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)
     {
         GameObject curWeapon = swapWeapon.curWeapon;
         AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
         Transform weapon = interactObject.transform;
         AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
-        if (TooltipManager.Instance.currentTooltip != null)
+
+        if (!isFromInteracting)
         {
-            if(curAtt != null && newAtt != null){
-                if(newAtt.statChange || curAtt.statChange){
-                    hudStats.HideStats();
-                }
-            }else{
-                if(curAtt != null && curAtt.statChange){
-                    hudStats.HideStats();
-                }
-                if(newAtt != null && newAtt.statChange){
-                    hudStats.HideStats();
-                }
+            if (curAtt != null && curAtt.statChange)
+            {
+                hudStats.HideStats();
+            }
+            else if (newAtt != null && newAtt.statChange)
+            {
+                hudStats.HideStats();
             }
         }
+
         TooltipManager.Instance.DestroyTooltip();
     }
     void SalvageNutrients(int nutrientAmount)

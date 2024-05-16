@@ -9,13 +9,13 @@ public class HUDController : MonoBehaviour
     [SerializeField] private float hudFadeTransitionTime = 0.25f;
     [SerializeField] private float slideTransitionTime = 0.25f;
 
-    public void SlideHUDElement(RectTransform element, RectTransform fromTarget, RectTransform toTarget)
+    public void SlideHUDElement(RectTransform element, RectTransform toTarget)
     {
         StopAllCoroutines();
-        StartCoroutine(SlideHUDElementCoroutine(element, fromTarget, toTarget));
+        StartCoroutine(SlideHUDElementCoroutine(element, toTarget));
     }
 
-    IEnumerator SlideHUDElementCoroutine(RectTransform element, RectTransform fromTarget, RectTransform toTarget)
+    IEnumerator SlideHUDElementCoroutine(RectTransform element, RectTransform toTarget)
     {
         float elapsedTime = 0f;
         float t;
@@ -24,7 +24,7 @@ public class HUDController : MonoBehaviour
         {
             t = DylanTree.EaseOutQuart(elapsedTime / slideTransitionTime);
 
-            element.localPosition = Vector3.Lerp(fromTarget.localPosition, toTarget.localPosition, t);
+            element.localPosition = Vector3.Lerp(element.localPosition, toTarget.localPosition, t);
 
             elapsedTime += Time.unscaledDeltaTime;
 
