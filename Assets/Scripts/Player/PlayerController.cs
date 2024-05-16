@@ -243,14 +243,14 @@ public class PlayerController : MonoBehaviour
         animator.Play("Roll");
         Vector3 rollDirection = rb.transform.forward * rollSpeed;
         float rollTimer = 0f;
-        while (rollTimer <= (clipLength / 1.8f))
+        while (rollTimer <= (clipLength / 1.4f))
         {
             rollTimer += Time.deltaTime;
             rollDirection.y = rb.velocity.y;
             rb.velocity = rollDirection;
             yield return null;
         }
-        while (rollTimer <= clipLength && rollTimer > (clipLength / 1.8f))
+        while (rollTimer <= clipLength && rollTimer > (clipLength / 1.4f))
         {
             rollTimer += Time.deltaTime;
             looking = true;

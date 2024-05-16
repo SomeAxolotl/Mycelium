@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class MeleeEnemyAttack : EnemyAttack
     private bool isAttacking = false;
     private bool attackStarted = false;
     private bool playerDamaged = false;
+    private bool onGround = true;
     [SerializeField] private float attackCooldown = 2f;
     private float attackWindupTime;
     [SerializeField] private float attackWindupTimeMin = 0.7f;
@@ -29,6 +31,7 @@ public class MeleeEnemyAttack : EnemyAttack
     private Rigidbody rb;
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
+    private GameObject edgeChecker;
 
     // Start is called before the first frame update
     void Start()
@@ -98,7 +101,7 @@ public class MeleeEnemyAttack : EnemyAttack
         attackStarted = true;
         animator.speed = 0.5f;
         reworkedEnemyNavigation.moveSpeed = 0f;
-        attackWindupTime = Random.Range(attackWindupTimeMin, attackWindupTimeMax);
+        attackWindupTime = UnityEngine.Random.Range(attackWindupTimeMin, attackWindupTimeMax);
         yield return new WaitForSeconds(attackWindupTime + hitStun);
         
         if (GlobalData.isAbleToPause)
@@ -109,20 +112,37 @@ public class MeleeEnemyAttack : EnemyAttack
         animator.speed = 3f;
         attackStarted = false;
         isAttacking = true;
+        edgeChecker = new GameObject("EdgeChecker");
+        edgeChecker.transform.localPosition = center.transform.position + transform.forward * 2f;
+        edgeChecker.transform.parent = transform;
         Transform target = player;
         Vector3 playerPos = player.position;
         Vector3 moveDirection = (target.position - transform.position).normalized;
         moveDirection.y = 0f;
         float distanceToPlayer = Vector3.Distance(transform.position, playerPos);
-        while (distanceToPlayer > 0.25f && !playerDamaged && resetAttack < 1.5f)
+        CheckGround();
+        if (!onGround)
+        {
+            CancelAttack();
+        }
+        while (distanceToPlayer > 0.25f && !playerDamaged && resetAttack < 1.5f && onGround)
         {
             distanceToPlayer = Vector3.Distance(transform.position, playerPos);
             rb.velocity = new Vector3((moveDirection * chargeSpeed).x, rb.velocity.y, (moveDirection * chargeSpeed).z);
+            CheckGround();
             yield return null;
         }
         animator.speed = 1f;
-        animator.SetTrigger("Attack");
+        distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (playerHit.Count  > 0 || distanceToPlayer < 5f)
+        {
+            animator.SetTrigger("Attack");
+        }
         isAttacking = false;
+        if(edgeChecker != null)
+        {
+            Destroy(edgeChecker);
+        }
         hitStun = 0f;
         reworkedEnemyNavigation.moveSpeed = storedMoveSpeed;
         playerDamaged = false;
@@ -143,6 +163,10 @@ public class MeleeEnemyAttack : EnemyAttack
         playerHit.Clear();
         attackStarted = false;
         canAttack = true;
+        if (edgeChecker != null)
+        {
+            Destroy(edgeChecker);
+        }
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -153,5 +177,22 @@ public class MeleeEnemyAttack : EnemyAttack
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
         }
+    }
+
+    bool CheckGround()
+    {
+        Vector3 origin = edgeChecker.transform.position;
+        Vector3 direction = Vector3.down;
+
+        RaycastHit hit;
+        if (Physics.Raycast(origin, direction, out hit, Mathf.Infinity))
+        {
+            if(!hit.collider.gameObject.name.Contains("Death"))
+            {
+                return onGround = true;
+            }
+        }
+        rb.velocity = Vector3.zero;
+        return onGround = false;
     }
 }
