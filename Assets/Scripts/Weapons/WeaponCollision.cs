@@ -57,7 +57,9 @@ public class WeaponCollision : MonoBehaviour
             }
 
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
-            StartCoroutine(HitStop());
+            if(weaponStats.secondsTilHitstopSpeedup > 0){
+                StartCoroutine(HitStop());
+            }
             reflectBonusDamage = 0f;
         }
         /*if (this.gameObject.tag == "currentWeapon" && other.GetType() != typeof(SphereCollider) && other.gameObject.tag == "Boss")
