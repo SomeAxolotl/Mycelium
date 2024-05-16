@@ -7,30 +7,33 @@ using UnityEngine;
 
 public class FABRIK : MonoBehaviour
 {
-    public int chainLength;
+    public int chainLength = 2;
 
     public Transform target;
     public Transform pole;
 
     [Header("Solver Options")]
-    public int totalIterations;
+    public int totalIterations = 10;
 
-    public float delta;
+    public float delta = 0.001f;
 
-    [Range(0, 1)] public float snapBackStrength;
+    [Range(0, 1)] public float snapBackStrength = 1;
 
     protected Transform[] bones;
     protected Vector3[] positions;
     protected float[] boneLength;
     protected float completeLength;
 
-    // Start is called before the first frame update
+    protected Vector3[] startDirection;
+    protected Quaternion[] startRotationBone;
+    protected Quaternion startRotationTarget;
+    protected Quaternion startRotationRoot;
+
     void Awake()
     {
         Initialize();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -41,6 +44,41 @@ public class FABRIK : MonoBehaviour
         ResolveIK();
     }
 
+    void Initialize()
+    {
+        //Initialize arrays
+        bones = new Transform[chainLength + 1];
+        positions = new Vector3[chainLength + 1];
+        boneLength = new float[chainLength];
+
+        startDirection = new Vector3[chainLength + 1];
+        startRotationBone = new Quaternion[chainLength + 1];
+        startRotationTarget = target.rotation;
+
+        completeLength = 0;
+
+        //Initialize data
+        var current = transform;
+
+        for (int i = bones.Length - 1; i >= 0; i--)
+        {
+            bones[i] = current;
+            startRotationBone[i] = current.rotation;
+
+            if (i == bones.Length - 1)
+            {
+                startDirection[i] = target.position - current.position;
+            }
+            else
+            {
+                startDirection[i] = bones[i + 1].position - current.position;
+                boneLength[i] = (bones[i + 1].position - current.position).magnitude;
+                completeLength += boneLength[i];
+            }
+
+            current = current.parent;
+        }
+    }
 
     void ResolveIK()
     {
@@ -60,6 +98,9 @@ public class FABRIK : MonoBehaviour
             positions[i] = bones[i].position;
         }
 
+        var rootRotation = (bones[0].parent != null) ? bones[0].parent.rotation : Quaternion.identity;
+        var rootRotationDiff = rootRotation * Quaternion.Inverse(startRotationRoot);
+
         //Do calculations
         //Stretch towards target if target is too far away
         if ((target.position - bones[0].position).sqrMagnitude >= MathF.Pow(completeLength, 2))
@@ -73,6 +114,11 @@ public class FABRIK : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < positions.Length - 1; i++)
+            {
+                positions[i + 1] = Vector3.Lerp(positions[i + 1], positions[i] + rootRotationDiff * startDirection[i], snapBackStrength);
+            }
+
             for (int currentIteration = 0; currentIteration < totalIterations; currentIteration++)
             {
                 //Backwards algorithm
@@ -116,40 +162,19 @@ public class FABRIK : MonoBehaviour
             }
         }
 
-        //Set Positions
+        //Set Rotations and Positions
         for (int i = 0; i < positions.Length; i++)
         {
-            bones[i].position = positions[i];
-        }
-    }
-
-    void Initialize()
-    {
-        //Initialize arrays
-        bones = new Transform[chainLength + 1];
-        positions = new Vector3[chainLength + 1];
-        boneLength = new float[chainLength];
-
-        completeLength = 0;
-
-        //Initialize data
-        var current = transform;
-
-        for (int i = bones.Length - 1; i >= 0; i--)
-        {
-            bones[i] = current;
-
-            if (i == bones.Length - 1)
+            if (i == positions.Length - 1)
             {
-
+                bones[i].rotation = target.rotation * Quaternion.Inverse(startRotationTarget) * startRotationBone[i];
             }
             else
             {
-                boneLength[i] = (bones[i + 1].position - current.position).magnitude;
-                completeLength += boneLength[i];
+                bones[i].rotation = Quaternion.FromToRotation(startDirection[i], positions[i + 1] - positions[i]) * startRotationBone[i];
             }
 
-            current = current.parent;
+            bones[i].position = positions[i];
         }
     }
 
