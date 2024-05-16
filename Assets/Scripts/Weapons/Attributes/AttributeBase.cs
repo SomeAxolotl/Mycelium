@@ -8,6 +8,9 @@ public class AttributeBase : MonoBehaviour
     [HideInInspector] public WeaponCollision hit;
     [HideInInspector] public WeaponInteraction interact;
     [HideInInspector] public GameObject player;
+    [HideInInspector] public GameObject playerParent;
+    [HideInInspector] public PlayerAttack attack;
+    [HideInInspector] public SwapWeapon swap;
     [HideInInspector] public CharacterStats characterStats;
     [HideInInspector] public HUDStats hudStats;
     public bool statChange = false;
@@ -31,7 +34,6 @@ public class AttributeBase : MonoBehaviour
         if(hit != null){
             hit.HitEnemy += Hit;
         }
-
         Initialize();
     }
     private void OnDisable(){
@@ -41,21 +43,36 @@ public class AttributeBase : MonoBehaviour
         if(hit != null){
             hit.HitEnemy -= Hit;
         }
+        if(attack != null){
+            attack.StartedAttack -= StartAttack;
+            attack.FinishedAttack -= StopAttack;
+        }
     }
 
     public virtual void Initialize(){
         //Add name here
     }
-
     public virtual void Hit(GameObject target, float damage){
         //Put on hit things here
     }
-
     public virtual void Equipped(){
+        playerParent = player.transform.parent.gameObject;
+        attack = playerParent.GetComponent<PlayerAttack>();
+        if(attack != null){
+            attack.StartedAttack += StartAttack;
+            attack.FinishedAttack += StopAttack;
+        }else{
+            Debug.Log("It was null...");
+        }
         //Put on equip things here
     }
-
     public virtual void Unequipped(){
         //Put on unequip things here
+    }
+    public virtual void StartAttack(){
+        //Put on start attack things here
+    }
+    public virtual void StopAttack(){
+        //Put on stop attack things here
     }
 }

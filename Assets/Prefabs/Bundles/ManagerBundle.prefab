@@ -28,6 +28,8 @@ GameObject:
   - component: {fileID: 8691602947087345886}
   - component: {fileID: 2607605427240705683}
   - component: {fileID: 9131834883456238457}
+  - component: {fileID: 7904771816456592176}
+  - component: {fileID: 1739849819796341789}
   m_Layer: 0
   m_Name: AttributeManager
   m_TagString: Untagged
@@ -94,11 +96,15 @@ MonoBehaviour:
   - attribute: {fileID: 3071490134697991025}
     chance: 0.8
   - attribute: {fileID: 8691602947087345886}
-    chance: 999
+    chance: 1
   - attribute: {fileID: 2607605427240705683}
-    chance: 999
+    chance: 1
   - attribute: {fileID: 9131834883456238457}
+    chance: 1
+  - attribute: {fileID: 7904771816456592176}
     chance: 999
+  - attribute: {fileID: 1739849819796341789}
+    chance: 1
 --- !u!114 &4067285412394339409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +121,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 0
@@ -136,6 +145,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 0
@@ -157,6 +169,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 0
@@ -178,6 +193,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 0
@@ -199,6 +217,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -220,6 +241,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -241,6 +265,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -262,6 +289,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -283,6 +313,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -304,6 +337,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -325,6 +361,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -346,6 +385,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -367,6 +409,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -388,6 +433,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -409,6 +457,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 1
@@ -430,6 +481,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 0
@@ -451,6 +505,9 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 0
@@ -472,6 +529,57 @@ MonoBehaviour:
   hit: {fileID: 0}
   interact: {fileID: 0}
   player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+--- !u!114 &7904771816456592176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993056706688276652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45f595de6ac08240a7e0d66dcddbb6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+--- !u!114 &1739849819796341789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993056706688276652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2cd2f306f88204db4c2b036c872dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
   characterStats: {fileID: 0}
   hudStats: {fileID: 0}
   statChange: 0

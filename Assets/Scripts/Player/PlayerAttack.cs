@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -68,8 +69,11 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
     }
+    public Action StartedAttack;
+    public Action FinishedAttack;
     private IEnumerator Attack(GameObject curWeapon)
     {
+        StartedAttack?.Invoke();
         playerController.canUseSkill = false;
         playerController.canUseAttack = false;
         playerController.moveSpeed = windupMoveSpeed;
@@ -114,6 +118,7 @@ public class PlayerAttack : MonoBehaviour
         animator.Rebind();
         playerController.EnableController();
         animator.speed = originalAnimatorSpeed;
+        FinishedAttack?.Invoke();
     }
     private IEnumerator Lunge()
     {
