@@ -30,6 +30,9 @@ GameObject:
   - component: {fileID: 9131834883456238457}
   - component: {fileID: 7904771816456592176}
   - component: {fileID: 1739849819796341789}
+  - component: {fileID: 2831275495379147522}
+  - component: {fileID: 3744001309770881169}
+  - component: {fileID: 3642704989156330790}
   m_Layer: 0
   m_Name: AttributeManager
   m_TagString: Untagged
@@ -66,13 +69,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributes:
   - attribute: {fileID: 4067285412394339409}
-    chance: 1.8
+    chance: 0
   - attribute: {fileID: 4576710345071287621}
-    chance: 0.7
+    chance: 1
   - attribute: {fileID: 8945164403497291771}
-    chance: 0.4
+    chance: 1
   - attribute: {fileID: 7323201842744699600}
-    chance: 0.8
+    chance: 1
   - attribute: {fileID: 702041653258203604}
     chance: 1
   - attribute: {fileID: 1442671455434902619}
@@ -84,17 +87,17 @@ MonoBehaviour:
   - attribute: {fileID: 9208150628209177717}
     chance: 1
   - attribute: {fileID: 7410357393600163295}
-    chance: 0.8
+    chance: 1
   - attribute: {fileID: 4384008239541179260}
-    chance: 0.8
+    chance: 1
   - attribute: {fileID: 3437031764880030217}
-    chance: 0.8
+    chance: 1
   - attribute: {fileID: 4155833541768762512}
-    chance: 0.8
+    chance: 1
   - attribute: {fileID: 7900252688417639140}
-    chance: 0.8
+    chance: 1
   - attribute: {fileID: 3071490134697991025}
-    chance: 0.8
+    chance: 1
   - attribute: {fileID: 8691602947087345886}
     chance: 1
   - attribute: {fileID: 2607605427240705683}
@@ -102,8 +105,14 @@ MonoBehaviour:
   - attribute: {fileID: 9131834883456238457}
     chance: 1
   - attribute: {fileID: 7904771816456592176}
-    chance: 999
+    chance: 1
   - attribute: {fileID: 1739849819796341789}
+    chance: 1
+  - attribute: {fileID: 2831275495379147522}
+    chance: 1
+  - attribute: {fileID: 3744001309770881169}
+    chance: 1
+  - attribute: {fileID: 3642704989156330790}
     chance: 1
 --- !u!114 &4067285412394339409
 MonoBehaviour:
@@ -571,6 +580,78 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae2cd2f306f88204db4c2b036c872dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+--- !u!114 &2831275495379147522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993056706688276652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1a94ef32bdbf94fbc488e9a43eaf3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+--- !u!114 &3744001309770881169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993056706688276652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 681e56ff5e36b084e8e5851eaa159747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+--- !u!114 &3642704989156330790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993056706688276652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bcba0a9e4967242a7a8183b285c6ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}

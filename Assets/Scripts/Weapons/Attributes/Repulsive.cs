@@ -7,7 +7,7 @@ public class Repulsive : AttributeBase
     public override void Initialize(){
         if(stats == null || hit == null){return;}
         attName = "Repulsive";
-        attDesc = "\nAll damage converted to Poison";
+        attDesc = "\n150% damage converted to Poison";
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
 
@@ -19,7 +19,7 @@ public class Repulsive : AttributeBase
         //Makes sure hit does not damage
         hit.dmgDealt = 0;
         Poison poisonEffect = target.AddComponent<Poison>();
-        //Deals 200% of weapon damage over 5 seconds
-        poisonEffect.PoisonStats(damage / 2.5f);
+        //Deals 150% of weapon damage over 5 seconds
+        poisonEffect.PoisonStats((damage / 5) * 1.5f);
     }
 }
