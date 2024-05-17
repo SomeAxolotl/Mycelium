@@ -33,6 +33,7 @@ GameObject:
   - component: {fileID: 2831275495379147522}
   - component: {fileID: 3744001309770881169}
   - component: {fileID: 3642704989156330790}
+  - component: {fileID: 628125272976888020}
   m_Layer: 0
   m_Name: AttributeManager
   m_TagString: Untagged
@@ -113,6 +114,8 @@ MonoBehaviour:
   - attribute: {fileID: 3744001309770881169}
     chance: 1
   - attribute: {fileID: 3642704989156330790}
+    chance: 1
+  - attribute: {fileID: 628125272976888020}
     chance: 1
 --- !u!114 &4067285412394339409
 MonoBehaviour:
@@ -652,6 +655,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6bcba0a9e4967242a7a8183b285c6ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+--- !u!114 &628125272976888020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993056706688276652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77177f973f439694da3c119d3d621d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
