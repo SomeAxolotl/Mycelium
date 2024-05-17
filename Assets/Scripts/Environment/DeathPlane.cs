@@ -10,7 +10,7 @@ public class DeathPlane : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "currentPlayer" || other.gameObject.tag == "Player")
+        if ((other.gameObject.tag == "currentPlayer" || other.gameObject.tag == "Player") && other.GetType() == typeof(CapsuleCollider))
         {
             RespawnObject(other.gameObject);
         }

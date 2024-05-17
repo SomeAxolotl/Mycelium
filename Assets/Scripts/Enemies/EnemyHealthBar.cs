@@ -64,33 +64,36 @@ public class EnemyHealthBar : BaseEnemyHealthBar
 
     IEnumerator DamageNumberAnimation(float damage)
     {
-        //Debug.Log("damage number");
-        Transform parentTransform = transform.GetChild(0);
-        GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, transform.GetChild(0).rotation, parentTransform);
-        TMP_Text damageText = damageTextInstance.GetComponent<TMP_Text>();
-
-        damageText.text = Mathf.RoundToInt(damage).ToString();
-        yield return null;
-
-        float t = 0;
-        Color startColor = new Color(255,255,255,1);
-        Color endColor = new Color(255,255,255,0);
- 
-        damageText.color = startColor;
-        RectTransform damageTextRectTransform = damageText.GetComponent<RectTransform>();
-        Vector3 startingPosition = damageTextRectTransform.position;
-        Vector3 targetPosition = startingPosition + (Vector3.up * damageTextHeightScalar);
-        while (t < floatingTime)
+        if (Mathf.RoundToInt(damage) > 0)
         {
-            float normalizedTime = t / floatingTime;
-            float logT = Mathf.Lerp(0, 1, Mathf.Log(1 + normalizedTime * 9) / Mathf.Log(10));
+            //Debug.Log("damage number");
+            Transform parentTransform = transform.GetChild(0);
+            GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, transform.GetChild(0).rotation, parentTransform);
+            TMP_Text damageText = damageTextInstance.GetComponent<TMP_Text>();
 
-            damageText.color = Color.Lerp(startColor, endColor, t);
-            damageTextRectTransform.position = Vector3.Lerp(startingPosition, targetPosition, logT);
-            t += Time.deltaTime;
+            damageText.text = Mathf.RoundToInt(damage).ToString();
             yield return null;
+
+            float t = 0;
+            Color startColor = new Color(255,255,255,1);
+            Color endColor = new Color(255,255,255,0);
+    
+            damageText.color = startColor;
+            RectTransform damageTextRectTransform = damageText.GetComponent<RectTransform>();
+            Vector3 startingPosition = damageTextRectTransform.position;
+            Vector3 targetPosition = startingPosition + (Vector3.up * damageTextHeightScalar);
+            while (t < floatingTime)
+            {
+                float normalizedTime = t / floatingTime;
+                float logT = Mathf.Lerp(0, 1, Mathf.Log(1 + normalizedTime * 9) / Mathf.Log(10));
+
+                damageText.color = Color.Lerp(startColor, endColor, t);
+                damageTextRectTransform.position = Vector3.Lerp(startingPosition, targetPosition, logT);
+                t += Time.deltaTime;
+                yield return null;
+            }
+            Destroy(damageTextInstance);
         }
-        Destroy(damageTextInstance);
     }
 
     IEnumerator LerpPanelColor()

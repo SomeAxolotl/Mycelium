@@ -7,6 +7,23 @@ public class SkillManager : MonoBehaviour
     [SerializeField][Tooltip("Put ALL skill prefabs here")] public List<GameObject> skillList = new List<GameObject>();
     [SerializeField][Tooltip("Default skill if there's no skill")] GameObject noSkill;
 
+    public enum StatSkills
+    {
+        NoSkill,
+        Eruption,
+        LivingCyclone,
+        RelentlessFury,
+        Blitz,
+        TrophicCascade,
+        Mycotoxins,
+        Spineshot,
+        UnstablePuffball,
+        Undergrowth,
+        LeechingSpore,
+        Sporeburst,
+        DefenseMechanism
+    }
+
     public void SetSkill(string skillName, int slot, GameObject player)
     {   
         GameObject skillLoadout = player.transform.Find("SkillLoadout").gameObject;
