@@ -13,6 +13,7 @@ public class CrabAttack : EnemyAttack
     private float attackTimer;
     private float disFromPlayer;
     private bool holdingShell = true;
+    private bool digging = false;
     [HideInInspector] public bool zombified = false;
     private float attackCooldown = 1.5f;
     [SerializeField] private float meleeDamage = 50f;
@@ -24,6 +25,7 @@ public class CrabAttack : EnemyAttack
     private Transform player;
     private Transform center;
     private Rigidbody rb;
+    private Collider bodyCollider;
     [SerializeField] private GameObject shellProjectile;
     [SerializeField] private GameObject shell;
     [SerializeField] private GameObject meleeHitbox;
@@ -42,6 +44,7 @@ public class CrabAttack : EnemyAttack
         player = GameObject.FindWithTag("currentPlayer").transform;
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
+        bodyCollider = GetComponent<CapsuleCollider>();
         crabMeleeHitbox = meleeHitbox.GetComponent<CrabMeleeHitbox>();
         crabMeleeHitbox.damage = meleeDamage;
         crabMeleeHitbox.knockbackForce = knockbackForce;
@@ -50,7 +53,7 @@ public class CrabAttack : EnemyAttack
     // Update is called once per frame
     void Update()
     {
-        if (reworkedEnemyNavigation.playerSeen && canAttack)
+        if (reworkedEnemyNavigation.playerSeen && canAttack && !digging)
         {
             StartCoroutine(Attack());
         }
@@ -112,6 +115,7 @@ public class CrabAttack : EnemyAttack
             animator.SetBool("HasShell", false);
             attackStarted = false;
             yield return new WaitForSeconds(attackCooldown/2f);
+            canAttack = true;
         }
         else if(!holdingShell)
         {
@@ -129,7 +133,7 @@ public class CrabAttack : EnemyAttack
             attackTimer = 0f;
             disFromPlayer = Vector3.Distance(transform.position, player.position);
             yield return null;
-            if (disFromPlayer <= 5f)
+            if (disFromPlayer <= 7f)
             {
                 yield return new WaitForSeconds(0.5f);
                 if(!zombified)
@@ -139,13 +143,45 @@ public class CrabAttack : EnemyAttack
                     crabMeleeHitbox.StartCoroutine(crabMeleeHitbox.ActivateHitbox());
                 }
                 yield return new WaitForSeconds(attackCooldown + 1.7f); //1.7 buffer for the actual animation
+                canAttack = true;
             }
             else
             {
+                digging = true;
+                StartCoroutine(DigAttack());
                 yield return null;
             }
         }
+    }
+    private IEnumerator DigAttack()
+    {
+        //bodyCollider.enabled = false;
+        float timeElapsed = 0f;
+        float digDuration = 1.5f;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = transform.position + new Vector3(0f, -10f, 0f);
+        while (timeElapsed < digDuration)
+        {
+            transform.position = Vector3.Lerp(startPosition, endPosition, timeElapsed / digDuration); // Crab digs underground
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(3f);
+        transform.position = player.position + new Vector3(0f, -10f, 0f); // Moves below where the player is
+        //bodyCollider.enabled = true;
+        float timeElapsed_02 = 0f;
+        float digDuration_02 = 1f;
+        Vector3 startPosition_02 = transform.position;
+        Vector3 endPosition_02 = transform.position + new Vector3(0f, 12f, 0f);
+        while (timeElapsed_02 < digDuration_02)
+        {
+            transform.position = Vector3.Lerp(startPosition_02, endPosition_02, timeElapsed_02 / digDuration_02); // Tail retracts back down
+            timeElapsed_02 += Time.deltaTime;
+            yield return null;
+        }
+        digging = false;
         canAttack = true;
+        yield return null;
     }
     public void StopAttack()
     { 
