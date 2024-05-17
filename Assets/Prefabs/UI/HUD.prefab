@@ -3820,7 +3820,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3372745713700537923}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3878,9 +3878,10 @@ MonoBehaviour:
   sentienceText: {fileID: 674618135296325761}
   speedText: {fileID: 8491497776205177806}
   vitalityText: {fileID: 7100896192426606093}
-  statColorFlash: {r: 0.2891153, g: 0.8396226, b: 0.2891153, a: 1}
+  isShowingStats: 0
+  goodStatFlashColor: {r: 0, g: 1, b: 0, a: 1}
+  badStatFlashColor: {r: 1, g: 0, b: 0, a: 1}
   colorFlashTime: 0.25
-  timeBetweenFlashAndSlide: 0.5
 --- !u!114 &6028553345316395317
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -49,6 +50,8 @@ public class SceneLoader : MonoBehaviour
 
     //SceneUtility and SceneManager stuff
     private int totalSceneCount;
+
+    public Action OnTitleCardFinished;
 
     private void Awake()
     {
@@ -257,10 +260,7 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSecondsRealtime(titleFadoutTime);
         yield return StartCoroutine(FadeCanvasOut(titleCanvasGroup, transitionTime));
 
-        if (GlobalData.isAbleToPause)
-        {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
-        }
+        OnTitleCardFinished?.Invoke();
     }
 
     IEnumerator LoadSceneGood(int sceneIndex, float transitionTime)
@@ -422,7 +422,7 @@ public class SceneLoader : MonoBehaviour
             "Strengthening Spores"
         };
 
-        funText.text = funTexts[Random.Range(0, funTexts.Length)];
+        funText.text = funTexts[UnityEngine.Random.Range(0, funTexts.Length)];
         GlobalData.currentFunText = funText.text;
     }
 }

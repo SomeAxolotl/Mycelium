@@ -15,6 +15,21 @@ public class HUDController : MonoBehaviour
         StartCoroutine(SlideHUDElementCoroutine(element, toTarget));
     }
 
+    void OnEnable()
+    {
+        StartCoroutine(SubscribeOnDelay());
+    }
+    IEnumerator SubscribeOnDelay()
+    {
+        yield return null;
+
+        SceneLoader.Instance.OnTitleCardFinished += FadeInHUD;
+    }
+    void OnDisable()
+    {
+        SceneLoader.Instance.OnTitleCardFinished -= FadeInHUD;
+    }
+
     IEnumerator SlideHUDElementCoroutine(RectTransform element, RectTransform toTarget)
     {
         float elapsedTime = 0f;

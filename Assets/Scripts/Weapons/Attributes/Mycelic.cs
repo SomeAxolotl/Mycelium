@@ -21,12 +21,17 @@ public class Mycelic : AttributeBase
         hitSomething = true;
     }
 
+    public override void Equipped()
+    {
+        base.Equipped();
+
+        skillLoadout = player.transform.Find("SkillLoadout").gameObject;
+        skillToUse = skillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
+    }
+
     public override void StopAttack(){
         if (hitSomething)
         {
-            skillLoadout = player.transform.Find("SkillLoadout").gameObject;
-            skillToUse = skillLoadout.transform.GetChild(0).gameObject.GetComponent<Skill>();
-
             float randomNumber = Random.Range(0f, 1f);
             if (randomNumber < chanceToTrigger)
             {

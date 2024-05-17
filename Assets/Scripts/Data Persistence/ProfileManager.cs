@@ -15,6 +15,7 @@ public class ProfileManager : MonoBehaviour
 
     [HideInInspector] public List<bool> tutorialIsDone = new List<bool>();
     [HideInInspector] public List<bool> permadeathIsOn = new List<bool>();
+    [HideInInspector] public List<bool> sporeHasTired = new List<bool>();
 
     [SerializeField] private ProfileData defaultProfileData;
 
@@ -51,6 +52,7 @@ public class ProfileManager : MonoBehaviour
 
         LoadTutorialCompletion();
         LoadPermadeathData();
+        LoadSporeTiredData();
     }
 
     void OnApplicationQuit()
@@ -133,6 +135,17 @@ public class ProfileManager : MonoBehaviour
         SetPathAndData(GlobalData.profileNumber);
     }
 
+    void LoadSporeTiredData()
+    {
+        for (int i = 0; i <= 2; i++)
+        {
+            SetPathAndData(i);
+            sporeHasTired.Add(profileData.sporeHasTired);
+        }
+
+        SetPathAndData(GlobalData.profileNumber);
+    }
+
     public void Save()
     {
         ProfileData newProfileData = new ProfileData();
@@ -165,6 +178,7 @@ public class ProfileManager : MonoBehaviour
 
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
         newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
+        newProfileData.sporeHasTired = sporeHasTired[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         //Debug.Log(json);
@@ -191,6 +205,7 @@ public class ProfileManager : MonoBehaviour
 
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
         newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
+        newProfileData.sporeHasTired = sporeHasTired[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         Debug.Log(json);
@@ -223,6 +238,7 @@ public class ProfileManager : MonoBehaviour
 
         public bool tutroialIsDone;
         public bool permadeathIsOn;
+        public bool sporeHasTired;
 
         public bool bedIsUnlocked;
         public bool drumIsUnlocked;

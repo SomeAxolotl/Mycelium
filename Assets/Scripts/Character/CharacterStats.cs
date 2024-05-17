@@ -84,27 +84,48 @@ public class CharacterStats : MonoBehaviour
         Vitality
     }
 
-    void Start()
+    IEnumerator Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = GetComponent<DesignTracker>();
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
         sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
-        
-        if (SceneManager.GetActiveScene().name == "The Carcass")
-        {
-            StartCoroutine(CheckForSweat());
-        }
+
+        yield return null;
+        SceneLoader.Instance.OnTitleCardFinished += CheckForSweat;
+    }
+    void OnEnable()
+    {
+        StartCoroutine(SubscribeOnDelay());
+    }
+    IEnumerator SubscribeOnDelay()
+    {
+        yield return null;
+
+        SceneLoader.Instance.OnTitleCardFinished += CheckForSweat;
+    }
+    void OnDisable()
+    {
+        SceneLoader.Instance.OnTitleCardFinished -= CheckForSweat;
     }
 
-    IEnumerator CheckForSweat()
+    public void CheckForSweat()
     {
-        yield return new WaitForSeconds(0.1f);
-
-        if (sporeEnergy <= 0)
+        if (sporeEnergy <= 0 && SceneManager.GetActiveScene().name == "The Carcass")
         {
             transform.Find("SweatParticles").GetComponent<ParticleSystem>().Play();
+
+            if (!ProfileManager.Instance.sporeHasTired[GlobalData.profileNumber] && gameObject.tag == "currentPlayer")
+            {
+                NotificationManager.Instance.Notification
+                (
+                    GetColoredSporeName() + " is tired",
+                    "Using them will decrease their happiness!"
+                );
+
+                ProfileManager.Instance.sporeHasTired[GlobalData.profileNumber] = true;
+            }
         }
     }
 
@@ -149,6 +170,15 @@ public class CharacterStats : MonoBehaviour
 
             ModifyHappiness(happinessModifier);
         }
+    }
+
+    public string GetColoredSporeName()
+    {
+        DesignTracker designTracker = GetComponent<DesignTracker>();
+
+        string coloredSporeName = $"<color=#{ColorUtility.ToHtmlStringRGB(designTracker.bodyColor)}>{sporeName}</color>";
+
+        return coloredSporeName;
     }
 
     public void LevelPrimal()

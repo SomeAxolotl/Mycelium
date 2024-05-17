@@ -118,7 +118,8 @@ public class PlayerHealth : MonoBehaviour
         string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
         DesignTracker designTracker = GameObject.FindWithTag("currentPlayer").GetComponent<DesignTracker>();
         CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
-        string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">"+characterStats.sporeName+"</color>";
+        //string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">"+characterStats.sporeName+"</color>";
+        string coloredSporeName = characterStats.GetColoredSporeName();
         string deathMessage = "<color=#8B0000>YOU DIED</color>";
         string permaDeathMessage = "<color=#8B0000> has died for good.</color>";
         if (profileManagerScript.permadeathIsOn[GlobalData.profileNumber] == true)

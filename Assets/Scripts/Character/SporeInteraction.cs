@@ -36,7 +36,8 @@ public class SporeInteraction : MonoBehaviour, IInteractable
     public void CreateTooltip(GameObject interactObject)
     {
         Color bodyColor = designTracker.bodyColor;
-        coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(bodyColor) + ">"+characterStats.sporeName+"</color>";
+        //coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(bodyColor) + ">"+characterStats.sporeName+"</color>";
+        coloredSporeName = characterStats.GetColoredSporeName();
 
         string buttonText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         int subspeciesSkillIconIndex = 8;

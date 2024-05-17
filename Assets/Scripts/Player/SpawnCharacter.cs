@@ -143,7 +143,8 @@ public class SpawnCharacter : MonoBehaviour
             designTracker.UpdateColorsAndTexture();
         }
 
-        string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">" + newCharacter.GetComponent<CharacterStats>().sporeName+"</color>";
+        //string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">" + newCharacter.GetComponent<CharacterStats>().sporeName+"</color>";
+        string coloredSporeName = newCharacter.GetComponent<CharacterStats>().GetColoredSporeName();
         NotificationManager.Instance.Notification(coloredSporeName + " was born");
 
         swapCharacter.characters.Add(newCharacter);
