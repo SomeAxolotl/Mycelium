@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class FABRIK : MonoBehaviour
 {
@@ -178,6 +181,7 @@ public class FABRIK : MonoBehaviour
         }
     }
 
+    #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         var current = transform;
@@ -193,4 +197,6 @@ public class FABRIK : MonoBehaviour
             current = current.parent;
         }
     }
+    #endif
+
 }
