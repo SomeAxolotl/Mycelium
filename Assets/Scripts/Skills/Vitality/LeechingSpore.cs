@@ -8,6 +8,7 @@ public class LeechingSpore : Skill
     [SerializeField] private float attachRange = 10f;
     [SerializeField] private float sporeDuration = 5f;
     [SerializeField] private GameObject sporeObj;
+    [SerializeField] private GameObject healObj;
     private GameObject currentSpore;
     [SerializeField] private float percentOfDamageHealed = 0.5f;
     [SerializeField] private float reducedCooldownPercentL = .6f;
@@ -96,8 +97,11 @@ public class LeechingSpore : Skill
         while (timer < sporeDuration)
         {  
             float damage = finalSkillValue;
-            if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth > 0) 
-                GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(damage * percentOfDamageHealed);
+            if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth > 0){
+                GameObject healing = Instantiate(healObj, enemy.transform.position, Quaternion.identity);
+                healing.GetComponent<HealerScript>().healAmount = (damage * percentOfDamageHealed);
+                //GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(damage * percentOfDamageHealed);
+            }
             else if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth <= 0)
                 Destroy(currentSpore);
             yield return new WaitForSeconds(1f);
