@@ -18,6 +18,8 @@ public class AttributeBase : MonoBehaviour
     [HideInInspector] public string attName;
     [HideInInspector] public string attDesc;
 
+    public AttributeAssigner.Rarity rating;
+
     private void Start()
     {
         player = GameObject.FindWithTag("currentPlayer");
