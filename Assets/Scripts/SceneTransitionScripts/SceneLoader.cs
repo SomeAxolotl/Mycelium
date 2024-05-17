@@ -194,7 +194,7 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator FinishLoadScene(float transitionTime, bool isOnStartup)
     {
-        if (isOnStartup == true)
+        if (isOnStartup == true && SceneManager.GetActiveScene().buildIndex == 0)
         {
             GlobalData.gameIsStarting = false;
 
@@ -216,7 +216,8 @@ public class SceneLoader : MonoBehaviour
 
             loadingCanvasGroup.alpha = 1f;
 
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(GlobalData.gameIsStarting ? 1f : 0.5f);
+            GlobalData.gameIsStarting = false;
 
             yield return StartCoroutine(FadeCanvasOut(loadingCanvasGroup, transitionTime));
         }
