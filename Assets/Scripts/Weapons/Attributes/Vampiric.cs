@@ -21,7 +21,7 @@ public class Vampiric : AttributeBase
 
     public override void Hit(GameObject target, float damage){
         if(health != null){
-            health.PlayerHeal(damage * 0.15f);
+            health.SpawnHealingOrb(target.transform.position, (damage * 0.15f));
         }
     }
 }

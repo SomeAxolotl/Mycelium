@@ -97,13 +97,13 @@ public class LeechingSpore : Skill
         while (timer < sporeDuration)
         {  
             float damage = finalSkillValue;
-            if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth > 0){
+            if(currentSpore != null){
                 GameObject healing = Instantiate(healObj, enemy.transform.position, Quaternion.identity);
-                healing.GetComponent<HealerScript>().healAmount = (damage * percentOfDamageHealed);
-                //GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(damage * percentOfDamageHealed);
+                healing.GetComponent<HealerScript>().O_healAmount = (damage * percentOfDamageHealed);
             }
-            else if (enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth <= 0)
+            if(enemy != null && enemy.GetComponent<EnemyHealth>().currentHealth <= 0){
                 Destroy(currentSpore);
+            }
             yield return new WaitForSeconds(1f);
             timer++;
         }

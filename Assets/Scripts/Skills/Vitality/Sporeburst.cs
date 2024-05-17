@@ -54,7 +54,7 @@ public class Sporeburst : Skill
         float healingAmount = 0.5f * damage;
         if (enemy != null)
         {
-            GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(healingAmount);
+            GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().SpawnHealingOrb(enemy.transform.position, healingAmount);
         }
     }
     IEnumerator ReactivateAttack(EnemyAttack enemyAttack)

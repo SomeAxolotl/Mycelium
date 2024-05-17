@@ -4,10 +4,26 @@ using UnityEngine;
 
 public class HealerScript : MonoBehaviour
 {
-    public float healAmount = 1;
+    [SerializeField] private float healAmount = 1;
+    [HideInInspector] public float O_healAmount{
+        get{
+            return healAmount;
+        }
+        set{
+            healAmount = value;
+            float clampedScaleFactor = Mathf.Clamp((healAmount / 100) + 0.05f, minScale, maxScale);
+            Vector3 newScale = new Vector3(clampedScaleFactor, clampedScaleFactor, clampedScaleFactor);
+            transform.localScale = newScale;
+            trail.localScale = newScale;
+            trail.GetComponent<TrailRenderer>().widthMultiplier = clampedScaleFactor;
+        }
+    }
+    public float minScale = 0.15f;
+    public float maxScale = 0.5f;
     [HideInInspector] public Transform target;
+    [SerializeField] private Transform trail;
     private bool hasActivated = false;
-    private float duration = 0.6f;
+    private float duration = 0.5f;
     private float arcHeight = 2f;
 
     public bool targetPlayer = true;
@@ -45,6 +61,7 @@ public class HealerScript : MonoBehaviour
         if(player != null){
             player.GetComponent<PlayerHealth>().PlayerHeal(healAmount);
         }
+        trail.parent = null;
         Destroy(gameObject);
     }
 }

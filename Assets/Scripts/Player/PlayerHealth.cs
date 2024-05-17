@@ -230,4 +230,10 @@ public class PlayerHealth : MonoBehaviour
     {
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
     }
+
+    [SerializeField] private GameObject healObj;
+    public void SpawnHealingOrb(Vector3 location, float healAmount = 1){
+        GameObject healing = Instantiate(healObj, location, Quaternion.identity);
+        healing.GetComponent<HealerScript>().O_healAmount = healAmount;
+    }
 }
