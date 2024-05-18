@@ -52,15 +52,30 @@ public class AttributeAssigner : MonoBehaviour
         newAttribute.rating = rating;
     }
 
-    public void PickAttFromString(GameObject weapon, string attribute){
+    public AttributeBase PickAttFromString(GameObject weapon, string attribute){
         foreach(AttributeBase att in commonAtts){
-            if(att.GetType().Name == attribute){
-                Component newComponent = weapon.AddComponent(att.GetType());
-                AttributeBase newAttribute = newComponent as AttributeBase;
-                newAttribute.statChange = att.statChange;
-                newAttribute.rating = Rarity.Common;
-                break;
-            }
+            AttributeBase finished = CheckString(weapon, attribute, att);
+            if(finished != null){return finished;}
         }
+        foreach(AttributeBase att in rareAtts){
+            AttributeBase finished = CheckString(weapon, attribute, att);
+            if(finished != null){return finished;}
+        }
+        foreach(AttributeBase att in legendaryAtts){
+            AttributeBase finished = CheckString(weapon, attribute, att);
+            if(finished != null){return finished;}
+        }
+        return null;
+    }
+
+    private AttributeBase CheckString(GameObject weapon, string attribute, AttributeBase att){
+        if(att.GetType().Name == attribute){
+            Component newComponent = weapon.AddComponent(att.GetType());
+            AttributeBase newAttribute = newComponent as AttributeBase;
+            newAttribute.statChange = att.statChange;
+            newAttribute.rating = Rarity.Common;
+            return newAttribute;
+        }
+        return null;
     }
 }

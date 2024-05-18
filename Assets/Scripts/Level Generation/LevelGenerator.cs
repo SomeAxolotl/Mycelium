@@ -110,6 +110,7 @@ public class LevelGenerator : MonoBehaviour
         {
             //Restore Previous Weapon
             GameObject previousWeapon = Instantiate(Resources.Load(GlobalData.currentWeapon), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            previousWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
             StartCoroutine(SetPreviousWeaponStats(previousWeapon));
             if (previousWeapon.GetComponent<WeaponStats>().wpnName != "Stick")
             {
@@ -150,10 +151,11 @@ public class LevelGenerator : MonoBehaviour
         previousWeapon.GetComponent<WeaponStats>().wpnBaseDmg = GlobalData.currentWeaponDamage;
         previousWeapon.GetComponent<WeaponStats>().wpnMult = GlobalData.currentWeaponMult;
         previousWeapon.GetComponent<WeaponStats>().wpnKnockback = GlobalData.currentWeaponKnockback;
-        AttributeAssigner.Instance.PickAttFromString(previousWeapon, GlobalData.currentAttribute);
+        AttributeBase reAtt = AttributeAssigner.Instance.PickAttFromString(previousWeapon, GlobalData.currentAttribute);
 
         yield return new WaitForSeconds(0.1f);
         previousWeapon.GetComponent<WeaponInteraction>().ApplyWeaponPositionAndRotation();
+        reAtt.Equipped();
 
     }
 
