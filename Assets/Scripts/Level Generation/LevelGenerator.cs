@@ -150,6 +150,7 @@ public class LevelGenerator : MonoBehaviour
         previousWeapon.GetComponent<WeaponStats>().wpnBaseDmg = GlobalData.currentWeaponDamage;
         previousWeapon.GetComponent<WeaponStats>().wpnMult = GlobalData.currentWeaponMult;
         previousWeapon.GetComponent<WeaponStats>().wpnKnockback = GlobalData.currentWeaponKnockback;
+        AttributeAssigner.Instance.PickAttFromString(previousWeapon, GlobalData.currentAttribute);
 
         yield return new WaitForSeconds(0.1f);
         previousWeapon.GetComponent<WeaponInteraction>().ApplyWeaponPositionAndRotation();

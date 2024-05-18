@@ -82,9 +82,18 @@ public class LevelEnd : MonoBehaviour
 
         //Save Current Weapon
         GlobalData.currentWeapon = "Daybreak Arboretum/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+        //Weapon Stats
         GlobalData.currentWeaponDamage = weaponStats.wpnBaseDmg;
         GlobalData.currentWeaponMult = weaponStats.wpnMult;
         GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
+        //Unequip Weapon
+        AttributeBase currAtt = swapWeapon.curWeapon.GetComponent<AttributeBase>();
+        if(currAtt != null){
+            currAtt.Unequipped();
+            GlobalData.currentAttribute = currAtt.GetType().Name;
+        }else{
+            GlobalData.currentAttribute = "Nothing";
+        }
 
         //Save Current Stats
         GlobalData.currentSporeStats.Add(characterStats.primalLevel);
@@ -133,9 +142,18 @@ public class LevelEnd : MonoBehaviour
 
         //Save Current Weapon
         GlobalData.currentWeapon = "Daybreak Arboretum/" + weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+        //Weapon Stats
         GlobalData.currentWeaponDamage = weaponStats.wpnBaseDmg;
         GlobalData.currentWeaponMult = weaponStats.wpnMult;
         GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
+        //Unequip Weapon
+        AttributeBase currAtt = swapWeapon.curWeapon.GetComponent<AttributeBase>();
+        if(currAtt != null){
+            currAtt.Unequipped();
+            GlobalData.currentAttribute = currAtt.GetType().Name;
+        }else{
+            GlobalData.currentAttribute = "Nothing";
+        }
 
         //Save Current Stats
         GlobalData.currentSporeStats.Add(characterStats.primalLevel);

@@ -20,6 +20,9 @@ public static class GlobalData
     public static float currentWeaponMult { get; set; }
     public static float currentWeaponKnockback { get; set; }
 
+    //Attribute Stuff
+    public static string currentAttribute { get; set; }
+
     //Nutrient Deposit Stuff
     public static List<int> currentSporeStats = new List<int>();
 

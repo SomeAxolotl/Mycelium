@@ -51,4 +51,16 @@ public class AttributeAssigner : MonoBehaviour
         newAttribute.statChange = randomAtt.statChange;
         newAttribute.rating = rating;
     }
+
+    public void PickAttFromString(GameObject weapon, string attribute){
+        foreach(AttributeBase att in commonAtts){
+            if(att.GetType().Name == attribute){
+                Component newComponent = weapon.AddComponent(att.GetType());
+                AttributeBase newAttribute = newComponent as AttributeBase;
+                newAttribute.statChange = att.statChange;
+                newAttribute.rating = Rarity.Common;
+                break;
+            }
+        }
+    }
 }
