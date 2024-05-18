@@ -8,6 +8,7 @@ public class Tooltip : MonoBehaviour
 {
     [SerializeField] private GameObject tooltipCanvas;
     [SerializeField] private GameObject tooltipHolder;
+    [SerializeField] public Image tooltipBackground;
     [SerializeField] public TMP_Text tooltipTitle;
     [SerializeField] public TMP_Text tooltipDescription;
     [SerializeField] public TMP_Text tooltipInteract;

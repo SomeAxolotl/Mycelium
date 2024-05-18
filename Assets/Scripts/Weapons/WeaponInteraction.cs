@@ -169,7 +169,11 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText
                 + attributeDescription, 
                 "Press "+interactText+" to Swap",
-                "Press "+salvageText+" to Salvage"
+                "Press "+salvageText+" to Salvage",
+                false,
+                0,
+                true,
+                weapon.GetComponent<AttributeBase>().rating
             );
     }
 
