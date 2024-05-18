@@ -109,6 +109,9 @@ public class TestingManager : MonoBehaviour
     [Header("Fade HUD Out - X")]
     [SerializeField][Tooltip("X - Fade HUD Out")] private bool meowing = true;
 
+    [Header("Disable PlayerParent - Slash (/)")]
+    [SerializeField][Tooltip("Slash (/) - Disable PlayerParent")] private bool meowest = true;
+
     [Header("Set GlobalData.areaCleared to true - C")]
     [SerializeField][Tooltip("C - Set GlobalData.areaCleared to true")] private bool meoww = true;
 
@@ -220,6 +223,11 @@ public class TestingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            ToggleSporeRenderer();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -355,6 +363,19 @@ public class TestingManager : MonoBehaviour
 
         Instantiate(statUpgradePrefab, player.transform.position, Quaternion.identity);
 
+    }
+
+    void ToggleSporeRenderer()
+    {
+        GetCurrentPlayer();
+
+        Renderer[] childRenderers = playerParent.GetComponentsInChildren<Renderer>();
+        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
+        
+        foreach (Renderer renderer in childRenderers)
+        {
+            renderer.enabled = !renderer.enabled;
+        }
     }
 
     void GetCurrentPlayer()
