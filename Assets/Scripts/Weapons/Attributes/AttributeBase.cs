@@ -19,6 +19,8 @@ public class AttributeBase : MonoBehaviour
     [HideInInspector] public string attDesc;
 
     public AttributeAssigner.Rarity rating;
+    //Changes based on the attribute but is info that is transfered between scenes
+    [HideInInspector] public float specialAttNum = 0;
 
     private void Start()
     {

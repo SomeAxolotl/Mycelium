@@ -415,14 +415,15 @@ public class TestingManager : MonoBehaviour
     {
         [SerializeField] public bool randomWeaponType = true;
         [SerializeField] public bool randomAttribute = true;
+        [SerializeField] public string attributeName = "";
         [SerializeField] public WeaponTypes weaponType;
 
         public void SpawnWeapon()
         {
+            GameObject instantiatedWeapon = null;
             if (!randomWeaponType)
             {
                 string weaponString = weaponType.ToString();
-                GameObject instantiatedWeapon;
                 foreach (GameObject weapon in Instance.weaponPrefabs)
                 {
                     if (weapon.name == weaponString)
@@ -435,7 +436,7 @@ public class TestingManager : MonoBehaviour
             {
                 int randomWeaponIndex = UnityEngine.Random.Range(0, Instance.weaponPrefabs.Count);
 
-                Instantiate(Instance.weaponPrefabs[randomWeaponIndex], Instance.player.transform.position, Quaternion.identity);
+                instantiatedWeapon = Instantiate(Instance.weaponPrefabs[randomWeaponIndex], Instance.player.transform.position, Quaternion.identity);
             }
 
             if (randomAttribute)
@@ -444,7 +445,13 @@ public class TestingManager : MonoBehaviour
             }
             else
             {
-                //AttributeAssigner.Instance.AddSpecificAttribute(instantiatedWeapon);
+                if(instantiatedWeapon != null){
+                    instantiatedWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
+                }
+            }
+
+            if(attributeName != "" && attributeName != "Nothing" && instantiatedWeapon != null){
+                AttributeAssigner.Instance.PickAttFromString(instantiatedWeapon, attributeName);
             }
         }
     }

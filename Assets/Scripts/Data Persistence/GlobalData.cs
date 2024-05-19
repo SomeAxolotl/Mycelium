@@ -22,6 +22,7 @@ public static class GlobalData
 
     //Attribute Stuff
     public static string currentAttribute { get; set; }
+    public static float specialAttNum { get; set; }
 
     //Nutrient Deposit Stuff
     public static List<int> currentSporeStats = new List<int>();

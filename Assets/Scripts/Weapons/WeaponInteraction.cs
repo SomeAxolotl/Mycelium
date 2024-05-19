@@ -160,6 +160,13 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         string weaponName = newStats.wpnName;
         string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         string salvageText = InputManager.Instance.GetLatestController().salvageHint.GenerateColoredHintString();
+        //Displays common rarity when there is no Attribute
+        AttributeAssigner.Rarity rating;
+        if(weapon.GetComponent<AttributeBase>() == null){
+            rating = AttributeAssigner.Rarity.Common;
+        }else{
+            rating = weapon.GetComponent<AttributeBase>().rating;
+        }
         TooltipManager.Instance.CreateTooltip
             (
                 weapon.gameObject, 
@@ -173,7 +180,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 false,
                 0,
                 true,
-                weapon.GetComponent<AttributeBase>().rating
+                rating
             );
     }
 

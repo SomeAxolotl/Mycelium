@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Fragile : AttributeBase
 {
-    private float hitsLeft = 5;
     private bool hitSomething = false;
     private Material whiteMat;
 
@@ -14,7 +13,7 @@ public class Fragile : AttributeBase
         attDesc = "\n+50% Damage, chance to break";
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
-        hitsLeft = Random.Range(30, 40);
+        specialAttNum = Random.Range(30, 40);
 
         stats.wpnMult *= 1.5f;
         whiteMat = Instantiate(Resources.Load("m_white")) as Material;
@@ -22,9 +21,9 @@ public class Fragile : AttributeBase
 
     public override void Hit(GameObject target, float damage){
         if(!hitSomething){
-            hitsLeft -= 1;
+            specialAttNum -= 1;
             hitSomething = true;
-            if(hitsLeft <= 0){
+            if(specialAttNum <= 0){
                 TurnWhite();
             }
         }
@@ -32,7 +31,7 @@ public class Fragile : AttributeBase
 
     public override void StopAttack(){
         hitSomething = false;
-        if(hitsLeft <= 0){
+        if(specialAttNum <= 0){
             //Break weapon
             playerParent = player.transform.parent.gameObject;
             swap = playerParent.GetComponent<SwapWeapon>();

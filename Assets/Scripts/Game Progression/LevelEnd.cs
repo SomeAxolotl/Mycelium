@@ -89,6 +89,7 @@ public class LevelEnd : MonoBehaviour
         //Unequip Weapon
         AttributeBase currAtt = swapWeapon.curWeapon.GetComponent<AttributeBase>();
         if(currAtt != null){
+            GlobalData.specialAttNum = currAtt.specialAttNum;
             currAtt.Unequipped();
             GlobalData.currentAttribute = currAtt.GetType().Name;
         }else{
