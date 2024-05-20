@@ -13,6 +13,8 @@ public class UndergrowthMovement : MonoBehaviour
     private Rigidbody rb;
     Vector3 forward;
 
+    [SerializeField] ParticleSystem dirtTrail;
+
     [HideInInspector] public bool hitSomething = false;
 
     void Start(){
@@ -24,8 +26,11 @@ public class UndergrowthMovement : MonoBehaviour
     void MoveVine(){
         RaycastHit groundHit;
         if(Physics.Raycast(transform.position, Vector3.down, out groundHit, groundCheckDistance, groundLayer)){
+            dirtTrail.Play();
             rb.velocity = forward * moveSpeed;
             return;
+        }else{
+            dirtTrail.Stop();
         }
     }
 
@@ -46,6 +51,7 @@ public class UndergrowthMovement : MonoBehaviour
 
     IEnumerator Destroy(){
         coll.enabled = false;
+        dirtTrail.Stop();
         yield return new WaitForSeconds(5);
         transform.parent.GetComponent<UndergrowthManager>().roots.Remove(gameObject);
         Destroy(gameObject);
