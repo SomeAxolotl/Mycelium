@@ -14,7 +14,6 @@ public class Sticky : AttributeBase
 
     public override void Hit(GameObject target, float damage){
         SpeedChange speedChangeEffect = target.AddComponent<SpeedChange>();
-        //Deals 20% of weapon damage over 5 seconds
         speedChangeEffect.InitializeSpeedChange(2, -50);
     }
 }

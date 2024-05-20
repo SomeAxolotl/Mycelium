@@ -7,6 +7,10 @@ using UnityEngine.AI;
 
 public class UndergrowthProjectile : MonoBehaviour
 {
+    void Start(){
+        Debug.Log("UndergrowthProjectile is not used anymore, script is on: " + gameObject.name);
+    }
+    /*
     private float speed = 4f;
     private float lifetime = 5f;
     [SerializeField] private float enemyFreezeTime;
@@ -16,18 +20,14 @@ public class UndergrowthProjectile : MonoBehaviour
     [SerializeField] private GameObject undergrowthCaughtParticles;
     List<GameObject> hitEnemy = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifetime);
         undergrowth = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<Undergrowth>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position += transform.forward * speed * Time.deltaTime;
+    void Update(){
+        //transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider collision)
@@ -63,4 +63,5 @@ public class UndergrowthProjectile : MonoBehaviour
         }
         hitEnemy.Clear();
     }
+    */
 }

@@ -21,6 +21,6 @@ public class Undergrowth : Skill
     }
     void InstantiateParticles()
     {
-        ParticleManager.Instance.SpawnParticles("UndergrowthShot", player.transform.Find("CenterPoint").position, transform.rotation);
+        //ParticleManager.Instance.SpawnParticles("UndergrowthShot", player.transform.Find("CenterPoint").position, transform.rotation);
     }
 }
