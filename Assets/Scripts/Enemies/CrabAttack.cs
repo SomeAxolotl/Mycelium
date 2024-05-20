@@ -14,6 +14,7 @@ public class CrabAttack : EnemyAttack
     private float disFromPlayer;
     private bool holdingShell = true;
     private bool digging = false;
+    private bool digAttack = false;
     [HideInInspector] public bool zombified = false;
     private float attackCooldown = 1.5f;
     [SerializeField] private float meleeDamage = 50f;
@@ -21,15 +22,16 @@ public class CrabAttack : EnemyAttack
     private float shellthrowWindup = 1.5f;
     private float knockbackForce = 30f;
     IEnumerator attack;
-    Animator animator;
+    private Animator animator;
     private Transform player;
     private Transform center;
     private Rigidbody rb;
     private Collider bodyCollider;
+    private CrabMeleeHitbox crabMeleeHitbox;
     [SerializeField] private GameObject shellProjectile;
     [SerializeField] private GameObject shell;
     [SerializeField] private GameObject meleeHitbox;
-    private CrabMeleeHitbox crabMeleeHitbox;
+    private List<GameObject> playerHit = new List<GameObject>();
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
     public LayerMask obstacleLayer;
@@ -120,11 +122,9 @@ public class CrabAttack : EnemyAttack
         else if(!holdingShell)
         {
             meleeAttackStarted = true;
-            disFromPlayer = Vector3.Distance(transform.position, player.position);
-            while (disFromPlayer > 4f && attackTimer < 3f)
+            while (attackTimer <= 3f)
             {
                 reworkedEnemyNavigation.playerSeen = true;
-                disFromPlayer = Vector3.Distance(transform.position, player.position);
                 Vector3 moveDirection = ObstacleAvoidance(player.position - transform.position);
                 rb.velocity = new Vector3((moveDirection * movementSpeed).x, rb.velocity.y, (moveDirection * movementSpeed).z);
                 yield return null;
@@ -155,9 +155,8 @@ public class CrabAttack : EnemyAttack
     }
     private IEnumerator DigAttack()
     {
-        //bodyCollider.enabled = false;
         float timeElapsed = 0f;
-        float digDuration = 1.5f;
+        float digDuration = 2.5f;
         Vector3 startPosition = transform.position;
         Vector3 endPosition = transform.position + new Vector3(0f, -10f, 0f);
         while (timeElapsed < digDuration)
@@ -166,21 +165,27 @@ public class CrabAttack : EnemyAttack
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         transform.position = player.position + new Vector3(0f, -10f, 0f); // Moves below where the player is
-        //bodyCollider.enabled = true;
+        digAttack = true;
+        ParticleManager.Instance.SpawnParticles("Dust", player.position + new Vector3(0f, 0.25f, 0f), Quaternion.Euler(-90, 0, 0)); // Warns the player
         float timeElapsed_02 = 0f;
-        float digDuration_02 = 1f;
+        float digDuration_02 = 3f;
         Vector3 startPosition_02 = transform.position;
-        Vector3 endPosition_02 = transform.position + new Vector3(0f, 12f, 0f);
+        Vector3 endPosition_02 = transform.position + new Vector3(0f, 9f, 0f);
         while (timeElapsed_02 < digDuration_02)
         {
-            transform.position = Vector3.Lerp(startPosition_02, endPosition_02, timeElapsed_02 / digDuration_02); // Tail retracts back down
+            transform.position = Vector3.Lerp(startPosition_02, endPosition_02, timeElapsed_02 / digDuration_02); // Crab pops up from underground
             timeElapsed_02 += Time.deltaTime;
             yield return null;
         }
+        rb.AddForce(Vector3.up * 80f, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.75f);
+        digAttack = false;
         digging = false;
         canAttack = true;
+        reworkedEnemyNavigation.playerSeen = true;
+        playerHit.Clear();
         yield return null;
     }
     public void StopAttack()
@@ -189,6 +194,9 @@ public class CrabAttack : EnemyAttack
         zombified = true;
         attackStarted = false;
         canAttack = true;
+        digAttack = false;
+        digging = false;
+        playerHit.Clear();
     }
 
     Vector3 ObstacleAvoidance(Vector3 desiredDirection)
@@ -203,5 +211,14 @@ public class CrabAttack : EnemyAttack
         }
 
         return moveDirection.normalized;
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && digAttack && !playerHit.Contains(other.gameObject) && !enemyHealth.alreadyDead)
+        {
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(meleeDamage * GlobalData.currentLoop);
+            other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
+            playerHit.Add(other.gameObject);
+        }
     }
 }
