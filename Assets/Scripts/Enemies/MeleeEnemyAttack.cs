@@ -168,12 +168,15 @@ public class MeleeEnemyAttack : EnemyAttack
             Destroy(edgeChecker);
         }
     }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
             playerDamaged = true;
-            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
+            dmgDealt = damage;
+            HitEnemy?.Invoke(other.gameObject, dmgDealt);
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(dmgDealt * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
         }
