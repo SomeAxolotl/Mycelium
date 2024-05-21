@@ -9,10 +9,17 @@ public class HUDController : MonoBehaviour
     [SerializeField] private float hudFadeTransitionTime = 0.25f;
     [SerializeField] private float slideTransitionTime = 0.25f;
 
+    Coroutine currentFadeCoroutine = null;
+    Coroutine currentSlideCoroutine = null;
+
     public void SlideHUDElement(RectTransform element, RectTransform toTarget)
     {
-        StopAllCoroutines();
-        StartCoroutine(SlideHUDElementCoroutine(element, toTarget));
+        if (currentSlideCoroutine != null)
+        {
+            StopCoroutine(currentSlideCoroutine);
+        }
+
+        currentSlideCoroutine = StartCoroutine(SlideHUDElementCoroutine(element, toTarget));
     }
 
     void OnEnable()
@@ -54,16 +61,24 @@ public class HUDController : MonoBehaviour
     {
         CanvasGroup hudCanvasGroup = GetComponent<CanvasGroup>();
 
-        StopAllCoroutines();
-        StartCoroutine(FadeCanvasIn(hudCanvasGroup, hudFadeTransitionTime));
+        if (currentFadeCoroutine != null)
+        {
+            StopCoroutine(currentFadeCoroutine);
+        }
+
+        currentFadeCoroutine = StartCoroutine(FadeCanvasIn(hudCanvasGroup, hudFadeTransitionTime));
     }
 
     public void FadeOutHUD()
     {
         CanvasGroup hudCanvasGroup = GetComponent<CanvasGroup>();
 
-        StopAllCoroutines();
-        StartCoroutine(FadeCanvasOut(hudCanvasGroup, hudFadeTransitionTime));
+        if (currentFadeCoroutine != null)
+        {
+            StopCoroutine(currentFadeCoroutine);
+        }
+        
+        currentFadeCoroutine = StartCoroutine(FadeCanvasOut(hudCanvasGroup, hudFadeTransitionTime));
     }
 
     IEnumerator FadeCanvasIn(CanvasGroup canvasGroup, float transitionTime)

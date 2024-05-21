@@ -16,6 +16,7 @@ public class HUDStats : MonoBehaviour
     [SerializeField] TMP_Text vitalityText;
 
     public bool isShowingStats = false;
+    [SerializeField] Color defaultStatColor = Color.white;
     [SerializeField] Color goodStatFlashColor = Color.green;
     [SerializeField] Color badStatFlashColor = Color.red;
     [SerializeField] float colorFlashTime = 0.25f;
@@ -24,6 +25,14 @@ public class HUDStats : MonoBehaviour
     int initialSpeedLevel;
     int initialSentienceLevel;
     int initialVitalityLevel;
+
+    void Start()
+    {
+        primalText.color = defaultStatColor;
+        sentienceText.color = defaultStatColor;
+        speedText.color = defaultStatColor;
+        vitalityText.color = defaultStatColor;
+    }
 
     public void ShowStats()
     {
@@ -81,16 +90,16 @@ public class HUDStats : MonoBehaviour
                     break;
             }
 
-            StartCoroutine(FlashStatColor(statText, (CharacterStats.Stats)i, statModifier));
+            StartCoroutine(FlashStatColor(statText, statModifier));
         }
     }
 
-    IEnumerator FlashStatColor(TMP_Text statText, CharacterStats.Stats stat, int statModifier)
+    IEnumerator FlashStatColor(TMP_Text statText, int statModifier)
     {
         float flashElapsedTime = 0f;
         float t;
-        Color originalColor = statText.color;
-        Color statFlashColor;
+        Color originalColor = defaultStatColor;
+        Color statFlashColor = defaultStatColor;
         if (statModifier > 0)
         {
             statFlashColor = goodStatFlashColor;
@@ -98,10 +107,6 @@ public class HUDStats : MonoBehaviour
         else if (statModifier < 0)
         {
             statFlashColor = badStatFlashColor;
-        }
-        else
-        {
-            statFlashColor = originalColor;
         }
 
         while (flashElapsedTime < colorFlashTime)

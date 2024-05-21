@@ -109,8 +109,8 @@ public class TestingManager : MonoBehaviour
     [Header("Fade HUD Out - X")]
     [SerializeField][Tooltip("X - Fade HUD Out")] private bool meowing = true;
 
-    [Header("Disable PlayerParent - Slash (/)")]
-    [SerializeField][Tooltip("Slash (/) - Disable PlayerParent")] private bool meowest = true;
+    [Header("Toggle Player Visibility - Slash (/)")]
+    [SerializeField][Tooltip("Slash (/) - Toggle Player Visibility")] private bool meowest = true;
 
     [Header("Set GlobalData.areaCleared to true - C")]
     [SerializeField][Tooltip("C - Set GlobalData.areaCleared to true")] private bool meoww = true;
@@ -415,7 +415,7 @@ public class TestingManager : MonoBehaviour
     {
         [SerializeField] public bool randomWeaponType = true;
         [SerializeField] public bool randomAttribute = true;
-        [SerializeField] public string attributeName = "";
+        [SerializeField] public List<string> attributeNames = new List<string>(){""};
         [SerializeField] public WeaponTypes weaponType;
 
         public void SpawnWeapon()
@@ -439,19 +439,20 @@ public class TestingManager : MonoBehaviour
                 instantiatedWeapon = Instantiate(Instance.weaponPrefabs[randomWeaponIndex], Instance.player.transform.position, Quaternion.identity);
             }
 
-            if (randomAttribute)
+            if (!randomAttribute)
             {
-                //AttributeAssigner.Instance.AddRandomAttribute(instantiatedWeapon);
-            }
-            else
-            {
-                if(instantiatedWeapon != null){
+                if(instantiatedWeapon != null)
+                {
                     instantiatedWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
+                    
+                    foreach (string attributeName in attributeNames)
+                    {
+                        if(attributeName != "" && attributeName != "Nothing")
+                        {
+                            AttributeAssigner.Instance.PickAttFromString(instantiatedWeapon, attributeName);
+                        }
+                    }
                 }
-            }
-
-            if(attributeName != "" && attributeName != "Nothing" && instantiatedWeapon != null){
-                AttributeAssigner.Instance.PickAttFromString(instantiatedWeapon, attributeName);
             }
         }
     }
