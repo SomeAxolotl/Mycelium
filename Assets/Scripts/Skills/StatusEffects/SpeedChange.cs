@@ -37,7 +37,7 @@ public class SpeedChange : MonoBehaviour
             baseSpeed = controller.moveSpeed;
         }
         speedParticles = Resources.Load<GameObject>(speedParticlePath);
-        speedParticles = Resources.Load<GameObject>(slowParticlePath);
+        slowParticles = Resources.Load<GameObject>(slowParticlePath);
     }
 
     private bool accepting = false;

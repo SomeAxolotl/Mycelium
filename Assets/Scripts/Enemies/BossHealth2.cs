@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class BossHealth2 : EnemyHealth
 {
@@ -25,8 +26,13 @@ public class BossHealth2 : EnemyHealth
         }
     }
 
-    public override void EnemyTakeDamage(float dmgTaken)
+    public override void EnemyTakeDamage(float damage)
     {
+        //Save current damage taken
+        dmgTaken = damage;
+        //Call action to modify damage
+        TakeDamage?.Invoke(dmgTaken);
+
         currentHealth -= dmgTaken;
         ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
 

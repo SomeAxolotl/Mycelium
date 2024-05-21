@@ -27,7 +27,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float timeBetweenHurtSounds = 0.25f;
     [SerializeField] private CutscenePlayer cutscenePlayer;
 
-    // Start is called before the first frame update
     void Start()
     {
         swapCharacter = GetComponent<SwapCharacter>();
@@ -59,12 +58,19 @@ public class PlayerHealth : MonoBehaviour
         maxHealth = swapCharacter.currentCharacterStats.baseHealth;
         regenRate = swapCharacter.currentCharacterStats.baseRegen;
     }
-    public void PlayerTakeDamage(float dmgTaken)
+
+    public Action<float> TakeDamage;
+    public float dmgTaken;
+    public void PlayerTakeDamage(float damage)
     {
         if(isInvincible == true)
         {
             return;
         }
+        //Save current damage taken
+        dmgTaken = damage;
+        //Call action to modify damage
+        TakeDamage?.Invoke(dmgTaken);
 
         if (currentHealth > 0)
         {

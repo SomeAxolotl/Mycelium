@@ -36,13 +36,15 @@ public class EnemyHealth : MonoBehaviour
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public Action<float> TakeDamage;
+    public float dmgTaken;
+    public virtual void EnemyTakeDamage(float damage)
     {
+        //Save current damage taken
+        dmgTaken = damage;
+        //Call action to modify damage
+        TakeDamage?.Invoke(dmgTaken);
 
-    }
-    public virtual void EnemyTakeDamage(float dmgTaken)
-    {
         currentHealth -= dmgTaken;
 
         foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)

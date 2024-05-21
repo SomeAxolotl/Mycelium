@@ -377,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commonChance: 50
   rareChance: 35
-  legendaryChance: 159
+  legendaryChance: 15
   commons: {fileID: 186484845324759932}
   rares: {fileID: 8790803467938143703}
   legendaries: {fileID: 5476543311787980912}
@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 3675868252120052717}
   - component: {fileID: 3472311246856705179}
   - component: {fileID: 5460073416752152938}
+  - component: {fileID: 1046353167042042560}
   m_Layer: 0
   m_Name: Rares
   m_TagString: Untagged
@@ -824,6 +825,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd1a94ef32bdbf94fbc488e9a43eaf3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+  rating: 0
+  specialAttNum: 0
+--- !u!114 &1046353167042042560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790803467938143703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b7d7641caf39548b9e355afc8e24d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
