@@ -77,18 +77,14 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(HurtSound());
 
             animator = GetComponentInChildren<Animator>();
-            if (animator.GetBool("Hurt") == true)
-            {
+            if(animator.GetBool("Hurt") == true){
                 Debug.Log("that hurt is true yo");
                 GameObject.FindWithTag("currentWeapon").GetComponent<Collider>().enabled = false;
             }
-            if (isDefending)
-            {
+            if(isDefending){
                 realDmgTaken = dmgTaken / 2f;
                 GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>().reflectBonusDamage += realDmgTaken;
-            }
-            else
-            {
+            }else{
                 realDmgTaken = dmgTaken;
             }
             currentHealth -= realDmgTaken;

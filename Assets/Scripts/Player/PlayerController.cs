@@ -86,21 +86,20 @@ public class PlayerController : MonoBehaviour
         clipLength = rollClip.length / 6f;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    ThirdPersonActionsAsset actions = new ThirdPersonActionsAsset();
-        //    actions.UI.Disable();
-        //    //actions.Player.Disable();
-        //}
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    ThirdPersonActionsAsset actions = new ThirdPersonActionsAsset();
-        //    actions.UI.Enable();
-        //    //actions.Player.Enable();
-        //}
+        /*if (Input.GetKeyDown(KeyCode.N))
+        {
+            ThirdPersonActionsAsset actions = new ThirdPersonActionsAsset();
+            actions.UI.Disable();
+            //actions.Player.Disable();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ThirdPersonActionsAsset actions = new ThirdPersonActionsAsset();
+            actions.UI.Enable();
+            //actions.Player.Enable();
+        }*/
 
         if (!GlobalData.isGamePaused)
         {
@@ -324,7 +323,7 @@ public class PlayerController : MonoBehaviour
     public void Knockback(GameObject obj, float knockbackForce)
     {
         WeaponCollision currentWeaponCollision = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>();
-        if (!currentWeaponCollision.isCycloning)
+        if (!currentWeaponCollision.isCycloning && rb.GetComponent<Sturdy>() == null)
         {
             isInvincible = true;
             DisableController();

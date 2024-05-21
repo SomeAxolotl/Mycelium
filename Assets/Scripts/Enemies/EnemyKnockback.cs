@@ -35,11 +35,13 @@ public class EnemyKnockback : MonoBehaviour
     }
     public void Knockback(float knockbackForce)
     {
-        animator.SetBool("IsMoving", false);
-        enemyAttack.CancelAttack();
-        reworkedEnemyNav.enabled = false;
-        Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-        StartCoroutine(StartKnockback(dirFromPlayer, knockbackForce));
+        if(GetComponent<Sturdy>() == null){
+            animator.SetBool("IsMoving", false);
+            enemyAttack.CancelAttack();
+            reworkedEnemyNav.enabled = false;
+            Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
+            StartCoroutine(StartKnockback(dirFromPlayer, knockbackForce));
+        }
     }
     IEnumerator StartKnockback(Vector3 direction, float force)
     {
