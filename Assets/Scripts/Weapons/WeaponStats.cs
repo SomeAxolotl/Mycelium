@@ -40,15 +40,12 @@ public class WeaponStats : MonoBehaviour
 
     public bool acceptingAttribute = true;
 
-    void Awake()
+    void Start()
     {
         if(acceptingAttribute){
             AttributeAssigner.Instance.AddRandomAttribute(gameObject);
         }
-    }
 
-    void Start()
-    {
         if (gameObject.tag == "currentWeapon")
         {
             Vector3 positionOffset = holdPositionOffset;

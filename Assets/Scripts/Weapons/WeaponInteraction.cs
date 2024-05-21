@@ -87,6 +87,12 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     public void CreateTooltip(GameObject interactObject)
     {
+        StartCoroutine(CreateTooltipWithDelay(interactObject));
+    }
+    IEnumerator CreateTooltipWithDelay(GameObject interactObject)
+    {
+        yield return null;
+
         GameObject curWeapon = swapWeapon.curWeapon;
         AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
         Transform weapon = interactObject.transform;

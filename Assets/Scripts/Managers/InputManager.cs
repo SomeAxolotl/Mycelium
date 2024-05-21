@@ -49,7 +49,8 @@ public class InputManager : MonoBehaviour
 
     void OnEnable()
     {
-        InputSystem.onDeviceChange += PauseWhenDeviceChange;
+        InputSystem.onDeviceChange += PauseWhenDeviceUnplugged;
+        InputSystem.onDeviceChange += DevicePluggedIn;
 
         actionsAsset = new ThirdPersonActionsAsset();
         foreach (InputAction inputAction in inputActionsThatRefreshHints)
@@ -59,9 +60,10 @@ public class InputManager : MonoBehaviour
 
         actionsAsset?.Enable();
     }
+
     void OnDisable()
     {
-        InputSystem.onDeviceChange -= PauseWhenDeviceChange;
+        InputSystem.onDeviceChange -= PauseWhenDeviceUnplugged;
 
         foreach (InputAction inputAction in inputActionsThatRefreshHints)
         {
@@ -71,7 +73,16 @@ public class InputManager : MonoBehaviour
         actionsAsset?.Disable();
     }
 
-    void PauseWhenDeviceChange(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
+    void DevicePluggedIn(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
+    {
+        if (inputDeviceChange == InputDeviceChange.Added)
+        {
+            OnDisable();
+            OnEnable();
+        }
+    }
+
+    void PauseWhenDeviceUnplugged(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
     {
         if (SceneManager.GetActiveScene().name != "Main Menu" && GlobalData.isAbleToPause && inputDeviceChange == InputDeviceChange.Removed)
         {
