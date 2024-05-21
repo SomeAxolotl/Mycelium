@@ -43,11 +43,7 @@ public class RangedEnemyProjectile : MonoBehaviour
         }
         else if (collision.gameObject.layer == 10)
         {
-            gameObject.tag = "ReversedProjectile";
-            enemyCollisionOccurred = false;
-            rb.velocity = -rb.velocity * 2.5f;
-
-            rend.material = negativeVelocityMaterial;
+            ReverseProjectile();
         }
         if (collision.gameObject.tag == "Enemy" && this.gameObject.tag == "ReversedProjectile")
         {
@@ -61,6 +57,13 @@ public class RangedEnemyProjectile : MonoBehaviour
             Destroy(gameObject);
 
         }
+    }
 
+    public void ReverseProjectile(){
+        gameObject.tag = "ReversedProjectile";
+        enemyCollisionOccurred = false;
+        rb.velocity = -rb.velocity * 2.5f;
+
+        rend.material = negativeVelocityMaterial;
     }
 }
