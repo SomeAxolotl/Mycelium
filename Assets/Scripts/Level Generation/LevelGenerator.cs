@@ -136,7 +136,7 @@ public class LevelGenerator : MonoBehaviour
 
         if (GameObject.FindWithTag("currentWeapon") == null)
         {
-            GameObject startingWeapon = Instantiate(Resources.Load("Daybreak Arboretum/Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            GameObject startingWeapon = Instantiate(Resources.Load("Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             startingWeapon.GetComponent<Collider>().enabled = false;
             GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
