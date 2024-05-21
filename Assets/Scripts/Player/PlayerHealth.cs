@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     SwapWeapon swapWeapon;
     NutrientTracker nutrientTracker;
     PlayerController playerController;
-    Animator animator;
+    [HideInInspector] public Animator animator;
     SceneLoader sceneLoaderScript;
     ProfileManager profileManagerScript;
 

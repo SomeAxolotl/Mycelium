@@ -14,9 +14,9 @@ public class DefenseChange : MonoBehaviour
     private List<defenseChangeInfo> defenses = new List<defenseChangeInfo>();
 
     private string vulnerableParticlePath = "Effects/VulnerableParticles";
-    [SerializeField] private GameObject vulnerableParticles;
+    [SerializeField] private ParticleSystem vulnerableParticles;
     private string defenseParticlePath = "Effects/DefenseParticles";
-    [SerializeField] private GameObject defenseParticles;
+    [SerializeField] private ParticleSystem defenseParticles;
 
     DefenseChange[] defenseInstances;
     void Awake(){
@@ -25,11 +25,30 @@ public class DefenseChange : MonoBehaviour
             accepting = true;
         }
         playerHealth = GetComponentInParent<PlayerHealth>();
+        if(playerHealth == null){
+            playerHealth = GetComponent<PlayerHealth>();
+        }
         enemyHealth = GetComponent<EnemyHealth>();
         bossHealth = GetComponent<BossHealth2>();
 
-        defenseParticles = Resources.Load<GameObject>(defenseParticlePath);
-        vulnerableParticles = Resources.Load<GameObject>(vulnerableParticlePath);
+        //defenseParticles = Resources.Load<GameObject>(defenseParticlePath);
+        GameObject defenseParticlesObj = Resources.Load<GameObject>(defenseParticlePath);
+        GameObject tempObj1;
+        if(playerHealth != null){
+            tempObj1 = Instantiate(defenseParticlesObj, playerHealth.animator.transform) as GameObject;
+        }else{
+            tempObj1 = Instantiate(defenseParticlesObj, transform) as GameObject;
+        }
+        defenseParticles = tempObj1.GetComponent<ParticleSystem>();
+
+        GameObject vulnerableParticlesObj = Resources.Load<GameObject>(vulnerableParticlePath);
+        GameObject tempObj2;
+        if(playerHealth != null){
+            tempObj2 = Instantiate(vulnerableParticlesObj, playerHealth.animator.transform) as GameObject;
+        }else{
+            tempObj2 = Instantiate(vulnerableParticlesObj, transform) as GameObject;
+        }
+        vulnerableParticles = tempObj2.GetComponent<ParticleSystem>();
         Subscribe();
     }
 
@@ -119,6 +138,8 @@ public class DefenseChange : MonoBehaviour
         //If we run out of defense changes
         //Debug.Log("Vulnerable length: " + vulnerables.Count + "         Defense Length: " + defenses.Count);
         if(vulnerables.Count == 0 && defenses.Count == 0){
+            defenseParticles.Stop();
+            vulnerableParticles.Stop();
             Destroy(this);
             return;
         }
@@ -128,9 +149,11 @@ public class DefenseChange : MonoBehaviour
         //Combines the vulnerable and the defense to get the victor
         if(vulnerables.Count != 0 && defenses.Count != 0){
             defenseChangePercent = defenses[0].changeAmount + vulnerables[0].changeAmount;
+            defenseParticles.Play();
+            vulnerableParticles.Play();
         }else{
-            if(defenses.Count != 0){defenseChangePercent = defenses[0].changeAmount;}
-            if(vulnerables.Count != 0){defenseChangePercent = vulnerables[0].changeAmount;}
+            if(defenses.Count != 0){defenseChangePercent = defenses[0].changeAmount; defenseParticles.Play(); vulnerableParticles.Stop();}
+            if(vulnerables.Count != 0){defenseChangePercent = vulnerables[0].changeAmount; defenseParticles.Stop(); vulnerableParticles.Play();}
         }
     }
 
