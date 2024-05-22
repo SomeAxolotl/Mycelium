@@ -113,7 +113,7 @@ public class MeleeEnemyAttack : EnemyAttack
         attackStarted = false;
         isAttacking = true;
         edgeChecker = new GameObject("EdgeChecker");
-        edgeChecker.transform.localPosition = center.transform.position + transform.forward * 2f;
+        edgeChecker.transform.localPosition = center.transform.position + transform.forward * 2f + new Vector3(0f, 0.75f, 0f);
         edgeChecker.transform.parent = transform;
         Transform target = player;
         Vector3 playerPos = player.position;
@@ -192,10 +192,19 @@ public class MeleeEnemyAttack : EnemyAttack
         {
             if(!hit.collider.gameObject.name.Contains("Death"))
             {
-                return onGround = true;
+                onGround = true;
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
+                onGround = false;
             }
         }
-        rb.velocity = Vector3.zero;
-        return onGround = false;
+        else
+        {
+            onGround = true;
+        }
+
+        return onGround;
     }
 }

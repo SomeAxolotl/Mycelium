@@ -20,15 +20,9 @@ public class ParticleManager : MonoBehaviour
             Instance = this;
         }
     }
-
-    public void SpawnParticles(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation)
+    public void SpawnParticles(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null, Vector3? particleScale = null)
     {
-        StartCoroutine(SpawnParticlesCoroutine(particleName, particleSpawnPosition, particleRotation));
-    }
-
-    public void SpawnParticles(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent)
-    {
-        StartCoroutine(SpawnParticlesCoroutine(particleName, particleSpawnPosition, particleRotation, particleParent));
+        StartCoroutine(SpawnParticlesCoroutine(particleName, particleSpawnPosition, particleRotation, particleParent, particleScale));
     }
 
     public ParticleSystem SpawnParticlesAndGetParticleSystem(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
@@ -49,16 +43,17 @@ public class ParticleManager : MonoBehaviour
         return returnParticleSystem;
     }
 
-    IEnumerator SpawnParticlesCoroutine(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null)
+    IEnumerator SpawnParticlesCoroutine(string particleName, Vector3 particleSpawnPosition, Quaternion particleRotation, GameObject particleParent = null, Vector3? particleScale = null)
     {
-        GameObject spawnedParticle;
+        GameObject spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation);
+
         if (particleParent != null)
         {
-            spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation, particleParent.transform);
+            spawnedParticle.transform.SetParent(particleParent.transform);
         }
-        else
+        if(particleScale.HasValue)
         {
-           spawnedParticle = Instantiate(FindParticlePrefab(particleName), particleSpawnPosition, particleRotation);
+            spawnedParticle.transform.localScale = particleScale.Value;
         }
         StartCoroutine(DestroyParticlesWhenDone(spawnedParticle));
 

@@ -168,7 +168,7 @@ public class CrabAttack : EnemyAttack
         yield return new WaitForSeconds(2f);
         transform.position = player.position + new Vector3(0f, -10f, 0f); // Moves below where the player is
         digAttack = true;
-        ParticleManager.Instance.SpawnParticles("Dust", player.position + new Vector3(0f, 0.25f, 0f), Quaternion.Euler(-90, 0, 0)); // Warns the player
+        ParticleManager.Instance.SpawnParticles("Dust", player.position + new Vector3(0f, 0.25f, 0f), Quaternion.Euler(-90, 0, 0), null, new Vector3(.3f, .3f, .3f)); // Warns the player
         float timeElapsed_02 = 0f;
         float digDuration_02 = 3f;
         Vector3 startPosition_02 = transform.position;
