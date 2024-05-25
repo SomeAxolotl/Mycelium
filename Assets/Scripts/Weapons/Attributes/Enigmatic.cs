@@ -59,25 +59,25 @@ public class Enigmatic : AttributeBase
     private string RandomWeapon(){
         switch(Random.Range(0, 8)){
             case 0:
-                return "Daybreak Arboretum/Slash/AvocadoFlamberge";
+                return "Slash/AvocadoFlamberge";
             case 1:
-                return "Daybreak Arboretum/Slash/ObsidianScimitar";
+                return "Slash/ObsidianScimitar";
             case 2:
-                return "Daybreak Arboretum/Slash/MandibleSickle";
+                return "Slash/MandibleSickle";
             case 3:
-                return "Daybreak Arboretum/Smash/RoseMace";
+                return "Smash/RoseMace";
             case 4:
-                return "Daybreak Arboretum/Smash/GeodeHammer";
+                return "Smash/GeodeHammer";
             case 5:
-                return "Daybreak Arboretum/Smash/FemurClub";
+                return "Smash/FemurClub";
             case 6:
-                return "Daybreak Arboretum/Stab/BambooPartisan";
+                return "Stab/BambooPartisan";
             case 7:
-                return "Daybreak Arboretum/Stab/OpalRapier";
+                return "Stab/OpalRapier";
             case 8:
-                return "Daybreak Arboretum/Stab/CarpalSais";
+                return "Stab/CarpalSais";
             default:
-                return "Daybreak Arboretum/Slash/Stick";
+                return "Slash/Stick";
         }
     }
 }
