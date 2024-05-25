@@ -9,6 +9,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
     [SerializeField] private Canvas enemyHealthCanvas;
     [SerializeField] private Image enemyHealthPanel;
     [SerializeField] private Color enemyHealthPanelDeathColor;
+    [SerializeField] private TMP_Text enemyHealthName;
     [SerializeField] private GameObject damageTextObject;
     private TMP_Text damageText;
     [SerializeField] private RectTransform damageTextAnchorRectTransform;
@@ -20,6 +21,9 @@ public class EnemyHealthBar : BaseEnemyHealthBar
     void Start()
     {
         GetComponent<CanvasGroup>().alpha = 0f;
+
+        string enemyName = transform.parent.gameObject.GetComponent<EnemyHealth>().miniBossName;
+        enemyHealthName.text = enemyName;
 
         mainCamera = Camera.main;
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;

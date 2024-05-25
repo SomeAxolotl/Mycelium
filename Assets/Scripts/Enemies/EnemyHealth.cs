@@ -5,6 +5,11 @@ using UnityEngine.AI;
 using UnityEngine.UIElements;
 using System;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 //using UnityEditor.Rendering.Universal.ShaderGUI;
 
 public class EnemyHealth : MonoBehaviour
@@ -20,6 +25,14 @@ public class EnemyHealth : MonoBehaviour
     Animator animator;
 
     private ProfileManager profileManagerScript;
+
+    public Action<float> TakeDamage;
+    public float dmgTaken;
+
+    [HideInInspector][SerializeField] bool isMiniBoss = false;
+    [HideInInspector] public string miniBossName = "";
+    [HideInInspector][SerializeField] List<GameObject> possibleRewards = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +49,6 @@ public class EnemyHealth : MonoBehaviour
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
     }
 
-    public Action<float> TakeDamage;
-    public float dmgTaken;
     public virtual void EnemyTakeDamage(float damage)
     {
         //Save current damage taken
@@ -98,8 +109,28 @@ public class EnemyHealth : MonoBehaviour
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene("The Carcass", false);
         }
 
+        if (isMiniBoss)
+        {
+            SpawnMinibossReward();
+        }
+
         this.gameObject.SetActive(false);
     }
+
+    void SpawnMinibossReward()
+    {
+        if (possibleRewards.Count > 0)
+        {
+            int randomRewardIndex = UnityEngine.Random.Range(0, possibleRewards.Count);
+
+            Instantiate(possibleRewards[randomRewardIndex], new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError(gameObject + " is a miniBoss has no possibleRewards set");
+        }
+    }
+
     protected IEnumerator BossDeath()
     {
         if(GameObject.Find("Rival Colony Leader") != null)
@@ -135,3 +166,39 @@ public class EnemyHealth : MonoBehaviour
         return hasTakenDamage;
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(EnemyHealth))]
+class EnemyHealthEditor : Editor
+{
+    SerializedProperty isMiniBoss;
+    SerializedProperty miniBossName;
+    SerializedProperty possibleRewards;
+
+    void OnEnable()
+    {
+        isMiniBoss = serializedObject.FindProperty("isMiniBoss");
+        miniBossName = serializedObject.FindProperty("miniBossName");
+        possibleRewards = serializedObject.FindProperty("possibleRewards");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        base.OnInspectorGUI();
+
+        EditorGUILayout.PropertyField(isMiniBoss);
+
+        EditorGUI.indentLevel++;
+        if (isMiniBoss.boolValue)
+        {
+            EditorGUILayout.PropertyField(miniBossName);
+            EditorGUILayout.PropertyField(possibleRewards);
+        }
+        EditorGUI.indentLevel--;
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+#endif
