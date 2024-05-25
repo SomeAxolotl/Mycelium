@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
-public class BossHealth2 : EnemyHealth
+public class BossHealth : EnemyHealth
 {
     bool hudPopup = false;
     [SerializeField] Collider hudCollider;

@@ -38,9 +38,9 @@ public class WeaponCollision : MonoBehaviour
             {
                 other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
             }
-            else if(other.GetComponent<BossHealth2>() != null)
+            else if(other.GetComponent<BossHealth>() != null)
             {
-                other.GetComponent<BossHealth2>().EnemyTakeDamage(dmgDealt);
+                other.GetComponent<BossHealth>().EnemyTakeDamage(dmgDealt);
             }
             if(relentlessFury != null)
             {

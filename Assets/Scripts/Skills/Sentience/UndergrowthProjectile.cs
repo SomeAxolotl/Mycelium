@@ -39,7 +39,7 @@ public class UndergrowthProjectile : MonoBehaviour
             hitEnemy.Add(collision.gameObject);
             foreach(GameObject enemy in hitEnemy)
             {
-                if (enemy.GetComponent<BossHealth2>() == null)
+                if (enemy.GetComponent<BossHealth>() == null)
                 {
                     enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     enemy.GetComponent<Animator>().SetBool("IsMoving", false);
@@ -54,7 +54,7 @@ public class UndergrowthProjectile : MonoBehaviour
         yield return new WaitForSeconds(enemyFreezeTime);
         foreach(GameObject enemy in hitEnemy)
         {
-            if (enemy.GetComponent<BossHealth2>() == null)
+            if (enemy.GetComponent<BossHealth>() == null)
             {
                 enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 enemy.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;

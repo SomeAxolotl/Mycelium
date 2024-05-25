@@ -14,7 +14,7 @@ public class BossMeleeHitbox : MonoBehaviour
     void Start()
     {
         impulseSource = GetComponentInParent<Cinemachine.CinemachineImpulseSource>();
-        bossHealth = GetComponentInParent<BossHealth2>();
+        bossHealth = GetComponentInParent<BossHealth>();
     }
 
     // Update is called once per frame

@@ -7,7 +7,7 @@ public class DefenseChange : MonoBehaviour
 {
     private PlayerHealth playerHealth;
     private EnemyHealth enemyHealth;
-    private BossHealth2 bossHealth;
+    private BossHealth bossHealth;
 
     //List of all vulnerables and defenses on target
     private List<defenseChangeInfo> vulnerables = new List<defenseChangeInfo>();
@@ -29,7 +29,7 @@ public class DefenseChange : MonoBehaviour
             playerHealth = GetComponent<PlayerHealth>();
         }
         enemyHealth = GetComponent<EnemyHealth>();
-        bossHealth = GetComponent<BossHealth2>();
+        bossHealth = GetComponent<BossHealth>();
 
         //defenseParticles = Resources.Load<GameObject>(defenseParticlePath);
         GameObject defenseParticlesObj = Resources.Load<GameObject>(defenseParticlePath);
