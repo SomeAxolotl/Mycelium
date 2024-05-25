@@ -7,6 +7,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 
+[System.Serializable]
+public class SkyboxProfilePair
+{
+    public GameObject skyboxPrefab;
+    public VolumeProfile postProcessProfile;
+}
+
 public enum ChunkTheme
 {
     Theme1A,
@@ -41,6 +48,13 @@ public class LevelGenerator : MonoBehaviour
 
     [Header("Theme Selection")]
     [SerializeField] private ChunkTheme themeForLevel;
+
+    [Header("Skybox and Post-Processing Pairs")]
+    public SkyboxProfilePair[] skyboxProfilePairs;
+    public GameObject volumeGameObject; // Assign the GameObject with the Volume component in the Inspector
+
+    private GameObject currentSkybox;
+
 
     void Awake()
     {
@@ -95,6 +109,35 @@ public class LevelGenerator : MonoBehaviour
     }
     void Start()
     {
+        int index = Random.Range(0, skyboxProfilePairs.Length);
+        SkyboxProfilePair selectedPair = skyboxProfilePairs[index];
+
+        // Instantiate the skybox prefab
+        if (currentSkybox != null)
+        {
+            Destroy(currentSkybox);
+        }
+        currentSkybox = Instantiate(selectedPair.skyboxPrefab);
+
+        // Set the post-processing profile
+        if (volumeGameObject != null)
+        {
+            Volume volume = volumeGameObject.GetComponent<Volume>();
+            if (volume != null)
+            {
+                volume.profile = selectedPair.postProcessProfile;
+                volume.enabled = true;
+            }
+            else
+            {
+                Debug.LogError("Volume component not found on the specified GameObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Volume GameObject is not assigned.");
+        }
+
         GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().currentCharacter = GameObject.FindWithTag("currentPlayer");
 
         Transform[] playerChildren = GameObject.FindWithTag("currentPlayer").GetComponentsInChildren<Transform>();
