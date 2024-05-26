@@ -44,6 +44,10 @@ public class AttributeAssigner : MonoBehaviour
         }
     }
 
+    public void AssignCommonAttribute(GameObject weapon)
+    {
+        PickAttFromArray(weapon, commonAtts, Rarity.Common);
+    }
     private void PickAttFromArray(GameObject weapon, AttributeBase[] attArray, Rarity rating){
         AttributeBase randomAtt = attArray[UnityEngine.Random.Range(0, attArray.Length)];
         Component newComponent = weapon.AddComponent(randomAtt.GetType());
@@ -77,5 +81,21 @@ public class AttributeAssigner : MonoBehaviour
             return newAttribute;
         }
         return null;
+    }
+
+    public void AssignAttributeOfRarity(GameObject weapon, Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.Common:
+                PickAttFromArray(weapon, commonAtts, Rarity.Common);
+                break;
+            case Rarity.Rare:
+                PickAttFromArray(weapon, rareAtts, Rarity.Rare);
+                break;
+            case Rarity.Legendary:
+                PickAttFromArray(weapon, legendaryAtts, Rarity.Legendary);
+                break;
+        }
     }
 }
