@@ -135,13 +135,13 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         WeaponStats oldStats = curWeapon.GetComponent<WeaponStats>();
         WeaponStats newStats = weapon.gameObject.GetComponent<WeaponStats>();
         string damageComparisonText;
-        float damageDifference = newStats.wpnBaseDmg - oldStats.wpnBaseDmg;
+        float damageDifference = newStats.wpnMult - oldStats.wpnMult;
         float knockDifference = newStats.wpnKnockback - oldStats.wpnKnockback;
-        if (newStats.wpnBaseDmg > oldStats.wpnBaseDmg)
+        if (newStats.wpnMult > oldStats.wpnMult)
         {
             damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + damageDifference.ToString("F1") + ")" + "</color>";
         }
-        else if (newStats.wpnBaseDmg < oldStats.wpnBaseDmg)
+        else if (newStats.wpnMult < oldStats.wpnMult)
         {
             damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(damageDifference).ToString("F1") + ")" + "</color>";
         }
@@ -178,7 +178,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 weapon.gameObject, 
                 weaponName, 
                 "Type: " + newStats.weaponType.ToString() + 
-                "\nDamage: " + newStats.wpnBaseDmg.ToString("F1") + damageComparisonText + 
+                "\nDamage: " + newStats.wpnMult.ToString("F1") + "x" + damageComparisonText + 
                 "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText
                 + attributeDescription, 
                 "Press "+interactText+" to Swap",
