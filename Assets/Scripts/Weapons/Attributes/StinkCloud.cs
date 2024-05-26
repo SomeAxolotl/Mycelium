@@ -22,8 +22,10 @@ public class StinkCloud : MonoBehaviour
         if(targets.Contains(other.gameObject)){
             targets.Remove(other.gameObject);
             if(activeCoroutines.ContainsKey(other.gameObject)){
-                StopCoroutine(activeCoroutines[other.gameObject]);
-                activeCoroutines.Remove(other.gameObject);
+                if(activeCoroutines[other.gameObject] != null){
+                    StopCoroutine(activeCoroutines[other.gameObject]);
+                    activeCoroutines.Remove(other.gameObject);
+                }
             }
         }
     }

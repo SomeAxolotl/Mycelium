@@ -57,7 +57,10 @@ public class WeaponStats : MonoBehaviour
         //InvokeRepeating("SayStats", 1f, 1f);
     }
 
-    // Update is called once per frame
+    private void Awake(){
+        ScaleWeaponStats();
+    }
+
     void Update()
     {
         if (gameObject.tag == "Weapon")
@@ -76,5 +79,11 @@ public class WeaponStats : MonoBehaviour
         {
             Debug.Log("Name: " + wpnName + "\tDamage: " + wpnMult + "\tKnockback: " + wpnKnockback, gameObject);
         }
+    }
+
+    //Every loop, add 50% of the weapons damage mult
+    void ScaleWeaponStats(){
+        //Debug.Log("Mult: " + mult + " + " + ((mult / 2) * (GlobalData.currentLoop - 1)));
+        mult += (mult / 2) * (GlobalData.currentLoop - 1);
     }
 }
