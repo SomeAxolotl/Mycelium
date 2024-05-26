@@ -84,6 +84,6 @@ public class WeaponStats : MonoBehaviour
     //Every loop, add 50% of the weapons damage mult
     void ScaleWeaponStats(){
         //Debug.Log("Mult: " + mult + " + " + ((mult / 2) * (GlobalData.currentLoop - 1)));
-        mult += (mult / 2) * (GlobalData.currentLoop - 1);
+        mult += (mult * 0.5) * (GlobalData.currentLoop - 1);
     }
 }
