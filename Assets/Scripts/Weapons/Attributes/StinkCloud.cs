@@ -8,18 +8,23 @@ public class StinkCloud : MonoBehaviour
     public float damageInterval = 2.0f;
 
     private List<GameObject> targets = new List<GameObject>();
+    private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();
 
     private void OnTriggerEnter(Collider other){
         if(!targets.Contains(other.gameObject)){
             targets.Add(other.gameObject);
-            StartCoroutine(DamageCoroutine(other));
+            Coroutine damageCoroutine = StartCoroutine(DamageCoroutine(other));
+            activeCoroutines[other.gameObject] = damageCoroutine;
         }
     }
 
     private void OnTriggerExit(Collider other){
         if(targets.Contains(other.gameObject)){
             targets.Remove(other.gameObject);
-            StopCoroutine(DamageCoroutine(other));
+            if(activeCoroutines.ContainsKey(other.gameObject)){
+                StopCoroutine(activeCoroutines[other.gameObject]);
+                activeCoroutines.Remove(other.gameObject);
+            }
         }
     }
 
