@@ -26,8 +26,30 @@ public class SteamTesting : MonoBehaviour
         SteamUserStats.SetAchievement("ACH_TEST");
 
         SteamUserStats.StoreStats();
+    }
+
+    public void IncrementStat()
+    {
+        if (SteamManager.Initialized == false)
+        {
+            Debug.LogError("SteamManager was not initialized");
+            return;
+        }
+
+        int stat = -1;
 
         SteamUserStats.RequestCurrentStats();
+
+        Debug.Log("Intial: " + stat);
+        SteamUserStats.GetStat("STAT_CACHES_OPENED", out stat);
+        Debug.Log("First Get: " + stat);
+
+        SteamUserStats.SetStat("STAT_CACHES_OPENED", stat + 1);
+
+        SteamUserStats.GetStat("STAT_CACHES_OPENED", out stat);
+        Debug.Log("First Set: " + stat);
+
+        SteamUserStats.StoreStats();
     }
 
     public void ResetStatsAndAchievements()
@@ -38,12 +60,14 @@ public class SteamTesting : MonoBehaviour
             return;
         }
 
-        SteamUserStats.RequestCurrentStats();
-
         SteamUserStats.ResetAllStats(true);
 
         SteamUserStats.RequestCurrentStats();
     }
+#else
+    public void GiveAchievement() { return; }
+    public void IncrementStat() { return; }
+    public void ResetStatsAndAchievements() { return; }
 #endif
 }
 
@@ -63,6 +87,11 @@ class SteamTestingEditor : Editor
         if (GUILayout.Button("Give Test Achievement"))
         {
             steamTesting.GiveAchievement();
+        }
+
+        if (GUILayout.Button("Give +1 Caches Opened"))
+        {
+            steamTesting.IncrementStat();
         }
 
         if (GUILayout.Button("Reset All Stats and Achievements"))

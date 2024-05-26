@@ -25,7 +25,7 @@ public class SteamManager : MonoBehaviour {
 	protected static bool s_EverInitialized = false;
 
 	protected static SteamManager s_instance;
-	protected static SteamManager Instance {
+	public static SteamManager Instance {
 		get {
 			if (s_instance == null) {
 				return new GameObject("SteamManager").AddComponent<SteamManager>();
@@ -44,6 +44,8 @@ public class SteamManager : MonoBehaviour {
 	}
 
 	protected SteamAPIWarningMessageHook_t m_SteamAPIWarningMessageHook;
+
+	protected static Coroutine callbackRunner;
 
 	[AOT.MonoPInvokeCallback(typeof(SteamAPIWarningMessageHook_t))]
 	protected static void SteamAPIDebugTextHook(int nSeverity, System.Text.StringBuilder pchDebugText) {
@@ -172,11 +174,52 @@ public class SteamManager : MonoBehaviour {
 		// Run Steam client callbacks
 		SteamAPI.RunCallbacks();
 	}
-#else
-	public static bool Initialized {
-		get {
-			return false;
+
+	public virtual void StartCallbackRunner()
+	{
+		try
+		{
+			StopCoroutine(callbackRunner);
 		}
+		catch { }
+
+		callbackRunner = StartCoroutine(CallbackRunner());
 	}
+
+    public virtual void StopCallbackRunner()
+    {
+        try
+        {
+            StopCoroutine(callbackRunner);
+        }
+        catch { }
+    }
+
+	protected virtual IEnumerator CallbackRunner()
+	{
+        if (!m_bInitialized) { yield break; }
+
+		while(true)
+		{
+            SteamAPI.RunCallbacks();
+			yield return null;
+        }
+    }
+#else
+	public static bool Initialized { get { return false; } }
+	public static SteamManager Instance;
+    protected virtual void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    public virtual void StartCallbackRunner() { return; }
+	public virtual void StopCallbackRunner() { return; }
 #endif // !DISABLESTEAMWORKS
 }

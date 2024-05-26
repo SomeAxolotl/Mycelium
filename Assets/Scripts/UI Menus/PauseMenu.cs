@@ -105,6 +105,11 @@ public class PauseMenu : MonoBehaviour
         GlobalData.isGamePaused = false;
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
+
+        if(SteamManager.Initialized == true)
+        {
+            SteamManager.Instance.StopCallbackRunner();
+        }
     }
 
     public void Pause()
@@ -125,6 +130,11 @@ public class PauseMenu : MonoBehaviour
 
             //Cursor.visible = true;
             //Cursor.lockState = CursorLockMode.None;
+
+            if (SteamManager.Initialized == true)
+            {
+                SteamManager.Instance.StartCallbackRunner();
+            }
         }
     }
 
