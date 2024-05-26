@@ -243,9 +243,13 @@ public class StatsAndAchievements : MonoBehaviour
         if (shouldContinue == false) { yield break; }
 
         SteamUserStats.ResetAllStats(true);
+        Debug.Log("Resetting All Stats and Achievements");
+
+        yield return new WaitForSecondsRealtime(1f);
 
         statsReceived = false;
         SteamUserStats.RequestCurrentStats();
+        Debug.Log("Requesting Current Stats");
     }
 
     //==================================================================================
@@ -313,7 +317,7 @@ class StatsAndAchievementsEditor : Editor
         if (GUILayout.Button("Reset Stats and Achievements"))
         {
             if (Application.isPlaying == false) { return; }
-            statsAndAchievements.GiveAchievement("ACH_TEST");
+            statsAndAchievements.ResetStatsAndAchievements();
         }
     }
 }
