@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 5460073416752152938}
   - component: {fileID: 1046353167042042560}
   - component: {fileID: 4654079248178650490}
+  - component: {fileID: 937294760729137304}
   m_Layer: 0
   m_Name: Rares
   m_TagString: Untagged
@@ -878,6 +879,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82425ba2bd4223245a8a290eb1e951f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+  rating: 0
+  specialAttNum: 0
+--- !u!114 &937294760729137304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790803467938143703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6489af8553f573d4cb96a41a1837bfe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
@@ -1206,7 +1233,12 @@ PrefabInstance:
     - target: {fileID: 1529405591876867154, guid: 8601ce3cc3a21c743b3764e1de0f720c,
         type: 3}
       propertyPath: customWeapon.randomAttribute
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529405591876867154, guid: 8601ce3cc3a21c743b3764e1de0f720c,
+        type: 3}
+      propertyPath: customWeapon.attributeNames.Array.data[0]
+      value: Stinky
       objectReference: {fileID: 0}
     - target: {fileID: 2865965005051588724, guid: 8601ce3cc3a21c743b3764e1de0f720c,
         type: 3}
