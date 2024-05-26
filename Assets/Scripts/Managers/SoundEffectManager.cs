@@ -35,7 +35,7 @@ public class SoundEffectManager : MonoBehaviour
                 audioSource.outputAudioMixerGroup = audioMixerGroup;
                 audioSource.dopplerLevel = 0;
 
-                float randomPitchModifier = Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
+                float randomPitchModifier = sfx.sfxBasePitchChange + Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
                 audioSource.pitch += randomPitchModifier;
             }
         }
@@ -59,6 +59,7 @@ public class SoundEffectManager : MonoBehaviour
     {
         [SerializeField] public string sfxName = "[Name]";
         [SerializeField] public float sfxVolume = 1f;
+        [SerializeField] public float sfxBasePitchChange = 0f;
         [SerializeField] public float sfxPitchRange = 0.25f;
         [SerializeField] public List<AudioClip> sfxSounds = new List<AudioClip>();
     }
