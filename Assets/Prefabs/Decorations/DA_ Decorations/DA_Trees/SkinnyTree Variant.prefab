@@ -977,6 +977,7 @@ GameObject:
   - component: {fileID: 982452435980450838}
   - component: {fileID: 6987496406165907581}
   - component: {fileID: 6417981286836980865}
+  - component: {fileID: 8350786869404719714}
   m_Layer: 0
   m_Name: SkinnyTree_LOD0
   m_TagString: Untagged
@@ -1049,6 +1050,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8350786869404719714
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8458399109718156921}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6789405266826147367, guid: 77810f171baa9f342bf8ae32d7a4e015, type: 3}
 --- !u!1 &9110949860733412262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,16 +1274,16 @@ LODGroup:
   serializedVersion: 2
   m_LocalReferencePoint: {x: -1.2278676, y: 12.9023, z: 0.21773338}
   m_Size: 1
-  m_FadeMode: 0
+  m_FadeMode: 1
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.22208184
+  - screenRelativeHeight: 0.12787248
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8647295404503590437}
     - renderer: {fileID: 6417981286836980865}
-  - screenRelativeHeight: 0.064470716
+  - screenRelativeHeight: 0.04581237
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 6602815890399434093}
