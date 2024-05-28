@@ -250,6 +250,10 @@ public class TestingManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F6))
         {
+            SelectCurrentWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
             SelectObjectFromString("HUD");
         }
         #endif
@@ -287,6 +291,20 @@ public class TestingManager : MonoBehaviour
         else
         {
             Debug.LogError("Object " + objString + " not found in the scene.");
+        }
+    }
+    void SelectCurrentWeapon()
+    {
+        GameObject weapon = GameObject.FindWithTag("currentWeapon");
+
+        if (weapon != null)
+        {
+            EditorGUIUtility.PingObject(weapon);
+            Selection.activeObject = weapon;
+        }
+        else
+        {
+            Debug.LogError("No object with tag 'currentWeapon' found");
         }
     }
     #endif
