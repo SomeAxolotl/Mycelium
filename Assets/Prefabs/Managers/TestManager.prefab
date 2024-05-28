@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4664869405426330089}
+  - component: {fileID: 7698814651342062498}
   - component: {fileID: 1529405591876867154}
   m_Layer: 0
   m_Name: TestManager
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7698814651342062498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2865965005051588724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0d43d060ea73d478e9bf99e1aac4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  readme: {fileID: 11400000, guid: 9a291ac29178e2c4da53157ac14ad558, type: 2}
+  showIconInHierarchy: 1
 --- !u!114 &1529405591876867154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,7 +71,12 @@ MonoBehaviour:
   skill1: 0
   skill2: 0
   subspeciesSkill: 0
-  weaponType: 0
+  customWeapon:
+    randomWeaponType: 1
+    randomAttribute: 1
+    attributeNames:
+    - 
+    weaponType: 0
   customSpore:
     sporeName: Gob
     randomName: 1
@@ -78,6 +98,7 @@ MonoBehaviour:
   meow: 1
   meower: 1
   meowing: 1
+  meowest: 1
   meoww: 1
   meeeeeow: 1
   meOw: 1

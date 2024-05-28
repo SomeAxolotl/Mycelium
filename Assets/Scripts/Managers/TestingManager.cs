@@ -5,6 +5,10 @@ using RonaldSunglassesEmoji.Personalities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class TestingManager : MonoBehaviour
 {
     public static TestingManager Instance;
@@ -75,10 +79,10 @@ public class TestingManager : MonoBehaviour
     [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill1;
     [SerializeField][Tooltip("Alpha4 - Set Skills")] private StatSkills skill2;
 
-    [Header("Subspecies Skill - Alpha5")]
+    [Header("Subspecies Skill")]
     [SerializeField][Tooltip("Alpha5 - Set Subspecies Skill")] private SubspeciesSkills subspeciesSkill;
 
-    [Header("Weapon - Alpha6")]
+    [Header("Weapon")]
     [SerializeField][Tooltip("Alpha6 - Set Weapon")] private CustomWeapon customWeapon;
 
     [Header("Grow a custom Spore - K")]
@@ -98,29 +102,6 @@ public class TestingManager : MonoBehaviour
 
     [Header("Go to the Tutorial - Minus")]
     [SerializeField][Tooltip("Minus - Go to the Tutorial")] private int tutorialBuildIndex = 1;
-
-    #pragma warning disable 0414
-    [Header("Unlock all Furniture - L")]
-    [SerializeField][Tooltip("L - Unlock all Furniture")] private bool meow = true;
-
-    [Header("Fade HUD In - Z")]
-    [SerializeField][Tooltip("Z - Fade HUD In")] private bool meower = true;
-
-    [Header("Fade HUD Out - X")]
-    [SerializeField][Tooltip("X - Fade HUD Out")] private bool meowing = true;
-
-    [Header("Toggle Player Visibility - Slash (/)")]
-    [SerializeField][Tooltip("Slash (/) - Toggle Player Visibility")] private bool meowest = true;
-
-    [Header("Set GlobalData.areaCleared to true - C")]
-    [SerializeField][Tooltip("C - Set GlobalData.areaCleared to true")] private bool meoww = true;
-
-    [Header("Increment GlobalData.currentLoop by 1 - B")]
-    [SerializeField][Tooltip("B - Increment GlobalData.currentLoop by 1")] private bool meeeeeow = true;
-
-    [Header("Spawn a Stat Upgrade")]
-    [SerializeField][Tooltip("U - Spawn a Stat Upgrade")] private bool meOw = true;
-    #pragma warning restore 0414
 
     [Header("References")]
     [SerializeField] protected List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
@@ -245,11 +226,74 @@ public class TestingManager : MonoBehaviour
         {
             StartCoroutine(SpawnStatUpgrade());
         }
+
+        #if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SelectTestingManager();
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            SelectPlayerParent();
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            SelectCurrentPlayer();
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            SelectObjectFromString("SoundEffectManager");
+        }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            SelectObjectFromString("Steam");
+        }
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            SelectObjectFromString("HUD");
+        }
+        #endif
     }
+
+    #if UNITY_EDITOR
+    void SelectTestingManager()
+    {
+        EditorGUIUtility.PingObject(this.gameObject);
+        Selection.activeObject = this.gameObject;
+    }
+    void SelectCurrentPlayer()
+    {
+        UpdateCurrentPlayer();
+
+        EditorGUIUtility.PingObject(player);
+        Selection.activeObject = player;
+    }
+    void SelectPlayerParent()
+    {
+        UpdateCurrentPlayer();
+
+        EditorGUIUtility.PingObject(playerParent);
+        Selection.activeObject = playerParent;
+    }
+    void SelectObjectFromString(string objString)
+    {
+        GameObject obj = GameObject.Find(objString);
+
+        if (obj != null)
+        {
+            EditorGUIUtility.PingObject(obj);
+            Selection.activeObject = obj;
+        }
+        else
+        {
+            Debug.LogError("Object " + objString + " not found in the scene.");
+        }
+    }
+    #endif
 
     IEnumerator SetPlayerNutrients()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
         nutrientTracker.AddNutrients(nutrientsToGain);
@@ -257,7 +301,7 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SetPlayerMaterials()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
         nutrientTracker.storedLog += logsToGain;
@@ -268,7 +312,7 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SetPlayerStats()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
         playerStats.primalLevel += primalLevelsToGain;
@@ -284,7 +328,7 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SetPlayerSkills()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
         skillManager.SetSkill(skill1.ToString(), 1, player);
@@ -296,7 +340,7 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SetPlayerSubspeciesSkill()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
         skillManager.SetSkill(subspeciesSkill.ToString(), 0, player);
@@ -305,7 +349,7 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SetPlayerWeapon()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
         
@@ -314,7 +358,7 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SetLevel(int buildIndex)
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
         SceneLoader.Instance.BeginLoadScene(buildIndex, true);
@@ -357,7 +401,7 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SpawnStatUpgrade()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         yield return null;
 
@@ -367,7 +411,7 @@ public class TestingManager : MonoBehaviour
 
     void ToggleSporeRenderer()
     {
-        GetCurrentPlayer();
+        UpdateCurrentPlayer();
 
         Renderer[] childRenderers = playerParent.GetComponentsInChildren<Renderer>();
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
@@ -378,7 +422,7 @@ public class TestingManager : MonoBehaviour
         }
     }
 
-    void GetCurrentPlayer()
+    void UpdateCurrentPlayer()
     {
         playerParent = GameObject.Find("PlayerParent");
         player = GameObject.FindWithTag("currentPlayer");
