@@ -80,13 +80,12 @@ namespace ReadmeSystem.Editor
             }
             else
             {
-                Debug.LogWarning("Couldn't find a readme");
+                Debug.LogWarning("Couldn't find a root readme. Dylan is a tree");
             }
 
             return result;
 
         }
-
 
         protected override void OnHeaderGUI()
         {
@@ -275,11 +274,9 @@ namespace ReadmeSystem.Editor
             {
                 var readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(guid));
 
-                Readme readme = (Readme)readmeObject;
-                if (readme.isRoot)
+                if (readmeObject is Readme readme && readme.isRoot)
                 {
                     results.Add(readme);
-
                 }
             }
 
