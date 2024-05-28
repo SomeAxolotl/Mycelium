@@ -16,7 +16,7 @@ public class WeaponStats : MonoBehaviour
 
     [SerializeField] public string wpnName = "Wooden Sword";
 
-    [SerializeField] private float baseDmg = 10;
+    [HideInInspector][SerializeField] private float baseDmg = 10;
     [HideInInspector] public float wpnBaseDmg{get{return baseDmg;}set{baseDmg = value;}}
     [SerializeField] private float mult = 1;
     [HideInInspector] public float wpnMult{get{return mult;}set{mult = value;}}

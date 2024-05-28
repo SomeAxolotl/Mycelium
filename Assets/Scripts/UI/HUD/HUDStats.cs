@@ -14,6 +14,8 @@ public class HUDStats : MonoBehaviour
     [SerializeField] TMP_Text sentienceText;
     [SerializeField] TMP_Text speedText;
     [SerializeField] TMP_Text vitalityText;
+    [SerializeField] TMP_Text primalDamageText;
+    [SerializeField] TMP_Text baseHealthText;
 
     public bool isShowingStats = false;
     [SerializeField] Color defaultStatColor = Color.white;
@@ -25,6 +27,8 @@ public class HUDStats : MonoBehaviour
     int initialSpeedLevel;
     int initialSentienceLevel;
     int initialVitalityLevel;
+    float initialPrimalDamage;
+    float initialBaseHealth;
 
     void Start()
     {
@@ -42,6 +46,9 @@ public class HUDStats : MonoBehaviour
         initialSpeedLevel = characterStats.speedLevel;
         initialSentienceLevel = characterStats.sentienceLevel;
         initialVitalityLevel = characterStats.vitalityLevel;
+
+        initialPrimalDamage = characterStats.primalDmg;
+        initialBaseHealth = characterStats.baseHealth;
 
         RefreshStats();
         GetComponent<HUDController>().SlideHUDElement(statsHolder, statsInsideTarget);
@@ -63,6 +70,7 @@ public class HUDStats : MonoBehaviour
     {
         CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
 
+        //Flash each stat
         for (int i = 0; i < 4; i++)
         {   
             int statModifier = 0;
@@ -92,9 +100,13 @@ public class HUDStats : MonoBehaviour
 
             StartCoroutine(FlashStatColor(statText, statModifier));
         }
+
+        //Flash damage and health
+        StartCoroutine(FlashStatColor(primalDamageText, characterStats.primalDmg - initialPrimalDamage));
+        StartCoroutine(FlashStatColor(baseHealthText, characterStats.baseHealth - initialBaseHealth));
     }
 
-    IEnumerator FlashStatColor(TMP_Text statText, int statModifier)
+    IEnumerator FlashStatColor(TMP_Text statText, float statModifier)
     {
         float flashElapsedTime = 0f;
         float t;
@@ -147,5 +159,8 @@ public class HUDStats : MonoBehaviour
         sentienceText.text = characterStats.sentienceLevel.ToString();
         speedText.text = characterStats.speedLevel.ToString();
         vitalityText.text = characterStats.vitalityLevel.ToString();
+
+        primalDamageText.text = "(" + characterStats.primalDmg.ToString("F1") + ")";
+        baseHealthText.text = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().currentHealth + "/" + characterStats.baseHealth;
     }
 }

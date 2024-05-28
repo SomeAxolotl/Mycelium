@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3667adb7998406d4eb19068ebadc8384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBase: 5
+  attackDamageBase: 10
   attackDamageIncrement: 2.5
   moveSpeedBase: 3
   moveSpeedIncrement: 0.21
@@ -122,8 +122,11 @@ MonoBehaviour:
   isDefending: 0
   isInvincible: 0
   deathTimer: 0
+  animator: {fileID: 0}
   timeBetweenHurtSounds: 0.25
   cutscenePlayer: {fileID: 0}
+  dmgTaken: 0
+  healObj: {fileID: 0}
 --- !u!114 &6339953943085018612
 MonoBehaviour:
   m_ObjectHideFlags: 0

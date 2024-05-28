@@ -274,7 +274,7 @@ namespace ReadmeSystem.Editor
             {
                 var readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(guid));
 
-                if (readmeObject is Readme readme && readme.isRoot)
+                if (readmeObject as Readme is Readme readme && readme.isRoot)
                 {
                     results.Add(readme);
                 }

@@ -59,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
             WeaponCollision weaponCollision = curWeapon.GetComponent<WeaponCollision>();
             weaponCollision.ClearEnemyList();
             player = GameObject.FindWithTag("currentPlayer");
-            dmgDealt = (swapCharacter.currentCharacterStats.primalDmg + curWeapon.GetComponent<WeaponStats>().wpnBaseDmg) * fungalMightBonus * curWeapon.GetComponent<WeaponStats>().wpnMult;
+            dmgDealt = (swapCharacter.currentCharacterStats.primalDmg) * fungalMightBonus * curWeapon.GetComponent<WeaponStats>().wpnMult; //took out base weapon for now
             animator = GetComponentInChildren<Animator>();
             StartCoroutine(Attack(curWeapon));
             StartCoroutine(Lunge());
