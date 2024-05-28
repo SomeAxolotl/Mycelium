@@ -56,7 +56,7 @@ public class SporeInteraction : MonoBehaviour, IInteractable
             // Regular interaction behavior
             if (!interactObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Sprout"))
             {
-                if (isInteractingWithShroom) // Check if not interacting with Giga or Forge Shroom
+                if (isInteractingWithShroom == false) // Check if not interacting with Giga or Forge Shroom
                 {
                     SwapCharacter swapCharacter = GameObject.Find("PlayerParent").GetComponent<SwapCharacter>();
                     int characterIndex = swapCharacter.GetCharacterIndex(interactObject);
