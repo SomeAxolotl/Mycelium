@@ -24,18 +24,18 @@ public class SoundEffectManager : MonoBehaviour
 
     [SerializeField] private List<SoundEffect> soundEffects;
 
-    public void PlaySound(string clipName, Vector3 position)
+    public void PlaySound(string clipName, Vector3 position, float volumeModifier = 0f, float pitchModifier = 0f)
     {   
         foreach (SoundEffect sfx in soundEffects)
         {
             if (clipName == sfx.sfxName)
             {
                 int randomNumber = Random.Range(0, sfx.sfxSounds.Count);
-                AudioSource audioSource = PlayClipAtPointAndGetSource(sfx.sfxSounds[randomNumber], position, sfx.sfxVolume);
+                AudioSource audioSource = PlayClipAtPointAndGetSource(sfx.sfxSounds[randomNumber], position, sfx.sfxVolume + volumeModifier);
                 audioSource.outputAudioMixerGroup = audioMixerGroup;
                 audioSource.dopplerLevel = 0;
 
-                float randomPitchModifier = sfx.sfxBasePitchChange + Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
+                float randomPitchModifier = sfx.sfxBasePitchChange + pitchModifier + Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
                 audioSource.pitch += randomPitchModifier;
             }
         }
