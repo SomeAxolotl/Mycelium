@@ -29,7 +29,7 @@ public class FurnitureManager : MonoBehaviour
     {
         switch(furnitureName)
         {
-            case "Bed":
+            case "Mushroom Bed":
                 return bedIsUnlocked;
 
             case "Beetle Drum":

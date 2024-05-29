@@ -95,7 +95,7 @@ public class CreditsPlayer : MonoBehaviour
         switch (GlobalData.currentLoop)
         {
             case 2:
-                unlockString = "Bed";
+                unlockString = "Mushroom Bed";
                 if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
                     wasUnlocked = true;
@@ -161,7 +161,7 @@ public class CreditsPlayer : MonoBehaviour
         switch (GlobalData.currentLoop + 1)
         {
             case 2:
-                unlockString = "Bed";
+                unlockString = "Mushroom Bed";
                 if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
                     wasUnlocked = true;
