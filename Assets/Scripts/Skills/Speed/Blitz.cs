@@ -25,7 +25,7 @@ public class Blitz : Skill
     }
     IEnumerator Blitzing()
     {
-        SoundEffectManager.Instance.PlaySound("Projectile", player.transform);
+        SoundEffectManager.Instance.PlaySound("Shing", player.transform);
         Rigidbody rb = player.GetComponent<Rigidbody>();
         playerController.activeDodge = true;
         playerController.isInvincible = true;
