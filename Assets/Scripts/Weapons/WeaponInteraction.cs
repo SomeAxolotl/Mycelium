@@ -169,7 +169,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         //Displays common rarity when there is no Attribute
         AttributeAssigner.Rarity rating;
         if(weapon.GetComponent<AttributeBase>() == null){
-            rating = AttributeAssigner.Rarity.Common;
+            rating = AttributeAssigner.Rarity.None;
         }else{
             rating = weapon.GetComponent<AttributeBase>().rating;
         }

@@ -7,7 +7,7 @@ public class AttributeAssigner : MonoBehaviour
 {
     public static AttributeAssigner Instance;
 
-    public enum Rarity {Common, Rare, Legendary};
+    public enum Rarity {Common, Rare, Legendary, None};
     public float commonChance;
     public float rareChance;
     public float legendaryChance;

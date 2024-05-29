@@ -11,6 +11,7 @@ public class TooltipManager : MonoBehaviour
     [SerializeField] private GameObject tooltipCanvasPrefab;
 
     [SerializeField] Color defaultBackgroundColor = Color.green;
+    [SerializeField] Color noneBackgroundColor = Color.gray;
     [SerializeField] Color commonBackgroundColor = Color.white;
     [SerializeField] Color rareBackgroundColor = Color.blue;
     [SerializeField] Color legendaryBackgroundColor = Color.yellow;
@@ -42,6 +43,9 @@ public class TooltipManager : MonoBehaviour
         Color backgroundColor = defaultBackgroundColor;
         switch (rarity)
         {
+            case AttributeAssigner.Rarity.None:
+            backgroundColor = noneBackgroundColor;
+                break;
             case AttributeAssigner.Rarity.Common:
                 backgroundColor = commonBackgroundColor;
                 break;

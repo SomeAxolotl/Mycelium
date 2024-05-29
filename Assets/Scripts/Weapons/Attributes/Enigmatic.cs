@@ -24,6 +24,9 @@ public class Enigmatic : AttributeBase
 
     public override void StopAttack(){
         if(hitSomething){
+            //Poof particles
+            ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90,0,0), null, new Vector3(0.3f, 0.3f, 0.3f));
+
             playerParent = player.transform.parent.gameObject;
             swap = playerParent.GetComponent<SwapWeapon>();
             GameObject randomWeapon = Instantiate(Resources.Load(RandomWeapon()), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
