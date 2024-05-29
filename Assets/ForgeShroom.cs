@@ -11,7 +11,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
 {  
     DesignTracker designTracker;
     private int salvagedWeapons = 0;
-    private const int totalWeaponsNeeded = 5;
+    private const int totalWeaponsNeeded = 3;
     private bool weaponGoalReached = false;
    
     [HideInInspector] public SwapWeapon swap;
@@ -31,16 +31,19 @@ public class ForgeShroom : MonoBehaviour, IInteractable
     }
     public void Interact(GameObject interactObject)
     {
-       if (interactObject.CompareTag("ForgeShroom")) // Check if interacting with Forge Shroom
+        if (weaponGoalReached)
         {
-            
-            // Special case interaction with Forge Shroom
-            HandleForgeShroomInteraction();
+            DestroyTooltip(interactObject);
+            return;
+        }
+
+        // Special case interaction with Forge Shroom
+        HandleForgeShroomInteraction();
             if (currentWeapon == null)
             {
                 Debug.Log("Weapon error");
             }
-        }
+        
     }
     private void HandleForgeShroomInteraction()
     {
@@ -50,33 +53,35 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             Debug.Log(currentWeapon.name);
             return;
         }
-        
-            if (currentWeapon != null)
-            {
-                AttributeBase weaponAttribute = currentWeapon.GetComponent<AttributeBase>();
-                if (weaponAttribute != null)
-                {
-                    salvagedWeaponRarities.Add(weaponAttribute.rating);
-                }
-                RemoveHeldWeapon();
-                salvagedWeapons++;
-                Debug.Log("Deposited " + currentWeapon.name + " to the Forge Shroom!");
 
-                // Check if all weapons have been salvaged
-                if (salvagedWeapons >= totalWeaponsNeeded)
-                {
-                    // Set the weapon goal reached flag
-                    weaponGoalReached = true;
-                    // Provide reward to the player
-                    ProvideWeaponReward();
-                }
+        if (currentWeapon != null)
+        {
+            AttributeBase weaponAttribute = currentWeapon.GetComponent<AttributeBase>();
+            if (weaponAttribute != null)
+            {
+                salvagedWeaponRarities.Add(weaponAttribute.rating);
             }
-        
+            
+            salvagedWeapons++;
+            Debug.Log("Deposited " + currentWeapon.name + " to the Forge Shroom!");
+
+            // Check if all weapons have been salvaged
+            if (salvagedWeapons < totalWeaponsNeeded)
+            {
+                RemoveHeldWeapon();
+            }
+            else if (salvagedWeapons == totalWeaponsNeeded)
+            {
+                weaponGoalReached = true;
+                ProvideWeaponReward();
+            }
+
+        }
         else
         {
             Debug.Log("No weapon held by the player.");
         }
-        CreateTooltip(gameObject);       
+             
     }
     private void RemoveHeldWeapon()
     {
@@ -93,10 +98,10 @@ public class ForgeShroom : MonoBehaviour, IInteractable
                 randomWeapon.transform.localScale = randomWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
             }
             randomWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
-            AttributeAssigner.Instance.AssignCommonAttribute(randomWeapon); // Ensure the weapon is always common rarity
+            //AttributeAssigner.Instance.AssignCommonAttribute(randomWeapon); // Ensure the weapon is always common rarity
             randomWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             randomWeapon.GetComponent<Collider>().enabled = false;
-            gameObject.tag = "Weapon";
+            currentWeapon.gameObject.tag = "Weapon";
             randomWeapon.tag = "currentWeapon";
             StartCoroutine(SetPreviousWeaponStats(randomWeapon));
         }
@@ -118,11 +123,50 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             }
         }
     }
+    IEnumerator SetRewardWeaponStats(GameObject rewardWeapon)
+    {
+        yield return 0; // Wait for one frame to ensure the object is properly initialized
+        Destroy(currentWeapon);
+        if (rewardWeapon != null)
+        {
+            var weaponInteraction = rewardWeapon.GetComponent<WeaponInteraction>();
+            if (weaponInteraction != null)
+            {
+                weaponInteraction.ApplyWeaponPositionAndRotation();
+            }
+        }
+    }
     private string RandomWeapon()
     {
         
                 return "Slash/Stick";
         
+    }
+    private string RandomRewardWeapon()
+    {
+        switch (Random.Range(0, 8))
+        {
+            case 0:
+                return "Slash/AvocadoFlamberge";
+            case 1:
+                return "Slash/ObsidianScimitar";
+            case 2:
+                return "Slash/MandibleSickle";
+            case 3:
+                return "Smash/RoseMace";
+            case 4:
+                return "Smash/GeodeHammer";
+            case 5:
+                return "Smash/FemurClub";
+            case 6:
+                return "Stab/BambooPartisan";
+            case 7:
+                return "Stab/OpalRapier";
+            case 8:
+                return "Stab/CarpalSais";
+            default:
+                return "Slash/Stick";
+        }
     }
     public void Salvage(GameObject interactObject)
     {
@@ -193,7 +237,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         }
 
         // Instantiate a new weapon of the determined rarity
-        GameObject rewardWeapon = Instantiate(Resources.Load(RandomWeapon()), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+        GameObject rewardWeapon = Instantiate(Resources.Load(RandomRewardWeapon()), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
         if (rewardWeapon.GetComponent<WeaponStats>().wpnName != "Stick")
         {
             rewardWeapon.transform.localScale = rewardWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
@@ -202,9 +246,9 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         AttributeAssigner.Instance.AssignAttributeOfRarity(rewardWeapon, rewardRarity);
         rewardWeapon.layer = LayerMask.NameToLayer("currentWeapon");
         rewardWeapon.GetComponent<Collider>().enabled = false;
-        gameObject.tag = "Weapon";
+        currentWeapon.gameObject.tag = "Weapon";
         rewardWeapon.tag = "currentWeapon";
-        StartCoroutine(SetPreviousWeaponStats(rewardWeapon));
+        StartCoroutine(SetRewardWeaponStats(rewardWeapon));
 
         Debug.Log("All weapons salvaged! Providing reward of rarity: " + rewardRarity);
     }
