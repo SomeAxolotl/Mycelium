@@ -54,7 +54,7 @@ public class ShellVelocity : MonoBehaviour
         else if (collision.gameObject.layer == 8 || collision.gameObject.layer == 12)
         {
             ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
-            SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+            SoundEffectManager.Instance.PlaySound("Explosion", transform);
             Destroy(gameObject);
         }
     }

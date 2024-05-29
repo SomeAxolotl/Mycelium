@@ -47,7 +47,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
         Transform weaponHolder = swapWeapon.weaponHolder;
 
-        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+        SoundEffectManager.Instance.PlaySound("Pickup", transform);
 
         curWeapon.transform.position = weapon.transform.position;
         curWeapon.GetComponent<Collider>().enabled = true;

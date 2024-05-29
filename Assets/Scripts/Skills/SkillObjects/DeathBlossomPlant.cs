@@ -77,7 +77,7 @@ public class DeathBlossomPlant : MonoBehaviour
     */
     void DamageEnemies()
     {
-        SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+        SoundEffectManager.Instance.PlaySound("Explosion", transform);
         ParticleManager.Instance.SpawnParticles("DeathBlossomParticles", transform.position, Quaternion.LookRotation(Vector3.up, Vector3.up));
 
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");

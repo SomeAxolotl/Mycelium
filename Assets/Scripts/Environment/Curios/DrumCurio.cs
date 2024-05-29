@@ -65,8 +65,8 @@ public class DrumCurio : Curio
             {
                 if (lastBoing != -1 && lastBoingSampledTime != -1 && boingSampledTime - lastBoingSampledTime > 0 && playingCounter > 0.7f)
                 {
-                    SoundEffectManager.Instance.PlaySound("Impact", transform.position);
-                    SoundEffectManager.Instance.PlaySound("DrumSmack", transform.position);
+                    SoundEffectManager.Instance.PlaySound("Impact", transform);
+                    SoundEffectManager.Instance.PlaySound("DrumSmack", transform);
                     GetComponent<Animator>().SetTrigger("Smack");
                 }
 

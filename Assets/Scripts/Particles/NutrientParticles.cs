@@ -41,7 +41,7 @@ public class NutrientParticles : MonoBehaviour
 
                 if (Vector3.Distance(particles[i].position, targetObject.transform.position + new Vector3(0, 1, 0)) < 0.1f)
                 {
-                    SoundEffectManager.Instance.PlaySound("Pop", particles[i].position);
+                    SoundEffectManager.Instance.PlaySound("Pop", targetObject.transform);
                     particleSystem.Clear();
                     absorbCounter += absorbCounter;
                 }

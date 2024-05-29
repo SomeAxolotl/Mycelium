@@ -14,17 +14,17 @@ public class SporeAnimationEvents : MonoBehaviour
 
     void Footstep1()
     {
-        SoundEffectManager.Instance.PlaySound("Footstep 1", transform.position);
+        SoundEffectManager.Instance.PlaySound("Footstep 1", transform);
     }
 
     void Footstep2()
     {
-        SoundEffectManager.Instance.PlaySound("Footstep 2", transform.position);
+        SoundEffectManager.Instance.PlaySound("Footstep 2", transform);
     }
 
     void Slash()
     {
-        SoundEffectManager.Instance.PlaySound("Slash", transform.position);
+        SoundEffectManager.Instance.PlaySound("Slash", transform);
 
         GameObject currentWeapon = GameObject.FindWithTag("currentWeapon");
 
@@ -40,7 +40,7 @@ public class SporeAnimationEvents : MonoBehaviour
 
     void Stab()
     {
-        SoundEffectManager.Instance.PlaySound("Stab", transform.position);
+        SoundEffectManager.Instance.PlaySound("Stab", transform);
     }
 
     void StabDone()
@@ -69,20 +69,20 @@ public class SporeAnimationEvents : MonoBehaviour
     {
         if (gameObject.tag == "currentPlayer")
         {
-            SoundEffectManager.Instance.PlaySound("Smash", transform.position);
+            SoundEffectManager.Instance.PlaySound("Smash", transform);
         }
     }
 
     void Pant()
     {
-        SoundEffectManager.Instance.PlaySound("Panting", transform.position);
+        SoundEffectManager.Instance.PlaySound("Panting", transform);
     }
     void SmashPart()
     {
         if (gameObject.tag == "currentPlayer")
         {
             Transform particleHolder = GameObject.FindWithTag("currentWeapon").transform.Find("ParticleHolder");
-            SoundEffectManager.Instance.PlaySound("Explosion", transform.position);
+            SoundEffectManager.Instance.PlaySound("Explosion", transform);
             ParticleManager.Instance.SpawnParticles("SmashParticle",particleHolder.position,Quaternion.Euler(90,0,0));
         }
     }

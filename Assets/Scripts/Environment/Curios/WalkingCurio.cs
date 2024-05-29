@@ -6,7 +6,7 @@ public class WalkingCurio : Curio
 {
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
-        SoundEffectManager.Instance.PlaySound("Walking", transform.position);
+        SoundEffectManager.Instance.PlaySound("Walking", transform);
 
         yield return null;
     }

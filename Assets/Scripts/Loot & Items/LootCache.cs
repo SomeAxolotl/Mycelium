@@ -34,7 +34,7 @@ public class LootCache : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactObject)
     {
-        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+        SoundEffectManager.Instance.PlaySound("Pickup", transform);
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90,0,0));
 
         TooltipManager.Instance.DestroyTooltip();

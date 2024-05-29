@@ -28,7 +28,7 @@ public class SporeInteractableFinder : MonoBehaviour
             if (closestInteractableObject != null)
             {
                 IInteractable interactable = closestInteractableObject.GetComponent<IInteractable>();
-                if (interactable != previousInteractable)
+                if (interactable != previousInteractable && IsAcceptableInteractable(closestInteractableObject))
                 {
                     interactable?.CreateTooltip(closestInteractableObject);
                 }
@@ -50,7 +50,7 @@ public class SporeInteractableFinder : MonoBehaviour
     {
         if (other.GetType() != typeof(SphereCollider))
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Weapon") || other.gameObject.layer == LayerMask.NameToLayer("Interactable") || other.gameObject.tag == "Player" )
+            if (IsAcceptableInteractable(other.gameObject))
             {
                 Vector3 directionToPlayer = (other.transform.position - transform.position).normalized;
                 float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
@@ -74,7 +74,7 @@ public class SporeInteractableFinder : MonoBehaviour
     {
         if (other.GetType() != typeof(SphereCollider))
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Weapon") || other.gameObject.layer == LayerMask.NameToLayer("Interactable") || other.gameObject.tag == "Player" )
+            if (IsAcceptableInteractable(other.gameObject))
             {
                 TriggerExited(other);
             }
@@ -90,5 +90,17 @@ public class SporeInteractableFinder : MonoBehaviour
         }
         interactableObjects.Remove(other.gameObject);
         closestInteractableObject = null;
+    }
+
+    bool IsAcceptableInteractable(GameObject interactableObject)
+    {
+        if (interactableObject.tag == "Weapon" || interactableObject.layer == LayerMask.NameToLayer("Interactable") || interactableObject.tag == "Player" )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

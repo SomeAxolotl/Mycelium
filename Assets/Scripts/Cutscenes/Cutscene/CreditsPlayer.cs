@@ -225,12 +225,12 @@ public class CreditsPlayer : MonoBehaviour
 
     public void PlaySelectSound()
     {
-        SoundEffectManager.Instance.PlaySound("UISelect", camTracker.transform.position);
+        SoundEffectManager.Instance.PlaySound("UISelect", camTracker.transform);
     }
 
     public void PlayMoveSound()
     {
-        SoundEffectManager.Instance.PlaySound("UIMove", camTracker.transform.position);
+        SoundEffectManager.Instance.PlaySound("UIMove", camTracker.transform);
     }
 
     IEnumerator AskSkip()

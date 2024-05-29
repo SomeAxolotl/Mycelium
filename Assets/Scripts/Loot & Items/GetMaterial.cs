@@ -48,7 +48,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactObject)
     {
-        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+        SoundEffectManager.Instance.PlaySound("Pickup", transform);
 
         AddMaterial();
         TooltipManager.Instance.DestroyTooltip();

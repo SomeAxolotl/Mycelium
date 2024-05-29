@@ -78,7 +78,7 @@ public class LivingCyclone : Skill
 
             if (spinNumber > 1)
             {
-                SoundEffectManager.Instance.PlaySound("Slash", player.transform.position);
+                SoundEffectManager.Instance.PlaySound("Slash", player.transform);
             }
             
             weaponCollision.ClearEnemyList();

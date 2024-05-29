@@ -84,7 +84,7 @@ public class PauseMenu : MonoBehaviour
         if (GlobalData.isGamePaused == true)
         {
             Resume();
-            SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
+            SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform);
         }
         else
         {
@@ -118,7 +118,7 @@ public class PauseMenu : MonoBehaviour
         {
             unpausedSnapshot = GlobalData.currentAudioMixerSnapshot;
 
-            SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
+            SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform);
             pauseMenu.SetActive(true);
             HUD.GetComponent<HUDController>().FadeOutHUD();
             pausedSnapshot.TransitionTo(muffleTransitionTime);
@@ -141,7 +141,7 @@ public class PauseMenu : MonoBehaviour
     public void PlayUIMoveSound()
     {
         Time.timeScale = 1f;
-        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag(audioTag).transform.position);
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag(audioTag).transform);
         Time.timeScale = 0f;
 
         //Debug.Log("UI Move");
@@ -150,7 +150,7 @@ public class PauseMenu : MonoBehaviour
     public void PlayUISelectSound()
     {
         Time.timeScale = 1f;
-        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform.position);
+        SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform);
         Time.timeScale = 0f;
     }
 

@@ -57,12 +57,12 @@ public class SkillMenuManager : MonoBehaviour
     }
     void MenuSwapLeft()
     {
-        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform.position);
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform);
         LevelUI.SetActive(true);
     }
      void MenuSwapRight()
     {
-        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform.position);
+        SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform);
         GrowMenu.SetActive(true);
     }
     void ControlEnable()

@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         ParticleManager.Instance.SpawnParticles("Dust", GameObject.FindWithTag("currentPlayer").transform.position, Quaternion.identity);
-        SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform.position);
+        SoundEffectManager.Instance.PlaySound("Stab", GameObject.FindWithTag("currentPlayer").transform);
         hudSkills.StartCooldownUI(4, (finalDodgeCooldown + clipLength));
         yield return new WaitForSeconds(clipLength);
         //yield return new WaitUntil(() => rollTimer >= clipLength);

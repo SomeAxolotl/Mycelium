@@ -84,7 +84,7 @@ public class TrophicCascade : Skill
     void Mark(GameObject enemy)
     {
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", enemy.transform.position, Quaternion.identity);
-        SoundEffectManager.Instance.PlaySound("Projectile", enemy.transform.position);
+        SoundEffectManager.Instance.PlaySound("Projectile", enemy.transform);
     }
 
     void Extinguish(List<GameObject> enemies)
@@ -98,7 +98,7 @@ public class TrophicCascade : Skill
 
         if (enemies.Count > 0)
         {
-            SoundEffectManager.Instance.PlaySound("Impact", player.transform.position);
+            SoundEffectManager.Instance.PlaySound("Impact", player.transform);
         }
 
         EndSkill();

@@ -384,7 +384,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void MenuSwap()
     {
-      SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform.position);
+      SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform);
       currentstats.primalLevel = PrimalSave;
       currentstats.speedLevel = SpeedSave;
       currentstats.sentienceLevel = SentienceSave;
@@ -402,7 +402,7 @@ public class LevelUpManagerNew : MonoBehaviour
     }
     void MenuSwapL()
     {
-      SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform.position);
+      SoundEffectManager.Instance.PlaySound("UIMove", GameObject.FindWithTag("Camtracker").transform);
       currentstats.primalLevel = PrimalSave;
       currentstats.speedLevel = SpeedSave;
       currentstats.sentienceLevel = SentienceSave;

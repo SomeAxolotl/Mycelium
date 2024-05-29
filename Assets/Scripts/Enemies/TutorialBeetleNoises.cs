@@ -9,9 +9,9 @@ public class TutorialBeetleNoises : MonoBehaviour
 
     IEnumerator Start()
     {
-        while (!IsNearPlayer())
+        while (!IsNearPlayer() && GlobalData.isAbleToPause)
         {
-            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform, 0, GetComponent<BeetleAnimationEvents>().GetPitchMultiplier());
             Debug.Log("playing beetle sound");
             yield return new WaitForSeconds(noiseInterval);
         }

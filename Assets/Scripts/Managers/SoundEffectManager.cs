@@ -24,7 +24,7 @@ public class SoundEffectManager : MonoBehaviour
 
     [SerializeField] private List<SoundEffect> soundEffects;
 
-    public void PlaySound(string clipName, Vector3 position, float volumeModifier = 0f, float pitchModifier = 0f)
+    /*public void PlaySound(string clipName, Vector3 position, float volumeModifier = 0f, float pitchMultiplier = 1f, float maxDistance = 50f)
     {   
         foreach (SoundEffect sfx in soundEffects)
         {
@@ -33,24 +33,60 @@ public class SoundEffectManager : MonoBehaviour
                 int randomNumber = Random.Range(0, sfx.sfxSounds.Count);
                 AudioSource audioSource = PlayClipAtPointAndGetSource(sfx.sfxSounds[randomNumber], position, sfx.sfxVolume + volumeModifier);
                 audioSource.outputAudioMixerGroup = audioMixerGroup;
+                audioSource.maxDistance = maxDistance;
                 audioSource.dopplerLevel = 0;
 
-                float randomPitchModifier = sfx.sfxBasePitchChange + pitchModifier + Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
+                float randomPitchModifier = sfx.sfxBasePitchChange + Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
                 audioSource.pitch += randomPitchModifier;
+                audioSource.pitch *= pitchMultiplier;
             }
         }
     }
 
     AudioSource PlayClipAtPointAndGetSource(AudioClip clip, Vector3 position, float volume)
     {
-      GameObject gameObject = new GameObject("One shot audio");
+      GameObject gameObj = new GameObject("One shot audio");
       gameObject.transform.position = position;
-      AudioSource audioSource = (AudioSource) gameObject.AddComponent(typeof (AudioSource));
+      AudioSource audioSource = (AudioSource) gameObj.AddComponent(typeof (AudioSource));
       audioSource.clip = clip;
       audioSource.spatialBlend = 1f;
       audioSource.volume = volume;
       audioSource.Play();
-      Object.Destroy((Object) gameObject, clip.length * ((double) Time.timeScale < 0.009999999776482582 ? 0.01f : Time.timeScale));
+      Object.Destroy((Object) gameObj, clip.length * ((double) Time.timeScale < 0.009999999776482582 ? 0.01f : Time.timeScale));
+      return audioSource;
+    }*/
+
+    //Overloads for a childing the sound
+    public void PlaySound(string clipName, Transform targetTransform, float volumeModifier = 0f, float pitchMultiplier = 1f, float maxDistance = 50f)
+    {   
+        foreach (SoundEffect sfx in soundEffects)
+        {
+            if (clipName == sfx.sfxName)
+            {
+                int randomNumber = Random.Range(0, sfx.sfxSounds.Count);
+                AudioSource audioSource = PlayClipAtPointAndGetSource(sfx.sfxSounds[randomNumber], targetTransform, sfx.sfxVolume + volumeModifier);
+                audioSource.outputAudioMixerGroup = audioMixerGroup;
+                audioSource.maxDistance = maxDistance;
+                audioSource.dopplerLevel = 0;
+
+                float randomPitchModifier = sfx.sfxBasePitchChange + Random.Range(-sfx.sfxPitchRange, sfx.sfxPitchRange);
+                audioSource.pitch += randomPitchModifier;
+                audioSource.pitch *= pitchMultiplier;
+            }
+        }
+    }
+
+    AudioSource PlayClipAtPointAndGetSource(AudioClip clip, Transform targetTransform, float volume)
+    {
+      GameObject gameObj = new GameObject("One shot audio");
+      gameObj.transform.parent = targetTransform;
+      gameObj.transform.localPosition = Vector3.zero;
+      AudioSource audioSource = (AudioSource) gameObj.AddComponent(typeof (AudioSource));
+      audioSource.clip = clip;
+      audioSource.spatialBlend = 1f;
+      audioSource.volume = volume;
+      audioSource.Play();
+      Object.Destroy((Object) gameObj, clip.length * ((double) Time.timeScale < 0.009999999776482582 ? 0.01f : Time.timeScale));
       return audioSource;
     }
 

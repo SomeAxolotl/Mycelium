@@ -15,7 +15,7 @@ public class Undergrowth : Skill
     }
     void DoUndergrowth()
     {
-        SoundEffectManager.Instance.PlaySound("Projectile", transform.position);
+        SoundEffectManager.Instance.PlaySound("Projectile", transform);
 
         Instantiate(undergrowthPrefab, player.transform.Find("CenterPoint").position, transform.rotation);
     }

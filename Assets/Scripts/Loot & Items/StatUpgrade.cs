@@ -127,7 +127,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
             characterStats.AddStat(upgradeStat1, statIncreaseAmount);
         }
         
-        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+        SoundEffectManager.Instance.PlaySound("Pickup", transform);
         DestroyTooltip(this.gameObject, true);
         hudStats.FlashHUDStats();
         hudStats.HideStats(1.5f);
@@ -148,7 +148,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
             characterStats.AddStat(upgradeStat2, statIncreaseAmount);
         }
 
-        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
+        SoundEffectManager.Instance.PlaySound("Pickup", transform);
         DestroyTooltip(this.gameObject, true);
         hudStats.FlashHUDStats();
         hudStats.HideStats(1.5f);

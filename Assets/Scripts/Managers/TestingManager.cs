@@ -256,6 +256,12 @@ public class TestingManager : MonoBehaviour
         {
             SelectObjectFromString("HUD");
         }
+
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+        {   
+            LockCursor();
+        }
         #endif
     }
 
@@ -264,6 +270,7 @@ public class TestingManager : MonoBehaviour
     {
         EditorGUIUtility.PingObject(this.gameObject);
         Selection.activeObject = this.gameObject;
+        UnlockCursor();
     }
     void SelectCurrentPlayer()
     {
@@ -271,6 +278,7 @@ public class TestingManager : MonoBehaviour
 
         EditorGUIUtility.PingObject(player);
         Selection.activeObject = player;
+        UnlockCursor();
     }
     void SelectPlayerParent()
     {
@@ -278,6 +286,7 @@ public class TestingManager : MonoBehaviour
 
         EditorGUIUtility.PingObject(playerParent);
         Selection.activeObject = playerParent;
+        UnlockCursor();
     }
     void SelectObjectFromString(string objString)
     {
@@ -287,6 +296,7 @@ public class TestingManager : MonoBehaviour
         {
             EditorGUIUtility.PingObject(obj);
             Selection.activeObject = obj;
+            UnlockCursor();
         }
         else
         {
@@ -301,10 +311,28 @@ public class TestingManager : MonoBehaviour
         {
             EditorGUIUtility.PingObject(weapon);
             Selection.activeObject = weapon;
+            UnlockCursor();
         }
         else
         {
             Debug.LogError("No object with tag 'currentWeapon' found");
+        }
+    }
+
+    void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    void LockCursor()
+    {
+        if (Cursor.lockState == CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        if (Cursor.visible == true)
+        {
+            Cursor.visible = false;
         }
     }
     #endif

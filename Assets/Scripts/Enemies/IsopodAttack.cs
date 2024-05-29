@@ -99,7 +99,7 @@ public class IsopodAttack : EnemyAttack
 
         if (GlobalData.isAbleToPause)
         {
-            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform);
         }
         animator.speed = 2f;
         attackStarted = false;

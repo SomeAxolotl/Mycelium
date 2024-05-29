@@ -221,11 +221,11 @@ public class PlayerHealth : MonoBehaviour
     {
         GameObject player = GameObject.FindWithTag("currentPlayer");
 
-        SoundEffectManager.Instance.PlaySound("Damaged", player.transform.position);
+        SoundEffectManager.Instance.PlaySound("Damaged", player.transform);
 
         yield return new WaitForSeconds(timeBetweenHurtSounds);
 
-        SoundEffectManager.Instance.PlaySound("Hurt", player.transform.position);
+        SoundEffectManager.Instance.PlaySound("Hurt", player.transform);
     }
 
     public void UpdateHudHealthUI()

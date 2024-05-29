@@ -56,7 +56,7 @@ public class WeaponCollision : MonoBehaviour
                 other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback);
             }
 
-            SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform.position);
+            SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform);
             if(weaponStats.secondsTilHitstopSpeedup > 0){
                 StartCoroutine(HitStop());
             }

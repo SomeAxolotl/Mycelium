@@ -14,6 +14,6 @@ public class Feline : AttributeBase
     }
 
     public override void Hit(GameObject target, float damage){
-        SoundEffectManager.Instance.PlaySound("Walking", GameObject.FindWithTag("currentPlayer").transform.position);
+        SoundEffectManager.Instance.PlaySound("Walking", GameObject.FindWithTag("currentPlayer").transform);
     }
 }

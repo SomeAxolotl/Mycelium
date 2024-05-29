@@ -106,7 +106,7 @@ public class MeleeEnemyAttack : EnemyAttack
         
         if (GlobalData.isAbleToPause)
         {
-            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform.position);
+            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform, 0, GetComponent<BeetleAnimationEvents>().GetPitchMultiplier());
         }
         
         animator.speed = 3f;
