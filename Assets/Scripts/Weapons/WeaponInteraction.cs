@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RonaldSunglassesEmoji.Interaction;
 using System;
+using System.Linq;
 
 public class WeaponInteraction : MonoBehaviour, IInteractable
 {
@@ -27,21 +28,32 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     GameObject curWeapon;
     public void Interact(GameObject interactObject)
     {
+        bool showStats = false;
         //What you have now
         GameObject curWeapon = swapWeapon.curWeapon;
-        AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
-        if(curAtt != null){curAtt.Unequipped();}
+        List<AttributeBase> currAtt = curWeapon.GetComponents<AttributeBase>().ToList();
+        if(currAtt.Count > 0){
+            foreach(AttributeBase attBase in currAtt){
+                attBase.Unequipped();
+                if(attBase.statChange){
+                    showStats = true;
+                }
+            }
+        }
         //What you swap into
         Transform weapon = interactObject.transform;
-        AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
-        if(newAtt != null){newAtt.Equipped();}
 
-        if (curAtt != null && curAtt.statChange)
-        {
-            hudStats.FlashHUDStats();
+        List<AttributeBase> newAtt = weapon.GetComponents<AttributeBase>().ToList();
+        if(newAtt.Count > 0){
+            foreach(AttributeBase attBase in newAtt){
+                attBase.Equipped();
+                if(attBase.statChange){
+                    showStats = true;
+                }
+            }
         }
-        else if (newAtt != null && newAtt.statChange)
-        {
+        //Show stats if one of them involves stats
+        if(showStats){
             hudStats.FlashHUDStats();
         }
 

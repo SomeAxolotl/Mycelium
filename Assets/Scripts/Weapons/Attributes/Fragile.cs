@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fragile : AttributeBase
 {
-    private bool hitSomething = false;
+    public bool hitSomething = false;
     private Material whiteMat;
 
     public override void Initialize(){

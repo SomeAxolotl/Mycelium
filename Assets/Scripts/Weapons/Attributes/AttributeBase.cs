@@ -20,10 +20,9 @@ public class AttributeBase : MonoBehaviour
 
     public AttributeAssigner.Rarity rating;
     //Changes based on the attribute but is info that is transfered between scenes
-    [HideInInspector] public float specialAttNum = 0;
+    public float specialAttNum = 0;
 
-    private void Start()
-    {
+    private void Start(){
         player = GameObject.FindWithTag("currentPlayer");
         characterStats = player.GetComponent<CharacterStats>();
         hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();

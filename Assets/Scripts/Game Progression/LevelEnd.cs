@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class LevelEnd : MonoBehaviour
 {
@@ -87,13 +88,15 @@ public class LevelEnd : MonoBehaviour
         GlobalData.currentWeaponMult = weaponStats.wpnMult;
         GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
         //Unequip Weapon
-        AttributeBase currAtt = swapWeapon.curWeapon.GetComponent<AttributeBase>();
-        if(currAtt != null){
-            GlobalData.specialAttNum = currAtt.specialAttNum;
-            currAtt.Unequipped();
-            GlobalData.currentAttribute = currAtt.GetType().Name;
+        List<AttributeBase> currAtt = swapWeapon.curWeapon.GetComponents<AttributeBase>().ToList();
+        if(currAtt.Count > 0){
+            foreach(AttributeBase attBase in currAtt){
+                GlobalData.specialAttNum.Add(attBase.specialAttNum);
+                attBase.Unequipped();
+                GlobalData.currentAttribute.Add(attBase.GetType().Name);
+            }
         }else{
-            GlobalData.currentAttribute = "Nothing";
+            GlobalData.currentAttribute.Add("Nothing");
         }
 
         //Save Current Stats
@@ -148,12 +151,15 @@ public class LevelEnd : MonoBehaviour
         GlobalData.currentWeaponMult = weaponStats.wpnMult;
         GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
         //Unequip Weapon
-        AttributeBase currAtt = swapWeapon.curWeapon.GetComponent<AttributeBase>();
-        if(currAtt != null){
-            currAtt.Unequipped();
-            GlobalData.currentAttribute = currAtt.GetType().Name;
+        List<AttributeBase> currAtt = swapWeapon.curWeapon.GetComponents<AttributeBase>().ToList();
+        if(currAtt.Count > 0){
+            foreach(AttributeBase attBase in currAtt){
+                GlobalData.specialAttNum.Add(attBase.specialAttNum);
+                attBase.Unequipped();
+                GlobalData.currentAttribute.Add(attBase.GetType().Name);
+            }
         }else{
-            GlobalData.currentAttribute = "Nothing";
+            GlobalData.currentAttribute.Add("Nothing");
         }
 
         //Save Current Stats

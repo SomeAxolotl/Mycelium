@@ -194,12 +194,20 @@ public class LevelGenerator : MonoBehaviour
         previousWeapon.GetComponent<WeaponStats>().wpnBaseDmg = GlobalData.currentWeaponDamage;
         previousWeapon.GetComponent<WeaponStats>().wpnMult = GlobalData.currentWeaponMult;
         previousWeapon.GetComponent<WeaponStats>().wpnKnockback = GlobalData.currentWeaponKnockback;
-        AttributeBase reAtt = AttributeAssigner.Instance.PickAttFromString(previousWeapon, GlobalData.currentAttribute);
-        reAtt.specialAttNum = GlobalData.specialAttNum;
 
+        List<AttributeBase> atts = new List<AttributeBase>();
+        for(int i = 0; i < GlobalData.currentAttribute.Count; i++){
+            AttributeBase newAtt = AttributeAssigner.Instance.PickAttFromString(previousWeapon, GlobalData.currentAttribute[i]);
+            newAtt.specialAttNum = GlobalData.specialAttNum[i];   
+            atts.Add(newAtt);
+        }
+        GlobalData.currentAttribute.Clear();
+        GlobalData.specialAttNum.Clear();
         yield return new WaitForSeconds(0.1f);
         previousWeapon.GetComponent<WeaponInteraction>().ApplyWeaponPositionAndRotation();
-        reAtt.Equipped();
+        for(int i = 0; i < atts.Count; i++){
+            atts[i].Equipped();
+        }
 
     }
 

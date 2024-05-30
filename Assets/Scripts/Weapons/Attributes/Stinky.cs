@@ -17,10 +17,12 @@ public class Stinky : AttributeBase
     }
 
     public override void Equipped(){
+        base.Equipped();
         stinkCloud = Instantiate(stinkCloudPrefab, player.transform);
     }
 
     public override void Unequipped(){
+        base.Unequipped();
         Destroy(stinkCloud);
     }
 }
