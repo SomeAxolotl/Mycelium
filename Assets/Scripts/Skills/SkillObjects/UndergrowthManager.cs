@@ -27,7 +27,7 @@ public class UndergrowthManager : MonoBehaviour
 
     public void ProcessTarget(Collider other){
         if(!hitTargets.Contains(other)){
-            Debug.Log("Hitting: " + other.gameObject.name);
+            //Debug.Log("Hitting: " + other.gameObject.name);
             hitTargets.Add(other);
             if(other.GetComponent<EnemyHealth>() != null){
                 other.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue / 5);

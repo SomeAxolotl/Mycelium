@@ -126,7 +126,11 @@ public class CrabAttack : EnemyAttack
             {
                 reworkedEnemyNavigation.playerSeen = true;
                 Vector3 moveDirection = ObstacleAvoidance(player.position - transform.position);
-                rb.velocity = new Vector3((moveDirection * movementSpeed).x, rb.velocity.y, (moveDirection * movementSpeed).z);
+                float currMovement = movementSpeed;
+                if(GetComponent<SpeedChange>() != null){
+                    currMovement *= ((GetComponent<SpeedChange>().speedChangePercent + 100) / 100);
+                }
+                rb.velocity = new Vector3((moveDirection * currMovement).x, rb.velocity.y, (moveDirection * currMovement).z);
                 yield return null;
             }
             meleeAttackStarted = false;
