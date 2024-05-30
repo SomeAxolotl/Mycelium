@@ -62,6 +62,7 @@ public class SpeedChange : MonoBehaviour
     }
 
     //The logic for comparing the slows on the target
+    List<speedChangeInfo> toRemove = new List<speedChangeInfo>();
     public void AddEffect(float changeAmount, float duration, bool fading, List<speedChangeInfo> list){
         speedChangeInfo newEffect = new speedChangeInfo();
         newEffect.changeAmount = changeAmount;
@@ -84,9 +85,12 @@ public class SpeedChange : MonoBehaviour
             }
             //Removes effects that are outshined
             if(newEffect.changeAmount > effect.changeAmount && newEffect.changeDuration > effect.changeDuration){
-                list.Remove(effect);
+                toRemove.Add(effect);
                 break;
             }
+        }
+        foreach(var effect in toRemove){
+            list.Remove(effect);
         }
 
         if(passed){
