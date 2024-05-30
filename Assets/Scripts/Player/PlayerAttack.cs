@@ -110,6 +110,12 @@ public class PlayerAttack : MonoBehaviour
             playerController.playerActionsAsset.Player.Disable();
         }
         playerController.moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
+
+        SpeedChange speedChange = animator.GetComponent<SpeedChange>();
+        if(speedChange != null){
+            speedChange.SpeedUpdate();
+        }
+
         yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();

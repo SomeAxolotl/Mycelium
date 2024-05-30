@@ -105,7 +105,7 @@ public class SpeedChange : MonoBehaviour
     float baseSpeed;
     float baseChargeSpeed;
     float speedChangePercent = 0;
-    private void SpeedUpdate(){
+    public void SpeedUpdate(){
         //If we run out of speed changes
         //Debug.Log("Slow length: " + slows.Count + "         Speed Length: " + speeds.Count);
         if(slows.Count == 0 && speeds.Count == 0){
