@@ -18,7 +18,7 @@ public class Eruption : Skill
         DamageEnemies();
         //EruptionParticles();
         ParticleManager.Instance.SpawnParticles("EruptionParticles2", player.transform.position + new Vector3(0, particleHeight, 0), Quaternion.Euler(-90,0,0));
-        SoundEffectManager.Instance.PlaySound("Explosion", player.transform);
+        SoundEffectManager.Instance.PlaySound("Explosion", player.transform, 0, 0.7f);
         EndSkill();
     }
 

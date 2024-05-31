@@ -15,7 +15,7 @@ public class UnstablePuffball : Skill
 
     public void DoPuffball()
     {
-        SoundEffectManager.Instance.PlaySound("Projectile", transform);
+        SoundEffectManager.Instance.PlaySound("Projectile", transform, 0, 0.7f);
         Instantiate(puffballPrefab, player.transform.Find("Launch").position, transform.rotation);
     }
 }

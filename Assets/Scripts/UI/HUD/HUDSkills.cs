@@ -88,7 +88,7 @@ public class HUDSkills : MonoBehaviour
 
     IEnumerator UpdateHUDIconsCoroutine()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         GameObject player = GameObject.FindWithTag("currentPlayer");
         Transform skillLoadout = player.transform.Find("SkillLoadout");
         ChangeSkillIcon(skillLoadout.GetChild(0).gameObject.name, 0);

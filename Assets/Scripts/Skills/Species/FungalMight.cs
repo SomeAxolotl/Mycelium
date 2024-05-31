@@ -52,8 +52,23 @@ public class FungalMight : Skill
             }
         }
 
-        ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, rightHand);
-        ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, leftHand);
+        if (rightHand != null)
+        {
+            ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, rightHand);
+        }
+        else
+        {
+            Debug.LogError("Failure spawning Fungal Might particles: No child of player with tag 'RightHand'");
+        }
+
+        if (leftHand != null)
+        {
+            ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, leftHand);
+        }
+        else 
+        {
+            Debug.LogError("Failure spawning Fungal Might particles: No child of player with tag 'LeftHand'");
+        }
 
         EndSkill();
     }
