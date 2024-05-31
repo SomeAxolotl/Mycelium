@@ -109,6 +109,7 @@ public class IsopodAttack : EnemyAttack
         Vector3 moveDirection = (target.position - transform.position).normalized;
         moveDirection.y = 0f;
         float distanceToPlayer = Vector3.Distance(transform.position, playerPos);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"));
         while (distanceToPlayer > 0.25f && !playerDamaged && resetAttack < 1.5f)
         {
             distanceToPlayer = Vector3.Distance(transform.position, playerPos);
@@ -135,7 +136,6 @@ public class IsopodAttack : EnemyAttack
         StopAllCoroutines();
         attack = Attack();
         animator.speed = 1f;
-        animator.Rebind();
         animator.SetBool("IsMoving", true);
         isAttacking = false;
         hitStun = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().secondsTilHitstopSpeedup;

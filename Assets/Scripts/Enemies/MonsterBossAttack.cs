@@ -66,7 +66,7 @@ public class MonsterBossAttack : MonoBehaviour
     {
         ParticleManager.Instance.SpawnParticles("BossSandPullParticles", gameObject.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
         float elapsedTime = 0.0f;
-        while (elapsedTime < pullDuration)
+        while (elapsedTime < pullDuration && !GlobalData.isGamePaused)
         {
             Vector3 direction = (new Vector3(transform.position.x, player.position.y - 2f, transform.position.z) - player.position).normalized;
             float distance = direction.magnitude;
