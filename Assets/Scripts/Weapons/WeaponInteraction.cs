@@ -91,6 +91,20 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     public void Salvage(GameObject interactObject)
     {
+        GameObject curWeapon = swapWeapon.curWeapon;
+        AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
+        Transform weapon = interactObject.transform;
+        AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
+
+        if (curAtt != null && curAtt.statChange)
+        {
+            hudStats.HideStats();
+        }
+        else if (newAtt != null && newAtt.statChange)
+        {
+            hudStats.HideStats();
+        }
+
         if (interactObject.transform.tag == "Weapon" && interactObject.transform.tag != "currentWeapon")
         {
             SalvageNutrients(nutrientsSalvaged);

@@ -75,12 +75,14 @@ public class WeaponStats : MonoBehaviour
         if (highestRarity == AttributeAssigner.Rarity.Rare)
         {
             ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
+            SoundEffectManager.Instance.PlaySound("Rare Find", this.transform.position);
             ParticleSystem.MainModule main = ps.main;
             main.startColor = TooltipManager.Instance.rareBackgroundColor;
         }
         else if (highestRarity == AttributeAssigner.Rarity.Legendary)
         {
             ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
+            SoundEffectManager.Instance.PlaySound("Legendary Find", this.transform.position);
             ParticleSystem.MainModule main = ps.main;
             main.startColor = TooltipManager.Instance.legendaryBackgroundColor;
         }
