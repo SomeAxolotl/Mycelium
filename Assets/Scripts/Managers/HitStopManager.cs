@@ -21,14 +21,6 @@ public class HitStopManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            HitStop();
-        }
-    }
-
     public void HitStop()
     {
         StartCoroutine(HitStopCoroutine());

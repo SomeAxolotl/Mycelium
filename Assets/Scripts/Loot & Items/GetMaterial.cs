@@ -39,11 +39,6 @@ public class GetMaterial : MonoBehaviour, IInteractable
     void Update()
     {
         transform.Rotate(0, 60 * Time.deltaTime, 0);
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            nutrientTracker.KeepMaterials();
-        }
     }
 
     public void Interact(GameObject interactObject)

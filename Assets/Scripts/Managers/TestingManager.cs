@@ -103,9 +103,14 @@ public class TestingManager : MonoBehaviour
     [Header("Go to the Tutorial - Minus")]
     [SerializeField][Tooltip("Minus - Go to the Tutorial")] private int tutorialBuildIndex = 1;
 
+    [Header("Spawn loot cache - I")]
+    [SerializeField][Tooltip("I - Spawn loot cache")] private bool isDeltaCragCache = false;
+
     [Header("References")]
     [SerializeField] protected List<GameObject> weaponPrefabs = new List<GameObject>(); //Alpha5
     [SerializeField] GameObject statUpgradePrefab;
+    [SerializeField] GameObject daybreakCachePrefab;
+    [SerializeField] GameObject deltaCragCachePrefab;
 
     private GameObject playerParent;
     private GameObject player;
@@ -225,6 +230,11 @@ public class TestingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(SpawnStatUpgrade());
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            StartCoroutine(SpawnLootCache());
         }
 
         #if UNITY_EDITOR
@@ -453,6 +463,31 @@ public class TestingManager : MonoBehaviour
 
         Instantiate(statUpgradePrefab, player.transform.position, Quaternion.identity);
 
+    }
+
+    IEnumerator SpawnLootCache()
+    {
+        UpdateCurrentPlayer();
+
+        yield return null;
+
+        GameObject prefabToSpawn; 
+        if (isDeltaCragCache)
+        {
+            prefabToSpawn = deltaCragCachePrefab;
+        }
+        else
+        {
+            prefabToSpawn = daybreakCachePrefab;
+        }
+        GameObject spawnedCache = Instantiate(prefabToSpawn, player.transform.position, Quaternion.identity);
+        StartCoroutine(ForceActivation(spawnedCache));
+    }
+    IEnumerator ForceActivation(GameObject obj)
+    {
+        yield return null;
+        
+        obj.SetActive(true);
     }
 
     void ToggleSporeRenderer()

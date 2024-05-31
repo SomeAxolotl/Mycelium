@@ -13,8 +13,8 @@ public class TooltipManager : MonoBehaviour
     [SerializeField] Color defaultBackgroundColor = Color.green;
     [SerializeField] Color noneBackgroundColor = Color.gray;
     [SerializeField] Color commonBackgroundColor = Color.white;
-    [SerializeField] Color rareBackgroundColor = Color.blue;
-    [SerializeField] Color legendaryBackgroundColor = Color.yellow;
+    [SerializeField] public Color rareBackgroundColor = Color.blue;
+    [SerializeField] public Color legendaryBackgroundColor = Color.yellow;
 
     void Awake()
     {

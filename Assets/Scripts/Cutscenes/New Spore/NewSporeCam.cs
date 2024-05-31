@@ -27,18 +27,4 @@ public class NewSporeCam : MonoBehaviour
             }
         }
     }
-    
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            SwitchCamera("GrowCamera");
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SwitchCamera("Main Camera");
-        }
-    }
-
-      
 }

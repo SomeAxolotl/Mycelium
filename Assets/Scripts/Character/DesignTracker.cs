@@ -40,14 +40,6 @@ public class DesignTracker : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            StartNutrientGlow();
-        }
-    }
-
     public void UpdateBlendshape(int sentienceLevel, int primalLevel, int vitalityLevel, int speedLevel)
     {
         sentienceLevel--;

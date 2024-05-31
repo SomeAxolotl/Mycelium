@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -59,6 +60,46 @@ public class WeaponStats : MonoBehaviour
 
     private void Awake(){
         ScaleWeaponStats();
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(RarityEffect());
+    }
+    IEnumerator RarityEffect()
+    {
+        yield return null;
+
+        AttributeAssigner.Rarity highestRarity = GetHighestAttributeRarity();
+        
+        if (highestRarity == AttributeAssigner.Rarity.Rare)
+        {
+            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = TooltipManager.Instance.rareBackgroundColor;
+        }
+        else if (highestRarity == AttributeAssigner.Rarity.Legendary)
+        {
+            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = TooltipManager.Instance.legendaryBackgroundColor;
+        }
+    }
+
+    public AttributeAssigner.Rarity GetHighestAttributeRarity()
+    {
+        AttributeBase[] attributes = this.gameObject.GetComponents<AttributeBase>();
+        int highestRarity = (int) AttributeAssigner.Rarity.None;
+        foreach (AttributeBase attribute in attributes)
+        {
+            int attributeRating = (int) attribute.rating;
+            if (attributeRating > highestRarity)
+            {
+                highestRarity = attributeRating;
+            }
+        }
+
+        return (AttributeAssigner.Rarity) highestRarity;
     }
 
     void Update()
