@@ -33,7 +33,7 @@ public class LevelUpInitiate : MonoBehaviour, IInteractable
             playerController.DisableController();
             levelupmenu.SetActive(true);
             
-            hudController.FadeOutHUD();
+            hudController.FadeHUD(false);
 
             //This helps fix the bug where you could pause in the shop
             GlobalData.isAbleToPause = false;

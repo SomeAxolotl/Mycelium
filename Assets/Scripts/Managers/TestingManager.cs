@@ -203,12 +203,12 @@ public class TestingManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(true);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(false);
         }
 
         if (Input.GetKeyDown(KeyCode.Slash))

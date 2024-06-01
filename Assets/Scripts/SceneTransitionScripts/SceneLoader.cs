@@ -51,7 +51,7 @@ public class SceneLoader : MonoBehaviour
     //SceneUtility and SceneManager stuff
     private int totalSceneCount;
 
-    public Action OnTitleCardFinished;
+    public Action<bool> OnTitleCardFinished;
 
     private void Awake()
     {
@@ -119,7 +119,7 @@ public class SceneLoader : MonoBehaviour
 
         if (GameObject.Find("HUD") != null)
         {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(false);
         }
 
         if (doGoodTransition == true)
@@ -148,7 +148,7 @@ public class SceneLoader : MonoBehaviour
 
         if (GameObject.Find("HUD") != null)
         {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(false);
         }
 
         if (doGoodTransition == true)
@@ -167,7 +167,7 @@ public class SceneLoader : MonoBehaviour
 
         if (GameObject.Find("HUD") != null)
         {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(false);
         }
 
          StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime, notificationText));
@@ -189,7 +189,7 @@ public class SceneLoader : MonoBehaviour
 
         if (GameObject.Find("HUD") != null)
         {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeOutHUD();
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(false);
         }
 
         StartCoroutine(LoadSceneGood(sceneIndex, defaultTransitionTime, notificationText));
@@ -260,7 +260,7 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSecondsRealtime(titleFadoutTime);
         yield return StartCoroutine(FadeCanvasOut(titleCanvasGroup, transitionTime));
 
-        OnTitleCardFinished?.Invoke();
+        OnTitleCardFinished?.Invoke(true);
     }
 
     IEnumerator LoadSceneGood(int sceneIndex, float transitionTime)

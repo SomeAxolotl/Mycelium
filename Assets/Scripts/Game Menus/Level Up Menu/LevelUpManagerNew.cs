@@ -716,7 +716,7 @@ public class LevelUpManagerNew : MonoBehaviour
       playerhealth.GetHealthStats();
       playerhealth.currentHealth = playerhealth.maxHealth;
       UIenable.SetActive(false);
-      hudController.FadeInHUD();
+      hudController.FadeHUD(true);
       hudSkills.UpdateHUDIcons();
       currentstats.UpdateLevel();
       playerController.EnableController();
@@ -755,7 +755,7 @@ public class LevelUpManagerNew : MonoBehaviour
       currentstats.levelUpCost = levelupsave;
       currentstats.UpdateLevel();
       UIenable.SetActive(false);
-      hudController.FadeInHUD();
+      hudController.FadeHUD(true);
       hudSkills.UpdateHUDIcons();
       hudNutrients.UpdateNutrientsUI(nutrientsSave);
 

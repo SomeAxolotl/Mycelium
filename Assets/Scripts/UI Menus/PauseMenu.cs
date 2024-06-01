@@ -98,7 +98,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
         confirmMenu.SetActive(false);
-        HUD.GetComponent<HUDController>().FadeInHUD();
+        HUD.GetComponent<HUDController>().FadeHUD(true);
         unpausedSnapshot.TransitionTo(muffleTransitionTime);
         GlobalData.currentAudioMixerSnapshot = unpausedSnapshot;
         Time.timeScale = 1f;
@@ -120,7 +120,7 @@ public class PauseMenu : MonoBehaviour
 
             SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform);
             pauseMenu.SetActive(true);
-            HUD.GetComponent<HUDController>().FadeOutHUD();
+            HUD.GetComponent<HUDController>().FadeHUD(false);
             pausedSnapshot.TransitionTo(muffleTransitionTime);
             GlobalData.currentAudioMixerSnapshot = pausedSnapshot;
             Time.timeScale = 0f;

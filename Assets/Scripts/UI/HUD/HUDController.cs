@@ -8,9 +8,13 @@ public class HUDController : MonoBehaviour
 {
     [SerializeField] private float hudFadeTransitionTime = 0.25f;
     [SerializeField] private float slideTransitionTime = 0.25f;
+    [SerializeField] private float blackCanvasFadeTransitionTime = 0.25f;
 
     Coroutine currentFadeCoroutine = null;
     Coroutine currentSlideCoroutine = null;
+    Coroutine currentBlackFadeCoroutine = null;
+
+    [SerializeField] CanvasGroup blackCanvasGroup;
 
     public void SlideHUDElement(RectTransform element, RectTransform toTarget)
     {
@@ -30,11 +34,11 @@ public class HUDController : MonoBehaviour
     {
         yield return null;
 
-        SceneLoader.Instance.OnTitleCardFinished += FadeInHUD;
+        SceneLoader.Instance.OnTitleCardFinished += FadeHUD;
     }
     void OnDisable()
     {
-        SceneLoader.Instance.OnTitleCardFinished -= FadeInHUD;
+        SceneLoader.Instance.OnTitleCardFinished -= FadeHUD;
     }
 
     IEnumerator SlideHUDElementCoroutine(RectTransform element, RectTransform toTarget)
@@ -57,7 +61,7 @@ public class HUDController : MonoBehaviour
     }
 
 
-    public void FadeInHUD()
+    public void FadeHUD(bool doesFadeIn)
     {
         CanvasGroup hudCanvasGroup = GetComponent<CanvasGroup>();
 
@@ -66,79 +70,70 @@ public class HUDController : MonoBehaviour
             StopCoroutine(currentFadeCoroutine);
         }
 
-        currentFadeCoroutine = StartCoroutine(FadeCanvasIn(hudCanvasGroup, hudFadeTransitionTime));
+        currentFadeCoroutine = StartCoroutine(FadeCanvas(hudCanvasGroup, doesFadeIn, hudFadeTransitionTime));
     }
 
-    public void FadeOutHUD()
+    public void BlackFade(bool doesFadeIn)
     {
-        CanvasGroup hudCanvasGroup = GetComponent<CanvasGroup>();
-
-        if (currentFadeCoroutine != null)
+        if (currentBlackFadeCoroutine != null)
         {
-            StopCoroutine(currentFadeCoroutine);
+            StopCoroutine(currentBlackFadeCoroutine);
         }
-        
-        currentFadeCoroutine = StartCoroutine(FadeCanvasOut(hudCanvasGroup, hudFadeTransitionTime));
+
+        currentBlackFadeCoroutine = StartCoroutine(FadeCanvas(blackCanvasGroup, doesFadeIn, blackCanvasFadeTransitionTime));
     }
 
-    IEnumerator FadeCanvasIn(CanvasGroup canvasGroup, float transitionTime)
+    IEnumerator FadeCanvas(CanvasGroup canvasGroup, bool doesFadeIn, float transitionTime)
     {
-        float elapsedTime = 0f;
-        float t = 0f;
-
-        float currentCanvasAlpha = canvasGroup.alpha;
-
-        canvasGroup.blocksRaycasts = false;
-        canvasGroup.interactable = false;
-
-        while (elapsedTime < transitionTime)
+        if (doesFadeIn)
         {
-            t = elapsedTime / transitionTime;
+            float elapsedTime = 0f;
+            float t = 0f;
 
-            canvasGroup.alpha = Mathf.Lerp(currentCanvasAlpha, 1f, t);
+            float currentCanvasAlpha = canvasGroup.alpha;
 
-            elapsedTime += Time.unscaledDeltaTime;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
 
-            yield return null;
+            while (elapsedTime < transitionTime)
+            {
+                t = elapsedTime / transitionTime;
+
+                canvasGroup.alpha = Mathf.Lerp(currentCanvasAlpha, 1f, t);
+
+                elapsedTime += Time.unscaledDeltaTime;
+
+                yield return null;
+            }
+
+            canvasGroup.alpha = 1f;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
         }
-
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.interactable = true;
-
-        /*try
+        else
         {
-            GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>().Resume();
+            float elapsedTime = 0f;
+            float t = 0f;
+
+            float currentCanvasAlpha = canvasGroup.alpha;
+
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
+
+            while (elapsedTime < transitionTime)
+            {
+                t = elapsedTime / transitionTime;
+
+                canvasGroup.alpha = Mathf.Lerp(currentCanvasAlpha, 0f, t);
+
+                elapsedTime += Time.unscaledDeltaTime;
+
+                yield return null;
+            }
+
+            canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
         }
-        catch
-        {
-            
-        }*/
-    }
-
-    IEnumerator FadeCanvasOut(CanvasGroup canvasGroup, float transitionTime)
-    {
-        float elapsedTime = 0f;
-        float t = 0f;
-
-        float currentCanvasAlpha = canvasGroup.alpha;
-
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.interactable = true;
-
-        while (elapsedTime < transitionTime)
-        {
-            t = elapsedTime / transitionTime;
-
-            canvasGroup.alpha = Mathf.Lerp(currentCanvasAlpha, 0f, t);
-
-            elapsedTime += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
-
-        canvasGroup.alpha = 0f;
-        canvasGroup.blocksRaycasts = false;
-        canvasGroup.interactable = false;
     }
 }

@@ -8,7 +8,7 @@ public class HUDFader : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer")
         {
-            GameObject.Find("HUD").GetComponent<HUDController>().FadeInHUD();
+            GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(true);
         }
     }
 }

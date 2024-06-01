@@ -39,7 +39,7 @@ public class CharSelectManagerNew : MonoBehaviour
         playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
         playerController.DisableController();
         startButton.Select();
-        HUD.GetComponent<HUDController>().FadeOutHUD();
+        HUD.GetComponent<HUDController>().FadeHUD(false);
         controls.UI.Close.performed += ctx => Close();
         controls.Enable();
     }
@@ -54,7 +54,7 @@ public class CharSelectManagerNew : MonoBehaviour
         playerController.EnableController();
         UIEnable.SetActive(false);
         GlobalData.isAbleToPause = true;
-        HUD.GetComponent<HUDController>().FadeInHUD();
+        HUD.GetComponent<HUDController>().FadeHUD(true);
     }
     public void StartGame()
     {

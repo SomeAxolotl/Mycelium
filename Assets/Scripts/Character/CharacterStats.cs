@@ -110,7 +110,7 @@ public class CharacterStats : MonoBehaviour
         SceneLoader.Instance.OnTitleCardFinished -= CheckForSweat;
     }
 
-    public void CheckForSweat()
+    public void CheckForSweat(bool uselessVariable)
     {
         if (sporeEnergy <= 0 && SceneManager.GetActiveScene().name == "The Carcass")
         {
