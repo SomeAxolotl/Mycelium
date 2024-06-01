@@ -18,12 +18,24 @@ public class ForgeShroom : MonoBehaviour, IInteractable
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject playerParent;
     private GameObject currentWeapon;
-    // Lists to track the rarities of salvaged weapons
-    private List<AttributeAssigner.Rarity> salvagedWeaponRarities = new List<AttributeAssigner.Rarity>();
-
+    public GameObject baseWeaponPrefab; // Prefab of the base weapon
+    private List<GameObject> depositedWeapons = new List<GameObject>();
+    // Public GameObject for the cache location
+    public GameObject cacheLocation;
+    private Dictionary<string, string> weaponResourcePaths = new Dictionary<string, string>
+    {
+        { "AvocadoFlamberge", "Slash/AvocadoFlamberge" },
+        { "ObsidianScimitar", "Slash/ObsidianScimitar" },
+        { "MandibleSickle", "Slash/MandibleSickle" },
+        { "RoseMace", "Smash/RoseMace" },
+        { "GeodeHammer", "Smash/GeodeHammer" },
+        { "FemurClub", "Smash/FemurClub" },
+        { "BambooPartisan", "Stab/BambooPartisan" },
+        { "OpalRapier", "Stab/OpalRapier" },
+        { "CarpalSais", "Stab/CarpalSais" }
+    };
     void Start()
     {
-   
         designTracker = GetComponent<DesignTracker>();
         swap = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
         player = GameObject.FindWithTag("currentPlayer");
@@ -56,72 +68,91 @@ public class ForgeShroom : MonoBehaviour, IInteractable
 
         if (currentWeapon != null)
         {
-            AttributeBase weaponAttribute = currentWeapon.GetComponent<AttributeBase>();
-            if (weaponAttribute != null)
-            {
-                salvagedWeaponRarities.Add(weaponAttribute.rating);
-            }
-            
             salvagedWeapons++;
             Debug.Log("Deposited " + currentWeapon.name + " to the Forge Shroom!");
 
-            // Check if all weapons have been salvaged
-            if (salvagedWeapons < totalWeaponsNeeded)
+            if (salvagedWeapons == 1)
             {
-                RemoveHeldWeapon();
+                // Set the base weapon type for the reward
+                SetBaseRewardWeapon(currentWeapon);
             }
-            else if (salvagedWeapons == totalWeaponsNeeded)
+            else if (salvagedWeapons == 2)
             {
+                // Add the first attribute of the second weapon to the reward
+                AddAttributeToRewardWeapon(currentWeapon, 0);
+            }
+            else if (salvagedWeapons == 3)
+            {
+                // Add the second attribute of the third weapon to the reward
+                AddAttributeToRewardWeapon(currentWeapon, 0);
                 weaponGoalReached = true;
                 ProvideWeaponReward();
             }
 
-        }
-        else
-        {
-            Debug.Log("No weapon held by the player.");
-        }
-             
-    }
-    private void RemoveHeldWeapon()
-    {
-        // Check if the player is holding a weapon
-        if (currentWeapon != null)
-        {
-            playerParent = player.transform.parent.gameObject;
-            swap = playerParent.GetComponent<SwapWeapon>();
-
-            // Instantiate a new weapon of common rarity
-            GameObject randomWeapon = Instantiate(Resources.Load(RandomWeapon()), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
-            if (randomWeapon.GetComponent<WeaponStats>().wpnName != "Stick")
+            if (salvagedWeapons <= totalWeaponsNeeded)
             {
-                randomWeapon.transform.localScale = randomWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
+                ParentHeldWeapon();
+                // Provide a stick weapon to the player
+                GiveStickWeapon();
             }
-            randomWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
-            //AttributeAssigner.Instance.AssignCommonAttribute(randomWeapon); // Ensure the weapon is always common rarity
-            randomWeapon.layer = LayerMask.NameToLayer("currentWeapon");
-            randomWeapon.GetComponent<Collider>().enabled = false;
-            currentWeapon.gameObject.tag = "Weapon";
-            randomWeapon.tag = "currentWeapon";
-            StartCoroutine(SetPreviousWeaponStats(randomWeapon));
         }
         else
         {
             Debug.Log("No weapon held by the player.");
         }
     }
-    IEnumerator SetPreviousWeaponStats(GameObject randomWeapon)
+    private void SetBaseRewardWeapon(GameObject weapon)
     {
-        yield return 0; // Wait for one frame to ensure the object is properly initialized
-        Destroy(currentWeapon);
-        if (randomWeapon != null)
+        string weaponName = weapon.name.Replace("(Clone)", "").Trim();
+        if (weaponResourcePaths.TryGetValue(weaponName, out string resourcePath))
         {
-            var weaponInteraction = randomWeapon.GetComponent<WeaponInteraction>();
+            baseWeaponPrefab = Resources.Load<GameObject>(resourcePath);
+
+            if (baseWeaponPrefab == null)
+            {
+                Debug.LogError("Base weapon prefab not found in Resources: " + resourcePath);
+            }
+            else
+            {
+                depositedWeapons.Add(weapon);
+                Debug.Log("Base weapon set: " + baseWeaponPrefab.name);
+            }
+        }
+        else
+        {
+            Debug.LogError("Weapon name not found in resource paths: " + weaponName);
+        }
+    }
+    private void AddAttributeToRewardWeapon(GameObject weapon, int attributeIndex)
+    {
+        // Get the attribute at the specified index
+        AttributeBase[] attributes = weapon.GetComponents<AttributeBase>();
+        if (attributes.Length > attributeIndex)
+        {
+            string attributeName = attributes[attributeIndex].GetType().Name;
+            depositedWeapons.Add(weapon);
+            Debug.Log("Attribute added: " + attributeName);
+        }
+    }
+    
+    IEnumerator SetPreviousWeaponStats(GameObject rewardWeapon)
+    {
+        yield return 0;
+        Destroy(currentWeapon);
+        if (rewardWeapon != null)
+        {
+            var weaponInteraction = rewardWeapon.GetComponent<WeaponInteraction>();
             if (weaponInteraction != null)
             {
                 weaponInteraction.ApplyWeaponPositionAndRotation();
             }
         }
+
+        // Swap the current weapon with the reward weapon
+       /* if (playerParent != null && swap != null)
+        {
+            swap.SwapCurrentWeapon(rewardWeapon);
+        }*/
     }
     IEnumerator SetRewardWeaponStats(GameObject rewardWeapon)
     {
@@ -134,38 +165,6 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             {
                 weaponInteraction.ApplyWeaponPositionAndRotation();
             }
-        }
-    }
-    private string RandomWeapon()
-    {
-        
-                return "Slash/Stick";
-        
-    }
-    private string RandomRewardWeapon()
-    {
-        switch (Random.Range(0, 8))
-        {
-            case 0:
-                return "Slash/AvocadoFlamberge";
-            case 1:
-                return "Slash/ObsidianScimitar";
-            case 2:
-                return "Slash/MandibleSickle";
-            case 3:
-                return "Smash/RoseMace";
-            case 4:
-                return "Smash/GeodeHammer";
-            case 5:
-                return "Smash/FemurClub";
-            case 6:
-                return "Stab/BambooPartisan";
-            case 7:
-                return "Stab/OpalRapier";
-            case 8:
-                return "Stab/CarpalSais";
-            default:
-                return "Slash/Stick";
         }
     }
     public void Salvage(GameObject interactObject)
@@ -202,55 +201,84 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             null // rarity
         );
     }
-    private void ProvideWeaponReward()
+    private void ParentHeldWeapon()
     {
-        // Calculate the probabilities based on the provided rarities
-        float commonCount = salvagedWeaponRarities.Count(r => r == AttributeAssigner.Rarity.Common);
-        float rareCount = salvagedWeaponRarities.Count(r => r == AttributeAssigner.Rarity.Rare);
-        float legendaryCount = salvagedWeaponRarities.Count(r => r == AttributeAssigner.Rarity.Legendary);
-
-        float totalWeapons = salvagedWeaponRarities.Count;
-        float commonChance = (commonCount / totalWeapons) * 10f; // 10%
-        float rareChance = (rareCount / totalWeapons) * 20f; // 20%
-        float legendaryChance = (legendaryCount / totalWeapons) * 50f; // 50%
-
-        // Normalize the chances
-        float totalChance = commonChance + rareChance + legendaryChance;
-        commonChance /= totalChance;
-        rareChance /= totalChance;
-        legendaryChance /= totalChance;
-
-        // Determine the rarity of the reward
-        float randomValue = UnityEngine.Random.Range(0f, 1f);
-        AttributeAssigner.Rarity rewardRarity;
-        if (randomValue <= commonChance)
+        if (currentWeapon != null)
         {
-            rewardRarity = AttributeAssigner.Rarity.Common;
-        }
-        else if (randomValue - commonChance <= rareChance)
-        {
-            rewardRarity = AttributeAssigner.Rarity.Rare;
+            // Parent the current weapon to the ForgeShroom
+            currentWeapon.transform.SetParent(this.transform);
+            currentWeapon.tag = "Untagged"; // Remove the currentWeapon tag
+            currentWeapon.SetActive(false); // Optionally deactivate the weapon
+            currentWeapon = null; // Clear the currentWeapon reference
         }
         else
         {
-            rewardRarity = AttributeAssigner.Rarity.Legendary;
+            Debug.Log("No weapon held by the player.");
         }
-
-        // Instantiate a new weapon of the determined rarity
-        GameObject rewardWeapon = Instantiate(Resources.Load(RandomRewardWeapon()), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
-        if (rewardWeapon.GetComponent<WeaponStats>().wpnName != "Stick")
+    }
+    private void GiveStickWeapon()
+    {
+        // Instantiate a stick weapon and give it to the player
+        GameObject stickWeapon = Instantiate(Resources.Load("Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+        stickWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
+        stickWeapon.layer = LayerMask.NameToLayer("currentWeapon");
+        stickWeapon.GetComponent<Collider>().enabled = false;
+        stickWeapon.tag = "currentWeapon";
+        StartCoroutine(SetStickWeaponStats(stickWeapon));
+    }
+    IEnumerator SetStickWeaponStats(GameObject stickWeapon)
+    {
+        yield return 0; // Wait for one frame to ensure the object is properly initialized
+        if (stickWeapon != null)
         {
-            rewardWeapon.transform.localScale = rewardWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
+            var weaponInteraction = stickWeapon.GetComponent<WeaponInteraction>();
+            if (weaponInteraction != null)
+            {
+                weaponInteraction.ApplyWeaponPositionAndRotation();
+            }
         }
-        rewardWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
-        AttributeAssigner.Instance.AssignAttributeOfRarity(rewardWeapon, rewardRarity);
-        rewardWeapon.layer = LayerMask.NameToLayer("currentWeapon");
-        rewardWeapon.GetComponent<Collider>().enabled = false;
-        currentWeapon.gameObject.tag = "Weapon";
-        rewardWeapon.tag = "currentWeapon";
-        StartCoroutine(SetRewardWeaponStats(rewardWeapon));
+    }
+    private void ProvideWeaponReward()
+    {
+        if (baseWeaponPrefab != null && cacheLocation != null)
+        {
+            GameObject rewardWeapon = Instantiate(baseWeaponPrefab, cacheLocation.transform.position, Quaternion.identity);
 
-        Debug.Log("All weapons salvaged! Providing reward of rarity: " + rewardRarity);
+            // Ensure no extra attributes are present on instantiation
+            AttributeBase[] existingAttributes = rewardWeapon.GetComponents<AttributeBase>();
+            foreach (AttributeBase attribute in existingAttributes)
+            {
+                Destroy(attribute);
+            }
+
+            // Add the collected attributes to the reward weapon
+            if (depositedWeapons.Count > 1)
+            {
+                AddCollectedAttributeToWeapon(rewardWeapon, depositedWeapons[1], 0);
+            }
+
+            if (depositedWeapons.Count > 2)
+            {
+                AddCollectedAttributeToWeapon(rewardWeapon, depositedWeapons[2], 0);
+            }
+
+            rewardWeapon.GetComponent<WeaponStats>().acceptingAttribute = false; // Enable accepting new attributes if needed
+
+            Debug.Log("Reward weapon instantiated at the cache location.");
+        }
+        else
+        {
+            Debug.LogError("Base weapon prefab or cache location is not set.");
+        }
+    }
+    private void AddCollectedAttributeToWeapon(GameObject rewardWeapon, GameObject sourceWeapon, int attributeIndex)
+    {
+        AttributeBase[] attributes = sourceWeapon.GetComponents<AttributeBase>();
+        if (attributes.Length > attributeIndex)
+        {
+            string attributeName = attributes[attributeIndex].GetType().Name;
+            AttributeAssigner.Instance.PickAttFromString(rewardWeapon, attributeName);
+        }
     }
     public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)
     {
