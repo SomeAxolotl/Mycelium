@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
         None,
     }
     [SerializeField] ActivateTypes activateType = ActivateTypes.Start;
-    enum SpawnTypes
+    public enum SpawnTypes
     {
         All,
         Interval,
@@ -26,10 +26,13 @@ public class EnemySpawner : MonoBehaviour
     }
     [SerializeField] SpawnTypes spawnType = SpawnTypes.All;
 
+    [Header("General Settings")]
     [SerializeField][Tooltip("How far from the center of the spawner enemies will poop out")] float spawnRadius = 5f;
-    [SerializeField] int maxEnemies = 5;
-    [SerializeField] float spawnDelay = 0f;
-    [SerializeField][Tooltip("Only used with Interval and Indefinite ActivateTypes")] float intervalAmount = 3f; 
+    [SerializeField][Tooltip("How long after Activated until enemies are spawned. 0 is no delay")] float spawnDelay = 0f;
+
+    [Header("Spawn Settings")]
+    [SerializeField][Tooltip("How many enemies to spawn, OR how many to pause at for indefinite")] int maxEnemies = 5;
+    [HideInInspector][SerializeField][Tooltip("How long after a spawn until the next")] float intervalAmount = 3f; 
     
     float popDuration = 0.25f;
 
@@ -193,5 +196,34 @@ public class EnemySpawner : MonoBehaviour
         [SerializeField]public GameObject prefab;
         [SerializeField][Min(0f)] public float weight;
     }
-
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(EnemySpawner))]
+public class EnemySpawnerEditor : Editor
+{
+    SerializedProperty spawnerType;
+
+    SerializedProperty intervalAmount;
+
+    void OnEnable()
+    {
+        spawnerType = serializedObject.FindProperty("spawnType");
+        intervalAmount = serializedObject.FindProperty("intervalAmount");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        base.OnInspectorGUI();
+
+        if (spawnerType.enumValueIndex == (int) EnemySpawner.SpawnTypes.Interval || spawnerType.enumValueIndex == (int) EnemySpawner.SpawnTypes.Indefinite)
+        {
+            EditorGUILayout.PropertyField(intervalAmount);
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+#endif
