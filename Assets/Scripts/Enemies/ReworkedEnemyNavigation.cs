@@ -1,5 +1,7 @@
+using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,6 +13,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
     private float patrolRadius = 20f;
     private float speed;
     private float rerouteTimer;
+    private Vector3 origin;
     private Vector3 previousPosition;
     private Collider[] playerColliders;
     public LayerMask playerLayer;
@@ -22,11 +25,11 @@ public class ReworkedEnemyNavigation : MonoBehaviour
     [SerializeField] private float forwardDetectionRange = 25f;
     [SerializeField] private float backwardsDetectionRange = 15f;
     public float moveSpeed = 3f;
+    [SerializeField] private bool isFlyingEnemy;
     private float gravityForce = -10;
     private float maxRotationSpeed = 200f;
     Vector3 gravity;
     [HideInInspector] public Animator animator;
-    //public bool undergrowthSpeed;
     Rigidbody rb;
     private List<Vector3> waypoints = new List<Vector3>();
 
@@ -39,6 +42,8 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
         gravity = new Vector3(0f, gravityForce, 0f);
+        rb.useGravity = !isFlyingEnemy;
+        origin = transform.position;
     }
 
     // Update is called once per frame
@@ -71,7 +76,14 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         
         if (!startedPatrol && !playerSeen)
         {
-            SetRandomDestination();
+            if (!isFlyingEnemy)
+            {
+                SetRandomDestination();
+            }
+            else if (isFlyingEnemy)
+            {
+                SetRandomFlyingDestination();
+            }
         }
 
         if (speed < 1f && !playerSeen)
@@ -86,15 +98,32 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         if (rerouteTimer > .5f)
         {
             waypoints.Clear();
-            SetRandomDestination();
-            rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
+            if(!isFlyingEnemy)
+            {
+                SetRandomDestination();
+                rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
+            }
+            else if(isFlyingEnemy)
+            { 
+                SetRandomFlyingDestination();
+            }
             rerouteTimer = 0f;
         }
     }
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        rb.AddForce(gravity, ForceMode.Acceleration);
-
+        if (!isFlyingEnemy)
+        {
+            rb.AddForce(gravity, ForceMode.Acceleration);
+            GroundEnemyNavigation();
+        }
+        else if (isFlyingEnemy)
+        {
+            FlyingEnemyNavigation();
+        }
+    }
+    void GroundEnemyNavigation()
+    {
         if (startedPatrol && !playerSeen && waypoints.Count > 0)
         {
             Vector3 nextWaypoint = waypoints[0];
@@ -128,6 +157,31 @@ public class ReworkedEnemyNavigation : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * maxRotationSpeed);
         }
     }
+    void FlyingEnemyNavigation()
+    {
+        if (startedPatrol && !playerSeen && waypoints.Count > 0)
+        {
+            Vector3 targetPosition = waypoints[0];
+            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+            if (distanceToTarget <= 1f)
+            {
+                startedPatrol = false;
+            }
+            else
+            {
+                Vector3 moveDirection = ObstacleAvoidance(targetPosition - transform.position);
+                rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
+
+                Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
+                float desiredYRotation = desiredRotation.eulerAngles.y;
+                Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
+                float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
+                float maxAngleThisFrame = maxRotationSpeed * Time.fixedDeltaTime;
+                float fractionOfTurn = Mathf.Min(maxAngleThisFrame / angleToTarget, 1f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, fractionOfTurn);
+            }
+        }
+    }
     Vector3 ObstacleAvoidance(Vector3 desiredDirection)
     {
         Vector3 moveDirection = desiredDirection.normalized;
@@ -136,8 +190,15 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         if (Physics.Raycast(center.position, transform.forward, out hit, 3f, obstacleLayer) && speed <= .5f)
         {
             waypoints.Clear();
-            SetRandomDestination();
-            rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
+            if (!isFlyingEnemy)
+            {
+                SetRandomDestination();
+                rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
+            }
+            else if (isFlyingEnemy)
+            {
+                SetRandomFlyingDestination();
+            }
             rerouteTimer = 0f;
         }
         else if (Physics.Raycast(center.position, transform.forward, out hit, 3f, obstacleLayer) && speed > .5f)
@@ -181,6 +242,37 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         {
             result = Vector3.zero;
             return false;
+        }
+    }
+    void SetRandomFlyingDestination()
+    {
+        Vector3 target;
+        if (RandomFlyingPoint(out target))
+        {
+            waypoints.Clear();
+            waypoints.Add(target);
+            startedPatrol = true;
+            //Debug.DrawLine(transform.position, target, UnityEngine.Color.green, 2f);
+            //Debug.Log("target: " + target);
+        }
+    }
+    bool RandomFlyingPoint(out Vector3 result)
+    {
+        Vector2 randomPoint = Random.insideUnitCircle * patrolRadius;
+        Vector3 worldPoint = origin + new Vector3(randomPoint.x, 0, randomPoint.y);
+
+        if(Physics.Raycast(worldPoint, Vector3.forward, 3f, enviromentLayer) || 
+           Physics.Raycast(worldPoint, Vector3.back, 3f, enviromentLayer) || 
+           Physics.Raycast(worldPoint, Vector3.right, 3f, enviromentLayer) || 
+           Physics.Raycast(worldPoint, Vector3.left, 3f, enviromentLayer))
+        {
+            result = Vector3.zero;
+            return false;
+        }
+        else
+        {
+            result = worldPoint;
+            return true;
         }
     }
 }

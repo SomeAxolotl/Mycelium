@@ -20,6 +20,7 @@ public class ZombifiedMovement : MonoBehaviour
     private float moveSpeed = 2f;
     private float maxRotationSpeed = 200f;
     private float gravityForce = -10;
+    [SerializeField] private bool isFlyingEnemy;
     Vector3 gravity;
     private Vector3 moveDirection;
     private Color newColor = Color.gray;
@@ -32,6 +33,7 @@ public class ZombifiedMovement : MonoBehaviour
         player = GameObject.FindWithTag("currentPlayer").transform;
         rb = GetComponent<Rigidbody>();
         gravity = new Vector3(0f, gravityForce, 0f);
+        rb.useGravity = isFlyingEnemy;
         Instantiate(zombifiedParticles, center.position, Quaternion.Euler(-90f, 0f, 0f), gameObject.transform);
         StartCoroutine(ExplosionCountdown());
         renderers = GetComponentsInChildren<Renderer>();
@@ -44,8 +46,10 @@ public class ZombifiedMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddForce(gravity, ForceMode.Acceleration);
-
+        if (!isFlyingEnemy)
+        {
+            rb.AddForce(gravity, ForceMode.Acceleration);
+        }
         if (GetClosestEnemy() != null)
         {
             moveDirection = ObstacleAvoidance(GetClosestEnemy().transform.position - transform.position);
