@@ -44,6 +44,9 @@ public class WeatherSettingsScript : MonoBehaviour
     {
         Shader.SetGlobalFloat("_GlobalWindMultiplier", windIntensity);
         Shader.SetGlobalFloat("_GlobalWindAngle", windDirection);
+
+        Vector3 newRotation = new Vector3(transform.rotation.eulerAngles.x, windDirection, transform.rotation.eulerAngles.z);
+        transform.rotation = Quaternion.Euler(newRotation);
     }
 }
 
