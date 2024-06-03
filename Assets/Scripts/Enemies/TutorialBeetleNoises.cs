@@ -11,7 +11,8 @@ public class TutorialBeetleNoises : MonoBehaviour
     {
         while (!IsNearPlayer() && GlobalData.isAbleToPause)
         {
-            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform, 0, GetComponent<BeetleAnimationEvents>().GetPitchMultiplier());
+            BeetleAnimationEvents beetleAnimationEvents = GetComponent<BeetleAnimationEvents>();
+            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform, beetleAnimationEvents.GetVolumeModifier(), beetleAnimationEvents.GetPitchMultiplier());
             Debug.Log("playing beetle sound");
             yield return new WaitForSeconds(noiseInterval);
         }

@@ -110,7 +110,8 @@ public class CharacterStats : MonoBehaviour
         SceneLoader.Instance.OnTitleCardFinished -= CheckForSweat;
     }
 
-    public void CheckForSweat(bool uselessVariable)
+    //Useless variables since I want this function to subscribe to the OnTitleCardFinished action but it doesn't care about the delegate type
+    public void CheckForSweat(bool uselessBool, float uselessFloat)
     {
         if (sporeEnergy <= 0 && SceneManager.GetActiveScene().name == "The Carcass")
         {

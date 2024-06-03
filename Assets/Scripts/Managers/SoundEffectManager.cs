@@ -25,7 +25,7 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private List<SoundEffect> soundEffects;
 
     //Overload that DOESNT child the sound (it WONT follow the object)
-    public void PlaySound(string clipName, Vector3 position, float volumeModifier = 0f, float pitchMultiplier = 1f, float maxDistance = 50f)
+    public void PlaySound(string clipName, Vector3 position, float volumeModifier = 0f, float pitchMultiplier = 1f, float maxDistance = 25f)
     {   
         foreach (SoundEffect sfx in soundEffects)
         {

@@ -16,6 +16,11 @@ public class HUDController : MonoBehaviour
 
     [SerializeField] CanvasGroup blackCanvasGroup;
 
+    void Awake()
+    {
+        GetComponent<CanvasGroup>().alpha = 0f;
+    }
+
     public void SlideHUDElement(RectTransform element, RectTransform toTarget)
     {
         if (currentSlideCoroutine != null)
@@ -61,8 +66,13 @@ public class HUDController : MonoBehaviour
     }
 
 
-    public void FadeHUD(bool doesFadeIn)
+    public void FadeHUD(bool doesFadeIn, float transitionTime = -1f)
     {
+        if (transitionTime < 0)
+        {
+            transitionTime = hudFadeTransitionTime;
+        }
+
         CanvasGroup hudCanvasGroup = GetComponent<CanvasGroup>();
 
         if (currentFadeCoroutine != null)
@@ -70,17 +80,24 @@ public class HUDController : MonoBehaviour
             StopCoroutine(currentFadeCoroutine);
         }
 
-        currentFadeCoroutine = StartCoroutine(FadeCanvas(hudCanvasGroup, doesFadeIn, hudFadeTransitionTime));
+        currentFadeCoroutine = StartCoroutine(FadeCanvas(hudCanvasGroup, doesFadeIn, transitionTime));
     }
 
-    public void BlackFade(bool doesFadeIn)
+    public IEnumerator BlackFade(bool doesFadeIn, float transitionTime = -1f)
     {
+        if (transitionTime < 0)
+        {
+            transitionTime = blackCanvasFadeTransitionTime;
+        }
+
         if (currentBlackFadeCoroutine != null)
         {
             StopCoroutine(currentBlackFadeCoroutine);
         }
 
-        currentBlackFadeCoroutine = StartCoroutine(FadeCanvas(blackCanvasGroup, doesFadeIn, blackCanvasFadeTransitionTime));
+        currentBlackFadeCoroutine = StartCoroutine(FadeCanvas(blackCanvasGroup, doesFadeIn, transitionTime));
+
+        yield return currentBlackFadeCoroutine;
     }
 
     IEnumerator FadeCanvas(CanvasGroup canvasGroup, bool doesFadeIn, float transitionTime)
