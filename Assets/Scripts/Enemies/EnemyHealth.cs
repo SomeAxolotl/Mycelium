@@ -29,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
     public Action<float> TakeDamage;
     public float dmgTaken;
 
-    [HideInInspector][SerializeField] bool isMiniBoss = false;
+    [HideInInspector][SerializeField] public bool isMiniBoss = false;
     [HideInInspector] public string miniBossName = "";
     [HideInInspector][SerializeField] List<GameObject> possibleRewards = new List<GameObject>();
 
@@ -197,6 +197,15 @@ class EnemyHealthEditor : Editor
             EditorGUILayout.PropertyField(possibleRewards);
         }
         EditorGUI.indentLevel--;
+
+        EnemyHealth enemyHealth = (EnemyHealth)target;
+        Transform thisTransform = enemyHealth.transform;
+        EnemyHealthBar enemyHealthBar = thisTransform.GetComponentInChildren<EnemyHealthBar>();
+        if (enemyHealthBar != null)
+        {
+            enemyHealthBar.enemyHealthName.text = miniBossName.stringValue;
+            EditorUtility.SetDirty(enemyHealthBar.enemyHealthName);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }

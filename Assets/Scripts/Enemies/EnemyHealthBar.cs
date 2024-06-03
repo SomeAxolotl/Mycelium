@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class EnemyHealthBar : BaseEnemyHealthBar
 {
     [SerializeField] private Canvas enemyHealthCanvas;
     [SerializeField] private Image enemyHealthPanel;
     [SerializeField] private Color enemyHealthPanelDeathColor;
-    [SerializeField] private TMP_Text enemyHealthName;
+    public TMP_Text enemyHealthName;
     [SerializeField] private GameObject damageTextObject;
     private TMP_Text damageText;
     [SerializeField] private RectTransform damageTextAnchorRectTransform;
@@ -20,10 +24,18 @@ public class EnemyHealthBar : BaseEnemyHealthBar
 
     void Start()
     {
-        GetComponent<CanvasGroup>().alpha = 0f;
+        enemyHealthPanel.GetComponent<CanvasGroup>().alpha = 0f;
 
-        string enemyName = transform.parent.gameObject.GetComponent<EnemyHealth>().miniBossName;
-        enemyHealthName.text = enemyName;
+        EnemyHealth enemyHealth = transform.parent.gameObject.GetComponent<EnemyHealth>();
+        if (enemyHealth.isMiniBoss)
+        {
+            string enemyName = enemyHealth.miniBossName;
+            enemyHealthName.text = enemyName;
+        }
+        else
+        {
+            enemyHealthName.text = "";
+        }
 
         mainCamera = Camera.main;
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;
@@ -37,7 +49,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
 
         if (healthRatio < 1.0)
         {
-            GetComponent<CanvasGroup>().alpha = 1f;
+            enemyHealthPanel.GetComponent<CanvasGroup>().alpha = 1f;
         }
 
         enemyHealthBar.fillAmount = healthRatio;
