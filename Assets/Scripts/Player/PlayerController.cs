@@ -14,7 +14,11 @@ public class PlayerController : MonoBehaviour
 {
     public float baseDodgeCooldown = 3f;
     [SerializeField] float dodgeCooldownIncrement = -0.15f;
-    private float finalDodgeCooldown;
+    [SerializeField] private float finalDodgeCooldown;
+    [HideInInspector] public float O_finalDodgeCooldown{
+        get{return finalDodgeCooldown;}
+        set{finalDodgeCooldown = value;}
+    }
 
     private GameObject currentPlayer;
     public Rigidbody rb;
