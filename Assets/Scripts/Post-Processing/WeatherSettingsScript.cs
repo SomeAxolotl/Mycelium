@@ -9,21 +9,32 @@ using UnityEditor;
 public class WeatherSettingsScript : MonoBehaviour
 {
     [Header("Fog Settings")]
-    [SerializeField] [Min(0f)] [Tooltip("Default value is 0")] float whereFogStarts;
-    [SerializeField] [Min(0f)] [Tooltip("Default value is 10")] float whereFogReachesMax;
-    [SerializeField] [Range(0f,1f)] [Tooltip("Default value is 0.75")] float fogAlpha;
+    [SerializeField] [Min(0f)] [Tooltip("Default value is 0")] public float whereFogStarts;
+    [SerializeField] [Min(0f)] [Tooltip("Default value is 10")] public float whereFogReachesMax;
+    [SerializeField] [Range(0f,1f)] [Tooltip("Default value is 0.75")] public float fogAlpha;
 
     [SerializeField] [Tooltip("Default color is White")] Color fogColor;
 
     [Header("Wind Settings")]
 
-    [SerializeField] [Min(0f)] private float windIntensity = 1f;
-    [SerializeField] private float windDirection;
+    [SerializeField] [Min(0f)] public float windIntensity = 1f;
+    [SerializeField] public float windDirection;
+
+    [Header("Misc.")]
+    [SerializeField] public bool activateRain;
 
     private void Start()
     {
         UpdateFog();
         UpdateWind();
+
+        if(activateRain == true)
+        {
+            Vector3 spawnPosition = GameObject.FindWithTag("currentPlayer").transform.position;
+            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y + 15, spawnPosition.z);
+
+            ParticleManager.Instance.SpawnParticles("RainEffect", spawnPosition, Quaternion.Euler(0, 0, 0));
+        }
     }
 
     private void OnValidate()
