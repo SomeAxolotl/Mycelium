@@ -40,8 +40,7 @@ public class BossCam : MonoBehaviour
         mainBrain = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineBrain>();
         boss = GameObject.Find("Rival Colony Leader");
         bossAnimator = boss.GetComponent<Animator>();
-        bossHead = GameObject.Find("Rival Colony Leader").transform.Find("Armature.001").GetChild(0).GetChild(0).GetChild(0).GetChild(0);
-        
+        bossHead = boss.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0);
         introVCam.m_LookAt = bossHead;
         deathVCam.m_LookAt = bossHead;
 
