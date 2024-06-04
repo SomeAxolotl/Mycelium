@@ -5,9 +5,9 @@ using UnityEngine;
 public class Hazardous : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Hazardous";
         attDesc = "\nApply 25% vulnerable for 3 seconds";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

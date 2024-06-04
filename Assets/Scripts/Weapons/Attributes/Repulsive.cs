@@ -5,9 +5,9 @@ using UnityEngine;
 public class Repulsive : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Repulsive";
         attDesc = "\n150% damage converted to Poison";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
 

@@ -5,9 +5,9 @@ using UnityEngine;
 public class Agile : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Agile";
         attDesc = "\n<sprite="+1+"> +5";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

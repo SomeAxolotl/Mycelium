@@ -5,9 +5,9 @@ using UnityEngine;
 public class Heavy : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Heavy";
         attDesc = "\n25% slower, 50% stronger";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
 

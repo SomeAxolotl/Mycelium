@@ -8,9 +8,9 @@ public class Fragile : AttributeBase
     private Material whiteMat;
 
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Fragile";
         attDesc = "\n+50% Damage, chance to break";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
         specialAttNum = Random.Range(30, 40);
@@ -33,15 +33,7 @@ public class Fragile : AttributeBase
         hitSomething = false;
         if(specialAttNum <= 0){
             //Break weapon
-            playerParent = player.transform.parent.gameObject;
-            swap = playerParent.GetComponent<SwapWeapon>();
-            GameObject startingWeapon = Instantiate(Resources.Load("Daybreak Arboretum/Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
-            startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
-            startingWeapon.GetComponent<Collider>().enabled = false;
-            swap.curWeapon = startingWeapon;
-            Destroy(gameObject);
-            //Particles?
-            //Play sound?
+            NewWeapon();
         }
     }
     public void OnDestroy(){
@@ -59,6 +51,29 @@ public class Fragile : AttributeBase
             //mat.Lerp(mat, whiteMat, 0);
             wepRen.materials = new Material[]{whiteMat};
         }
-        
+    }
+
+    public void NewWeapon(){
+        playerParent = player.transform.parent.gameObject;
+        swap = playerParent.GetComponent<SwapWeapon>();
+        //Weapon you want to give goes in the first part
+        GameObject randomWeapon = Instantiate(Resources.Load("Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+        if(randomWeapon.GetComponent<WeaponStats>().wpnName != "Stick"){
+            randomWeapon.transform.localScale = randomWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
+        }
+        randomWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
+        randomWeapon.layer = LayerMask.NameToLayer("currentWeapon");
+        randomWeapon.GetComponent<Collider>().enabled = false;
+        gameObject.tag = "Weapon";
+        randomWeapon.tag = "currentWeapon";
+        StartCoroutine(SetPreviousWeaponStats(randomWeapon));
+    }
+
+    //Has to wait a frame for things to initialize
+    IEnumerator SetPreviousWeaponStats(GameObject randomWeapon){
+        //Next frame do these things
+        yield return 0;
+        Destroy(gameObject);
+        randomWeapon.GetComponent<WeaponInteraction>().ApplyWeaponPositionAndRotation();
     }
 }

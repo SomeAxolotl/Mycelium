@@ -7,9 +7,9 @@ public class Massive : AttributeBase
     private float newSize = 1.5f;
 
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Massive";
         attDesc = "\n50% larger";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
 

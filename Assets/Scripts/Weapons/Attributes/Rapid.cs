@@ -5,9 +5,9 @@ using UnityEngine;
 public class Rapid : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Rapid";
         attDesc = "\nDouble attack speed, half damage";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
 

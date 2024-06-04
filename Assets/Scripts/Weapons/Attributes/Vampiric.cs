@@ -7,9 +7,9 @@ public class Vampiric : AttributeBase
     PlayerHealth health;
 
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Vampiric";
         attDesc = "\nHeal 15% of damage dealt";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

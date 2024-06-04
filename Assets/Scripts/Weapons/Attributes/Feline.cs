@@ -6,9 +6,9 @@ public class Feline : AttributeBase
 {
     public override void Initialize()
     {
-        if(stats == null || hit == null){return;}
         attName = "Feline";
         attDesc = "\nmeow";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

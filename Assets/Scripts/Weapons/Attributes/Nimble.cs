@@ -7,9 +7,9 @@ public class Nimble : AttributeBase
     private bool hitSomething = false;
 
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Nimble";
         attDesc = "\nMove faster after hitting enemies";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

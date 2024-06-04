@@ -7,9 +7,9 @@ public class Resourceful : AttributeBase
     PlayerHealth health;
 
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Resourceful";
         attDesc = "\nGain buffs from salvaging";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

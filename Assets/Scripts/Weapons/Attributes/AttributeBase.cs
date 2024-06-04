@@ -15,7 +15,7 @@ public class AttributeBase : MonoBehaviour
     [HideInInspector] public HUDStats hudStats;
     public bool statChange = false;
 
-    [HideInInspector] public string attName;
+    public string attName;
     [HideInInspector] public string attDesc;
 
     public AttributeAssigner.Rarity rating;

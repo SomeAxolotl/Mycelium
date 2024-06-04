@@ -7,9 +7,9 @@ public class Golden : AttributeBase
     private Renderer wepRen;
 
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Golden";
         attDesc = "\n<sprite="+0+"> +1 <sprite="+2+"> +1 <sprite="+1+"> +1 <sprite="+3+"> +1";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
         SetGolden();

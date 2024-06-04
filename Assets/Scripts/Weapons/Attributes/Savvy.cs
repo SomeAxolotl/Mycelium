@@ -5,9 +5,9 @@ using UnityEngine;
 public class Savvy : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Savvy";
         attDesc = "\n<sprite="+2+"> +3 <sprite="+1+"> +3";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

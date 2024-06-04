@@ -77,7 +77,26 @@ public class AttributeAssigner : MonoBehaviour
             Component newComponent = weapon.AddComponent(att.GetType());
             AttributeBase newAttribute = newComponent as AttributeBase;
             newAttribute.statChange = att.statChange;
-            newAttribute.rating = Rarity.Common;
+
+            foreach(AttributeBase currAtt in commonAtts){
+                if(currAtt.attName == attribute){
+                    newAttribute.rating = Rarity.Common;
+                    return newAttribute;
+                }
+            }
+            foreach(AttributeBase currAtt in rareAtts){
+                if(currAtt.attName == attribute){
+                    newAttribute.rating = Rarity.Rare;
+                    return newAttribute;
+                }
+            }
+            foreach(AttributeBase currAtt in legendaryAtts){
+                if(currAtt.attName == attribute){
+                    newAttribute.rating = Rarity.Legendary;
+                    return newAttribute;
+                }
+            }
+            newAttribute.rating = Rarity.None;
             return newAttribute;
         }
         return null;

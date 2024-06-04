@@ -5,9 +5,9 @@ using UnityEngine;
 public class Sticky : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Sticky";
         attDesc = "\nApply 50% slow for 2 seconds";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

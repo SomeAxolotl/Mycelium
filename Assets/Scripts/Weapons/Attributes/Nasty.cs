@@ -5,9 +5,9 @@ using UnityEngine;
 public class Nasty : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Nasty";
         attDesc = "\nApply 20% daamage as a poison";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

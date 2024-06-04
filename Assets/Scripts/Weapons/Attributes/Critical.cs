@@ -5,9 +5,9 @@ using UnityEngine;
 public class Critical : AttributeBase
 {
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Critical";
         attDesc = "\n15% chance to deal double damage";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }

@@ -10,9 +10,9 @@ public class Mycelic : AttributeBase
     Skill skillToUse;
 
     public override void Initialize(){
-        if(stats == null || hit == null){return;}
         attName = "Mycelic";
         attDesc = "\nChance to trigger species skill";
+        if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
         interact.attributeDescription = attDesc;
     }
