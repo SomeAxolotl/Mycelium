@@ -12,8 +12,6 @@ public class Mycelic : AttributeBase
     public override void Initialize(){
         attName = "Mycelic";
         attDesc = "Chance to trigger species skill";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Hit(GameObject target, float damage){

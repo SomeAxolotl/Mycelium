@@ -9,8 +9,6 @@ public class Sharp : AttributeBase
         sentienceAmount = 3;
 
         attName = "Sharp";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

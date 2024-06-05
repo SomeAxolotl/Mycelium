@@ -14,7 +14,6 @@ public class Golden : AttributeBase
         
         attName = "Golden";
         if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
         SetGolden();
     }
 

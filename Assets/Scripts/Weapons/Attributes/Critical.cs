@@ -7,8 +7,6 @@ public class Critical : AttributeBase
     public override void Initialize(){
         attName = "Critical";
         attDesc = "15% chance to deal double damage";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Hit(GameObject target, float damage){

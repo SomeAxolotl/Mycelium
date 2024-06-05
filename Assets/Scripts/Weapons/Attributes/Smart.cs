@@ -8,8 +8,6 @@ public class Smart : AttributeBase
         sentienceAmount = 5;
         
         attName = "Smart";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

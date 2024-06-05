@@ -9,8 +9,6 @@ public class Vampiric : AttributeBase
     public override void Initialize(){
         attName = "Vampiric";
         attDesc = "Heal 15% of damage dealt";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

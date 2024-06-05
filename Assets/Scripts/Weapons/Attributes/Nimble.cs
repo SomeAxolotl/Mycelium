@@ -9,8 +9,6 @@ public class Nimble : AttributeBase
     public override void Initialize(){
         attName = "Nimble";
         attDesc = "Move faster after hitting enemies";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Hit(GameObject target, float damage){

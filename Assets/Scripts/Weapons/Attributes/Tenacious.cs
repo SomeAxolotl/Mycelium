@@ -9,8 +9,6 @@ public class Tenacious : AttributeBase
         vitalityAmount = 3;
         
         attName = "Tenacious";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

@@ -9,8 +9,6 @@ public class Savvy : AttributeBase
         speedAmount = 3;
 
         attName = "Savvy";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

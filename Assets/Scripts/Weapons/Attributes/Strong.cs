@@ -8,8 +8,6 @@ public class Strong : AttributeBase
         primalAmount = 5;
         
         attName = "Strong";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

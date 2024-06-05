@@ -9,8 +9,6 @@ public class Vigorous : AttributeBase
         vitalityAmount = 3;
         
         attName = "Vigorous";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

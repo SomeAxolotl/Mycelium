@@ -10,8 +10,6 @@ public class Stinky : AttributeBase
     public override void Initialize(){
         attName = "Stinky";
         attDesc = "Damage overtime around spore";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
         stinkCloudPrefab = Resources.Load("Attributes/StinkCloud", typeof(GameObject)) as GameObject;
     }
 

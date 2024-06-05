@@ -9,8 +9,6 @@ public class Resourceful : AttributeBase
     public override void Initialize(){
         attName = "Resourceful";
         attDesc = "Gain buffs from salvaging";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

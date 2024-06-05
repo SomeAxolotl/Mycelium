@@ -9,8 +9,6 @@ public class Beefy : AttributeBase
         vitalityAmount = 3;
         
         attName = "Beefy";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

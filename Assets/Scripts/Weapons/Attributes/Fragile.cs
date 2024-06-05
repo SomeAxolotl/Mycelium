@@ -12,7 +12,6 @@ public class Fragile : AttributeBase
         attName = "Fragile";
         attDesc = "+50% Damage, chance to break";
         if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
         specialAttNum = Random.Range(30, 40);
 
         stats.wpnMult *= 1.5f;

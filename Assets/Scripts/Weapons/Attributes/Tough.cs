@@ -8,8 +8,6 @@ public class Tough : AttributeBase
         vitalityAmount = 5;
         
         attName = "Tough";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Equipped(){

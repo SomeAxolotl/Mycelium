@@ -8,8 +8,6 @@ public class Feline : AttributeBase
     {
         attName = "Feline";
         attDesc = "meow";
-        if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
     }
 
     public override void Hit(GameObject target, float damage){
