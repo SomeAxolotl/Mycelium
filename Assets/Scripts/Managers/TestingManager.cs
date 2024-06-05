@@ -539,7 +539,7 @@ public class TestingManager : MonoBehaviour
     class CustomWeapon
     {
         [SerializeField] public bool randomWeaponType = true;
-        [SerializeField] public bool randomAttribute = true;
+        [SerializeField] public int randomAttribute = 0;
         [SerializeField] public List<string> attributeNames = new List<string>(){""};
         [SerializeField] public WeaponTypes weaponType;
 
@@ -564,18 +564,17 @@ public class TestingManager : MonoBehaviour
                 instantiatedWeapon = Instantiate(Instance.weaponPrefabs[randomWeaponIndex], Instance.player.transform.position, Quaternion.identity);
             }
 
-            if (!randomAttribute)
-            {
-                if(instantiatedWeapon != null)
-                {
-                    instantiatedWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
-                    
-                    foreach (string attributeName in attributeNames)
-                    {
-                        if(attributeName != "" && attributeName != "Nothing")
-                        {
-                            AttributeAssigner.Instance.PickAttFromString(instantiatedWeapon, attributeName);
-                        }
+
+            if(instantiatedWeapon != null){
+                instantiatedWeapon.GetComponent<WeaponStats>().acceptingAttribute = false;
+                
+                for(int i = 0; i < randomAttribute; i++){
+                    AttributeAssigner.Instance.AddRandomAttribute(instantiatedWeapon);
+                }
+
+                foreach(string attributeName in attributeNames){
+                    if(attributeName != "" && attributeName != "Nothing"){
+                        AttributeAssigner.Instance.PickAttFromString(instantiatedWeapon, attributeName);
                     }
                 }
             }
