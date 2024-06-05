@@ -7,10 +7,14 @@ public class AttributeManager : MonoBehaviour
     [HideInInspector] public WeaponInteraction interact;
     [HideInInspector] public WeaponStats stats;
 
-    private AttributeAssigner.Rarity highestRarity;
+    [SerializeField] private AttributeAssigner.Rarity highestRarity;
+    [HideInInspector] public AttributeAssigner.Rarity O_highestRarity{
+        get{
+            return GetHighestAttributeRarity();
+        }}
     private AttributeBase[] attributes;
     //Whenever this is references, it makes sure it is updated
-    public AttributeBase[] O_attributes{
+    [HideInInspector] public AttributeBase[] O_attributes{
         get{
             attributes = this.gameObject.GetComponents<AttributeBase>();
             return attributes;
