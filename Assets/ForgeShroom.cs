@@ -64,7 +64,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             return;
         }
         //Also return if it's a forged weapon (or no attribute)
-        if (currentWeapon != null && (currentWeapon.GetComponent<WeaponStats>().GetHighestAttributeRarity() == AttributeAssigner.Rarity.Forged || currentWeapon.GetComponent<WeaponStats>().GetHighestAttributeRarity() == AttributeAssigner.Rarity.None))
+        if (currentWeapon != null && (currentWeapon.GetComponent<AttributeManager>().GetHighestAttributeRarity() == AttributeAssigner.Rarity.Forged || currentWeapon.GetComponent<AttributeManager>().GetHighestAttributeRarity() == AttributeAssigner.Rarity.None))
         {
             return;
         }

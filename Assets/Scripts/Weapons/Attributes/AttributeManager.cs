@@ -32,7 +32,7 @@ public class AttributeManager : MonoBehaviour
             return hasStats;
         }}
 
-    //All of these update dynamically
+    //All of these update dynamically as you check them
     [SerializeField] private float primalAmount;
     [HideInInspector] public float O_primalAmount{get{CheckPrimal(); return primalAmount;}}
     [SerializeField] private float sentienceAmount;
@@ -74,8 +74,8 @@ public class AttributeManager : MonoBehaviour
     }
 
     private void UpdateStatDesc(){
-        //Segments this section if there are any stats, does not need it rn cause its at the top
-        //if(O_hasStats){allAttDesc += "\n";}
+        //Needs this to update stats and put it on a different line
+        if(O_hasStats){allAttDesc += "\n";}
         //Because O_hasStats was called earlier, all amounts are updated
         if(primalAmount > 0){allAttDesc += " <sprite="+0+"> +" + primalAmount;}
         if(speedAmount > 0){allAttDesc += " <sprite="+1+"> +" + speedAmount;}
@@ -96,7 +96,33 @@ public class AttributeManager : MonoBehaviour
     public bool CheckSentience(){foreach(AttributeBase currAtt in O_attributes){sentienceAmount += currAtt.sentienceAmount;} if(sentienceAmount > 0){return true;} return false;}
     public bool CheckSpeed(){foreach(AttributeBase currAtt in O_attributes){speedAmount += currAtt.speedAmount;} if(speedAmount > 0){return true;} return false;}
     public bool CheckVitality(){foreach(AttributeBase currAtt in O_attributes){vitalityAmount += currAtt.vitalityAmount;} if(vitalityAmount > 0){return true;} return false;}
-    
+
+    void OnEnable(){
+        StartCoroutine(RarityEffect());
+    }
+
+    IEnumerator RarityEffect(){
+        yield return null;
+
+        AttributeAssigner.Rarity highestRarity = GetHighestAttributeRarity();
+        
+        if(highestRarity == AttributeAssigner.Rarity.Rare){
+            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
+            SoundEffectManager.Instance.PlaySound("Rare Find", this.transform.position);
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = TooltipManager.Instance.rareBackgroundColor;
+        }else if(highestRarity == AttributeAssigner.Rarity.Legendary){
+            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
+            SoundEffectManager.Instance.PlaySound("Legendary Find", this.transform.position);
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = TooltipManager.Instance.legendaryBackgroundColor;
+        }else if (highestRarity == AttributeAssigner.Rarity.Forged){
+            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
+            SoundEffectManager.Instance.PlaySound("Legendary Find", this.transform.position);
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = TooltipManager.Instance.forgedBackgroundColor;
+        }
+    }
 
     public AttributeAssigner.Rarity GetHighestAttributeRarity(){
         int highestRarity = (int) AttributeAssigner.Rarity.None;

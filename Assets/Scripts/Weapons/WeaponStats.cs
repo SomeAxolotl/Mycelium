@@ -62,55 +62,6 @@ public class WeaponStats : MonoBehaviour
         ScaleWeaponStats();
     }
 
-    void OnEnable()
-    {
-        StartCoroutine(RarityEffect());
-    }
-    IEnumerator RarityEffect()
-    {
-        yield return null;
-
-        AttributeAssigner.Rarity highestRarity = GetHighestAttributeRarity();
-        
-        if (highestRarity == AttributeAssigner.Rarity.Rare)
-        {
-            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
-            SoundEffectManager.Instance.PlaySound("Rare Find", this.transform.position);
-            ParticleSystem.MainModule main = ps.main;
-            main.startColor = TooltipManager.Instance.rareBackgroundColor;
-        }
-        else if (highestRarity == AttributeAssigner.Rarity.Legendary)
-        {
-            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
-            SoundEffectManager.Instance.PlaySound("Legendary Find", this.transform.position);
-            ParticleSystem.MainModule main = ps.main;
-            main.startColor = TooltipManager.Instance.legendaryBackgroundColor;
-        }
-        else if (highestRarity == AttributeAssigner.Rarity.Forged)
-        {
-            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
-            SoundEffectManager.Instance.PlaySound("Legendary Find", this.transform.position);
-            ParticleSystem.MainModule main = ps.main;
-            main.startColor = TooltipManager.Instance.forgedBackgroundColor;
-        }
-    }
-
-    public AttributeAssigner.Rarity GetHighestAttributeRarity()
-    {
-        AttributeBase[] attributes = this.gameObject.GetComponents<AttributeBase>();
-        int highestRarity = (int) AttributeAssigner.Rarity.None;
-        foreach (AttributeBase attribute in attributes)
-        {
-            int attributeRating = (int) attribute.rating;
-            if (attributeRating > highestRarity)
-            {
-                highestRarity = attributeRating;
-            }
-        }
-
-        return (AttributeAssigner.Rarity) highestRarity;
-    }
-
     void Update()
     {
         if (gameObject.tag == "Weapon")
