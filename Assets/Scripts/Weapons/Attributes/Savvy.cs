@@ -5,20 +5,21 @@ using UnityEngine;
 public class Savvy : AttributeBase
 {
     public override void Initialize(){
+        sentienceAmount = 3;
+        speedAmount = 3;
+
         attName = "Savvy";
-        attDesc = "\n<sprite="+2+"> +3 <sprite="+1+"> +3";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
     }
 
     public override void Equipped(){
-        characterStats.AddStat("Sentience", 3);
-        characterStats.AddStat("Speed", 3);
+        characterStats.AddStat("Sentience", sentienceAmount);
+        characterStats.AddStat("Speed", speedAmount);
     }
 
     public override void Unequipped(){
-        characterStats.AddStat("Sentience", -3);
-        characterStats.AddStat("Speed", -3);
+        characterStats.AddStat("Sentience", -sentienceAmount);
+        characterStats.AddStat("Speed", -speedAmount);
     }
 }

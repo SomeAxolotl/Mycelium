@@ -5,20 +5,21 @@ using UnityEngine;
 public class Sharp : AttributeBase
 {
     public override void Initialize(){
+        primalAmount = 3;
+        sentienceAmount = 3;
+
         attName = "Sharp";
-        attDesc = "\n<sprite="+0+"> +3 <sprite="+2+"> +3";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
     }
 
     public override void Equipped(){
-        characterStats.AddStat("Primal", 3);
-        characterStats.AddStat("Sentience", 3);
+        characterStats.AddStat("Primal", primalAmount);
+        characterStats.AddStat("Sentience", sentienceAmount);
     }
 
     public override void Unequipped(){
-        characterStats.AddStat("Primal", -3);
-        characterStats.AddStat("Sentience", -3);
+        characterStats.AddStat("Primal", -primalAmount);
+        characterStats.AddStat("Sentience", -sentienceAmount);
     }
 }

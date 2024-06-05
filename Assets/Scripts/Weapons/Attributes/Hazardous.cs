@@ -6,10 +6,9 @@ public class Hazardous : AttributeBase
 {
     public override void Initialize(){
         attName = "Hazardous";
-        attDesc = "\nApply 25% vulnerable for 3 seconds";
+        attDesc = "Apply 25% vulnerable for 3 seconds";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
     }
 
     public override void Hit(GameObject target, float damage){

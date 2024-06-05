@@ -5,20 +5,21 @@ using UnityEngine;
 public class Beefy : AttributeBase
 {
     public override void Initialize(){
+        primalAmount = 3;
+        vitalityAmount = 3;
+        
         attName = "Beefy";
-        attDesc = "\n<sprite="+0+"> +3 <sprite="+3+"> +3";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
     }
 
     public override void Equipped(){
-        characterStats.AddStat("Primal", 3);
-        characterStats.AddStat("Vitality", 3);
+        characterStats.AddStat("Primal", primalAmount);
+        characterStats.AddStat("Vitality", vitalityAmount);
     }
 
     public override void Unequipped(){
-        characterStats.AddStat("Primal", -3);
-        characterStats.AddStat("Vitality", -3);
+        characterStats.AddStat("Primal", -primalAmount);
+        characterStats.AddStat("Vitality", -vitalityAmount);
     }
 }

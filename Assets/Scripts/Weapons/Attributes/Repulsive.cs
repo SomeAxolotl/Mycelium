@@ -6,10 +6,9 @@ public class Repulsive : AttributeBase
 {
     public override void Initialize(){
         attName = "Repulsive";
-        attDesc = "\n150% damage converted to Poison";
+        attDesc = "150% damage converted to Poison";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
 
         //Sets damage mult to 0
         //stats.wpnMult = 0;

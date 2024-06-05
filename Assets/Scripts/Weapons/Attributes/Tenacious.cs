@@ -5,20 +5,21 @@ using UnityEngine;
 public class Tenacious : AttributeBase
 {
     public override void Initialize(){
+        sentienceAmount = 3;
+        vitalityAmount = 3;
+        
         attName = "Tenacious";
-        attDesc = "\n<sprite="+2+"> +3 <sprite="+3+"> +3";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
     }
 
     public override void Equipped(){
-        characterStats.AddStat("Sentience", 3);
-        characterStats.AddStat("Vitality", 3);
+        characterStats.AddStat("Sentience", sentienceAmount);
+        characterStats.AddStat("Vitality", vitalityAmount);
     }
 
     public override void Unequipped(){
-        characterStats.AddStat("Sentience", -3);
-        characterStats.AddStat("Vitality", -3);
+        characterStats.AddStat("Sentience", -sentienceAmount);
+        characterStats.AddStat("Vitality", -vitalityAmount);
     }
 }

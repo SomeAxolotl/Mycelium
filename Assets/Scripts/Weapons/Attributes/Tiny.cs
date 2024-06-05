@@ -8,10 +8,9 @@ public class Tiny : AttributeBase
 
     public override void Initialize(){
         attName = "Tiny";
-        attDesc = "\n25% smaller, +50% attack speed";
+        attDesc = "25% smaller, +50% attack speed";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
 
         Vector3 newScale = new Vector3(transform.localScale.x * newSize, transform.localScale.y * newSize, transform.localScale.z * newSize);
         transform.localScale = newScale;

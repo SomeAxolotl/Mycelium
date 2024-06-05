@@ -9,10 +9,9 @@ public class Fragile : AttributeBase
 
     public override void Initialize(){
         attName = "Fragile";
-        attDesc = "\n+50% Damage, chance to break";
+        attDesc = "+50% Damage, chance to break";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
         specialAttNum = Random.Range(30, 40);
 
         stats.wpnMult *= 1.5f;

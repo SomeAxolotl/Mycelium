@@ -6,10 +6,9 @@ public class Nasty : AttributeBase
 {
     public override void Initialize(){
         attName = "Nasty";
-        attDesc = "\nApply 20% daamage as a poison";
+        attDesc = "Apply 20% daamage as a poison";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
     }
 
     public override void Hit(GameObject target, float damage){

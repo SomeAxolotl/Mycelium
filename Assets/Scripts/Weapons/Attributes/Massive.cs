@@ -8,10 +8,9 @@ public class Massive : AttributeBase
 
     public override void Initialize(){
         attName = "Massive";
-        attDesc = "\n50% larger";
+        attDesc = "50% larger";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
 
         Vector3 newScale = new Vector3(transform.localScale.x * newSize, transform.localScale.y * newSize, transform.localScale.z * newSize);
         transform.localScale = newScale;

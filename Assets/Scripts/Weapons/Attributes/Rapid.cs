@@ -6,10 +6,9 @@ public class Rapid : AttributeBase
 {
     public override void Initialize(){
         attName = "Rapid";
-        attDesc = "\nDouble attack speed, half damage";
+        attDesc = "Double attack speed, half damage";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
 
         stats.wpnAttackSpeedModifier *= 2;
         stats.secondsTilHitstopSpeedup = 0;

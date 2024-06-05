@@ -5,18 +5,18 @@ using UnityEngine;
 public class Smart : AttributeBase
 {
     public override void Initialize(){
+        sentienceAmount = 5;
+        
         attName = "Smart";
-        attDesc = "\n<sprite="+2+"> +5";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
     }
 
     public override void Equipped(){
-        characterStats.AddStat("Sentience", 5);
+        characterStats.AddStat("Sentience", sentienceAmount);
     }
 
     public override void Unequipped(){
-        characterStats.AddStat("Sentience", -5);
+        characterStats.AddStat("Sentience", -sentienceAmount);
     }
 }

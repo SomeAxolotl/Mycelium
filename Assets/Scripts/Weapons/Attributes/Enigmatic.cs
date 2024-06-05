@@ -8,10 +8,9 @@ public class Enigmatic : AttributeBase
 
     public override void Initialize(){
         attName = "Enigmatic";
-        attDesc = "\n+50% Damage, changes on hit";
+        attDesc = "+50% Damage, changes on hit";
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
-        interact.attributeDescription = attDesc;
 
         stats.wpnMult *= 1.5f;
     }

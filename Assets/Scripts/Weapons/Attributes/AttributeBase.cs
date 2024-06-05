@@ -16,11 +16,17 @@ public class AttributeBase : MonoBehaviour
     public bool statChange = false;
 
     public string attName;
-    [HideInInspector] public string attDesc;
+    public string attDesc;
 
     public AttributeAssigner.Rarity rating;
     //Changes based on the attribute but is info that is transfered between scenes
     public float specialAttNum = 0;
+
+    //These are set within scripts not inspectors
+    [HideInInspector] public int primalAmount;
+    [HideInInspector] public int sentienceAmount;
+    [HideInInspector] public int speedAmount;
+    [HideInInspector] public int vitalityAmount;
 
     private void Start(){
         player = GameObject.FindWithTag("currentPlayer");
