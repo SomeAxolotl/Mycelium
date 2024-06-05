@@ -127,6 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5989393774197220610}
+  - component: {fileID: 540068581871676599}
   m_Layer: 0
   m_Name: HeadTarget
   m_TagString: Untagged
@@ -149,6 +150,18 @@ Transform:
   m_Father: {fileID: 3934384191148418437}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &540068581871676599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730707851247981299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1ba9cb328fa7f42ab03e723fe1f7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &943521091701068122
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +210,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   boss: {fileID: 9144698789280099335}
+  otherArmSolver: {fileID: 8036246142267473107}
+  isMoving: 0
 --- !u!1 &2529831206296365888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,6 +1355,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   boss: {fileID: 9144698789280099335}
+  otherArmSolver: {fileID: 2500842881789451091}
+  isMoving: 0
 --- !u!1 &6085246225768805123
 GameObject:
   m_ObjectHideFlags: 0
