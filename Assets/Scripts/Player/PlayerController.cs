@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     SkillManager skillManager;
 
     private HUDSkills hudSkills;
-    Animator animator;
+    public Animator animator;
 
     HUDStats hudStats;
 

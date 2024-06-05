@@ -17,6 +17,7 @@ public class SpeedChange : MonoBehaviour
     [SerializeField] private GameObject slowParticles;
     private string speedParticlePath = "Effects/SpeedParticles";
     [SerializeField] private GameObject speedParticles;
+    private TrailRenderer speedTrail;
 
     SpeedChange[] speedInstances;
     void Awake(){
@@ -118,6 +119,7 @@ public class SpeedChange : MonoBehaviour
             if(controller != null){
                 controller.moveSpeed = baseSpeed;
             }
+            if(speedTrail != null){speedTrail.emitting = false;}
             Destroy(this);
             return;
         }
@@ -128,8 +130,8 @@ public class SpeedChange : MonoBehaviour
         if(slows.Count != 0 && speeds.Count != 0){
             speedChangePercent = speeds[0].changeAmount + slows[0].changeAmount;
         }else{
-            if(speeds.Count != 0){speedChangePercent = speeds[0].changeAmount;}
-            if(slows.Count != 0){speedChangePercent = slows[0].changeAmount;}
+            if(speeds.Count != 0){speedChangePercent = speeds[0].changeAmount; SpeedEffects(true);}
+            if(slows.Count != 0){speedChangePercent = slows[0].changeAmount; SpeedEffects(false);}
         }
         //The clamp stops their movespeed from being negative and being weird
         if(enemyNav != null){
@@ -161,6 +163,25 @@ public class SpeedChange : MonoBehaviour
         slows.Remove(speedChange);
         //Makes sure to recompare speed changes due to one being removed
         SpeedUpdate();
+    }
+
+    private void SpeedEffects(bool activate){
+        if(speedTrail == null){
+            GameObject speedParticlesObj = Resources.Load<GameObject>(speedParticlePath);
+            GameObject tempObj1;
+            if(controller != null){
+                tempObj1 = Instantiate(speedParticlesObj, controller.animator.transform) as GameObject;
+            }else{
+                tempObj1 = Instantiate(speedParticlesObj, transform) as GameObject;
+            }
+            speedTrail = tempObj1.GetComponent<TrailRenderer>();
+        }
+
+        if(speedChangePercent > 0){
+            speedTrail.emitting = true;
+        }else{
+            speedTrail.emitting = false;
+        }
     }
 }
 
