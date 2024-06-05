@@ -119,7 +119,7 @@ public class SpeedChange : MonoBehaviour
             if(controller != null){
                 controller.moveSpeed = baseSpeed;
             }
-            if(speedTrail != null){speedTrail.emitting = false;}
+            if(speedTrail != null){speedTrail.emitting = false; speedTrail.autodestruct = true;}
             Destroy(this);
             return;
         }
@@ -142,6 +142,9 @@ public class SpeedChange : MonoBehaviour
         }
         if(controller != null){
             controller.moveSpeed = Mathf.Clamp(baseSpeed + (baseSpeed * (speedChangePercent / 100)), 0.0f, Mathf.Infinity);
+        }
+        if(speedTrail != null){
+            speedTrail.widthMultiplier = Mathf.Clamp(0.5f + (speedChangePercent * 0.01f), 0.5f, 2.5f);
         }
     }
 
@@ -179,8 +182,10 @@ public class SpeedChange : MonoBehaviour
 
         if(speedChangePercent > 0){
             speedTrail.emitting = true;
+            speedTrail.autodestruct = false;
         }else{
             speedTrail.emitting = false;
+            speedTrail.autodestruct = true;
         }
     }
 }
