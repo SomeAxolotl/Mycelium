@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fragile : AttributeBase
 {
     public bool hitSomething = false;
+    private bool repeat = false;
     private Material whiteMat;
 
     public override void Initialize(){
@@ -16,9 +17,15 @@ public class Fragile : AttributeBase
 
         stats.wpnMult *= 1.5f;
         whiteMat = Instantiate(Resources.Load("m_white")) as Material;
+
+        //If there are multiple fragiles turn this off
+        if(GetComponentsInChildren<Fragile>().Length > 1){
+            repeat = true;
+        }
     }
 
     public override void Hit(GameObject target, float damage){
+        if(repeat){return;}
         if(!hitSomething){
             specialAttNum -= 1;
             hitSomething = true;

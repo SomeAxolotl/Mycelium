@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enigmatic : AttributeBase
 {
     private bool hitSomething = false;
+    private bool repeat = false;
 
     public override void Initialize(){
         attName = "Enigmatic";
@@ -13,9 +14,20 @@ public class Enigmatic : AttributeBase
         stats.wpnName = attName + " " + stats.wpnName;
 
         stats.wpnMult *= 1.5f;
+
+        //If there are multiple enigmatics turn this off
+        if(GetComponentsInChildren<Enigmatic>().Length > 1){
+            repeat = true;
+        }
+    }
+
+    public override void StartAttack(){
+        if(repeat){return;}
+        hitSomething = true;
     }
 
     public override void Hit(GameObject target, float damage){
+        if(repeat){return;}
         if(!hitSomething){
             hitSomething = true;
         }
@@ -34,7 +46,7 @@ public class Enigmatic : AttributeBase
 
             playerParent = player.transform.parent.gameObject;
             swap = playerParent.GetComponent<SwapWeapon>();
-            GameObject randomWeapon = Instantiate(Resources.Load(RandomWeapon()), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
+            GameObject randomWeapon = Instantiate(Resources.Load(RandomWeapon(gameObject)), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             if(randomWeapon.GetComponent<WeaponStats>().wpnName != "Stick"){
                 randomWeapon.transform.localScale = randomWeapon.transform.localScale / 0.03f / 100f / 1.2563f;
             }
@@ -85,25 +97,37 @@ public class Enigmatic : AttributeBase
         }
     }
 
-    private string RandomWeapon(){
+    private string RandomWeapon(GameObject currWeapon, float infiniteProtection = 0){
+        //Protection against it unluckily looping for too long, having a low number also makes it rarely return a stick
+        infiniteProtection += 1;
+        if(infiniteProtection > 2){return "Slash/Stick";}
         switch(Random.Range(0, 8)){
             case 0:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Avocado Flamberge")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Slash/AvocadoFlamberge";
             case 1:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Obsidian Scimitar")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Slash/ObsidianScimitar";
             case 2:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Mandible Sickle")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Slash/MandibleSickle";
             case 3:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Rose Mace")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Smash/RoseMace";
             case 4:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Geode Hammer")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Smash/GeodeHammer";
             case 5:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Femur Club")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Smash/FemurClub";
             case 6:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Bamboo Partisan")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Stab/BambooPartisan";
             case 7:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Opal Rapier")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Stab/OpalRapier";
             case 8:
+                if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Carpal Sais")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Stab/CarpalSais";
             default:
                 return "Slash/Stick";
