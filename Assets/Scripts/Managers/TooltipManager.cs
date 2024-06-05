@@ -15,6 +15,7 @@ public class TooltipManager : MonoBehaviour
     [SerializeField] Color commonBackgroundColor = Color.white;
     [SerializeField] public Color rareBackgroundColor = Color.blue;
     [SerializeField] public Color legendaryBackgroundColor = Color.yellow;
+    [SerializeField] public Color forgedBackgroundColor = Color.red;
 
     void Awake()
     {
@@ -54,6 +55,9 @@ public class TooltipManager : MonoBehaviour
                 break;
             case AttributeAssigner.Rarity.Legendary:
                 backgroundColor = legendaryBackgroundColor;
+                break;
+            case AttributeAssigner.Rarity.Forged:
+                backgroundColor = forgedBackgroundColor;
                 break;
         }
 

@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using RonaldSunglassesEmoji.Interaction;
-using System.Linq;
 //using static UnityEditor.Timeline.Actions.MenuPriority;
 
 public class ForgeShroom : MonoBehaviour, IInteractable
@@ -63,6 +61,11 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         if (currentWeapon != null && currentWeapon.GetComponent<WeaponStats>().wpnName == "Stick")
         {
             Debug.Log(currentWeapon.name);
+            return;
+        }
+        //Also return if it's a forged weapon (or no attribute)
+        if (currentWeapon != null && (currentWeapon.GetComponent<WeaponStats>().GetHighestAttributeRarity() == AttributeAssigner.Rarity.Forged || currentWeapon.GetComponent<WeaponStats>().GetHighestAttributeRarity() == AttributeAssigner.Rarity.None))
+        {
             return;
         }
 
@@ -262,6 +265,8 @@ public class ForgeShroom : MonoBehaviour, IInteractable
                 AddCollectedAttributeToWeapon(rewardWeapon, depositedWeapons[2], 0);
             }
 
+            ChangeAttributesToForged(rewardWeapon);
+
             rewardWeapon.GetComponent<WeaponStats>().acceptingAttribute = false; // Enable accepting new attributes if needed
 
             Debug.Log("Reward weapon instantiated at the cache location.");
@@ -283,5 +288,14 @@ public class ForgeShroom : MonoBehaviour, IInteractable
     public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)
     {
         TooltipManager.Instance.DestroyTooltip();
+    }
+
+    void ChangeAttributesToForged(GameObject rewardWeapon)
+    {
+        AttributeBase[] attributes = rewardWeapon.GetComponents<AttributeBase>();
+        foreach (AttributeBase attributeBase in attributes)
+        {
+            attributeBase.rating = AttributeAssigner.Rarity.Forged;
+        }
     }
 }
