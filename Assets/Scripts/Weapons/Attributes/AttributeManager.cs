@@ -91,9 +91,14 @@ public class AttributeManager : MonoBehaviour
 
     private List<string> addedDescs = new List<string>();
     private void UpdateUniqueDesc(){
-        foreach(AttributeBase attribute in O_attributes){
-            if(attribute.attDesc != "" && attribute.attDesc != " " && attribute.attDesc != null){
-                allAttDesc += "\n" + attribute.attDesc;
+        for (int i = attributes.Length - 1; i >= 0; i--){
+            if(attributes[i].attDesc != "" && attributes[i].attDesc != " " && attributes[i].attDesc != null && allAttDesc.Contains(attributes[i].attDesc) == false){
+                Component[] allInstances = GetComponents(attributes[i].GetType());
+                string extraText = "";
+                if(allInstances.Length > 1){
+                    extraText += "(" + allInstances.Length + "x) ";
+                }
+                allAttDesc += "\n" + extraText + attributes[i].attDesc;
             }
         }
     }
