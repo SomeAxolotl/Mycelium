@@ -30,7 +30,7 @@ public class IKBossArmSolver : MonoBehaviour
 
         currentPosition = transform.position;
         rayOffsetDist = Vector3.Distance(transform.position, boss.position);
-        Debug.Log((transform.position - boss.position).normalized, this);
+        //Debug.Log((transform.position - boss.position).normalized, this);
 
         rayOffsetAngle = TriangleMathStuff();
     }

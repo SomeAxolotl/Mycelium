@@ -12,6 +12,8 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private BossMeleeHitbox leftArmHitbox;
     [SerializeField] private BossMeleeHitbox rightArmHitbox;
     [SerializeField] private GameObject bossTail;
+    [SerializeField] private Transform leftShoulder;
+    [SerializeField] private Transform rightShoulder;
     [SerializeField] private float pullForce = 100f;
     [SerializeField] private float pullDuration = 5.0f;
     [SerializeField] private float pullCooldown = 5.0f;
@@ -27,6 +29,12 @@ public class MonsterBossAttack : MonoBehaviour
     private float slamHitboxActivationDelay = 1.1f;
     private float swipeAttackAnimationDuration = 2.7f;
     private float slamAttackAnimationDuration = 1.7f;
+    private bool isTargetingPlayer;
+    private int animStateHash;
+    private const int leftAttackHash = -1896505575;
+    private const int rightAttackHash = -1272786874;
+    private const int smashHash = 2125664144;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -40,11 +48,46 @@ public class MonsterBossAttack : MonoBehaviour
         InvokeRepeating("DoTailAttack", 8f, (tailCooldown + 5.0f)); // 5 sec buffer for when tail attack is actually happening
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
+        //Debug.Log("HASH" + " | " + Animator.StringToHash("RightAttack"));
+
+        if(isTargetingPlayer == false)
+        {
+
+            return;
+        }
+
+        switch (animStateHash)
+        {
+            case leftAttackHash:
+                break;
+
+            case rightAttackHash:
+                break;
+
+            case smashHash:
+                break;
+
+        }
 
     }
+
+    void StartTargetingPlayer()
+    {
+        //THIS IS CALLED BY THE VARIOUS ATTACK ANIMATIONS THROUGH ANIMATION EVENTS -ryan
+
+        animStateHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
+        isTargetingPlayer = true;
+    }
+
+    void StopTargetingPlayer()
+    {
+        //THIS IS CALLED BY THE VARIOUS ATTACK ANIMATIONS THROUGH ANIMATION EVENTS -ryan
+
+        isTargetingPlayer = false;
+    }
+
     public void DoRandomAttack() // Picks either slam or swipe attack
     {
         int randomAttack = Random.Range(0, numberofAttacks);
@@ -58,10 +101,12 @@ public class MonsterBossAttack : MonoBehaviour
             StartCoroutine(SlamAttack());
         }
     }
+
     private void PullPlayer()
     {
         StartCoroutine(ApplyPullForce());
     }
+
     private IEnumerator ApplyPullForce()
     {
         ParticleManager.Instance.SpawnParticles("BossSandPullParticles", gameObject.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
@@ -79,10 +124,12 @@ public class MonsterBossAttack : MonoBehaviour
             yield return null;
         }
     }
+
     private void DoTailAttack()
     {
         StartCoroutine(TailAttack());
     }
+
     private IEnumerator TailAttack()
     {
         Vector3 spawnPosition = player.position + new Vector3(0f, -4.5f, 0f);
@@ -112,6 +159,7 @@ public class MonsterBossAttack : MonoBehaviour
         }
         Destroy(bossTailInstance);
     }
+
     private IEnumerator SwipeAttack()
     {
         isAttacking = true;
@@ -163,6 +211,7 @@ public class MonsterBossAttack : MonoBehaviour
         yield return new WaitForSeconds(cooldownAfterSlam + slamAttackAnimationDuration);
         DoRandomAttack();
     }
+
     public void OnDisable()
     {
         StopAllCoroutines();
