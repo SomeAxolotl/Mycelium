@@ -43,8 +43,15 @@ public class Enigmatic : AttributeBase
             //Checks that the weapon is not going to break
             AttributeBase fragileAtt = GetComponent<Fragile>();
             if(fragileAtt != null && fragileAtt.specialAttNum <= 0){return;}
-            //Poof particles
+            
+            //Poof and sparkly VFX
             ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90,0,0), null, new Vector3(0.3f, 0.3f, 0.3f));
+            ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("EnigmaticParticles", this.transform.position, Quaternion.LookRotation(Vector3.up));
+            ParticleSystem.MainModule main = ps.main;
+            main.startColor = TooltipManager.Instance.legendaryBackgroundColor;
+            //Pickup SFX
+            SoundEffectManager.Instance.PlaySound("Pickup", this.transform.position);
+            //SoundEffectManager.Instance.PlaySound("Rare Find", this.transform.position, -0.5f, Random.Range(1.3f, 1.4f));
 
             playerParent = player.transform.parent.gameObject;
             swap = playerParent.GetComponent<SwapWeapon>();
