@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3282370497132983742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249385593394651091}
+  m_Layer: 0
+  m_Name: LaunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1249385593394651091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282370497132983742}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -20, z: 0}
+  m_LocalScale: {x: 1, y: 0, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4342191715318432981}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1767212816696954544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11,7 +42,7 @@ PrefabInstance:
     - target: {fileID: 2649513967420852837, guid: ed2286d38422b294f916d9f4897af632,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2649513967420852837, guid: ed2286d38422b294f916d9f4897af632,
         type: 3}
@@ -66,10 +97,68 @@ PrefabInstance:
     - target: {fileID: 3426999927790506207, guid: ed2286d38422b294f916d9f4897af632,
         type: 3}
       propertyPath: m_Name
-      value: Barrel Cactus Variant
+      value: Barrel Cactus
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2649513967420852837, guid: ed2286d38422b294f916d9f4897af632,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1249385593394651091}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3426999927790506207, guid: ed2286d38422b294f916d9f4897af632,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1546613858633099241}
+    - targetCorrespondingSourceObject: {fileID: 3426999927790506207, guid: ed2286d38422b294f916d9f4897af632,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4956470670189791278}
   m_SourcePrefab: {fileID: 100100000, guid: ed2286d38422b294f916d9f4897af632, type: 3}
+--- !u!1 &3965772378230972015 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3426999927790506207, guid: ed2286d38422b294f916d9f4897af632,
+    type: 3}
+  m_PrefabInstance: {fileID: 1767212816696954544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1546613858633099241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965772378230972015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e417cb1b2e4fa4cb7b3d850886c12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchPoint: {fileID: 3282370497132983742}
+--- !u!135 &4956470670189791278
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965772378230972015}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.6
+  m_Center: {x: 0.021859407, y: 1.000718, z: 0.029640317}
+--- !u!4 &4342191715318432981 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2649513967420852837, guid: ed2286d38422b294f916d9f4897af632,
+    type: 3}
+  m_PrefabInstance: {fileID: 1767212816696954544}
+  m_PrefabAsset: {fileID: 0}

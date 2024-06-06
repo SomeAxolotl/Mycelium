@@ -324,14 +324,20 @@ public class PlayerController : MonoBehaviour
         canUseSkill = false;
         playerActionsAsset.Player.Disable();
     }
-    public void Knockback(GameObject obj, float knockbackForce)
+    public void Knockback(GameObject obj, float knockbackForce, bool yForce = false)
     {
         WeaponCollision currentWeaponCollision = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponCollision>();
         if (!currentWeaponCollision.isCycloning && rb.GetComponent<Sturdy>() == null)
         {
             isInvincible = true;
             DisableController();
-            Vector3 dirFromobject = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(obj.transform.position.x, 0f, obj.transform.position.z)).normalized;
+            Vector3 dirFromobject = Vector3.zero;
+            if(yForce){
+                dirFromobject = (new Vector3(transform.position.x, transform.position.y, transform.position.z) - new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z)).normalized;
+            }else{
+                dirFromobject = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(obj.transform.position.x, 0f, obj.transform.position.z)).normalized;
+            }
+            
             StartCoroutine(StartKnockback(dirFromobject, knockbackForce));
         }
     }

@@ -19,11 +19,14 @@ public class Enigmatic : AttributeBase
             repeat = true;
         }
     }
-
+    
+    //Good for testing 
+    /*
     public override void StartAttack(){
         if(repeat){return;}
         hitSomething = true;
     }
+    */
 
     public override void Hit(GameObject target, float damage){
         if(repeat){return;}
