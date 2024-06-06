@@ -74,8 +74,10 @@ public class LootCache : MonoBehaviour, IInteractable
         float totalChance = (weaponChance + statChance + resourceChance) + (RandomManager.bonusWeaponChance + RandomManager.bonusStatChance + RandomManager.bonusResourceChance);
         float randomValue = UnityEngine.Random.Range(0f, totalChance);
         Loot droppedItem;
+        bool isWeapon = false;
         if(randomValue <= weaponChance + RandomManager.bonusWeaponChance){
             droppedItem = PickByWeight(weaponTable.loots);
+            isWeapon = true;
             RandomManager.bonusWeaponChance = 0;
             RandomManager.bonusStatChance += statChance * 0.1f;
             RandomManager.bonusResourceChance += resourceChance * 0.1f;
@@ -90,7 +92,16 @@ public class LootCache : MonoBehaviour, IInteractable
             RandomManager.bonusStatChance += statChance * 0.1f;
             RandomManager.bonusResourceChance = 0;
         }
-        Instantiate(droppedItem.LootPrefab, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
+        GameObject droppedObject = Instantiate(droppedItem.LootPrefab, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
+        if (isWeapon) 
+        {
+            AttributeManager attributManager = droppedObject.GetComponent<AttributeManager>();
+
+            if (attributManager != null)
+            {
+                attributManager.doesSpawnRarityParticles = true;
+            }
+        }
         
         int randomNutrientValue = UnityEngine.Random.Range(nutrientMin, nutrientMax);
         if (GlobalData.currentLoop >= 2)

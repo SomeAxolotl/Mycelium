@@ -46,6 +46,8 @@ public class AttributeManager : MonoBehaviour
     [SerializeField] private float vitalityAmount;
     [HideInInspector] public float O_vitalityAmount{get{CheckVitality(); return vitalityAmount;}}
 
+    [HideInInspector] public bool doesSpawnRarityParticles = false;
+
     private void Awake(){
         interact = GetComponent<WeaponInteraction>();
         stats = GetComponent<WeaponStats>();
@@ -108,19 +110,27 @@ public class AttributeManager : MonoBehaviour
     IEnumerator RarityEffect(){
         yield return null;
 
+        if (!doesSpawnRarityParticles) yield break;
+
         AttributeAssigner.Rarity highestRarity = GetHighestAttributeRarity();
         
-        if(highestRarity == AttributeAssigner.Rarity.Rare){
+        //if u take away my bracket spaces again griffin i will fucking obliterate u
+        if(highestRarity == AttributeAssigner.Rarity.Rare)
+        {
             ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
             SoundEffectManager.Instance.PlaySound("Rare Find", this.transform.position);
             ParticleSystem.MainModule main = ps.main;
             main.startColor = TooltipManager.Instance.rareBackgroundColor;
-        }else if(highestRarity == AttributeAssigner.Rarity.Legendary){
+        }
+        else if(highestRarity == AttributeAssigner.Rarity.Legendary)
+        {
             ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
             SoundEffectManager.Instance.PlaySound("Legendary Find", this.transform.position);
             ParticleSystem.MainModule main = ps.main;
             main.startColor = TooltipManager.Instance.legendaryBackgroundColor;
-        }else if (highestRarity == AttributeAssigner.Rarity.Forged){
+        }
+        else if (highestRarity == AttributeAssigner.Rarity.Forged)
+        {
             ParticleSystem ps = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("LootParticles", this.transform.position, Quaternion.Euler(-90,0,0));
             SoundEffectManager.Instance.PlaySound("Legendary Find", this.transform.position);
             ParticleSystem.MainModule main = ps.main;
@@ -128,11 +138,14 @@ public class AttributeManager : MonoBehaviour
         }
     }
 
-    public AttributeAssigner.Rarity GetHighestAttributeRarity(){
+    public AttributeAssigner.Rarity GetHighestAttributeRarity()
+    {
         int highestRarity = (int) AttributeAssigner.Rarity.None;
-        foreach(AttributeBase attribute in O_attributes){
+        foreach(AttributeBase attribute in O_attributes)
+        {
             int attributeRating = (int) attribute.rating;
-            if(attributeRating > highestRarity){
+            if(attributeRating > highestRarity)
+            {
                 highestRarity = attributeRating;
             }
         }
