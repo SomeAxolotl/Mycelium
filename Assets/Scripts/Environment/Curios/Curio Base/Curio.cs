@@ -8,7 +8,11 @@ public abstract class Curio : MonoBehaviour
 {
     public List<TraversalTransform> traversalTransforms = new List<TraversalTransform>();
     public int maxUserCount = 1;
-    public int currentUserCount = 0;
+    public List<string> interactAnimationStrings = new List<string>();
+    public float playerInteractRange = 2f;
+    [HideInInspector] public bool canBeActivated = false;
+    [HideInInspector] public List<WanderingSpore> currentUsers = new List<WanderingSpore>();
+    [HideInInspector] public int currentUserCount = 0;
 
     [Header("Curio")]
     [Tooltip("Whether only THIS object can see this curio, or only OTHER objects can see this curio")] public bool selfCurio = false;
@@ -38,8 +42,18 @@ public abstract class Curio : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        if (GlobalData.areaCleared)
+        {
+            canBeActivated = true;
+            //enable RT above
+        }
+    }
+
     public IEnumerator CurioEvent(WanderingSpore wanderingSpore)
     {
+        currentUsers.Add(wanderingSpore);
         currentUserCount++;
 
         List<TraversalTransform> possibleTraversalTransforms = new List<TraversalTransform>();
@@ -69,8 +83,6 @@ public abstract class Curio : MonoBehaviour
         if (wanderingSpore.interactingCurio != null)
         {
             wanderingSpore.GetComponent<Animator>().SetBool(wanderingSpore.GetWalkAnimation(), false);
-
-            IncreaseHappiness(wanderingSpore);
 
             if (wanderingSpore != null)
             {
@@ -104,6 +116,7 @@ public abstract class Curio : MonoBehaviour
     //Called by the WanderingSpore when it finishes the event OR if you swap to it while it's doing the event
     public void EndEvent(WanderingSpore wanderingSpore)
     {
+        currentUsers.Remove(wanderingSpore);
         currentUserCount--;
 
         foreach (TraversalTransform traversalTransform in traversalTransforms)
@@ -119,17 +132,19 @@ public abstract class Curio : MonoBehaviour
         OnPlayingDone?.Invoke();
     }
 
-    protected void IncreaseHappiness(WanderingSpore wanderingSpore)
+    public void ActivateHappiness()
     {
-        if (wanderingSpore.canGainHappiness)
+        if (canBeActivated)
         {
-            wanderingSpore.gameObject.GetComponent<CharacterStats>().ModifyHappiness(happinessToIncrease);
+            canBeActivated = false;
 
-            if (happinessToIncrease > 0)
+            foreach (WanderingSpore wanderingSpore in currentUsers)
             {
-                wanderingSpore.canGainHappiness = false;
-
-                //Debug.Log("Increasing " + wanderingSpore.gameObject + " happiness.");
+                CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
+                if (characterStats != null)
+                {   
+                    characterStats.ModifyHappiness(happinessToIncrease);
+                }
             }
         }
     }

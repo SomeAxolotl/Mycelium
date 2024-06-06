@@ -46,6 +46,15 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Curio"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3b80d65-1411-42c2-b10f-276d474124c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Look"",
                     ""type"": ""PassThrough"",
                     ""id"": ""e06246f0-2ed7-4071-9912-d25a43f1199c"",
@@ -590,6 +599,28 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""HideStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7f73b93-a107-4ab2-933c-922c22998a7b"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Curio"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a7537e7-186d-4592-aeb5-80f5884bae37"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Curio"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1946,6 +1977,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Curio = m_Player.FindAction("Curio", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
@@ -2061,6 +2093,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_Curio;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Dodge;
     private readonly InputAction m_Player_Interact;
@@ -2080,6 +2113,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
         public PlayerActions(@ThirdPersonActionsAsset wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @Curio => m_Wrapper.m_Player_Curio;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
@@ -2108,6 +2142,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Curio.started += instance.OnCurio;
+            @Curio.performed += instance.OnCurio;
+            @Curio.canceled += instance.OnCurio;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -2157,6 +2194,9 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Curio.started -= instance.OnCurio;
+            @Curio.performed -= instance.OnCurio;
+            @Curio.canceled -= instance.OnCurio;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -2595,6 +2635,7 @@ public partial class @ThirdPersonActionsAsset: IInputActionCollection2, IDisposa
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnCurio(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);

@@ -452,6 +452,8 @@ public class TestingManager : MonoBehaviour
     {
         FurnitureManager furnitureManager = GameObject.Find("FurnitureManager").GetComponent<FurnitureManager>();
 
+        Debug.Log("Furniture unlocked! Either exit play mode or leave the Carcass to save.");
+
         furnitureManager.UnlockAllFurniture();
     }
 

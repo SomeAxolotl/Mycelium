@@ -53,7 +53,6 @@ public class WanderingSpore : MonoBehaviour
 
     Curio previousCurio = null;
     public Curio interactingCurio = null;
-    public bool canGainHappiness = false;
 
     Vector3 previousPosition;
     public float currentSpeed;
@@ -79,11 +78,6 @@ public class WanderingSpore : MonoBehaviour
         characterStats = GetComponent<CharacterStats>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-
-        if (GlobalData.areaCleared)
-        {
-            canGainHappiness = true;
-        }
 
         StartCoroutine(StartingCoroutine());
     }

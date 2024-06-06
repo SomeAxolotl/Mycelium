@@ -57,34 +57,39 @@ public class GameManager : MonoBehaviour
             }
             GlobalData.isDay = !GlobalData.isDay;
 
+            //if a spore permanently died,
             if (GlobalData.sporePermaDied != null)
             {
+                //Reduce all happiness
                 HappinessManager.Instance.FriendlySporePermaDied();
                 
+                //and if an area was cleared, rest EVERY Spore (since the current one died)
                 if (GlobalData.areaCleared)
                 {
                     HappinessManager.Instance.RestAllSpores();
                 }
-
-                HappinessManager.Instance.FriendlySporePermaDied();
             }
+            //if a spore DIDN'T permanently die,
             else
             {
+                //but if it still died, reduce its happiness
+                if (GlobalData.sporeDied != null)
+                {
+                    currentPlayer.GetComponent<CharacterStats>().ModifyHappiness(HappinessManager.Instance.happinessOnDying);
+                }
+
+                //and if an area was cleared, spend an energy from the current Spore, and rest every OTHER Spore
                 if (GlobalData.areaCleared)
                 {
                     currentPlayer.GetComponent<CharacterStats>().ModifyEnergy(-1);
                     HappinessManager.Instance.RestOtherSpores(currentPlayer);
                 }
 
-                if (GlobalData.sporeDied != null)
-                {
-                    currentPlayer.GetComponent<CharacterStats>().ModifyHappiness(HappinessManager.Instance.happinessOnDying);
-                }
-
+                //sprout the current Spore
                 StartCoroutine(SproutPlayer());
             }
 
-
+            //Only hide colony happiness if the character count is less than 2
             HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
             if (GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>().characters.Count < 2)
             {
@@ -93,6 +98,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            //Always hide colony happiness if not at the Carcass
             if (GameObject.Find("HUD") != null)
             {
                 HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
@@ -100,6 +106,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //Apply the happiness stat boost in the first area
         if (scene.buildIndex == 3)
         {
             StartCoroutine(ApplyHappinessBuffToCurrentPlayer());

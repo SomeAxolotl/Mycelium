@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private InputAction subspecies_skill;
     private InputAction interact;
     private InputAction salvage;
+    private InputAction curioInteract;
     private InputAction showStats;
     private InputAction hideStats;
     public bool canUseDodge = true;
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
         subspecies_skill = playerActionsAsset.Player.Subspecies_Skill;
         interact = playerActionsAsset.Player.Interact;
         salvage = playerActionsAsset.Player.Salvage;
+        curioInteract = playerActionsAsset.Player.Curio;
         showStats = playerActionsAsset.Player.ShowStats;
         hideStats = playerActionsAsset.Player.HideStats;
         gravity = new Vector3(0f, gravityForce, 0f);
@@ -183,7 +185,88 @@ public class PlayerController : MonoBehaviour
             {
                 hudStats.HideStats();
             }
+            if (curioInteract.triggered && canAct && playerAttack.curWeapon == null)
+            {
+                Curio closestCurio = FindClosestCurioInRange();
+                if (closestCurio != null)
+                {
+                    float distanceToClosestCurio = Vector3.Distance(currentPlayer.transform.position, closestCurio.transform.position);
+
+                    if (distanceToClosestCurio < closestCurio.playerInteractRange && closestCurio.CanUse())
+                    {
+                        if (closestCurio.interactAnimationStrings.Count > 0)
+                        {
+                            string randomInteractString = closestCurio.interactAnimationStrings[UnityEngine.Random.Range(0, closestCurio.interactAnimationStrings.Count)];
+                            StartCoroutine(CurioInteractAnimation(randomInteractString));
+                        }
+                        else
+                        {
+                            Debug.LogError(closestCurio + " doesn't have any interactAnimationStrings");
+                        }
+                    }
+                    else
+                    {
+                        StartCoroutine(CurioInteractAnimation("Wave"));
+                    }
+                }
+                else
+                {
+                    StartCoroutine(CurioInteractAnimation("Wave"));
+                }
+            }
         }
+    }
+
+    IEnumerator CurioInteractAnimation(string animationName)
+    {
+        DisableController();
+
+        move.Enable();
+
+        animator.SetBool(animationName, true);
+        animator.SetTrigger(animationName);
+        animator.SetBool("InActionState", true);
+
+        yield return new WaitUntil(() => move.triggered);
+
+        animator.SetBool(animationName, false);
+        animator.SetBool("InActionState", false);
+        animator.Play("Idle");
+
+        move.Disable();
+
+        EnableController();
+    }
+
+    Curio FindClosestCurioInRange()
+    {
+        Curio closestCurio = null;
+        float closestDistance = float.MaxValue;
+
+        // Use Physics.OverlapSphere to get all colliders within the sphere collider radius
+        Collider[] colliders = Physics.OverlapSphere(currentPlayer.transform.position, currentPlayer.GetComponent<SphereCollider>().radius, LayerMask.GetMask("Furniture"));
+
+        foreach (var collider in colliders)
+        {
+            // Check if the collider has a Curio component
+            Curio curio = collider.GetComponent<Curio>();
+            if (curio != null)
+            {
+                // Calculate the direction from the player to the Curio
+                Vector3 directionToCurio = curio.transform.position - currentPlayer.transform.position;
+                directionToCurio.y = 0;
+
+                float distance = directionToCurio.magnitude;
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestCurio = curio;
+                }
+            }
+        }
+
+        return closestCurio;
     }
 
     private void FixedUpdate()
