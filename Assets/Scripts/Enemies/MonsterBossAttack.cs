@@ -16,9 +16,6 @@ public class MonsterBossAttack : MonoBehaviour
 
     [SerializeField] private GameObject bossTail;
 
-    [SerializeField] private Transform leftShoulder;
-    [SerializeField] private Transform rightShoulder;
-
     [SerializeField] private float pullForce = 100f;
     [SerializeField] private float pullDuration = 5.0f;
     [SerializeField] private float pullCooldown = 5.0f;
@@ -32,10 +29,6 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private float swipeAttackDamage = 85f;
     [SerializeField] private float slamAttackDamage = 70f;
 
-    [SerializeField] private AnimationClip leftAttackClip;
-    [SerializeField] private AnimationClip rightAttackClip;
-    [SerializeField] private AnimationClip smashClip;
-
     [HideInInspector] public bool isAttacking = false;
 
     private int numberofAttacks = 2;
@@ -44,11 +37,6 @@ public class MonsterBossAttack : MonoBehaviour
     private float slamHitboxActivationDelay = 1.1f;
     private float swipeAttackAnimationDuration = 2.7f;
     private float slamAttackAnimationDuration = 1.7f;
-
-    private int animStateHash;
-    private const int leftAttackHash = -1896505575;
-    private const int rightAttackHash = -1272786874;
-    private const int smashHash = 2125664144;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -62,42 +50,6 @@ public class MonsterBossAttack : MonoBehaviour
         InvokeRepeating("PullPlayer", 5f, (pullCooldown + pullDuration));
         InvokeRepeating("DoTailAttack", 8f, (tailCooldown + 5.0f)); // 5 sec buffer for when tail attack is actually happening
     }
-
-    void Update()
-    {
-        //Debug.Log("HASH" + " | " + Animator.StringToHash("RightAttack"));
-
-        
-    }
-
-    //public void TargetPlayer() //THIS IS CALLED BY THE VARIOUS ATTACK ANIMATIONS THROUGH ANIMATION EVENTS -ryan
-    //{
-    //    Vector3 localPos = transform.position - player.position;
-
-    //    animStateHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
-
-    //    switch (animStateHash)
-    //    {
-    //        case leftAttackHash:
-    //            BossKeyframes.Instance.ChangeKeyframe("left", "x", 6, localPos.x);
-    //            BossKeyframes.Instance.ChangeKeyframe("left", "x", 7, localPos.x);
-
-    //            BossKeyframes.Instance.ChangeKeyframe("left", "z", 6, localPos.z);
-    //            BossKeyframes.Instance.ChangeKeyframe("left", "z", 7, localPos.z);
-
-    //            leftAttackClip.SetCurve(BossKeyframes.Instance.leftPath, BossKeyframes.Instance.leftType)
-    //            break;
-
-    //        case rightAttackHash:
-    //            break;
-
-    //        case smashHash:
-    //            break;
-
-    //        default:
-    //            break;
-    //    }
-    //}
 
     public void DoRandomAttack() // Picks either slam or swipe attack
     {
@@ -194,7 +146,7 @@ public class MonsterBossAttack : MonoBehaviour
         }
         yield return new WaitForEndOfFrame();
         animator.SetBool("IsAttacking", false);
-        Debug.Log("SWIPE ATTACK!");
+        //Debug.Log("SWIPE ATTACK!");
         yield return new WaitForSeconds(swipeAttackAnimationDuration);
         isAttacking = false;
         playerHit.Clear();
@@ -215,7 +167,7 @@ public class MonsterBossAttack : MonoBehaviour
         rightArmHitbox.StartCoroutine(rightArmHitbox.ActivateHitbox());
         yield return new WaitForEndOfFrame();
         animator.SetBool("IsAttacking", false);
-        Debug.Log("SLAM ATTACK!");
+        //Debug.Log("SLAM ATTACK!");
         yield return new WaitForSeconds(slamAttackAnimationDuration);
         isAttacking = false;
         playerHit.Clear();
