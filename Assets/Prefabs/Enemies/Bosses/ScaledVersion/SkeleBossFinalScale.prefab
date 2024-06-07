@@ -1102,6 +1102,7 @@ GameObject:
   - component: {fileID: 3062117103546693844}
   - component: {fileID: 4111924874240179459}
   - component: {fileID: 4962020348974476817}
+  - component: {fileID: 4938672653383887677}
   m_Layer: 0
   m_Name: SkeleBossFinalScale
   m_TagString: Enemy
@@ -1226,8 +1227,8 @@ MonoBehaviour:
   rightArmHitbox: {fileID: 8685923704457083876}
   bossTail: {fileID: 7141084923713803150, guid: df6fba694f8dc874eba98b45d0a9344e,
     type: 3}
-  rightShoulder: {fileID: 6551764577346618216}
   leftShoulder: {fileID: 9137281193643669656}
+  rightShoulder: {fileID: 6551764577346618216}
   pullForce: 100
   pullDuration: 5
   pullCooldown: 5
@@ -1237,13 +1238,10 @@ MonoBehaviour:
   tailAttackDamage: 40
   swipeAttackDamage: 60
   slamAttackDamage: 80
+  leftAttackClip: {fileID: 7400000, guid: ca781a69976019540b3feb78161eb0a4, type: 2}
+  rightAttackClip: {fileID: 7400000, guid: 8ee6de98e8123774099cee40fd770585, type: 2}
+  smashClip: {fileID: 7400000, guid: b11ead98ee9ae0548bc526211a6bf4c1, type: 2}
   isAttacking: 0
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &9133827009444127726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,6 +1419,33 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -0.5, z: 0}
+--- !u!114 &4938672653383887677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588399727126431863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebc9bfca2ce9d441980e636b1dcc304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftPath: LeftArm/LeftArm_target
+  LeftPropertyX: m_LocalPosition.x
+  leftCurveX:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  LeftPropertyZ: m_LocalPosition.z
+  leftCurveZ:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5757493036474923186
 GameObject:
   m_ObjectHideFlags: 0

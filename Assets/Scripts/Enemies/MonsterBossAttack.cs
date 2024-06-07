@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class MonsterBossAttack : MonoBehaviour
 {
@@ -9,27 +10,41 @@ public class MonsterBossAttack : MonoBehaviour
     Rigidbody rb;
     Animator animator;
     [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();
+
     [SerializeField] private BossMeleeHitbox leftArmHitbox;
     [SerializeField] private BossMeleeHitbox rightArmHitbox;
+
     [SerializeField] private GameObject bossTail;
+
     [SerializeField] private Transform leftShoulder;
     [SerializeField] private Transform rightShoulder;
+
     [SerializeField] private float pullForce = 100f;
     [SerializeField] private float pullDuration = 5.0f;
     [SerializeField] private float pullCooldown = 5.0f;
+
     [SerializeField] private float tailCooldown = 5.0f;
+
     [SerializeField] private float cooldownAfterSlam = 6.0f;
     [SerializeField] private float cooldownAfterSwipe = 4.0f;
+
     [SerializeField] private float tailAttackDamage = 60f;
     [SerializeField] private float swipeAttackDamage = 85f;
     [SerializeField] private float slamAttackDamage = 70f;
+
+    [SerializeField] private AnimationClip leftAttackClip;
+    [SerializeField] private AnimationClip rightAttackClip;
+    [SerializeField] private AnimationClip smashClip;
+
     [HideInInspector] public bool isAttacking = false;
+
     private int numberofAttacks = 2;
+
     private float swipeHitboxActivationDelay = 2.0f;
     private float slamHitboxActivationDelay = 1.1f;
     private float swipeAttackAnimationDuration = 2.7f;
     private float slamAttackAnimationDuration = 1.7f;
-    private bool isTargetingPlayer;
+
     private int animStateHash;
     private const int leftAttackHash = -1896505575;
     private const int rightAttackHash = -1272786874;
@@ -48,45 +63,41 @@ public class MonsterBossAttack : MonoBehaviour
         InvokeRepeating("DoTailAttack", 8f, (tailCooldown + 5.0f)); // 5 sec buffer for when tail attack is actually happening
     }
 
-    void LateUpdate()
+    void Update()
     {
         //Debug.Log("HASH" + " | " + Animator.StringToHash("RightAttack"));
 
-        if(isTargetingPlayer == false)
-        {
-
-            return;
-        }
-
-        switch (animStateHash)
-        {
-            case leftAttackHash:
-                break;
-
-            case rightAttackHash:
-                break;
-
-            case smashHash:
-                break;
-
-        }
-
+        
     }
 
-    void StartTargetingPlayer()
-    {
-        //THIS IS CALLED BY THE VARIOUS ATTACK ANIMATIONS THROUGH ANIMATION EVENTS -ryan
+    //public void TargetPlayer() //THIS IS CALLED BY THE VARIOUS ATTACK ANIMATIONS THROUGH ANIMATION EVENTS -ryan
+    //{
+    //    Vector3 localPos = transform.position - player.position;
 
-        animStateHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
-        isTargetingPlayer = true;
-    }
+    //    animStateHash = animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
 
-    void StopTargetingPlayer()
-    {
-        //THIS IS CALLED BY THE VARIOUS ATTACK ANIMATIONS THROUGH ANIMATION EVENTS -ryan
+    //    switch (animStateHash)
+    //    {
+    //        case leftAttackHash:
+    //            BossKeyframes.Instance.ChangeKeyframe("left", "x", 6, localPos.x);
+    //            BossKeyframes.Instance.ChangeKeyframe("left", "x", 7, localPos.x);
 
-        isTargetingPlayer = false;
-    }
+    //            BossKeyframes.Instance.ChangeKeyframe("left", "z", 6, localPos.z);
+    //            BossKeyframes.Instance.ChangeKeyframe("left", "z", 7, localPos.z);
+
+    //            leftAttackClip.SetCurve(BossKeyframes.Instance.leftPath, BossKeyframes.Instance.leftType)
+    //            break;
+
+    //        case rightAttackHash:
+    //            break;
+
+    //        case smashHash:
+    //            break;
+
+    //        default:
+    //            break;
+    //    }
+    //}
 
     public void DoRandomAttack() // Picks either slam or swipe attack
     {

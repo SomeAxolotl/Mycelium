@@ -10,24 +10,14 @@ public class AnimationUtilityScript : MonoBehaviour
     [SerializeField] string path;
     [SerializeField] string property;
     [Space(10)]
-    [SerializeField] string variableName;
+    [SerializeField] string keysVariableName;
+    [SerializeField] string curveVariableName;
 
     EditorCurveBinding[] floatBinds;
 
-    // Start is called before the first frame update
-    void Start()
+    private void PrintCurveBinding(EditorCurveBinding bind)
     {
-        Keyframe[] keys = new Keyframe[9];
-
-        keys[0] = new Keyframe(0f, 0.518f);
-        keys[1] = new Keyframe(0.2833333f, 1.6539f);
-        keys[2] = new Keyframe(0.55f, 7.4148f);
-        keys[3] = new Keyframe(1.05f, 10.7189f);
-        keys[4] = new Keyframe(1.516667f, 13.11f);
-        keys[5] = new Keyframe(1.783333f, 8.72275f);
-        keys[6] = new Keyframe(1.95f, 0.2886f);
-        keys[7] = new Keyframe(2.75f, 0.2886f);
-        keys[8] = new Keyframe(3.1f, 7.77f);
+        Debug.Log($"Float Curve - Path: <color=#cb7644>{bind.path}</color>, Type: <color=#4ec9ac>{bind.type}</color>, Property: <color=#9bdbfc>{bind.propertyName}</color>");
     }
 
     public void PrintAllData()
@@ -37,7 +27,8 @@ public class AnimationUtilityScript : MonoBehaviour
         foreach (EditorCurveBinding bind in floatBinds)
         {
             AnimationCurve curve = AnimationUtility.GetEditorCurve(animClip, bind);
-            Debug.Log($"Float Curve - Path: {bind.path}, Property: {bind.propertyName}, Type: {bind.type}");
+
+            PrintCurveBinding(bind);
 
             foreach (Keyframe kf in curve.keys)
             {
@@ -56,7 +47,7 @@ public class AnimationUtilityScript : MonoBehaviour
             {
                 AnimationCurve curve = AnimationUtility.GetEditorCurve(animClip, bind);
 
-                Debug.Log($"Float Curve - Path: {bind.path}, Property: {bind.propertyName}, Type: {bind.type}");
+                PrintCurveBinding(bind);
 
                 foreach (Keyframe kf in curve.keys)
                 {
@@ -78,14 +69,16 @@ public class AnimationUtilityScript : MonoBehaviour
             {
                 AnimationCurve curve = AnimationUtility.GetEditorCurve(animClip, bind);
 
-                code = "Keyframe[] " + variableName + " = new Keyframe[" + curve.length +"];\n\n";
+                code = "[HideInInspector] public Keyframe[] " + keysVariableName + " = new Keyframe[" + curve.length + "];\n\n";
 
                 foreach (Keyframe kf in curve.keys)
                 {
-                    code = code + variableName + "[" + i + "] = new Keyframe(" + kf.time + "f, " + kf.value + "f);\n";
+                    code = code + keysVariableName + "[" + i + "] = new Keyframe(" + kf.time + "f, " + kf.value + "f);\n";
 
                     i++;
                 }
+
+                code = code + curveVariableName + " = new AnimationCurve(" + keysVariableName + ");\n";
             }
         }
 
