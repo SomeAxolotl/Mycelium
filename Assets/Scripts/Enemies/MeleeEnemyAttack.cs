@@ -131,7 +131,7 @@ public class MeleeEnemyAttack : EnemyAttack
             distanceToPlayer = Vector3.Distance(transform.position, playerPos);
             rb.velocity = new Vector3((moveDirection * chargeSpeed).x, rb.velocity.y, (moveDirection * chargeSpeed).z);
             CheckGround();
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         animator.speed = 1f;
         distanceToPlayer = Vector3.Distance(transform.position, player.position);

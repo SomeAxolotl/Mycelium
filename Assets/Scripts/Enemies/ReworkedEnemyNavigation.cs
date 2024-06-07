@@ -86,29 +86,48 @@ public class ReworkedEnemyNavigation : MonoBehaviour
             }
         }
 
-        if (speed < 1f && !playerSeen)
+        if(!isFlyingEnemy)
         {
-            rerouteTimer += Time.deltaTime;
-        }
-        else
-        {
-            rerouteTimer = 0;
-        }
-
-        if (rerouteTimer > .5f)
-        {
-            waypoints.Clear();
-            if(!isFlyingEnemy)
+            if (speed < 1f && !playerSeen)
             {
+                rerouteTimer += Time.deltaTime;
+            }
+            else
+            {
+                rerouteTimer = 0f;
+            }
+
+            if (rerouteTimer > .5f)
+            {
+                waypoints.Clear();
                 SetRandomDestination();
                 rb.AddForce((-Vector3.forward * 3f) + (Vector3.up * 2f), ForceMode.Impulse);
+                rerouteTimer = 0f;
             }
-            else if(isFlyingEnemy)
-            { 
-                SetRandomFlyingDestination();
-            }
-            rerouteTimer = 0f;
         }
+
+        if(isFlyingEnemy)
+        {
+            if(!playerSeen)
+            {
+                rerouteTimer += Time.deltaTime;
+            }
+            else
+            {
+                rerouteTimer = 0f;
+            }
+
+            if (rerouteTimer > 4f)
+            {
+                waypoints.Clear();
+                rb.velocity = Vector3.zero;
+                SetRandomFlyingDestination();
+                rerouteTimer = 0f;
+            }
+        }
+
+
+
     }
     void FixedUpdate()
     {
@@ -165,20 +184,19 @@ public class ReworkedEnemyNavigation : MonoBehaviour
             float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
             if (distanceToTarget <= 1f)
             {
+                waypoints.Clear();
                 startedPatrol = false;
             }
             else
             {
                 Vector3 moveDirection = ObstacleAvoidance(targetPosition - transform.position);
-                rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
+                rb.velocity = moveDirection * moveSpeed;
 
                 Quaternion desiredRotation = Quaternion.LookRotation(moveDirection);
-                float desiredYRotation = desiredRotation.eulerAngles.y;
-                Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
-                float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
-                float maxAngleThisFrame = maxRotationSpeed * Time.fixedDeltaTime;
+                float angleToTarget = Quaternion.Angle(transform.rotation, desiredRotation);
+                float maxAngleThisFrame = maxRotationSpeed * 2f * Time.fixedDeltaTime;
                 float fractionOfTurn = Mathf.Min(maxAngleThisFrame / angleToTarget, 1f);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, fractionOfTurn);
+                transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, fractionOfTurn);
             }
         }
     }
@@ -209,7 +227,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
 
         return moveDirection.normalized;
     }
-    void SetRandomDestination()
+    public void SetRandomDestination()
     {
         Vector3 point;
         if (RandomPoint(transform.position, patrolRadius, out point))
@@ -244,8 +262,9 @@ public class ReworkedEnemyNavigation : MonoBehaviour
             return false;
         }
     }
-    void SetRandomFlyingDestination()
+    public void SetRandomFlyingDestination()
     {
+        Debug.Log("ATTEMPTING");
         Vector3 target;
         if (RandomFlyingPoint(out target))
         {
