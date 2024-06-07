@@ -117,7 +117,7 @@ public class CharacterStats : MonoBehaviour
         {
             transform.Find("SweatParticles").GetComponent<ParticleSystem>().Play();
 
-            if (!ProfileManager.Instance.sporeHasTired[GlobalData.profileNumber] && gameObject.tag == "currentPlayer")
+            if (gameObject.tag == "currentPlayer")
             {
                 NotificationManager.Instance.Notification
                 (
@@ -125,7 +125,7 @@ public class CharacterStats : MonoBehaviour
                     "Using them will decrease their happiness!"
                 );
 
-                ProfileManager.Instance.sporeHasTired[GlobalData.profileNumber] = true;
+                //ProfileManager.Instance.sporeHasTired[GlobalData.profileNumber] = true;
             }
         }
     }
@@ -139,12 +139,25 @@ public class CharacterStats : MonoBehaviour
     public void ModifyHappiness(float modifyAmount)
     {
         sporeHappiness = Mathf.Clamp(sporeHappiness + modifyAmount, 0f, 1f);
-        //Debug.Log(sporeName + " Happiness: " + sporeHappiness);
+        Debug.Log(sporeName + " Happiness: " + sporeHappiness);
 
         HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
         if (hudHappiness != null)
         {
             hudHappiness.UpdateHappinessMeter();
+        }
+
+        if (modifyAmount > 0)
+        {
+            ParticleManager.Instance.SpawnParticles("HappyParticles", transform.position, Quaternion.Euler(-90, 0, 0), this.gameObject);
+        }
+        else if (modifyAmount < 0)
+        {
+            Renderer renderer = transform.Find("SporeModel").GetComponent<Renderer>();
+            float height = renderer.bounds.size.y;
+            Vector3 spawnPosition = transform.position + new Vector3(0, height, 0);
+
+            ParticleManager.Instance.SpawnParticles("SadParticles", spawnPosition, Quaternion.Euler(-90, 0, 0), this.gameObject);
         }
     }
 

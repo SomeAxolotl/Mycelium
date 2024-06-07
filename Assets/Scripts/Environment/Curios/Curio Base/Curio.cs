@@ -44,9 +44,11 @@ public abstract class Curio : MonoBehaviour
 
     void OnEnable()
     {
-        if (GlobalData.areaCleared)
+        if (GlobalData.areaCleared && !selfCurio)
         {
             canBeActivated = true;
+            Debug.Log(this.gameObject.name + " can now be activated.");
+
             //enable RT above
         }
     }
@@ -132,9 +134,9 @@ public abstract class Curio : MonoBehaviour
         OnPlayingDone?.Invoke();
     }
 
-    public void ActivateHappiness()
+    public void Activate(CharacterStats currentPlayerStats)
     {
-        if (canBeActivated)
+        if (canBeActivated && !selfCurio)
         {
             canBeActivated = false;
 
@@ -146,6 +148,8 @@ public abstract class Curio : MonoBehaviour
                     characterStats.ModifyHappiness(happinessToIncrease);
                 }
             }
+
+            currentPlayerStats.ModifyHappiness(happinessToIncrease);
         }
     }
 }

@@ -219,6 +219,7 @@ public class TestingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             GlobalData.areaCleared = true;
+            Debug.Log("areaCleared set to true");
         }
 
         if (Input.GetKeyDown(KeyCode.B))

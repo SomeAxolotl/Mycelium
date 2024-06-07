@@ -2964,9 +2964,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2509756702752052893}
+  - component: {fileID: 7536311544792119249}
   - component: {fileID: 265313421675274675}
   - component: {fileID: 9149449153972693433}
-  - component: {fileID: 7536311544792119249}
   - component: {fileID: 9180559162371306582}
   - component: {fileID: 2379302324268303564}
   - component: {fileID: 1131853324052152694}
@@ -3010,6 +3010,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7536311544792119249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833743133119944518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06141820242049b42b0777d6806dc014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sporeName: Gob
+  equippedSkills:
+  - NoSkill
+  - NoSkill
+  - NoSkill
+  sporePersonality: 0
+  sporeHappiness: 0.5
+  sporeEnergy: 2
+  primalLevel: 1
+  primalDmg: 10
+  speedLevel: 1
+  moveSpeed: 4
+  atkCooldownBuff: 0
+  minAttackSpeed: 0
+  maxAttackSpeed: 0
+  sentienceLevel: 1
+  vitalityLevel: 1
+  baseHealth: 100
+  baseRegen: 0.2
+  totalLevel: 0
+  levelUpCost: 0
+  ConfirmPrimal: {fileID: 0}
+  ConfirmSpeed: {fileID: 0}
+  animatorSpeed: 0
 --- !u!136 &265313421675274675
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3060,42 +3096,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &7536311544792119249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1833743133119944518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06141820242049b42b0777d6806dc014, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sporeName: Gob
-  equippedSkills:
-  - NoSkill
-  - NoSkill
-  - NoSkill
-  sporePersonality: 0
-  sporeHappiness: 0.5
-  sporeEnergy: 2
-  primalLevel: 1
-  primalDmg: 10
-  speedLevel: 1
-  moveSpeed: 4
-  atkCooldownBuff: 0
-  minAttackSpeed: 0
-  maxAttackSpeed: 0
-  sentienceLevel: 1
-  vitalityLevel: 1
-  baseHealth: 100
-  baseRegen: 0.2
-  totalLevel: 0
-  levelUpCost: 0
-  ConfirmPrimal: {fileID: 0}
-  ConfirmSpeed: {fileID: 0}
-  animatorSpeed: 0
 --- !u!114 &9180559162371306582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3132,7 +3132,6 @@ MonoBehaviour:
   center: {fileID: 0}
   lookTarget: {x: 0, y: 0, z: 0}
   interactingCurio: {fileID: 0}
-  canGainHappiness: 0
   currentSpeed: 0
   waypointVisual: {fileID: 3284029684186351555, guid: ece1b18bdb39a6644ab607511b5e085f,
     type: 3}
@@ -3383,6 +3382,10 @@ MonoBehaviour:
   - transform: {fileID: 6591603717959795730}
     interactingSpore: {fileID: 0}
   maxUserCount: 1
+  interactAnimationStrings: []
+  playerInteractRange: 2
+  canBeActivated: 0
+  currentUsers: []
   currentUserCount: 0
   selfCurio: 1
   happinessToIncrease: 0
@@ -3408,6 +3411,10 @@ MonoBehaviour:
   - transform: {fileID: 2509756702752052893}
     interactingSpore: {fileID: 0}
   maxUserCount: 1
+  interactAnimationStrings: []
+  playerInteractRange: 2
+  canBeActivated: 0
+  currentUsers: []
   currentUserCount: 0
   selfCurio: 1
   happinessToIncrease: 0
@@ -3449,6 +3456,10 @@ MonoBehaviour:
   - transform: {fileID: 2509756702752052893}
     interactingSpore: {fileID: 0}
   maxUserCount: 1
+  interactAnimationStrings: []
+  playerInteractRange: 2
+  canBeActivated: 0
+  currentUsers: []
   currentUserCount: 0
   selfCurio: 1
   happinessToIncrease: 0

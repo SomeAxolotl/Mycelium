@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    IEnumerator Start()
     {
         Scene scene = SceneManager.GetActiveScene();
         vcamHolder = GameObject.Find("VCamHolder");
@@ -57,6 +57,13 @@ public class GameManager : MonoBehaviour
             }
             GlobalData.isDay = !GlobalData.isDay;
 
+            //Only hide colony happiness if the character count is less than 2
+            HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
+            if (GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>().characters.Count < 2)
+            {
+                hudHappiness.HideColonyHappinessMeter();
+            }
+
             //if a spore permanently died,
             if (GlobalData.sporePermaDied != null)
             {
@@ -72,6 +79,11 @@ public class GameManager : MonoBehaviour
             //if a spore DIDN'T permanently die,
             else
             {
+                //sprout the current Spore
+                StartCoroutine(SproutPlayer());
+
+                yield return new WaitForSeconds(1f);
+
                 //but if it still died, reduce its happiness
                 if (GlobalData.sporeDied != null)
                 {
@@ -84,16 +96,6 @@ public class GameManager : MonoBehaviour
                     currentPlayer.GetComponent<CharacterStats>().ModifyEnergy(-1);
                     HappinessManager.Instance.RestOtherSpores(currentPlayer);
                 }
-
-                //sprout the current Spore
-                StartCoroutine(SproutPlayer());
-            }
-
-            //Only hide colony happiness if the character count is less than 2
-            HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
-            if (GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>().characters.Count < 2)
-            {
-                hudHappiness.HideColonyHappinessMeter();
             }
         }
         else
@@ -154,7 +156,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SproutPlayer()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
         
         GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>().DisableController();
 

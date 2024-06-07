@@ -198,6 +198,8 @@ public class PlayerController : MonoBehaviour
                         {
                             string randomInteractString = closestCurio.interactAnimationStrings[UnityEngine.Random.Range(0, closestCurio.interactAnimationStrings.Count)];
                             StartCoroutine(CurioInteractAnimation(randomInteractString));
+                            
+                            closestCurio.Activate(currentPlayer.GetComponent<CharacterStats>());
                         }
                         else
                         {
@@ -221,11 +223,13 @@ public class PlayerController : MonoBehaviour
     {
         DisableController();
 
-        move.Enable();
-
         animator.SetBool(animationName, true);
         animator.SetTrigger(animationName);
         animator.SetBool("InActionState", true);
+
+        yield return new WaitForSeconds(1.25f);
+
+        move.Enable();
 
         yield return new WaitUntil(() => move.triggered);
 
