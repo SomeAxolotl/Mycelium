@@ -136,16 +136,27 @@ public abstract class Curio : MonoBehaviour
 
     public void Activate(CharacterStats currentPlayerStats)
     {
+        StartCoroutine(DoActivate(currentPlayerStats));
+    }
+
+    IEnumerator DoActivate(CharacterStats currentPlayerStats)
+    {
+        float timeBetweenHappinessInjections = 0.35f;
+
+        List<WanderingSpore> usersAtActivation = new List<WanderingSpore>(currentUsers);
+
         if (canBeActivated && !selfCurio)
         {
             canBeActivated = false;
 
-            foreach (WanderingSpore wanderingSpore in currentUsers)
+            foreach (WanderingSpore wanderingSpore in usersAtActivation)
             {
                 CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
                 if (characterStats != null)
                 {   
                     characterStats.ModifyHappiness(happinessToIncrease);
+
+                    yield return new WaitForSeconds(timeBetweenHappinessInjections);
                 }
             }
 

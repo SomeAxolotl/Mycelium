@@ -192,14 +192,12 @@ public class PlayerController : MonoBehaviour
                 {
                     float distanceToClosestCurio = Vector3.Distance(currentPlayer.transform.position, closestCurio.transform.position);
 
-                    if (distanceToClosestCurio < closestCurio.playerInteractRange && closestCurio.CanUse())
+                    if (distanceToClosestCurio < closestCurio.playerInteractRange)
                     {
                         if (closestCurio.interactAnimationStrings.Count > 0)
                         {
                             string randomInteractString = closestCurio.interactAnimationStrings[UnityEngine.Random.Range(0, closestCurio.interactAnimationStrings.Count)];
-                            StartCoroutine(CurioInteractAnimation(randomInteractString));
-                            
-                            closestCurio.Activate(currentPlayer.GetComponent<CharacterStats>());
+                            StartCoroutine(InteractWithCurio(closestCurio, randomInteractString));
                         }
                         else
                         {
@@ -208,18 +206,18 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        StartCoroutine(CurioInteractAnimation("Wave"));
+                        StartCoroutine(InteractWithCurio());
                     }
                 }
                 else
                 {
-                    StartCoroutine(CurioInteractAnimation("Wave"));
+                    StartCoroutine(InteractWithCurio());
                 }
             }
         }
     }
 
-    IEnumerator CurioInteractAnimation(string animationName)
+    IEnumerator InteractWithCurio(Curio curio = null, string animationName = "Wave")
     {
         DisableController();
 
@@ -227,7 +225,14 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger(animationName);
         animator.SetBool("InActionState", true);
 
-        yield return new WaitForSeconds(1.25f);
+        float timeUntilCancellable = 1.2f;
+
+        yield return new WaitForSeconds(timeUntilCancellable / 2);
+        if (curio != null)
+        {
+            curio.Activate(currentPlayer.GetComponent<CharacterStats>());
+        }
+        yield return new WaitForSeconds(timeUntilCancellable / 2);
 
         move.Enable();
 
@@ -237,6 +242,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("InActionState", false);
         animator.Play("Idle");
 
+        //i dont think i need this but chatgpt said i do so ok haha
         move.Disable();
 
         EnableController();
