@@ -15251,6 +15251,10 @@ MonoBehaviour:
   nutrientDrop: 1
   centerPoint: {fileID: 7046695629643578866}
   alreadyDead: 0
+  dmgTaken: 0
+  isMiniBoss: 0
+  miniBossName: 
+  possibleRewards: []
 --- !u!114 &4687821941402857685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15295,6 +15299,7 @@ MonoBehaviour:
   forwardDetectionRange: 75
   backwardsDetectionRange: 75
   moveSpeed: 4
+  isFlyingEnemy: 0
   animator: {fileID: 0}
 --- !u!114 &33760743765277084
 MonoBehaviour:
@@ -15342,6 +15347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ca5d5665eea0249931a5fd1d2a2a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgDealt: 0
 --- !u!114 &5232234030615179641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15364,6 +15370,7 @@ MonoBehaviour:
   explosionTimer: 3
   explosionRadius: 5
   explosionDamage: 0
+  isFlyingEnemy: 0
   zombifiedParticles: {fileID: 7271823402501326704, guid: 4e7cbf47532765f4a937a638029a0364,
     type: 3}
 --- !u!114 &8462651889484642246
@@ -15378,6 +15385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfde3eb943c69b142b273429df023af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgDealt: 0
   zombified: 0
   attackCooldown: 1.5
   damage: 20
