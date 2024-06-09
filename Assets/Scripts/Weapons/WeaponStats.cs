@@ -62,6 +62,9 @@ public class WeaponStats : MonoBehaviour
             transform.parent.transform.localEulerAngles = rotationOffset;
         }
 
+        startSize = transform.localScale;
+        AdjustSize();
+
         //InvokeRepeating("SayStats", 1f, 1f);
     }
 
@@ -89,6 +92,14 @@ public class WeaponStats : MonoBehaviour
         }
     }
 
+    private Vector3 startSize;
+    [HideInInspector] public Vector3 O_startSize{get{return startSize;}}
+    public void AdjustSize(){
+        transform.localScale = startSize;
+        Vector3 newScale = new Vector3(transform.localScale.x * statNums.advSize.Value, transform.localScale.y * statNums.advSize.Value, transform.localScale.z * statNums.advSize.Value);
+        transform.localScale = newScale;
+    }
+
     //Every loop, add 50% of the weapons damage mult
     void ScaleWeaponStats(){
         //Debug.Log("Mult: " + mult + " + " + ((mult / 2) * (GlobalData.currentLoop - 1)));
@@ -99,7 +110,7 @@ public class WeaponStats : MonoBehaviour
     public void ClearAllStatsFrom(Component com){
         statNums.advDamage.RemoveModifierFromSource(com);
         statNums.advKnockback.RemoveModifierFromSource(com);
-        Debug.Log("Remove stats from this modifier");
+        statNums.advSize.RemoveModifierFromSource(com);
     }
 }
 
@@ -107,4 +118,5 @@ public class WeaponStatList
 {
     public AdvStat advDamage = new AdvStat();
     public AdvStat advKnockback = new AdvStat();
+    public AdvStat advSize = new AdvStat(1);
 }

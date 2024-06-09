@@ -33,7 +33,8 @@ public class AttributeBase : MonoBehaviour
         characterStats = player.GetComponent<CharacterStats>();
         hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();
     }
-    private void OnEnable(){
+
+    private void Awake(){
         stats = GetComponent<WeaponStats>();
         hit = GetComponent<WeaponCollision>();
         interact = GetComponent<WeaponInteraction>();
@@ -45,6 +46,7 @@ public class AttributeBase : MonoBehaviour
         }
         Initialize();
     }
+
     private void OnDisable(){
         if(stats != null){
 
