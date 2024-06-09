@@ -182,13 +182,36 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             return;
         }
 
-        // Get the colored hint string for the interact button
-        string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
-
         // Create the tooltip message
         string tooltipTitle = "Forge Shroom";
-        string tooltipMessage = "Weapons needed: " + salvagedWeapons + "/" + totalWeaponsNeeded + "\n";
+        string tooltipMessage = "";
+
+        // Determine the current step based on salvagedWeapons count
+        int currentStep = Mathf.Min(salvagedWeapons, totalWeaponsNeeded);
+
+        // Determine the appropriate tooltip message based on the current step
+        switch (currentStep)
+        {
+            case 0:
+                tooltipMessage = "Base Weapon 0/1\n";
+                break;
+            case 1:
+                tooltipMessage = "1st Attribute 0/1\n";
+                break;
+            case 2:
+                tooltipMessage = "2nd Attribute 0/1\n";
+                break;
+            default:
+                // Should not reach here
+                tooltipMessage = "Unexpected state\n";
+                break;
+        }
+
+        // Append general instruction for the next step
         tooltipMessage += "Provide weapons to the Forge Shroom.\n";
+
+        // Get the colored hint string for the interact button
+        string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         tooltipMessage += "Press " + interactText + " to provide.";
 
         // Call CreateTooltip with all required parameters
