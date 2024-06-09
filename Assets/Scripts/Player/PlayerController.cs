@@ -426,7 +426,7 @@ public class PlayerController : MonoBehaviour
             DisableController();
             Vector3 dirFromobject = Vector3.zero;
             if(yForce){
-                dirFromobject = (new Vector3(transform.position.x, transform.position.y, transform.position.z) - new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z)).normalized;
+                dirFromobject = (transform.position - obj.transform.position).normalized;
             }else{
                 dirFromobject = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(obj.transform.position.x, 0f, obj.transform.position.z)).normalized;
             }

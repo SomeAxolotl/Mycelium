@@ -7,6 +7,7 @@ public class WeaponCollision : MonoBehaviour
 {
     PlayerAttack playerAttack;
     PlayerHealth playerHealth;
+    GameObject player; 
     public float sentienceBonusDamage;
     public float reflectBonusDamage;
     List<GameObject> enemiesHit = new List<GameObject>();
@@ -22,6 +23,7 @@ public class WeaponCollision : MonoBehaviour
     {
         playerAttack = GameObject.Find("PlayerParent").GetComponent<PlayerAttack>();
         playerHealth = GameObject.Find("PlayerParent").GetComponent<PlayerHealth>();
+        player = GameObject.FindWithTag("currentPlayer");
         weaponStats = GetComponent<WeaponStats>();
         Invoke("CheckForSkills", 1f);
     }
@@ -53,7 +55,7 @@ public class WeaponCollision : MonoBehaviour
             
             if (other.GetComponent<EnemyKnockback>() != null)
             {
-                other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback);
+                other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback, player.transform, other.transform, false);
             }
 
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform);

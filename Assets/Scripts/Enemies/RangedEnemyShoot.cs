@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class RangedEnemyShoot : EnemyAttack
 {
-    private EnemyKnockback enemyKnockback;
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private Transform player;
     private Transform center;
@@ -23,7 +22,6 @@ public class RangedEnemyShoot : EnemyAttack
     // Start is called before the first frame update
     void Start()
     {
-        enemyKnockback = GetComponent<EnemyKnockback>();
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         attack = this.Attack();
         animator = GetComponent<Animator>();

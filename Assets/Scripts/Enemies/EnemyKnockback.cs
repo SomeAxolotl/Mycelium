@@ -33,14 +33,23 @@ public class EnemyKnockback : MonoBehaviour
             rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
     }
-    public void Knockback(float knockbackForce)
+    public void Knockback(float knockbackForce, Transform fromObj, Transform toObj, bool yForce = false)
     {
         if(GetComponent<Sturdy>() == null){
             animator.SetBool("IsMoving", false);
             enemyAttack.CancelAttack();
             reworkedEnemyNav.enabled = false;
-            Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
-            StartCoroutine(StartKnockback(dirFromPlayer, knockbackForce));
+            Vector3 forceDirection = Vector3.zero;
+            //Vector3 dirFromPlayer = (new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z)).normalized;
+            if (yForce)
+            {
+                forceDirection = (toObj.position - fromObj.position).normalized;
+            }
+            else
+            {
+                forceDirection = (new Vector3(toObj.transform.position.x, 0f, toObj.transform.position.z) - new Vector3(fromObj.transform.position.x, 0f, fromObj.transform.position.z)).normalized;
+            }
+            StartCoroutine(StartKnockback(forceDirection, knockbackForce));
         }
     }
     IEnumerator StartKnockback(Vector3 direction, float force)

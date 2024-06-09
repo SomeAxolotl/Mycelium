@@ -36,7 +36,7 @@ public class DefenseMechanism : Skill
                 float distanceToCollider = Vector3.Distance(transform.position, collider.transform.position);
                 enemies.Add(collider.gameObject);
                 EnemyKnockback enemyKnockback = collider.gameObject.GetComponent<EnemyKnockback>();
-                enemyKnockback.Knockback(12 * (distanceToCollider / knockbackRadius));
+                enemyKnockback.Knockback(12 * (distanceToCollider / knockbackRadius), transform, collider.transform, false);
             }
         }
         //Reflects any projectiles in a slightly larger area
