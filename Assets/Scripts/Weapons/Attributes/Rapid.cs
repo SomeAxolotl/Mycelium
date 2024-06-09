@@ -11,6 +11,6 @@ public class Rapid : AttributeBase
 
         stats.wpnAttackSpeedModifier *= 2;
         stats.secondsTilHitstopSpeedup = 0;
-        stats.wpnMult /= 2;
+        stats.advDamage.AddModifier(new StatModifier(-0.5f, StatModType.PercentAdd, this));
     }
 }

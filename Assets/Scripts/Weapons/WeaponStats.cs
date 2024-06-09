@@ -17,10 +17,12 @@ public class WeaponStats : MonoBehaviour
 
     [SerializeField] public string wpnName = "Wooden Sword";
 
+    public AdvStat advDamage;
+
     [HideInInspector][SerializeField] private float baseDmg = 10;
-    [HideInInspector] public float wpnBaseDmg{get{return baseDmg;}set{baseDmg = value;}}
+
     [SerializeField] private float mult = 1;
-    [HideInInspector] public float wpnMult{get{return mult;}set{mult = value;}}
+
     [SerializeField] private float knockback;
     [HideInInspector] public float wpnKnockback{get{return knockback;}set{knockback = value;}}
 
@@ -43,6 +45,11 @@ public class WeaponStats : MonoBehaviour
 
     void Start()
     {
+        //Adds the base damage of the weapon
+        advDamage.AddModifier(new StatModifier(baseDmg, StatModType.Flat, this));
+        //Adds the base multiplier of the weapon
+        advDamage.AddModifier(new StatModifier(mult, StatModType.PercentMult, this));
+
         if(acceptingAttribute){
             AttributeAssigner.Instance.AddRandomAttribute(gameObject);
         }
@@ -78,7 +85,7 @@ public class WeaponStats : MonoBehaviour
     {
         if(wpnName != "Stick")
         {
-            Debug.Log("Name: " + wpnName + "\tDamage: " + wpnMult + "\tKnockback: " + wpnKnockback, gameObject);
+            Debug.Log("Name: " + wpnName + "\tDamage: " + advDamage.Value + "\tKnockback: " + wpnKnockback, gameObject);
         }
     }
 

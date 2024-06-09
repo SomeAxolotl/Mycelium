@@ -191,8 +191,7 @@ public class LevelGenerator : MonoBehaviour
     IEnumerator SetPreviousWeaponStats(GameObject previousWeapon)
     {
         yield return null;
-        previousWeapon.GetComponent<WeaponStats>().wpnBaseDmg = GlobalData.currentWeaponDamage;
-        previousWeapon.GetComponent<WeaponStats>().wpnMult = GlobalData.currentWeaponMult;
+        previousWeapon.GetComponent<WeaponStats>().advDamage = GlobalData.currentWeaponDamage;
         previousWeapon.GetComponent<WeaponStats>().wpnKnockback = GlobalData.currentWeaponKnockback;
 
         List<AttributeBase> atts = new List<AttributeBase>();

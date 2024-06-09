@@ -14,7 +14,7 @@ public class Fragile : AttributeBase
         if(stats == null || hit == null){return;}
         specialAttNum = Random.Range(30, 40);
 
-        stats.wpnMult *= 1.5f;
+        stats.advDamage.AddModifier(new StatModifier(0.5f, StatModType.PercentAdd, this));
         whiteMat = Instantiate(Resources.Load("m_white")) as Material;
 
         //If there are multiple fragiles turn this off

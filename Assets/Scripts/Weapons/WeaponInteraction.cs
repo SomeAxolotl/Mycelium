@@ -163,15 +163,15 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         WeaponStats oldStats = curWeapon.GetComponent<WeaponStats>();
         WeaponStats newStats = weapon.gameObject.GetComponent<WeaponStats>();
         string damageComparisonText;
-        float damageDifference = newStats.wpnMult - oldStats.wpnMult;
+        float damageDifference = newStats.advDamage.PercentValue - oldStats.advDamage.PercentValue;
         float knockDifference = newStats.wpnKnockback - oldStats.wpnKnockback;
-        if (newStats.wpnMult > oldStats.wpnMult)
+        if (newStats.advDamage.PercentValue > oldStats.advDamage.PercentValue)
         {
-            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + (damageDifference * 100f).ToString("F0") + "%)" + "</color>";
+            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + (damageDifference).ToString("F0") + "%)" + "</color>";
         }
-        else if (newStats.wpnMult < oldStats.wpnMult)
+        else if (newStats.advDamage.PercentValue < oldStats.advDamage.PercentValue)
         {
-            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(damageDifference * 100f).ToString("F0") + "%)" + "</color>";
+            damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(damageDifference).ToString("F0") + "%)" + "</color>";
         }
         else
         {
@@ -200,7 +200,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 weapon.gameObject, 
                 weaponName, 
                 "Type: " + newStats.weaponType.ToString() + 
-                "\nDamage: " + (newStats.wpnMult * 100) + "%" + damageComparisonText + 
+                "\nDamage: " + (newStats.advDamage.PercentValue) + "%" + damageComparisonText + 
                 "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText
                 + attributeDescription, 
                 "Press "+interactText+" to Swap",

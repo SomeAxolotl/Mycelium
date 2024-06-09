@@ -15,6 +15,7 @@ public class Tiny : AttributeBase
         transform.localScale = newScale;
 
         stats.wpnAttackSpeedModifier *= 1.5f;
-        stats.wpnMult *= 1.5f;
+        //Why was this also doing more damage RONALD
+        //stats.wpnMult *= 1.5f;
     }
 }

@@ -84,8 +84,7 @@ public class LevelEnd : MonoBehaviour
         //Save Current Weapon
         GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
         //Weapon Stats
-        GlobalData.currentWeaponDamage = weaponStats.wpnBaseDmg;
-        GlobalData.currentWeaponMult = weaponStats.wpnMult;
+        GlobalData.currentWeaponDamage = weaponStats.advDamage;
         GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
         //Unequip Weapon
         List<AttributeBase> currAtt = swapWeapon.curWeapon.GetComponents<AttributeBase>().ToList();
@@ -147,8 +146,7 @@ public class LevelEnd : MonoBehaviour
         //Save Current Weapon
         GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
         //Weapon Stats
-        GlobalData.currentWeaponDamage = weaponStats.wpnBaseDmg;
-        GlobalData.currentWeaponMult = weaponStats.wpnMult;
+        GlobalData.currentWeaponDamage = weaponStats.advDamage;
         GlobalData.currentWeaponKnockback = weaponStats.wpnKnockback;
         //Unequip Weapon
         List<AttributeBase> currAtt = swapWeapon.curWeapon.GetComponents<AttributeBase>().ToList();
