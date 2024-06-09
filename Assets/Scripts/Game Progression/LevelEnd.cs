@@ -83,8 +83,6 @@ public class LevelEnd : MonoBehaviour
 
         //Save Current Weapon
         GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
-        //Weapon Stats
-        GlobalData.currentWeaponStats = weaponStats.statNums;
         //Unequip Weapon
         List<AttributeBase> currAtt = swapWeapon.curWeapon.GetComponents<AttributeBase>().ToList();
         if(currAtt.Count > 0){
@@ -92,10 +90,14 @@ public class LevelEnd : MonoBehaviour
                 GlobalData.specialAttNum.Add(attBase.specialAttNum);
                 attBase.Unequipped();
                 GlobalData.currentAttribute.Add(attBase.GetType().Name);
+                //Clears stats when a level in unloaded so the data from components is not saved
+                weaponStats.ClearAllStatsFrom(attBase);
             }
         }else{
             GlobalData.currentAttribute.Add("Nothing");
         }
+        //Weapon Stats
+        GlobalData.currentWeaponStats = weaponStats.statNums;
 
         //Save Current Stats
         GlobalData.currentSporeStats.Add(characterStats.primalLevel);

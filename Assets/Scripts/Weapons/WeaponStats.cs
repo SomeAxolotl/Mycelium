@@ -94,6 +94,13 @@ public class WeaponStats : MonoBehaviour
         //Debug.Log("Mult: " + mult + " + " + ((mult / 2) * (GlobalData.currentLoop - 1)));
         mult += (mult * 0.5f) * (GlobalData.currentLoop - 1);
     }
+
+    //Clears stats when a level in unloaded so the data from components is not saved
+    public void ClearAllStatsFrom(Component com){
+        statNums.advDamage.RemoveModifierFromSource(com);
+        statNums.advKnockback.RemoveModifierFromSource(com);
+        Debug.Log("Remove stats from this modifier");
+    }
 }
 
 public class WeaponStatList
