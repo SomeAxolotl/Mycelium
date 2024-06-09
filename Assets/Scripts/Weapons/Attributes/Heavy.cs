@@ -11,6 +11,6 @@ public class Heavy : AttributeBase
         if(stats == null || hit == null){return;}
         stats.wpnAttackSpeedModifier *= 0.75f;
         //stats.secondsTilHitstopSpeedup = 0;
-        stats.advDamage.AddModifier(new StatModifier(0.5f, StatModType.PercentAdd, this));
+        stats.statNums.advDamage.AddModifier(new StatModifier(0.5f, StatModType.PercentAdd, this));
     }
 }

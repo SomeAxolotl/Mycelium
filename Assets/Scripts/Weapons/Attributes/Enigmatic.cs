@@ -12,7 +12,7 @@ public class Enigmatic : AttributeBase
         attDesc = "+50% Damage, changes on hit";
 
         if(stats == null || hit == null){return;}
-        stats.advDamage.AddModifier(new StatModifier(0.5f, StatModType.PercentAdd, this));
+        stats.statNums.advDamage.AddModifier(new StatModifier(0.5f, StatModType.PercentAdd, this));
 
         //If there are multiple enigmatics turn this off
         if(GetComponentsInChildren<Enigmatic>().Length > 1){

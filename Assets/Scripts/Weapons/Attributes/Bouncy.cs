@@ -10,6 +10,6 @@ public class Bouncy : AttributeBase
         if(stats == null || hit == null){return;}
         stats.wpnName = attName + " " + stats.wpnName;
 
-        stats.wpnKnockback = stats.wpnKnockback * 1.5f;
+        stats.statNums.advKnockback.AddModifier(new StatModifier(0.5f, StatModType.PercentAdd, this));
     }
 }

@@ -55,7 +55,7 @@ public class WeaponCollision : MonoBehaviour
             
             if (other.GetComponent<EnemyKnockback>() != null)
             {
-                other.GetComponent<EnemyKnockback>().Knockback(weaponStats.wpnKnockback, player.transform, other.transform, false);
+                other.GetComponent<EnemyKnockback>().Knockback(weaponStats.statNums.advKnockback.Value, player.transform, other.transform, false);
             }
 
             SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform);

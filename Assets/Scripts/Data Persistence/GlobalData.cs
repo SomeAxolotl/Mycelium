@@ -16,8 +16,7 @@ public static class GlobalData
 
     //Weapon Stuff
     public static string currentWeapon { get; set; }
-    public static AdvStat currentWeaponDamage { get; set; }
-    public static float currentWeaponKnockback { get; set; }
+    public static WeaponStatList currentWeaponStats { get; set; }
 
     //Attribute Stuff
     public static List<string> currentAttribute = new List<string>();

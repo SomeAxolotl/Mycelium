@@ -163,13 +163,13 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         WeaponStats oldStats = curWeapon.GetComponent<WeaponStats>();
         WeaponStats newStats = weapon.gameObject.GetComponent<WeaponStats>();
         string damageComparisonText;
-        float damageDifference = newStats.advDamage.PercentValue - oldStats.advDamage.PercentValue;
-        float knockDifference = newStats.wpnKnockback - oldStats.wpnKnockback;
-        if (newStats.advDamage.PercentValue > oldStats.advDamage.PercentValue)
+        float damageDifference = newStats.statNums.advDamage.PercentValue - oldStats.statNums.advDamage.PercentValue;
+        float knockDifference = newStats.statNums.advKnockback.Value - oldStats.statNums.advKnockback.Value;
+        if (newStats.statNums.advDamage.PercentValue > oldStats.statNums.advDamage.PercentValue)
         {
             damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + (damageDifference).ToString("F0") + "%)" + "</color>";
         }
-        else if (newStats.advDamage.PercentValue < oldStats.advDamage.PercentValue)
+        else if (newStats.statNums.advDamage.PercentValue < oldStats.statNums.advDamage.PercentValue)
         {
             damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(damageDifference).ToString("F0") + "%)" + "</color>";
         }
@@ -178,11 +178,11 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
             damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(evenStatColor) + "> +-</color>";
         }
         string knockbackComparisonText;
-        if (newStats.wpnKnockback > oldStats.wpnKnockback)
+        if (newStats.statNums.advKnockback.Value > oldStats.statNums.advKnockback.Value)
         {
             knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + knockDifference.ToString("F1") + ")" + "</color>";
         }
-        else if (newStats.wpnKnockback < oldStats.wpnKnockback)
+        else if (newStats.statNums.advKnockback.Value < oldStats.statNums.advKnockback.Value)
         {
             knockbackComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(knockDifference).ToString("F1") + ")" + "</color>";
         }
@@ -200,8 +200,8 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
                 weapon.gameObject, 
                 weaponName, 
                 "Type: " + newStats.weaponType.ToString() + 
-                "\nDamage: " + (newStats.advDamage.PercentValue) + "%" + damageComparisonText + 
-                "\nKnockback: " + newStats.wpnKnockback.ToString("F1") + knockbackComparisonText
+                "\nDamage: " + (newStats.statNums.advDamage.PercentValue) + "%" + damageComparisonText + 
+                "\nKnockback: " + newStats.statNums.advKnockback.Value.ToString("F1") + knockbackComparisonText
                 + attributeDescription, 
                 "Press "+interactText+" to Swap",
                 "Press "+salvageText+" to Salvage",

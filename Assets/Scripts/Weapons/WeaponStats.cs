@@ -17,14 +17,12 @@ public class WeaponStats : MonoBehaviour
 
     [SerializeField] public string wpnName = "Wooden Sword";
 
-    public AdvStat advDamage;
+    public WeaponStatList statNums = new WeaponStatList();
 
+    //Stats of the weapon, only used to set values
     [HideInInspector][SerializeField] private float baseDmg = 10;
-
     [SerializeField] private float mult = 1;
-
     [SerializeField] private float knockback;
-    [HideInInspector] public float wpnKnockback{get{return knockback;}set{knockback = value;}}
 
     public float wpnAttackSpeedModifier = 1.0f;
 
@@ -46,9 +44,11 @@ public class WeaponStats : MonoBehaviour
     void Start()
     {
         //Adds the base damage of the weapon
-        advDamage.AddModifier(new StatModifier(baseDmg, StatModType.Flat, this));
+        statNums.advDamage.AddModifier(new StatModifier(baseDmg, StatModType.Flat, this));
         //Adds the base multiplier of the weapon
-        advDamage.AddModifier(new StatModifier(mult, StatModType.PercentMult, this));
+        statNums.advDamage.AddModifier(new StatModifier(mult, StatModType.PercentMult, this));
+
+        statNums.advKnockback.AddModifier(new StatModifier(knockback, StatModType.Flat, this));
 
         if(acceptingAttribute){
             AttributeAssigner.Instance.AddRandomAttribute(gameObject);
@@ -85,7 +85,7 @@ public class WeaponStats : MonoBehaviour
     {
         if(wpnName != "Stick")
         {
-            Debug.Log("Name: " + wpnName + "\tDamage: " + advDamage.Value + "\tKnockback: " + wpnKnockback, gameObject);
+            Debug.Log("Name: " + wpnName + "\tDamage: " + statNums.advDamage.Value + "\tKnockback: " + statNums.advKnockback.Value, gameObject);
         }
     }
 
@@ -94,4 +94,10 @@ public class WeaponStats : MonoBehaviour
         //Debug.Log("Mult: " + mult + " + " + ((mult / 2) * (GlobalData.currentLoop - 1)));
         mult += (mult * 0.5f) * (GlobalData.currentLoop - 1);
     }
+}
+
+public class WeaponStatList
+{
+    public AdvStat advDamage = new AdvStat();
+    public AdvStat advKnockback = new AdvStat();
 }
