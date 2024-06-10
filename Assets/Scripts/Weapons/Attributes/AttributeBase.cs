@@ -13,6 +13,7 @@ public class AttributeBase : MonoBehaviour
     [HideInInspector] public SwapWeapon swap;
     [HideInInspector] public CharacterStats characterStats;
     [HideInInspector] public HUDStats hudStats;
+    [HideInInspector] public AttributeManager manager;
     public bool statChange = false;
 
     public string attName;
@@ -38,6 +39,7 @@ public class AttributeBase : MonoBehaviour
         stats = GetComponent<WeaponStats>();
         hit = GetComponent<WeaponCollision>();
         interact = GetComponent<WeaponInteraction>();
+        manager = GetComponent<AttributeManager>();
         if(stats != null){
 
         }
@@ -45,6 +47,10 @@ public class AttributeBase : MonoBehaviour
             hit.HitEnemy += Hit;
         }
         Initialize();
+        //Makes sure the rarity, name, and description is up to date
+        if(manager != null){
+            manager.RefreshData();
+        }
     }
 
     private void OnDisable(){

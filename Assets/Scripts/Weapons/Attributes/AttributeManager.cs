@@ -55,7 +55,7 @@ public class AttributeManager : MonoBehaviour
         defaultName = stats.wpnName;
     }
 
-    public void Start(){
+    public void RefreshData(){
         highestRarity = GetHighestAttributeRarity();
         UpdateAttName();
         UpdateDesc();
@@ -64,6 +64,7 @@ public class AttributeManager : MonoBehaviour
     private void UpdateAttName(){
         allAttName = defaultName;
         foreach(AttributeBase attribute in O_attributes){
+            Debug.Log(attribute.attName);
             if(attribute.attName != "" && attribute.attName != " " && attribute.attName != null){
                 allAttName = attribute.attName + " " + allAttName;
             }
