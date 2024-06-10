@@ -21,6 +21,7 @@ public abstract class SkillAttributes : AttributeBase
     public override void Initialize()
     {
         attName = AttributeName;
+        Debug.Log(attName);
         attDesc = BaseAttributeDescription;
     }
 
@@ -84,6 +85,7 @@ public abstract class SkillAttributes : AttributeBase
     public void UpdateChanceAndDescription()
     {
         attName = AttributeName + " " + AttributeName;
+        Debug.Log(attName);
         triggerChance = 0.30f; // Increase chance to 30% if there are two instances of the same skill
         attDesc = BaseAttributeDescription.Replace("15%", "30%");
     }
