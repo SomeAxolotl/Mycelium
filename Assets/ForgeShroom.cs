@@ -71,6 +71,11 @@ public class ForgeShroom : MonoBehaviour, IInteractable
 
         if (currentWeapon != null)
         {
+            // Clean up the skill instance
+            foreach (var attribute in currentWeapon.GetComponents<SkillAttributes>())
+            {
+                attribute.CleanUpSkillInstance();
+            }
             salvagedWeapons++;
             Debug.Log("Deposited " + currentWeapon.name + " to the Forge Shroom!");
 
@@ -276,16 +281,17 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             {
                 Destroy(attribute);
             }
-
+            // Track added skill names to avoid duplicates
+            HashSet<string> addedSkills = new HashSet<string>();
             // Add the collected attributes to the reward weapon
             if (depositedWeapons.Count > 1)
             {
-                AddCollectedAttributeToWeapon(rewardWeapon, depositedWeapons[1], 0);
+                AddCollectedAttributeToWeapon(rewardWeapon, depositedWeapons[1], 0, addedSkills);
             }
 
             if (depositedWeapons.Count > 2)
             {
-                AddCollectedAttributeToWeapon(rewardWeapon, depositedWeapons[2], 0);
+                AddCollectedAttributeToWeapon(rewardWeapon, depositedWeapons[2], 0, addedSkills);
             }
 
             ChangeAttributesToForged(rewardWeapon);
@@ -299,15 +305,39 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             Debug.LogError("Base weapon prefab or cache location is not set.");
         }
     }
-    private void AddCollectedAttributeToWeapon(GameObject rewardWeapon, GameObject sourceWeapon, int attributeIndex)
+    private void AddCollectedAttributeToWeapon(GameObject rewardWeapon, GameObject sourceWeapon, int attributeIndex, HashSet<string> addedSkills)
     {
         AttributeBase[] attributes = sourceWeapon.GetComponents<AttributeBase>();
         if (attributes.Length > attributeIndex)
         {
             string attributeName = attributes[attributeIndex].GetType().Name;
-            AttributeAssigner.Instance.PickAttFromString(rewardWeapon, attributeName);
+
+            // Check if the attribute is a skill attribute
+            if (attributes[attributeIndex] is SkillAttributes skillAttribute)
+            {
+                // Check if the skill has already been added
+                if (!addedSkills.Contains(skillAttribute.GetSkillName()))
+                {
+                    addedSkills.Add(skillAttribute.GetSkillName());
+                    AttributeAssigner.Instance.PickAttFromString(rewardWeapon, attributeName);
+                }
+                else
+                {
+                    // If the skill already exists, update the existing skill to increase chance and description
+                    var existingSkill = rewardWeapon.GetComponent(skillAttribute.GetType()) as SkillAttributes;
+                    if (existingSkill != null)
+                    {
+                        existingSkill.UpdateChanceAndDescription();
+                    }
+                }
+            }
+            else
+            {
+                AttributeAssigner.Instance.PickAttFromString(rewardWeapon, attributeName);
+            }
         }
     }
+
     public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)
     {
         TooltipManager.Instance.DestroyTooltip();
