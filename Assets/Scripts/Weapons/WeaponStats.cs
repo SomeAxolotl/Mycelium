@@ -40,6 +40,9 @@ public class WeaponStats : MonoBehaviour
     public float secondsTilHitstopSpeedup = 0.25f;
 
     public bool acceptingAttribute = true;
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public WeaponCollision hit;
+    [HideInInspector] public PlayerAttack attack;
 
     void Start()
     {
@@ -65,11 +68,29 @@ public class WeaponStats : MonoBehaviour
         startSize = transform.localScale;
         AdjustSize();
 
+        player = GameObject.FindWithTag("currentPlayer");
+        attack = player.transform.parent.gameObject.GetComponent<PlayerAttack>();
+        if(attack != null){
+            attack.FinishedAttack += StopAttack;
+        }
+
         //InvokeRepeating("SayStats", 1f, 1f);
     }
 
     private void Awake(){
+        hit = GetComponent<WeaponCollision>();
+        if(hit != null){
+            hit.HitEnemy += Hit;
+        }
         ScaleWeaponStats();
+    }
+    private void OnDisable(){
+        if(hit != null){
+            hit.HitEnemy -= Hit;
+        }
+        if(attack != null){
+            attack.FinishedAttack -= StopAttack;
+        }
     }
 
     void Update()
@@ -112,11 +133,52 @@ public class WeaponStats : MonoBehaviour
         statNums.advKnockback.RemoveModifierFromSource(com);
         statNums.advSize.RemoveModifierFromSource(com);
     }
+
+    bool hitSomething = false;
+    public void Hit(GameObject target, float damage){
+        if(!hitSomething){
+            hitSomething = true;
+        }
+    }
+    public void StopAttack(){
+        //If you hit something, do the thing
+        if(hitSomething){
+            RandomSkillRoll();
+        }
+        hitSomething = false;
+    }
+
+    public List<WeaponSkillProc> skillChances = new List<WeaponSkillProc>();
+    public void RandomSkillRoll(){
+        float totalChance = 0;
+        foreach(WeaponSkillProc skill in skillChances){
+            totalChance += skill.triggerChance;
+        }
+        //If there is under a 100% chance to activate, gives a chance to fail
+        if(totalChance < 100){
+            totalChance = 100;
+        }
+        float randomValue = UnityEngine.Random.Range(0f, totalChance);
+
+        float currChance = 0;
+        for(int i = 0; i < skillChances.Count; i++){
+            currChance += skillChances[i].triggerChance;
+            if(randomValue < currChance){
+                //Activate skill
+                skillChances[i].skillInstance.ActivateSkill(0, true);
+                return;
+            }
+        }
+    }
 }
 
-public class WeaponStatList
-{
+public class WeaponStatList{
     public AdvStat advDamage = new AdvStat();
     public AdvStat advKnockback = new AdvStat();
     public AdvStat advSize = new AdvStat(1);
+}
+
+public class WeaponSkillProc{
+    public float triggerChance;
+    public Skill skillInstance;
 }

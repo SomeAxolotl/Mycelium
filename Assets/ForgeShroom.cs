@@ -316,6 +316,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             if (attributes[attributeIndex] is SkillAttributes skillAttribute)
             {
                 // Check if the skill has already been added
+                /*
                 if (!addedSkills.Contains(skillAttribute.GetSkillName()))
                 {
                     addedSkills.Add(skillAttribute.GetSkillName());
@@ -330,6 +331,11 @@ public class ForgeShroom : MonoBehaviour, IInteractable
                         existingSkill.UpdateChanceAndDescription();
                     }
                 }
+                */
+                //Griffin change for skill management
+                addedSkills.Add(skillAttribute.GetSkillName());
+                AttributeAssigner.Instance.PickAttFromString(rewardWeapon, attributeName);
+                //Griffin just moved this
             }
             else
             {
