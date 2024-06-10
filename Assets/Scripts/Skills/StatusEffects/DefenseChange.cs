@@ -14,9 +14,9 @@ public class DefenseChange : MonoBehaviour
     private List<defenseChangeInfo> defenses = new List<defenseChangeInfo>();
 
     private string vulnerableParticlePath = "Effects/VulnerableParticles";
-    [SerializeField] private ParticleSystem vulnerableParticles;
+    [SerializeField] private DefenseBubble vulnerableParticles;
     private string defenseParticlePath = "Effects/DefenseParticles";
-    [SerializeField] private ParticleSystem defenseParticles;
+    [SerializeField] private DefenseBubble defenseParticles;
 
     DefenseChange[] defenseInstances;
     void Awake(){
@@ -35,20 +35,22 @@ public class DefenseChange : MonoBehaviour
         GameObject defenseParticlesObj = Resources.Load<GameObject>(defenseParticlePath);
         GameObject tempObj1;
         if(playerHealth != null){
-            tempObj1 = Instantiate(defenseParticlesObj, playerHealth.animator.transform) as GameObject;
+            tempObj1 = Instantiate(defenseParticlesObj, transform.Find("Spore/SporeModel")) as GameObject;
         }else{
             tempObj1 = Instantiate(defenseParticlesObj, transform) as GameObject;
         }
-        defenseParticles = tempObj1.GetComponent<ParticleSystem>();
+        defenseParticles = tempObj1.GetComponent<DefenseBubble>();
+        defenseParticles.SwitchStatement(3);
 
         GameObject vulnerableParticlesObj = Resources.Load<GameObject>(vulnerableParticlePath);
         GameObject tempObj2;
         if(playerHealth != null){
-            tempObj2 = Instantiate(vulnerableParticlesObj, playerHealth.animator.transform) as GameObject;
+            tempObj2 = Instantiate(vulnerableParticlesObj, transform.Find("Spore/SporeModel")) as GameObject;
         }else{
             tempObj2 = Instantiate(vulnerableParticlesObj, transform) as GameObject;
         }
-        vulnerableParticles = tempObj2.GetComponent<ParticleSystem>();
+        vulnerableParticles = tempObj2.GetComponent<DefenseBubble>();
+        vulnerableParticles.SwitchStatement(3);
         Subscribe();
     }
 
@@ -138,8 +140,8 @@ public class DefenseChange : MonoBehaviour
         //If we run out of defense changes
         //Debug.Log("Vulnerable length: " + vulnerables.Count + "         Defense Length: " + defenses.Count);
         if(vulnerables.Count == 0 && defenses.Count == 0){
-            defenseParticles.Stop();
-            vulnerableParticles.Stop();
+            Destroy(defenseParticles.gameObject);
+            Destroy(vulnerableParticles.gameObject);
             Destroy(this);
             return;
         }
@@ -149,28 +151,47 @@ public class DefenseChange : MonoBehaviour
         //Combines the vulnerable and the defense to get the victor
         if(vulnerables.Count != 0 && defenses.Count != 0){
             defenseChangePercent = defenses[0].changeAmount + vulnerables[0].changeAmount;
-            defenseParticles.Play();
-            vulnerableParticles.Play();
         }else{
-            if(defenses.Count != 0){defenseChangePercent = defenses[0].changeAmount; defenseParticles.Play(); vulnerableParticles.Stop();}
-            if(vulnerables.Count != 0){defenseChangePercent = vulnerables[0].changeAmount; defenseParticles.Stop(); vulnerableParticles.Play();}
+            if(defenses.Count != 0){defenseChangePercent = defenses[0].changeAmount;}
+            if(vulnerables.Count != 0){defenseChangePercent = vulnerables[0].changeAmount;}
+        }
+        ManageBubbles();
+    }
+
+    private void ManageBubbles(){
+        //Reset their timers (So they know when to fade out)
+        if(defenses.Count > 0){defenseParticles.timeLeft = defenses[0].changeDuration;}
+        if(vulnerables.Count > 0){vulnerableParticles.timeLeft = vulnerables[0].changeDuration;}
+        //Change the current states of the bubbles
+        if(defenseChangePercent > 0){
+            //Turn on Defense
+            defenseParticles.SwitchStatement(0);
+            vulnerableParticles.SwitchStatement(2);
+        }else if(defenseChangePercent < 0){
+            //Turn on Vulnerable
+            defenseParticles.SwitchStatement(2);
+            vulnerableParticles.SwitchStatement(0);
+        }else{
+            //They are even?
+            defenseParticles.SwitchStatement(2);
+            vulnerableParticles.SwitchStatement(2);
         }
     }
 
     private void ChangeDamageTaken(float dmgTaken){
         //Code to change damage taken
-        Debug.Log("Damage has been taken: " + dmgTaken);
+        //Debug.Log("Damage has been taken: " + dmgTaken);
         if(playerHealth != null){
             playerHealth.dmgTaken -= (dmgTaken * (defenseChangePercent / 100));
-            Debug.Log("Damage was changed to: " + playerHealth.dmgTaken);
+            //Debug.Log("Damage was changed to: " + playerHealth.dmgTaken);
         }
         if(enemyHealth != null){
             enemyHealth.dmgTaken -= (dmgTaken * (defenseChangePercent / 100));
-            Debug.Log("Damage was changed to: " + enemyHealth.dmgTaken);
+            //Debug.Log("Damage was changed to: " + enemyHealth.dmgTaken);
         }
         if(bossHealth != null){
             bossHealth.dmgTaken -= (dmgTaken * (defenseChangePercent / 100));
-            Debug.Log("Damage was changed to: " + bossHealth.dmgTaken);
+            //Debug.Log("Damage was changed to: " + bossHealth.dmgTaken);
         }
     }
 

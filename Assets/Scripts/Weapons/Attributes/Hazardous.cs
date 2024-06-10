@@ -16,6 +16,9 @@ public class Hazardous : AttributeBase
     private IEnumerator ApplyVulnerable(GameObject target){
         yield return new WaitForEndOfFrame();
         DefenseChange defenseChangeEffect = target.AddComponent<DefenseChange>();
-        defenseChangeEffect.InitializeDefenseChange(3, -25);
+        defenseChangeEffect.InitializeDefenseChange(7, -25);
+        yield return new WaitForSeconds(2);
+        DefenseChange defenseChangeEffect2 = target.AddComponent<DefenseChange>();
+        defenseChangeEffect2.InitializeDefenseChange(2, 55);
     }
 }

@@ -12,7 +12,7 @@ public class DefenseMechanism : Skill
         if (isPlayerCurrentPlayer())
         {
             DefenseChange defenseChangeEffect = playerHealth.gameObject.AddComponent<DefenseChange>();
-            defenseChangeEffect.InitializeDefenseChange(skillDuration, 150);
+            defenseChangeEffect.InitializeDefenseChange(skillDuration + 1, 150);
 
             Sturdy sturdyEffect = playerHealth.gameObject.AddComponent<Sturdy>();
             sturdyEffect.InitializeSturdy(skillDuration);
@@ -26,7 +26,7 @@ public class DefenseMechanism : Skill
     private IEnumerator Knockback(){
         showRadius = true;
         yield return new WaitForSeconds(skillDuration);
-        ParticleManager.Instance.SpawnParticles("SporeburstParticles", transform.position, Quaternion.identity);
+        //ParticleManager.Instance.SpawnParticles("SporeburstParticles", transform.position, Quaternion.identity);
         //Knocks back enemies
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
         Collider[] colliders = Physics.OverlapSphere(transform.position, knockbackRadius, enemyLayerMask);
