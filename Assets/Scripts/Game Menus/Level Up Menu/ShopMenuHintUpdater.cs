@@ -26,6 +26,8 @@ public class ShopMenuHintUpdater : MonoBehaviour
                 shopHint.ToggleText();
             }
         }
+
+        Debug.Log("Refreshing shop hints");
     }
 
     [System.Serializable]

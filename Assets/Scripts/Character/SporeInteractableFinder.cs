@@ -28,7 +28,7 @@ public class SporeInteractableFinder : MonoBehaviour
             if (closestInteractableObject != null)
             {
                 IInteractable interactable = closestInteractableObject.GetComponent<IInteractable>();
-                if (interactable != previousInteractable && IsAcceptableInteractable(closestInteractableObject))
+                if (interactable != previousInteractable && IsAcceptableInteractable(closestInteractableObject) && GlobalData.canShowTooltips == true)
                 {
                     interactable?.CreateTooltip(closestInteractableObject);
                 }

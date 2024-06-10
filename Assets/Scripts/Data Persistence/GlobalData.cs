@@ -50,4 +50,7 @@ public static class GlobalData
 
     //Controller Stuff
     public static InputManager.ControllerNames latestController;
+
+    //Debug Stuff
+    public static bool canShowTooltips = true;
 }

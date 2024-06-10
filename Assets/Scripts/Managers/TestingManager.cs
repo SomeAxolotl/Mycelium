@@ -201,12 +201,20 @@ public class TestingManager : MonoBehaviour
             UnlockAllFurniture();
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && Input.GetKey(KeyCode.LeftShift))
+        {
+            GlobalData.canShowTooltips = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
         {
             GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && Input.GetKey(KeyCode.LeftShift))
+        {
+            GlobalData.canShowTooltips = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
         {
             GameObject.Find("HUD").GetComponent<HUDController>().FadeHUD(false);
         }
