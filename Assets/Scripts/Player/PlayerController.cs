@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     PlayerAttack playerAttack;
     PlayerHealth playerHealth;
     SkillManager skillManager;
+    SwapWeapon swapWeapon;
 
     private HUDSkills hudSkills;
     public Animator animator;
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         playerHealth = GetComponent<PlayerHealth>();
         skillManager = GetComponent<SkillManager>();
+        swapWeapon = GetComponent<SwapWeapon>();
         GetStats();
         playerActionsAsset = new ThirdPersonActionsAsset();
         playerActionsAsset.Player.Enable();
@@ -185,7 +187,7 @@ public class PlayerController : MonoBehaviour
             {
                 hudStats.HideStats();
             }
-            if (curioInteract.triggered && canAct && playerAttack.curWeapon == null)
+            if (curioInteract.triggered && canAct && swapWeapon.curWeapon == null)
             {
                 Curio closestCurio = FindClosestCurioInRange();
                 if (closestCurio != null)

@@ -13,7 +13,7 @@ public class TutorialBeetleNoises : MonoBehaviour
         {
             BeetleAnimationEvents beetleAnimationEvents = GetComponent<BeetleAnimationEvents>();
             SoundEffectManager.Instance.PlaySound("Beetle Charge", transform, beetleAnimationEvents.GetVolumeModifier(), beetleAnimationEvents.GetPitchMultiplier());
-            Debug.Log("playing beetle sound");
+            //Debug.Log("playing beetle sound");
             yield return new WaitForSeconds(noiseInterval);
         }
     }
