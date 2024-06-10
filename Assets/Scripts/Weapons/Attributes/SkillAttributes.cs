@@ -111,12 +111,12 @@ public abstract class SkillAttributes : AttributeBase
             // Check if a random value between 0 and 1 is less than or equal to 0.15 (15% chance)
             if (Random.value <= triggerChance)
             {
-                ActivateSkill();
+                StartCoroutine(ActivateSkillWithDelay());
             }
         }
     }
 
-    private void ActivateSkill()
+    /*private void ActivateSkill()
     {
         if (skillInstance == null)
         {
@@ -128,9 +128,34 @@ public abstract class SkillAttributes : AttributeBase
 
         // Call the DoSkill method on the skill instance
         skillInstance.DoSkill();
-        skillInstance.StartCooldown(skillInstance.GetFinalCooldown());
+        //skillInstance.StartCooldown(skillInstance.GetFinalCooldown());
 
         StartCoroutine(ResetSkillUsage());
+    }*/
+    private IEnumerator ActivateSkillWithDelay()
+    {
+        Animator animator = playerParent.GetComponentInChildren<Animator>();
+        if (animator != null)
+        {
+            // Wait until the attack animation has finished
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"));
+
+            // Ensure that the skill instance is still valid
+            if (skillInstance != null)
+            {
+                canTriggerOnHit = false;
+
+                // Call the DoSkill method on the skill instance
+                skillInstance.DoSkill();
+                //skillInstance.StartCooldown(skillInstance.GetFinalCooldown());
+
+                StartCoroutine(ResetSkillUsage());
+            }
+        }
+        else
+        {
+            Debug.LogError("Animator not found on the PlayerParent.");
+        }
     }
 
     private IEnumerator ResetSkillUsage()
