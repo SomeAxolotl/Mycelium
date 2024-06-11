@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3972975036905787610
+--- !u!114 &-5719629122517238619
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mv_IB_foam
+  m_Name: mv_IB_waterfall 1
   m_Shader: {fileID: -6465566751694194690, guid: adcbf4c4e37ed6045a298914970b2190,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 511873c8b9ed3ad4a979b26a12557d00, type: 2}
@@ -34,19 +34,18 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: TransparentCutout
-  disabledShaderPasses:
-  - SHADOWCASTER
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _CastShadows: 0
-    - _Erosion: 0.44
-    - _FoamEdge: 17
-    - _RipplePower: 4.39
+    - _Erosion: 0.23
+    - _FoamEdge: 3.42
     m_Colors:
-    - _RippleColor: {r: 2.006301, g: 2.352283, b: 0.4140018, a: 0}
-    - _WaterSpeed: {r: 0, g: 0.3, b: 0, a: 0}
+    - _FoamColor: {r: 2.3363276, g: 2.8284268, b: 0.5572, a: 1}
+    - _RippleColor: {r: 0.12628375, g: 0.852, b: 0.10735199, a: 1}
+    - _VertexOffsetAmount: {r: -0.7, g: 0.4, b: 0, a: 0}
+    - _WaterSpeed: {r: 0, g: 0.29, b: 0, a: 0}
   m_BuildTextureStacks: []
