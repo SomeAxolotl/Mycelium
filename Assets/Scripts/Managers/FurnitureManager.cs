@@ -13,6 +13,8 @@ public class FurnitureManager : MonoBehaviour
     public bool gameboardIsUnlocked;
     public bool fireIsUnlocked;
 
+    public GameObject furnitureInteractCanvas;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

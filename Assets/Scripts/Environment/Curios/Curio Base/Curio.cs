@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using TMPro;
 
 public abstract class Curio : MonoBehaviour
 {
@@ -13,9 +14,11 @@ public abstract class Curio : MonoBehaviour
     [HideInInspector] public bool canBeActivated = false;
     [HideInInspector] public List<WanderingSpore> currentUsers = new List<WanderingSpore>();
     [HideInInspector] public int currentUserCount = 0;
+    GameObject interactCanvas;
 
     [Header("Curio")]
     [Tooltip("Whether only THIS object can see this curio, or only OTHER objects can see this curio")] public bool selfCurio = false;
+    float interactTextHeightOffset = 2f;
 
     [Header("Happiness")]
     [Min(0f)][Range(0f, 1f)][SerializeField][Tooltip("How much happiness interacting with this curio grants")] public float happinessToIncrease = 0.1f;
@@ -47,9 +50,19 @@ public abstract class Curio : MonoBehaviour
         if (GlobalData.areaCleared && !selfCurio)
         {
             canBeActivated = true;
-            Debug.Log(this.gameObject.name + " can now be activated.");
 
-            //enable RT above
+            Vector3 heightOffset = new Vector3(0, interactTextHeightOffset, 0);
+            Vector3 newPosition = transform.position + heightOffset;
+            interactCanvas = Instantiate(FurnitureManager.Instance.furnitureInteractCanvas, newPosition, Quaternion.identity);
+            interactCanvas.GetComponentInChildren<TMP_Text>().text = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
+        }
+    }
+
+    void Update()
+    {
+        if (interactCanvas != null)
+        {
+            interactCanvas.transform.rotation = Quaternion.LookRotation(interactCanvas.transform.position - Camera.main.transform.position);
         }
     }
 
@@ -136,31 +149,61 @@ public abstract class Curio : MonoBehaviour
 
     public void Activate(CharacterStats currentPlayerStats)
     {
-        StartCoroutine(DoActivate(currentPlayerStats));
+        if (canBeActivated && !selfCurio)
+        {
+            StartCoroutine(HappinessInjection(currentPlayerStats));
+        }
+
+        LockActivatability();
     }
 
-    IEnumerator DoActivate(CharacterStats currentPlayerStats)
+    IEnumerator HappinessInjection(CharacterStats currentPlayerStats)
     {
         float timeBetweenHappinessInjections = 0.35f;
 
-        List<WanderingSpore> usersAtActivation = new List<WanderingSpore>(currentUsers);
+        List<WanderingSpore> usersAtActivation = new List<WanderingSpore>();
+        if (this is DanceCurio)
+        {
+            DanceCurio[] allDanceCurios = FindObjectsOfType<DanceCurio>();
+            foreach (DanceCurio danceCurio in allDanceCurios)
+            {
+                usersAtActivation.AddRange(danceCurio.currentUsers);
+            }
+        }
+        else
+        {
+            usersAtActivation = currentUsers;
+        }
 
-        if (canBeActivated && !selfCurio)
+        foreach (WanderingSpore wanderingSpore in usersAtActivation)
+        {
+            CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
+            if (characterStats != null)
+            {   
+                characterStats.ModifyHappiness(happinessToIncrease);
+
+                yield return new WaitForSeconds(timeBetweenHappinessInjections);
+            }
+        }
+
+        currentPlayerStats.ModifyHappiness(happinessToIncrease);
+    }
+
+    void LockActivatability()
+    {
+        if (this is DanceCurio)
+        {
+            DanceCurio[] allDanceCurios = FindObjectsOfType<DanceCurio>();
+            foreach (DanceCurio danceCurio in allDanceCurios)
+            {
+                danceCurio.canBeActivated = false;
+                Destroy(danceCurio.interactCanvas);
+            }
+        }
+        else
         {
             canBeActivated = false;
-
-            foreach (WanderingSpore wanderingSpore in usersAtActivation)
-            {
-                CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
-                if (characterStats != null)
-                {   
-                    characterStats.ModifyHappiness(happinessToIncrease);
-
-                    yield return new WaitForSeconds(timeBetweenHappinessInjections);
-                }
-            }
-
-            currentPlayerStats.ModifyHappiness(happinessToIncrease);
+            Destroy(interactCanvas);
         }
     }
 }
