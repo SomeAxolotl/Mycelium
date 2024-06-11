@@ -110,8 +110,11 @@ public class PlayerHealth : MonoBehaviour
         }
         UpdateHudHealthUI();
     }
+    public Action Died;
     IEnumerator Death()
     {
+        Died?.Invoke();
+
         GlobalData.isAbleToPause = false;
         GlobalData.currentLoop = 1;
         

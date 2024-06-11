@@ -25,7 +25,6 @@ public class BossHealth : EnemyHealth
             }
         }
     }
-
     public override void EnemyTakeDamage(float damage)
     {
         //Save current damage taken
@@ -53,6 +52,8 @@ public class BossHealth : EnemyHealth
 
         if (currentHealth <= 0 && !alreadyDead)
         {
+            Died?.Invoke();
+
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
             if(gameObject.name == "Rival Colony Leader")
             {

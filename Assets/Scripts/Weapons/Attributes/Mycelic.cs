@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Mycelic : AttributeBase
 {
-    private bool hitSomething = false;
     private float chanceToTrigger = 20f;
     GameObject skillLoadout;
     Skill skillToUse;

@@ -73,9 +73,11 @@ public class EnemyHealth : MonoBehaviour
         }
         hasTakenDamage = true;
     }
-
+    public Action Died;
     protected IEnumerator Death()
     {
+        Died?.Invoke();
+        
         gameObject.GetComponent<EnemyAttack>().CancelAttack();
         gameObject.GetComponent<EnemyAttack>().enabled = false;
         gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;

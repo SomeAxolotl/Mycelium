@@ -15,10 +15,12 @@ public class Hazardous : AttributeBase
 
     private IEnumerator ApplyVulnerable(GameObject target){
         yield return new WaitForEndOfFrame();
-        DefenseChange defenseChangeEffect = target.AddComponent<DefenseChange>();
-        defenseChangeEffect.InitializeDefenseChange(7, -25);
-        yield return new WaitForSeconds(2);
-        DefenseChange defenseChangeEffect2 = target.AddComponent<DefenseChange>();
-        defenseChangeEffect2.InitializeDefenseChange(2, 55);
+        if(target.GetComponent<EnemyHealth>().currentHealth > 0){
+            DefenseChange defenseChangeEffect = target.AddComponent<DefenseChange>();
+            defenseChangeEffect.InitializeDefenseChange(7, -25);
+            yield return new WaitForSeconds(2);
+            DefenseChange defenseChangeEffect2 = target.AddComponent<DefenseChange>();
+            defenseChangeEffect2.InitializeDefenseChange(2, 55);
+        }
     }
 }

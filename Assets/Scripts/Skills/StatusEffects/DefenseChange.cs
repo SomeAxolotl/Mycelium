@@ -57,23 +57,35 @@ public class DefenseChange : MonoBehaviour
     void Subscribe(){
         if(playerHealth != null){
             playerHealth.TakeDamage += ChangeDamageTaken;
+            playerHealth.Died += defenseParticles.DisableBubble;
+            playerHealth.Died += vulnerableParticles.DisableBubble;
         }
         if(enemyHealth != null){
             enemyHealth.TakeDamage += ChangeDamageTaken;
+            enemyHealth.Died += defenseParticles.DisableBubble;
+            enemyHealth.Died += vulnerableParticles.DisableBubble;
         }
         if(bossHealth != null){
             bossHealth.TakeDamage += ChangeDamageTaken;
+            bossHealth.Died += defenseParticles.DisableBubble;
+            bossHealth.Died += vulnerableParticles.DisableBubble;
         }
     }
     void OnDisable(){
         if(playerHealth != null){
             playerHealth.TakeDamage -= ChangeDamageTaken;
+            playerHealth.Died -= defenseParticles.DisableBubble;
+            playerHealth.Died -= vulnerableParticles.DisableBubble;
         }
         if(enemyHealth != null){
             enemyHealth.TakeDamage -= ChangeDamageTaken;
+            enemyHealth.Died -= defenseParticles.DisableBubble;
+            enemyHealth.Died -= vulnerableParticles.DisableBubble;
         }
         if(bossHealth != null){
             bossHealth.TakeDamage -= ChangeDamageTaken;
+            bossHealth.Died -= defenseParticles.DisableBubble;
+            bossHealth.Died -= vulnerableParticles.DisableBubble;
         }
     }
 
