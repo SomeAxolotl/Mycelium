@@ -17,10 +17,43 @@ public class DefenseBubble : MonoBehaviour
 
     public void AdjustSize(){
         Transform parent = transform.parent;
-        if(parent.tag == "Player" || parent.tag == "currentPlayer" || parent.name == "SporeModel"){
+        if(parent.tag == "Player" || parent.tag == "currentPlayer" || parent.name == "SporeModel" || parent.name.Contains("Mushy")){
             //Adjusts size and position for players
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.3f, transform.localPosition.z - 0.1f);
             transform.localScale = new Vector3(1.35f, 1.35f, 1.6f);
+            return;
+        }
+        if(parent.name.Contains("Beetle")){
+            //Adjusts size and position for players
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z + 0.15f);
+            transform.localScale = new Vector3(2f, 2.5f, 2f);
+            return;
+        }
+        if(parent.name.Contains("Stickbug")){
+            //Adjusts size and position for players
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z + 0.15f);
+            transform.localScale = new Vector3(1.75f, 4f, 1.75f);
+            return;
+        }
+        if(parent.name.Contains("Crab")){
+            //Adjusts size and position for players
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z);
+            transform.localScale = new Vector3(5f, 5f, 5f);
+            return;
+        }
+        if(parent.name.Contains("Leader")){
+            //Adjusts size and position for players
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z);
+            transform.localScale = new Vector3(5.25f, 5.25f, 15f);
+            return;
+        }
+
+        //Default size for enemies
+        if(parent.tag == "Enemy"){
+            //Adjusts size and position for players
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z + 0.15f);
+            transform.localScale = new Vector3(2f, 2.5f, 2f);
+            return;
         }
     }
 
