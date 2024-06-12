@@ -51,10 +51,13 @@ public abstract class Curio : MonoBehaviour
         {
             canBeActivated = true;
 
-            Vector3 heightOffset = new Vector3(0, interactTextHeightOffset, 0);
-            Vector3 newPosition = transform.position + heightOffset;
-            interactCanvas = Instantiate(FurnitureManager.Instance.furnitureInteractCanvas, newPosition, Quaternion.identity);
-            interactCanvas.GetComponentInChildren<TMP_Text>().text = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
+            if (happinessToIncrease > 0)
+            {
+                Vector3 heightOffset = new Vector3(0, interactTextHeightOffset, 0);
+                Vector3 newPosition = transform.position + heightOffset;
+                interactCanvas = Instantiate(FurnitureManager.Instance.furnitureInteractCanvas, newPosition, Quaternion.identity);
+                interactCanvas.GetComponentInChildren<TMP_Text>().text = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
+            }
         }
     }
 
@@ -161,6 +164,8 @@ public abstract class Curio : MonoBehaviour
     {
         float timeBetweenHappinessInjections = 0.35f;
 
+        currentPlayerStats.ModifyHappiness(happinessToIncrease);
+
         List<WanderingSpore> usersAtActivation = new List<WanderingSpore>();
         if (this is DanceCurio)
         {
@@ -180,13 +185,11 @@ public abstract class Curio : MonoBehaviour
             CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
             if (characterStats != null)
             {   
-                characterStats.ModifyHappiness(happinessToIncrease);
-
                 yield return new WaitForSeconds(timeBetweenHappinessInjections);
+
+                characterStats.ModifyHappiness(happinessToIncrease);
             }
         }
-
-        currentPlayerStats.ModifyHappiness(happinessToIncrease);
     }
 
     void LockActivatability()

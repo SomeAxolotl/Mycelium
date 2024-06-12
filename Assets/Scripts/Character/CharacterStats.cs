@@ -150,6 +150,7 @@ public class CharacterStats : MonoBehaviour
         if (modifyAmount > 0)
         {
             ParticleManager.Instance.SpawnParticles("HappyParticles", transform.position, Quaternion.Euler(-90, 0, 0), this.gameObject);
+            SoundEffectManager.Instance.PlaySound("Rare Find", this.gameObject.transform, -0.4f, 1.5f);
         }
         else if (modifyAmount < 0)
         {
@@ -158,6 +159,7 @@ public class CharacterStats : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(0, height, 0);
 
             ParticleManager.Instance.SpawnParticles("SadParticles", spawnPosition, Quaternion.Euler(-90, 0, 0), this.gameObject);
+            SoundEffectManager.Instance.PlaySound("Sad Find", this.gameObject.transform, -0.4f, 1f);
         }
     }
 

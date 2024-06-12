@@ -32,6 +32,10 @@ public class DrumCurio : Curio
             OnPlayingStarted += danceCurio.OpenToDancing;
             OnPlayingDone += danceCurio.CloseToDancing;
         }
+
+        PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        OnPlayingStarted += () => { playerController.canDance = true; };
+        OnPlayingDone += () => { playerController.canDance = false; };
     }
 
     void OnDisable()
@@ -40,6 +44,10 @@ public class DrumCurio : Curio
         {
             OnPlayingStarted -= danceCurio.OpenToDancing;
             OnPlayingDone -= danceCurio.CloseToDancing;
+
+            PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+            OnPlayingStarted -= () => { playerController.canDance = true; };
+            OnPlayingDone += () => { playerController.canDance = false; };
         }
     }
 

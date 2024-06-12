@@ -65,6 +65,9 @@ public class PlayerController : MonoBehaviour
 
     HUDStats hudStats;
 
+    //this is rly bad coding idc
+    public bool canDance {private get; set;} = false;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -194,7 +197,7 @@ public class PlayerController : MonoBehaviour
                 {
                     float distanceToClosestCurio = Vector3.Distance(currentPlayer.transform.position, closestCurio.transform.position);
 
-                    if (distanceToClosestCurio < closestCurio.playerInteractRange)
+                    if (distanceToClosestCurio < closestCurio.playerInteractRange && (closestCurio is not DanceCurio || (closestCurio is DanceCurio && canDance)))
                     {
                         if (closestCurio.interactAnimationStrings.Count > 0)
                         {
