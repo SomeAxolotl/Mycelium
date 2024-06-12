@@ -44,11 +44,9 @@ public class DrumCurio : Curio
         {
             OnPlayingStarted -= danceCurio.OpenToDancing;
             OnPlayingDone -= danceCurio.CloseToDancing;
-
-            PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-            OnPlayingStarted -= () => { playerController.canDance = true; };
-            OnPlayingDone += () => { playerController.canDance = false; };
         }
+
+        //not unsubscribing from the canDance thing cuz idk how to do that with lambda and it was causing object reference error
     }
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
