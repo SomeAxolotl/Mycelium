@@ -217,14 +217,13 @@ public class ForgeShroom : MonoBehaviour, IInteractable
 
         // Get the colored hint string for the interact button
         string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
-        tooltipMessage += "Press " + interactText + " to provide.";
-
+        string interactTooltiptext = "Press " + interactText + " to provide.";
         // Call CreateTooltip with all required parameters
         TooltipManager.Instance.CreateTooltip(
             gameObject,
             tooltipTitle,
             tooltipMessage,
-            "", // interactString
+            interactTooltiptext, // interactString
             "", // salvageString
             true, // showBackground
             1f, // tooltipDuration
