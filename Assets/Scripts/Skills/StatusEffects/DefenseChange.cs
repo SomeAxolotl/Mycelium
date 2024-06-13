@@ -31,6 +31,7 @@ public class DefenseChange : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         bossHealth = GetComponent<BossHealth>();
 
+        if(defenseInstances.Length > 1){return;}
         //defenseParticles = Resources.Load<GameObject>(defenseParticlePath);
         GameObject defenseParticlesObj = Resources.Load<GameObject>(defenseParticlePath);
         GameObject tempObj1;
