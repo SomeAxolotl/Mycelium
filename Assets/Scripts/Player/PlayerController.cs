@@ -65,8 +65,7 @@ public class PlayerController : MonoBehaviour
 
     HUDStats hudStats;
 
-    //this is rly bad coding idc
-    public bool canDance {private get; set;} = false;
+    [HideInInspector] public bool canDance = false;
 
     // Start is called before the first frame update
     private void Start()

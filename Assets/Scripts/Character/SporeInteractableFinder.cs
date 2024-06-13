@@ -69,6 +69,19 @@ public class SporeInteractableFinder : MonoBehaviour
             }
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Curio otherCurio = other.GetComponent<Curio>();
+        if (otherCurio != null)
+        {
+            otherCurio.isPlayerInInteractTextRange = true;
+            if (otherCurio is not DanceCurio || (otherCurio is DanceCurio && transform.parent.GetComponent<PlayerController>().canDance))
+            {
+                otherCurio.StartCoroutine(otherCurio.PopInteractCanvas(true));
+            }
+        }
+    }
     
     void OnTriggerExit(Collider other)
     {
@@ -78,6 +91,13 @@ public class SporeInteractableFinder : MonoBehaviour
             {
                 TriggerExited(other);
             }
+        }
+
+        Curio otherCurio = other.GetComponent<Curio>();
+        if (otherCurio != null)
+        {
+            otherCurio.StartCoroutine(otherCurio.PopInteractCanvas(false));
+            otherCurio.isPlayerInInteractTextRange = false;
         }
     }
 

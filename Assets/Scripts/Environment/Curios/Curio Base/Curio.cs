@@ -13,12 +13,14 @@ public abstract class Curio : MonoBehaviour
     public float playerInteractRange = 2f;
     [HideInInspector] public bool canBeActivated = false;
     [HideInInspector] public List<WanderingSpore> currentUsers = new List<WanderingSpore>();
-    [HideInInspector] public int currentUserCount = 0;
+    public int currentUserCount = 0;
     GameObject interactCanvas;
+    Vector3 originalScale = Vector3.one;
 
     [Header("Curio")]
     [Tooltip("Whether only THIS object can see this curio, or only OTHER objects can see this curio")] public bool selfCurio = false;
     float interactTextHeightOffset = 2f;
+    public bool isPlayerInInteractTextRange {private get; set;} = false;
 
     [Header("Happiness")]
     [Min(0f)][Range(0f, 1f)][SerializeField][Tooltip("How much happiness interacting with this curio grants")] public float happinessToIncrease = 0.1f;
@@ -57,6 +59,10 @@ public abstract class Curio : MonoBehaviour
                 Vector3 newPosition = transform.position + heightOffset;
                 interactCanvas = Instantiate(FurnitureManager.Instance.furnitureInteractCanvas, newPosition, Quaternion.identity);
                 interactCanvas.GetComponentInChildren<TMP_Text>().text = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
+
+                originalScale = interactCanvas.transform.localScale;
+
+                StartCoroutine(PopInteractCanvas(false, true));
             }
         }
     }
@@ -122,8 +128,8 @@ public abstract class Curio : MonoBehaviour
     }
 
     public bool CanUse()
-    {
-        return currentUserCount / maxUserCount < 1;
+    { 
+        return currentUserCount < maxUserCount;
     }
 
     public virtual IEnumerator DoEvent(WanderingSpore wanderingSpore)
@@ -155,9 +161,8 @@ public abstract class Curio : MonoBehaviour
         if (canBeActivated && !selfCurio)
         {
             StartCoroutine(HappinessInjection(currentPlayerStats));
+            LockActivatability();
         }
-
-        LockActivatability();
     }
 
     IEnumerator HappinessInjection(CharacterStats currentPlayerStats)
@@ -166,21 +171,7 @@ public abstract class Curio : MonoBehaviour
 
         currentPlayerStats.ModifyHappiness(happinessToIncrease);
 
-        List<WanderingSpore> usersAtActivation = new List<WanderingSpore>();
-        if (this is DanceCurio)
-        {
-            DanceCurio[] allDanceCurios = FindObjectsOfType<DanceCurio>();
-            foreach (DanceCurio danceCurio in allDanceCurios)
-            {
-                usersAtActivation.AddRange(danceCurio.currentUsers);
-            }
-        }
-        else
-        {
-            usersAtActivation = currentUsers;
-        }
-
-        foreach (WanderingSpore wanderingSpore in usersAtActivation)
+        foreach (WanderingSpore wanderingSpore in currentUsers)
         {
             CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
             if (characterStats != null)
@@ -194,19 +185,46 @@ public abstract class Curio : MonoBehaviour
 
     void LockActivatability()
     {
-        if (this is DanceCurio)
+        StartCoroutine(PopInteractCanvas(false));
+        canBeActivated = false;
+    }
+
+    public IEnumerator PopInteractCanvas(bool doesPopIn, bool overridePlayerInRange = false)
+    {
+        if (!isPlayerInInteractTextRange && !overridePlayerInRange)
         {
-            DanceCurio[] allDanceCurios = FindObjectsOfType<DanceCurio>();
-            foreach (DanceCurio danceCurio in allDanceCurios)
-            {
-                danceCurio.canBeActivated = false;
-                Destroy(danceCurio.interactCanvas);
-            }
+            yield break;
         }
-        else
+
+        if (interactCanvas == null)
         {
-            canBeActivated = false;
-            Destroy(interactCanvas);
+            yield break;
         }
+
+        if (!canBeActivated)
+        {
+            yield break;
+        }
+
+        Vector3 fromScale = doesPopIn ? Vector3.zero : originalScale;
+        Vector3 toScale = doesPopIn ? originalScale : Vector3.zero;
+
+        if (interactCanvas.transform.localScale == toScale)
+        {
+            yield break;
+        }
+
+        float popCounter = 0f;
+        float popDuration = 0.2f;
+        while (popCounter < popDuration)
+        {
+            float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
+            interactCanvas.transform.localScale = Vector3.Lerp(fromScale, toScale, popLerp);
+
+            popCounter += Time.deltaTime;
+            yield return null;  
+        }
+
+        interactCanvas.transform.localScale = toScale;
     }
 }

@@ -139,7 +139,6 @@ public class CharacterStats : MonoBehaviour
     public void ModifyHappiness(float modifyAmount)
     {
         sporeHappiness = Mathf.Clamp(sporeHappiness + modifyAmount, 0f, 1f);
-        Debug.Log(sporeName + " Happiness: " + sporeHappiness);
 
         HUDHappiness hudHappiness = GameObject.Find("HUD").GetComponent<HUDHappiness>();
         if (hudHappiness != null)

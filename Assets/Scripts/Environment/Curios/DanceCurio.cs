@@ -40,12 +40,12 @@ public class DanceCurio : Curio
 
     public void OpenToDancing()
     {
-        currentUserCount--;
+        currentUserCount -= maxUserCount;
     }
 
     public void CloseToDancing()
     {
         doneDancing = true;
-        currentUserCount++;
+        currentUserCount += maxUserCount;
     }
 }

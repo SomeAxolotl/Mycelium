@@ -5,7 +5,7 @@ using System;
 
 public class DrumCurio : Curio
 {
-    [SerializeField] List<DanceCurio> danceCurios = new List<DanceCurio>();
+    [SerializeField] DanceCurio danceCurio;
 
     [SerializeField] float minPlayingTime = 10f;
     [SerializeField] float maxPlayingTime = 15f;
@@ -27,26 +27,41 @@ public class DrumCurio : Curio
 
     void OnEnable()
     {
-        foreach (DanceCurio danceCurio in danceCurios)
-        {
-            OnPlayingStarted += danceCurio.OpenToDancing;
-            OnPlayingDone += danceCurio.CloseToDancing;
-        }
+        OnPlayingStarted += danceCurio.OpenToDancing;
+        OnPlayingDone += danceCurio.CloseToDancing;
 
-        PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        OnPlayingStarted += () => { playerController.canDance = true; };
-        OnPlayingDone += () => { playerController.canDance = false; };
+        OnPlayingStarted += AllowPlayerDancing;
+        OnPlayingDone += DisallowPlayerDancing;
     }
 
+    //was causing null reference, annoying. gonna remove for now
+    /*
     void OnDisable()
     {
-        foreach (DanceCurio danceCurio in danceCurios)
-        {
-            OnPlayingStarted -= danceCurio.OpenToDancing;
-            OnPlayingDone -= danceCurio.CloseToDancing;
-        }
+        OnPlayingStarted -= danceCurio.OpenToDancing;
+        OnPlayingDone -= danceCurio.CloseToDancing;
 
-        //not unsubscribing from the canDance thing cuz idk how to do that with lambda and it was causing object reference error
+        OnPlayingStarted -= AllowPlayerDancing;
+        OnPlayingDone -= DisallowPlayerDancing;
+    }
+    */
+
+    void AllowPlayerDancing()
+    {
+        PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.canDance = true;
+        }
+    }
+
+    void DisallowPlayerDancing()
+    {
+        PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.canDance = false;
+        }
     }
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)

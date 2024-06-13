@@ -134,7 +134,8 @@ public class WanderingSpore : MonoBehaviour
         //Flip flops between standing and interacting/wandering
         if (currentState != WanderingStates.Standing)
         {
-            rb.mass = rbActiveMass;
+            //ryan requested this
+            //rb.mass = rbActiveMass;
 
             StartCoroutine(Stand());
         }
