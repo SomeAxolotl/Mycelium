@@ -159,6 +159,9 @@ public class CrabAttack : EnemyAttack
     }
     private IEnumerator DigAttack()
     {
+        animator.SetTrigger("Burrow");
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Burrow")); 
+        yield return new WaitForSeconds(1.25f); // Lets player actually see burrow anim
         float timeElapsed = 0f;
         float digDuration = 2.5f;
         Vector3 startPosition = transform.position;
@@ -177,10 +180,16 @@ public class CrabAttack : EnemyAttack
         float digDuration_02 = 3f;
         Vector3 startPosition_02 = transform.position;
         Vector3 endPosition_02 = transform.position + new Vector3(0f, 9f, 0f);
+        bool jumpStarted = false;
         while (timeElapsed_02 < digDuration_02)
         {
             transform.position = Vector3.Lerp(startPosition_02, endPosition_02, timeElapsed_02 / digDuration_02); // Crab pops up from underground
             timeElapsed_02 += Time.deltaTime;
+            if(Vector3.Distance(center.position, endPosition_02) < 6f && !jumpStarted)
+            {
+                animator.SetTrigger("Jump"); // Premtively starts jump anim
+                jumpStarted = true;
+            }
             yield return null;
         }
         rb.AddForce(Vector3.up * 80f, ForceMode.Impulse);
