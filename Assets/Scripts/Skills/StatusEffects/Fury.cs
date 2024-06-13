@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Fury : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class Fury : MonoBehaviour
     //How many paticles should spawn per currBonusNumber
     private float particleRatePerNum = 5;
     //How long effect lasts
-    private float currTimer = 8;
+    public float currTimer = 8;
+    public float currTimerMax = 8;
     //Amount the timer is decreased by each time (0.8 = 20% lost)
     private float decreaseMult = 0.8f;
 
@@ -20,6 +22,8 @@ public class Fury : MonoBehaviour
 
     [HideInInspector] public WeaponStats stats;
     [HideInInspector] public SwapWeapon swap;
+    public Action EffectEnd;
+    public Action EffectRefresh;
 
     private void OnEnable(){
         swap = GetComponent<SwapWeapon>();
@@ -63,7 +67,9 @@ public class Fury : MonoBehaviour
         stats.statNums.advDamage.AddModifier(new StatModifier(bonusDamagePer * currBonusNum, StatModType.PercentAdd, this));
         if(timer != null){StopCoroutine(timer);}
         timer = null;
-        if(currBonusNum > 0){currTimer *= decreaseMult;}
+        if(currBonusNum > 0){currTimerMax *= decreaseMult;}
+        currTimer = currTimerMax;
+        EffectRefresh?.Invoke();
         timer = Timer();
         StartCoroutine(timer);
         currBonusNum += 1;
@@ -77,6 +83,7 @@ public class Fury : MonoBehaviour
         yield return new WaitForSeconds(currTimer);
         stats.ClearAllStatsFrom(this);
         furyParticles.Stop();
+        EffectEnd?.Invoke();
         Destroy(this);
     }
 }

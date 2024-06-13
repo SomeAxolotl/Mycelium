@@ -6,15 +6,27 @@ using UnityEngine;
 public class RelentlessFury : Skill
 {
     //Skill specific fields
-    private float frenziedDuration = 5f;
+    private float frenziedDuration = 8f;
     public bool isFrenzied;
 
+    Fury furyEffect;
     public override void DoSkill()
     {
         if(isPlayerCurrentPlayer()){ 
-            Fury furyEffect = playerHealth.gameObject.AddComponent<Fury>();
+            furyEffect = playerHealth.gameObject.AddComponent<Fury>();
+            furyEffect.EffectEnd += ActualCooldownStart;
+            //Starts the UI timer for the effect
+            furyEffect.EffectRefresh += RefreshTimer;
+            RefreshTimer();
         }
         EndSkill();
+    }
+
+    private void RefreshTimer(){
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDEffectCoroutine(hudCooldownCoroutine);
+        }
+        hudCooldownCoroutine = hudSkills.StartEffectUI(skillSlot, furyEffect.currTimerMax);
     }
 
     IEnumerator Frenzied()
@@ -35,5 +47,25 @@ public class RelentlessFury : Skill
     void HurtPlayer()
     {
         playerHealth.PlayerTakeDamage(playerHealth.maxHealth * .05f);
+    }
+
+    float savedCooldown;
+    public override void StartCooldown(float skillCooldown){
+        savedCooldown = skillCooldown;
+        //Does not do cooldown normally
+    }
+
+    private void ActualCooldownStart(){
+        furyEffect.EffectEnd -= ActualCooldownStart;
+        furyEffect.EffectRefresh -= RefreshTimer;
+
+        if(cooldownCoroutine != null){
+            StopCoroutine(cooldownCoroutine);
+        }
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDCoroutine(hudCooldownCoroutine);
+        }
+
+        cooldownCoroutine = StartCoroutine(Cooldown(savedCooldown));
     }
 }

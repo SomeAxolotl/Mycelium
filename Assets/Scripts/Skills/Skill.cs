@@ -13,8 +13,8 @@ public class Skill : MonoBehaviour
     [SerializeField] private float cooldownBase = 6f;
     [SerializeField] private float cooldownIncrement = -0.5f;
     public float finalSkillCooldown;
-    private Coroutine cooldownCoroutine = null;
-    private Coroutine hudCooldownCoroutine = null;
+    public Coroutine cooldownCoroutine = null;
+    public Coroutine hudCooldownCoroutine = null;
 
     private float fungalMightBonus = 1f;
 
@@ -25,8 +25,8 @@ public class Skill : MonoBehaviour
     public PlayerHealth playerHealth;
     public GameObject curWeapon;
 
-    private HUDSkills hudSkills;
-    private int skillSlot;
+    public HUDSkills hudSkills;
+    public int skillSlot;
     
     public Animator currentAnimator;
 
@@ -103,7 +103,7 @@ public class Skill : MonoBehaviour
         //Overrided by subclasses
     }
 
-    public void StartCooldown(float skillCooldown)
+    public virtual void StartCooldown(float skillCooldown)
     {
         if (cooldownCoroutine != null)
         {
@@ -117,7 +117,7 @@ public class Skill : MonoBehaviour
         cooldownCoroutine = StartCoroutine(Cooldown(skillCooldown));
     }
 
-    IEnumerator Cooldown(float skillCooldown)
+    public IEnumerator Cooldown(float skillCooldown)
     {
         if (isPlayerCurrentPlayer())
         {

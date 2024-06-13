@@ -146,10 +146,61 @@ public class HUDSkills : MonoBehaviour
     {
         StopCoroutine(hudCooldownCoroutine);
     }
+    public void StopHUDEffectCoroutine(Coroutine hudCooldownCoroutine)
+    {
+        StopCoroutine(hudCooldownCoroutine);
+    }
 
     public Coroutine StartCooldownUI(int slot, float cooldown)
     {
         return StartCoroutine(SkillCooldown(slot, cooldown));
+    }
+
+    public Coroutine StartEffectUI(int slot, float cooldown)
+    {
+        return StartCoroutine(EffectCooldown(slot, cooldown));
+    }
+
+    IEnumerator EffectCooldown(int slot, float cooldown)
+    {
+        Image cooldownBackground = speciesCooldownBackground;
+        Image skillIcon = speciesIcon;
+        Vector3 iconStartingScale = new Vector3();
+        switch (slot)
+        {
+            //Skills
+            case 0:
+                cooldownBackground = speciesCooldownBackground;
+                skillIcon = speciesIcon;
+                iconStartingScale = speciesIconStartingScale;
+                break;
+            case 1:
+                cooldownBackground = skill1CooldownBackground;
+                skillIcon = skill1Icon;
+                iconStartingScale = skill1IconStartingScale;
+                break;
+            case 2:
+                cooldownBackground = skill2CooldownBackground;
+                skillIcon = skill2Icon;
+                iconStartingScale = skill2IconStartingScale;
+                break;
+            case 4:
+                cooldownBackground = dodgeCooldownBackground;
+                skillIcon = dodgeIcon;
+                iconStartingScale = dodgeIconStartingScale;
+                break;
+        }
+
+        float cooldownLeft = cooldown;
+        while(cooldownLeft >= 0)
+        {
+            cooldownLeft -= Time.deltaTime;
+            //cooldownBackground.color = Color.white;
+            cooldownBackground.fillAmount = 1 - (cooldownLeft / cooldown);
+            yield return null;
+        }
+
+        StartCoroutine(SkillCooldownIconPop(skillIcon.gameObject, iconStartingScale));
     }
 
     IEnumerator SkillCooldown(int slot, float cooldown)
@@ -199,6 +250,10 @@ public class HUDSkills : MonoBehaviour
 
         StartCoroutine(SkillCooldownIconPop(skillIcon.gameObject, iconStartingScale));
     }
+
+   private void SlotSwitch(){
+    
+   } 
 
     IEnumerator SkillCooldownIconPop(GameObject icon, Vector3 iconStartingScale)
     {
