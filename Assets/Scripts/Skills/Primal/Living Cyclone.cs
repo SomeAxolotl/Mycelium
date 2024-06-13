@@ -47,6 +47,7 @@ public class LivingCyclone : Skill
         if (isPlayerCurrentPlayer())
         {
             playerController.looking = false;
+            RefreshTimer();
         }
         currentAnimator.speed = 0;
 
@@ -60,6 +61,7 @@ public class LivingCyclone : Skill
             if (currentWeapon != null)
             {
                 currentWeapon.GetComponent<WeaponCollision>().isCycloning = false;
+                ActualCooldownStart();
             }
         }
         
@@ -92,8 +94,11 @@ public class LivingCyclone : Skill
                 float rotationAmount = 360f / spinDuration * Time.deltaTime;
                 if (!weaponCollision.hitStopping)
                 {
+                    hudSkills.pauseEffect = false;
                     player.transform.Rotate(Vector3.down, rotationAmount);
                     spinCounter += Time.deltaTime;
+                }else{
+                    hudSkills.pauseEffect = true;
                 }
 
                 yield return new WaitForFixedUpdate();
@@ -114,5 +119,30 @@ public class LivingCyclone : Skill
                 yield return new WaitForFixedUpdate();
             }
         }
+    }
+
+    //Code to have an active duration that goes down before real cooldown starts
+    float savedCooldown;
+    public override void StartCooldown(float skillCooldown){
+        savedCooldown = skillCooldown;
+        //Does not do cooldown normally
+    }
+
+    private void ActualCooldownStart(){
+        if(cooldownCoroutine != null){
+            StopCoroutine(cooldownCoroutine);
+        }
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDCoroutine(hudCooldownCoroutine);
+        }
+
+        cooldownCoroutine = StartCoroutine(Cooldown(savedCooldown));
+    }
+
+    private void RefreshTimer(){
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDEffectCoroutine(hudCooldownCoroutine);
+        }
+        hudCooldownCoroutine = hudSkills.StartEffectUI(skillSlot, baseSpinDuration * 3);
     }
 }

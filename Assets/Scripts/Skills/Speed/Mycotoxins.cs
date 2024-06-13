@@ -23,6 +23,7 @@ public class Mycotoxins : Skill
             SpeedChange speedChange = controller.gameObject.AddComponent<SpeedChange>();
             speedChange.InitializeSpeedChange(3f, speedBoost);
 
+            RefreshTimer();
             StartCoroutine(ReleaseSpores());
 
             timer = 0f;
@@ -36,13 +37,6 @@ public class Mycotoxins : Skill
     {
         // Increment the timer in each frame
         timer += Time.deltaTime;
-
-        if (controller != null && timer >= speedDuration)
-        {
-            //controller.moveSpeed = originalMoveSpeed;
-            // End the skill when duration is over
-
-        }
     }
     private IEnumerator ReleaseSpores()
     {
@@ -64,6 +58,32 @@ public class Mycotoxins : Skill
 
             yield return new WaitForSeconds(1f); // Wait for 1 second before spawning the next cone
         }
+        ActualCooldownStart();
+    }
+
+    //Code to have an active duration that goes down before real cooldown starts
+    float savedCooldown;
+    public override void StartCooldown(float skillCooldown){
+        savedCooldown = skillCooldown;
+        //Does not do cooldown normally
+    }
+
+    private void ActualCooldownStart(){
+        if(cooldownCoroutine != null){
+            StopCoroutine(cooldownCoroutine);
+        }
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDCoroutine(hudCooldownCoroutine);
+        }
+
+        cooldownCoroutine = StartCoroutine(Cooldown(savedCooldown));
+    }
+
+    private void RefreshTimer(){
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDEffectCoroutine(hudCooldownCoroutine);
+        }
+        hudCooldownCoroutine = hudSkills.StartEffectUI(skillSlot, speedDuration);
     }
 }
 

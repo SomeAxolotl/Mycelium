@@ -29,21 +29,6 @@ public class RelentlessFury : Skill
         hudCooldownCoroutine = hudSkills.StartEffectUI(skillSlot, furyEffect.currTimerMax);
     }
 
-    IEnumerator Frenzied()
-    {
-        yield return new WaitForSeconds(frenziedDuration);
-        /*
-        isFrenzied = true;
-        playerController.canUseDodge = false;
-        float storedAnimSpeed = currentAnimator.speed;
-        currentAnimator.speed = storedAnimSpeed * 1.3f;
-        yield return new WaitForSeconds(frenziedDuration);
-        CancelInvoke();
-        currentAnimator.speed = storedAnimSpeed;
-        playerController.canUseDodge = true;
-        isFrenzied = false;
-        */
-    }
     void HurtPlayer()
     {
         playerHealth.PlayerTakeDamage(playerHealth.maxHealth * .05f);

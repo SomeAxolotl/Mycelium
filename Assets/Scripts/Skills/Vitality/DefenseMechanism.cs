@@ -17,10 +17,17 @@ public class DefenseMechanism : Skill
             Sturdy sturdyEffect = playerHealth.gameObject.AddComponent<Sturdy>();
             sturdyEffect.InitializeSturdy(skillDuration);
 
+            RefreshTimer();
             StartCoroutine(Knockback());
         }
 
         EndSkill();
+    }
+
+    float savedCooldown;
+    public override void StartCooldown(float skillCooldown){
+        savedCooldown = skillCooldown;
+        //Does not do cooldown normally
     }
 
     private IEnumerator Knockback(){
@@ -50,6 +57,25 @@ public class DefenseMechanism : Skill
             }
         }
         showRadius = false;
+        ActualCooldownStart();
+    }
+
+    private void ActualCooldownStart(){
+        if(cooldownCoroutine != null){
+            StopCoroutine(cooldownCoroutine);
+        }
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDCoroutine(hudCooldownCoroutine);
+        }
+
+        cooldownCoroutine = StartCoroutine(Cooldown(savedCooldown));
+    }
+
+    private void RefreshTimer(){
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDEffectCoroutine(hudCooldownCoroutine);
+        }
+        hudCooldownCoroutine = hudSkills.StartEffectUI(skillSlot, skillDuration);
     }
 
     private bool showRadius = false;

@@ -161,6 +161,7 @@ public class HUDSkills : MonoBehaviour
         return StartCoroutine(EffectCooldown(slot, cooldown));
     }
 
+    public bool pauseEffect = false;
     IEnumerator EffectCooldown(int slot, float cooldown)
     {
         Image cooldownBackground = speciesCooldownBackground;
@@ -192,8 +193,10 @@ public class HUDSkills : MonoBehaviour
         }
 
         float cooldownLeft = cooldown;
-        while(cooldownLeft >= 0)
-        {
+        while(cooldownLeft >= 0){
+            while(pauseEffect){
+                yield return null;
+            }
             cooldownLeft -= Time.deltaTime;
             //cooldownBackground.color = Color.white;
             cooldownBackground.fillAmount = 1 - (cooldownLeft / cooldown);
