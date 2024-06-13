@@ -7,22 +7,14 @@ public class RelentlessFury : Skill
 {
     //Skill specific fields
     private float frenziedDuration = 5f;
-    public GameObject relentlessFuryParticles;
     public bool isFrenzied;
 
     public override void DoSkill()
     {
-        //Skill specific stuff
-        FrenzyParticles();
-        if (isPlayerCurrentPlayer())
-        { 
+        if(isPlayerCurrentPlayer()){ 
             Fury furyEffect = playerHealth.gameObject.AddComponent<Fury>();
         }
         EndSkill();
-    }
-    void FrenzyParticles()
-    {
-        Instantiate(relentlessFuryParticles, player.transform.position, Quaternion.Euler(-90f, 0f, 0f), player.transform);
     }
 
     IEnumerator Frenzied()
