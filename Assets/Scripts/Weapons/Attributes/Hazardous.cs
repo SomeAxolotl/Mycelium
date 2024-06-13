@@ -17,10 +17,10 @@ public class Hazardous : AttributeBase
         yield return new WaitForEndOfFrame();
         if(target.GetComponent<EnemyHealth>().currentHealth > 0){
             DefenseChange defenseChangeEffect = target.AddComponent<DefenseChange>();
-            defenseChangeEffect.InitializeDefenseChange(7, -25);
+            defenseChangeEffect.InitializeDefenseChange(7, -5);
             yield return new WaitForSeconds(2);
             DefenseChange defenseChangeEffect2 = target.AddComponent<DefenseChange>();
-            defenseChangeEffect2.InitializeDefenseChange(2, 55);
+            defenseChangeEffect2.InitializeDefenseChange(2, 255);
         }
     }
 }

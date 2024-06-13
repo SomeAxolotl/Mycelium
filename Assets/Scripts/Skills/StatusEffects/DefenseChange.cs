@@ -40,7 +40,6 @@ public class DefenseChange : MonoBehaviour
             tempObj1 = Instantiate(defenseParticlesObj, transform) as GameObject;
         }
         defenseParticles = tempObj1.GetComponent<DefenseBubble>();
-        defenseParticles.SwitchStatement(3);
 
         GameObject vulnerableParticlesObj = Resources.Load<GameObject>(vulnerableParticlePath);
         GameObject tempObj2;
@@ -50,7 +49,6 @@ public class DefenseChange : MonoBehaviour
             tempObj2 = Instantiate(vulnerableParticlesObj, transform) as GameObject;
         }
         vulnerableParticles = tempObj2.GetComponent<DefenseBubble>();
-        vulnerableParticles.SwitchStatement(3);
         Subscribe();
     }
 
