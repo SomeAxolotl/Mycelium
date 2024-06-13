@@ -77,6 +77,7 @@ public class EnemyHealth : MonoBehaviour
     protected IEnumerator Death()
     {
         Died?.Invoke();
+        Actions.EnemyKilled?.Invoke(this);
         
         gameObject.GetComponent<EnemyAttack>().CancelAttack();
         gameObject.GetComponent<EnemyAttack>().enabled = false;

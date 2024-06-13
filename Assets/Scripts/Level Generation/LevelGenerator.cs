@@ -161,7 +161,7 @@ public class LevelGenerator : MonoBehaviour
             }
             previousWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             previousWeapon.GetComponent<Collider>().enabled = false;
-            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = previousWeapon;
+            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().O_curWeapon = previousWeapon;
             previousWeapon.tag = "currentWeapon";
 
             //Restore Previous Stats
@@ -182,7 +182,7 @@ public class LevelGenerator : MonoBehaviour
             GameObject startingWeapon = Instantiate(Resources.Load("Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             startingWeapon.GetComponent<Collider>().enabled = false;
-            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
+            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().O_curWeapon = startingWeapon;
 
             //Debug.Log("NO GLOBAL DATA WEAPON FOUND");
         }

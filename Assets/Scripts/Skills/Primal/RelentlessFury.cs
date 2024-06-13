@@ -16,8 +16,7 @@ public class RelentlessFury : Skill
         FrenzyParticles();
         if (isPlayerCurrentPlayer())
         { 
-            StartCoroutine(Frenzied());  
-            InvokeRepeating("HurtPlayer", 0f, 1f);
+            Fury furyEffect = playerHealth.gameObject.AddComponent<Fury>();
         }
         EndSkill();
     }
@@ -28,6 +27,8 @@ public class RelentlessFury : Skill
 
     IEnumerator Frenzied()
     {
+        yield return new WaitForSeconds(frenziedDuration);
+        /*
         isFrenzied = true;
         playerController.canUseDodge = false;
         float storedAnimSpeed = currentAnimator.speed;
@@ -37,6 +38,7 @@ public class RelentlessFury : Skill
         currentAnimator.speed = storedAnimSpeed;
         playerController.canUseDodge = true;
         isFrenzied = false;
+        */
     }
     void HurtPlayer()
     {

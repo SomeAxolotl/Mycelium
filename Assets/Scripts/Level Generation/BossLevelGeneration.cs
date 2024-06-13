@@ -22,7 +22,7 @@ public class BossLevelGeneration : MonoBehaviour
             GameObject startingWeapon = Instantiate(Resources.Load("Weapons/StartWeapon"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");
             startingWeapon.GetComponent<Collider>().enabled = false;
-            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().curWeapon = startingWeapon;
+            GameObject.Find("PlayerParent").GetComponent<SwapWeapon>().O_curWeapon = startingWeapon;
         }
     }
 

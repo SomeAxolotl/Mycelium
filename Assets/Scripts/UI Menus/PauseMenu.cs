@@ -179,7 +179,7 @@ public class PauseMenu : MonoBehaviour
        
 
         nutrientTracker.LoseMaterials();
-        playerParent.GetComponent<SwapWeapon>().curWeapon.tag = "Weapon";
+        playerParent.GetComponent<SwapWeapon>().O_curWeapon.tag = "Weapon";
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         Destroy(weapon);

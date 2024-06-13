@@ -64,7 +64,7 @@ public class AttributeManager : MonoBehaviour
     private void UpdateAttName(){
         allAttName = defaultName;
         foreach(AttributeBase attribute in O_attributes){
-            Debug.Log(attribute.attName);
+            //Debug.Log(attribute.attName);
             if(attribute.attName != "" && attribute.attName != " " && attribute.attName != null){
                 allAttName = attribute.attName + " " + allAttName;
             }

@@ -12,7 +12,7 @@ public class DefenseMechanism : Skill
         if (isPlayerCurrentPlayer())
         {
             DefenseChange defenseChangeEffect = playerHealth.gameObject.AddComponent<DefenseChange>();
-            defenseChangeEffect.InitializeDefenseChange(skillDuration + 1, 150);
+            defenseChangeEffect.InitializeDefenseChange(skillDuration, 150);
 
             Sturdy sturdyEffect = playerHealth.gameObject.AddComponent<Sturdy>();
             sturdyEffect.InitializeSturdy(skillDuration);

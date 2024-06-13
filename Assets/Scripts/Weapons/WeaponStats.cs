@@ -129,9 +129,9 @@ public class WeaponStats : MonoBehaviour
 
     //Clears stats when a level in unloaded so the data from components is not saved
     public void ClearAllStatsFrom(Component com){
-        statNums.advDamage.RemoveModifierFromSource(com);
-        statNums.advKnockback.RemoveModifierFromSource(com);
-        statNums.advSize.RemoveModifierFromSource(com);
+        statNums.advDamage.RemoveAllModifiersFromSource(com);
+        statNums.advKnockback.RemoveAllModifiersFromSource(com);
+        statNums.advSize.RemoveAllModifiersFromSource(com);
     }
 
     bool hitSomething = false;

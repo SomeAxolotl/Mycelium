@@ -79,12 +79,12 @@ public class LevelEnd : MonoBehaviour
     {
         SceneChangeSetup();
 
-        weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
+        weaponStats = swapWeapon.O_curWeapon.GetComponent<WeaponStats>();
 
         //Save Current Weapon
-        GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+        GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.O_curWeapon.name.Replace("(Clone)", "");
         //Unequip Weapon
-        List<AttributeBase> currAtt = swapWeapon.curWeapon.GetComponents<AttributeBase>().ToList();
+        List<AttributeBase> currAtt = swapWeapon.O_curWeapon.GetComponents<AttributeBase>().ToList();
         if(currAtt.Count > 0){
             foreach(AttributeBase attBase in currAtt){
                 GlobalData.specialAttNum.Add(attBase.specialAttNum);
@@ -112,7 +112,7 @@ public class LevelEnd : MonoBehaviour
     {
         SceneChangeSetup();
 
-        swapWeapon.curWeapon.tag = "Weapon";
+        swapWeapon.O_curWeapon.tag = "Weapon";
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         {
@@ -142,14 +142,14 @@ public class LevelEnd : MonoBehaviour
         nutrientTracker.LoseMaterials();
         profileManager.SaveOverride();
 
-        weaponStats = swapWeapon.curWeapon.GetComponent<WeaponStats>();
+        weaponStats = swapWeapon.O_curWeapon.GetComponent<WeaponStats>();
 
         //Save Current Weapon
-        GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.curWeapon.name.Replace("(Clone)", "");
+        GlobalData.currentWeapon = weaponStats.weaponType.ToString() + "/" + swapWeapon.O_curWeapon.name.Replace("(Clone)", "");
         //Weapon Stats
         GlobalData.currentWeaponStats = weaponStats.statNums;
         //Unequip Weapon
-        List<AttributeBase> currAtt = swapWeapon.curWeapon.GetComponents<AttributeBase>().ToList();
+        List<AttributeBase> currAtt = swapWeapon.O_curWeapon.GetComponents<AttributeBase>().ToList();
         if(currAtt.Count > 0){
             foreach(AttributeBase attBase in currAtt){
                 GlobalData.specialAttNum.Add(attBase.specialAttNum);

@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
             {
                 hudStats.HideStats();
             }
-            if (curioInteract.triggered && canAct && swapWeapon.curWeapon == null)
+            if (curioInteract.triggered && canAct && swapWeapon.O_curWeapon == null)
             {
                 Curio closestCurio = FindClosestCurioInRange();
                 if (closestCurio != null)

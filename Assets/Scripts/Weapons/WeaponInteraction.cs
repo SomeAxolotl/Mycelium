@@ -32,7 +32,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     {
         bool showStats = false;
         //What you have now
-        GameObject curWeapon = swapWeapon.curWeapon;
+        GameObject curWeapon = swapWeapon.O_curWeapon;
         List<AttributeBase> currAtt = curWeapon.GetComponents<AttributeBase>().ToList();
         if(currAtt.Count > 0){
             foreach(AttributeBase attBase in currAtt){
@@ -79,7 +79,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     public void ApplyWeaponPositionAndRotation()
     {
-        swapWeapon.curWeapon = GameObject.FindWithTag("currentWeapon");
+        swapWeapon.O_curWeapon = GameObject.FindWithTag("currentWeapon");
         Transform weaponHolder = swapWeapon.weaponHolder;
 
         transform.parent = weaponHolder.transform;
@@ -93,7 +93,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     public void Salvage(GameObject interactObject)
     {
-        GameObject curWeapon = swapWeapon.curWeapon;
+        GameObject curWeapon = swapWeapon.O_curWeapon;
         AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
         Transform weapon = interactObject.transform;
         AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
@@ -121,7 +121,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     {
         yield return null;
 
-        GameObject curWeapon = swapWeapon.curWeapon;
+        GameObject curWeapon = swapWeapon.O_curWeapon;
         AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
         Transform weapon = interactObject.transform;
         AttributeBase newAtt = weapon.GetComponent<AttributeBase>();
@@ -214,7 +214,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
 
     public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)
     {
-        GameObject curWeapon = swapWeapon.curWeapon;
+        GameObject curWeapon = swapWeapon.O_curWeapon;
         AttributeBase curAtt = curWeapon.GetComponent<AttributeBase>();
         Transform weapon = interactObject.transform;
         AttributeBase newAtt = weapon.GetComponent<AttributeBase>();

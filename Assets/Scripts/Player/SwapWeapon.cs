@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SwapWeapon : MonoBehaviour
 {
@@ -14,7 +15,17 @@ public class SwapWeapon : MonoBehaviour
     [HideInInspector] public Transform weaponHolder;
     SwapCharacter swapCharacter;
     PlayerController playerController;
-    public GameObject curWeapon;
+    private GameObject curWeapon;
+    public GameObject O_curWeapon{
+        get{return curWeapon;}
+        set{
+            if(curWeapon != null){
+                SwappedWeapon?.Invoke(curWeapon, value);
+            }
+            curWeapon = value; 
+        }
+    }
+    public Action<GameObject, GameObject> SwappedWeapon;
 
     //[SerializeField] private float proximityRadius = 5f;
     [SerializeField] public Color betterStatColor;

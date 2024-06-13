@@ -145,7 +145,7 @@ public class PlayerHealth : MonoBehaviour
 
         //Setup and Animation stuff
         dead = true;
-        swapWeapon.curWeapon.GetComponent<Collider>().enabled = false;
+        swapWeapon.O_curWeapon.GetComponent<Collider>().enabled = false;
         CancelInvoke("Regen");
         hudHealth.UpdateHealthUI(0, maxHealth);
         animator = GetComponentInChildren<Animator>();
@@ -202,7 +202,7 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);
         currentHealth = maxHealth;
         hudHealth.UpdateHealthUI(currentHealth, maxHealth);
-        swapWeapon.curWeapon.tag = "Weapon";
+        swapWeapon.O_curWeapon.tag = "Weapon";
         GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
         foreach (GameObject weapon in weapons)
         Destroy(weapon);

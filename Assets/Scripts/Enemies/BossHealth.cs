@@ -53,6 +53,7 @@ public class BossHealth : EnemyHealth
         if (currentHealth <= 0 && !alreadyDead)
         {
             Died?.Invoke();
+            Actions.EnemyKilled?.Invoke(this);
 
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
             if(gameObject.name == "Rival Colony Leader")

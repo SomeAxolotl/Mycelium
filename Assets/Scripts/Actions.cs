@@ -6,4 +6,5 @@ using System;
 public static class Actions
 {
     public static Action<GameObject> SalvagedWeapon;
+    public static Action<EnemyHealth> EnemyKilled;
 }
