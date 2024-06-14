@@ -34,8 +34,6 @@ public class DrumCurio : Curio
         OnPlayingDone += DisallowPlayerDancing;
     }
 
-    //was causing null reference, annoying. gonna remove for now
-    /*
     void OnDisable()
     {
         OnPlayingStarted -= danceCurio.OpenToDancing;
@@ -44,22 +42,23 @@ public class DrumCurio : Curio
         OnPlayingStarted -= AllowPlayerDancing;
         OnPlayingDone -= DisallowPlayerDancing;
     }
-    */
 
     void AllowPlayerDancing()
     {
-        PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        if (playerController != null)
+        GameObject playerParent = GameObject.FindWithTag("PlayerParent");
+        if (playerParent != null)
         {
+            PlayerController playerController = playerParent.GetComponent<PlayerController>();
             playerController.canDance = true;
         }
     }
 
     void DisallowPlayerDancing()
     {
-        PlayerController playerController = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerController>();
-        if (playerController != null)
+        GameObject playerParent = GameObject.FindWithTag("PlayerParent");
+        if (playerParent != null)
         {
+            PlayerController playerController = playerParent.GetComponent<PlayerController>();
             playerController.canDance = false;
         }
     }

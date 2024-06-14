@@ -27,6 +27,8 @@ public class InputManager : MonoBehaviour
     }
     public ControllerNames previousLatestController = ControllerNames.None;
 
+    SensitivityManager sensitivityManager;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,10 +43,12 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
-        UnityEngine.Debug.Log("Hey <color=ADD8E6>guys</color>! I just <color=green>realized</color> you can do <b>rich text</b> in <i>debug</i> logs!!!");
+        //UnityEngine.Debug.Log("Hey <color=ADD8E6>guys</color>! I just <color=green>realized</color> you can do <b>rich text</b> in <i>debug</i> logs!!!");
 
+        sensitivityManager = Camera.main.GetComponent<SensitivityManager>();
 
         RefreshHUDHints();
+        UpdateCameraControls();
     }
 
     void OnEnable()
@@ -86,7 +90,10 @@ public class InputManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "Main Menu" && GlobalData.isAbleToPause && inputDeviceChange == InputDeviceChange.Removed)
         {
-            GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>()?.Pause();
+            if (GameObject.Find("PauseMenuCanvas") != null)
+            {
+                GameObject.Find("PauseMenuCanvas").GetComponent<PauseMenu>().Pause();
+            }
         }
     }
 
@@ -121,6 +128,7 @@ public class InputManager : MonoBehaviour
         }
 
         RefreshHUDHints();
+        UpdateCameraControls();
 
         previousLatestController = GlobalData.latestController;
     }
@@ -129,7 +137,21 @@ public class InputManager : MonoBehaviour
     {
         if (GlobalData.latestController != previousLatestController)
         {
-            GameObject.Find("HUD")?.GetComponent<HUDControls>().ChangeHUDControls(GetLatestController());
+            if (GameObject.Find("HUD") != null)
+            {
+                GameObject.Find("HUD").GetComponent<HUDControls>().ChangeHUDControls(GetLatestController());
+            }
+        }
+    }
+
+    void UpdateCameraControls()
+    {
+        if (GlobalData.latestController != previousLatestController)
+        {
+            if (SceneManager.GetActiveScene().buildIndex != 0 && sensitivityManager != null)
+            {
+                sensitivityManager.UpdateCamera();
+            }
         }
     }
 
@@ -151,6 +173,8 @@ public class InputManager : MonoBehaviour
     public class Controller
     {
         [SerializeField] public ControllerNames controllerName;
+
+        [SerializeField] public bool usesMouse;
 
         [SerializeField] public ColoredHint subspeciesSkillHint; //Will have square sprite for Playstation
         [SerializeField] public ColoredHint statSkill1Hint; //Will have triangle sprite for Playstation

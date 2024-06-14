@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using Cinemachine;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class PauseMenu : MonoBehaviour
 
     private ThirdPersonActionsAsset playerInput = null;
 
+    CinemachineBrain cinemachineBrain;
+    CinemachineBrain.UpdateMethod startingUpdateMethod;
+
     private void Awake()
     {
         isOnMainMenu = SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0);
@@ -48,6 +52,11 @@ public class PauseMenu : MonoBehaviour
             HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
             hudItem = HUD.GetComponent<HUDItem>();
             sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
+            cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
+            if (cinemachineBrain != null)
+            {
+                startingUpdateMethod = cinemachineBrain.m_UpdateMethod;
+            }
             GlobalData.isAbleToPause = true;
 
             //Resume();
@@ -101,6 +110,7 @@ public class PauseMenu : MonoBehaviour
         HUD.GetComponent<HUDController>().FadeHUD(true);
         unpausedSnapshot.TransitionTo(muffleTransitionTime);
         GlobalData.currentAudioMixerSnapshot = unpausedSnapshot;
+        cinemachineBrain.m_UpdateMethod = startingUpdateMethod;
         Time.timeScale = 1f;
         GlobalData.isGamePaused = false;
         //Cursor.visible = false;
@@ -123,6 +133,7 @@ public class PauseMenu : MonoBehaviour
             HUD.GetComponent<HUDController>().FadeHUD(false);
             pausedSnapshot.TransitionTo(muffleTransitionTime);
             GlobalData.currentAudioMixerSnapshot = pausedSnapshot;
+            cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
             Time.timeScale = 0f;
             GlobalData.isGamePaused = true;
 

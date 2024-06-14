@@ -49,7 +49,7 @@ public static class GlobalData
     public static bool isDay = true;
 
     //Controller Stuff
-    public static InputManager.ControllerNames latestController;
+    public static InputManager.ControllerNames latestController = InputManager.ControllerNames.XBox;
 
     //Debug Stuff
     public static bool canShowTooltips = true;
