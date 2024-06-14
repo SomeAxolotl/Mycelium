@@ -423,8 +423,12 @@ public class TestingManager : MonoBehaviour
 
     IEnumerator SetLevel(int buildIndex)
     {
-        SporeManager sporeManager = GameObject.Find("SporeManager").GetComponent<SporeManager>();
-        sporeManager.Save();
+        GameObject sporeManagerObj = GameObject.Find("SporeManager");
+        if (sporeManagerObj != null)
+        {
+            SporeManager sporeManager = sporeManagerObj.GetComponent<SporeManager>();
+            sporeManager.Save();
+        }
 
         ProfileManager.Instance.SaveOverride();
 
