@@ -23,6 +23,7 @@ public class RelentlessFury : Skill
     }
 
     private void RefreshTimer(){
+        hudSkills.ToggleActiveBorder(skillSlot, true);
         if(hudCooldownCoroutine != null){
             hudSkills.StopHUDEffectCoroutine(hudCooldownCoroutine);
         }
@@ -43,6 +44,8 @@ public class RelentlessFury : Skill
     private void ActualCooldownStart(){
         furyEffect.EffectEnd -= ActualCooldownStart;
         furyEffect.EffectRefresh -= RefreshTimer;
+
+        hudSkills.ToggleActiveBorder(skillSlot, false);
 
         if(cooldownCoroutine != null){
             StopCoroutine(cooldownCoroutine);

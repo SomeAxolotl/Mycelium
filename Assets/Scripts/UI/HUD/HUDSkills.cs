@@ -186,6 +186,7 @@ public class HUDSkills : MonoBehaviour
 
     public void ToggleActiveBorder(int slot, bool isActive)
     {
+        Debug.Log("Pop that pussy");
         Skill selectedSkill = GetSkill(slot);
         StartCoroutine(PopActivateBorder(selectedSkill, isActive));
     }

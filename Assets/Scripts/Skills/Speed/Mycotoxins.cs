@@ -69,6 +69,8 @@ public class Mycotoxins : Skill
     }
 
     private void ActualCooldownStart(){
+        hudSkills.ToggleActiveBorder(skillSlot, false);
+        
         if(cooldownCoroutine != null){
             StopCoroutine(cooldownCoroutine);
         }
@@ -80,6 +82,7 @@ public class Mycotoxins : Skill
     }
 
     private void RefreshTimer(){
+        hudSkills.ToggleActiveBorder(skillSlot, true);
         if(hudCooldownCoroutine != null){
             hudSkills.StopHUDEffectCoroutine(hudCooldownCoroutine);
         }
