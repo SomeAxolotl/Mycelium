@@ -46,6 +46,10 @@ public class LevelGenerator : MonoBehaviour
     private int NumberOfPieces = 0;
     private int recentChunkIndex = 0;
 
+    [SerializeField] private List<GameObject> spawnedMiddleChunks = new List<GameObject>();
+    private GameObject currentMiddleChunk;
+    [SerializeField] private bool allowDuplicateChunks = false;
+
     [Header("Theme Selection")]
     [SerializeField] private ChunkTheme themeForLevel;
 
@@ -226,20 +230,45 @@ public class LevelGenerator : MonoBehaviour
 
     private GameObject GenerateAChunk(Transform transform)
     {
-        int achunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
-        if (Theme1A_MiddleChunkPrefabs.Count > 1)
+        GameObject selectedChunk = null;
+        if (!allowDuplicateChunks)
         {
-            while (achunkIndex == recentChunkIndex)
+            while (selectedChunk == null)
             {
-                achunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
+                int chunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
+                GameObject chunk = Theme1A_MiddleChunkPrefabs[chunkIndex];
+
+                if (!spawnedMiddleChunks.Contains(chunk))
+                {
+                    selectedChunk = chunk;
+                    spawnedMiddleChunks.Add(chunk);
+                    recentChunkIndex = chunkIndex;
+                }
+            }
+            // If all chunks have been used this allows duplicates as a fallback
+            if (selectedChunk == null)
+            {
+                selectedChunk = Theme1A_MiddleChunkPrefabs[Random.Range(0, Theme1A_MiddleChunkPrefabs.Count)];
             }
         }
-        recentChunkIndex = achunkIndex;
-        GameObject Apiece = Instantiate(Theme1A_MiddleChunkPrefabs[achunkIndex], transform);
+        else
+        {
+            int achunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
+            if (Theme1A_MiddleChunkPrefabs.Count > 1)
+            {
+                while (achunkIndex == recentChunkIndex)
+                {
+                    achunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
+                }
+            }
+            recentChunkIndex = achunkIndex;
+            selectedChunk = Theme1A_MiddleChunkPrefabs[achunkIndex];
+        }
+        currentMiddleChunk = Instantiate(selectedChunk, transform);
         NumberOfPieces++;
 
         List<Transform> attachPoints = new List<Transform>();
-        foreach (Transform child in Apiece.transform)
+        foreach (Transform child in currentMiddleChunk.transform)
         {
             if (child.tag == "Attach")
                 attachPoints.Add(child);
@@ -259,7 +288,7 @@ public class LevelGenerator : MonoBehaviour
             else
                 GenerateAEndcap(attachPoints[i]);
         }
-        return Apiece;
+        return currentMiddleChunk;
     }
 
     private GameObject GenerateAMidpoint(Transform transform)
@@ -291,20 +320,45 @@ public class LevelGenerator : MonoBehaviour
 
     private GameObject GenerateBChunk(Transform transform)
     {
-        int bchunkIndex = Random.Range(0, Theme1B_MiddleChunkPrefabs.Count);
-        if (Theme1B_MiddleChunkPrefabs.Count > 1)
+        GameObject selectedChunk = null;
+        if (!allowDuplicateChunks)
         {
-            while (bchunkIndex == recentChunkIndex)
+            while (selectedChunk == null)
             {
-                bchunkIndex = Random.Range(0, Theme1B_MiddleChunkPrefabs.Count);
+                int chunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
+                GameObject chunk = Theme1A_MiddleChunkPrefabs[chunkIndex];
+
+                if (!spawnedMiddleChunks.Contains(chunk))
+                {
+                    selectedChunk = chunk;
+                    spawnedMiddleChunks.Add(chunk);
+                    recentChunkIndex = chunkIndex;
+                }
+            }
+            // If all chunks have been used this allows duplicates as a fallback
+            if (selectedChunk == null)
+            {
+                selectedChunk = Theme1A_MiddleChunkPrefabs[Random.Range(0, Theme1A_MiddleChunkPrefabs.Count)];
             }
         }
-        recentChunkIndex = bchunkIndex;
-        GameObject Bpiece = Instantiate(Theme1B_MiddleChunkPrefabs[bchunkIndex], transform);
+        else
+        {
+            int bchunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
+            if (Theme1A_MiddleChunkPrefabs.Count > 1)
+            {
+                while (bchunkIndex == recentChunkIndex)
+                {
+                    bchunkIndex = Random.Range(0, Theme1A_MiddleChunkPrefabs.Count);
+                }
+            }
+            recentChunkIndex = bchunkIndex;
+            selectedChunk = Theme1A_MiddleChunkPrefabs[bchunkIndex];
+        }
+        currentMiddleChunk = Instantiate(selectedChunk, transform);
         NumberOfPieces++;
 
         List<Transform> attachPoints = new List<Transform>();
-        foreach (Transform child in Bpiece.transform)
+        foreach (Transform child in currentMiddleChunk.transform)
         {
             if (child.tag == "Attach")
                 attachPoints.Add(child);
@@ -324,7 +378,7 @@ public class LevelGenerator : MonoBehaviour
             else
                 GenerateBEndcap(attachPoints[i]);
         }
-        return Bpiece;
+        return currentMiddleChunk;
 
 
         //Debug.Log("Chunk Index: " + chunkIndex);
