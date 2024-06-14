@@ -76,65 +76,57 @@ public class HUDSkills : MonoBehaviour
         return skillSprite;
     }
 
-    public void StopHUDCoroutine(Coroutine hudCooldownCoroutine)
-    {
+    public void StopHUDCoroutine(Coroutine hudCooldownCoroutine){
         StopCoroutine(hudCooldownCoroutine);
     }
-    public void StopHUDEffectCoroutine(Coroutine hudCooldownCoroutine)
-    {
+    public void StopHUDEffectCoroutine(Coroutine hudCooldownCoroutine){
         StopCoroutine(hudCooldownCoroutine);
     }
 
-    public Coroutine StartCooldownUI(int slot, float cooldown)
-    {
+    public Coroutine StartCooldownUI(int slot, float cooldown){
         return StartCoroutine(SkillCooldown(slot, cooldown));
     }
 
-    public Coroutine StartEffectUI(int slot, float cooldown)
-    {
+    public Coroutine StartEffectUI(int slot, float cooldown){
         return StartCoroutine(EffectCooldown(slot, cooldown));
     }
 
-    public bool pauseEffect = false;
-    IEnumerator EffectCooldown(int slot, float cooldown)
-    {
+    public void PauseSkill(int slot, bool pause){
         Skill selectedSkill = GetSkill(slot);
+        selectedSkill.pausedEffect = pause;
+    }
 
-        Image cooldownBackground = selectedSkill.cooldownBackground;
-        Image skillIcon = selectedSkill.icon;
-        Vector3 iconStartingScale = selectedSkill.iconStartingScale;
+    IEnumerator EffectCooldown(int slot, float cooldown){
+        Skill selectedSkill = GetSkill(slot);
 
         float cooldownLeft = cooldown;
         while(cooldownLeft >= 0){
-            while(pauseEffect){
+            while(selectedSkill.pausedEffect){
                 yield return null;
             }
             cooldownLeft -= Time.deltaTime;
-            //cooldownBackground.color = Color.white;
-            cooldownBackground.fillAmount = 1 - (cooldownLeft / cooldown);
+            selectedSkill.cooldownBackground.fillAmount = 1 - (cooldownLeft / cooldown);
             yield return null;
         }
 
-        StartCoroutine(SkillCooldownIconPop(skillIcon.gameObject, iconStartingScale));
+        StartCoroutine(SkillCooldownIconPop(selectedSkill.icon.gameObject, selectedSkill.iconStartingScale));
     }
 
     IEnumerator SkillCooldown(int slot, float cooldown)
     {
         Skill selectedSkill = GetSkill(slot);
 
-        Image cooldownBackground = selectedSkill.cooldownBackground;
-        Image skillIcon = selectedSkill.icon;
-        Vector3 iconStartingScale = selectedSkill.iconStartingScale;
-
         float cooldownLeft = cooldown;
-        while (cooldownLeft >= 0)
-        {
+        while(cooldownLeft >= 0){
+            while(selectedSkill.pausedEffect){
+                yield return null;
+            }
             cooldownLeft -= Time.deltaTime;
-            cooldownBackground.fillAmount = cooldownLeft / cooldown;
+            selectedSkill.cooldownBackground.fillAmount = cooldownLeft / cooldown;
             yield return null;
         }
 
-        StartCoroutine(SkillCooldownIconPop(skillIcon.gameObject, iconStartingScale));
+        StartCoroutine(SkillCooldownIconPop(selectedSkill.icon.gameObject, selectedSkill.iconStartingScale));
     }
 
    private void SlotSwitch(){
@@ -186,7 +178,6 @@ public class HUDSkills : MonoBehaviour
 
     public void ToggleActiveBorder(int slot, bool isActive)
     {
-        Debug.Log("Pop that pussy");
         Skill selectedSkill = GetSkill(slot);
         StartCoroutine(PopActivateBorder(selectedSkill, isActive));
     }
@@ -235,6 +226,7 @@ public class HUDSkills : MonoBehaviour
     class Skill
     {
         public int slot;
+        public bool pausedEffect = false;
         public Image cooldownBackground;
         public Image icon;
         public Vector3 iconStartingScale {get; private set;}

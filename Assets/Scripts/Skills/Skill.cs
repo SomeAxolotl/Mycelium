@@ -16,7 +16,17 @@ public class Skill : MonoBehaviour
     public Coroutine cooldownCoroutine = null;
     public Coroutine hudCooldownCoroutine = null;
 
-    private float fungalMightBonus = 1f;
+    private float fungalMightBonusChungus = 1f;
+    public float O_fungalMightBonus{
+        get{return fungalMightBonusChungus;}
+        set{
+            if(fungalMightBonusChungus > 1){
+                FungalUsed();
+            }
+            fungalMightBonusChungus = value; 
+        }
+    }
+    public virtual void FungalUsed(){}
 
     public GameObject player;
     public CharacterStats characterStats;
@@ -42,7 +52,7 @@ public class Skill : MonoBehaviour
     }
 
     //this is called at the start of all the subclass skills. all stat math for skills can be done here and it should b fine
-    public void CalculateProperties()
+    public virtual void CalculateProperties()
     {
         player = transform.parent.parent.gameObject;
         characterStats = player.GetComponent<CharacterStats>();
@@ -56,7 +66,7 @@ public class Skill : MonoBehaviour
 
         //Tentative value math -- Lerps between ValueAt1Sentience and ValueAt15Sentience depending on what ur sentience lvl is
         //finalSkillValue = Mathf.RoundToInt(Mathf.Lerp(ValueAt1Sentience, ValueAt15Sentience, lerpValue));
-        finalSkillValue = (valueBase + ((characterStats.sentienceLevel - 1) * valueIncrement)) * fungalMightBonus;
+        finalSkillValue = (valueBase + ((characterStats.sentienceLevel - 1) * valueIncrement)) * O_fungalMightBonus;
 
         //Tentative cooldown math -- Lerps between CooldownAt1Sentience and CooldownAt15Sentience depending on what ur sentience lvl is
         //finalSkillCooldown = Mathf.Lerp(CooldownAt1Sentience, CooldownAt15Sentience, lerpValue);
@@ -134,17 +144,17 @@ public class Skill : MonoBehaviour
     }
 
     //Fungal Might for Skills
-    public void ActivateFungalMight(float fungalMightValue)
+    public virtual void ActivateFungalMight(float fungalMightValue)
     {
-        fungalMightBonus = fungalMightValue;
+        O_fungalMightBonus = fungalMightValue;
     }
-    public void DeactivateFungalMight()
+    public virtual void DeactivateFungalMight()
     {
-        fungalMightBonus = 1f;
+        O_fungalMightBonus = 1f;
     }
 
     //Clears Fungal Might for attacking and skills
-    public void ClearAllFungalMights()
+    public virtual void ClearAllFungalMights()
     {
         GameObject skillLoadout = player.transform.Find("SkillLoadout").gameObject;
         foreach (Transform child in skillLoadout.transform)

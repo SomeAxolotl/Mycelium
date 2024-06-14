@@ -94,11 +94,11 @@ public class LivingCyclone : Skill
                 float rotationAmount = 360f / spinDuration * Time.deltaTime;
                 if (!weaponCollision.hitStopping)
                 {
-                    hudSkills.pauseEffect = false;
+                    hudSkills.PauseSkill(skillSlot, false);
                     player.transform.Rotate(Vector3.down, rotationAmount);
                     spinCounter += Time.deltaTime;
                 }else{
-                    hudSkills.pauseEffect = true;
+                    hudSkills.PauseSkill(skillSlot, true);
                 }
 
                 yield return new WaitForFixedUpdate();
@@ -130,7 +130,7 @@ public class LivingCyclone : Skill
 
     private void ActualCooldownStart(){
         hudSkills.ToggleActiveBorder(skillSlot, false);
-        
+
         if(cooldownCoroutine != null){
             StopCoroutine(cooldownCoroutine);
         }
