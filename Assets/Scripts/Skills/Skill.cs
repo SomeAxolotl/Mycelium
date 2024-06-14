@@ -130,6 +130,7 @@ public class Skill : MonoBehaviour
 
         cooldownCoroutine = null;
         hudCooldownCoroutine = null;
+        
     }
 
     //Fungal Might for Skills

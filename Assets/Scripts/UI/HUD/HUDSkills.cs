@@ -4,43 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class HUDSkills : MonoBehaviour
 {
-    //Dodge
-
-    private Image dodgeCooldownBackground;
-    private Image dodgeIcon;
-    private Vector3 dodgeIconStartingScale;
-    private TMP_Text dodgeButtonText;
-
-    //Hit
-
-    private Image hitCooldownBackground;
-    private Image hitIcon;
-    private Vector3 hitIconStartingScale;
-    private TMP_Text hitButtonText;
-
-    //Skill 1
-
-    private Image skill1CooldownBackground;
-    private Image skill1Icon;
-    private Vector3 skill1IconStartingScale;
-    private TMP_Text skill1ButtonText;
-
-    //Skill 2
-
-    private Image skill2CooldownBackground;
-    private Image skill2Icon;
-    private Vector3 skill2IconStartingScale;
-    private TMP_Text skill2ButtonText;
-
-    //Skill 3
-
-    private Image speciesCooldownBackground;
-    private Image speciesIcon;
-    private Vector3 speciesIconStartingScale;
-    private TMP_Text speciesButtonText;
+    [SerializeField] List<Skill> skills = new List<Skill>();
 
     private List<Sprite> spriteList = new List<Sprite>();
     [SerializeField] private Sprite noSkillSprite;
@@ -51,30 +19,10 @@ public class HUDSkills : MonoBehaviour
 
     void Start()
     {
-        dodgeCooldownBackground = GameObject.Find("DodgeCooldownBackground").GetComponent<Image>();
-        dodgeIcon = GameObject.Find("DodgeIcon").GetComponent<Image>();
-        dodgeIconStartingScale = dodgeIcon.transform.localScale;
-        dodgeButtonText = GameObject.Find("DodgeButton").GetComponent<TMP_Text>();
-
-        speciesCooldownBackground = GameObject.Find("SpeciesCooldownBackground").GetComponent<Image>();
-        speciesIcon = GameObject.Find("SpeciesIcon").GetComponent<Image>();
-        speciesIconStartingScale = speciesIcon.transform.localScale;
-        speciesButtonText = GameObject.Find("SpeciesButton").GetComponent<TMP_Text>();
-
-        skill1CooldownBackground = GameObject.Find("Skill1CooldownBackground").GetComponent<Image>();
-        skill1Icon = GameObject.Find("Skill1Icon").GetComponent<Image>();
-        skill1IconStartingScale = skill1Icon.transform.localScale;
-        skill1ButtonText = GameObject.Find("Skill1Button").GetComponent<TMP_Text>();
-
-        skill2CooldownBackground = GameObject.Find("Skill2CooldownBackground").GetComponent<Image>();
-        skill2Icon = GameObject.Find("Skill2Icon").GetComponent<Image>();
-        skill2IconStartingScale = skill2Icon.transform.localScale;
-        skill2ButtonText = GameObject.Find("Skill2Button").GetComponent<TMP_Text>();
-
-        /*hitCooldownBackground = GameObject.Find("HitCooldownBackground").GetComponent<Image>();
-        hitIcon = GameObject.Find("HitIcon").GetComponent<Image>();
-        hitIconStartingScale = hitIcon.transform.localScale;
-        hitButtonText = GameObject.Find("HitButton").GetComponent<TMP_Text>();*/
+        foreach (Skill skill in skills)
+        {
+            skill.Initialize();
+        }
 
         spriteList.AddRange(Resources.LoadAll<Sprite>("Skill Icons"));
 
@@ -98,22 +46,8 @@ public class HUDSkills : MonoBehaviour
 
     public void ChangeSkillIcon(string skillName, int slot)
     {
-        Image skillIcon = speciesIcon;
-        switch (slot)
-        {
-            //Skills
-            case 0:
-                skillIcon = speciesIcon;
-                break;
-            case 1:
-                skillIcon = skill1Icon;
-                break;
-            case 2:
-                skillIcon = skill2Icon;
-                break;
-        }
-        
-        skillIcon.sprite = NameToSkillSprite(skillName);
+        Skill selectedSkill = GetSkill(slot);
+        selectedSkill.icon.sprite = NameToSkillSprite(skillName);
     }
 
     Sprite NameToSkillSprite(string name)
@@ -164,33 +98,11 @@ public class HUDSkills : MonoBehaviour
     public bool pauseEffect = false;
     IEnumerator EffectCooldown(int slot, float cooldown)
     {
-        Image cooldownBackground = speciesCooldownBackground;
-        Image skillIcon = speciesIcon;
-        Vector3 iconStartingScale = new Vector3();
-        switch (slot)
-        {
-            //Skills
-            case 0:
-                cooldownBackground = speciesCooldownBackground;
-                skillIcon = speciesIcon;
-                iconStartingScale = speciesIconStartingScale;
-                break;
-            case 1:
-                cooldownBackground = skill1CooldownBackground;
-                skillIcon = skill1Icon;
-                iconStartingScale = skill1IconStartingScale;
-                break;
-            case 2:
-                cooldownBackground = skill2CooldownBackground;
-                skillIcon = skill2Icon;
-                iconStartingScale = skill2IconStartingScale;
-                break;
-            case 4:
-                cooldownBackground = dodgeCooldownBackground;
-                skillIcon = dodgeIcon;
-                iconStartingScale = dodgeIconStartingScale;
-                break;
-        }
+        Skill selectedSkill = GetSkill(slot);
+
+        Image cooldownBackground = selectedSkill.cooldownBackground;
+        Image skillIcon = selectedSkill.icon;
+        Vector3 iconStartingScale = selectedSkill.startingScale;
 
         float cooldownLeft = cooldown;
         while(cooldownLeft >= 0){
@@ -208,40 +120,11 @@ public class HUDSkills : MonoBehaviour
 
     IEnumerator SkillCooldown(int slot, float cooldown)
     {
-        Image cooldownBackground = speciesCooldownBackground;
-        Image skillIcon = speciesIcon;
-        Vector3 iconStartingScale = new Vector3();
-        switch (slot)
-        {
-            //Skills
-            case 0:
-                cooldownBackground = speciesCooldownBackground;
-                skillIcon = speciesIcon;
-                iconStartingScale = speciesIconStartingScale;
-                break;
-            case 1:
-                cooldownBackground = skill1CooldownBackground;
-                skillIcon = skill1Icon;
-                iconStartingScale = skill1IconStartingScale;
-                break;
-            case 2:
-                cooldownBackground = skill2CooldownBackground;
-                skillIcon = skill2Icon;
-                iconStartingScale = skill2IconStartingScale;
-                break;
+        Skill selectedSkill = GetSkill(slot);
 
-            //Attack and Dodge
-            /*case 3:
-                cooldownBackground = hitCooldownBackground;
-                skillIcon = hitIcon;
-                iconStartingScale = hitIconStartingScale;
-                break;*/
-            case 4:
-                cooldownBackground = dodgeCooldownBackground;
-                skillIcon = dodgeIcon;
-                iconStartingScale = dodgeIconStartingScale;
-                break;
-        }
+        Image cooldownBackground = selectedSkill.cooldownBackground;
+        Image skillIcon = selectedSkill.icon;
+        Vector3 iconStartingScale = selectedSkill.startingScale;
 
         float cooldownLeft = cooldown;
         while (cooldownLeft >= 0)
@@ -289,9 +172,9 @@ public class HUDSkills : MonoBehaviour
     {
         List<Sprite> allSprites = new List<Sprite>();
 
-        allSprites.Add(speciesIcon.sprite);
-        allSprites.Add(skill1Icon.sprite);
-        allSprites.Add(skill2Icon.sprite);
+        allSprites.Add(GetSkill(0).icon.sprite);
+        allSprites.Add(GetSkill(1).icon.sprite);
+        allSprites.Add(GetSkill(2).icon.sprite);
 
         return allSprites;
     }
@@ -301,41 +184,68 @@ public class HUDSkills : MonoBehaviour
         return NameToSkillSprite(skillName);
     }
 
-    /*void Update()
+    public void ToggleActiveBorder(int slot, bool isActive)
     {
-        if (hitCooldownCounter > 0)
+        Skill selectedSkill = GetSkill(slot);
+        StartCoroutine(PopActivateBorder(selectedSkill, isActive));
+    }
+
+    IEnumerator PopActivateBorder(Skill skill, bool doesPopIn)
+    {
+        Vector3 fromScale = doesPopIn ? skill.hiddenScale : skill.startingScale;
+        Vector3 toScale = doesPopIn ? skill.startingScale : skill.hiddenScale;
+
+        GameObject activateBorder = skill.activateBorder;
+
+        if (activateBorder.transform.localScale == toScale)
         {
-            hitCooldownCounter -= Time.deltaTime;
-            hitCooldownBackground.fillAmount = hitCooldownCounter / hitCooldown;
+            yield break;
         }
 
-        if (skill1CooldownCounter > 0)
+        float popCounter = 0f;
+        float popDuration = 0.35f;
+        while (popCounter < popDuration)
         {
-            skill1CooldownCounter -= Time.deltaTime;
-            skill1CooldownBackground.fillAmount = skill1CooldownCounter / skill1Cooldown;
+            float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
+            activateBorder.transform.localScale = Vector3.Lerp(fromScale, toScale, popLerp);
+
+            popCounter += Time.deltaTime;
+            yield return null;  
         }
 
-        if (skill2CooldownCounter > 0)
-        {
-            skill2CooldownCounter -= Time.deltaTime;
-            skill2CooldownBackground.fillAmount = skill2CooldownCounter / skill2Cooldown;
-        }
+        activateBorder.transform.localScale = toScale;
+    }
 
-        if (speciesCooldownCounter > 0)
+    //Skills
+
+    Skill GetSkill(int slot)
+    {
+        Skill foundSkill = skills.Find(s => s.slot == slot);
+        if (foundSkill == null)
         {
-            speciesCooldownCounter -= Time.deltaTime;
-            speciesCooldownBackground.fillAmount = speciesCooldownCounter / speciesCooldown;
+            Debug.LogError("No skill found for slot " + slot);
+            return null;
+        }
+        
+        return foundSkill;
+    }
+
+    [System.Serializable]
+    class Skill
+    {
+        public int slot;
+        public Image cooldownBackground;
+        public Image icon;
+        public Vector3 startingScale {get; private set;}
+        public Vector3 hiddenScale {get; private set;}
+        public TMP_Text buttonText;
+        public GameObject activateBorder;
+
+        public void Initialize()
+        {
+            startingScale = activateBorder.transform.localScale;
+            hiddenScale = startingScale * 0.92f;
+            activateBorder.transform.localScale = hiddenScale;
         }
     }
-    */
-
-    /*
-    public void UpdateSkillButtons()
-    {
-        hitAction = inputAction.bindings
-
-        hitButtonText
-        skillButtonText
-    }
-    */
 }
