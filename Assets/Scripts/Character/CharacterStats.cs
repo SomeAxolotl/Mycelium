@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using RonaldSunglassesEmoji.Personalities;
+using System.Linq;
 
 public class CharacterStats : MonoBehaviour
 {
@@ -146,6 +147,12 @@ public class CharacterStats : MonoBehaviour
             hudHappiness.UpdateHappinessMeter();
         }
 
+        //Particles and sound
+        if (HasExistingParticles("HappyParticles") || HasExistingParticles("SadParticles"))
+        {
+            return;
+        }
+
         if (modifyAmount > 0)
         {
             ParticleManager.Instance.SpawnParticles("HappyParticles", transform.position, Quaternion.Euler(-90, 0, 0), this.gameObject);
@@ -160,6 +167,14 @@ public class CharacterStats : MonoBehaviour
             ParticleManager.Instance.SpawnParticles("SadParticles", spawnPosition, Quaternion.Euler(-90, 0, 0), this.gameObject);
             SoundEffectManager.Instance.PlaySound("Sad Find", this.gameObject.transform, -0.4f, 1f);
         }
+    }
+
+    bool HasExistingParticles(string particleObjectName)
+    {
+        List<ParticleSystem> particleSystems = GetComponentsInChildren<ParticleSystem>().ToList<ParticleSystem>();
+        ParticleSystem particleSystem = particleSystems.Find(p => p.gameObject.name.Contains(particleObjectName));
+
+        return particleSystem != null;
     }
 
     public void ModifyEnergy(int modifyAmount)

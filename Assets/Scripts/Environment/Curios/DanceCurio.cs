@@ -6,9 +6,13 @@ public class DanceCurio : Curio
 {
     bool doneDancing = false;
 
-    void Start()
+    public override IEnumerator Start()
     {
         currentUserCount = maxUserCount;
+
+        StartCoroutine(base.Start());
+
+        yield return null;
     }
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)

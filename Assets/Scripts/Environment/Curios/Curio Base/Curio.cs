@@ -37,14 +37,26 @@ public abstract class Curio : MonoBehaviour
 
     public event Action OnPlayingDone;
 
-    IEnumerator Start()
+    public virtual IEnumerator Start()
     {
         yield return null;
 
-        if (!selfCurio && !gameObject.name.Contains("Spore") && !gameObject.name.Contains("Keeper") && !gameObject.name.Contains("DancePad"))
+        bool isUnlocked = true;
+
+        if (this is DanceCurio)
         {
-            gameObject.SetActive(FurnitureManager.Instance.FurnitureIsUnlocked(gameObject.name));
+            isUnlocked = FurnitureManager.Instance.FurnitureIsUnlocked("Beetle Drum");
         }
+        else if (!selfCurio && !gameObject.name.Contains("Spore"))
+        {
+            isUnlocked = FurnitureManager.Instance.FurnitureIsUnlocked(gameObject.name);
+        }
+
+        if (interactCanvas != null)
+        {
+            interactCanvas.SetActive(isUnlocked);
+        }
+        gameObject.SetActive(isUnlocked);
     }
 
     void OnEnable()
@@ -58,7 +70,6 @@ public abstract class Curio : MonoBehaviour
                 Vector3 heightOffset = new Vector3(0, interactTextHeightOffset, 0);
                 Vector3 newPosition = transform.position + heightOffset;
                 interactCanvas = Instantiate(FurnitureManager.Instance.furnitureInteractCanvas, newPosition, Quaternion.identity);
-                interactCanvas.GetComponentInChildren<TMP_Text>().text = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
 
                 originalScale = interactCanvas.transform.localScale;
 
@@ -205,6 +216,8 @@ public abstract class Curio : MonoBehaviour
         {
             yield break;
         }
+
+        interactCanvas.GetComponentInChildren<TMP_Text>().text = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
 
         Vector3 fromScale = doesPopIn ? Vector3.zero : originalScale;
         Vector3 toScale = doesPopIn ? originalScale : Vector3.zero;

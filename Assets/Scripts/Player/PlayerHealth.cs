@@ -135,12 +135,18 @@ public class PlayerHealth : MonoBehaviour
         else if (heldMaterial != "") //&& SceneManager.GetActiveScene().name != "New Tutorial"
         {
             NotificationManager.Instance.Notification(deathMessage, heldMaterial + " dropped!", null, heldMaterial);
-            GlobalData.sporeDied = characterStats.sporeName;
+            if (SceneManager.GetActiveScene().name != "New Tutorial")
+            {
+                GlobalData.sporeDied = characterStats.sporeName;
+            }
         }
         else
         {
             NotificationManager.Instance.Notification(deathMessage);
-            GlobalData.sporeDied = characterStats.sporeName;
+            if (SceneManager.GetActiveScene().name != "New Tutorial")
+            {
+                GlobalData.sporeDied = characterStats.sporeName;
+            }
         }
 
         //Setup and Animation stuff
@@ -150,8 +156,6 @@ public class PlayerHealth : MonoBehaviour
         hudHealth.UpdateHealthUI(0, maxHealth);
         animator = GetComponentInChildren<Animator>();
         animator.SetTrigger("Death");
-        float happinessLostOnDying = HappinessManager.Instance.happinessOnDying;
-        characterStats.ModifyHappiness(happinessLostOnDying);
 
         //Wait a bit
         yield return new WaitForSeconds(3f);

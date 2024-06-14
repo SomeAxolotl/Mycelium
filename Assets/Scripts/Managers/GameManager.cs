@@ -90,6 +90,8 @@ public class GameManager : MonoBehaviour
                     currentPlayer.GetComponent<CharacterStats>().ModifyHappiness(HappinessManager.Instance.happinessOnDying);
                 }
 
+                yield return null;
+
                 //and if an area was cleared, spend an energy from the current Spore, and rest every OTHER Spore
                 if (GlobalData.areaCleared)
                 {
