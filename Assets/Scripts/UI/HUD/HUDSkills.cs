@@ -102,7 +102,7 @@ public class HUDSkills : MonoBehaviour
 
         Image cooldownBackground = selectedSkill.cooldownBackground;
         Image skillIcon = selectedSkill.icon;
-        Vector3 iconStartingScale = selectedSkill.startingScale;
+        Vector3 iconStartingScale = selectedSkill.iconStartingScale;
 
         float cooldownLeft = cooldown;
         while(cooldownLeft >= 0){
@@ -124,7 +124,7 @@ public class HUDSkills : MonoBehaviour
 
         Image cooldownBackground = selectedSkill.cooldownBackground;
         Image skillIcon = selectedSkill.icon;
-        Vector3 iconStartingScale = selectedSkill.startingScale;
+        Vector3 iconStartingScale = selectedSkill.iconStartingScale;
 
         float cooldownLeft = cooldown;
         while (cooldownLeft >= 0)
@@ -192,8 +192,8 @@ public class HUDSkills : MonoBehaviour
 
     IEnumerator PopActivateBorder(Skill skill, bool doesPopIn)
     {
-        Vector3 fromScale = doesPopIn ? skill.hiddenScale : skill.startingScale;
-        Vector3 toScale = doesPopIn ? skill.startingScale : skill.hiddenScale;
+        Vector3 fromScale = doesPopIn ? skill.borderHiddenScale : skill.borderStartingScale;
+        Vector3 toScale = doesPopIn ? skill.borderStartingScale : skill.borderHiddenScale;
 
         GameObject activateBorder = skill.activateBorder;
 
@@ -203,7 +203,7 @@ public class HUDSkills : MonoBehaviour
         }
 
         float popCounter = 0f;
-        float popDuration = 0.35f;
+        float popDuration = 0.5f;
         while (popCounter < popDuration)
         {
             float popLerp = DylanTree.EaseOutQuart(popCounter / popDuration);
@@ -236,16 +236,19 @@ public class HUDSkills : MonoBehaviour
         public int slot;
         public Image cooldownBackground;
         public Image icon;
-        public Vector3 startingScale {get; private set;}
-        public Vector3 hiddenScale {get; private set;}
+        public Vector3 iconStartingScale {get; private set;}
+        public Vector3 borderStartingScale {get; private set;}
+        public Vector3 borderHiddenScale {get; private set;}
         public TMP_Text buttonText;
         public GameObject activateBorder;
 
         public void Initialize()
         {
-            startingScale = activateBorder.transform.localScale;
-            hiddenScale = startingScale * 0.92f;
-            activateBorder.transform.localScale = hiddenScale;
+            iconStartingScale = icon.transform.localScale;
+
+            borderStartingScale = activateBorder.transform.localScale;
+            borderHiddenScale = borderStartingScale * 0.92f;
+            activateBorder.transform.localScale = borderHiddenScale;
         }
     }
 }
