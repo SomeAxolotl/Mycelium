@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour
+public abstract class Skill : MonoBehaviour
 {
     [HideInInspector] public bool canSkill = true;
 
@@ -17,16 +17,6 @@ public class Skill : MonoBehaviour
     public Coroutine hudCooldownCoroutine = null;
 
     private float fungalMightBonusChungus = 1f;
-    public float O_fungalMightBonus{
-        get{return fungalMightBonusChungus;}
-        set{
-            if(fungalMightBonusChungus > 1){
-                FungalUsed();
-            }
-            fungalMightBonusChungus = value; 
-        }
-    }
-    public virtual void FungalUsed(){}
 
     public GameObject player;
     public CharacterStats characterStats;
@@ -66,7 +56,7 @@ public class Skill : MonoBehaviour
 
         //Tentative value math -- Lerps between ValueAt1Sentience and ValueAt15Sentience depending on what ur sentience lvl is
         //finalSkillValue = Mathf.RoundToInt(Mathf.Lerp(ValueAt1Sentience, ValueAt15Sentience, lerpValue));
-        finalSkillValue = (valueBase + ((characterStats.sentienceLevel - 1) * valueIncrement)) * O_fungalMightBonus;
+        finalSkillValue = (valueBase + ((characterStats.sentienceLevel - 1) * valueIncrement)) * fungalMightBonusChungus;
 
         //Tentative cooldown math -- Lerps between CooldownAt1Sentience and CooldownAt15Sentience depending on what ur sentience lvl is
         //finalSkillCooldown = Mathf.Lerp(CooldownAt1Sentience, CooldownAt15Sentience, lerpValue);
@@ -146,11 +136,21 @@ public class Skill : MonoBehaviour
     //Fungal Might for Skills
     public virtual void ActivateFungalMight(float fungalMightValue)
     {
-        O_fungalMightBonus = fungalMightValue;
+        if (isPlayerCurrentPlayer())
+        {
+            hudSkills.ToggleActiveBorder(0, true);
+        }
+
+        fungalMightBonusChungus = fungalMightValue;
     }
     public virtual void DeactivateFungalMight()
     {
-        O_fungalMightBonus = 1f;
+        if (isPlayerCurrentPlayer())
+        {
+            hudSkills.ToggleActiveBorder(0, false);
+        }
+
+        fungalMightBonusChungus = 1f;
     }
 
     //Clears Fungal Might for attacking and skills
