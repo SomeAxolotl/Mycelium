@@ -28,6 +28,7 @@ public class DefenseMechanism : Skill
     public override void StartCooldown(float skillCooldown){
         savedCooldown = skillCooldown;
         //Does not do cooldown normally
+        canSkill = false;
     }
 
     private IEnumerator Knockback(){

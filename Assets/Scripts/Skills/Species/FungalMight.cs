@@ -85,6 +85,7 @@ public class FungalMight : Skill
     public override void StartCooldown(float skillCooldown){
         savedCooldown = skillCooldown;
         //Does not do cooldown normally
+        canSkill = false;
     }
 
     private void ActualCooldownStart(){
