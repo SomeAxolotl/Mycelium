@@ -15,8 +15,9 @@ public class ProfileManager : MonoBehaviour
 
     [HideInInspector] public List<bool> tutorialIsDone = new List<bool>();
     [HideInInspector] public List<bool> permadeathIsOn = new List<bool>();
-    [HideInInspector] public List<bool> furnitureTutorialShown = new List<bool>();
+    [HideInInspector] public List<bool> beginningTutorialShown = new List<bool>();
     [HideInInspector] public List<bool> shopTutorialShown = new List<bool>();
+    [HideInInspector] public List<bool> furnitureTutorialShown = new List<bool>();
 
 
     [SerializeField] private ProfileData defaultProfileData;
@@ -54,8 +55,9 @@ public class ProfileManager : MonoBehaviour
 
         LoadTutorialCompletion();
         LoadPermadeathData();
-        LoadFurnitureTutorialData();
+        LoadBegniningTutorialData();
         LoadShopTutorialShown();
+        LoadFurnitureTutorialData();
     }
 
     void OnApplicationQuit()
@@ -138,12 +140,12 @@ public class ProfileManager : MonoBehaviour
         SetPathAndData(GlobalData.profileNumber);
     }
 
-    void LoadFurnitureTutorialData()
+    void LoadBegniningTutorialData()
     {
         for (int i = 0; i <= 2; i++)
         {
             SetPathAndData(i);
-            furnitureTutorialShown.Add(profileData.furniureTutorialShown);
+            beginningTutorialShown.Add(profileData.beginningTutorialShown);
         }
 
         SetPathAndData(GlobalData.profileNumber);
@@ -155,6 +157,17 @@ public class ProfileManager : MonoBehaviour
         {
             SetPathAndData(i);
             shopTutorialShown.Add(profileData.shopTutorialShown);
+        }
+
+        SetPathAndData(GlobalData.profileNumber);
+    }
+
+    void LoadFurnitureTutorialData()
+    {
+        for (int i = 0; i <= 2; i++)
+        {
+            SetPathAndData(i);
+            furnitureTutorialShown.Add(profileData.furniureTutorialShown);
         }
 
         SetPathAndData(GlobalData.profileNumber);
@@ -192,6 +205,7 @@ public class ProfileManager : MonoBehaviour
 
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
         newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
+        newProfileData.beginningTutorialShown = beginningTutorialShown[GlobalData.profileNumber];
         newProfileData.furniureTutorialShown = furnitureTutorialShown[GlobalData.profileNumber];
         newProfileData.shopTutorialShown = shopTutorialShown[GlobalData.profileNumber];
 
@@ -220,6 +234,7 @@ public class ProfileManager : MonoBehaviour
 
         newProfileData.tutroialIsDone = tutorialIsDone[GlobalData.profileNumber];
         newProfileData.permadeathIsOn = permadeathIsOn[GlobalData.profileNumber];
+        newProfileData.beginningTutorialShown = beginningTutorialShown[GlobalData.profileNumber];
         newProfileData.furniureTutorialShown = furnitureTutorialShown[GlobalData.profileNumber];
         newProfileData.shopTutorialShown = shopTutorialShown[GlobalData.profileNumber];
 
@@ -254,8 +269,9 @@ public class ProfileManager : MonoBehaviour
 
         public bool tutroialIsDone;
         public bool permadeathIsOn;
-        public bool furniureTutorialShown;
+        public bool beginningTutorialShown;
         public bool shopTutorialShown;
+        public bool furniureTutorialShown;
 
         public bool bedIsUnlocked;
         public bool drumIsUnlocked;

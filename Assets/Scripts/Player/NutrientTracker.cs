@@ -124,4 +124,9 @@ public class NutrientTracker : MonoBehaviour
     {
         storedFlesh -= cost;
     }
+
+    public int GetStoredMaterialCount()
+    {
+        return storedLog + storedExoskeleton + storedCalcite + storedFlesh;
+    }
 }

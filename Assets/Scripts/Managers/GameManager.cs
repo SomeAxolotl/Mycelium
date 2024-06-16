@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
         CharacterStats currentPlayerStats = currentPlayer.GetComponent<CharacterStats>();
         ProfileManager profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
+        NutrientTracker nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
 
         //Stuff that happens regardless of notifications
         if (currentPlayerStats.sporeEnergy <= 0)
@@ -54,12 +55,20 @@ public class GameManager : MonoBehaviour
         }
 
         //Notifications (only 1 chosen, priority is top to bottom)
-
-        if (!profileManager.shopTutorialShown[GlobalData.profileNumber])
+        if (!profileManager.beginningTutorialShown[GlobalData.profileNumber])
         {
             NotificationManager.Instance.Notification
             (
-                "Shop Tutorial Here"
+                "Beginning Tutorial Here"
+            );
+
+            profileManager.beginningTutorialShown[GlobalData.profileNumber] = true;
+        }
+        else if (nutrientTracker.GetStoredMaterialCount() > 0 && !profileManager.shopTutorialShown[GlobalData.profileNumber])
+        {
+            NotificationManager.Instance.Notification
+            (
+                "Material Tutorial Here"
             );
 
             profileManager.shopTutorialShown[GlobalData.profileNumber] = true;
