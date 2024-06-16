@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmartyPantsTrait : MonoBehaviour
+public class SmartyPantsTrait : TraitBase
 {
+    public override void Start(){
+        base.Start();
+
+        traitName = "Smarty Pants";
+        traitDesc = "\nRandomly reduce cooldowns";
+    }
+
     public void OnEnable(){
         Actions.ActivatedSkill += ReduceSkillCooldown;
     }

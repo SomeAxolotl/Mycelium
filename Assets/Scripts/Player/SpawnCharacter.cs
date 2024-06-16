@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using RonaldSunglassesEmoji.Personalities;
 using UnityEngine.Playables;
 using System.ComponentModel.Design;
+using System.IO;
 
 public class SpawnCharacter : MonoBehaviour
 {
@@ -37,6 +38,9 @@ public class SpawnCharacter : MonoBehaviour
     SkillManager skillManager;
     NewSporeCam sporeCam;
 
+    private string traitFolderPath = "Assets/Scripts/Character/Traits/ActualTraits";
+    private string[] traitFiles;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -46,6 +50,20 @@ public class SpawnCharacter : MonoBehaviour
         else
         {
             Instance = this;
+        }
+        traitFiles = GetScriptFiles(traitFolderPath);
+    }
+    string[] GetScriptFiles(string path){
+        if(Directory.Exists(path)){
+            string[] newStrings = Directory.GetFiles(path, "*.cs");
+            for(int i = newStrings.Length - 1; i >= 0; i--){
+                newStrings[i] = newStrings[i].Replace(traitFolderPath + @"\", "");
+                newStrings[i] = newStrings[i].Replace(".cs", "");
+            }
+            return newStrings;
+        }else{
+            Debug.LogError("The specified folder path does not exist: " + path);
+            return new string[0];
         }
     }
 
@@ -66,7 +84,6 @@ public class SpawnCharacter : MonoBehaviour
 
     public void SpawnNewCharacter(string subspecies, CharacterStats customStats = null, DesignTracker customDesign = null, bool randomDesignFromSpecies = true, bool isRandomName = true)
     {
-        
         GameObject newCharacter = Instantiate(characterPrefab);
         newCharacter.GetComponent<WanderingSpore>().enabled = false;
 
@@ -99,6 +116,8 @@ public class SpawnCharacter : MonoBehaviour
 
             SporePersonalities randomSporePersonality = (SporePersonalities) Random.Range(0, 5);
             newCharacter.GetComponent<CharacterStats>().sporePersonality = randomSporePersonality;
+
+            newCharacter.GetComponent<CharacterStats>().sporeTrait = GetRandomTrait();
         }
         else
         {
@@ -116,6 +135,8 @@ public class SpawnCharacter : MonoBehaviour
             statSkill2 = customStats.equippedSkills[2];
 
             newCharacter.GetComponent<CharacterStats>().sporePersonality = customStats.sporePersonality;
+
+            newCharacter.GetComponent<CharacterStats>().sporeTrait = GetRandomTrait();
         }
 
         skillManager.SetSkill(subspeciesSkill, 0, newCharacter);
@@ -250,5 +271,11 @@ public class SpawnCharacter : MonoBehaviour
     {
         int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count - 1);
         return sporeNames[randomNameIndex];
+    }
+
+    public string GetRandomTrait(){
+        int randomIndex = Random.Range(0, traitFiles.Length);
+        Debug.Log(traitFiles[randomIndex]);
+        return traitFiles[randomIndex];
     }
 }

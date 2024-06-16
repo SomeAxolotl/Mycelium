@@ -95,6 +95,17 @@ public class LoadCurrentPlayer : SporeManagerSystem
         stats.sporePersonality = (SporePersonalities)sporeData.sporePersonality;
         stats.sporeEnergy = sporeData.sporeEnergy;
 
+        stats.sporeTrait = sporeData.sporeTrait;
+        Debug.Log("Trait is: " + sporeData.sporeTrait);
+        if(sporeData.sporeTrait != null && sporeData.sporeTrait != ""){
+            Type newTrait = Type.GetType(sporeData.sporeTrait);
+            if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+                Spore.AddComponent(newTrait);
+            }else{
+                Debug.LogError("Component type not found or is not a Component: " + sporeData.sporeTrait);
+            }
+        }
+
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
         stats.primalLevel = sporeData.lvlPrimal;

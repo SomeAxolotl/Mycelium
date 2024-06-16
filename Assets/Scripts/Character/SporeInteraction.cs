@@ -57,14 +57,21 @@ public class SporeInteraction : MonoBehaviour, IInteractable
                 break;
         }
 
+        string tooltipDesc = "<sprite=0> " + characterStats.primalLevel;
+        tooltipDesc += "   <sprite=1> " + characterStats.speedLevel;
+        tooltipDesc += "   <sprite=2> " + characterStats.sentienceLevel;
+        tooltipDesc += "   <sprite=3> " + characterStats.vitalityLevel;
+        TraitBase trait = interactObject.GetComponent<TraitBase>();
+        if(trait != null){
+            tooltipDesc += "\n" + trait.traitName;
+            tooltipDesc += trait.traitDesc;
+        }
+
         Tooltip sporeTooltip = TooltipManager.Instance.CreateTooltip
         (
             gameObject,
             "<sprite=" + subspeciesSkillIconIndex + ">  " + coloredSporeName + "  <sprite=" + subspeciesSkillIconIndex + ">",
-            "<sprite=0> " + characterStats.primalLevel +
-            "   <sprite=1> " + characterStats.speedLevel +
-            "   <sprite=2> " + characterStats.sentienceLevel +
-            "   <sprite=3> " + characterStats.vitalityLevel,
+            tooltipDesc,
             "Press " + buttonText + " to Swap",
             "",
             true,

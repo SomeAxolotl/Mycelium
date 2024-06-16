@@ -113,6 +113,17 @@ public class SporeManager : SporeManagerSystem
         stats.sporePersonality = (SporePersonalities)sporeData.sporePersonality;
         stats.sporeEnergy = sporeData.sporeEnergy;
 
+        stats.sporeTrait = sporeData.sporeTrait;
+        Debug.Log("Trait is: " + sporeData.sporeTrait);
+        if(sporeData.sporeTrait != null && sporeData.sporeTrait != ""){
+            Type newTrait = Type.GetType(sporeData.sporeTrait);
+            if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+                Spore.AddComponent(newTrait);
+            }else{
+                Debug.LogError("Component type not found or is not a Component: " + sporeData.sporeTrait);
+            }
+        }
+
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
         stats.primalLevel = sporeData.lvlPrimal;
@@ -154,6 +165,8 @@ public class SporeManager : SporeManagerSystem
                 currentSporeData.sporeHappiness = currentSporeStats.sporeHappiness;
                 currentSporeData.sporePersonality = (int)currentSporeStats.sporePersonality;
                 currentSporeData.sporeEnergy = currentSporeStats.sporeEnergy;
+
+                currentSporeData.sporeTrait = currentSporeStats.sporeTrait;
 
                 currentSporeData.skillSlot0 = currentSporeStats.equippedSkills[0];
                 currentSporeData.skillSlot1 = currentSporeStats.equippedSkills[1];
@@ -202,6 +215,8 @@ public class SporeData
     public int sporePersonality;
     public int sporeEnergy;
 
+    public string sporeTrait;
+
     public string skillSlot0;
     public string skillSlot1;
     public string skillSlot2;
@@ -225,6 +240,7 @@ public class SporeData
             "\nSkill Slot 0: " + skillSlot0 +
             "\nSkill Slot 1: " + skillSlot1 +
             "\nSkill Slot 2: " + skillSlot2 +
+            "\nTrait: " + sporeTrait +
             "\nPrimal:  " + lvlPrimal +
             "\nSpeed: " + lvlSpeed +
             "\nSentience: " + lvlSentience +

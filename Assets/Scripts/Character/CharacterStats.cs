@@ -21,6 +21,8 @@ public class CharacterStats : MonoBehaviour
     public float sporeHappiness = 0.5f;
     public int sporeEnergy = 2;
 
+    public string sporeTrait;
+
     //Able to be equipped
     public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
     {
