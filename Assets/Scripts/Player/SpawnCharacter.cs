@@ -41,7 +41,7 @@ public class SpawnCharacter : MonoBehaviour
     NewSporeCam sporeCam;
 
     private string traitFolderPath = "Assets/Scripts/Character/Traits/ActualTraits";
-    private string[] traitFiles;
+    public static string[] traitFiles;
 
     private void Awake()
     {

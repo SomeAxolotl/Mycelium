@@ -122,6 +122,18 @@ public class SporeManager : SporeManagerSystem
             }else{
                 Debug.LogError("Component type not found or is not a Component: " + sporeData.sporeTrait);
             }
+        }else{
+            //Adds random trait to existing spores
+            sporeData.sporeTrait = GetRandomTrait();
+            stats.sporeTrait = sporeData.sporeTrait;
+            Debug.Log(sporeData.sporeTrait);
+
+            Type newTrait = Type.GetType(sporeData.sporeTrait);
+            if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+                Spore.AddComponent(newTrait);
+            }else{
+                Debug.LogError("Component type not found or is not a Component: " + sporeData.sporeTrait);
+            }   
         }
 
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
@@ -194,6 +206,13 @@ public class SporeManager : SporeManagerSystem
             //Debug.Log(json);
             System.IO.File.WriteAllText(filePath, json);
         }
+    }
+
+    //Shoved here to add traits to old spores
+    public string GetRandomTrait(){
+        int randomIndex = UnityEngine.Random.Range(0, SpawnCharacter.traitFiles.Length);
+        Debug.Log(SpawnCharacter.traitFiles[randomIndex]);
+        return SpawnCharacter.traitFiles[randomIndex];
     }
 }
 
