@@ -191,7 +191,11 @@ public class TestingManager : MonoBehaviour
             StartCoroutine(SetLevel(tutorialBuildIndex));
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift))
+        {
+            ObliterateAllOtherSpores();
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
         {
             SpawnCustomSpore();
         }
@@ -464,6 +468,15 @@ public class TestingManager : MonoBehaviour
         GameObject.FindWithTag("PlayerParent").GetComponent<SpawnCharacter>().SpawnNewCharacter(customSpore.subspecies.ToString(), customStats, customDesign, customSpore.randomDesignFromSpecies, customSpore.randomName);
 
         Destroy(tempObject);
+    }
+
+    void ObliterateAllOtherSpores()
+    {
+        GameObject[] otherSpores = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject spore in otherSpores)
+        {
+            Destroy(spore);
+        }
     }
 
     void UnlockAllFurniture()

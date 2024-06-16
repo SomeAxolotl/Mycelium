@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//
+//
+//   DEPRECATED. WE HAVE A SPROUT ANIMATION NOW
+//
+//
+
 public class NewSporeAnimation : MonoBehaviour
 {
     [SerializeField] private float growDuration = 2f;

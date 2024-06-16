@@ -63,14 +63,14 @@ public class SporeInteraction : MonoBehaviour, IInteractable
         tooltipDesc += "   <sprite=3> " + characterStats.vitalityLevel;
         TraitBase trait = interactObject.GetComponent<TraitBase>();
         if(trait != null){
-            tooltipDesc += "\n" + trait.traitName;
             tooltipDesc += trait.traitDesc;
         }
 
         Tooltip sporeTooltip = TooltipManager.Instance.CreateTooltip
         (
             gameObject,
-            "<sprite=" + subspeciesSkillIconIndex + ">  " + coloredSporeName + "  <sprite=" + subspeciesSkillIconIndex + ">",
+            $"<sprite={subspeciesSkillIconIndex}>  {trait.traitName} {coloredSporeName}   <sprite={subspeciesSkillIconIndex}>"
+,
             tooltipDesc,
             "Press " + buttonText + " to Swap",
             "",

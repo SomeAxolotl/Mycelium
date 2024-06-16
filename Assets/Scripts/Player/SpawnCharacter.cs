@@ -86,7 +86,9 @@ public class SpawnCharacter : MonoBehaviour
 
     public void SpawnNewCharacter(string subspecies, CharacterStats customStats = null, DesignTracker customDesign = null, bool randomDesignFromSpecies = true, bool isRandomName = true)
     {
-        GameObject newCharacter = Instantiate(characterPrefab);
+        GameObject growSpawn = GameObject.Find("GrowSpawn");
+
+        GameObject newCharacter = Instantiate(characterPrefab, growSpawn.transform.position, Quaternion.identity);
         newCharacter.GetComponent<WanderingSpore>().enabled = false;
 
         string subspeciesSkill = "FungalMight";
@@ -188,7 +190,6 @@ public class SpawnCharacter : MonoBehaviour
 
         GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassMuffling>().CalculateMuffleSnapshot();
 
-        newCharacter.transform.position = GameObject.Find("GrowSpawn").transform.position;
         if(sporeCam != null )
         {
             sporeCam.SwitchCamera("GrowCamera");

@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         {
             NotificationManager.Instance.Notification
             (
-                "Beginning Tutorial Here"
+                "Welcome to The Carcass!"
             );
 
             profileManager.beginningTutorialShown[GlobalData.profileNumber] = true;
@@ -77,7 +77,8 @@ public class GameManager : MonoBehaviour
         {
             NotificationManager.Instance.Notification
             (
-                "Furniture Tutorial Here"
+                "You've unlocked a furniture piece for your colony!",
+                ""
             );
 
             profileManager.furnitureTutorialShown[GlobalData.profileNumber] = true;
@@ -260,6 +261,17 @@ public class GameManager : MonoBehaviour
 
         int randomSpawnNumber = Random.Range(0, spawnPoints.Length);
         GameObject selectedSpawnPoint = spawnPoints[randomSpawnNumber];
+        if (spore.tag == "currentPlayer" && SceneManager.GetActiveScene().name == "The Carcass")
+        {
+            ProfileManager profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
+            if (!profileManager.beginningTutorialShown[GlobalData.profileNumber])
+            {
+                selectedSpawnPoint = GameObject.Find("BeginningSpawn");
+
+                VCamRotator vcamRotator = GameObject.Find("VCamHolder").GetComponent<VCamRotator>();
+                vcamRotator.DramaticCamera(GameObject.Find("Keeper").transform, 0f);
+            }
+        }
 
         if (spore != null && selectedSpawnPoint != null)
         {
