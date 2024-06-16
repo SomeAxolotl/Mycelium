@@ -86,6 +86,7 @@ public abstract class Skill : MonoBehaviour
         skillSlot = slot;
 
         CalculateProperties();
+        Actions.ActivatedSkill?.Invoke(this);
         if (!isTriggered)
         {   
             StartCooldown(finalSkillCooldown);

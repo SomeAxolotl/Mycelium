@@ -6,7 +6,6 @@ using UnityEngine;
 public class RelentlessFury : Skill
 {
     //Skill specific fields
-    private float frenziedDuration = 8f;
     public bool isFrenzied;
 
     Fury furyEffect;
