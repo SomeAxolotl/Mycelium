@@ -329,6 +329,7 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator Dodging()
     {
+        Actions.ActivatedDodge?.Invoke();
         CalculateDodgeCooldown();
         canUseDodge = false;
         canUseAttack = false;

@@ -10,8 +10,6 @@ public class GreasyTrait : TraitBase
         traitName = "Greasy";
         traitDesc = "\nHalves dash cooldown";
 
-        Debug.Log(controller.baseDodgeCooldown);
-
         controller.baseDodgeCooldown *= 0.5f;
     }
 
