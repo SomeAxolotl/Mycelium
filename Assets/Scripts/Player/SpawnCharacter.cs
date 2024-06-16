@@ -6,6 +6,8 @@ using RonaldSunglassesEmoji.Personalities;
 using UnityEngine.Playables;
 using System.ComponentModel.Design;
 using System.IO;
+using System;
+
 
 public class SpawnCharacter : MonoBehaviour
 {
@@ -90,6 +92,7 @@ public class SpawnCharacter : MonoBehaviour
         string subspeciesSkill = "FungalMight";
         string statSkill1 = "NoSkill";
         string statSkill2 = "NoSkill";
+        CharacterStats stats = newCharacter.GetComponent<CharacterStats>();
         //If growing a Spore normally from Sporemother
         if (customStats == null)
         {
@@ -112,31 +115,39 @@ public class SpawnCharacter : MonoBehaviour
                     break;
             }
 
-            newCharacter.GetComponent<CharacterStats>().sporeName = GetRandomUniqueName();
+            stats.sporeName = GetRandomUniqueName();
 
-            SporePersonalities randomSporePersonality = (SporePersonalities) Random.Range(0, 5);
-            newCharacter.GetComponent<CharacterStats>().sporePersonality = randomSporePersonality;
+            SporePersonalities randomSporePersonality = (SporePersonalities) UnityEngine.Random.Range(0, 5);
+            stats.sporePersonality = randomSporePersonality;
 
-            newCharacter.GetComponent<CharacterStats>().sporeTrait = GetRandomTrait();
+            stats.sporeTrait = GetRandomTrait();
         }
         else
         {
             if (isRandomName)
             {
-                newCharacter.GetComponent<CharacterStats>().sporeName = GetRandomUniqueName();
+                stats.sporeName = GetRandomUniqueName();
             }
             else 
             {
-                newCharacter.GetComponent<CharacterStats>().sporeName = customStats.sporeName;
+                stats.sporeName = customStats.sporeName;
             }
 
             subspeciesSkill = customStats.equippedSkills[0];
             statSkill1 = customStats.equippedSkills[1];
             statSkill2 = customStats.equippedSkills[2];
 
-            newCharacter.GetComponent<CharacterStats>().sporePersonality = customStats.sporePersonality;
+            stats.sporePersonality = customStats.sporePersonality;
 
-            newCharacter.GetComponent<CharacterStats>().sporeTrait = GetRandomTrait();
+            stats.sporeTrait = GetRandomTrait();
+            if(stats.sporeTrait != null && stats.sporeTrait != ""){
+                Type newTrait = Type.GetType(stats.sporeTrait);
+                if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+                    stats.gameObject.AddComponent(newTrait);
+                }else{
+                    Debug.LogError("Component type not found or is not a Component: " + stats.sporeTrait);
+                }
+            }
         }
 
         skillManager.SetSkill(subspeciesSkill, 0, newCharacter);
@@ -274,7 +285,7 @@ public class SpawnCharacter : MonoBehaviour
     }
 
     public string GetRandomTrait(){
-        int randomIndex = Random.Range(0, traitFiles.Length);
+        int randomIndex = UnityEngine.Random.Range(0, traitFiles.Length);
         Debug.Log(traitFiles[randomIndex]);
         return traitFiles[randomIndex];
     }

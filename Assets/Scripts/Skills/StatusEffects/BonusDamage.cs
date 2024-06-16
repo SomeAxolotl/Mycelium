@@ -59,7 +59,9 @@ public class BonusDamage : MonoBehaviour
     }
 
     private void AddBonus(EnemyHealth health){
-        stats.statNums.advDamage.AddModifier(new StatModifier(bonusDamage, StatModType.PercentAdd, this));
+        if(stats != null){
+            stats.statNums.advDamage.AddModifier(new StatModifier(bonusDamage, StatModType.PercentAdd, this));
+        }
         if(timer != null){StopCoroutine(timer);}
         timer = null;
         EffectRefresh?.Invoke();
@@ -71,7 +73,9 @@ public class BonusDamage : MonoBehaviour
     private IEnumerator timer;
     private IEnumerator Timer(){
         yield return new WaitForSeconds(currTimer);
-        stats.ClearAllStatsFrom(this);
+        if(stats != null){
+            stats.ClearAllStatsFrom(this);
+        }
         furyParticles.Stop();
         EffectEnd?.Invoke();
         Destroy(this);
