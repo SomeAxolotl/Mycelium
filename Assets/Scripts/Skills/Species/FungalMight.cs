@@ -9,7 +9,10 @@ public class FungalMight : Skill
 
     public override void DoSkill()
     {
-        ClearAllFungalMights();
+        if (isPlayerCurrentPlayer())
+        {
+            hudSkills.ToggleActiveBorder(skillSlot, true);
+        }
         
         GameObject skillLoadout = transform.parent.gameObject;
         foreach (Transform child in skillLoadout.transform)
@@ -23,6 +26,9 @@ public class FungalMight : Skill
 
         PlayerAttack playerAttack = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerAttack>();
         playerAttack.ActivateFungalMight(finalSkillValue);
+
+        //finally activate it for itself (used as quasi event)
+        ActivateFungalMight(finalSkillValue);
 
         FungalMightParticles();
     }
@@ -71,5 +77,42 @@ public class FungalMight : Skill
         }
 
         EndSkill();
+    }
+
+    //Code to have an active duration that goes down before real cooldown starts
+    float savedCooldown;
+    public override void StartCooldown(float skillCooldown)
+    {
+        savedCooldown = skillCooldown;
+        //Does not do cooldown normally
+        canSkill = false;
+    }
+
+    protected override void ActualCooldownStart()
+    {
+        if(cooldownCoroutine != null)
+        {
+            StopCoroutine(cooldownCoroutine);
+        }
+        if(hudCooldownCoroutine != null)
+        {
+            hudSkills.StopHUDCoroutine(hudCooldownCoroutine);
+        }
+
+        cooldownCoroutine = StartCoroutine(Cooldown(savedCooldown));
+    }
+
+    public override void DeactivateFungalMight()
+    {
+        if (fungalActive)
+        {
+            if (isPlayerCurrentPlayer())
+            {
+                hudSkills.ToggleActiveBorder(skillSlot, false);
+                ActualCooldownStart();
+            }
+        }
+
+        base.DeactivateFungalMight();
     }
 }

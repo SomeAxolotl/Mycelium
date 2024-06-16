@@ -125,4 +125,20 @@ public class SkillManager : MonoBehaviour
 
         return allSkillCooldowns;
     }
+
+    public Skill GetEquippedSkill(GameObject character, int slot)
+    {
+        Transform skillLoadout = character.transform.Find("SkillLoadout");
+
+        Skill selectedSkill = skillLoadout.GetChild(slot).GetComponent<Skill>();
+        if (selectedSkill != null)
+        {
+            return selectedSkill;
+        }
+        else
+        {
+
+            return null;
+        }
+    }
 }

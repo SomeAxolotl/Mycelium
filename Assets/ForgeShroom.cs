@@ -189,7 +189,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
 
         // Create the tooltip message
         string tooltipTitle = "Blacksmith Ironspore";
-        string tooltipMessage = "Combine Weapons:\n";
+        string tooltipMessage = "Combine 3 Weapons into 1:\n";
 
 
         tooltipMessage += $"Base {(salvagedWeapons >= 1 ? 1 : 0)}/1\n";
@@ -198,7 +198,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
 
         // Get the colored hint string for the interact button
         string interactText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
-        string interactTooltiptext = "Press " + interactText + " to provide.";
+        string interactTooltiptext = "Press " + interactText + " to provide weapon.";
         // Call CreateTooltip with all required parameters
         TooltipManager.Instance.CreateTooltip(
             gameObject,

@@ -129,7 +129,7 @@ public class LivingCyclone : Skill
         canSkill = false;
     }
 
-    private void ActualCooldownStart(){
+    protected override void ActualCooldownStart(){
         hudSkills.ToggleActiveBorder(skillSlot, false);
 
         if(cooldownCoroutine != null){

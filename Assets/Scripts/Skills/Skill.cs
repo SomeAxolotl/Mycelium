@@ -16,6 +16,7 @@ public abstract class Skill : MonoBehaviour
     public Coroutine cooldownCoroutine = null;
     public Coroutine hudCooldownCoroutine = null;
 
+    protected bool fungalActive = false;
     private float fungalMightBonusChungus = 1f;
 
     public GameObject player;
@@ -91,9 +92,11 @@ public abstract class Skill : MonoBehaviour
         {   
             StartCooldown(finalSkillCooldown);
         }
+
         DoSkill();
 
-        if (!this.name.Contains("FungalMight"))
+        //prevents the initial cast from clearing all fungal mights
+        if (this is not FungalMight)
         {
             ClearAllFungalMights();
         }
@@ -134,24 +137,28 @@ public abstract class Skill : MonoBehaviour
         
     }
 
+    protected virtual void ActualCooldownStart()
+    {
+        //buh
+    }
+
     //Fungal Might for Skills
     public virtual void ActivateFungalMight(float fungalMightValue)
     {
-        if (isPlayerCurrentPlayer())
+        if (this is FungalMight)
         {
-            hudSkills.ToggleActiveBorder(0, true);
+            Debug.Log("setting fungalActive to true");
         }
-
+        fungalActive = true;
         fungalMightBonusChungus = fungalMightValue;
     }
     public virtual void DeactivateFungalMight()
     {
-        if (isPlayerCurrentPlayer())
+        if (fungalActive)
         {
-            hudSkills.ToggleActiveBorder(0, false);
+            fungalActive = false;
+            fungalMightBonusChungus = 1f;
         }
-
-        fungalMightBonusChungus = 1f;
     }
 
     //Clears Fungal Might for attacking and skills
