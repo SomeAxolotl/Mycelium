@@ -89,32 +89,35 @@ public class DefenseChange : MonoBehaviour
     }
 
     private bool accepting = false;
-    public void InitializeDefenseChange(float duration = 5, float changeAmount = -50, bool fading = false){
+    public defenseChangeInfo InitializeDefenseChange(float duration = 5, float changeAmount = -50, bool fading = false, Component source = null){
         //Checks to see if there are other instances of defenseChange already on the target
         if(defenseInstances.Length > 1 && accepting == false){
             //Combines the defenseChange
+            defenseChangeInfo defInfo = new defenseChangeInfo();
             foreach(DefenseChange defenseChange in defenseInstances){
                 if(defenseChange != this && defenseChange.accepting == true){
-                    defenseChange.InitializeDefenseChange(duration, changeAmount);
+                    defInfo = defenseChange.InitializeDefenseChange(duration, changeAmount, fading, source);
                 }
             }
             Destroy(this);
-            return;
+            Debug.Log("Defense change info might be messed up tbh");
+            return defInfo;
         }
-        if(duration == 0 || changeAmount == 0){return;}
+        if(duration == 0 || changeAmount == 0){return null;}
         if(changeAmount < 0){
-            AddEffect(changeAmount, duration, fading, vulnerables);
+            return AddEffect(changeAmount, duration, fading, source, vulnerables);
         }else{
-            AddEffect(changeAmount, duration, fading, defenses);
+            return AddEffect(changeAmount, duration, fading, source, defenses);
         }
     }
 
     //The logic for comparing the vulnerables on the target
-    public void AddEffect(float changeAmount, float duration, bool fading, List<defenseChangeInfo> list){
+    public defenseChangeInfo AddEffect(float changeAmount, float duration, bool fading, Component source, List<defenseChangeInfo> list){
         defenseChangeInfo newEffect = new defenseChangeInfo();
         newEffect.changeAmount = changeAmount;
         newEffect.changeDuration = duration;
         newEffect.fading = fading;
+        newEffect.source = source;
         //Checks the status of the effect
         bool passed = true;
         foreach(defenseChangeInfo effect in list){
@@ -144,6 +147,7 @@ public class DefenseChange : MonoBehaviour
             //Compares and then applies defense change
             DefenseUpdate();
         }
+        return newEffect;
     }
 
     float defenseChangePercent = 0;
@@ -169,7 +173,7 @@ public class DefenseChange : MonoBehaviour
         ManageBubbles();
     }
 
-    private void ManageBubbles(){
+    public void ManageBubbles(){
         //Reset their timers (So they know when to fade out)
         if(defenses.Count > 0){defenseParticles.timeLeft = defenses[0].changeDuration;}
         if(vulnerables.Count > 0){vulnerableParticles.timeLeft = vulnerables[0].changeDuration;}
@@ -225,12 +229,27 @@ public class DefenseChange : MonoBehaviour
         //Makes sure to recompare defense changes due to one being removed
         DefenseUpdate();
     }
-}
 
-public class defenseChangeInfo{
-    public float changeDurationMax = 5;
-    public float changeDuration = 5;
-    public float changeAmountMax = 0;
-    public float changeAmount = 0;
-    public bool fading = false;
+    public void RemoveBySource(Component source){
+        for(int i = defenses.Count - 1; i >= 0; i--){
+            if(defenses[i].source == source){
+                defenses.RemoveAt(i);
+            }
+        }
+        for(int i = vulnerables.Count - 1; i >= 0; i--){
+            if(vulnerables[i].source == source){
+                vulnerables.RemoveAt(i);
+            }
+        }
+        DefenseUpdate();
+    }
+
+    public class defenseChangeInfo{
+        public float changeDurationMax = 5;
+        public float changeDuration = 5;
+        public float changeAmountMax = 0;
+        public float changeAmount = 0;
+        public bool fading = false;
+        public Component source = null;
+    }
 }
