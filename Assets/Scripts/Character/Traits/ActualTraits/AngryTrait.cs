@@ -15,7 +15,7 @@ public class AngryTrait : TraitBase
         base.Start();
 
         traitName = "Angry";
-        traitDesc = "\nRandomly gain damage buffs";
+        traitDesc = "Randomly gains damage buffs";
 
         StartCoroutine(GetAngry());
     }

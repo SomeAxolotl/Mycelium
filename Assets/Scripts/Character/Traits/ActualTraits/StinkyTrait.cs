@@ -11,7 +11,7 @@ public class StinkyTrait : TraitBase
         base.Start();
 
         traitName = "Stinky";
-        traitDesc = "\nDamage overtime around spore";
+        traitDesc = "Nearby enemies take damage over time";
 
         stinkCloudPrefab = Resources.Load("Attributes/StinkCloud", typeof(GameObject)) as GameObject;
         stinkCloud = Instantiate(stinkCloudPrefab, player.transform);

@@ -19,7 +19,7 @@ public class EnduringTrait : TraitBase
         base.Start();
 
         traitName = "Enduring";
-        traitDesc = "\nSporeburst at low health";
+        traitDesc = "Sporebursts at " + (activateAmount * 100) + "% health";
 
         health.TakeDamage += TakeDamage;
         foreach(Transform child in transform){

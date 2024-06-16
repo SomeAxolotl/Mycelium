@@ -14,7 +14,7 @@ public class CarefulTrait : TraitBase
         base.Start();
 
         traitName = "Careful";
-        traitDesc = "\nGain damage reducing shield after not taking damage";
+        traitDesc = "Gains a shield after not taking damage";
 
         combatTimer = OutOfCombatTimer(0.2f);
         StartCoroutine(combatTimer);

@@ -8,7 +8,7 @@ public class AcrobatTrait : TraitBase
         base.Start();
 
         traitName = "Acrobat";
-        traitDesc = "\nJump when dashing";
+        traitDesc = "Jumps when dashing";
 
 
         Actions.ActivatedDodge += Jump;

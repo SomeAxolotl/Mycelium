@@ -193,7 +193,7 @@ public class TestingManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K) && Input.GetKey(KeyCode.LeftShift))
         {
-            ObliterateAllOtherSpores();
+            //ObliterateAllOtherSpores();
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
@@ -470,14 +470,19 @@ public class TestingManager : MonoBehaviour
         Destroy(tempObject);
     }
 
+    //jk this is broken
+    /*
     void ObliterateAllOtherSpores()
     {
+        GameObject.FindWithTag("currentPlayer").GetComponent<SporeInteractableFinder>().interactableObjects.Clear();
+
         GameObject[] otherSpores = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject spore in otherSpores)
         {
             Destroy(spore);
         }
     }
+    */
 
     void UnlockAllFurniture()
     {

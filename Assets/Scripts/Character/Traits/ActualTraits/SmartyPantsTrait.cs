@@ -11,7 +11,7 @@ public class SmartyPantsTrait : TraitBase
         base.Start();
 
         traitName = "Smarty Pants";
-        traitDesc = "\nRandomly reduce cooldowns";
+        traitDesc = "Cooldowns randomly reduced by " + (cooldownReduction * 100) + "%";
     }
 
     public void OnEnable(){
