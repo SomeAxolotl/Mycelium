@@ -51,7 +51,7 @@ public class SceneLoader : MonoBehaviour
     //SceneUtility and SceneManager stuff
     private int totalSceneCount;
 
-    public Action<bool, float> OnTitleCardFinished;
+    public Action OnTitleCardFinished;
 
     private void Awake()
     {
@@ -260,7 +260,7 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSecondsRealtime(titleFadoutTime);
         yield return StartCoroutine(FadeCanvasOut(titleCanvasGroup, transitionTime));
 
-        OnTitleCardFinished?.Invoke(true, -1);
+        OnTitleCardFinished?.Invoke();
     }
 
     IEnumerator LoadSceneGood(int sceneIndex, float transitionTime)

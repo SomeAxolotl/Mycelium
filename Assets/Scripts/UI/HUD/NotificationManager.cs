@@ -47,12 +47,19 @@ public class NotificationManager : MonoBehaviour
         totalDuration = popDuration + waitDuration + fadeDuration;
     }
 
-    public void Notification(string notification, string helper = "", Sprite notificationSprite = null, string notificationSpriteString = "")
+    public void Notification(string notification, string helper = "", Sprite notificationSprite = null, string notificationSpriteString = "", float waitTime = -1)
     {
-        StartCoroutine(NotificationCoroutine(notification, helper, notificationSprite, notificationSpriteString));
+        if (waitTime == -1)
+        {
+            waitTime = waitDuration;
+        }
+
+        totalDuration = popDuration + waitTime + fadeDuration;
+
+        StartCoroutine(NotificationCoroutine(notification, helper, notificationSprite, notificationSpriteString, waitTime));
     }
 
-    IEnumerator NotificationCoroutine(string notification, string helper, Sprite notificationSprite, string notificationSpriteString)
+    IEnumerator NotificationCoroutine(string notification, string helper, Sprite notificationSprite, string notificationSpriteString, float waitTime)
     {
         //notificationPanel.gameObject.SetActive(false);
         notificationIcon.sprite = noSkill;
@@ -109,7 +116,7 @@ public class NotificationManager : MonoBehaviour
             yield return null;  
         }
 
-        yield return new WaitForSecondsRealtime(waitDuration);
+        yield return new WaitForSecondsRealtime(waitTime);
 
         float fadeCounter = 0f;
         while (fadeCounter < fadeDuration)

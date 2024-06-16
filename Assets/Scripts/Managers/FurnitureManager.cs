@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class FurnitureManager : MonoBehaviour
 {
@@ -63,5 +64,11 @@ public class FurnitureManager : MonoBehaviour
         fireflyIsUnlocked = true;
         gameboardIsUnlocked = true;
         fireIsUnlocked = true;
+    }
+
+    public int GetFurnitureUnlockedCount()
+    {
+        //thx chatgpt
+        return new[] { bedIsUnlocked, drumIsUnlocked, chairIsUnlocked, fireflyIsUnlocked, gameboardIsUnlocked, fireIsUnlocked }.Count(unlocked => unlocked);
     }
 }

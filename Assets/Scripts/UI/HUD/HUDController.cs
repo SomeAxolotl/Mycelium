@@ -39,11 +39,11 @@ public class HUDController : MonoBehaviour
     {
         yield return null;
 
-        SceneLoader.Instance.OnTitleCardFinished += FadeHUD;
+        SceneLoader.Instance.OnTitleCardFinished += FadeHUDAfterTitleCard;
     }
     void OnDisable()
     {
-        SceneLoader.Instance.OnTitleCardFinished -= FadeHUD;
+        SceneLoader.Instance.OnTitleCardFinished -= FadeHUDAfterTitleCard;
     }
 
     IEnumerator SlideHUDElementCoroutine(RectTransform element, RectTransform toTarget)
@@ -65,6 +65,10 @@ public class HUDController : MonoBehaviour
         element.localPosition = toTarget.localPosition;
     }
 
+    void FadeHUDAfterTitleCard()
+    {
+        FadeHUD(true);
+    }
 
     public void FadeHUD(bool doesFadeIn, float transitionTime = -1f)
     {

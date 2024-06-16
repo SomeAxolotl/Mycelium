@@ -28,6 +28,61 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        SceneLoader.Instance.OnTitleCardFinished += StuffAfterTitleCard;
+    }
+    void OnDisable()
+    {
+        SceneLoader.Instance.OnTitleCardFinished -= StuffAfterTitleCard;
+    }
+
+
+    void StuffAfterTitleCard()
+    {
+        //only play notifications in carcass
+        if (SceneManager.GetActiveScene().name != "The Carcass") return;
+
+        GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+        CharacterStats currentPlayerStats = currentPlayer.GetComponent<CharacterStats>();
+        ProfileManager profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
+
+        //Stuff that happens regardless of notifications
+        if (currentPlayerStats.sporeEnergy <= 0)
+        {
+            currentPlayer.transform.Find("SweatParticles").GetComponent<ParticleSystem>().Play();
+        }
+
+        //Notifications (only 1 chosen, priority is top to bottom)
+
+        if (!profileManager.shopTutorialShown[GlobalData.profileNumber])
+        {
+            NotificationManager.Instance.Notification
+            (
+                "Shop Tutorial Here"
+            );
+
+            profileManager.shopTutorialShown[GlobalData.profileNumber] = true;
+        }
+        else if (FurnitureManager.Instance.GetFurnitureUnlockedCount() > 0 && !profileManager.furnitureTutorialShown[GlobalData.profileNumber])
+        {
+            NotificationManager.Instance.Notification
+            (
+                "Furniture Tutorial Here"
+            );
+
+            profileManager.furnitureTutorialShown[GlobalData.profileNumber] = true;
+        }
+        else if (currentPlayerStats.sporeEnergy <= 0)
+        {
+            NotificationManager.Instance.Notification
+            (
+                currentPlayerStats.GetColoredSporeName() + " is tired",
+                "Using them will decrease their happiness!"
+            );
+        }
+    }
+
     IEnumerator Start()
     {
         Scene scene = SceneManager.GetActiveScene();

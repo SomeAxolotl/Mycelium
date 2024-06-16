@@ -87,50 +87,13 @@ public class CharacterStats : MonoBehaviour
         Vitality
     }
 
-    IEnumerator Start()
+    void Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = GetComponent<DesignTracker>();
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
         sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
-
-        yield return null;
-        SceneLoader.Instance.OnTitleCardFinished += CheckForSweat;
-    }
-    void OnEnable()
-    {
-        StartCoroutine(SubscribeOnDelay());
-    }
-    IEnumerator SubscribeOnDelay()
-    {
-        yield return null;
-
-        SceneLoader.Instance.OnTitleCardFinished += CheckForSweat;
-    }
-    void OnDisable()
-    {
-        SceneLoader.Instance.OnTitleCardFinished -= CheckForSweat;
-    }
-
-    //Useless variables since I want this function to subscribe to the OnTitleCardFinished action but it doesn't care about the delegate type
-    public void CheckForSweat(bool uselessBool, float uselessFloat)
-    {
-        if (sporeEnergy <= 0 && SceneManager.GetActiveScene().name == "The Carcass")
-        {
-            transform.Find("SweatParticles").GetComponent<ParticleSystem>().Play();
-
-            if (gameObject.tag == "currentPlayer")
-            {
-                NotificationManager.Instance.Notification
-                (
-                    GetColoredSporeName() + " is tired",
-                    "Using them will decrease their happiness!"
-                );
-
-                //ProfileManager.Instance.sporeHasTired[GlobalData.profileNumber] = true;
-            }
-        }
     }
 
     void Update()
