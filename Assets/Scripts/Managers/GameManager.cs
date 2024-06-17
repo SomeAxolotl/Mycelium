@@ -59,7 +59,8 @@ public class GameManager : MonoBehaviour
         {
             NotificationManager.Instance.Notification
             (
-                "Welcome to The Carcass!"
+                "Welcome to The Carcass!",
+                "Visit the Sporemother to upgrade your Spore."
             );
 
             profileManager.beginningTutorialShown[GlobalData.profileNumber] = true;
@@ -68,7 +69,8 @@ public class GameManager : MonoBehaviour
         {
             NotificationManager.Instance.Notification
             (
-                "Material Tutorial Here"
+                "You've obtained your first material!",
+                "Visit the Sporemother to grow a new Spore."
             );
 
             profileManager.shopTutorialShown[GlobalData.profileNumber] = true;
@@ -77,8 +79,8 @@ public class GameManager : MonoBehaviour
         {
             NotificationManager.Instance.Notification
             (
-                "You've unlocked a furniture piece for your colony!",
-                ""
+                "You've unlocked a furniture piece!",
+                "Interact with furniture to boost Spore happiness."
             );
 
             profileManager.furnitureTutorialShown[GlobalData.profileNumber] = true;
@@ -269,7 +271,7 @@ public class GameManager : MonoBehaviour
                 selectedSpawnPoint = GameObject.Find("BeginningSpawn");
 
                 VCamRotator vcamRotator = GameObject.Find("VCamHolder").GetComponent<VCamRotator>();
-                vcamRotator.DramaticCamera(GameObject.Find("Keeper").transform, 0f);
+                vcamRotator.DramaticCamera(GameObject.Find("Keeper").transform, 2f);
             }
         }
 
