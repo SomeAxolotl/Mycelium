@@ -20,6 +20,7 @@ public class AttributeManager : MonoBehaviour
             return attributes;
         }}
 
+    [SerializeField][Tooltip("Attributes won't appear in the tooltip title")] private bool hasCustomName = false;
     private string allAttName;
     private string defaultName;
     private string allAttDesc;
@@ -62,6 +63,8 @@ public class AttributeManager : MonoBehaviour
     }
 
     private void UpdateAttName(){
+        if (hasCustomName) return;
+        
         allAttName = defaultName;
         foreach(AttributeBase attribute in O_attributes){
             //Debug.Log(attribute.attName);
