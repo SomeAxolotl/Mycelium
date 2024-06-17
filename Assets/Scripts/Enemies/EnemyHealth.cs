@@ -60,14 +60,14 @@ public class EnemyHealth : MonoBehaviour
 
         foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
         {
-            if(enemyHealthBar != null && currentHealth + dmgTaken > 0) 
+            if (enemyHealthBar != null && currentHealth + dmgTaken > 0)
             {
                 enemyHealthBar.UpdateEnemyHealthUI();
                 enemyHealthBar.DamageNumber(dmgTaken);
                 ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
             }
         }
-        if(currentHealth <= 0 && !alreadyDead)
+        if (currentHealth <= 0 && !alreadyDead)
         {
             StartCoroutine(Death());
         }
@@ -78,7 +78,7 @@ public class EnemyHealth : MonoBehaviour
     {
         Died?.Invoke();
         Actions.EnemyKilled?.Invoke(this);
-        
+
         gameObject.GetComponent<EnemyAttack>().CancelAttack();
         gameObject.GetComponent<EnemyAttack>().enabled = false;
         gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
@@ -136,7 +136,7 @@ public class EnemyHealth : MonoBehaviour
 
     protected IEnumerator BossDeath()
     {
-        if(GameObject.Find("Rival Colony Leader") != null)
+        if (GameObject.Find("Rival Colony Leader") != null)
         {
             BossCam.Instance.StartBossDeathCutscene();
 

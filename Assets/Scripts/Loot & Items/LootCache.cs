@@ -75,23 +75,28 @@ public class LootCache : MonoBehaviour, IInteractable
         float randomValue = UnityEngine.Random.Range(0f, totalChance);
         Loot droppedItem;
         bool isWeapon = false;
-        if(randomValue <= weaponChance + RandomManager.bonusWeaponChance){
-            droppedItem = PickByWeight(weaponTable.loots);
-            isWeapon = true;
-            RandomManager.bonusWeaponChance = 0;
-            RandomManager.bonusStatChance += statChance * 0.1f;
-            RandomManager.bonusResourceChance += resourceChance * 0.1f;
-        }else if(randomValue - weaponChance <= statChance + RandomManager.bonusStatChance){
-            droppedItem = PickByWeight(statTable.loots);
-            RandomManager.bonusWeaponChance += weaponChance * 0.1f;
-            RandomManager.bonusStatChance = 0;
-            RandomManager.bonusResourceChance += resourceChance * 0.1f;
-        }else{
-            droppedItem = PickByWeight(resourceTable.loots);
-            RandomManager.bonusWeaponChance += weaponChance * 10.1f;
-            RandomManager.bonusStatChance += statChance * 0.1f;
-            RandomManager.bonusResourceChance = 0;
-        }
+            if (randomValue <= weaponChance + RandomManager.bonusWeaponChance)
+            {
+                droppedItem = PickByWeight(weaponTable.loots);
+                isWeapon = true;
+                RandomManager.bonusWeaponChance = 0;
+                RandomManager.bonusStatChance += statChance * 0.1f;
+                RandomManager.bonusResourceChance += resourceChance * 0.1f;
+            }
+            else if (randomValue - weaponChance <= statChance + RandomManager.bonusStatChance)
+            {
+                droppedItem = PickByWeight(statTable.loots);
+                RandomManager.bonusWeaponChance += weaponChance * 0.1f;
+                RandomManager.bonusStatChance = 0;
+                RandomManager.bonusResourceChance += resourceChance * 0.1f;
+            }
+            else
+            {
+                droppedItem = PickByWeight(resourceTable.loots);
+                RandomManager.bonusWeaponChance += weaponChance * 10.1f;
+                RandomManager.bonusStatChance += statChance * 0.1f;
+                RandomManager.bonusResourceChance = 0;
+            }
         GameObject droppedObject = Instantiate(droppedItem.LootPrefab, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
         if (isWeapon) 
         {

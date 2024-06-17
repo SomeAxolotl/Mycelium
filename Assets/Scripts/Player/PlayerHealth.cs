@@ -87,9 +87,26 @@ public class PlayerHealth : MonoBehaviour
             }else{
                 realDmgTaken = dmgTaken;
             }
-            currentHealth -= realDmgTaken;
+            StartCoroutine(AnimateHealthChange(currentHealth - realDmgTaken));
             UpdateHudHealthUI();
         }
+        
+    }
+    IEnumerator AnimateHealthChange(float targetHealth)
+    {
+        float duration = 0.5f; // Duration of the animation in seconds
+        float elapsed = 0f;
+        float startingHealth = currentHealth;
+        targetHealth = Mathf.Max(targetHealth, 0); // Ensure target health is not below 0
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            currentHealth = Mathf.Lerp(startingHealth, targetHealth, elapsed / duration);
+            UpdateHudHealthUI();
+            yield return null;
+        }
+        currentHealth = targetHealth;
+        UpdateHudHealthUI();
         if (currentHealth <= 0 && !dead)
         {
             StartCoroutine(Death());
@@ -97,8 +114,13 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerHeal(float healAmount)
     {
+        if (dead)
+        {
+            return; // Do not allow healing if the player is dead
+        }
         animator = GetComponentInChildren<Animator>();
         currentHealth += healAmount;
+        
         if (animator.GetBool("Hurt") == true)
         {
             animator.SetBool("Hurt", false);
@@ -107,7 +129,9 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+            
         }
+   
         UpdateHudHealthUI();
     }
     public Action Died;

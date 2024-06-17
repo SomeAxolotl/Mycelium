@@ -425,6 +425,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &200439840 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8790803467938143703, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1935969607}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &200439842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200439840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099c2e75fcccded4ab17f2e3addf8944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  manager: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+  rating: 0
+  specialAttNum: 0
+  primalAmount: 0
+  sentienceAmount: 0
+  speedAmount: 0
+  vitalityAmount: 0
+  nutrientIncrease: 0.5
 --- !u!1 &209424437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,12 +1387,12 @@ PrefabInstance:
     - target: {fileID: 3514631012877512450, guid: 5f703c08f1c173d4fafbe3a2ffa9c8dc,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017302225
+      value: -0.000000017127602
       objectReference: {fileID: 0}
     - target: {fileID: 3514631012877512450, guid: 5f703c08f1c173d4fafbe3a2ffa9c8dc,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000020791047
+      value: -0.0000000020600053
       objectReference: {fileID: 0}
     - target: {fileID: 4174635947272358734, guid: 5f703c08f1c173d4fafbe3a2ffa9c8dc,
         type: 3}
@@ -1364,7 +1402,7 @@ PrefabInstance:
     - target: {fileID: 4174635947272358734, guid: 5f703c08f1c173d4fafbe3a2ffa9c8dc,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0000000074505797
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4174635947272358734, guid: 5f703c08f1c173d4fafbe3a2ffa9c8dc,
         type: 3}
@@ -1374,7 +1412,7 @@ PrefabInstance:
     - target: {fileID: 4174635947272358734, guid: 5f703c08f1c173d4fafbe3a2ffa9c8dc,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 9.094946e-13
+      value: 1.8189892e-12
       objectReference: {fileID: 0}
     - target: {fileID: 6154889512261984914, guid: 5f703c08f1c173d4fafbe3a2ffa9c8dc,
         type: 3}
@@ -2818,13 +2856,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4491764736725227632, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
         type: 3}
+      propertyPath: customWeapon.randomWeaponType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491764736725227632, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
+        type: 3}
       propertyPath: customWeapon.attributeNames.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4491764736725227632, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
         type: 3}
       propertyPath: customWeapon.attributeNames.Array.data[0]
-      value: Strong
+      value: Nutritious
       objectReference: {fileID: 0}
     - target: {fileID: 4491764736725227632, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
         type: 3}
@@ -2844,7 +2887,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8790803467938143703, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 200439842}
   m_SourcePrefab: {fileID: 100100000, guid: 3effefc5c4dccae468ff2be6b46a4bb2, type: 3}
 --- !u!4 &3412506387552387061
 Transform:
@@ -3026,6 +3073,8 @@ MonoBehaviour:
   CheckpointBChunk: {fileID: 5886056400085577364, guid: 8fd09116ad29bfe43bfae10eff47d510,
     type: 3}
   MaxNumberOfPieces: 5
+  spawnedMiddleChunks: []
+  allowDuplicateChunks: 0
   themeForLevel: 0
   skyboxProfilePairs:
   - skyboxPrefab: {fileID: 331346496046951147, guid: 8b3a7c149e67aba40aa8288cbf41ed72,

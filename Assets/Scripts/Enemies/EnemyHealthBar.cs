@@ -52,12 +52,29 @@ public class EnemyHealthBar : BaseEnemyHealthBar
             enemyHealthPanel.GetComponent<CanvasGroup>().alpha = 1f;
         }
 
-        enemyHealthBar.fillAmount = healthRatio;
-        if (healthRatio > 0.66)
+        StartCoroutine(AnimateHealthChange(healthRatio));
+    }
+
+    IEnumerator AnimateHealthChange(float targetRatio)
+    {
+        float duration = 0.5f; // Duration of the animation in seconds
+        float elapsed = 0f;
+        float startingRatio = enemyHealthBar.fillAmount;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            enemyHealthBar.fillAmount = Mathf.Lerp(startingRatio, targetRatio, elapsed / duration);
+            yield return null;
+        }
+        enemyHealthBar.fillAmount = targetRatio;
+
+        // Update health bar color based on health ratio
+        if (targetRatio > 0.66)
         {
             enemyHealthBar.color = fullColor;
         }
-        else if (healthRatio > 0.33)
+        else if (targetRatio > 0.33)
         {
             enemyHealthBar.color = halfColor;
         }
@@ -66,10 +83,9 @@ public class EnemyHealthBar : BaseEnemyHealthBar
             enemyHealthBar.color = lowColor;
         }
 
-        if (currentHealth <= 0)
+        if (targetRatio <= 0)
         {
             StartCoroutine(LerpPanelColor());
-            //enemyHealthPanel.color = enemyHealthPanelDeathColor;
         }
     }
 

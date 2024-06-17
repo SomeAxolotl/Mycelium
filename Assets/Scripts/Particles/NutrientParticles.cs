@@ -19,6 +19,9 @@ public class NutrientParticles : MonoBehaviour
         designTrackerScript = GameObject.FindWithTag("currentPlayer").GetComponent<DesignTracker>();
         nutrientTrackerScript = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         StartCoroutine(LerpParticlePositions());
+
+        // Add initial debug log
+        //Debug.Log($"Initial nutrient amount per particle: {amountPerParticle}");
     }
 
     IEnumerator LerpParticlePositions()
@@ -51,10 +54,11 @@ public class NutrientParticles : MonoBehaviour
 
             yield return null;
         }
-
+        
         nutrientTrackerScript.AddNutrients(amountPerParticle);
         designTrackerScript.StartNutrientGlow();
-
+        // Log the nutrient amount per particle when nutrients are gained
+        //Debug.Log($"Nutrient amount per particle on gain: {amountPerParticle}");
         GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(nutrientHealAmount);
     }
 
