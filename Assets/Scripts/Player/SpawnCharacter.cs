@@ -95,6 +95,7 @@ public class SpawnCharacter : MonoBehaviour
         string statSkill1 = "NoSkill";
         string statSkill2 = "NoSkill";
         CharacterStats stats = newCharacter.GetComponent<CharacterStats>();
+        string chosenTraitName = "";
         //If growing a Spore normally from Sporemother
         if (customStats == null)
         {
@@ -146,6 +147,7 @@ public class SpawnCharacter : MonoBehaviour
                 Type newTrait = Type.GetType(stats.sporeTrait);
                 if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
                     stats.gameObject.AddComponent(newTrait);
+                    chosenTraitName = newTrait.ToString().Replace("Trait", "");
                 }else{
                     Debug.LogError("Component type not found or is not a Component: " + stats.sporeTrait);
                 }
@@ -179,7 +181,11 @@ public class SpawnCharacter : MonoBehaviour
 
         //string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">" + newCharacter.GetComponent<CharacterStats>().sporeName+"</color>";
         string coloredSporeName = newCharacter.GetComponent<CharacterStats>().GetColoredSporeName();
-        NotificationManager.Instance.Notification(coloredSporeName + " was born");
+        NotificationManager.Instance.Notification
+        (
+            coloredSporeName + " was born",
+            "They are " + chosenTraitName
+        );
 
         swapCharacter.characters.Add(newCharacter);
 
