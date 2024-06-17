@@ -101,7 +101,12 @@ public class PlayerHealth : MonoBehaviour
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            currentHealth = Mathf.Lerp(startingHealth, targetHealth, elapsed / duration);
+
+            float t = elapsed / duration;
+
+            float newT = DylanTree.EaseOutQuart(t);
+
+            currentHealth = Mathf.Lerp(startingHealth, targetHealth, newT);
             UpdateHudHealthUI();
             yield return null;
         }

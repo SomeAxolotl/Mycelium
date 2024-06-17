@@ -254,6 +254,15 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         if (baseWeaponPrefab != null && cacheLocation != null)
         {
             GameObject rewardWeapon = Instantiate(baseWeaponPrefab, cacheLocation.transform.position, Quaternion.identity);
+            AttributeManager attributeManager = rewardWeapon.GetComponent<AttributeManager>();
+            if (attributeManager != null)
+            {
+                attributeManager.doesSpawnRarityParticles = true;
+            }
+            else
+            {
+                Debug.Log("Attribute Manager is null on " + this.gameObject);
+            }
 
             // Ensure no extra attributes are present on instantiation
             AttributeBase[] existingAttributes = rewardWeapon.GetComponents<AttributeBase>();

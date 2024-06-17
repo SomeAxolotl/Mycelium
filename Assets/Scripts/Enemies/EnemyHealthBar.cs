@@ -64,7 +64,12 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            enemyHealthBar.fillAmount = Mathf.Lerp(startingRatio, targetRatio, elapsed / duration);
+
+            float t = elapsed / duration;
+
+            float newT = DylanTree.EaseOutQuart(t);
+
+            enemyHealthBar.fillAmount = Mathf.Lerp(startingRatio, targetRatio, newT);
             yield return null;
         }
         enemyHealthBar.fillAmount = targetRatio;
