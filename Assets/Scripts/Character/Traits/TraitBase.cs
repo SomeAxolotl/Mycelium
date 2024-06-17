@@ -71,7 +71,7 @@ public class TraitBase : MonoBehaviour
     }
 
     private void SwappedCharacter(GameObject oldSpore, GameObject newSpore){
-        Debug.Log("Old Spore: " + oldSpore + "       New Spore: " + newSpore);
+        //Debug.Log("Old Spore: " + oldSpore + "       New Spore: " + newSpore);
         if(newSpore == gameObject){
             SporeSelected();
         }

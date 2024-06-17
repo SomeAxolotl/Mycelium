@@ -107,10 +107,10 @@ public class AttributeManager : MonoBehaviour
         }
     }
 
-    public bool CheckPrimal(){foreach(AttributeBase currAtt in O_attributes){primalAmount += currAtt.primalAmount;} if(primalAmount > 0){return true;} return false;}
-    public bool CheckSentience(){foreach(AttributeBase currAtt in O_attributes){sentienceAmount += currAtt.sentienceAmount;} if(sentienceAmount > 0){return true;} return false;}
-    public bool CheckSpeed(){foreach(AttributeBase currAtt in O_attributes){speedAmount += currAtt.speedAmount;} if(speedAmount > 0){return true;} return false;}
-    public bool CheckVitality(){foreach(AttributeBase currAtt in O_attributes){vitalityAmount += currAtt.vitalityAmount;} if(vitalityAmount > 0){return true;} return false;}
+    public bool CheckPrimal(){primalAmount = 0; foreach(AttributeBase currAtt in O_attributes){primalAmount += currAtt.primalAmount;} if(primalAmount > 0){return true;} return false;}
+    public bool CheckSentience(){sentienceAmount = 0; foreach(AttributeBase currAtt in O_attributes){sentienceAmount += currAtt.sentienceAmount;} if(sentienceAmount > 0){return true;} return false;}
+    public bool CheckSpeed(){speedAmount = 0; foreach(AttributeBase currAtt in O_attributes){speedAmount += currAtt.speedAmount;} if(speedAmount > 0){return true;} return false;}
+    public bool CheckVitality(){vitalityAmount = 0; foreach(AttributeBase currAtt in O_attributes){vitalityAmount += currAtt.vitalityAmount;} if(vitalityAmount > 0){return true;} return false;}
 
     void OnEnable(){
         StartCoroutine(RarityEffect());
