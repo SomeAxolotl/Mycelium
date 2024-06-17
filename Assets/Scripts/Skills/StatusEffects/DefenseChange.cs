@@ -35,8 +35,9 @@ public class DefenseChange : MonoBehaviour
         //defenseParticles = Resources.Load<GameObject>(defenseParticlePath);
         GameObject defenseParticlesObj = Resources.Load<GameObject>(defenseParticlePath);
         GameObject tempObj1;
+        string location = transform.GetChild(0).name + "/SporeModel";
         if(playerHealth != null){
-            tempObj1 = Instantiate(defenseParticlesObj, transform.Find("Spore/SporeModel")) as GameObject;
+            tempObj1 = Instantiate(defenseParticlesObj, transform.Find(location)) as GameObject;
         }else{
             tempObj1 = Instantiate(defenseParticlesObj, transform) as GameObject;
         }
@@ -45,7 +46,7 @@ public class DefenseChange : MonoBehaviour
         GameObject vulnerableParticlesObj = Resources.Load<GameObject>(vulnerableParticlePath);
         GameObject tempObj2;
         if(playerHealth != null){
-            tempObj2 = Instantiate(vulnerableParticlesObj, transform.Find("Spore/SporeModel")) as GameObject;
+            tempObj2 = Instantiate(vulnerableParticlesObj, transform.Find(location)) as GameObject;
         }else{
             tempObj2 = Instantiate(vulnerableParticlesObj, transform) as GameObject;
         }

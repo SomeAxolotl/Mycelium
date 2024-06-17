@@ -9,11 +9,12 @@ public class AcrobatTrait : TraitBase
 
         traitName = "Acrobat";
         traitDesc = "Jumps when dashing";
+    }
 
-
+    public override void SporeSelected(){
         Actions.ActivatedDodge += Jump;
     }
-    void OnDisable(){
+    public override void SporeUnselected(){
         Actions.ActivatedDodge -= Jump;
     }
 

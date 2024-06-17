@@ -14,10 +14,10 @@ public class SmartyPantsTrait : TraitBase
         traitDesc = "Cooldowns randomly reduced by " + (cooldownReduction * 100) + "%";
     }
 
-    public void OnEnable(){
+    public override void SporeSelected(){
         Actions.ActivatedSkill += ReduceSkillCooldown;
     }
-    public void OnDisable(){
+    public override void SporeUnselected(){
         Actions.ActivatedSkill += ReduceSkillCooldown;
     }
 

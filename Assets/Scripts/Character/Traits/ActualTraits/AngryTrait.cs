@@ -16,17 +16,32 @@ public class AngryTrait : TraitBase
 
         traitName = "Angry";
         traitDesc = "Randomly gains damage buffs";
-
-        StartCoroutine(GetAngry());
     }
 
+    private IEnumerator angryTimer;
+    public override void SporeSelected(){
+        StartAngry();
+    }
+    public override void SporeUnselected(){
+        if(angryTimer != null){
+            StopCoroutine(angryTimer);
+            angryTimer = null;
+        }
+    }
+
+    private void StartAngry(){
+        angryTimer = GetAngry();
+        StartCoroutine(angryTimer);
+    }
+
+    BonusDamage damageEffect;
     IEnumerator GetAngry(){
         float randomTime = Random.Range(minTime, maxTime);
         Debug.Log("Time till angry: " + randomTime);
         yield return new WaitForSeconds(randomTime);
         Debug.Log("Get angry!");
-        BonusDamage damageEffect = playerParent.AddComponent<BonusDamage>();
+        damageEffect = O_playerParent.AddComponent<BonusDamage>();
         damageEffect.InitializeDamageChange(duration, damageIncrease);
-        StartCoroutine(GetAngry());
+        StartAngry();
     }
 }

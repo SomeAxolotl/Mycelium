@@ -48,6 +48,7 @@ public class SwapCharacter : MonoBehaviour
 
     public void SwitchCharacter(int index)
     {
+        GameObject oldSpore = GameObject.FindWithTag("currentPlayer");
         // Switch to the new character
         currentCharacterIndex = index;
         characters[currentCharacterIndex].tag = "currentPlayer";
@@ -63,6 +64,9 @@ public class SwapCharacter : MonoBehaviour
         StartCoroutine(UpdateHealth());
         StartCoroutine(UpdateName());
         hudSkills.UpdateHUDIcons();
+
+        Debug.Log("Swapped characters");
+        Actions.SwappedCharacter?.Invoke(oldSpore, characters[currentCharacterIndex]);
     }
 
     public int GetCharacterIndex(GameObject character)
@@ -76,6 +80,7 @@ public class SwapCharacter : MonoBehaviour
 
     public void SwitchCharacterGrowMenu(int index)
     {
+        GameObject oldSpore = GameObject.FindWithTag("currentPlayer");
         //characters[currentCharacterIndex].GetComponent<CharacterStats>().ShowNametag();
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
@@ -102,9 +107,14 @@ public class SwapCharacter : MonoBehaviour
         hudSkills.UpdateHUDIcons();
         playerController.GetStats();
         playerHealth.GetHealthStats();
+
+        Debug.Log("Swapped characters");
+        Actions.SwappedCharacter?.Invoke(oldSpore, characters[currentCharacterIndex]);
     }
     public void SwitchToNextCharacter()
     {
+        GameObject oldSpore = GameObject.FindWithTag("currentPlayer");
+
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
@@ -120,9 +130,14 @@ public class SwapCharacter : MonoBehaviour
         SwitchCharacter(nextCharacterIndex);
         playerController.GetStats();
         playerHealth.GetHealthStats();
+
+        Debug.Log("Swapped characters");
+        Actions.SwappedCharacter?.Invoke(oldSpore, characters[currentCharacterIndex]);
     }
     public void SwitchToLastCharacter()
     {
+        GameObject oldSpore = GameObject.FindWithTag("currentPlayer");
+        
         characters[currentCharacterIndex].tag = "Player";
         characters[currentCharacterIndex].GetComponent<CharacterStats>().enabled = false;
         transform.DetachChildren();
@@ -138,6 +153,9 @@ public class SwapCharacter : MonoBehaviour
         SwitchCharacter(lastCharacterIndex);
         playerController.GetStats();
         playerHealth.GetHealthStats();
+
+        Debug.Log("Swapped characters");
+        Actions.SwappedCharacter?.Invoke(oldSpore, characters[currentCharacterIndex]);
     }
 
     IEnumerator UpdateHealth()

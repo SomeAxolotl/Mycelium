@@ -11,11 +11,13 @@ public class GreasyTrait : TraitBase
 
         traitName = "Greasy";
         traitDesc = "Dodge cooldown -" + (dodgeCooldownReduction * 100) + "%";
-
-        controller.baseDodgeCooldown *= dodgeCooldownReduction;
     }
 
-    void OnDestroy(){
-        controller.baseDodgeCooldown /= dodgeCooldownReduction;
+    public override void SporeSelected(){
+        O_controller.baseDodgeCooldown *= dodgeCooldownReduction;
+    }
+    public override void SporeUnselected(){
+        if(O_controller == null){return;}
+        O_controller.baseDodgeCooldown /= dodgeCooldownReduction;
     }
 }

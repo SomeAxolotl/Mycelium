@@ -15,17 +15,30 @@ public class CarefulTrait : TraitBase
 
         traitName = "Careful";
         traitDesc = "Gains a shield after not taking damage";
-
+    }
+    public override void SporeSelected(){
+        O_health.TakeDamage += TakeDamage;
         combatTimer = OutOfCombatTimer(0.2f);
         StartCoroutine(combatTimer);
-        health.TakeDamage += TakeDamage;
     }
-    public void OnDisable(){
-        health.TakeDamage += TakeDamage;
+    public override void SporeUnselected(){
+        O_health.TakeDamage -= TakeDamage;
+        //Stops all coroutines and turns off the bubble
+        if(combatTimer != null){
+            StopCoroutine(combatTimer);
+            combatTimer = null;
+        }
+        if(delayTimer != null){
+            StopCoroutine(delayTimer);
+            delayTimer = null;
+        }
+        if(defChange != null){
+            defChange.changeDuration = 0;
+        }
     }
 
     private void GainSheild(){
-        defenseChangeEffect = health.gameObject.AddComponent<DefenseChange>();
+        defenseChangeEffect = O_health.gameObject.AddComponent<DefenseChange>();
         defChange = defenseChangeEffect.InitializeDefenseChange(Mathf.Infinity, defensePercent, false, this);
     }
 

@@ -22,6 +22,9 @@ public class DefenseBubble : MonoBehaviour
 
     public IEnumerator currentState;
     public void SwitchStatement(int num){
+        if(failedAdjust){
+            AdjustSize();
+        }
         if(!acceptNewStates){return;}
         if(currentState != null){
             StopCoroutine(currentState);
@@ -96,8 +99,10 @@ public class DefenseBubble : MonoBehaviour
         acceptNewStates = false;
     }
 
+    private bool failedAdjust = false;
     public void AdjustSize(){
         Transform parent = transform.parent;
+        if(parent == null){Debug.Log("No parent"); failedAdjust = true; return;}
         if(isBubble){
             if(parent.tag == "Player" || parent.tag == "currentPlayer" || parent.name == "SporeModel" || parent.name.Contains("Mushy")){
                 transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.3f, transform.localPosition.z - 0.1f);

@@ -114,7 +114,7 @@ public class SporeManager : SporeManagerSystem
         stats.sporeEnergy = sporeData.sporeEnergy;
 
         stats.sporeTrait = sporeData.sporeTrait;
-        Debug.Log("Trait is: " + sporeData.sporeTrait);
+        //Debug.Log("Trait is: " + sporeData.sporeTrait);
         if(sporeData.sporeTrait != null && sporeData.sporeTrait != ""){
             Type newTrait = Type.GetType(sporeData.sporeTrait);
             if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){

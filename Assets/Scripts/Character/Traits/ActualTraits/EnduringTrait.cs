@@ -20,14 +20,16 @@ public class EnduringTrait : TraitBase
 
         traitName = "Enduring";
         traitDesc = "Sporebursts at " + (activateAmount * 100) + "% health";
+    }
 
-        health.TakeDamage += TakeDamage;
+    public override void SporeSelected(){
+        O_health.TakeDamage += TakeDamage;
         foreach(Transform child in transform){
             if(child.name == "SkillLoadout"){
                 skillLoadout = child;
             }
         }
-        skillManager = playerParent.GetComponent<SkillManager>();
+        skillManager = O_playerParent.GetComponent<SkillManager>();
         skillPrefab = skillManager.skillList.Find(skill => skill.name == SkillName);
         if(skillPrefab != null){
             // Instantiate the skill directly under SkillLoadout
@@ -36,12 +38,13 @@ public class EnduringTrait : TraitBase
             skillInstance = skillObject.GetComponent<Skill>();
         }
     }
-    public void OnDisable(){
-        health.TakeDamage += TakeDamage;
+    public override void SporeUnselected(){
+        if(O_playerParent == null){return;}
+        O_health.TakeDamage += TakeDamage;
     }
 
     private void TakeDamage(float dmgTaken){
-        if(cooldownTimer == null && (health.currentHealth - dmgTaken / health.maxHealth) <= activateAmount){
+        if(cooldownTimer == null && (O_health.currentHealth - dmgTaken / O_health.maxHealth) <= activateAmount){
             //Activate the skill
             skillInstance.CalculateProperties();
             skillInstance.DoSkill();
