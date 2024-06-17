@@ -21,6 +21,7 @@ public class AttributeManager : MonoBehaviour
         }}
 
     [SerializeField][Tooltip("Attributes won't appear in the tooltip title")] private bool hasCustomName = false;
+    [SerializeField][Tooltip("Won't allow extra Attributes (Fixes loading issues)")] public bool hasCustomAtts = false;
     private string allAttName;
     private string defaultName;
     private string allAttDesc;

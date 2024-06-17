@@ -32,6 +32,7 @@ public class AttributeAssigner : MonoBehaviour
     }
 
     public void AddRandomAttribute(GameObject weapon){
+        if(weapon.GetComponent<AttributeManager>().hasCustomAtts == true){return;}
         float totalChance = commonChance + rareChance + legendaryChance;
         float randomValue = UnityEngine.Random.Range(0f, totalChance);
 
@@ -57,6 +58,7 @@ public class AttributeAssigner : MonoBehaviour
     }
 
     public AttributeBase PickAttFromString(GameObject weapon, string attribute){
+        if(weapon.GetComponent<AttributeManager>().hasCustomAtts == true){return null;}
         foreach(AttributeBase att in commonAtts){
             AttributeBase finished = CheckString(weapon, attribute, att);
             if(finished != null){return finished;}
