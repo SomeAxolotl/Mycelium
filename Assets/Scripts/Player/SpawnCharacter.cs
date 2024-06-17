@@ -124,6 +124,15 @@ public class SpawnCharacter : MonoBehaviour
             stats.sporePersonality = randomSporePersonality;
 
             stats.sporeTrait = GetRandomTrait();
+            if(stats.sporeTrait != null && stats.sporeTrait != ""){
+                Type newTrait = Type.GetType(stats.sporeTrait);
+                if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+                    stats.gameObject.AddComponent(newTrait);
+                    chosenTraitName = newTrait.ToString().Replace("Trait", "");
+                }else{
+                    Debug.LogError("Component type not found or is not a Component: " + stats.sporeTrait);
+                }
+            }
         }
         else
         {
