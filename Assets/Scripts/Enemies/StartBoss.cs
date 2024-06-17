@@ -38,9 +38,6 @@ public class StartBoss : MonoBehaviour
             //Ryan's Camera Stuff
             GameObject.Find("Cutscene VCams").GetComponent<BossCam>().StartBossIntroCutscene();
 
-            //Ronald's Music Stuff :o
-            GameObject.Find("BackgroundMusicPlayer").GetComponent<AudioSource>().Play();
-
             this.gameObject.SetActive(false);
         }
     }
