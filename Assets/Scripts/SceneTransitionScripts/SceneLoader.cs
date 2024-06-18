@@ -270,6 +270,8 @@ public class SceneLoader : MonoBehaviour
         loadBar.fillAmount = 0;
         ChangeFunText(funText);
 
+        yield return StartCoroutine(CheckForNotification());
+
         yield return StartCoroutine(FadeCanvasIn(loadingCanvasGroup, transitionTime));
 
         StartCoroutine(StartLoading(sceneIndex));
@@ -284,7 +286,7 @@ public class SceneLoader : MonoBehaviour
 
         yield return StartCoroutine(FadeCanvasIn(blackCanvasGroup, transitionTime));
 
-        yield return new WaitForSecondsRealtime(transitionTime);
+        yield return StartCoroutine(CheckForNotification());
 
         yield return StartCoroutine(FadeCanvasIn(loadingCanvasGroup, transitionTime));
 
@@ -310,6 +312,8 @@ public class SceneLoader : MonoBehaviour
         {
             NotificationManager.Instance.Notification("<i>Rise</i> my child,", "our colony must <b>persist</b>.");
         }
+
+        yield return StartCoroutine(CheckForNotification());
 
         yield return StartCoroutine(FadeCanvasIn(deathCanvasGroup, transitionTime));
 
@@ -408,6 +412,14 @@ public class SceneLoader : MonoBehaviour
         }
 
         //Debug.Log("DONE WITH TITLE CARD");
+    }
+
+    IEnumerator CheckForNotification()
+    {
+        while(NotificationManager.Instance.isDisplaying)
+        {
+            yield return null;
+        }
     }
 
     void ChangeFunText(TMP_Text funText)

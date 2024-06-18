@@ -26,6 +26,7 @@ public class NotificationManager : MonoBehaviour
     [SerializeField] private List<Sprite> notificationSprites;
 
     [HideInInspector] public float totalDuration;
+    [HideInInspector] public bool isDisplaying = false;
 
     void Awake()
     {
@@ -61,6 +62,8 @@ public class NotificationManager : MonoBehaviour
 
     IEnumerator NotificationCoroutine(string notification, string helper, Sprite notificationSprite, string notificationSpriteString, float waitTime)
     {
+        isDisplaying = true;
+
         //notificationPanel.gameObject.SetActive(false);
         notificationIcon.sprite = noSkill;
         if (notificationSprite != null)
@@ -130,5 +133,7 @@ public class NotificationManager : MonoBehaviour
 
         notificationHolder.transform.localScale = Vector3.zero;
         notificationCanvasGroup.alpha = 1f;
+
+        isDisplaying = false;
     }
 }
