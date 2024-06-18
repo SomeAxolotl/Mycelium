@@ -29,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
     public Action<float> TakeDamage;
     public float dmgTaken;
 
+    [SerializeField] bool canDropStickbugSpear = false;
+
     [HideInInspector][SerializeField] public bool isMiniBoss = false;
     [HideInInspector] public string miniBossName = "";
     [HideInInspector][SerializeField] List<GameObject> possibleRewards = new List<GameObject>();
@@ -110,6 +112,15 @@ public class EnemyHealth : MonoBehaviour
         {
             profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
             GameObject.Find("SceneLoader").GetComponent<SceneLoader>().BeginLoadScene("The Carcass", false);
+        }
+
+        if (canDropStickbugSpear)
+        {
+            float randomNumber = UnityEngine.Random.Range(0f, 100f);
+            if (randomNumber < 50f)
+            {
+                Instantiate(CustomWeaponHolder.Instance.stickbugSpear, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
+            }
         }
 
         if (isMiniBoss)

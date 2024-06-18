@@ -501,6 +501,11 @@ MonoBehaviour:
   nutrientDrop: 10
   centerPoint: {fileID: 8634755480951926640}
   alreadyDead: 0
+  dmgTaken: 0
+  canDropStickbugSpear: 1
+  isMiniBoss: 0
+  miniBossName: 
+  possibleRewards: []
 --- !u!114 &8670599742647639839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,8 +535,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920be926432845f48aa5adef6fbae215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgDealt: 0
   launchPoint: {fileID: 2321294295829907015}
   attackCooldown: 2
+  attackWindupTime: 2
   projectile: {fileID: 7771920069990623049, guid: 8694cfcf450277f4bbc922c0dcc6ef8c,
     type: 3}
   enviromentLayer:
@@ -576,6 +583,7 @@ MonoBehaviour:
   forwardDetectionRange: 30
   backwardsDetectionRange: 15
   moveSpeed: 3
+  isFlyingEnemy: 0
   animator: {fileID: 0}
 --- !u!114 &-5641326329121973531
 MonoBehaviour:
@@ -646,6 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ca5d5665eea0249931a5fd1d2a2a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgDealt: 0
 --- !u!114 &-3869482343964833302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,5 +677,6 @@ MonoBehaviour:
   explosionTimer: 3
   explosionRadius: 5
   explosionDamage: 15
+  isFlyingEnemy: 0
   zombifiedParticles: {fileID: 7271823402501326704, guid: 4e7cbf47532765f4a937a638029a0364,
     type: 3}

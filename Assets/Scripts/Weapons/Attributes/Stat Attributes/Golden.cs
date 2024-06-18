@@ -7,10 +7,10 @@ public class Golden : AttributeBase
     private Renderer wepRen;
 
     public override void Initialize(){
-        primalAmount = 1;
-        sentienceAmount = 1;
-        speedAmount = 1;
-        vitalityAmount = 1;
+        primalAmount = 2;
+        sentienceAmount = 2;
+        speedAmount = 2;
+        vitalityAmount = 2;
         
         attName = "Golden";
         if(stats == null || hit == null){return;}

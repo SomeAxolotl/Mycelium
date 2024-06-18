@@ -8,7 +8,6 @@ public class Bouncy : AttributeBase
         attName = "Bouncy";
         attDesc = "Increase knockback by 50%";
         if(stats == null || hit == null){return;}
-        stats.wpnName = attName + " " + stats.wpnName;
 
         stats.statNums.advKnockback.AddModifier(new StatModifier(0.5f, StatModType.PercentAdd, this));
     }
