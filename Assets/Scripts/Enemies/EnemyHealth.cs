@@ -117,7 +117,7 @@ public class EnemyHealth : MonoBehaviour
         if (canDropStickbugSpear)
         {
             float randomNumber = UnityEngine.Random.Range(0f, 100f);
-            if (randomNumber < 50f)
+            if (randomNumber < 0.5f)
             {
                 Instantiate(CustomWeaponHolder.Instance.stickbugSpear, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
             }
