@@ -33,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
         swapWeapon = GetComponent<SwapWeapon>();
         GetHealthStats();
         currentHealth = maxHealth;
+        displayHealth = currentHealth;
         InvokeRepeating("Regen", 1f, 1f);
         hudHealth = GameObject.Find("HUD").GetComponent<HUDHealth>();
         hudItem = GameObject.Find("HUD").GetComponent<HUDItem>();
@@ -52,6 +53,14 @@ public class PlayerHealth : MonoBehaviour
             playerController.DisableController();
             playerController.isInvincible = true;
         }
+    }
+    private IEnumerator DamageTest(){
+        //Not used anywehre I used this to test the damage bar if you want -Griffin
+        PlayerTakeDamage(15);
+        yield return new WaitForSeconds(0.2f);
+        PlayerTakeDamage(15);
+        yield return new WaitForSeconds(0.4f);
+        PlayerHeal(1000);
     }
     public void GetHealthStats()
     {
@@ -87,41 +96,40 @@ public class PlayerHealth : MonoBehaviour
             }else{
                 realDmgTaken = dmgTaken;
             }
-            StartCoroutine(AnimateHealthChange(currentHealth - realDmgTaken));
-            UpdateHudHealthUI();
+            currentHealth -= realDmgTaken;
+            AnimateHealth(-realDmgTaken);
         }
         
     }
-    IEnumerator AnimateHealthChange(float targetHealth)
-    {
-        float duration = 0.5f; // Duration of the animation in seconds
-        float elapsed = 0f;
-        float startingHealth = currentHealth;
-        targetHealth = Mathf.Max(targetHealth, 0); // Ensure target health is not below 0
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
+    private void AnimateHealth(float healthChangeAmount){
+        if(healthChange == null){
+            healthChange = AnimateHealthChange(healthChangeAmount);
+            StartCoroutine(healthChange);  
+        }
+    }
+    private IEnumerator healthChange;
+    [SerializeField] private float displayHealth;
+    IEnumerator AnimateHealthChange(float healthChangeAmount){
+        float fillSpeed = 4f; //How fast the bar fills up 
+        displayHealth = Mathf.Clamp(currentHealth - healthChangeAmount, 0, maxHealth); //Finds the health before this happened
 
-            float t = elapsed / duration;
-
-            float newT = DylanTree.EaseOutQuart(t);
-
-            currentHealth = Mathf.Lerp(startingHealth, targetHealth, newT);
+        while(displayHealth != currentHealth){
+            displayHealth = Mathf.Lerp(displayHealth, currentHealth, Time.deltaTime * fillSpeed);
             UpdateHudHealthUI();
             yield return null;
         }
-        currentHealth = targetHealth;
         UpdateHudHealthUI();
-        if (currentHealth <= 0 && !dead)
-        {
+        if(currentHealth <= 0 && !dead){
             StartCoroutine(Death());
         }
+        healthChange = null;
     }
+
     public void PlayerHeal(float healAmount)
     {
-        if (dead)
+        if(dead || currentHealth <= 0)
         {
-            return; // Do not allow healing if the player is dead
+            return; // Do not allow healing if the player is dead, player is only "dead" after the animation starts
         }
         animator = GetComponentInChildren<Animator>();
         currentHealth += healAmount;
@@ -136,8 +144,7 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = maxHealth;
             
         }
-   
-        UpdateHudHealthUI();
+        //AnimateHealth(healAmount);
     }
     public Action Died;
     IEnumerator Death()
@@ -250,6 +257,7 @@ public class PlayerHealth : MonoBehaviour
     {
         GetHealthStats();
         currentHealth = maxHealth;
+        displayHealth = currentHealth;
         UpdateHudHealthUI();
     }
 
@@ -266,7 +274,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateHudHealthUI()
     {
-        hudHealth.UpdateHealthUI(currentHealth, maxHealth);
+        hudHealth.UpdateHealthUI(displayHealth, maxHealth);
     }
 
     [SerializeField] private GameObject healObj;
