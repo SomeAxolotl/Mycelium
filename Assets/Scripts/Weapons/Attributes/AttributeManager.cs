@@ -150,6 +150,8 @@ public class AttributeManager : MonoBehaviour
 
     public AttributeAssigner.Rarity GetHighestAttributeRarity()
     {
+        if (hasCustomName) return AttributeAssigner.Rarity.Forged;
+
         int highestRarity = (int) AttributeAssigner.Rarity.None;
         foreach(AttributeBase attribute in O_attributes)
         {
