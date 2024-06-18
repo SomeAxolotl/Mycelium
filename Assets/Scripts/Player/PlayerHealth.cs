@@ -53,12 +53,13 @@ public class PlayerHealth : MonoBehaviour
             playerController.DisableController();
             playerController.isInvincible = true;
         }
+        if(Input.GetKeyDown(KeyCode.UpArrow)){StartCoroutine(DamageTest());}
     }
     private IEnumerator DamageTest(){
         //Not used anywehre I used this to test the damage bar if you want -Griffin
-        PlayerTakeDamage(15);
+        PlayerTakeDamage(50);
         yield return new WaitForSeconds(0.2f);
-        PlayerTakeDamage(15);
+        PlayerTakeDamage(750);
         yield return new WaitForSeconds(0.4f);
         PlayerHeal(1000);
     }
@@ -98,6 +99,9 @@ public class PlayerHealth : MonoBehaviour
             }
             currentHealth -= realDmgTaken;
             AnimateHealth(-realDmgTaken);
+            if(currentHealth <= 0 && !dead){
+                StartCoroutine(Death());
+            }
         }
         
     }
@@ -110,18 +114,17 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator healthChange;
     [SerializeField] private float displayHealth;
     IEnumerator AnimateHealthChange(float healthChangeAmount){
-        float fillSpeed = 4f; //How fast the bar fills up 
+        float fillSpeed = 8f; //How fast the bar fills up 
         displayHealth = Mathf.Clamp(currentHealth - healthChangeAmount, 0, maxHealth); //Finds the health before this happened
 
         while(displayHealth != currentHealth){
             displayHealth = Mathf.Lerp(displayHealth, currentHealth, Time.deltaTime * fillSpeed);
+            displayHealth = Mathf.Clamp(displayHealth, 0, maxHealth);
+            if(Mathf.Abs(displayHealth - currentHealth) < 0.1f){displayHealth = currentHealth;} //If the display amount is super low just set it to 0
             UpdateHudHealthUI();
             yield return null;
         }
         UpdateHudHealthUI();
-        if(currentHealth <= 0 && !dead){
-            StartCoroutine(Death());
-        }
         healthChange = null;
     }
 
