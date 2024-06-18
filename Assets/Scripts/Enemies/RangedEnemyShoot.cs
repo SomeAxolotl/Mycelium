@@ -12,7 +12,7 @@ public class RangedEnemyShoot : EnemyAttack
     private bool canAttack = true;
     private bool attackStarted = false;
     [SerializeField]private float attackCooldown = 2f;
-    private float attackWindupTime = 2f;
+    [SerializeField]private float attackWindupTime = 2f;
     public GameObject projectile;
     IEnumerator attack;
     Animator animator;
