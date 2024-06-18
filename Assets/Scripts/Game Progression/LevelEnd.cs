@@ -87,14 +87,18 @@ public class LevelEnd : MonoBehaviour
         List<AttributeBase> currAtt = swapWeapon.O_curWeapon.GetComponents<AttributeBase>().ToList();
         if(currAtt.Count > 0){
             foreach(AttributeBase attBase in currAtt){
-                GlobalData.specialAttNum.Add(attBase.specialAttNum);
+                AttributeInfo newInfo = new AttributeInfo();
+                newInfo.attName = attBase.GetType().Name; //Needs to get the component name cause sometimes attribute names != component name
+                newInfo.attValue = attBase.specialAttNum;
+                newInfo.rating = attBase.rating;
+                GlobalData.currentAttribute.Add(newInfo);
                 attBase.Unequipped();
-                GlobalData.currentAttribute.Add(attBase.GetType().Name);
                 //Clears stats when a level in unloaded so the data from components is not saved
                 weaponStats.ClearAllStatsFrom(attBase);
             }
         }else{
-            GlobalData.currentAttribute.Add("Nothing");
+            AttributeInfo newInfo = new AttributeInfo();
+            GlobalData.currentAttribute.Add(newInfo);
         }
         //Weapon Stats
         GlobalData.currentWeaponStats = weaponStats.statNums;
@@ -152,12 +156,18 @@ public class LevelEnd : MonoBehaviour
         List<AttributeBase> currAtt = swapWeapon.O_curWeapon.GetComponents<AttributeBase>().ToList();
         if(currAtt.Count > 0){
             foreach(AttributeBase attBase in currAtt){
-                GlobalData.specialAttNum.Add(attBase.specialAttNum);
+                AttributeInfo newInfo = new AttributeInfo();
+                newInfo.attName = attBase.GetType().Name; //Needs to get the component name cause sometimes attribute names != component name
+                newInfo.attValue = attBase.specialAttNum;
+                newInfo.rating = attBase.rating;
+                GlobalData.currentAttribute.Add(newInfo);
                 attBase.Unequipped();
-                GlobalData.currentAttribute.Add(attBase.GetType().Name);
+                //Clears stats when a level in unloaded so the data from components is not saved
+                weaponStats.ClearAllStatsFrom(attBase);
             }
         }else{
-            GlobalData.currentAttribute.Add("Nothing");
+            AttributeInfo newInfo = new AttributeInfo();
+            GlobalData.currentAttribute.Add(newInfo);
         }
 
         //Save Current Stats

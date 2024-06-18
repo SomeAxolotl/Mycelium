@@ -199,12 +199,12 @@ public class LevelGenerator : MonoBehaviour
 
         List<AttributeBase> atts = new List<AttributeBase>();
         for(int i = 0; i < GlobalData.currentAttribute.Count; i++){
-            AttributeBase newAtt = AttributeAssigner.Instance.PickAttFromString(previousWeapon, GlobalData.currentAttribute[i]);
-            newAtt.specialAttNum = GlobalData.specialAttNum[i];   
+            AttributeBase newAtt = AttributeAssigner.Instance.PickAttFromString(previousWeapon, GlobalData.currentAttribute[i].attName);
+            newAtt.specialAttNum = GlobalData.currentAttribute[i].attValue;
+            newAtt.rating = GlobalData.currentAttribute[i].rating;
             atts.Add(newAtt);
         }
         GlobalData.currentAttribute.Clear();
-        GlobalData.specialAttNum.Clear();
         yield return new WaitForSeconds(0.1f);
         previousWeapon.GetComponent<WeaponInteraction>().ApplyWeaponPositionAndRotation();
         for(int i = 0; i < atts.Count; i++){

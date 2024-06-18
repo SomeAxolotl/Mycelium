@@ -19,8 +19,7 @@ public static class GlobalData
     public static WeaponStatList currentWeaponStats { get; set; }
 
     //Attribute Stuff
-    public static List<string> currentAttribute = new List<string>();
-    public static List<float> specialAttNum = new List<float>();
+    public static List<AttributeInfo> currentAttribute = new List<AttributeInfo>();
 
     //Nutrient Deposit Stuff
     public static List<int> currentSporeStats = new List<int>();

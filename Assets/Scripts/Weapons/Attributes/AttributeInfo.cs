@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttributeInfo
 {
-    public string attName;
-    public float attValue;
+    public string attName = "Nothing";
+    public float attValue = 0;
     public AttributeAssigner.Rarity rating;
 }
