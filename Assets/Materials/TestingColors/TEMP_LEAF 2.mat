@@ -21,14 +21,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TEMP_LEAF 2
-  m_Shader: {fileID: -6465566751694194690, guid: e5e0545853cbd964eb326b68c47e38f7,
+  m_Shader: {fileID: -6465566751694194690, guid: dcea5519a395753438d28e9a0b1d23d7,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _MAIN_LIGHT_SHADOWS
-  - _MAIN_LIGHT_SHADOWS_CASCADE
-  - _SOFT_SHADOWS
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -61,6 +58,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Glow_Opacity:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -107,7 +108,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _ActivateFishMode: 0
-    - _ActivateWind: 0
+    - _ActivateWind: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -122,6 +123,7 @@ Material:
     - _Disable_Fresnel: 1
     - _Disable_Specular: 1
     - _DitherSize: 2
+    - _DitheringSize: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -134,15 +136,20 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _Glowing: 0
     - _Hue: 2
     - _LightingCutoff: 0.07
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
     - _Metallic: 0
     - _Mode: 0
+    - _Noise_Scale: 0.2
     - _OcclusionStrength: 1
     - _OpacityOverride: 1
     - _Parallax: 0.02
+    - _Position_Based: 1
+    - _Pulse: 0
+    - _Pulse_Speed: 1.85
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -157,9 +164,11 @@ Material:
     - _Surface: 0
     - _UVSec: 0
     - _Value: -0
+    - _Variant_Hue: 36
+    - _Variant_Saturation_Value: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _totalBendStrength: 0
+    - _totalBendStrength: 6
     - _xBendStrength: 0
     - _zBendStrength: 0
     m_Colors:
@@ -168,6 +177,7 @@ Material:
     - _Diffuse_Color: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Frenel_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Glow_Color: {r: 0.1088198, g: 0.7490196, b: 0.4722458, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Shadow_Color: {r: 0.14901961, g: 0.18384974, b: 0.2627451, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
