@@ -179,7 +179,7 @@ public class CrabAttack : EnemyAttack
         float timeElapsed_02 = 0f;
         float digDuration_02 = 3f;
         Vector3 startPosition_02 = transform.position;
-        Vector3 endPosition_02 = transform.position + new Vector3(0f, 9f, 0f);
+        Vector3 endPosition_02 = transform.position + new Vector3(0f, 9.5f, 0f);
         bool jumpStarted = false;
         while (timeElapsed_02 < digDuration_02)
         {
