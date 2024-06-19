@@ -12,7 +12,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
 {
     [SerializeField] private Canvas enemyHealthCanvas;
     [SerializeField] private Image enemyHealthPanel;
-    [SerializeField] private Color enemyHealthPanelDeathColor;
+    //[SerializeField] private Color enemyHealthPanelDeathColor;
     public TMP_Text enemyHealthName;
     [SerializeField] private GameObject damageTextObject;
     private TMP_Text damageText;
@@ -90,7 +90,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
 
         if (targetRatio <= 0)
         {
-            StartCoroutine(LerpPanelColor());
+            StartCoroutine(LerpPanelSize());
         }
     }
 
@@ -104,7 +104,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         if (Mathf.RoundToInt(damage) > 0)
         {
             //Debug.Log("damage number");
-            Transform parentTransform = transform.GetChild(0);
+            Transform parentTransform = transform.GetChild(2);
             GameObject damageTextInstance = Instantiate(damageTextObject, damageTextAnchorRectTransform.position, transform.GetChild(0).rotation, parentTransform);
             TMP_Text damageText = damageTextInstance.GetComponent<TMP_Text>();
 
@@ -133,23 +133,23 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         }
     }
 
-    IEnumerator LerpPanelColor()
+    IEnumerator LerpPanelSize()
     {
-        Color startingColor = enemyHealthPanel.color;
+        Vector3 startingScale = enemyHealthPanel.rectTransform.localScale;
 
         float timer = 0f;
         while (timer < fadeOutDuration)
         {
             float t = DylanTree.EaseOutQuart(timer / fadeOutDuration);
 
-            enemyHealthPanel.color = Color.Lerp(startingColor, enemyHealthPanelDeathColor, t);
+            enemyHealthPanel.rectTransform.localScale = Vector3.Lerp(new Vector3(startingScale.x, startingScale.y, startingScale.z), new Vector3(0f, startingScale.y, startingScale.z), t);
 
             timer += Time.deltaTime;
 
             yield return null;
         }
 
-        enemyHealthPanel.color = enemyHealthPanelDeathColor;
+        enemyHealthPanel.rectTransform.localScale = Vector3.zero;
     }
 
     void Update()
