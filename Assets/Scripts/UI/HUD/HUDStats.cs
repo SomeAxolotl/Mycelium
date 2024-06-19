@@ -160,7 +160,7 @@ public class HUDStats : MonoBehaviour
         speedText.text = characterStats.speedLevel.ToString();
         vitalityText.text = characterStats.vitalityLevel.ToString();
 
-        primalDamageText.text = "(" + characterStats.primalDmg.ToString() + ")";
+        primalDamageText.text = characterStats.primalDmg.ToString();
         baseHealthText.text = Mathf.Ceil(GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().currentHealth).ToString() + "/" + Mathf.Ceil(characterStats.baseHealth).ToString();
     }
 }
