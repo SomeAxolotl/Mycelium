@@ -69,7 +69,6 @@ public class CharSelectManagerNew : MonoBehaviour
         //SceneManager.LoadScene("Prototype Level");
         playerController.EnableController();
         UIEnable.SetActive(false);
-        GlobalData.isAbleToPause = true;
 
         if (GameObject.FindWithTag("PlayerParent").GetComponent<SwapCharacter>().characters.Count > 1)
         {
