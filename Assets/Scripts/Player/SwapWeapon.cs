@@ -12,7 +12,7 @@ public class SwapWeapon : MonoBehaviour
     [SerializeField] private LayerMask weaponLayer;
     Transform weapon;
     [HideInInspector] public GameObject currentCharacter;
-    [HideInInspector] public Transform weaponHolder;
+    public Transform weaponHolder;
     SwapCharacter swapCharacter;
     PlayerController playerController;
     private GameObject curWeapon;
@@ -40,7 +40,7 @@ public class SwapWeapon : MonoBehaviour
         swapCharacter = GetComponent<SwapCharacter>();
         playerController = GetComponent<PlayerController>();
         currentCharacter = GameObject.FindWithTag("currentPlayer");
-        if (GameObject.FindWithTag("currentWeapon") == null && SceneManager.GetActiveScene().buildIndex == 1)
+        if (GameObject.FindWithTag("currentWeapon") == null && SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().name == "Playground")
         {
             GameObject startingWeapon = Instantiate(Resources.Load("Slash/Stick"), GameObject.FindWithTag("WeaponSlot").transform) as GameObject;
             startingWeapon.layer = LayerMask.NameToLayer("currentWeapon");

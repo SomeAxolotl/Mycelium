@@ -239,7 +239,14 @@ public class PlayerHealth : MonoBehaviour
 
         //Start loading the next scene
         sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
-        sceneLoaderScript.BeginLoadScene("The Carcass", false, diedInTutorial);
+        if (SceneManager.GetActiveScene().name == "Playground")
+        {
+            sceneLoaderScript.BeginLoadScene("Playground", false);
+        }
+        else
+        {
+            sceneLoaderScript.BeginLoadScene("The Carcass", false, diedInTutorial);
+        }
 
         //Wait until the scene finishes loading and then do some final stuff
         yield return new WaitUntil(() => SceneManager.GetSceneByBuildIndex(2).isLoaded);
