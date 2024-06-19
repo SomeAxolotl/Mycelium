@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HUDController : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class HUDController : MonoBehaviour
 
     void Awake()
     {
-        GetComponent<CanvasGroup>().alpha = 0f;
+        if (SceneManager.GetActiveScene().name != "Playground")
+        {
+            GetComponent<CanvasGroup>().alpha = 0f;
+        }
     }
 
     public void SlideHUDElement(RectTransform element, RectTransform toTarget)

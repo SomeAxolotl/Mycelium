@@ -14,6 +14,7 @@ public class MushyAttack : EnemyAttack
     private float resetAttack;
     private float moveSpeed = 4f;
     [HideInInspector] public bool zombified = false;
+    [SerializeField] private float attackWindup = 0.3f;
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] public float damage = 20f;
     [HideInInspector] public float knockbackForce = 30f;
@@ -111,7 +112,7 @@ public class MushyAttack : EnemyAttack
         yield return null;
         if (disFromPlayer <= 3f)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(attackWindup);
             if (!zombified)
             {
                 attackStarted = false;
