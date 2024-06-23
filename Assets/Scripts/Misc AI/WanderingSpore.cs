@@ -97,6 +97,8 @@ public class WanderingSpore : MonoBehaviour
 
     void OnDisable()
     {
+        if (GlobalData.isQuitting) return;
+        
         rb.mass = rbInactiveMass;
 
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))

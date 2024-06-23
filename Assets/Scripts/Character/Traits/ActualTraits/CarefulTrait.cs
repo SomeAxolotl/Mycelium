@@ -22,6 +22,8 @@ public class CarefulTrait : TraitBase
         StartCoroutine(combatTimer);
     }
     public override void SporeUnselected(){
+        if (GlobalData.isQuitting) return;
+
         O_health.TakeDamage -= TakeDamage;
         //Stops all coroutines and turns off the bubble
         if(combatTimer != null){

@@ -313,4 +313,9 @@ public class GameManager : MonoBehaviour
             nutrientTracker.SubtractNutrients(1);
         }
     }
+
+    void OnApplicationQuit()
+    {
+        GlobalData.isQuitting = true;
+    }
 }

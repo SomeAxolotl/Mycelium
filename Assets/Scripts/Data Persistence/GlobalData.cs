@@ -52,4 +52,7 @@ public static class GlobalData
 
     //Debug Stuff
     public static bool canShowTooltips = true;
+
+    //Quitting Stuff
+    public static bool isQuitting = false;
 }
