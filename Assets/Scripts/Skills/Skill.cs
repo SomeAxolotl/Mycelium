@@ -145,10 +145,6 @@ public abstract class Skill : MonoBehaviour
     //Fungal Might for Skills
     public virtual void ActivateFungalMight(float fungalMightValue)
     {
-        if (this is FungalMight)
-        {
-            Debug.Log("setting fungalActive to true");
-        }
         fungalActive = true;
         fungalMightBonusChungus = fungalMightValue;
     }

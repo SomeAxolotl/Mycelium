@@ -84,9 +84,11 @@ public class WanderingSpore : MonoBehaviour
 
     IEnumerator StartingCoroutine()
     {
+        characterStats.CalculateHappinessAnimations();
+
         currentState = WanderingStates.Standing;
 
-        float randomStartingTime = Random.Range(1f, 2f);
+        float randomStartingTime = Random.Range(0.2f, 0.8f);
 
         yield return new WaitForSeconds(randomStartingTime);
 
@@ -95,15 +97,14 @@ public class WanderingSpore : MonoBehaviour
 
     void OnDisable()
     {
-        animator.SetBool("HappyWalk", false);
-        animator.SetBool("SadWalk", false);
-
         rb.mass = rbInactiveMass;
 
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             animator.Rebind();
         }
+
+        characterStats.CalculateHappinessAnimations();
 
         EndInteractingCurioEvent();
 
@@ -363,7 +364,7 @@ public class WanderingSpore : MonoBehaviour
 
             currentWaypoint = waypoints[0];
 
-            animator.SetBool(GetWalkAnimation(), true);
+            animator.SetBool("Walk", true);
 
             if (avoiding)
             {
@@ -496,33 +497,12 @@ public class WanderingSpore : MonoBehaviour
         return nearbySpores[Random.Range(0, nearbySpores.Count)];
     }
 
-    public string GetWalkAnimation()
-    {
-        float happiness = GetComponent<CharacterStats>().sporeHappiness;
-        string walkAnimation = "Walk";
-
-        if (happiness > 0.7f)
-        {
-            walkAnimation = "HappyWalk";
-        }
-        else if (happiness > 0.3f)
-        {
-            walkAnimation = "Walk";
-        }
-        else
-        {
-            walkAnimation = "SadWalk";
-        }
-
-        return walkAnimation;
-    }
-
     //Stands idle for a period based on happiness + personality
     IEnumerator Stand()
     {
         currentState = WanderingStates.Standing;
 
-        animator.SetBool(GetWalkAnimation(), false);
+        animator.SetBool("Walk", false);
 
         float happiness = characterStats.sporeHappiness;
         float minStandingTime = Mathf.Lerp(minHappinessMinStandingTime, maxHappinessMinStandingTime, happiness);

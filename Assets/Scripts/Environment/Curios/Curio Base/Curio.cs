@@ -117,7 +117,7 @@ public abstract class Curio : MonoBehaviour
         yield return new WaitUntil(() => wanderingSpore.currentState == WanderingSpore.WanderingStates.Ready || wanderingSpore.interactingCurio == null);
         if (wanderingSpore.interactingCurio != null)
         {
-            wanderingSpore.GetComponent<Animator>().SetBool(wanderingSpore.GetWalkAnimation(), false);
+            wanderingSpore.GetComponent<Animator>().SetBool("Walk", false);
 
             if (wanderingSpore != null)
             {

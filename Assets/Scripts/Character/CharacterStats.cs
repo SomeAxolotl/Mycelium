@@ -70,6 +70,7 @@ public class CharacterStats : MonoBehaviour
     private SporeAttributeRanges sporeAttributeRanges;
     private PlayerController playerController;
     private SkillManager skillManager;
+    private Animator sporeAnimator;
     public GameObject ConfirmPrimal;
     public GameObject ConfirmSpeed;
     //[SerializeField] private Nametag nametag;
@@ -78,6 +79,10 @@ public class CharacterStats : MonoBehaviour
 
     public float animatorSpeed;
     private LevelUpManagerNew levelscript;
+
+    [SerializeField] AnimatorOverrideController defaultAnimator;
+    [SerializeField] AnimatorOverrideController happyAnimator;
+    [SerializeField] AnimatorOverrideController sadAnimator;
 
     public enum Stats
     {
@@ -94,6 +99,9 @@ public class CharacterStats : MonoBehaviour
         GameObject playerParent = GameObject.FindWithTag("PlayerParent");
         skillManager = playerParent.GetComponent<SkillManager>();
         sporeAttributeRanges = playerParent.GetComponent<SporeAttributeRanges>();
+        sporeAnimator = GetComponent<Animator>();
+
+        CalculateHappinessAnimations();
     }
 
     void Update()
@@ -131,6 +139,39 @@ public class CharacterStats : MonoBehaviour
 
             ParticleManager.Instance.SpawnParticles("SadParticles", spawnPosition, Quaternion.Euler(-90, 0, 0), this.gameObject);
             SoundEffectManager.Instance.PlaySound("Sad Find", this.gameObject.transform, -0.4f, 1f);
+        }
+
+        CalculateHappinessAnimations();
+    }
+
+    public void CalculateHappinessAnimations()
+    {
+        StartCoroutine(CalculateHappinessAnimationsRoutine());
+    }
+
+    IEnumerator CalculateHappinessAnimationsRoutine()
+    {
+        yield return null;
+
+        //current player always animates normally--only other spores have happiness animations
+        if (gameObject.tag == "currentPlayer")
+        {
+            sporeAnimator.runtimeAnimatorController = defaultAnimator;
+        }
+        else
+        {
+            if (sporeHappiness > 0.75)
+            {
+                sporeAnimator.runtimeAnimatorController = happyAnimator;
+            }
+            else if (sporeHappiness < 0.25)
+            {
+                sporeAnimator.runtimeAnimatorController = sadAnimator;
+            }
+            else
+            {
+                sporeAnimator.runtimeAnimatorController = defaultAnimator;
+            }
         }
     }
 
