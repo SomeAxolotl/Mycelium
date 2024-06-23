@@ -60,7 +60,7 @@ public class FungalMight : Skill
 
         if (rightHand != null)
         {
-            ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, rightHand);
+            ParticleManager.Instance.SpawnParticles("FungalMightParticles", rightParticlesPositionH + particlesPositionV, rightParticleRotation, rightHand, new Vector3(0.75f, 0.75f, 0.75f));
         }
         else
         {
@@ -69,7 +69,7 @@ public class FungalMight : Skill
 
         if (leftHand != null)
         {
-            ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, leftHand);
+            ParticleManager.Instance.SpawnParticles("FungalMightParticles", leftParticlesPositionH + particlesPositionV, leftParticleRotation, leftHand, new Vector3(0.75f, 0.75f, 0.75f));
         }
         else 
         {
