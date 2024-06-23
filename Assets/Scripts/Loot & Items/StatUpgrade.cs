@@ -86,7 +86,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
             TooltipManager.Instance.CreateTooltip
             (
                 gameObject, 
-                "Nutrient Deposit", 
+                "Nutritious Deposit", 
                 "Press "+interactText+"  <sprite="+statNumber1+"> +" + ((multiplyAmount * 100) - 100f) + "%" + "\nOR \nPress "+salvageText+"  <sprite="+statNumber2+"> +" + ((multiplyAmount * 100f) - 100f) + "%", 
                 "Choose One"
             );
@@ -96,7 +96,7 @@ public class StatUpgrade : MonoBehaviour, IInteractable
             TooltipManager.Instance.CreateTooltip
             (
                 gameObject, 
-                "Nutrient Deposit", 
+                "Nutritious Deposit", 
                 "Press "+interactText+"  <sprite="+statNumber1+"> +" + statIncreaseAmount + "\nOR \nPress "+salvageText+"  <sprite="+statNumber2+"> +" + statIncreaseAmount, 
                 "Choose One"
             );

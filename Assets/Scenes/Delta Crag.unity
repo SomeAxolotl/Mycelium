@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -713,6 +713,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5683128455294311745, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5683128455294311745, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5f53d4a8bcff0ff4783143038fbc13ba, type: 3}
     - target: {fileID: 5760888971066292467, guid: 3effefc5c4dccae468ff2be6b46a4bb2,
         type: 3}
       propertyPath: m_Name
@@ -1594,6 +1604,8 @@ MonoBehaviour:
   - {fileID: 2794766699052573258, guid: 8c50d0b3f8dc47048b18106239567e10, type: 3}
   CheckpointBChunk: {fileID: 0}
   MaxNumberOfPieces: 3
+  spawnedMiddleChunks: []
+  allowDuplicateChunks: 0
   themeForLevel: 0
   skyboxProfilePairs:
   - skyboxPrefab: {fileID: 2983937412359025863, guid: 4652198e6755c894baac6d9a5eba084c,

@@ -14,6 +14,13 @@ public class SensitivityManager : MonoBehaviour
         cinemachineFreeLook = GetComponent<CinemachineFreeLook>();
     }
 
+    IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        UpdateCamera();
+    }
+
     public void UpdateCamera()
     {
         InputManager.Controller controller = InputManager.Instance.GetLatestController();

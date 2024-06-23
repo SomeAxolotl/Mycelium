@@ -50,6 +50,7 @@ public class OptionsScript : MonoBehaviour
     public void SetBGMVolume(float sliderValue)
     {
         masterMixer.SetFloat("BGMVolume", Mathf.Log10(sliderValue) * 20);
+        masterMixer.SetFloat("AmbienceVolume", Mathf.Log10(sliderValue) * 20);
 
         //Debug.Log("BGM");
     }
@@ -57,7 +58,6 @@ public class OptionsScript : MonoBehaviour
     public void SetSFXVolume(float sliderValue)
     {
         masterMixer.SetFloat("SFXVolume", Mathf.Log10(sliderValue) * 20);
-        masterMixer.SetFloat("AmbienceVolume", Mathf.Log10(sliderValue) * 20);
 
         //Debug.Log("SFX");
     }

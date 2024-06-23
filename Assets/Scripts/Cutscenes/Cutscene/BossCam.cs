@@ -60,6 +60,7 @@ public class BossCam : MonoBehaviour
 
     IEnumerator BossIntroCutscene()
     {
+        GameObject.Find("BackgroundMusicPlayer").GetComponent<AudioSource>().Play();
         SoundEffectManager.Instance.PlaySound("Boss Intro", GameObject.FindWithTag("Camtracker").transform, 0, 1, 200);
 
         float oldBlendTime = mainBrain.m_DefaultBlend.m_Time;
@@ -76,8 +77,6 @@ public class BossCam : MonoBehaviour
 
             yield return null;
         }
-
-        GameObject.Find("BackgroundMusicPlayer").GetComponent<AudioSource>().Play();
 
         introVCamDolly.m_PathPosition = 1;
 
