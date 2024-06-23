@@ -49,13 +49,22 @@ public class ShellVelocity : MonoBehaviour
         {
             collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
+            if (this.gameObject.tag == "Enemy")
+            {
+                return;
+            }
             Destroy(gameObject);
         }
         else if (collision.gameObject.layer == 8 || collision.gameObject.layer == 12)
         {
             ParticleManager.Instance.SpawnParticles("SmashParticle", transform.position, Quaternion.Euler(-90, 0, 0));
             SoundEffectManager.Instance.PlaySound("Explosion", transform);
+            if (this.gameObject.tag == "Enemy")
+            {
+                return;
+            }
             Destroy(gameObject);
         }
+        
     }
 }

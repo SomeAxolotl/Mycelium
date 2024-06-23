@@ -379,6 +379,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7205836554696549166, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7725002319572029577, guid: 0df4eba4f355a174bb1a0f2c3c0338d8,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -834,6 +839,11 @@ MonoBehaviour:
   nutrientDrop: 30
   centerPoint: {fileID: 6602751335387164853}
   alreadyDead: 0
+  dmgTaken: 0
+  canDropStickbugSpear: 0
+  isMiniBoss: 0
+  miniBossName: 
+  possibleRewards: []
 --- !u!114 &1231419775737771195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,6 +888,7 @@ MonoBehaviour:
   forwardDetectionRange: 30
   backwardsDetectionRange: 15
   moveSpeed: 2
+  isFlyingEnemy: 0
   animator: {fileID: 0}
 --- !u!114 &227606025479956837
 MonoBehaviour:
@@ -904,6 +915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ca5d5665eea0249931a5fd1d2a2a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgDealt: 0
 --- !u!114 &8586649529837719991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,6 +938,7 @@ MonoBehaviour:
   explosionTimer: 3
   explosionRadius: 5
   explosionDamage: 15
+  isFlyingEnemy: 0
   zombifiedParticles: {fileID: 7271823402501326704, guid: 4e7cbf47532765f4a937a638029a0364,
     type: 3}
 --- !u!95 &467741495943074513
@@ -1005,6 +1018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4f63616cf0ddb4d8a8e3454e35e3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmgDealt: 0
   zombified: 0
   meleeDamage: 50
   movementSpeed: 3

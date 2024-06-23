@@ -5,55 +5,60 @@ using UnityEngine;
 public class SecretCacheRevealer : MonoBehaviour
 {
     [SerializeField][Tooltip("The cache that will be revealed")] private GameObject cacheObject;
-    [SerializeField][Tooltip("The y-value to which the cache will rise")] private float revealYValue = 1f;
-    [SerializeField][Tooltip("The tag of the heavy weapon")] private string heavyWeaponTag = "Slam";
-    [SerializeField][Tooltip("The speed at which the cache rises")] private float riseSpeed = 2f;
-    [SerializeField][Tooltip("Delay before the cache becomes accessible")] private float accessibilityDelay = 1f;
+    [SerializeField][Tooltip("The y-value to which the cache will rise relative to its initial position")] private float revealYValue = 1f;
+    [SerializeField][Tooltip("The initial upward force to apply to the cache")] private float upwardForce = 5f;
+    [SerializeField][Tooltip("The collider that will trigger the reveal")] private Collider triggerCollider;
 
     private bool isRevealed = false;
-    private Vector3 targetPosition;
+    private Rigidbody cacheRigidbody;
 
     private void Start()
     {
         if (cacheObject != null)
         {
-            targetPosition = new Vector3(cacheObject.transform.position.x, revealYValue, cacheObject.transform.position.z);
+            // Ensure the cache object has a Rigidbody component
+            cacheRigidbody = cacheObject.GetComponent<Rigidbody>();
+            if (cacheRigidbody == null)
+            {
+                cacheRigidbody = cacheObject.AddComponent<Rigidbody>();
+            }
+            cacheRigidbody.useGravity = false; // Disable gravity initially
+            cacheRigidbody.isKinematic = true; // Disable physics simulation initially
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isRevealed && other.CompareTag(heavyWeaponTag))
+        WeaponStats weaponStats = other.GetComponent<WeaponStats>();
+        if (!isRevealed && weaponStats != null && weaponStats.weaponType == WeaponStats.WeaponTypes.Smash)
         {
-            WeaponStats weaponStats = other.GetComponent<WeaponStats>();
-            if (weaponStats != null && weaponStats.weaponType == WeaponStats.WeaponTypes.Smash)
-            {
-                StartCoroutine(RevealCache());
-            }
+            StartCoroutine(RevealCache());
         }
     }
 
     private IEnumerator RevealCache()
     {
         isRevealed = true;
-        float elapsedTime = 0f;
         Vector3 startPosition = cacheObject.transform.position;
 
-        while (elapsedTime < 1f)
-        {
-            cacheObject.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime);
-            elapsedTime += Time.deltaTime * riseSpeed;
-            yield return null;
-        }
+        // Set the Rigidbody to use physics simulation
+        cacheRigidbody.isKinematic = false;
+        cacheRigidbody.useGravity = true;
 
-        cacheObject.transform.position = targetPosition;
-        yield return new WaitForSeconds(accessibilityDelay);
+        // Apply an upward force to the cache
+        cacheRigidbody.AddForce(Vector3.up * upwardForce, ForceMode.Impulse);
 
-        // Enable interaction with the cache
+        // Wait until the cache reaches its peak and starts falling
+        yield return new WaitUntil(() => cacheRigidbody.velocity.y <= 0);
+
+        // Constrain the x-axis movement
+        cacheRigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
+
+        // Enable interaction with the cache once it starts falling
         var secretCache = cacheObject.GetComponent<SecretCache>();
         if (secretCache != null)
         {
-            secretCache.enabled = true;
+            secretCache.EnableInteraction();
         }
     }
 }

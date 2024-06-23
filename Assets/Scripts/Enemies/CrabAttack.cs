@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -31,6 +32,7 @@ public class CrabAttack : EnemyAttack
     [SerializeField] private GameObject shellProjectile;
     [SerializeField] private GameObject shell;
     [SerializeField] private GameObject meleeHitbox;
+    [SerializeField] private GameObject isopod;
     private List<GameObject> playerHit = new List<GameObject>();
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
@@ -109,11 +111,21 @@ public class CrabAttack : EnemyAttack
         attackStarted = true;
         if(holdingShell)
         {
+
             holdingShell = false;
             yield return new WaitForSeconds(shellthrowWindup);
             Destroy(shell);
-            GameObject spawnedShell = Instantiate(shellProjectile, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
-            spawnedShell.GetComponent<ShellVelocity>().LaunchShell();
+            if (GameObject.Find("KingCrab") != null)
+            {
+                GameObject spawnedIsopod = Instantiate(isopod, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
+                spawnedIsopod.GetComponent<ShellVelocity>().LaunchShell();
+            }
+            else
+            {
+                GameObject spawnedShell = Instantiate(shellProjectile, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
+
+                spawnedShell.GetComponent<ShellVelocity>().LaunchShell();
+            }
             animator.SetBool("HasShell", false);
             attackStarted = false;
             yield return new WaitForSeconds(attackCooldown/2f);

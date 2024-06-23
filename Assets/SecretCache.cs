@@ -8,6 +8,7 @@ public class SecretCache : MonoBehaviour, IInteractable
     [SerializeField][Tooltip("Custom loot table for secret caches")] private LootTable secretLootTable;
     [SerializeField] private int nutrientMin = 50;
     [SerializeField] private int nutrientMax = 200;
+    private bool canInteract = false;
     GameObject player;
 
     private void Start()
@@ -24,12 +25,13 @@ public class SecretCache : MonoBehaviour, IInteractable
         {
             nutrientMax = nutrientMax / 20;
         }
-
-        this.enabled = false; // Initially disable the script
     }
 
     public void Interact(GameObject interactObject)
     {
+        if (!canInteract)
+            return;
+
         SoundEffectManager.Instance.PlaySound("Cache", transform.position);
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", transform.position, Quaternion.Euler(-90, 0, 0));
 
@@ -40,11 +42,14 @@ public class SecretCache : MonoBehaviour, IInteractable
 
     public void Salvage(GameObject interactObject)
     {
-        //buh
+        // Salvage logic here
     }
 
     public void CreateTooltip(GameObject interactObject)
     {
+        if (!canInteract)
+            return;
+
         string buttonText = InputManager.Instance.GetLatestController().interactHint.GenerateColoredHintString();
         TooltipManager.Instance.CreateTooltip
         (
@@ -92,5 +97,10 @@ public class SecretCache : MonoBehaviour, IInteractable
             }
         }
         return loots[UnityEngine.Random.Range(0, loots.Count)];
+    }
+
+    public void EnableInteraction()
+    {
+        canInteract = true;
     }
 }

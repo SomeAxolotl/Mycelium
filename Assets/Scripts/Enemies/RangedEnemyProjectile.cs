@@ -45,6 +45,10 @@ public class RangedEnemyProjectile : MonoBehaviour
         {
             ReverseProjectile();
         }
+        else if (collision.gameObject.name == "Council")
+        {
+            ScaleProjectile();
+        }
         if (collision.gameObject.tag == "Enemy" && this.gameObject.tag == "ReversedProjectile")
         {
             enemyCollisionOccurred = true;
@@ -65,5 +69,9 @@ public class RangedEnemyProjectile : MonoBehaviour
         rb.velocity = -rb.velocity * 2.5f;
 
         rend.material = negativeVelocityMaterial;
+    }
+    private void ScaleProjectile()
+    {
+        transform.localScale *= 2; // Scale the projectile to twice its size, adjust the multiplier as needed
     }
 }

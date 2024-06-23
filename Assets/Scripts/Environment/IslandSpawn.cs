@@ -38,8 +38,19 @@ public class IslandSpawn : MonoBehaviour
         // Teleport player
         currentPlayer.transform.position = islandRespawnPoint.position;
         GameManager.Instance.NavigateCamera();
+        Rigidbody rb = currentPlayer.GetComponent<Rigidbody>();
+        //Constraints rigidbody for a frame to prevent clipping
+        if (rb != null)
+        {
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
 
         yield return null;
+
+        if (rb != null)
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+        }
 
         yield return new WaitForSeconds(timeUntilRespawn);
         yield return hudController.StartCoroutine(hudController.BlackFade(false));

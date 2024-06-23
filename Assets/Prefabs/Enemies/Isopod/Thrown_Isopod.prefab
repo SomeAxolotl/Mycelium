@@ -242,17 +242,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
         type: 3}
@@ -592,7 +592,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
         type: 3}
       propertyPath: m_Name
-      value: Isopod
+      value: Thrown_Isopod
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
         type: 3}
@@ -904,6 +904,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2340769257532124253}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2828332507783386516}
   m_SourcePrefab: {fileID: 100100000, guid: df4c76a7cf20fa64fa7c2655a91ee53e, type: 3}
 --- !u!4 &3317325325442332336 stripped
 Transform:
@@ -1149,6 +1153,21 @@ MonoBehaviour:
   enviromentLayer:
     serializedVersion: 2
     m_Bits: 4096
+--- !u!114 &-2828332507783386516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7452597292503758511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30e63a1776cb2c4db4e3339ffab66fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 50
+  particles: {fileID: 5729658970925609881, guid: 07fdbc1aa183d614aa6f1bfd466ff49a,
+    type: 3}
 --- !u!4 &7793234428381703189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: df4c76a7cf20fa64fa7c2655a91ee53e,
