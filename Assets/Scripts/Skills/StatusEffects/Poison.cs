@@ -58,6 +58,9 @@ public class Poison : MonoBehaviour
     }
 
     private IEnumerator PoisonCoroutine(){
+        float randomJuiceWait = Random.Range(0f, 0.2f);
+        yield return new WaitForSeconds(randomJuiceWait);
+
         while(currPoisonTime > 0){
             currPoisonTime -= Time.deltaTime;
             currTickTime += Time.deltaTime;

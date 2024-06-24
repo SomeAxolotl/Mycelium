@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class SoundEffectManager : MonoBehaviour
 {
     public static SoundEffectManager Instance;
 
     [SerializeField] private AudioMixerGroup audioMixerGroup;
-    //[SerializeField] private float minDistance = 5f;
+
+    [SerializeField] private List<SoundEffect> soundEffects;
 
     void Awake()
     {
@@ -21,8 +26,6 @@ public class SoundEffectManager : MonoBehaviour
             Instance = this;
         }
     }
-
-    [SerializeField] private List<SoundEffect> soundEffects;
 
     //Overload that DOESNT child the sound (it WONT follow the object)
     public void PlaySound(string clipName, Vector3 position, float volumeModifier = 0f, float pitchMultiplier = 1f, float maxDistance = 25f)
@@ -100,36 +103,95 @@ public class SoundEffectManager : MonoBehaviour
         [SerializeField] public float sfxPitchRange = 0.25f;
         [SerializeField] public List<AudioClip> sfxSounds = new List<AudioClip>();
     }
-
-    //These are from when I was trying to use Reflection to dynamically change variable references
-    /*List<AudioClip> GetClipList(string clipName)
-    {
-        switch (clipName)
-        {
-            case "impact":
-                return 
-        }
-
-        List<AudioClip> clipList = (List<AudioClip>)this.GetType().GetField(clipName + "Sounds").GetValue(this);
-        return clipList;
-    }
-
-    float GetClipVolume(string clipName)
-    {
-        float clipVolume = (float)this.GetType().GetField(clipName + "Volume").GetValue(this);
-        return clipVolume;
-    }
-
-    private AudioSource GetFirstAvailableAudioSource()
-    {
-        for (int i = 0; i < audioSources.Count; i++)
-        {
-            if (!audioSources[i].isPlaying)
-            {
-                return audioSources[i];
-            }
-        }
-        Debug.Log("NO AVAILABLE AUDIO SOURCES (ADD MORE)");
-        return null;
-    }*/
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(SoundEffectManager))]
+public class SoundEffectManagerEditor : Editor
+{
+    SerializedProperty soundEffects;
+
+    int previewSfxIndex = 0;
+    AudioSource previewAudioSource;
+
+    GUIStyle headerStyle;
+
+    void OnEnable()
+    {
+        soundEffects = serializedObject.FindProperty("soundEffects");
+        
+        GameObject audioSourceGameObject = new GameObject("AudioSourcePreview");
+        previewAudioSource = audioSourceGameObject.AddComponent<AudioSource>();
+        audioSourceGameObject.hideFlags = HideFlags.HideAndDontSave;
+    }
+
+    void OnDisable()
+    {
+        // Clean up the temporary AudioSource
+        if (previewAudioSource != null)
+        {
+            DestroyImmediate(previewAudioSource.gameObject);
+        }
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        Color headerColor;
+        ColorUtility.TryParseHtmlString("#2fc256", out headerColor);
+        headerStyle = new GUIStyle(EditorStyles.largeLabel)
+        {
+            fontStyle = FontStyle.Bold,
+            fontSize = 15,
+            fixedHeight = 20,
+            normal = { textColor = headerColor }
+        };
+
+        EditorGUILayout.LabelField("Preview", headerStyle);
+        EditorGUILayout.Space();
+
+        List<string> soundEffectNames = new List<string>();
+        for (int i = 0; i < soundEffects.arraySize; i++)
+        {
+            soundEffectNames.Add(soundEffects.GetArrayElementAtIndex(i).FindPropertyRelative("sfxName").stringValue);
+        }
+
+        previewSfxIndex = EditorGUILayout.Popup("Sound Effect:", previewSfxIndex, soundEffectNames.ToArray());
+
+        if (GUILayout.Button("Preview"))
+        {
+            SerializedProperty soundEffect = soundEffects.GetArrayElementAtIndex(previewSfxIndex);
+
+            previewAudioSource.volume = soundEffect.FindPropertyRelative("sfxVolume").floatValue;
+            previewAudioSource.dopplerLevel = 0;
+
+            float randomPitchModifier = soundEffect.FindPropertyRelative("sfxBasePitchChange").floatValue + Random.Range(-soundEffect.FindPropertyRelative("sfxPitchRange").floatValue, soundEffect.FindPropertyRelative("sfxPitchRange").floatValue);
+            previewAudioSource.pitch = 1.0f + randomPitchModifier;
+
+            int randomIndex = Random.Range(0, soundEffect.FindPropertyRelative("sfxSounds").arraySize);
+            previewAudioSource.clip = soundEffect.FindPropertyRelative("sfxSounds").GetArrayElementAtIndex(randomIndex).objectReferenceValue as AudioClip;;
+
+            previewAudioSource.Play();
+        }
+
+        Divider();
+
+        EditorGUILayout.LabelField("Configuration", headerStyle);
+        EditorGUILayout.Space();
+
+        base.OnInspectorGUI();
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    void Divider()
+    {
+        int padding = 20;
+
+        EditorGUILayout.Space(padding);
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        //EditorGUILayout.Space(padding);
+    }
+}
+#endif

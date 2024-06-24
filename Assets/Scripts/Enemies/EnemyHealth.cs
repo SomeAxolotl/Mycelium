@@ -57,6 +57,7 @@ public class EnemyHealth : MonoBehaviour
         dmgTaken = damage;
         //Call action to modify damage
         TakeDamage?.Invoke(dmgTaken);
+        SoundEffectManager.Instance.PlaySound("Hitmarker", GameObject.FindWithTag("Camtracker").transform, 0, 1, 200);
 
         currentHealth -= dmgTaken;
 
