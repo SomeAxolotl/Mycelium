@@ -158,10 +158,7 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = maxHealth;
 
         }
-        else
-        {
-            AnimateHealth(healAmount);
-        }
+        AnimateHealth(healAmount);
     }
     public Action Died;
     IEnumerator Death()
