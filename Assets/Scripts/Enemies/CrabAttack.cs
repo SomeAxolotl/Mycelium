@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+#if UNITY_EDITOR
+using UnityEditor.Experimental.GraphView;
+#endif
 
 public class CrabAttack : EnemyAttack
 {
