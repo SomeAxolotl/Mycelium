@@ -41,7 +41,7 @@ public class RelentlessFury : Skill
         canSkill = false;
     }
 
-    private void ActualCooldownStart(){
+    protected override void ActualCooldownStart(){
         furyEffect.EffectEnd -= ActualCooldownStart;
         furyEffect.EffectRefresh -= RefreshTimer;
 

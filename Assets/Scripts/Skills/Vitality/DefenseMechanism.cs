@@ -61,7 +61,7 @@ public class DefenseMechanism : Skill
         ActualCooldownStart();
     }
 
-    private void ActualCooldownStart(){
+    protected override void ActualCooldownStart(){
         hudSkills.ToggleActiveBorder(skillSlot, false);
         
         if(cooldownCoroutine != null){
