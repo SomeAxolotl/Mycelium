@@ -156,9 +156,11 @@ public class CrabAttack : EnemyAttack
                 {
                     attackStarted = false;
                     animator.SetTrigger("Attack");
+                    yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
+                    yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .6f); // Waits until animation is in correct position to activate hitbox
                     crabMeleeHitbox.StartCoroutine(crabMeleeHitbox.ActivateHitbox());
                 }
-                yield return new WaitForSeconds(attackCooldown + 1.7f); //1.7 buffer for the actual animation
+                yield return new WaitForSeconds(attackCooldown);
                 canAttack = true;
             }
             else
@@ -218,6 +220,7 @@ public class CrabAttack : EnemyAttack
         StopAllCoroutines();
         zombified = true;
         attackStarted = false;
+        meleeAttackStarted = false;
         canAttack = true;
         digAttack = false;
         digging = false;

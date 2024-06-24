@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CrabMeleeHitbox : MonoBehaviour
 {
-    private float HitboxActivateDelay = 1.75f;
     [HideInInspector] public float knockbackForce;
     [HideInInspector] public float damage;
     [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();
     [SerializeField] private GameObject particles;
+    [SerializeField] private Transform particleHolder;
     Cinemachine.CinemachineImpulseSource impulseSource;
     private EnemyHealth enemyHealth;
     // Start is called before the first frame update
@@ -28,8 +28,9 @@ public class CrabMeleeHitbox : MonoBehaviour
     }
     public IEnumerator ActivateHitbox()
     {
-        yield return new WaitForSeconds(HitboxActivateDelay);
         CameraShakeManager.instance.ShakeCamera(impulseSource);
+        ParticleManager.Instance.SpawnParticles("SmashParticle", particleHolder.position, Quaternion.Euler(-90, 0, 0));
+        SoundEffectManager.Instance.PlaySound("Explosion", transform);
         gameObject.GetComponent<Collider>().enabled = true;
         //gameObject.GetComponent<Renderer>().enabled = true;
         yield return new WaitForSeconds(0.3f);
