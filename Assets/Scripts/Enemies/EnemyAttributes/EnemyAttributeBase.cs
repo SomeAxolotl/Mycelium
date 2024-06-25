@@ -2,49 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttributeBase : MonoBehaviour
+public abstract class EnemyAttributeBase : MonoBehaviour
 {
-    [HideInInspector] public EnemyHealth health;
-    [HideInInspector] public ReworkedEnemyNavigation ai;
-    [HideInInspector] public EnemyAttack attack;
-    [HideInInspector] public GameObject enemy;
-    [HideInInspector] public EnemyAttributeManager manager;
-
-    private void Start()
-    {
-        enemy = gameObject;
-        health = enemy.GetComponent<EnemyHealth>();
-        ai = enemy.GetComponent<ReworkedEnemyNavigation>();
-        attack = enemy.GetComponent<EnemyAttack>();
-    }
-
-    private void Awake()
-    {
-        manager = GetComponent<EnemyAttributeManager>();
-        Initialize();
-        if (manager != null)
-        {
-            manager.RefreshData();
-        }
-    }
+    protected EnemyHealth enemyHealth;
 
     public virtual void Initialize()
     {
-        // Add initialization code here
+        enemyHealth = GetComponent<EnemyHealth>();
+        if (enemyHealth != null && enemyHealth.isMiniBoss)
+        {
+            Debug.Log($"Applying {GetAttributeName()} attribute to miniboss: {enemyHealth.miniBossName}");
+            enemyHealth.AddAttributePrefix(GetAttributeName());
+            OnInitialize();
+        }
     }
 
-    public virtual void OnTakeDamage(float damage)
+    protected abstract void OnInitialize();
+
+    protected string GetAttributeName()
     {
-        // Modify behavior when the enemy takes damage
+        return $"{GetType().Name}";
     }
 
-    public virtual void OnDeath()
-    {
-        // Modify behavior when the enemy dies
-    }
+    public virtual void OnTakeDamage(float damage) { }
 
-    public virtual void OnSpawn()
-    {
-        // Modify behavior when the enemy spawns
-    }
+    public virtual void OnDeath() { }
+
+    public virtual void OnSpawn() { }
 }

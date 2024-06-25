@@ -42,4 +42,22 @@ public class EnemyAttributeManager : MonoBehaviour
             attribute.OnSpawn();
         }
     }
+
+    public void ClearAttributes()
+    {
+        foreach (var attribute in attributes)
+        {
+            Destroy(attribute);
+        }
+        attributes.Clear();
+    }
+
+    public static void AssignAttributesToExistingEnemies()
+    {
+        var enemies = FindObjectsOfType<EnemyAttributeManager>();
+        foreach (var enemy in enemies)
+        {
+            EnemyAttributeAssigner.Instance.AssignAttributes(enemy.gameObject);
+        }
+    }
 }

@@ -4,30 +4,23 @@ using UnityEngine;
 
 public class Diseased : EnemyAttributeBase
 {
-    private EnemyHealth enemyHealth;
     private GameObject diseaseColliderObject;
+    private float healingReduction = 0.10f; // Healing reduction percentage
 
-    public override void Initialize()
+    protected override void OnInitialize()
     {
-        enemyHealth = GetComponent<EnemyHealth>();
+        // Find the DiseaseCollider child object
+        diseaseColliderObject = transform.Find("DiseaseCollider").gameObject;
 
-        if (enemyHealth != null && enemyHealth.isMiniBoss)
+        if (diseaseColliderObject != null)
         {
-            Debug.Log("Applying Diseased attribute to miniboss: " + enemyHealth.miniBossName);
-            enemyHealth.AddAttributePrefix("Diseased"); // Add the attribute prefix to the miniboss name
-
-            // Find the DiseaseCollider child object
-            diseaseColliderObject = transform.Find("DiseaseCollider").gameObject;
-
-            if (diseaseColliderObject != null)
-            {
-                Debug.Log("Disease collider activated.");
-                diseaseColliderObject.SetActive(true);
-            }
-            else
-            {
-                Debug.LogError("Disease collider object is not found. Make sure the DiseaseCollider GameObject is a child of the miniboss.");
-            }
+            Debug.Log("Disease collider activated.");
+            diseaseColliderObject.SetActive(true);
+            diseaseColliderObject.GetComponent<DiseaseCollider>().SetHealingReduction(healingReduction);
+        }
+        else
+        {
+            Debug.LogError("Disease collider object is not found. Make sure the DiseaseCollider GameObject is a child of the miniboss.");
         }
     }
 }

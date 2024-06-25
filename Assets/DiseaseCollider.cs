@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class DiseaseCollider : MonoBehaviour
 {
+    private float healingReduction;
+
+    public void SetHealingReduction(float reduction)
+    {
+        healingReduction = reduction;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnTriggerEnter called.");
         if (other.CompareTag("currentPlayer"))
         {
             PlayerHealth playerHealth = other.gameObject.GetComponentInParent<PlayerHealth>();
-            
+
             if (playerHealth != null)
             {
                 playerHealth.DisableRegen(); // Disable health regeneration
                 Debug.Log("Player entered disease collider. Regen disabled");
-                playerHealth.SetHealingReduction(0.1f); // Apply 10% healing reduction
-                Debug.Log("Player entered disease radius. Healing reduced by 10%");
+                playerHealth.SetHealingReduction(healingReduction); // Apply healing reduction
+                Debug.Log($"Player entered disease radius. Healing reduced by {healingReduction * 100}%");
             }
             else
             {

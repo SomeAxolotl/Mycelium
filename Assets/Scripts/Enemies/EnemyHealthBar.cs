@@ -27,7 +27,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         enemyHealthPanel.GetComponent<CanvasGroup>().alpha = 0f;
 
         EnemyHealth enemyHealth = transform.parent.gameObject.GetComponent<EnemyHealth>();
-        if (enemyHealth.isMiniBoss)
+        if (enemyHealth.isMiniBoss || enemyHealth.gameObject.name == "Rival Colony Leader")
         {
             string enemyName = enemyHealth.attributePrefix + enemyHealth.miniBossName;
             enemyHealthName.text = enemyName;

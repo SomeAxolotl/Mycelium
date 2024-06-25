@@ -25,28 +25,53 @@ public class EnemyAttributeAssigner : MonoBehaviour
 
     void Start()
     {
-        AssignAttributesToExistingEnemies();
-    }
-
-    private void AssignAttributesToExistingEnemies()
-    {
-        EnemyAttributeManager[] enemies = FindObjectsOfType<EnemyAttributeManager>();
-        foreach (EnemyAttributeManager enemy in enemies)
+        if (GlobalData.currentLoop > 1)
         {
-            AssignRandomAttribute(enemy.gameObject);
+            EnemyAttributeManager.AssignAttributesToExistingEnemies();
+        }
+        else
+        {
+            ClearAllAttributes();
         }
     }
 
-    public void AssignRandomAttribute(GameObject enemy)
+    public void AssignAttributes(GameObject enemy)
     {
-        if (enemy.GetComponent<EnemyAttributeManager>() == null)
+        var manager = enemy.GetComponent<EnemyAttributeManager>();
+        if (manager != null)
         {
-            enemy.AddComponent<EnemyAttributeManager>();
+            for (int i = 1; i < GlobalData.currentLoop; i++)
+            {
+                AssignSingleAttribute(enemy);
+            }
+            manager.RefreshData();
+        }
+    }
+
+    private void AssignSingleAttribute(GameObject enemy)
+    {
+        // Ensure only one attribute is added per loop
+        List<EnemyAttributeBase> possibleAttributes = new List<EnemyAttributeBase>(allAttributes);
+        foreach (EnemyAttributeBase attribute in enemy.GetComponents<EnemyAttributeBase>())
+        {
+            possibleAttributes.RemoveAll(attr => attr.GetType() == attribute.GetType());
         }
 
-        EnemyAttributeBase randomAttribute = allAttributes[UnityEngine.Random.Range(0, allAttributes.Length)];
-        Component newComponent = enemy.AddComponent(randomAttribute.GetType());
-        EnemyAttributeBase newAttribute = newComponent as EnemyAttributeBase;
-        newAttribute.Initialize();
+        if (possibleAttributes.Count > 0)
+        {
+            EnemyAttributeBase randomAttribute = possibleAttributes[UnityEngine.Random.Range(0, possibleAttributes.Count)];
+            Component newComponent = enemy.AddComponent(randomAttribute.GetType());
+            EnemyAttributeBase newAttribute = newComponent as EnemyAttributeBase;
+            newAttribute.Initialize();
+        }
+    }
+
+    private void ClearAllAttributes()
+    {
+        var enemies = FindObjectsOfType<EnemyAttributeManager>();
+        foreach (var enemy in enemies)
+        {
+            enemy.ClearAttributes();
+        }
     }
 }

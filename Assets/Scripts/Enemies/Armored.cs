@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Armored : EnemyAttributeBase
 {
-    private EnemyHealth enemyHealth;
-    private float damageReduction = 0.10f; // 10% damage reduction
+    private float damageReduction = 0.10f; // Damage reduction percentage
 
-    public override void Initialize()
+    protected override void OnInitialize()
     {
-        enemyHealth = GetComponent<EnemyHealth>();
-        if (enemyHealth != null && enemyHealth.isMiniBoss)
-        {
-            Debug.Log("Applying Armored attribute to miniboss: " + enemyHealth.miniBossName);
-            enemyHealth.AddAttributePrefix("Armored"); // Add the attribute prefix to the miniboss name
-        }
+        // Initialization logic specific to Armored attribute, if any
     }
 
     public float ApplyDamageReduction(float damage)
     {
-       return damage * (1 - damageReduction);
+        return damage * (1 - damageReduction);
+    }
+
+    public override void OnTakeDamage(float damage)
+    {
+        // Apply damage reduction
+        float reducedDamage = ApplyDamageReduction(damage);
+        GetComponent<EnemyHealth>().EnemyTakeDamage(reducedDamage);
     }
 }

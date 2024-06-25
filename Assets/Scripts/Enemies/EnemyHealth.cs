@@ -55,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
         //UpdateMinibossName();
 
         // Add attribute prefix if necessary
-        if (isMiniBoss && !prefixAdded)
+        if (isMiniBoss || gameObject.name == "Rival Colony Leader")
         {
             AddAttributePrefix(attributePrefix);
         }
@@ -207,9 +207,9 @@ public class EnemyHealth : MonoBehaviour
             RefreshHealthBars(); // Force a refresh of the health bars
         }
     }
-    private void UpdateMinibossName()
+    public void UpdateMinibossName()
     {
-        if (isMiniBoss)
+        if (isMiniBoss || gameObject.name == "Rival Colony Leader")
         {
             foreach (EnemyHealthBar enemyHealthBar in enemyHealthBars)
             {

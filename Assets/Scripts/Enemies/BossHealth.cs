@@ -27,6 +27,12 @@ public class BossHealth : EnemyHealth
     }
     public override void EnemyTakeDamage(float damage)
     {
+        // Check for ArmoredAttribute and apply damage reduction
+        Armored armoredAttribute = GetComponent<Armored>();
+        if (armoredAttribute != null)
+        {
+            damage = armoredAttribute.ApplyDamageReduction(damage);
+        }
         //Save current damage taken
         dmgTaken = damage;
         //Call action to modify damage

@@ -44,7 +44,7 @@ Transform:
   - {fileID: 209836089352171670}
   - {fileID: 6943422292444067062}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5425697708136170599
 Animator:
@@ -168,6 +168,13 @@ MonoBehaviour:
   nutrientDrop: 50
   centerPoint: {fileID: 784935255972377450}
   alreadyDead: 0
+  dmgTaken: 0
+  canDropStickbugSpear: 0
+  isMiniBoss: 0
+  miniBossName: 
+  possibleRewards: []
+  attributePrefix: 
+  hudCollider: {fileID: 0}
   enemySpawners:
   - {fileID: 0}
   - {fileID: 0}
@@ -187,6 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5969ff2d7532fdb45a3d8ca2610d1582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftATS: {fileID: 0}
+  rightATS: {fileID: 0}
+  leftShoulder: {fileID: 0}
+  rightShoulder: {fileID: 0}
+  isInDangerZone: 0
 --- !u!136 &1167732526566645555
 CapsuleCollider:
   m_ObjectHideFlags: 0

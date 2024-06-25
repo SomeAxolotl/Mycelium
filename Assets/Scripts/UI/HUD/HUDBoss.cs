@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class HUDBoss : BaseEnemyHealthBar
 {
@@ -28,11 +29,32 @@ public class HUDBoss : BaseEnemyHealthBar
         }
     }
 
+    public void EncounterBoss(EnemyHealth enemyHealth)
+    {
+        string fullBossName = GetBossNameWithAttributes(enemyHealth);
+        bossNameText.text = fullBossName;
+        UpdateBossHealthUI(enemyHealth.currentHealth, enemyHealth.maxHealth);
+        StartCoroutine(EncounterBossCoroutine());
+    }
+
     public void EncounterBoss(string bossName, float currentHealth, float maxHealth)
     {
-        bossNameText.text = bossName;
+        string fullBossName = GetBossNameWithAttributes(bossName);
+        bossNameText.text = fullBossName;
         UpdateBossHealthUI(currentHealth, maxHealth);
         StartCoroutine(EncounterBossCoroutine());
+    }
+
+    private string GetBossNameWithAttributes(EnemyHealth enemyHealth)
+    {
+        string attributes = enemyHealth.attributePrefix;
+        return attributes + enemyHealth.miniBossName;
+    }
+
+    private string GetBossNameWithAttributes(string bossName)
+    {
+        // If the boss is not an EnemyHealth type, just return the name.
+        return bossName;
     }
 
     IEnumerator EncounterBossCoroutine()
