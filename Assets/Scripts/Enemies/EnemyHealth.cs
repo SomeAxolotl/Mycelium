@@ -34,6 +34,9 @@ public class EnemyHealth : MonoBehaviour
     [HideInInspector][SerializeField] public bool isMiniBoss = false;
     [HideInInspector] public string miniBossName = "";
     [HideInInspector][SerializeField] List<GameObject> possibleRewards = new List<GameObject>();
+    public string attributePrefix = "";
+    private bool prefixAdded = false; // Flag to ensure prefix is added only once
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,10 +52,24 @@ public class EnemyHealth : MonoBehaviour
         }
 
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
+        //UpdateMinibossName();
+
+        // Add attribute prefix if necessary
+        if (isMiniBoss && !prefixAdded)
+        {
+            AddAttributePrefix(attributePrefix);
+        }
     }
 
     public virtual void EnemyTakeDamage(float damage)
     {
+        // Check for ArmoredAttribute and apply damage reduction
+        Armored armoredAttribute = GetComponent<Armored>();
+        if (armoredAttribute != null)
+        {
+            damage = armoredAttribute.ApplyDamageReduction(damage);
+        }
+
         //Save current damage taken
         dmgTaken = damage;
         //Call action to modify damage
@@ -180,6 +197,47 @@ public class EnemyHealth : MonoBehaviour
     {
         return hasTakenDamage;
     }
+    public void AddAttributePrefix(string prefix)
+    {
+        if (!attributePrefix.Contains(prefix))
+        {
+            attributePrefix += prefix + " ";
+            prefixAdded = true;
+            UpdateMinibossName();
+            RefreshHealthBars(); // Force a refresh of the health bars
+        }
+    }
+    private void UpdateMinibossName()
+    {
+        if (isMiniBoss)
+        {
+            foreach (EnemyHealthBar enemyHealthBar in enemyHealthBars)
+            {
+                if (enemyHealthBar != null)
+                {
+                    Debug.Log("Updating miniboss name to: " + attributePrefix + miniBossName);
+                    enemyHealthBar.enemyHealthName.text = attributePrefix + miniBossName;
+                    #if UNITY_EDITOR
+                    EditorUtility.SetDirty(enemyHealthBar.enemyHealthName);
+                    #endif
+                }
+            }
+        }
+    }
+    private void RefreshHealthBars()
+    {
+        foreach (EnemyHealthBar enemyHealthBar in enemyHealthBars)
+        {
+            if (enemyHealthBar != null)
+            {
+                enemyHealthBar.UpdateEnemyHealthUI();
+                #if UNITY_EDITOR
+                EditorUtility.SetDirty(enemyHealthBar);
+                #endif
+            }
+        }
+    }
+
 }
 
 #if UNITY_EDITOR

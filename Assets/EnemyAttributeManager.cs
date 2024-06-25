@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAttributeManager : MonoBehaviour
 {
-    /*private List<EnemyAttributeBase> attributes;
+    private List<EnemyAttributeBase> attributes;
 
     private void Awake()
     {
@@ -41,5 +41,5 @@ public class EnemyAttributeManager : MonoBehaviour
         {
             attribute.OnSpawn();
         }
-    }*/
+    }
 }

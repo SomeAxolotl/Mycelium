@@ -29,7 +29,7 @@ public class EnemyHealthBar : BaseEnemyHealthBar
         EnemyHealth enemyHealth = transform.parent.gameObject.GetComponent<EnemyHealth>();
         if (enemyHealth.isMiniBoss)
         {
-            string enemyName = enemyHealth.miniBossName;
+            string enemyName = enemyHealth.attributePrefix + enemyHealth.miniBossName;
             enemyHealthName.text = enemyName;
         }
         else

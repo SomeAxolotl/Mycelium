@@ -4,60 +4,30 @@ using UnityEngine;
 
 public class Diseased : EnemyAttributeBase
 {
-    /*[SerializeField] private float radius = 5f; // The radius of the sphere
-    [SerializeField] private LayerMask playerLayer; // Ensure this is set in the inspector
-
-    private bool playerInRange = false;
+    private EnemyHealth enemyHealth;
+    private GameObject diseaseColliderObject;
 
     public override void Initialize()
     {
-        // Ensure playerLayer is set to the Player layer
-        playerLayer = LayerMask.GetMask("Player");
-        StartCoroutine(CheckForPlayer());
-    }
+        enemyHealth = GetComponent<EnemyHealth>();
 
-    private IEnumerator CheckForPlayer()
-    {
-        while (true)
+        if (enemyHealth != null && enemyHealth.isMiniBoss)
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, radius, playerLayer);
-            bool playerFound = false;
-            foreach (Collider collider in colliders)
+            Debug.Log("Applying Diseased attribute to miniboss: " + enemyHealth.miniBossName);
+            enemyHealth.AddAttributePrefix("Diseased"); // Add the attribute prefix to the miniboss name
+
+            // Find the DiseaseCollider child object
+            diseaseColliderObject = transform.Find("DiseaseCollider").gameObject;
+
+            if (diseaseColliderObject != null)
             {
-                if (collider.CompareTag("currentPlayer"))
-                {
-                    PlayerHealth playerHealth = collider.GetComponent<PlayerHealth>();
-                    if (playerHealth != null)
-                    {
-                        //playerHealth.DisableRegen();
-                        playerFound = true;
-                    }
-                }
+                Debug.Log("Disease collider activated.");
+                diseaseColliderObject.SetActive(true);
             }
-            if (!playerFound && playerInRange)
+            else
             {
-                // If the player was in range but is not anymore
-                Collider[] players = Physics.OverlapSphere(transform.position, radius, playerLayer);
-                foreach (Collider playerCollider in players)
-                {
-                    if (playerCollider.CompareTag("currentPlayer"))
-                    {
-                        PlayerHealth playerHealth = playerCollider.GetComponent<PlayerHealth>();
-                        if (playerHealth != null)
-                        {
-                            //playerHealth.EnableRegen();
-                        }
-                    }
-                }
+                Debug.LogError("Disease collider object is not found. Make sure the DiseaseCollider GameObject is a child of the miniboss.");
             }
-            playerInRange = playerFound;
-            yield return new WaitForSeconds(0.5f); // Check every 0.5 seconds
         }
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }*/
 }

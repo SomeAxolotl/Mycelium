@@ -14,6 +14,12 @@ public class HUDHealth : MonoBehaviour
     [SerializeField] private TMP_Text healthNumberText;
     [SerializeField] private TMP_Text sporeNameText;
 
+    public Color originalHealthNumberColor; // Store the original color of the health number text
+    void Start()
+    {
+        originalHealthNumberColor = healthNumberText.color; // Initialize the original color
+    }
+
     public void UpdateHealthUI(float currentHealth, float maxHealth)
     {
         float healthRatio = currentHealth / maxHealth;
@@ -30,12 +36,18 @@ public class HUDHealth : MonoBehaviour
         {
             healthBar.color = lowColor;
         }
-        
-        healthNumberText.text = Mathf.Ceil(currentHealth) + "/" + Mathf.Ceil(maxHealth);
+
+        UpdateHealthNumberText(currentHealth, maxHealth, originalHealthNumberColor);
     }
 
     public void SetSporeName(string name)
     {
         sporeNameText.text = name;
+    }
+    public void UpdateHealthNumberText(float currentHealth, float maxHealth, Color currentHealthColor)
+    {
+        string coloredCurrentHealth = $"<color=#{ColorUtility.ToHtmlStringRGB(currentHealthColor)}>{Mathf.Ceil(currentHealth)}</color>";
+        string maxHealthText = Mathf.Ceil(maxHealth).ToString();
+        healthNumberText.text = $"{coloredCurrentHealth}/{maxHealthText}";
     }
 }

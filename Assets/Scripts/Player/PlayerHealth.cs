@@ -13,6 +13,10 @@ public class PlayerHealth : MonoBehaviour
     public bool isInvincible;
     private bool dead = false;
     private float realDmgTaken;
+    private float healingReduction = 0f; // Healing reduction percentage
+    private bool canRegen = true; // New flag to control regeneration
+    private bool isRegenDisabled = false; // New flag to track if regen is disabled due to disease collider
+
     [HideInInspector] public float deathTimer;
     SwapCharacter swapCharacter;
     HUDHealth hudHealth;
@@ -145,6 +149,7 @@ public class PlayerHealth : MonoBehaviour
         {
             return; // Do not allow healing if the player is dead, player is only "dead" after the animation starts
         }
+        healAmount = Mathf.Round(healAmount * (1 - healingReduction)); // Apply healing reduction
         animator = GetComponentInChildren<Animator>();
         currentHealth += healAmount;
 
@@ -271,8 +276,30 @@ public class PlayerHealth : MonoBehaviour
     }
     void Regen()
     {
-        PlayerHeal(regenRate);
+        if (!canRegen)
+        {
+            return;
+        }
+        else if (canRegen)
+        {
+            PlayerHeal(regenRate);
+        }
     }
+
+    public void EnableRegen()
+    {
+        canRegen = true;
+        isRegenDisabled = false;
+        hudHealth.UpdateHealthNumberText(currentHealth, maxHealth, hudHealth.originalHealthNumberColor); // Fade back to the original color
+    }
+
+    public void DisableRegen()
+    {
+        canRegen = false;
+        isRegenDisabled = true;
+        hudHealth.UpdateHealthNumberText(currentHealth, maxHealth, Color.red); // Fade to red
+    }
+
 
     public void ResetHealth()
     {
@@ -293,9 +320,16 @@ public class PlayerHealth : MonoBehaviour
         SoundEffectManager.Instance.PlaySound("Hurt", player.transform);
     }
 
+    public void SetHealingReduction(float reduction)
+    {
+        healingReduction = Mathf.Clamp(reduction, 0f, 1f); // Ensure reduction is between 0 and 1
+        Debug.Log("Healing reduction set to: " + (healingReduction * 100) + "%");
+    }
     public void UpdateHudHealthUI()
     {
-        hudHealth.UpdateHealthUI(displayHealth, maxHealth);
+        Color currentHealthColor = isRegenDisabled ? Color.red : hudHealth.originalHealthNumberColor;
+        hudHealth.UpdateHealthUI(displayHealth, maxHealth); // Update health bar and health number text
+        hudHealth.UpdateHealthNumberText(displayHealth, maxHealth, currentHealthColor);
     }
 
     [SerializeField] private GameObject healObj;

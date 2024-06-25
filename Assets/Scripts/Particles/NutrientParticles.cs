@@ -60,6 +60,7 @@ public class NutrientParticles : MonoBehaviour
         // Log the nutrient amount per particle when nutrients are gained
         //Debug.Log($"Nutrient amount per particle on gain: {amountPerParticle}");
         GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().PlayerHeal(nutrientHealAmount);
+        Debug.Log($"Player is healing for: {nutrientHealAmount}"); // Debug log for healing amount
     }
 
     float EaseInQuart(float x)

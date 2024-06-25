@@ -5,7 +5,7 @@ using System;
 
 public class EnemyAttributeAssigner : MonoBehaviour
 {
-    /*public static EnemyAttributeAssigner Instance;
+    public static EnemyAttributeAssigner Instance;
 
     [SerializeField] private GameObject attributesParent;
     private EnemyAttributeBase[] allAttributes;
@@ -48,5 +48,5 @@ public class EnemyAttributeAssigner : MonoBehaviour
         Component newComponent = enemy.AddComponent(randomAttribute.GetType());
         EnemyAttributeBase newAttribute = newComponent as EnemyAttributeBase;
         newAttribute.Initialize();
-    }*/
+    }
 }

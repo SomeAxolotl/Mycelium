@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAttributeBase : MonoBehaviour
 {
-    /*[HideInInspector] public EnemyHealth health;
+    [HideInInspector] public EnemyHealth health;
     [HideInInspector] public ReworkedEnemyNavigation ai;
     [HideInInspector] public EnemyAttack attack;
     [HideInInspector] public GameObject enemy;
@@ -46,5 +46,5 @@ public class EnemyAttributeBase : MonoBehaviour
     public virtual void OnSpawn()
     {
         // Modify behavior when the enemy spawns
-    }*/
+    }
 }
