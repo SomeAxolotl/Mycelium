@@ -27,12 +27,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] SpawnTypes spawnType = SpawnTypes.All;
 
     [Header("General Settings")]
-    [SerializeField][Tooltip("How far from the center of the spawner enemies will poop out")] float spawnRadius = 5f;
+    [SerializeField][Tooltip("Center of the spawns")] Vector3 spawnCenterPosition = new Vector3(0f, 0f, 0f);
+    [SerializeField][Tooltip("Random offset from the center")] Vector3 spawnRandomOffset = new Vector3(0f, 0f, 0f);
     [SerializeField][Tooltip("How long after Activated until enemies are spawned. 0 is no delay")] float spawnDelay = 0f;
 
     [Header("Spawn Settings")]
     [SerializeField][Tooltip("How many enemies to spawn, OR how many to pause at for indefinite")] int maxEnemies = 5;
-    [HideInInspector][SerializeField][Tooltip("How long after a spawn until the next")] float intervalAmount = 3f; 
+    [HideInInspector][SerializeField][Tooltip("How long after a spawn until the next")] float intervalAmount = 3f;
     
     float popDuration = 0.25f;
 
@@ -115,6 +116,7 @@ public class EnemySpawner : MonoBehaviour
         if (possibleEnemies.Count == 0)
         {
             Debug.LogError(this.gameObject + " has no possibleEnemies");
+            return null;
         }
 
         float totalWeight = 0f;
@@ -131,7 +133,18 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (enemySpawn.prefab != null)
                 {
-                    GameObject spawnedEnemy = Instantiate(enemySpawn.prefab, new Vector3(transform.position.x + UnityEngine.Random.Range(-spawnRadius, spawnRadius), transform.position.y, transform.position.z + UnityEngine.Random.Range(-spawnRadius, spawnRadius)), Quaternion.identity);
+                    GameObject spawnedEnemy = Instantiate
+                    (
+                        enemySpawn.prefab, 
+                        new Vector3
+                            (
+                                transform.position.x + spawnCenterPosition.x + Random.Range(-spawnRandomOffset.x, spawnRandomOffset.x), 
+                                transform.position.y + spawnCenterPosition.y + Random.Range(-spawnRandomOffset.y, spawnRandomOffset.y), 
+                                transform.position.z + spawnCenterPosition.z + Random.Range(-spawnRandomOffset.z, spawnRandomOffset.z)
+                            ), 
+                        Quaternion.identity
+                    );
+                    
                     spawnedEnemies.Add(spawnedEnemy);
 
                     Coroutine popCoroutine = StartCoroutine(PopEnemy(spawnedEnemy));
