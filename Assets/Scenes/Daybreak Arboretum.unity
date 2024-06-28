@@ -2560,8 +2560,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1825867566}
-  - component: {fileID: 1825867568}
-  - component: {fileID: 1825867567}
+  - component: {fileID: 1825867569}
+  - component: {fileID: 1825867571}
+  - component: {fileID: 1825867570}
   m_Layer: 0
   m_Name: EnemyAttributes
   m_TagString: Untagged
@@ -2584,7 +2585,19 @@ Transform:
   m_Father: {fileID: 1041116241}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1825867567
+--- !u!114 &1825867569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825867565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed25f59bafbc25478ad2d8e50509fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1825867570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2596,12 +2609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b268c95f268fa4b92391af61f86cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
-  ai: {fileID: 0}
-  attack: {fileID: 0}
-  enemy: {fileID: 0}
-  manager: {fileID: 0}
---- !u!114 &1825867568
+--- !u!114 &1825867571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2613,11 +2621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b872955b05f7c64abf50ca78c0593eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
-  ai: {fileID: 0}
-  attack: {fileID: 0}
-  enemy: {fileID: 0}
-  manager: {fileID: 0}
 --- !u!1 &1871840737 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6725564103568261728, guid: a1f9d4a029c064c418ee715435e6c7b4,

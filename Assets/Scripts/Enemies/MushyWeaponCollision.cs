@@ -9,10 +9,11 @@ public class MushyWeaponCollision : MonoBehaviour
     [HideInInspector] public float knockbackForce;
     [HideInInspector] public float damage;
     [SerializeField] private EnemyHealth enemyHealth;
+    private EnemyAttributeManager attributeManager; // Reference to the attribute manager
     // Start is called before the first frame update
     void Start()
     {
-
+        attributeManager = GetComponentInParent<EnemyAttributeManager>(); // Get the attribute manager
     }
     public IEnumerator ActivateHitbox()
     {
@@ -26,9 +27,12 @@ public class MushyWeaponCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && !enemyHealth.alreadyDead)
         {
+            float totalDamage = damage * GlobalData.currentLoop;
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
+            // Handle healing logic for Parasitic attribute
+            enemyHealth.OnDamageDealt(totalDamage);
         }
     }
 }

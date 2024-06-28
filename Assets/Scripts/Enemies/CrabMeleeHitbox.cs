@@ -42,9 +42,18 @@ public class CrabMeleeHitbox : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && !enemyHealth.alreadyDead)
         {
+            float dmgDealt = damage * GlobalData.currentLoop;
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
+            if (enemyHealth != null)
+            {
+                enemyHealth.OnDamageDealt(dmgDealt);
+            }
+            else
+            {
+                Debug.LogError("EnemyHealth component is not assigned on " + gameObject.name);
+            }
         }
     }
 }

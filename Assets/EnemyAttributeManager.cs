@@ -9,6 +9,10 @@ public class EnemyAttributeManager : MonoBehaviour
     private void Awake()
     {
         attributes = new List<EnemyAttributeBase>(GetComponents<EnemyAttributeBase>());
+        foreach (var attribute in attributes)
+        {
+            Debug.Log("Initialized attribute: " + attribute.GetType().Name);
+        }
     }
 
     public void RefreshData()
@@ -42,7 +46,15 @@ public class EnemyAttributeManager : MonoBehaviour
             attribute.OnSpawn();
         }
     }
-
+    public void OnEnemyDealDamage(float damageDealt)
+    {
+        Debug.Log("OnEnemyDealDamage called with damage: " + damageDealt);
+        foreach (var attribute in attributes)
+        {
+            Debug.Log("Triggering OnEnemyDealDamage for attribute: " + attribute.GetType().Name);
+            attribute.OnEnemyDealDamage(damageDealt);
+        }
+    }
     public void ClearAttributes()
     {
         foreach (var attribute in attributes)

@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EnemyAttributeBase : MonoBehaviour
 {
     protected EnemyHealth enemyHealth;
+    
 
     public virtual void Initialize()
     {
@@ -25,6 +26,7 @@ public abstract class EnemyAttributeBase : MonoBehaviour
     }
 
     public virtual void OnTakeDamage(float damage) { }
+    public virtual void OnEnemyDealDamage(float damageDealt) { }
 
     public virtual void OnDeath() { }
 

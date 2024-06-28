@@ -32,6 +32,7 @@ public class MeleeEnemyAttack : EnemyAttack
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
     private GameObject edgeChecker;
+    [SerializeField] private EnemyHealth enemyHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,14 @@ public class MeleeEnemyAttack : EnemyAttack
         rb = GetComponent<Rigidbody>();
         storedMoveSpeed = reworkedEnemyNavigation.moveSpeed;
         storedChargeSpeed = chargeSpeed;
+        if (enemyHealth == null)
+        {
+            enemyHealth = GetComponent<EnemyHealth>();
+            if (enemyHealth == null)
+            {
+                Debug.LogError("EnemyHealth component not found on the enemy.");
+            }
+        }
     }
 
     // Update is called once per frame
@@ -175,11 +184,19 @@ public class MeleeEnemyAttack : EnemyAttack
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
             playerDamaged = true;
-            dmgDealt = damage;
-            HitEnemy?.Invoke(other.gameObject, dmgDealt);
-            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(dmgDealt * GlobalData.currentLoop);
+            float dmgDealt = damage * GlobalData.currentLoop;
+            HitEnemy?.Invoke(other.gameObject, damage);
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
+            if (enemyHealth != null)
+            {
+                enemyHealth.OnDamageDealt(dmgDealt);
+            }
+            else
+            {
+                Debug.LogError("EnemyHealth component is not assigned on " + gameObject.name);
+            }
         }
     }
 

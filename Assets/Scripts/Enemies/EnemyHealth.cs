@@ -93,6 +93,28 @@ public class EnemyHealth : MonoBehaviour
         }
         hasTakenDamage = true;
     }
+    public void OnDamageDealt(float damageDealt)
+    {
+        Debug.Log("OnDamageDealt called with damage: " + damageDealt);
+
+        // Handle the healing logic for the Parasitic attribute
+        Parasitic parasiticAttribute = GetComponent<Parasitic>();
+        if (parasiticAttribute != null)
+        {
+            float healAmount = parasiticAttribute.GetHealAmount(damageDealt);
+            Debug.Log($"Parasitic attribute healing for {healAmount} HP on {gameObject.name}. Damage dealt: {damageDealt}");
+            currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
+
+            // Update health UI
+            foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+            {
+                if (enemyHealthBar != null)
+                {
+                    enemyHealthBar.UpdateEnemyHealthUI();
+                }
+            }
+        }
+    }
     public Action Died;
     protected IEnumerator Death()
     {

@@ -247,9 +247,12 @@ public class CrabAttack : EnemyAttack
     {
         if(other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && digAttack && !playerHit.Contains(other.gameObject) && !enemyHealth.alreadyDead)
         {
+            
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(meleeDamage * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
+            
+            
         }
     }
 }

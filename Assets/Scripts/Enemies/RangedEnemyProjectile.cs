@@ -8,6 +8,8 @@ public class RangedEnemyProjectile : MonoBehaviour
     [SerializeField] private GameObject ExplosionVFX;
     [SerializeField] private Material negativeVelocityMaterial;
     [SerializeField] private LayerMask collidableLayers;
+    private EnemyHealth instantiatorEnemyHealth; // Reference to the instantiator's EnemyHealth
+    private RangedEnemyShoot instantiatorShoot; // Reference to the instantiator's RangedEnemyShoot
     float gravityForce = 9.3f;
     Vector3 gravity;
     Rigidbody rb;
@@ -34,6 +36,10 @@ public class RangedEnemyProjectile : MonoBehaviour
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
             collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
+            if (instantiatorEnemyHealth != null)
+            {
+                instantiatorEnemyHealth.OnDamageDealt(damage); // Heal the instantiator enemy
+            }
             Instantiate(ExplosionVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
@@ -73,5 +79,22 @@ public class RangedEnemyProjectile : MonoBehaviour
     private void ScaleProjectile()
     {
         transform.localScale *= 2; // Scale the projectile to twice its size, adjust the multiplier as needed
+    }
+    public void SetInstantiatorEnemyHealth(EnemyHealth enemyHealth)
+    {
+        instantiatorEnemyHealth = enemyHealth;
+    }
+
+    private void OnDestroy()
+    {
+        if (instantiatorShoot != null)
+        {
+            instantiatorShoot.RemoveProjectile(gameObject);
+        }
+    }
+
+    public void SetInstantiatorShoot(RangedEnemyShoot shoot)
+    {
+        instantiatorShoot = shoot;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class IsopodAttack : EnemyAttack
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
+    private EnemyHealth enemyHealth;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool attackStarted = false;
@@ -31,6 +32,7 @@ public class IsopodAttack : EnemyAttack
     void Start()
     {
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
+        enemyHealth = GetComponent<EnemyHealth>();
         attack = this.Attack();
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("currentPlayer").transform;
@@ -155,6 +157,8 @@ public class IsopodAttack : EnemyAttack
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
+            float dmgDealt = damage * GlobalData.currentLoop;
+            enemyHealth.OnDamageDealt(dmgDealt);
         }
     }
 }

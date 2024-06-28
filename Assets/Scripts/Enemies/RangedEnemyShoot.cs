@@ -14,6 +14,7 @@ public class RangedEnemyShoot : EnemyAttack
     [SerializeField]private float attackCooldown = 2f;
     [SerializeField]private float attackWindupTime = 2f;
     public GameObject projectile;
+    private List<GameObject> activeProjectiles = new List<GameObject>(); // List of active projectiles
     IEnumerator attack;
     Animator animator;
     Quaternion targetRotation;
@@ -82,6 +83,16 @@ public class RangedEnemyShoot : EnemyAttack
         GameObject tempProj = Instantiate(projectile, launchPoint.position, Quaternion.identity);
         tempProj.transform.right = dirToPlayer;
         tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer * 15f;
+
+        // Set the instantiator enemy health reference
+        RangedEnemyProjectile rangedEnemyProjectile = tempProj.GetComponent<RangedEnemyProjectile>();
+        if (rangedEnemyProjectile != null)
+        {
+            rangedEnemyProjectile.SetInstantiatorEnemyHealth(GetComponent<EnemyHealth>());
+        }
+
+        // Add the projectile to the list of active projectiles
+        activeProjectiles.Add(tempProj);
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
@@ -90,5 +101,9 @@ public class RangedEnemyShoot : EnemyAttack
         StopAllCoroutines();
         attack = Attack();
         canAttack = true;
+    }
+    public void RemoveProjectile(GameObject projectile)
+    {
+        activeProjectiles.Remove(projectile);
     }
 }

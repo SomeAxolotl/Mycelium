@@ -555,6 +555,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5276384655325719370}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9736732e8cd801c4ca762253aa9d22d9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7669082572132119156}
   m_SourcePrefab: {fileID: 100100000, guid: 9736732e8cd801c4ca762253aa9d22d9, type: 3}
 --- !u!1 &1543641711055982016 stripped
 GameObject:
@@ -610,6 +614,7 @@ MonoBehaviour:
   enviromentLayer:
     serializedVersion: 2
     m_Bits: 4096
+  enemyHealth: {fileID: 0}
 --- !u!114 &8426950355653296652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,6 +638,7 @@ MonoBehaviour:
   miniBossName: Magpie Beetle
   possibleRewards:
   - {fileID: 7468024198118708354, guid: f4a3755913c73cd43af12c2fa4ad8c76, type: 3}
+  attributePrefix: 
 --- !u!114 &5128076472123540088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -761,6 +767,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgDealt: 0
+--- !u!114 &7669082572132119156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543641711055982016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 609f6a3cbb9fd7141a6fc438ad0defa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2172931130540922746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9736732e8cd801c4ca762253aa9d22d9,
