@@ -80,6 +80,9 @@ public abstract class Skill : MonoBehaviour
     {
         if (isPlayerCurrentPlayer())
         {
+            // Notify nearby enemies with Adaptive attribute
+            NotifyAdaptiveEnemies();
+
             playerController.DisableController();
             playerAttack.DisableAttack();
         }
@@ -198,6 +201,20 @@ public abstract class Skill : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+    private void NotifyAdaptiveEnemies()
+    {
+        float skillRange = 20f;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, skillRange);
+        foreach (var hitCollider in hitColliders)
+        {
+            var adaptive = hitCollider.GetComponent<Adaptive>();
+            if (adaptive != null)
+            {
+                Debug.Log("DAMAGE BUFF!");
+                adaptive.ApplyDamageBuff();
+            }
         }
     }
 }

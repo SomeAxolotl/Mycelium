@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Adaptive;
 
 public class RangedEnemyProjectile : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class RangedEnemyProjectile : MonoBehaviour
     bool enemyCollisionOccurred = false;
     public CharacterStats primalLevel;
     Spineshot spineshot;
+    private float damageBuffMultiplier = 1f;
 
     private void Start()
     {
@@ -35,11 +37,14 @@ public class RangedEnemyProjectile : MonoBehaviour
     {
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
-            collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
+            float finalDamage = damage * GlobalData.currentLoop * damageBuffMultiplier;
+            Debug.Log("Dmg Multi: " + damageBuffMultiplier);
+            collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(finalDamage);
             if (instantiatorEnemyHealth != null)
             {
-                instantiatorEnemyHealth.OnDamageDealt(damage); // Heal the instantiator enemy
+                instantiatorEnemyHealth.OnDamageDealt(finalDamage); // Heal the instantiator enemy
             }
+            
             Instantiate(ExplosionVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
@@ -89,12 +94,23 @@ public class RangedEnemyProjectile : MonoBehaviour
     {
         if (instantiatorShoot != null)
         {
-            instantiatorShoot.RemoveProjectile(gameObject);
+            instantiatorShoot.RemoveProjectile(this); // Pass the RangedEnemyProjectile instance
         }
     }
-
-    public void SetInstantiatorShoot(RangedEnemyShoot shoot)
+        public void SetInstantiatorShoot(RangedEnemyShoot shoot)
     {
-        instantiatorShoot = shoot;
+        instantiatorShoot = shoot; // Set the reference to the RangedEnemyShoot script
+    }
+
+
+
+    public void SetDamageBuffMultiplier(float multiplier)
+    {
+        damageBuffMultiplier = multiplier;
+    }
+
+    public void RemoveDamageBuff()
+    {
+        damageBuffMultiplier = 1f;
     }
 }

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Adaptive;
 
-public class MushyWeaponCollision : MonoBehaviour
+public class MushyWeaponCollision : MonoBehaviour, IDamageBuffable
 {
     private float HitboxActivateDelay = .3f;
     [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();
@@ -10,6 +11,7 @@ public class MushyWeaponCollision : MonoBehaviour
     [HideInInspector] public float damage;
     [SerializeField] private EnemyHealth enemyHealth;
     private EnemyAttributeManager attributeManager; // Reference to the attribute manager
+    private float damageBuffMultiplier = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +29,29 @@ public class MushyWeaponCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && !enemyHealth.alreadyDead)
         {
-            float totalDamage = damage * GlobalData.currentLoop;
-            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
+            float totalDamage = damage * GlobalData.currentLoop * damageBuffMultiplier;
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(totalDamage);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
             // Handle healing logic for Parasitic attribute
             enemyHealth.OnDamageDealt(totalDamage);
+            
         }
+    }
+    public void ApplyDamageBuff(float multiplier, float duration)
+    {
+        StartCoroutine(DamageBuffCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator DamageBuffCoroutine(float multiplier, float duration)
+    {
+        damageBuffMultiplier = multiplier;
+        yield return new WaitForSeconds(duration);
+        RemoveDamageBuff();
+    }
+
+    public void RemoveDamageBuff()
+    {
+        damageBuffMultiplier = 1f;
     }
 }

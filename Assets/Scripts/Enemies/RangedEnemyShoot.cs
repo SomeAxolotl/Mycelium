@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static Adaptive;
 
-public class RangedEnemyShoot : EnemyAttack
+public class RangedEnemyShoot : EnemyAttack, IDamageBuffable
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private Transform player;
@@ -14,11 +15,13 @@ public class RangedEnemyShoot : EnemyAttack
     [SerializeField]private float attackCooldown = 2f;
     [SerializeField]private float attackWindupTime = 2f;
     public GameObject projectile;
-    private List<GameObject> activeProjectiles = new List<GameObject>(); // List of active projectiles
+    private List<RangedEnemyProjectile> activeProjectiles = new List<RangedEnemyProjectile>(); // List of active projectiles
     IEnumerator attack;
     Animator animator;
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
+    private float damageBuffMultiplier = 1f;
+    private float buffEndTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -83,16 +86,19 @@ public class RangedEnemyShoot : EnemyAttack
         GameObject tempProj = Instantiate(projectile, launchPoint.position, Quaternion.identity);
         tempProj.transform.right = dirToPlayer;
         tempProj.GetComponent<Rigidbody>().velocity = dirToPlayer * 15f;
-
+    
         // Set the instantiator enemy health reference
         RangedEnemyProjectile rangedEnemyProjectile = tempProj.GetComponent<RangedEnemyProjectile>();
         if (rangedEnemyProjectile != null)
         {
             rangedEnemyProjectile.SetInstantiatorEnemyHealth(GetComponent<EnemyHealth>());
+            rangedEnemyProjectile.SetInstantiatorShoot(this);
+            
         }
-
+        // Apply the current damage buff to the new projectile
+        rangedEnemyProjectile.SetDamageBuffMultiplier(damageBuffMultiplier);
         // Add the projectile to the list of active projectiles
-        activeProjectiles.Add(tempProj);
+        activeProjectiles.Add(rangedEnemyProjectile);
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
@@ -102,8 +108,20 @@ public class RangedEnemyShoot : EnemyAttack
         attack = Attack();
         canAttack = true;
     }
-    public void RemoveProjectile(GameObject projectile)
+    public void RemoveProjectile(RangedEnemyProjectile projectile)
     {
         activeProjectiles.Remove(projectile);
+    }
+    public void ApplyDamageBuff(float multiplier, float duration)
+    {
+        Debug.Log("Applying damage buff to projectiles!");
+        damageBuffMultiplier = multiplier;
+        buffEndTime = Time.time + duration;
+        Debug.Log("Damage buff applied to projectiles!");
+    }
+
+    public void RemoveDamageBuff()
+    {
+        damageBuffMultiplier = 1f;
     }
 }

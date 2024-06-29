@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Adaptive;
 
-public class CrabMeleeHitbox : MonoBehaviour
+public class CrabMeleeHitbox : MonoBehaviour, IDamageBuffable
 {
     [HideInInspector] public float knockbackForce;
     [HideInInspector] public float damage;
@@ -11,6 +12,7 @@ public class CrabMeleeHitbox : MonoBehaviour
     [SerializeField] private Transform particleHolder;
     Cinemachine.CinemachineImpulseSource impulseSource;
     private EnemyHealth enemyHealth;
+    private float damageBuffMultiplier = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +44,8 @@ public class CrabMeleeHitbox : MonoBehaviour
     {
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && !enemyHealth.alreadyDead)
         {
-            float dmgDealt = damage * GlobalData.currentLoop;
-            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
+            float dmgDealt = damage * GlobalData.currentLoop * damageBuffMultiplier;
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(dmgDealt);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
             if (enemyHealth != null)
@@ -55,5 +57,21 @@ public class CrabMeleeHitbox : MonoBehaviour
                 Debug.LogError("EnemyHealth component is not assigned on " + gameObject.name);
             }
         }
+    }
+    public void ApplyDamageBuff(float multiplier, float duration)
+    {
+        StartCoroutine(DamageBuffCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator DamageBuffCoroutine(float multiplier, float duration)
+    {
+        damageBuffMultiplier = multiplier;
+        yield return new WaitForSeconds(duration);
+        RemoveDamageBuff();
+    }
+
+    public void RemoveDamageBuff()
+    {
+        damageBuffMultiplier = 1f;
     }
 }

@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static Adaptive;
 
-public class MeleeEnemyAttack : EnemyAttack
+public class MeleeEnemyAttack : EnemyAttack, IDamageBuffable
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private bool canAttack = true;
@@ -33,6 +34,7 @@ public class MeleeEnemyAttack : EnemyAttack
     public LayerMask enviromentLayer;
     private GameObject edgeChecker;
     [SerializeField] private EnemyHealth enemyHealth;
+    private float damageBuffMultiplier = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -184,9 +186,9 @@ public class MeleeEnemyAttack : EnemyAttack
         if (other.gameObject.tag == "currentPlayer" && !other.gameObject.GetComponentInParent<PlayerController>().isInvincible && !playerHit.Contains(other.gameObject) && isAttacking)
         {
             playerDamaged = true;
-            float dmgDealt = damage * GlobalData.currentLoop;
-            HitEnemy?.Invoke(other.gameObject, damage);
-            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
+            float dmgDealt = damage * GlobalData.currentLoop * damageBuffMultiplier;
+            HitEnemy?.Invoke(other.gameObject, dmgDealt);
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(dmgDealt);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
             if (enemyHealth != null)
@@ -224,5 +226,21 @@ public class MeleeEnemyAttack : EnemyAttack
         }
 
         return onGround;
+    }
+    public void ApplyDamageBuff(float multiplier, float duration)
+    {
+        StartCoroutine(DamageBuffCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator DamageBuffCoroutine(float multiplier, float duration)
+    {
+        damageBuffMultiplier = multiplier;
+        yield return new WaitForSeconds(duration);
+        RemoveDamageBuff();
+    }
+
+    public void RemoveDamageBuff()
+    {
+        damageBuffMultiplier = 1f;
     }
 }

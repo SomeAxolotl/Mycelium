@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Adaptive;
 
-public class IsopodAttack : EnemyAttack
+public class IsopodAttack : EnemyAttack, IDamageBuffable
 {
     private ReworkedEnemyNavigation reworkedEnemyNavigation;
     private EnemyHealth enemyHealth;
@@ -27,6 +28,7 @@ public class IsopodAttack : EnemyAttack
     private Rigidbody rb;
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
+    private float damageBuffMultiplier = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -154,11 +156,30 @@ public class IsopodAttack : EnemyAttack
         {
             animator.SetTrigger("HitAttack");
             playerDamaged = true;
-            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(damage * GlobalData.currentLoop);
+            float dmgDealt = damage * GlobalData.currentLoop * damageBuffMultiplier;
+            other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(dmgDealt);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
-            float dmgDealt = damage * GlobalData.currentLoop;
-            enemyHealth.OnDamageDealt(dmgDealt);
+            if (enemyHealth != null)
+            {
+                enemyHealth.OnDamageDealt(dmgDealt);
+            }
         }
+    }
+    public void ApplyDamageBuff(float multiplier, float duration)
+    {
+        StartCoroutine(DamageBuffCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator DamageBuffCoroutine(float multiplier, float duration)
+    {
+        damageBuffMultiplier = multiplier;
+        yield return new WaitForSeconds(duration);
+        RemoveDamageBuff();
+    }
+
+    public void RemoveDamageBuff()
+    {
+        damageBuffMultiplier = 1f;
     }
 }
