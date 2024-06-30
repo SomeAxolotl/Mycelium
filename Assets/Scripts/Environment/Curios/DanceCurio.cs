@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DanceCurio : Curio
 {
+    [SerializeField] Transform drumTransform;
+
     bool doneDancing = false;
 
     public override IEnumerator Start()
@@ -19,7 +21,7 @@ public class DanceCurio : Curio
     {
         DrumCurio drumCurio = transform.parent.GetComponent<DrumCurio>();
 
-        wanderingSpore.lookTarget = transform.parent.position - wanderingSpore.transform.position;
+        wanderingSpore.lookTarget = drumTransform.position - wanderingSpore.transform.position;
 
         bool isMetal = (Random.Range(0, 2) == 0) ? true : false;
         if (isMetal)
