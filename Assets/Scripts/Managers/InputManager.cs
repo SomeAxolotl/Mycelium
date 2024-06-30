@@ -4,6 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System;
 
 public class InputManager : MonoBehaviour
 {
@@ -53,8 +54,8 @@ public class InputManager : MonoBehaviour
 
     void OnEnable()
     {
-        InputSystem.onDeviceChange += PauseWhenDeviceUnplugged;
-        InputSystem.onDeviceChange += DevicePluggedIn;
+        InputSystem.onDeviceChange += ForcePauseWhenDeviceUnplugged;
+        InputSystem.onDeviceChange += ResetObject;
 
         actionsAsset = new ThirdPersonActionsAsset();
         foreach (InputAction inputAction in inputActionsThatRefreshHints)
@@ -67,7 +68,8 @@ public class InputManager : MonoBehaviour
 
     void OnDisable()
     {
-        InputSystem.onDeviceChange -= PauseWhenDeviceUnplugged;
+        InputSystem.onDeviceChange -= ForcePauseWhenDeviceUnplugged;
+        InputSystem.onDeviceChange -= ResetObject;
 
         foreach (InputAction inputAction in inputActionsThatRefreshHints)
         {
@@ -77,7 +79,7 @@ public class InputManager : MonoBehaviour
         actionsAsset?.Disable();
     }
 
-    void DevicePluggedIn(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
+    void ResetObject(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
     {
         if (inputDeviceChange == InputDeviceChange.Added)
         {
@@ -86,7 +88,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    void PauseWhenDeviceUnplugged(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
+    void ForcePauseWhenDeviceUnplugged(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
     {
         if (SceneManager.GetActiveScene().name != "Main Menu" && GlobalData.isAbleToPause && inputDeviceChange == InputDeviceChange.Removed)
         {
@@ -124,34 +126,28 @@ public class InputManager : MonoBehaviour
 
         if (GlobalData.latestController != previousLatestController)
         {
-            //UnityEngine.Debug.Log("Refreshing HUD with controller name: " + deviceName);
+            RefreshHUDHints();
+            UpdateCameraControls();
+
+            previousLatestController = GlobalData.latestController;
         }
-
-        RefreshHUDHints();
-        UpdateCameraControls();
-
-        previousLatestController = GlobalData.latestController;
     }
 
     void RefreshHUDHints()
     {
-        if (GlobalData.latestController != previousLatestController)
-        {
-            if (GameObject.Find("HUD") != null)
-            {
-                GameObject.Find("HUD").GetComponent<HUDControls>().ChangeHUDControls(GetLatestController());
-            }
-        }
+        GameObject hud = GameObject.Find("HUD");
+
+        if (hud == null) throw new NullReferenceException("hud is null");
+
+        HUDControls hudController = hud.GetComponent<HUDControls>();
+        hudController.ChangeHUDControls(GetLatestController());
     }
 
     void UpdateCameraControls()
     {
-        if (GlobalData.latestController != previousLatestController)
+        if (SceneManager.GetActiveScene().buildIndex != 0 && sensitivityManager != null)
         {
-            if (SceneManager.GetActiveScene().buildIndex != 0 && sensitivityManager != null)
-            {
-                sensitivityManager.UpdateCamera();
-            }
+            sensitivityManager.UpdateCamera();
         }
     }
 
