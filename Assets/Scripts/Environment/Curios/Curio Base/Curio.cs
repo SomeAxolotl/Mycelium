@@ -182,7 +182,8 @@ public abstract class Curio : MonoBehaviour
 
         currentPlayerStats.ModifyHappiness(happinessToIncrease);
 
-        foreach (WanderingSpore wanderingSpore in currentUsers)
+        List<WanderingSpore> usersAtInjection = currentUsers;
+        foreach (WanderingSpore wanderingSpore in usersAtInjection)
         {
             CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
             if (characterStats != null)
