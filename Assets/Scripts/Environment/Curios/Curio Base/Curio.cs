@@ -86,7 +86,7 @@ public abstract class Curio : MonoBehaviour
         }
     }
 
-    public IEnumerator CurioEvent(WanderingSpore wanderingSpore)
+    public virtual IEnumerator CurioEvent(WanderingSpore wanderingSpore)
     {
         currentUsers.Add(wanderingSpore);
         currentUserCount++;
@@ -111,7 +111,7 @@ public abstract class Curio : MonoBehaviour
         }
 
         closestPossibleTraversalTransform.interactingSpore = wanderingSpore;
-
+        
         wanderingSpore.CalculatePath(wanderingSpore.transform.position, closestPossibleTraversalTransform.transform.position);
 
         yield return new WaitUntil(() => wanderingSpore.currentState == WanderingSpore.WanderingStates.Ready || wanderingSpore.interactingCurio == null);

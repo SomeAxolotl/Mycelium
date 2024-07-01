@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool canDance = false;
 
+    [SerializeField] float goadedWaveAngle = 60f;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -236,6 +238,10 @@ public class PlayerController : MonoBehaviour
         {
             curio.Activate(currentPlayer.GetComponent<CharacterStats>());
         }
+        if (animationName == "Wave")
+        {
+            GoadWaveBack();
+        }
         yield return new WaitForSeconds(timeUntilCancellable / 2);
 
         move.Enable();
@@ -250,6 +256,27 @@ public class PlayerController : MonoBehaviour
         move.Disable();
 
         EnableController();
+    }
+
+    void GoadWaveBack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(currentPlayer.transform.position, currentPlayer.GetComponent<SphereCollider>().radius, LayerMask.GetMask("Player"));
+
+        foreach (var collider in colliders)
+        {
+            WanderingSpore wanderingSpore = collider.GetComponent<WanderingSpore>();
+
+            if (wanderingSpore == null) continue;
+            if (wanderingSpore.enabled == false) continue;
+
+            Vector3 directionToPlayer = (wanderingSpore.transform.position - currentPlayer.transform.position).normalized;
+            float angleToPlayer = Vector3.Angle(currentPlayer.transform.forward, directionToPlayer);
+
+                if (angleToPlayer < goadedWaveAngle)
+                {
+                    wanderingSpore.GoadedWaveBack(currentPlayer.GetComponent<WaveCurio>());
+                }
+        }
     }
 
     Curio FindClosestCurioInRange()
