@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
-    private float regenRate;
+    public float regenRate;
     public bool isDefending;
     public bool isInvincible;
     private bool dead = false;
@@ -47,7 +47,6 @@ public class PlayerHealth : MonoBehaviour
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         isDefending = false;
         isInvincible = false;
-        
     }
 
     // Update is called once per frame
@@ -149,7 +148,7 @@ public class PlayerHealth : MonoBehaviour
         {
             return; // Do not allow healing if the player is dead, player is only "dead" after the animation starts
         }
-        healAmount = Mathf.Round(healAmount * (1 - healingReduction)); // Apply healing reduction
+        healAmount = healAmount * (1 - healingReduction); // Apply healing reduction
         animator = GetComponentInChildren<Animator>();
         currentHealth += healAmount;
 
