@@ -134,7 +134,7 @@ public class PlayerHealth : MonoBehaviour
         {
             displayHealth = Mathf.Lerp(displayHealth, currentHealth, Time.deltaTime * fillSpeed);
             displayHealth = Mathf.Clamp(displayHealth, 0, maxHealth);
-            if (Mathf.Abs(displayHealth - currentHealth) < 0.1f) { displayHealth = currentHealth; } //If the display amount is super low just set it to 0
+           // if (Mathf.Abs(displayHealth - currentHealth) < 0.1f) { displayHealth = currentHealth; } //If the display amount is super low just set it to 0
             UpdateHudHealthUI();
             yield return null;
         }
@@ -160,7 +160,6 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-
         }
         AnimateHealth(healAmount);
     }
