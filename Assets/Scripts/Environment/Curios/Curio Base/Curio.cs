@@ -86,7 +86,7 @@ public abstract class Curio : MonoBehaviour
         }
     }
 
-    public IEnumerator CurioEvent(WanderingSpore wanderingSpore)
+    public virtual IEnumerator CurioEvent(WanderingSpore wanderingSpore)
     {
         currentUsers.Add(wanderingSpore);
         currentUserCount++;
@@ -111,7 +111,7 @@ public abstract class Curio : MonoBehaviour
         }
 
         closestPossibleTraversalTransform.interactingSpore = wanderingSpore;
-
+        
         wanderingSpore.CalculatePath(wanderingSpore.transform.position, closestPossibleTraversalTransform.transform.position);
 
         yield return new WaitUntil(() => wanderingSpore.currentState == WanderingSpore.WanderingStates.Ready || wanderingSpore.interactingCurio == null);
@@ -182,7 +182,8 @@ public abstract class Curio : MonoBehaviour
 
         currentPlayerStats.ModifyHappiness(happinessToIncrease);
 
-        foreach (WanderingSpore wanderingSpore in currentUsers)
+        List<WanderingSpore> usersAtInjection = currentUsers;
+        foreach (WanderingSpore wanderingSpore in usersAtInjection)
         {
             CharacterStats characterStats = wanderingSpore.GetComponent<CharacterStats>();
             if (characterStats != null)

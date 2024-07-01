@@ -544,6 +544,28 @@ public class WanderingSpore : MonoBehaviour
         CalculateNextState();
     }
 
+    public void GoadedWaveBack(WaveCurio waveCurio)
+    {
+        if (currentState == WanderingStates.Interacting) return;
+
+        float happiness = characterStats.sporeHappiness;
+        bool wavesBack = false;
+        if (happiness > 0.4f)
+        {
+            //chadgpt
+            float mappedHappiness = Mathf.InverseLerp(0.4f, 1f, happiness);
+            wavesBack = Random.value < mappedHappiness;
+        }
+
+        if (wavesBack)
+        {
+            waypoints.Clear();
+            StopAllCoroutines();
+
+            StartCoroutine(InteractWithCurio(waveCurio));
+        }
+    }
+
     Vector3 GetRandomPointNearbyNavMesh(Vector3 center, float radius)
     {
         Vector2 randomPoint = Random.insideUnitCircle * radius;

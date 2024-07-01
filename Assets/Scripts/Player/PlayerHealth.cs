@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
-    private float regenRate;
+    public float regenRate;
     public bool isDefending;
     public bool isInvincible;
     private bool dead = false;
@@ -47,7 +47,6 @@ public class PlayerHealth : MonoBehaviour
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         isDefending = false;
         isInvincible = false;
-        
     }
 
     // Update is called once per frame
@@ -135,7 +134,7 @@ public class PlayerHealth : MonoBehaviour
         {
             displayHealth = Mathf.Lerp(displayHealth, currentHealth, Time.deltaTime * fillSpeed);
             displayHealth = Mathf.Clamp(displayHealth, 0, maxHealth);
-            if (Mathf.Abs(displayHealth - currentHealth) < 0.1f) { displayHealth = currentHealth; } //If the display amount is super low just set it to 0
+           // if (Mathf.Abs(displayHealth - currentHealth) < 0.1f) { displayHealth = currentHealth; } //If the display amount is super low just set it to 0
             UpdateHudHealthUI();
             yield return null;
         }
@@ -149,7 +148,7 @@ public class PlayerHealth : MonoBehaviour
         {
             return; // Do not allow healing if the player is dead, player is only "dead" after the animation starts
         }
-        healAmount = Mathf.Round(healAmount * (1 - healingReduction)); // Apply healing reduction
+        healAmount = healAmount * (1 - healingReduction); // Apply healing reduction
         animator = GetComponentInChildren<Animator>();
         currentHealth += healAmount;
 
@@ -161,7 +160,6 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-
         }
         AnimateHealth(healAmount);
     }

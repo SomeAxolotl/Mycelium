@@ -5,17 +5,39 @@ using UnityEngine;
 public class WaveCurio : Curio
 {
     float waveTime = 3f;
-    //float goadWaveBackTime = 0.75f;
+    float goadWaveBackTime = 0.75f;
+    float maxRandomWaitTime = 0.5f;
+
+    public override IEnumerator CurioEvent(WanderingSpore wanderingSpore)
+    {
+        currentUsers.Add(wanderingSpore);
+        currentUserCount++;
+
+        float randomWaitTime = Random.Range(0, maxRandomWaitTime);
+        yield return new WaitForSeconds(randomWaitTime);
+
+        wanderingSpore.GetComponent<Animator>().SetBool("Walk", false);
+
+        if (wanderingSpore != null)
+        {
+            yield return wanderingSpore.StartCoroutine(DoEvent(wanderingSpore));
+        }
+    }
 
     public override IEnumerator DoEvent(WanderingSpore wanderingSpore)
     {
         wanderingSpore.animator.SetTrigger("Wave");
 
-        GameObject randomSpore = wanderingSpore.GetRandomNearbySpore();
+        StartCoroutine(LookAtSpore(wanderingSpore, gameObject));
 
-        if(randomSpore != null)
+        //if the target spore is a wandering spore (not the player), then goad a wave back
+        WanderingSpore thisWanderingSpore = GetComponent<WanderingSpore>();
+        if (thisWanderingSpore != null)
         {
-            StartCoroutine(LookAtSpore(wanderingSpore, randomSpore));
+            if (thisWanderingSpore.enabled == true)
+            {
+                StartCoroutine(GoadWaveBack(thisWanderingSpore));
+            }
         }
 
         yield return new WaitForSeconds(waveTime);
@@ -35,19 +57,10 @@ public class WaveCurio : Curio
         }
     }
 
-    /*IEnumerator GoadWaveBack()
+    IEnumerator GoadWaveBack(WanderingSpore targetWanderingSpore)
     {
         yield return new WaitForSeconds(goadWaveBackTime);
 
-        WanderingSpore goadedWanderingSpore = GetComponent<WanderingSpore>();
-
-        if (goadedWanderingSpore.gameObject.tag != "currentPlayer" && (int) goadedWanderingSpore.currentState != 5)
-        {
-            goadedWanderingSpore.StopAllCoroutines();
-
-            goadedWanderingSpore.currentState = (WanderingSpore.WanderingStates) 5;
-
-            StartCoroutine(goadedWanderingSpore.InteractWithCurio(this));
-        }
-    }*/
+        targetWanderingSpore.GoadedWaveBack(this);
+    }
 }

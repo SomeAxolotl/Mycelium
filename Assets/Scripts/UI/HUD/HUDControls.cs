@@ -14,7 +14,7 @@ public class HUDControls : MonoBehaviour
 
     public void ChangeHUDControls(InputManager.Controller controller)
     {
-        //Debug.Log($"Refreshing HUD with {controller} controls");
+        Debug.Log($"Refreshing HUD with {controller.controllerName} controls");
 
         if (controller.subspeciesSkillHint.isHintSprite)
         {
