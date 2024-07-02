@@ -127,7 +127,7 @@ public class DeathPlane : MonoBehaviour
 
         if (enemyHealth != null)
         {
-            enemyHealth.EnemyTakeDamage(enemyHealth.maxHealth);
+            enemyHealth.EnemyTakeDamage(enemyHealth.maxHealth, true);
         }
     }
 }

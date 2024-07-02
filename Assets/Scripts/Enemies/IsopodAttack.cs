@@ -30,6 +30,9 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
     public LayerMask enviromentLayer;
     private float damageBuffMultiplier = 1f;
 
+    [SerializeField] bool doesFlee = false;
+    float fleeMultiplier;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,8 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
         player = GameObject.FindWithTag("currentPlayer").transform;
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
+
+        fleeMultiplier = doesFlee ? -1f : 1;
     }
 
     // Update is called once per frame
@@ -63,7 +68,7 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
     {
         if (attackStarted)
         {
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
+            Vector3 dirToPlayer = (player.position - transform.position).normalized * fleeMultiplier;
             Quaternion desiredRotation = Quaternion.LookRotation(dirToPlayer);
             float desiredYRotation = desiredRotation.eulerAngles.y;
             targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
@@ -103,14 +108,14 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
 
         if (GlobalData.isAbleToPause)
         {
-            SoundEffectManager.Instance.PlaySound("Beetle Charge", transform);
+            if (!doesFlee) SoundEffectManager.Instance.PlaySound("Beetle Charge", transform);
         }
         animator.speed = 2f;
         attackStarted = false;
         isAttacking = true;
         Transform target = player;
         Vector3 playerPos = player.position;
-        Vector3 moveDirection = (target.position - transform.position).normalized;
+        Vector3 moveDirection = (target.position - transform.position).normalized * fleeMultiplier;
         moveDirection.y = 0f;
         float distanceToPlayer = Vector3.Distance(transform.position, playerPos);
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"));
@@ -121,7 +126,7 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
             yield return null;
         }
         animator.speed = 1f;
-        animator.SetTrigger("StartAttack");
+        if (!doesFlee) animator.SetTrigger("StartAttack");
         yield return new WaitForEndOfFrame();
         if(playerHit.Count == 0)
         {
