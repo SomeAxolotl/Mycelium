@@ -121,15 +121,28 @@ public class EnemyHealth : MonoBehaviour
         Died?.Invoke();
         Actions.EnemyKilled?.Invoke(this);
 
-        gameObject.GetComponent<EnemyAttack>().CancelAttack();
-        gameObject.GetComponent<EnemyAttack>().enabled = false;
-        gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
-        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        EnemyAttack enemyAttack = GetComponent<EnemyAttack>();
+        if (enemyAttack != null)
+        {
+            enemyAttack.CancelAttack();
+            enemyAttack.enabled = false;
+        }
+
+        ReworkedEnemyNavigation reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
+        if (reworkedEnemyNavigation != null)
+        {
+            reworkedEnemyNavigation.enabled = false;
+        }
+        
+        //gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 
         alreadyDead = true;
 
-        animator.Rebind();
-        animator.SetTrigger("Death");
+        if (animator != null)
+        {
+            animator.Rebind();
+            animator.SetTrigger("Death");
+        }
         yield return new WaitForSeconds(1.25f);
         float elapsedTime = 0f;
         float shrinkDuration = 1f;
@@ -171,6 +184,21 @@ public class EnemyHealth : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    public virtual void Heal(float healAmount)
+    {
+        if (currentHealth <= 0) return;
+
+        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0f, maxHealth);
+
+        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+        {
+            if (enemyHealthBar != null && currentHealth + dmgTaken > 0)
+            {
+                enemyHealthBar.UpdateEnemyHealthUI();
+            }
+        }
+    }
+
     void SpawnMinibossReward()
     {
         if (possibleRewards.Count > 0)
@@ -178,10 +206,6 @@ public class EnemyHealth : MonoBehaviour
             int randomRewardIndex = UnityEngine.Random.Range(0, possibleRewards.Count);
 
             Instantiate(possibleRewards[randomRewardIndex], new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError(gameObject + " is a miniBoss has no possibleRewards set");
         }
     }
 
