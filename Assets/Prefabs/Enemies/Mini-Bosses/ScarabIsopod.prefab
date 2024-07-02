@@ -1036,10 +1036,10 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4416
-  fieldOfView: 75
-  forwardDetectionRange: 15
-  backwardsDetectionRange: 10
-  moveSpeed: 10
+  fieldOfView: 360
+  forwardDetectionRange: 7
+  backwardsDetectionRange: 7
+  moveSpeed: 0
   isFlyingEnemy: 0
   animator: {fileID: 0}
 --- !u!114 &8329970856506253910
@@ -1124,8 +1124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgDealt: 0
   attackCooldown: 0.5
-  attackWindupTimeMin: 0.7
-  attackWindupTimeMax: 0.9
+  attackWindupTimeMin: 0
+  attackWindupTimeMax: 0
   damage: 0
   chargeSpeed: 0
   enviromentLayer:
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - PercentChance: 70.3
+  - PercentChance: 80
     ObjectsToActivate: []
     ObjectsToRemove:
     - {fileID: 7452597292503758511}
