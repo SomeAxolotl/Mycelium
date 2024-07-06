@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarefulTrait : TraitBase
 {
-    private float outOfCombatTime = 10;
+    private float outOfCombatTime = 12;
     private float defensePercent = 75;
 
     DefenseChange defenseChangeEffect;
