@@ -808,6 +808,7 @@ public class CharacterStats : MonoBehaviour
 
     IEnumerator CalculateAttributes()
     {
+        sporeAttributeRanges = GameObject.FindWithTag("PlayerParent").GetComponent<SporeAttributeRanges>();
         primalDmg = Mathf.RoundToInt(sporeAttributeRanges.attackDamageBase + ((primalLevel - 1) * sporeAttributeRanges.attackDamageIncrement));
         baseHealth = Mathf.RoundToInt(sporeAttributeRanges.healthBase + ((vitalityLevel - 1) * sporeAttributeRanges.healthIncrement));
         baseRegen = sporeAttributeRanges.regenBase + ((vitalityLevel - 1) * sporeAttributeRanges.regenIncrement);

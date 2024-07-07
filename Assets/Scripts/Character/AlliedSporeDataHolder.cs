@@ -19,7 +19,7 @@ public class AlliedSporeDataHolder : SporeManagerSystem
         base.Start();
 
         GetJSONdata(GlobalData.profileNumber);
-        //InvokeRepeating("LoadRandomAlliedSpore", 3f, 3f);
+        InvokeRepeating("LoadRandomAlliedSpore", 2f, 3f);
     }
 
     void GetJSONdata(int profileNumber)
@@ -41,7 +41,8 @@ public class AlliedSporeDataHolder : SporeManagerSystem
         GameObject loadedSpore;
         CharacterStats loadedSporeStats;
         DesignTracker loadedSporeDesign;
-        List<SporeData> availableSpores = sporeDataList.Spore_Data.FindAll(spore => !loadedSporeNames.Contains(spore.sporeName));
+        string currentPlayerName = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>().sporeName;
+        List<SporeData> availableSpores = sporeDataList.Spore_Data.FindAll(spore => !loadedSporeNames.Contains(spore.sporeName) && spore.sporeName != currentPlayerName);
 
         if (availableSpores.Count > 0)
         {
@@ -50,7 +51,7 @@ public class AlliedSporeDataHolder : SporeManagerSystem
             loadedSporeNames.Add(selectedSpore.sporeName);
 
             loadedSpore = Instantiate(alliedSporePrefab);
-            loadedSpore.transform.position = GameObject.FindWithTag("currentPlayer").transform.position + new Vector3 (0,15,0);
+            loadedSpore.transform.position = GameObject.FindWithTag("currentPlayer").transform.position + new Vector3 (0,10,0);
             loadedSporeStats = loadedSpore.GetComponent<CharacterStats>();
             loadedSporeDesign = loadedSpore.GetComponent<DesignTracker>();
 
@@ -64,6 +65,7 @@ public class AlliedSporeDataHolder : SporeManagerSystem
             loadedSporeStats.speedLevel = selectedSpore.lvlSpeed;
             loadedSporeStats.sentienceLevel = selectedSpore.lvlSentience;
             loadedSporeStats.vitalityLevel = selectedSpore.lvlVitality;
+            loadedSporeStats.StartCalculateAttributes();
 
             loadedSporeDesign.bodyColor = selectedSpore.bodyColor;
             loadedSporeDesign.capColor = selectedSpore.capColor;
