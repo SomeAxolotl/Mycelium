@@ -136,6 +136,8 @@ public class SporeManager : SporeManagerSystem
             }   
         }
 
+        stats.highestLoopBeaten = sporeData.highestLoopBeaten;
+
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
         stats.primalLevel = sporeData.lvlPrimal;
@@ -179,6 +181,8 @@ public class SporeManager : SporeManagerSystem
                 currentSporeData.sporeEnergy = currentSporeStats.sporeEnergy;
 
                 currentSporeData.sporeTrait = currentSporeStats.sporeTrait;
+
+                currentSporeData.highestLoopBeaten = currentSporeStats.highestLoopBeaten;
 
                 currentSporeData.skillSlot0 = currentSporeStats.equippedSkills[0];
                 currentSporeData.skillSlot1 = currentSporeStats.equippedSkills[1];
@@ -235,6 +239,8 @@ public class SporeData
     public int sporeEnergy;
 
     public string sporeTrait;
+
+    public int highestLoopBeaten;
 
     public string skillSlot0;
     public string skillSlot1;

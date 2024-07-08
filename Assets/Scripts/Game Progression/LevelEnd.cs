@@ -123,8 +123,6 @@ public class LevelEnd : MonoBehaviour
             Destroy(weapon);
         }
         GlobalData.currentWeapon = null;
-        GlobalData.currentLoop = 1;
-        
 
         SceneLoader.Instance.BeginLoadScene("The Carcass", "Dylan is a tree");
     }

@@ -23,6 +23,8 @@ public class CharacterStats : MonoBehaviour
 
     public string sporeTrait;
 
+    public int highestLoopBeaten;
+
     //Able to be equipped
     public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
     {
@@ -949,5 +951,15 @@ public class CharacterStats : MonoBehaviour
         StartCalculateAttributes();
         UpdateLevel();
         designTracker.UpdateBlendshape(sentienceLevel, primalLevel, vitalityLevel, speedLevel); 
+    }
+
+    public void TestAgainstHighestLoopRecord(int loop)
+    {
+        if (loop > highestLoopBeaten)
+        {
+            highestLoopBeaten = loop;
+
+            Debug.Log($"{sporeName} beat a new highest loop! " + loop);
+        }
     }
 }

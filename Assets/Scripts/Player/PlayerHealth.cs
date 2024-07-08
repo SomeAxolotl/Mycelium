@@ -169,8 +169,6 @@ public class PlayerHealth : MonoBehaviour
         Died?.Invoke();
 
         GlobalData.isAbleToPause = false;
-        GlobalData.currentLoop = 1;
-
 
         //Notification stuff
         string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
@@ -208,6 +206,9 @@ public class PlayerHealth : MonoBehaviour
         CancelInvoke("Regen");
         hudHealth.UpdateHealthUI(0, maxHealth);
         animator = GetComponentInChildren<Animator>();
+
+        //thought rebinding might help with standing up bug. it still happened tho
+        animator.Rebind();
         animator.SetTrigger("Death");
 
         //Wait a bit

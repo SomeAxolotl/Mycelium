@@ -74,13 +74,18 @@ public class CreditsPlayer : MonoBehaviour
     public void LoopRun(int currentLoop)
     {
         EventSystem.current.SetSelectedGameObject(null);
-        GlobalData.currentLoop++;
 
         //Increment Area Completion Counts
         GlobalData.areaCleared = true;
         GlobalData.areasClearedThisRun ++;
 
-        StartCoroutine(NotificationWithDelay());
+        UnlockFurnitureFromBeatingLoop(GlobalData.currentLoop);
+        ProfileManager.Instance.TestAgainstHighestLoopRecord(GlobalData.currentLoop);
+        ProfileManager.Instance.SaveOverride();
+
+        StartCoroutine(FadeOut(endOfRunCanvas, fadeTimeEndOfRunCanvas));
+
+        GlobalData.currentLoop++;
 
         levelEndScript.SpecialCreditsLoopFunction();
 
@@ -88,139 +93,81 @@ public class CreditsPlayer : MonoBehaviour
         creditsIsOn = false;
     }
 
-    IEnumerator NotificationWithDelay()
+    public void FinishRun()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+
+        UnlockFurnitureFromBeatingLoop(GlobalData.currentLoop);
+        ProfileManager.Instance.TestAgainstHighestLoopRecord(GlobalData.currentLoop);
+        ProfileManager.Instance.SaveOverride();
+
+        // doesnt do anything functionally, this is for tracking Spore loop records
+        // (currentLoop is reset on starting a run now)
+        GlobalData.currentLoop++;
+        
+        StartCoroutine(PlayCredits());
+    }
+
+    public void UnlockFurnitureFromBeatingLoop(int loop)
     {
         string unlockString = "";
-        bool wasUnlocked = false;
-        switch (GlobalData.currentLoop)
+        bool showNotification = false;
+        switch (loop)
         {
-            case 2:
+            case 1:
                 unlockString = "Mushroom Bed";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                if (!FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
-                    wasUnlocked = true;
+                    showNotification = true;
                 }
                 FurnitureManager.Instance.bedIsUnlocked = true;
                 break;
-            case 3:
+            case 2:
                 unlockString = "Stump Chairs";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                if (!FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
-                    wasUnlocked = true;
+                    showNotification = true;
                 }
                 FurnitureManager.Instance.chairIsUnlocked = true;
                 break;
-            case 4:
+            case 3:
                 unlockString = "Bonfire";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                if (!FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
-                    wasUnlocked = true;
+                    showNotification = true;
                 }
                 FurnitureManager.Instance.fireIsUnlocked = true;
                 break;
             case 5:
                 unlockString = "Firefly Bottle";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                if (!FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
-                    wasUnlocked = true;
+                    showNotification = true;
                 }
                 FurnitureManager.Instance.fireflyIsUnlocked = true;
                 break;
-            case 6:
+            case 7:
                 unlockString = "Game Board";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                if (!FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
-                    wasUnlocked = true;
+                    showNotification = true;
                 }
                 FurnitureManager.Instance.gameboardIsUnlocked = true;
                 break;
-            case 7:
+            case 9:
                 unlockString = "Beetle Drum";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
+                if (!FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
-                    wasUnlocked = true;
+                    showNotification = true;
                 }
                 FurnitureManager.Instance.drumIsUnlocked = true;
-                break;
+                break; 
         }
 
-        if (!wasUnlocked && GlobalData.currentLoop <= 7)
+        if (showNotification)
         {
             NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + unlockString + "</color>!", "Check it out at the Carcass!");
         }
-
-        ProfileManager.Instance.SaveOverride();
-
-        yield return StartCoroutine(FadeOut(endOfRunCanvas, fadeTimeEndOfRunCanvas));
-    }
-
-    public void FinishRun()
-    {
-        string unlockString = "";
-        bool wasUnlocked = false;
-        switch (GlobalData.currentLoop + 1)
-        {
-            case 2:
-                unlockString = "Mushroom Bed";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
-                {
-                    wasUnlocked = true;
-                }
-                FurnitureManager.Instance.bedIsUnlocked = true;
-                break;
-            case 3:
-                unlockString = "Stump Chairs";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
-                {
-                    wasUnlocked = true;
-                }
-                FurnitureManager.Instance.chairIsUnlocked = true;
-                break;
-            case 4:
-                unlockString = "Bonfire";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
-                {
-                    wasUnlocked = true;
-                }
-                FurnitureManager.Instance.fireIsUnlocked = true;
-                break;
-            case 5:
-                unlockString = "Firefly Bottles";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
-                {
-                    wasUnlocked = true;
-                }
-                FurnitureManager.Instance.fireflyIsUnlocked = true;
-                break;
-            case 6:
-                unlockString = "Game Board";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
-                {
-                    wasUnlocked = true;
-                }
-                FurnitureManager.Instance.gameboardIsUnlocked = true;
-                break;
-            case 7:
-                unlockString = "Beetle Drum";
-                if (FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
-                {
-                    wasUnlocked = true;
-                }
-                FurnitureManager.Instance.drumIsUnlocked = true;
-                break;
-        }
-
-        if (!wasUnlocked && GlobalData.currentLoop + 1 <= 7)
-        {
-            NotificationManager.Instance.Notification("You unlocked the <color=#d9db4d>" + unlockString + "</color>!", "Check it out at the Carcass!");
-        }
-
-        EventSystem.current.SetSelectedGameObject(null);
-        GlobalData.currentLoop = 1;
-
-        ProfileManager.Instance.SaveOverride();
-        
-        StartCoroutine(PlayCredits());
     }
 
     public void PlaySelectSound()
