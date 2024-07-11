@@ -25,6 +25,8 @@ public class SpineshotProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
+        if (collision.gameObject.name == "DangerZone") return; //Hard-Coded fix for ignoring boss DangerZone
+
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         if (collision.gameObject.layer == enemyLayer)
         {
