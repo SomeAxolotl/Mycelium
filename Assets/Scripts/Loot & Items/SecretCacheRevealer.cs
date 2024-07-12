@@ -5,8 +5,8 @@ using UnityEngine;
 public class SecretCacheRevealer : MonoBehaviour
 {
     [SerializeField][Tooltip("The cache that will be revealed")] private GameObject cacheObject;
-    [SerializeField][Tooltip("The y-value to which the cache will rise relative to its initial position")] private float revealYValue = 1f;
-    [SerializeField][Tooltip("The initial upward force to apply to the cache")] private float upwardForce = 5f;
+    [SerializeField][Tooltip("The y-value to which the cache will rise relative to its initial position")] private float revealYValue = 10f;
+    [SerializeField][Tooltip("The initial upward force to apply to the cache")] private float upwardForce = 30f;
     [SerializeField][Tooltip("The collider that will trigger the reveal")] private Collider triggerCollider;
 
     private bool isRevealed = false;
