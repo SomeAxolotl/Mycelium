@@ -325,6 +325,7 @@ public class StatsAndAchievements : MonoBehaviour
 
 #else
     public void ListAllAchievements() { return; }
+    public void GetAchievement(string achName, out bool isUnlocked) { isUnlocked = false; return; }
     public void GiveAchievement(string achName) { return; }
     public void GetStat(string statName, out int statValue) { statValue = -1; return; }
     public void GetStat(string statName, out float statValue) { statValue = -1; return; }
