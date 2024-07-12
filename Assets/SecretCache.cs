@@ -6,6 +6,7 @@ using UnityEngine;
 public class SecretCache : MonoBehaviour, IInteractable
 {
     [SerializeField][Tooltip("Custom loot table for secret caches")] private LootTable secretLootTable;
+    [SerializeField][Tooltip("Custom loot table for weapons")] private LootTable weaponLootTable;
     [SerializeField] private int nutrientMin = 50;
     [SerializeField] private int nutrientMax = 200;
     private bool canInteract = false;
@@ -15,7 +16,7 @@ public class SecretCache : MonoBehaviour, IInteractable
     {
         player = GameObject.FindWithTag("currentPlayer");
 
-        //THIS IS A TEMPORARY FIX FOR CACHES!!! PLEASE GO INTO THE CHUNKS AND MANUALLY FIX THE NUTRIENT VALUES.
+        // THIS IS A TEMPORARY FIX FOR CACHES!!! PLEASE GO INTO THE CHUNKS AND MANUALLY FIX THE NUTRIENT VALUES.
         if (nutrientMin >= 60)
         {
             nutrientMin = nutrientMin / 20;
@@ -67,7 +68,16 @@ public class SecretCache : MonoBehaviour, IInteractable
 
     public void GetLoot()
     {
-        Loot droppedItem = PickByWeight(secretLootTable.loots);
+        // Determine if the loot is from the secret loot table or weapon loot table
+        Loot droppedItem;
+        if (Random.value > 0.5f) // 50% chance to get loot from the weapon loot table
+        {
+            droppedItem = PickByWeight(weaponLootTable.loots);
+        }
+        else
+        {
+            droppedItem = PickByWeight(secretLootTable.loots);
+        }
 
         GameObject droppedObject = Instantiate(droppedItem.LootPrefab, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
 

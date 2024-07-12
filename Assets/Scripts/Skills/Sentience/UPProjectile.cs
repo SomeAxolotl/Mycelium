@@ -31,6 +31,8 @@ public class UPProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
+        if (collision.gameObject.name == "DangerZone") return; //Hard-Coded fix for ignoring boss DangerZone
+
         //Kind of scuffed but this ignores the big trigger colliders on the bouncy shrooms
         if (((1 << collision.gameObject.layer) & collidableLayers.value) != 0 
             && collision.gameObject.GetComponent<SmackableGlowShroomController>() == null 

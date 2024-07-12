@@ -12,6 +12,20 @@ using Steamworks;
 
 public class StatsAndAchievements : MonoBehaviour
 {
+    public static StatsAndAchievements Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
 #if !DISABLESTEAMWORKS
     private const uint APPID = 2969710;
     private const string RCS_ERROR = "RequestCurrentStats() went wrong or something go bother ryan | Error Code: ";
@@ -98,6 +112,32 @@ public class StatsAndAchievements : MonoBehaviour
         {
             Debug.Log(SteamUserStats.GetAchievementName(i));
         }
+    }
+
+    //==================================================================================
+    //GET ACHIEVEMENT
+    //==================================================================================
+
+    public void GetAchievement(string achName, out bool isUnlocked)
+    {
+        bool buffer = false;
+
+        StartCoroutine(OnGetAchievement(achName, unlockStatus => buffer = unlockStatus));
+
+        isUnlocked = buffer;
+    }
+
+    private IEnumerator OnGetAchievement(string achName, System.Action<bool> callback)
+    {
+        bool shouldContinue = false;
+
+        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
+        if (shouldContinue == false) { yield break; }
+
+        bool unlockStatus;
+
+        SteamUserStats.GetAchievement(achName, out unlockStatus);
+        callback(unlockStatus);
     }
 
     //==================================================================================
@@ -285,6 +325,7 @@ public class StatsAndAchievements : MonoBehaviour
 
 #else
     public void ListAllAchievements() { return; }
+    public void GetAchievement(string achName, out bool isUnlocked) { isUnlocked = false; return; }
     public void GiveAchievement(string achName) { return; }
     public void GetStat(string statName, out int statValue) { statValue = -1; return; }
     public void GetStat(string statName, out float statValue) { statValue = -1; return; }

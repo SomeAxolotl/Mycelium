@@ -390,6 +390,7 @@ public class PlayerController : MonoBehaviour
         hudSkills.StartCooldownUI(4, (finalDodgeCooldown + clipLength));
         yield return new WaitForSeconds(clipLength);
         //yield return new WaitUntil(() => rollTimer >= clipLength);
+        Actions.FinishedDodge?.Invoke();
         freeRoll = false;
         isInvincible = false;
         activeDodge = false;

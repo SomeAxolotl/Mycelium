@@ -61,7 +61,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public virtual void EnemyTakeDamage(float damage)
+    public virtual void EnemyTakeDamage(float damage, bool wasFromDeathPlane = false)
     {
         // Check for ArmoredAttribute and apply damage reduction
         Armored armoredAttribute = GetComponent<Armored>();
@@ -74,7 +74,7 @@ public class EnemyHealth : MonoBehaviour
         dmgTaken = damage;
         //Call action to modify damage
         TakeDamage?.Invoke(dmgTaken);
-        SoundEffectManager.Instance.PlaySound("Hitmarker", GameObject.FindWithTag("Camtracker").transform, 0, 1, 200);
+        if (!wasFromDeathPlane) SoundEffectManager.Instance.PlaySound("Hitmarker", GameObject.FindWithTag("Camtracker").transform, 0, 1, 200);
 
         currentHealth -= dmgTaken;
 
@@ -89,7 +89,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if (currentHealth <= 0 && !alreadyDead)
         {
-            StartCoroutine(Death());
+            StartCoroutine(Death(wasFromDeathPlane));
         }
         hasTakenDamage = true;
     }
@@ -116,20 +116,33 @@ public class EnemyHealth : MonoBehaviour
         }
     }
     public Action Died;
-    protected IEnumerator Death()
+    protected IEnumerator Death(bool wasFromDeathPlane = false)
     {
         Died?.Invoke();
         Actions.EnemyKilled?.Invoke(this);
 
-        gameObject.GetComponent<EnemyAttack>().CancelAttack();
-        gameObject.GetComponent<EnemyAttack>().enabled = false;
-        gameObject.GetComponent<ReworkedEnemyNavigation>().enabled = false;
-        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        EnemyAttack enemyAttack = GetComponent<EnemyAttack>();
+        if (enemyAttack != null)
+        {
+            enemyAttack.CancelAttack();
+            enemyAttack.enabled = false;
+        }
+
+        ReworkedEnemyNavigation reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
+        if (reworkedEnemyNavigation != null)
+        {
+            reworkedEnemyNavigation.enabled = false;
+        }
+        
+        //gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 
         alreadyDead = true;
 
-        animator.Rebind();
-        animator.SetTrigger("Death");
+        if (animator != null)
+        {
+            animator.Rebind();
+            animator.SetTrigger("Death");
+        }
         yield return new WaitForSeconds(1.25f);
         float elapsedTime = 0f;
         float shrinkDuration = 1f;
@@ -163,12 +176,27 @@ public class EnemyHealth : MonoBehaviour
             }
         }
 
-        if (isMiniBoss)
+        if (isMiniBoss && !wasFromDeathPlane)
         {
             SpawnMinibossReward();
         }
 
         this.gameObject.SetActive(false);
+    }
+
+    public virtual void Heal(float healAmount)
+    {
+        if (currentHealth <= 0) return;
+
+        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0f, maxHealth);
+
+        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+        {
+            if (enemyHealthBar != null && currentHealth + dmgTaken > 0)
+            {
+                enemyHealthBar.UpdateEnemyHealthUI();
+            }
+        }
     }
 
     void SpawnMinibossReward()
@@ -178,10 +206,6 @@ public class EnemyHealth : MonoBehaviour
             int randomRewardIndex = UnityEngine.Random.Range(0, possibleRewards.Count);
 
             Instantiate(possibleRewards[randomRewardIndex], new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError(gameObject + " is a miniBoss has no possibleRewards set");
         }
     }
 
@@ -239,9 +263,6 @@ public class EnemyHealth : MonoBehaviour
                 {
                     Debug.Log("Updating miniboss name to: " + attributePrefix + miniBossName);
                     enemyHealthBar.enemyHealthName.text = attributePrefix + miniBossName;
-                    #if UNITY_EDITOR
-                    EditorUtility.SetDirty(enemyHealthBar.enemyHealthName);
-                    #endif
                 }
             }
         }
@@ -253,9 +274,6 @@ public class EnemyHealth : MonoBehaviour
             if (enemyHealthBar != null)
             {
                 enemyHealthBar.UpdateEnemyHealthUI();
-                #if UNITY_EDITOR
-                EditorUtility.SetDirty(enemyHealthBar);
-                #endif
             }
         }
     }
@@ -299,7 +317,6 @@ class EnemyHealthEditor : Editor
         if (enemyHealthBar != null)
         {
             enemyHealthBar.enemyHealthName.text = miniBossName.stringValue;
-            EditorUtility.SetDirty(enemyHealthBar.enemyHealthName);
         }
 
         serializedObject.ApplyModifiedProperties();

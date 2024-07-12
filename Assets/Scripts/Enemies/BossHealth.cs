@@ -25,7 +25,7 @@ public class BossHealth : EnemyHealth
             }
         }
     }
-    public override void EnemyTakeDamage(float damage)
+    public override void EnemyTakeDamage(float damage, bool wasFromDeathPlane = false)
     {
         // Check for ArmoredAttribute and apply damage reduction
         Armored armoredAttribute = GetComponent<Armored>();

@@ -11,4 +11,5 @@ public static class Actions
     public static Action<EnemyHealth> EnemyKilled;
     public static Action<Skill> ActivatedSkill;
     public static Action ActivatedDodge;
+    public static Action FinishedDodge;
 }

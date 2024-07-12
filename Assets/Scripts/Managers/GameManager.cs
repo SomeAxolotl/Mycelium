@@ -131,13 +131,13 @@ public class GameManager : MonoBehaviour
                 hudHappiness.HideColonyHappinessMeter();
             }
 
-            //if a spore permanently died,
+            //If a spore permanently died,
             if (GlobalData.sporePermaDied != null)
             {
                 //Reduce all happiness
                 HappinessManager.Instance.FriendlySporePermaDied();
                 
-                //and if an area was cleared, rest EVERY Spore (since the current one died)
+                //and if an area was cleared, rest EVERY Spore (since the current one died, the new current one is a randomly chosen Spore)
                 if (GlobalData.areaCleared)
                 {
                     HappinessManager.Instance.RestAllSpores();
@@ -148,6 +148,9 @@ public class GameManager : MonoBehaviour
             {
                 //sprout the current Spore
                 StartCoroutine(SproutPlayer());
+
+                //and test if its loop beat its highest record
+                currentPlayer.GetComponent<CharacterStats>().TestAgainstHighestLoopRecord(GlobalData.currentLoop - 1);
 
                 yield return new WaitForSeconds(1f);
 
@@ -177,16 +180,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //Apply the happiness stat boost in the first area
-        if (scene.buildIndex == 3)
-        {
-            StartCoroutine(ApplyHappinessBuffToCurrentPlayer());
-        }
-
+        //For every scene past the Carcass,
         if (scene.buildIndex > 2)
         {
             NavigateCamera();
             StartCoroutine(DrainNutrients());
+        }
+
+        //Apply the happiness stat boost in the first area and set current
+        if (scene.buildIndex == 3 && GlobalData.currentLoop == 1)
+        {
+            StartCoroutine(ApplyHappinessBuffToCurrentPlayer());
         }
     }
 

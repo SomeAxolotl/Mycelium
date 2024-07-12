@@ -182,7 +182,6 @@ public class TestingManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            GlobalData.currentLoop = 1;
             StartCoroutine(SetLevel(carcassBuildIndex));
         }
 

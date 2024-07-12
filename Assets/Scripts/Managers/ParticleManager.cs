@@ -97,7 +97,7 @@ public class ParticleManager : MonoBehaviour
             float easeOutFactor = 1f - Mathf.Pow(1f - t, 3f);
             flurryInterval = initialFlurryInterval * easeOutFactor;
 
-            yield return new WaitForSeconds(flurryInterval);
+            yield return new WaitForSeconds(10 * flurryInterval / flurryCount);
         }
     }
 

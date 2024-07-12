@@ -23,6 +23,8 @@ public class CharacterStats : MonoBehaviour
 
     public string sporeTrait;
 
+    public int highestLoopBeaten;
+
     //Able to be equipped
     public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
     {
@@ -808,6 +810,7 @@ public class CharacterStats : MonoBehaviour
 
     IEnumerator CalculateAttributes()
     {
+        sporeAttributeRanges = GameObject.FindWithTag("PlayerParent").GetComponent<SporeAttributeRanges>();
         primalDmg = Mathf.RoundToInt(sporeAttributeRanges.attackDamageBase + ((primalLevel - 1) * sporeAttributeRanges.attackDamageIncrement));
         baseHealth = Mathf.RoundToInt(sporeAttributeRanges.healthBase + ((vitalityLevel - 1) * sporeAttributeRanges.healthIncrement));
         baseRegen = sporeAttributeRanges.regenBase + ((vitalityLevel - 1) * sporeAttributeRanges.regenIncrement);
@@ -948,5 +951,15 @@ public class CharacterStats : MonoBehaviour
         StartCalculateAttributes();
         UpdateLevel();
         designTracker.UpdateBlendshape(sentienceLevel, primalLevel, vitalityLevel, speedLevel); 
+    }
+
+    public void TestAgainstHighestLoopRecord(int loop)
+    {
+        if (loop > highestLoopBeaten)
+        {
+            highestLoopBeaten = loop;
+
+            Debug.Log($"{sporeName} beat a new highest loop! " + loop);
+        }
     }
 }

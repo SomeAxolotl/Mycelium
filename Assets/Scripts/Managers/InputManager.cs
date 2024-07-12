@@ -137,7 +137,7 @@ public class InputManager : MonoBehaviour
     {
         GameObject hud = GameObject.Find("HUD");
 
-        if (hud == null) throw new NullReferenceException("hud is null");
+        if (hud == null) return;
 
         HUDControls hudController = hud.GetComponent<HUDControls>();
         hudController.ChangeHUDControls(GetLatestController());

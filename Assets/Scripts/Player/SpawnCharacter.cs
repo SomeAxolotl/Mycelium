@@ -7,6 +7,7 @@ using UnityEngine.Playables;
 using System.ComponentModel.Design;
 using System.IO;
 using System;
+using System.Linq;
 
 
 public class SpawnCharacter : MonoBehaviour
@@ -217,35 +218,87 @@ public class SpawnCharacter : MonoBehaviour
 
     string GetRandomUniqueName()
     {
-        int randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count);
-        string randomName;
-
-        if (swapCharacter.characters.Count >= sporeNames.Count)
+        // if 0, that means it's on the first batch of names. if 1, it's on the 2nd batch
+        int nameBatchIndex = swapCharacter.characters.Count / sporeNames.Count; //  120 / 100 = 1
+        Debug.Log(swapCharacter.characters.Count + " / " + sporeNames.Count + " = " + nameBatchIndex);
+        
+        List<string> usedNames = swapCharacter.characters.Select(character => character.GetComponent<CharacterStats>().sporeName).ToList();
+        
+        List<string> unusedNames = new List<string>();
+        // for each possible spore name,
+        foreach (string possibleSporeName in sporeNames)
         {
-            return sporeNames[randomNameIndex];
-        }
-        else
-        {
-            while (true)
+            int usedAmount = 0;
+            // cross reference it with each colony spore name, and count how many times it's used in the colony
+            foreach (string usedName in usedNames)
             {
-                randomNameIndex = UnityEngine.Random.Range(0, sporeNames.Count);
-                randomName = sporeNames[randomNameIndex];
-                bool nameIsUnique = true;
-                foreach (GameObject character in swapCharacter.characters)
+                // count how many times each colony spore name was used
+                if (usedName.Contains(possibleSporeName))
                 {
-                    if (character.GetComponent<CharacterStats>().sporeName == randomName)
-                    {
-                        nameIsUnique = false;
-                        break;
-                    }
-                }
-
-                if (nameIsUnique)
-                {
-                    return randomName;
+                    usedAmount++;
                 }
             }
+
+            // if that used amount is less than the nameBatchIndex, then add the name to unusedNames
+            // for example, if a name is used 1 time, but it's still only on batch 0, then do not add it to unusedNames
+            // however, if it's used 1 time, but it's now on batch 2, it can be used again
+            if (usedAmount <= nameBatchIndex)
+            {
+                unusedNames.Add(possibleSporeName);
+            }
         }
+
+        if (unusedNames.Count == 0)
+        {
+            Debug.LogError("unusedNames.Count is 0 idk why");
+            return "Gob";
+        }
+
+        int randomNameIndex = UnityEngine.Random.Range(0, unusedNames.Count);
+        string randomName = unusedNames[randomNameIndex];
+
+        return randomName + GetOrdinalSuffix(nameBatchIndex);
+    }
+
+    string GetOrdinalSuffix(int ordinalNumber)
+    {
+        string ordinalSuffix = " the ";
+
+        switch (ordinalNumber)
+        {
+            case 0:
+                ordinalSuffix = "";
+                break;
+            case 1:
+                ordinalSuffix += "2nd";
+                break;
+            case 2:
+                ordinalSuffix += "3rd";
+                break;
+            default:
+                ordinalSuffix += (ordinalNumber + 1) + "th";
+                break;
+        }
+
+        return ordinalSuffix;
+    }
+    
+    //this shit dont work
+    string GetCursedName()
+    {
+        string cursedLetters = " ̷̨̢̡̢̙̣̲̗̪̮̜̲̺̐̓̒̑̿́̐͂̋̊̊̋̚͠͝ ̵̧̫͚̟̲͍̫̥͇̙̲̜̻̩̩̪̉̀͊̆̊̓̒͛̌͗̈̈́̉̌ ̵̢̛̘̩̖̭̬̬̯̖̦̓̋͛̊̂͜ ̸̡̨̰̼̼͍̼̺͚̯͖̦̼̮̄̆̄̓͌̀̈͜ ̴̢̦̙͖̞͑́̓͊͗̓̿̃͂̀͝͝͝";
+
+        int nameLength = UnityEngine.Random.Range(1, 10); // Adjust the range as needed
+
+        string cursedName = "";
+        for (int i = 0; i < nameLength; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, cursedLetters.Length);
+            char randomChar = cursedLetters[randomIndex];
+            cursedName.Append(randomChar);
+        }
+
+        return cursedName.ToString();
     }
 
     public IEnumerator ResetCamera(GameObject newCharacter)

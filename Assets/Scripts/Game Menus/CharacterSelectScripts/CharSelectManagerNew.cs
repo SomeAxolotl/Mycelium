@@ -58,6 +58,8 @@ public class CharSelectManagerNew : MonoBehaviour
     }
     public void StartGame()
     {
+        GlobalData.currentLoop = 1;
+
         sporeManagerScript.Save();
         profileManagerScript.Save();
         playerController.EnableController();

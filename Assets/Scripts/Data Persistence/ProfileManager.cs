@@ -19,6 +19,8 @@ public class ProfileManager : MonoBehaviour
     [HideInInspector] public List<bool> shopTutorialShown = new List<bool>();
     [HideInInspector] public List<bool> furnitureTutorialShown = new List<bool>();
 
+    [HideInInspector] public List<int> highestLoopBeaten = new List<int>();
+
 
     [SerializeField] private ProfileData defaultProfileData;
 
@@ -58,6 +60,7 @@ public class ProfileManager : MonoBehaviour
         LoadBegniningTutorialData();
         LoadShopTutorialShown();
         LoadFurnitureTutorialData();
+        LoadHighestLoopData();
     }
 
     void OnApplicationQuit()
@@ -173,6 +176,17 @@ public class ProfileManager : MonoBehaviour
         SetPathAndData(GlobalData.profileNumber);
     }
 
+    void LoadHighestLoopData()
+    {
+        for (int i = 0; i <= 2; i++)
+        {
+            SetPathAndData(i);
+            highestLoopBeaten.Add(profileData.highestLoopBeaten);
+        }
+
+        SetPathAndData(GlobalData.profileNumber);
+    }
+
     public void Save()
     {
         ProfileData newProfileData = new ProfileData();
@@ -208,6 +222,7 @@ public class ProfileManager : MonoBehaviour
         newProfileData.beginningTutorialShown = beginningTutorialShown[GlobalData.profileNumber];
         newProfileData.furniureTutorialShown = furnitureTutorialShown[GlobalData.profileNumber];
         newProfileData.shopTutorialShown = shopTutorialShown[GlobalData.profileNumber];
+        newProfileData.highestLoopBeaten = highestLoopBeaten[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         //Debug.Log(json);
@@ -237,6 +252,7 @@ public class ProfileManager : MonoBehaviour
         newProfileData.beginningTutorialShown = beginningTutorialShown[GlobalData.profileNumber];
         newProfileData.furniureTutorialShown = furnitureTutorialShown[GlobalData.profileNumber];
         newProfileData.shopTutorialShown = shopTutorialShown[GlobalData.profileNumber];
+        newProfileData.highestLoopBeaten = highestLoopBeaten[GlobalData.profileNumber];
 
         string json = JsonUtility.ToJson(newProfileData);
         Debug.Log(json);
@@ -257,6 +273,20 @@ public class ProfileManager : MonoBehaviour
         System.IO.File.WriteAllText(filePath, json);
     }
 
+    public void TestAgainstHighestLoopRecord(int loop)
+    {
+        Debug.Log($"Loop: {loop} | highestLoopBeaten: {highestLoopBeaten[GlobalData.profileNumber]}");
+
+        if (loop > highestLoopBeaten[GlobalData.profileNumber])
+        {
+            highestLoopBeaten[GlobalData.profileNumber] = loop;
+
+            Debug.Log("You beat a new highest loop! " + loop);
+
+            SaveOverride();
+        }
+    }
+
     [Serializable]
     public class ProfileData
     {
@@ -272,6 +302,7 @@ public class ProfileManager : MonoBehaviour
         public bool beginningTutorialShown;
         public bool shopTutorialShown;
         public bool furniureTutorialShown;
+        public int highestLoopBeaten;
 
         public bool bedIsUnlocked;
         public bool drumIsUnlocked;
