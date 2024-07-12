@@ -115,6 +115,32 @@ public class StatsAndAchievements : MonoBehaviour
     }
 
     //==================================================================================
+    //GET ACHIEVEMENT
+    //==================================================================================
+
+    public void GetAchievement(string achName, out bool isUnlocked)
+    {
+        bool buffer = false;
+
+        StartCoroutine(OnGetAchievement(achName, unlockStatus => buffer = unlockStatus));
+
+        isUnlocked = buffer;
+    }
+
+    private IEnumerator OnGetAchievement(string achName, System.Action<bool> callback)
+    {
+        bool shouldContinue = false;
+
+        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
+        if (shouldContinue == false) { yield break; }
+
+        bool unlockStatus;
+
+        SteamUserStats.GetAchievement(achName, out unlockStatus);
+        callback(unlockStatus);
+    }
+
+    //==================================================================================
     //GIVE ACHIEVEMENT
     //==================================================================================
 
