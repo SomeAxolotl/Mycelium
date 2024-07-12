@@ -29,6 +29,9 @@ public class DesignTracker : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip secretHighLevelSoundClip;
 
+    [SerializeField] Texture2D blinkTexture;
+    public bool canBlink = true;
+
     //Ryan's nutrient glow stuff
     private Coroutine nutrientGlow;
 
@@ -38,6 +41,8 @@ public class DesignTracker : MonoBehaviour
         {
             UpdateColorsAndTexture();                   //<---- taken care of by SporeManager.cs in the carcass
         }
+
+        StartCoroutine(RandomBlinks());
     }
 
     public void UpdateBlendshape(int sentienceLevel, int primalLevel, int vitalityLevel, int speedLevel)
@@ -190,6 +195,34 @@ public class DesignTracker : MonoBehaviour
         if(MouthTexture!=null)
             materials[1].SetTexture("_Tertiary_Texture", MouthTexture);
         materials[1].SetColor("_Color", bodyColor);
+    }
+
+    private IEnumerator RandomBlinks()
+    {
+        while (canBlink)
+        {
+            yield return new WaitForSeconds(Random.Range(2f, 4f));
+
+            yield return StartCoroutine(Blink());
+        }
+    }
+
+    public IEnumerator Blink()
+    {
+        if (canBlink) CloseEyes();
+        yield return new WaitForSeconds(Random.Range(0.2f, 0.4f));
+        if (canBlink) OpenEyes();
+    }
+
+    public void CloseEyes()
+    {
+        Material[] materials = skinnedMeshRenderer.materials;
+        materials[1].SetTexture("_Secondary_Texture", blinkTexture);
+    }
+    public void OpenEyes()
+    {
+        Material[] materials = skinnedMeshRenderer.materials;
+        materials[1].SetTexture("_Secondary_Texture", EyeTexture);
     }
 
     public void SetCapColor(UnityEngine.Color color)

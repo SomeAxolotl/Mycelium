@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     NutrientTracker nutrientTracker;
     PlayerController playerController;
     [HideInInspector] public Animator animator;
+    [HideInInspector] public DesignTracker designTracker;
     SceneLoader sceneLoaderScript;
     ProfileManager profileManagerScript;
 
@@ -44,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         playerController = GetComponent<PlayerController>();
         animator = GameObject.Find("Spore").GetComponent<Animator>();
+        designTracker = GameObject.FindWithTag("currentPlayer").GetComponent<DesignTracker>();
         profileManagerScript = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
         isDefending = false;
         isInvincible = false;
@@ -90,6 +92,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > 0)
         {
             StartCoroutine(HurtSound());
+            designTracker.StartCoroutine(designTracker.Blink());
 
             animator = GetComponentInChildren<Animator>();
             if (animator.GetBool("Hurt") == true)
@@ -172,9 +175,7 @@ public class PlayerHealth : MonoBehaviour
 
         //Notification stuff
         string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
-        DesignTracker designTracker = GameObject.FindWithTag("currentPlayer").GetComponent<DesignTracker>();
         CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
-        //string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">"+characterStats.sporeName+"</color>";
         string coloredSporeName = characterStats.GetColoredSporeName();
         string deathMessage = "<color=#8B0000>YOU DIED</color>";
         string permaDeathMessage = "<color=#8B0000> has died for good.</color>";
@@ -206,6 +207,9 @@ public class PlayerHealth : MonoBehaviour
         CancelInvoke("Regen");
         hudHealth.UpdateHealthUI(0, maxHealth);
         animator = GetComponentInChildren<Animator>();
+
+        designTracker.canBlink = false;
+        designTracker.CloseEyes();
 
         //thought rebinding might help with standing up bug. it still happened tho
         animator.Rebind();
