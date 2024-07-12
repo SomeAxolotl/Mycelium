@@ -12,6 +12,20 @@ using Steamworks;
 
 public class StatsAndAchievements : MonoBehaviour
 {
+    public static StatsAndAchievements Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
 #if !DISABLESTEAMWORKS
     private const uint APPID = 2969710;
     private const string RCS_ERROR = "RequestCurrentStats() went wrong or something go bother ryan | Error Code: ";
