@@ -198,6 +198,11 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator DestroyAfterPopping(Coroutine popCoroutine)
     {
+        ShrinkToSize shrink = GetComponent<ShrinkToSize>();
+        if(shrink != null){
+            shrink.duration = popDuration;
+            shrink.enabled = true;
+        }
         yield return popCoroutine;
 
         Destroy(this.gameObject);
