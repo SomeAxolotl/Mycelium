@@ -4860,6 +4860,8 @@ GameObject:
   - component: {fileID: 2669418173994377846}
   - component: {fileID: 1200030111529655480}
   - component: {fileID: 8268600311060618671}
+  - component: {fileID: 6619203433564272634}
+  - component: {fileID: 1328178549145705244}
   m_Layer: 0
   m_Name: ToxicCube
   m_TagString: ToxicCube
@@ -4993,22 +4995,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3bc05538a4107d48ae50017525b318a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSkill: 1
-  valueBase: 10
-  valueIncrement: 2
-  finalSkillValue: 30
-  cooldownBase: 6
-  cooldownIncrement: -0.2
-  finalSkillCooldown: 0
-  player: {fileID: 0}
-  characterStats: {fileID: 0}
-  playerController: {fileID: 0}
-  playerHealth: {fileID: 0}
-  curWeapon: {fileID: 0}
-  currentAnimator: {fileID: 0}
-  speedBoost: 1.5
-  speedDuration: 3
-  spawnCount: 0
-  sporeConePrefab: {fileID: 0}
+  finalDamageValue: 0
   damageOverTimeDuration: 3
   timeElapsed: 0
+--- !u!114 &6619203433564272634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277997986309170314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26a5e2b105b9f444bd5202d1fa48903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScale: {x: 1.5, y: 1, z: 1.5}
+  duration: 0.35
+--- !u!114 &1328178549145705244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277997986309170314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61fe8e800c142a4408cbdd444da095c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shrinkDelay: 2.5
+  duration: 0.25
