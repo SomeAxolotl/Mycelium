@@ -38,6 +38,7 @@ public class Mycotoxins : Skill
         // Increment the timer in each frame
         timer += Time.deltaTime;
     }
+    public LayerMask groundLayerMask;
     private IEnumerator ReleaseSpores()
     {
         while (spawnCount < 3)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4530679142555820068}
   - component: {fileID: 3085747452120818130}
   - component: {fileID: 3202236780088342517}
+  - component: {fileID: -1960975652369798304}
   m_Layer: 0
   m_Name: FairyRingPrefab
   m_TagString: FairyRing
@@ -130,9 +131,23 @@ MonoBehaviour:
   playerAttack: {fileID: 0}
   playerHealth: {fileID: 0}
   curWeapon: {fileID: 0}
+  hudSkills: {fileID: 0}
+  skillSlot: 0
   currentAnimator: {fileID: 0}
   fairyRingPrefab: {fileID: 0}
   fairyRingParticles: {fileID: 0}
   lifetime: 7
   damage: 0
   speedReduction: 50
+--- !u!114 &-1960975652369798304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549898513639098181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b600c0932f71f47a2a4ce4c2257c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

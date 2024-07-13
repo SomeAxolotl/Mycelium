@@ -16,6 +16,7 @@ public class DeathBlossomPlant : MonoBehaviour
     private Color StartGlow;
     private float startLightIntensity;
     public float finalDamageValue;
+
     void Start()
     {
         StartCoroutine(ExplodeAfterDelay());

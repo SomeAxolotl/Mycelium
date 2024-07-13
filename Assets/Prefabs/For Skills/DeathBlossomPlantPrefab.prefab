@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4740224151370760281}
   - component: {fileID: 3929861013221101063}
   - component: {fileID: 4844135511321346174}
+  - component: {fileID: -2252141037220615045}
   m_Layer: 0
   m_Name: DeathBlossomPlantPrefab
   m_TagString: TestPlant
@@ -67,27 +68,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27376af09821d5409a3fa1540485fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSkill: 1
-  valueBase: 15
-  valueIncrement: 1
-  finalSkillValue: 20
-  cooldownBase: 6
-  cooldownIncrement: -0.215
-  finalSkillCooldown: 0
-  player: {fileID: 0}
-  characterStats: {fileID: 0}
-  playerController: {fileID: 0}
-  playerHealth: {fileID: 0}
-  currentAnimator: {fileID: 0}
-  deathBlossomPrefab: {fileID: 0}
-  distanceInFront: 2
   destroyTime: 2
   burstRadius: 5
   damageOverTimeDuration: 4
   particleSpacing: 18
   particleHeight: 0
   render: {fileID: 2477715909642528942}
-  light: {fileID: 0}
+  thisLight: {fileID: 0}
+  finalDamageValue: 0
+--- !u!114 &-2252141037220615045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928246525154084193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b600c0932f71f47a2a4ce4c2257c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3864942662745404458
 PrefabInstance:
   m_ObjectHideFlags: 0
