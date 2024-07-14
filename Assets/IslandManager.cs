@@ -6,7 +6,7 @@ public class IslandManager : MonoBehaviour
 {
     public static IslandManager Instance { get; private set; }
 
-    [SerializeField] private IslandSetup[] islandSetups;
+    private GameObject activeIsland;
 
     private void Awake()
     {
@@ -20,35 +20,24 @@ public class IslandManager : MonoBehaviour
         }
     }
 
+    public void SetActiveIsland(GameObject island)
+    {
+        if (activeIsland != null)
+        {
+            activeIsland.SetActive(false);
+        }
+        activeIsland = island;
+        activeIsland.SetActive(true);
+    }
+
     public bool IsIslandActive(GameObject island)
     {
-        return island.activeSelf;
+        return island == activeIsland;
     }
 
-    public void SetIslandActive(GameObject island, bool isActive)
+    public Transform GetIslandRespawnPoint(GameObject island)
     {
-        island.SetActive(isActive);
-    }
-
-    public bool CheckForDuplicateIslands()
-    {
-        HashSet<GameObject> activeIslands = new HashSet<GameObject>();
-        foreach (var setup in islandSetups)
-        {
-            if (setup.island.activeSelf)
-            {
-                if (!activeIslands.Add(setup.island))
-                {
-                    return true; // Duplicate found
-                }
-            }
-        }
-        return false; // No duplicates
-    }
-
-    [System.Serializable]
-    public class IslandSetup
-    {
-        public GameObject island;
+        var respawnPoint = island.transform.Find("IslandSpawn");
+        return respawnPoint != null ? respawnPoint : null;
     }
 }

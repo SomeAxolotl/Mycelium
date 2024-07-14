@@ -6,11 +6,11 @@ public class IslandSpawn : MonoBehaviour
 {
     [SerializeField] private string whirlpoolName; // Name of this whirlpool
     [SerializeField] private float timeUntilRespawn = 0.2f;
-    [SerializeField] private GameObject[] potentialIslands; // Potential islands for this whirlpool
-    [SerializeField] private Transform islandRespawnPoint; // Public transform to be set based on the active island
+    public GameObject[] potentialIslands; // Potential islands for this whirlpool
+    private Transform islandRespawnPoint; // Public transform to be set based on the active island
 
     private IslandManager islandManager;
-    private GameObject activeIsland;
+    private static bool islandActivated = false; // Static variable to ensure only one island is activated
 
     void Start()
     {
@@ -21,13 +21,12 @@ public class IslandSpawn : MonoBehaviour
             return;
         }
 
-        ActivateRandomIsland();
-        UpdateRespawnPoint();
+        StartCoroutine(ActivateRandomWhirlpool());
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "currentPlayer" && other.GetType() == typeof(CapsuleCollider))
+        if (other.gameObject.CompareTag("currentPlayer") && other.GetType() == typeof(CapsuleCollider))
         {
             StartCoroutine(RespawnPlayer());
         }
@@ -73,37 +72,41 @@ public class IslandSpawn : MonoBehaviour
         GlobalData.isAbleToPause = true;
     }
 
-    private void UpdateRespawnPoint()
+    private IEnumerator ActivateRandomWhirlpool()
     {
-        if (activeIsland != null)
+        yield return new WaitForSeconds(2f); // Wait for a few seconds to ensure all whirlpools are initialized
+
+        // Find all active whirlpools in the scene
+        IslandSpawn[] whirlpools = FindObjectsOfType<IslandSpawn>();
+
+        if (whirlpools.Length == 0)
         {
-            GameObject respawnPointObject = GameObject.FindWithTag("IslandSpawn");
-            if (respawnPointObject != null)
+            Debug.LogError("No whirlpools found in the scene.");
+            yield break;
+        }
+
+        // Randomly select one whirlpool to activate an island
+        IslandSpawn selectedWhirlpool = whirlpools[Random.Range(0, whirlpools.Length)];
+        selectedWhirlpool.ActivateRandomIsland();
+
+        // Set the flag to true so no other whirlpool tries to activate an island
+        islandActivated = true;
+
+        // Deactivate all other whirlpools
+        foreach (var whirlpool in whirlpools)
+        {
+            if (whirlpool != selectedWhirlpool)
             {
-                islandRespawnPoint = respawnPointObject.transform;
-            }
-            else
-            {
-                Debug.LogError("No IslandSpawn tagged object found in the active island.");
+                whirlpool.gameObject.SetActive(false);
             }
         }
     }
 
-    private void ActivateRandomIsland()
+    public void ActivateRandomIsland()
     {
-        GameObject selectedIsland = null;
-
-        // Find a random island that does not activate a duplicate island
-        while (selectedIsland == null || islandManager.IsIslandActive(selectedIsland))
-        {
-            selectedIsland = potentialIslands[Random.Range(0, potentialIslands.Length)];
-        }
-
-        // Set the selected island active
-        islandManager.SetIslandActive(selectedIsland, true);
-        activeIsland = selectedIsland;
-
-        // Update the respawn point for this whirlpool
-        UpdateRespawnPoint();
+        int randomIndex = Random.Range(0, potentialIslands.Length);
+        GameObject selectedIsland = potentialIslands[randomIndex];
+        islandManager.SetActiveIsland(selectedIsland);
+        islandRespawnPoint = islandManager.GetIslandRespawnPoint(selectedIsland);
     }
 }
