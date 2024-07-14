@@ -4,8 +4,26 @@ using UnityEngine;
 
 public class IslandSpawn : MonoBehaviour
 {
-    [SerializeField] Transform islandRespawnPoint;
-    [SerializeField] float timeUntilRespawn = 0.2f;
+    [SerializeField] private string whirlpoolName; // Name of this whirlpool
+    [SerializeField] private float timeUntilRespawn = 0.2f;
+    [SerializeField] private GameObject[] potentialIslands; // Potential islands for this whirlpool
+    [SerializeField] private Transform islandRespawnPoint; // Public transform to be set based on the active island
+
+    private IslandManager islandManager;
+    private GameObject activeIsland;
+
+    void Start()
+    {
+        islandManager = IslandManager.Instance;
+        if (islandManager == null)
+        {
+            Debug.LogError("IslandManager not found in the scene.");
+            return;
+        }
+
+        ActivateRandomIsland();
+        UpdateRespawnPoint();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -21,12 +39,9 @@ public class IslandSpawn : MonoBehaviour
 
         GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
 
-        // Find all island respawn points
-        GameObject[] islandRespawnPoints = GameObject.FindGameObjectsWithTag("IslandSpawn");
-
         if (islandRespawnPoint == null)
         {
-            Debug.LogError($"No island respawn point set for {gameObject}");
+            Debug.LogError($"No island respawn point set for {whirlpoolName}");
             yield break;
         }
 
@@ -39,7 +54,7 @@ public class IslandSpawn : MonoBehaviour
         currentPlayer.transform.position = islandRespawnPoint.position;
         GameManager.Instance.NavigateCamera();
         Rigidbody rb = currentPlayer.GetComponent<Rigidbody>();
-        //Constraints rigidbody for a frame to prevent clipping
+        // Constraints rigidbody for a frame to prevent clipping
         if (rb != null)
         {
             rb.constraints = RigidbodyConstraints.FreezePosition;
@@ -56,5 +71,39 @@ public class IslandSpawn : MonoBehaviour
         yield return hudController.StartCoroutine(hudController.BlackFade(false));
 
         GlobalData.isAbleToPause = true;
+    }
+
+    private void UpdateRespawnPoint()
+    {
+        if (activeIsland != null)
+        {
+            GameObject respawnPointObject = GameObject.FindWithTag("IslandSpawn");
+            if (respawnPointObject != null)
+            {
+                islandRespawnPoint = respawnPointObject.transform;
+            }
+            else
+            {
+                Debug.LogError("No IslandSpawn tagged object found in the active island.");
+            }
+        }
+    }
+
+    private void ActivateRandomIsland()
+    {
+        GameObject selectedIsland = null;
+
+        // Find a random island that does not activate a duplicate island
+        while (selectedIsland == null || islandManager.IsIslandActive(selectedIsland))
+        {
+            selectedIsland = potentialIslands[Random.Range(0, potentialIslands.Length)];
+        }
+
+        // Set the selected island active
+        islandManager.SetIslandActive(selectedIsland, true);
+        activeIsland = selectedIsland;
+
+        // Update the respawn point for this whirlpool
+        UpdateRespawnPoint();
     }
 }
