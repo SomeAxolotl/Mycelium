@@ -7,7 +7,6 @@ public class UndergrowthManager : MonoBehaviour
     public List<GameObject> roots;
     [HideInInspector] public List<Collider> hitTargets;
     Undergrowth undergrowth;
-    public GameObject undergrowthCaughtParticles;
 
     [SerializeField] private float rootDuration = 2;
 
@@ -32,9 +31,8 @@ public class UndergrowthManager : MonoBehaviour
             if(other.GetComponent<EnemyHealth>() != null){
                 other.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue / 5);
             }
-            SpeedChange speedChangeEffect = other.gameObject.AddComponent<SpeedChange>();
-            speedChangeEffect.InitializeSpeedChange(rootDuration, -100);
-            Instantiate(undergrowthCaughtParticles, other.transform.position, transform.rotation);
+            Root rootEffect = other.gameObject.AddComponent<Root>();
+            rootEffect.duration = rootDuration;
         }
     }
 }
