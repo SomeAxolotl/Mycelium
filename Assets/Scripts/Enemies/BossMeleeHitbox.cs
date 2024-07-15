@@ -28,7 +28,6 @@ public class BossMeleeHitbox : MonoBehaviour
     public IEnumerator ActivateHitbox()
     {
         yield return new WaitForSeconds(hitboxActivateDelay);
-        CameraShakeManager.instance.ShakeCamera(impulseSource);
         gameObject.GetComponent<Collider>().enabled = true;
         //gameObject.GetComponent<Renderer>().enabled = true;
         yield return new WaitForSeconds(0.3f);

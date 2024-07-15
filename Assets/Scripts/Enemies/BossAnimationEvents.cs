@@ -1,9 +1,12 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossAnimationEvents : MonoBehaviour
 {
+    [SerializeField] private CinemachineImpulseSource impulseSource;
+
     [SerializeField] private AttackTargetSolver leftATS;
     [SerializeField] private AttackTargetSolver rightATS;
 
@@ -72,5 +75,10 @@ public class BossAnimationEvents : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void ShakeCamera() //This is called in the various animations through animation events -ryan
+    {
+        CameraShakeManager.instance.ShakeCamera(impulseSource);
     }
 }

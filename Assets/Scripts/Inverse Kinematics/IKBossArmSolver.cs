@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -23,10 +24,12 @@ public class IKBossArmSolver : MonoBehaviour
     private Vector3 currentPosition;
 
     private Animator bossAnimator;
+    private CinemachineImpulseSource impulseSource;
 
     void Start()
     {
         bossAnimator = boss.GetComponent<Animator>();
+        impulseSource = boss.GetComponent<CinemachineImpulseSource>();
 
         currentPosition = transform.position;
         rayOffsetDist = Vector3.Distance(transform.position, boss.position);
@@ -83,6 +86,8 @@ public class IKBossArmSolver : MonoBehaviour
 
             yield return null;
         }
+
+        CameraShakeManager.instance.ShakeCamera(impulseSource, 0.25f);
 
         currentPosition = newPosition;
         isMoving = false;
