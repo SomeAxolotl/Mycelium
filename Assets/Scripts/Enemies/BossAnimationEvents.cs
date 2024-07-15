@@ -1,6 +1,4 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossAnimationEvents : MonoBehaviour
@@ -16,13 +14,21 @@ public class BossAnimationEvents : MonoBehaviour
     [HideInInspector] public bool isInDangerZone = false;
 
     private Transform player;
+    private Transform camtracker;
+
+    //==================================================================================
+    //                             -=-=-IMPORTANT-=-=-
+    //PRETTY MUCH EVERY FUNCTION IN THIS SCRIPT IS BEING CALLED BY VARIOUS ANIMATIONS
+    //                          VIA ANIMATION EVENTS! -ryan
+    //==================================================================================
 
     private void Start()
     {
         player = GameObject.FindWithTag("currentPlayer").GetComponent<Transform>();
+        camtracker = GameObject.FindWithTag("Camtracker").GetComponent<Transform>();
     }
 
-    void Finish() //This is called in the Death animation by an animation event -ryan
+    void Finish() 
     {
         GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();
         GameObject boss = GameObject.Find("Rival Colony Leader");
@@ -30,10 +36,12 @@ public class BossAnimationEvents : MonoBehaviour
         //boss.SetActive(false);
     }
 
-    void PositionAttackTarget(string attack) //This is called in the various attack animations through animation events -ryan
+    void PositionAttackTarget(string attack)
     {
         //Debug.Log($"Danger Zone: {isInDangerZone}");
         //Debug.Log($"Left Dist: {Vector3.Distance(leftShoulder.position, player.position)} | Right Dist: {Vector3.Distance(rightShoulder.position, player.position)}");
+
+        attack = attack.ToLower();
 
         switch (attack)
         {
@@ -77,8 +85,23 @@ public class BossAnimationEvents : MonoBehaviour
         }
     }
 
-    void ShakeCamera() //This is called in the various animations through animation events -ryan
+    void ShakeCamera() 
     {
         CameraShakeManager.instance.ShakeCamera(impulseSource);
+    }
+
+    void PlayBoomSound() 
+    {
+        float distance = Vector3.Distance(camtracker.position, gameObject.transform.position);
+        Vector2 from = new Vector2(5f, 35f);
+        Vector2 to = new Vector2(0f, -0.5f);
+
+        //remap
+        float newVolume = to.x + (distance - from.x) * (to.y - to.x) / (from.y - from.x);
+        newVolume = Mathf.Clamp(newVolume, Mathf.Min(to.x, to.y), Mathf.Max(to.x, to.y));
+
+        //Debug.Log("Distance: " + distance + "\tVolume: " + newVolume);
+
+        SoundEffectManager.Instance.PlaySound("Boss Boom", camtracker, newVolume);
     }
 }
