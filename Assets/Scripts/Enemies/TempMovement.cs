@@ -29,7 +29,7 @@ public class TempMovement : MonoBehaviour
         float desiredYRotation = desiredRotation.eulerAngles.y + 180f;
         Quaternion targetRotation = Quaternion.Euler(0f, desiredYRotation, 0f);
         float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
-        float maxAngleThisFrame = 1f * Time.fixedDeltaTime;
+        float maxAngleThisFrame = 2f * Time.fixedDeltaTime;
 
         if(!monsterBossAttack.isAttacking)
         {
