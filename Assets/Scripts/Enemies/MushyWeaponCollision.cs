@@ -5,7 +5,6 @@ using static Adaptive;
 
 public class MushyWeaponCollision : MonoBehaviour, IDamageBuffable
 {
-    private float HitboxActivateDelay = .3f;
     [HideInInspector] public List<GameObject> playerHit = new List<GameObject>();
     [HideInInspector] public float knockbackForce;
     [HideInInspector] public float damage;
@@ -19,7 +18,6 @@ public class MushyWeaponCollision : MonoBehaviour, IDamageBuffable
     }
     public IEnumerator ActivateHitbox()
     {
-        yield return new WaitForSeconds(HitboxActivateDelay);
         gameObject.GetComponent<Collider>().enabled = true;
         yield return new WaitForSeconds(0.5f);
         gameObject.GetComponent<Collider>().enabled = false;

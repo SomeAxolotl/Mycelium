@@ -40,8 +40,9 @@ public class SpineshotProjectile : MonoBehaviour
         else if (((1 << collision.gameObject.layer) & collidableLayers.value) != 0
             && collision.gameObject.GetComponent<SmackableGlowShroomController>() == null
             && collision.gameObject.GetComponent<SmackableShroomController>() == null
-            && collision.gameObject.GetComponent<MushroomPlayerSensorController>() == null)
-            //Kind of scuffed but this ignores the big trigger colliders on the bouncy shrooms
+            && collision.gameObject.GetComponent<MushroomPlayerSensorController>() == null
+            && collision.gameObject.GetComponent<EnemySpawner>() == null)
+            //Kind of scuffed but this ignores the big trigger colliders on the bouncy shrooms and spawners
         {
             Instantiate(ExplosionVFX, transform.position, transform.rotation);
             Destroy(gameObject);

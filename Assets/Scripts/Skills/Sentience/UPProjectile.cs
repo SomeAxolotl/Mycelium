@@ -33,11 +33,12 @@ public class UPProjectile : MonoBehaviour
     {
         if (collision.gameObject.name == "DangerZone") return; //Hard-Coded fix for ignoring boss DangerZone
 
-        //Kind of scuffed but this ignores the big trigger colliders on the bouncy shrooms
+        //Kind of scuffed but this ignores the big trigger colliders on the bouncy shrooms and spawners
         if (((1 << collision.gameObject.layer) & collidableLayers.value) != 0 
             && collision.gameObject.GetComponent<SmackableGlowShroomController>() == null 
             && collision.gameObject.GetComponent<SmackableShroomController>() == null
-            && collision.gameObject.GetComponent<MushroomPlayerSensorController>() == null)
+            && collision.gameObject.GetComponent<MushroomPlayerSensorController>() == null
+            && collision.gameObject.GetComponent<EnemySpawner>() == null)
         {
             ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
             DamageEnemies();

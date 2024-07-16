@@ -8,7 +8,7 @@ public class MushyAttack : EnemyAttack
 {
     private bool canAttack = true;
     private bool attackStarted = false;
-    private float attackTimer;
+    //private float attackTimer;
     private float disFromPlayer;
     private float hitStun;
     private float resetAttack;
@@ -99,27 +99,38 @@ public class MushyAttack : EnemyAttack
         canAttack = false;
         attackStarted = true;
         disFromPlayer = Vector3.Distance(transform.position, player.position);
-        while (disFromPlayer > 2f && attackTimer < 3f)
+        if(disFromPlayer > 2f)
         {
-            reworkedEnemyNavigation.playerSeen = true;
-            disFromPlayer = Vector3.Distance(transform.position, player.position);
-            Vector3 moveDirection = ObstacleAvoidance(player.position - transform.position);
-            rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
-            yield return null;
+            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                animator.Rebind();
+                animator.Play("Walk"); // For some reason Idle transition is being weird 
+                animator.SetBool("IsMoving", true);
+            }
+            while (disFromPlayer > 2f)
+            {
+                reworkedEnemyNavigation.playerSeen = true;
+                disFromPlayer = Vector3.Distance(transform.position, player.position);
+                Vector3 moveDirection = ObstacleAvoidance(player.position - transform.position);
+                rb.velocity = new Vector3((moveDirection * moveSpeed).x, rb.velocity.y, (moveDirection * moveSpeed).z);
+                yield return null;
+            }
         }
-        attackTimer = 0f;
         disFromPlayer = Vector3.Distance(transform.position, player.position);
         yield return null;
         if (disFromPlayer <= 3f)
         {
-            yield return new WaitForSeconds(attackWindup);
             if (!zombified)
             {
                 attackStarted = false;
                 animator.SetTrigger("Attack");
+                yield return new WaitForSeconds(0.3f); // Wait for animation to begin before activating weapon hitbox
                 mushyWeaponCollision.StartCoroutine(mushyWeaponCollision.ActivateHitbox());
+                yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
+                animator.SetBool("IsMoving", false);
             }
-            yield return new WaitForSeconds(attackCooldown + 1f); //1 sec buffer for the actual animation
+            yield return new WaitForSeconds(attackCooldown + .75f); // .75 second buffer to account for attack animation
+            animator.SetBool("IsMoving", true);
         }
         else
         {
