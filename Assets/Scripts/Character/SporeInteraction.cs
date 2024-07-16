@@ -77,21 +77,56 @@ public class SporeInteraction : MonoBehaviour, IInteractable
             tooltipDesc += trait.traitDesc;
         }
 
+        int highestLoopBeaten = characterStats.highestLoopBeaten;
         Tooltip sporeTooltip = TooltipManager.Instance.CreateTooltip
         (
             gameObject,
             tooltipTitle,
             tooltipDesc,
             "Press " + buttonText + " to Swap",
-            "",
-            true,
-            1f,
+            interactString2: GetRecordString(highestLoopBeaten),
+            shouldParent: true,
+            verticalOffset: GetVerticalOffsetWithSecondInteractString(highestLoopBeaten),
             true
         );
-        if (sporeTooltip != null)
+        sporeTooltip.tooltipInteract2.color = Color.Lerp
+            (sporeTooltip.tooltipInteract2.color, 
+            TooltipManager.Instance.maxLoopColor, 
+            Mathf.Clamp(highestLoopBeaten, 0, 10) / 10f);
+
+        sporeTooltip.ShowHappiness(characterStats.sporeHappiness);
+    }
+
+    float GetVerticalOffsetWithSecondInteractString(int highestLoop)
+    {
+        float verticalOffset = 1f;
+
+        if (DoesSporeDisplayRecord(highestLoop))
         {
-            sporeTooltip.ShowHappiness(characterStats.sporeHappiness);
+            verticalOffset += 0.25f;
         }
+
+        return verticalOffset;
+    }
+
+    string GetRecordString(int highestLoop)
+    {
+        if (DoesSporeDisplayRecord(highestLoop))
+        {
+            return "Tier Record: " + highestLoop;
+        }
+        else
+        {
+            return "";
+        }
+
+        //loopRecordDisplay.color = Color.Lerp(loopRecordDisplay.color, TooltipManager.Instance.legendaryBackgroundColor, Mathf.Clamp(highestLoop, 0, 10) / 10f);
+    }
+
+    bool DoesSporeDisplayRecord(int highestLoop)
+    {
+        bool doesSporeDisplayRecord = highestLoop > 0 ? true : false;
+        return doesSporeDisplayRecord;
     }
 
     public void DestroyTooltip(GameObject interactObject, bool isFromInteracting = false)

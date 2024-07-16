@@ -14,6 +14,7 @@ public class Tooltip : MonoBehaviour
     [SerializeField] public TMP_Text tooltipInteract;
     [SerializeField] public TMP_Text tooltipInteract2;
     [SerializeField] public Slider happinessSlider;
+    [SerializeField] public TMP_Text loopRecordDisplay;
     [SerializeField] private float popDuration = 0.25f;
     private Camera mainCamera;
 

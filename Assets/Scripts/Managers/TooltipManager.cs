@@ -16,6 +16,7 @@ public class TooltipManager : MonoBehaviour
     [SerializeField] public Color rareBackgroundColor = Color.blue;
     [SerializeField] public Color legendaryBackgroundColor = Color.yellow;
     [SerializeField] public Color forgedBackgroundColor = Color.red;
+    [SerializeField] public Color maxLoopColor = Color.yellow;
 
     void Awake()
     {
