@@ -22,6 +22,7 @@ public class CreditsPlayer : MonoBehaviour
 
     [Header("==End Of Run Section==")]
     [SerializeField] private CanvasGroup endOfRunCanvas;
+    [SerializeField] private TMP_Text endingText;
     [SerializeField] private TMP_Text difficultyText;
     [SerializeField] private float fadeTimeEndOfRunCanvas;
 
@@ -59,6 +60,12 @@ public class CreditsPlayer : MonoBehaviour
         GlobalData.isAbleToPause = false;
         playerController.DisableController();
 
+        endingText.text = 
+        (
+            "You conquered Environment Tier " + GlobalData.currentLoop + "!\n \n" +
+            
+            "CONTINUE to Tier " + (GlobalData.currentLoop + 1) + " or\nFINISH your adventure?"
+        );
         difficultyText.text = "Enemy Stats +" + (GlobalData.currentLoop) * 100 + "%" + "\nNutrients Gained +" + (GlobalData.currentLoop) * 50 + "%";
 
         StartCoroutine(EndOfRun());

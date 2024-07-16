@@ -40,7 +40,12 @@ public class EndOfLevelCanvasStuff : MonoBehaviour
 
         if(levelEndScript.isCheckpoint == true)
         {
-            endOfLevelText.text = "It looks like this leads back to The Carcass. Would you like to continue your adventure or return home?";
+            endOfLevelText.text = 
+            (
+                "This leads back to The Carcass. \n \n" + 
+
+                "CONTINUE your adventure or RETURN home?"
+            );
         }
         else
         {
