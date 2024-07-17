@@ -7,11 +7,13 @@ public class AttackTargetSolver : MonoBehaviour
     [SerializeField] Transform armTarget;
 
     private Transform player;
+    private Transform boss;
     private Animator bossAnimator;
 
     void Start()
     {
         player = GameObject.FindWithTag("currentPlayer").GetComponent<Transform>();
+        boss = GameObject.Find("Rival Colony Leader").GetComponent<Transform>();
         bossAnimator = GameObject.Find("Rival Colony Leader").GetComponent<Animator>();
     }
 
@@ -25,11 +27,11 @@ public class AttackTargetSolver : MonoBehaviour
     {
         if(isLeft == true)
         {
-            transform.position = player.position + (Vector3.left * 1f) + (Vector3.up * 0.38f);
+            transform.position =  player.position + (Quaternion.Euler(0, boss.eulerAngles.y, 0) * (Vector3.left * 1f)) + (Vector3.up * 0.38f);
         }
         else
         {
-            transform.position = player.position + (Vector3.right * 1f) + (Vector3.up * 0.38f);
+            transform.position = player.position + (Quaternion.Euler(0, boss.eulerAngles.y, 0) * (Vector3.right * 1f)) + (Vector3.up * 0.38f);
         }
 
         StartCoroutine(FollowArmHeight());
