@@ -17,6 +17,7 @@ public class ProfileInfoDisplay : MonoBehaviour
     [SerializeField] private TMP_Text exoText;
     [SerializeField] private TMP_Text calciteText;
     [SerializeField] private TMP_Text fleshText;
+    [SerializeField] private TMP_Text tierText;
     [SerializeField] private TMP_Text createText;
     [SerializeField] private TMP_Text confirmDeleteText;
 
@@ -69,6 +70,8 @@ public class ProfileInfoDisplay : MonoBehaviour
             calciteText.text = profileData.calcite.ToString();
             fleshText.text = profileData.flesh.ToString();
 
+            tierText.text = "Highest Tier: " + profileData.highestLoopBeaten;
+
             if(profileData.permadeathIsOn == true)
             {
                 easyModeImage.SetActive(false);
@@ -84,6 +87,8 @@ public class ProfileInfoDisplay : MonoBehaviour
             exoText.transform.parent.gameObject.SetActive(false);
             calciteText.transform.parent.gameObject.SetActive(false);
             fleshText.transform.parent.gameObject.SetActive(false);
+
+            tierText.gameObject.SetActive(false);
 
             createText.gameObject.SetActive(true);
             deleteProfileButton.gameObject.SetActive(false);
