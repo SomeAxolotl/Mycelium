@@ -11,6 +11,12 @@ public class IslandSpawn : MonoBehaviour
 
     private IslandManager islandManager;
     private static bool islandActivated = false; // Static variable to ensure only one island is activated
+    [SerializeField] private GameObject pairedWhirlpool; // Assign this in the inspector or dynamically if needed
+
+    public GameObject GetPairedWhirlpool()
+    {
+        return pairedWhirlpool;
+    }
 
     void Start()
     {
@@ -106,7 +112,29 @@ public class IslandSpawn : MonoBehaviour
     {
         int randomIndex = Random.Range(0, potentialIslands.Length);
         GameObject selectedIsland = potentialIslands[randomIndex];
+        Debug.Log($"Attempting to activate island: {selectedIsland.name}");
+
         islandManager.SetActiveIsland(selectedIsland);
         islandRespawnPoint = islandManager.GetIslandRespawnPoint(selectedIsland);
+
+        if (islandRespawnPoint == null)
+        {
+            Debug.LogError($"No IslandSpawner transform found for island {selectedIsland.name}. Ensure it has a child tagged 'IslandSpawner'.");
+            // Log the hierarchy of the selected island
+            LogHierarchy(selectedIsland.transform);
+        }
+        else
+        {
+            Debug.Log($"Island {selectedIsland.name} activated with respawn point {islandRespawnPoint.name}");
+        }
+    }
+
+    private void LogHierarchy(Transform parent, string indent = "")
+    {
+        foreach (Transform child in parent)
+        {
+            Debug.Log($"{indent}- {child.name} (Tag: {child.tag})");
+            LogHierarchy(child, indent + "  ");
+        }
     }
 }

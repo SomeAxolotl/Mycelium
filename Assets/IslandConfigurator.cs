@@ -35,8 +35,14 @@ public class IslandConfigurator : MonoBehaviour
         }
         else
         {
-            SetRandomActive(treasureChests);
+            SetAllActive(treasureChests);
             SetAllInactive(minibosses);
+        }
+
+        // Ensure either minibosses or treasure chests are active
+        if (!AnyActive(minibosses) && !AnyActive(treasureChests))
+        {
+            SetRandomMiniboss();
         }
 
         // 3. Color Code
@@ -75,6 +81,17 @@ public class IslandConfigurator : MonoBehaviour
         }
     }
 
+    private void SetAllActive(GameObject[] objects)
+    {
+        if (objects != null && objects.Length > 0)
+        {
+            foreach (var obj in objects)
+            {
+                obj.SetActive(true);
+            }
+        }
+    }
+
     private void SetRandomMiniboss()
     {
         if (minibosses != null && minibosses.Length > 0)
@@ -83,6 +100,22 @@ public class IslandConfigurator : MonoBehaviour
             minibosses[randomIndex].SetActive(true);
         }
     }
+
+    private bool AnyActive(GameObject[] objects)
+    {
+        if (objects != null && objects.Length > 0)
+        {
+            foreach (var obj in objects)
+            {
+                if (obj.activeSelf)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private void AddMaterialLayerToTerrain(Material material)
     {
         if (terrain != null && material != null)

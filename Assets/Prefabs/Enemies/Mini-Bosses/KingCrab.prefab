@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2872715943020177128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3646103119480887138}
+  - component: {fileID: 7777767618967479040}
+  - component: {fileID: 1480298297495758721}
+  m_Layer: 0
+  m_Name: DiseaseCollider
+  m_TagString: DiseaseCollider
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &3646103119480887138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872715943020177128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.689, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 886458834485646453}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7777767618967479040
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872715943020177128}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4194295
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 8
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1480298297495758721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872715943020177128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9453ba95a705484089466355a1cfa55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3110416052598552391
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +220,7 @@ MonoBehaviour:
   playerHit: []
   particles: {fileID: 5729658970925609881, guid: 07fdbc1aa183d614aa6f1bfd466ff49a,
     type: 3}
+  particleHolder: {fileID: 0}
 --- !u!1 &5462050005415858932
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +831,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5268326254259632723}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0463caab273664348ae434a16c35e1e9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3646103119480887138}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0463caab273664348ae434a16c35e1e9,
         type: 3}
@@ -813,6 +884,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8115306592666380467}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0463caab273664348ae434a16c35e1e9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4649811641815154855}
   m_SourcePrefab: {fileID: 100100000, guid: 0463caab273664348ae434a16c35e1e9, type: 3}
 --- !u!1 &506238456229678799 stripped
 GameObject:
@@ -869,6 +944,7 @@ MonoBehaviour:
   isMiniBoss: 1
   miniBossName: 
   possibleRewards: []
+  attributePrefix: 
 --- !u!114 &1231419775737771195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,6 +1174,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb0ee78216a18e409933013240fd069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4649811641815154855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506238456229678799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 609f6a3cbb9fd7141a6fc438ad0defa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &886458834485646453 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0463caab273664348ae434a16c35e1e9,
@@ -1194,7 +1282,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8232434415552876031, guid: f33685d20aba11d47aebce2fda6eeea0, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5382269656562493346, guid: f33685d20aba11d47aebce2fda6eeea0, type: 3}
+    - {fileID: 5165382719206301903, guid: f33685d20aba11d47aebce2fda6eeea0, type: 3}
+    - {fileID: 5059524124599989409, guid: f33685d20aba11d47aebce2fda6eeea0, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f33685d20aba11d47aebce2fda6eeea0, type: 3}

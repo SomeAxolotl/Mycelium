@@ -26,6 +26,9 @@ public class PlayerAttack : MonoBehaviour
     public IEnumerator lunge;
 
     private float windupMoveSpeed = 1f;
+    public GameObject rangedEnemyProjectilePrefab;
+    public Material negativeVelocityMaterial;
+    [SerializeField] private string stickbugSpearName = "Stickbug Spear";
 
     // Start is called before the first frame update
     void Start()
@@ -108,6 +111,13 @@ public class PlayerAttack : MonoBehaviour
         {
             curWeapon.GetComponent<Collider>().enabled = true;
             playerController.playerActionsAsset.Player.Disable();
+
+            // Check if the weapon is the Stickbug Spear before instantiating the projectile
+            if (curWeapon.GetComponent<WeaponStats>().weaponType == WeaponStats.WeaponTypes.Stab &&
+                curWeapon.name == stickbugSpearName)
+            {
+                InstantiateRangedProjectile();
+            }
         }
         playerController.moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
 
@@ -125,6 +135,26 @@ public class PlayerAttack : MonoBehaviour
         playerController.EnableController();
         animator.speed = originalAnimatorSpeed;
         FinishedAttack?.Invoke();
+    }
+    private void InstantiateRangedProjectile()
+    {
+        Vector3 spawnPosition = player.transform.position + player.transform.forward * 4f + player.transform.up * 1f + player.transform.right * 1f; // Adjust the forward, upward, and right offsets as needed
+        GameObject projectile = Instantiate(rangedEnemyProjectilePrefab, spawnPosition, Quaternion.identity);
+
+        // Set the projectile's tag and material
+        projectile.tag = "ReversedProjectile";
+        Renderer renderer = projectile.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material = negativeVelocityMaterial;
+        }
+
+        // Apply initial velocity or any other necessary settings for the projectile
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = player.transform.forward * 10f; // Adjust the projectile speed as needed
+        }
     }
     private IEnumerator Lunge()
     {

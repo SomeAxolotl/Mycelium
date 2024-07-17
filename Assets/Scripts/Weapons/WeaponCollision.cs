@@ -30,6 +30,12 @@ public class WeaponCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Check if the collided object has a SmackableGlowShroomController component
+        SmackableGlowShroomController smackableGlowShroom = other.GetComponent<SmackableGlowShroomController>();
+        if (smackableGlowShroom != null && weaponStats.wpnName == "The Smacker")
+        {
+            smackableGlowShroom.Bounce();
+        }
         if (this.gameObject.tag == "currentWeapon" && other.gameObject.tag == "Enemy" && other.GetType() != typeof(SphereCollider) && !enemiesHit.Contains(other.gameObject))
         {
             enemiesHit.Add(other.gameObject);

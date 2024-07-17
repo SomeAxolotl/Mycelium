@@ -40,7 +40,7 @@ public class SmackableGlowShroomController : MonoBehaviour
             Bounce();
         }
     }
-    private void Bounce(){
+    public void Bounce(){
         //Debug.Log("Smacked!");
         if (!wasSmacked ) //SceneManager.GetActiveScene().name != "New Tutorial"
         {

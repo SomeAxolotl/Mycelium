@@ -111,6 +111,12 @@ public class PlayerHealth : MonoBehaviour
             }
             currentHealth -= realDmgTaken;
             AnimateHealth(-realDmgTaken);
+            // Check for Blinding attribute
+            Blinding blindingAttribute = GetComponent<Blinding>();
+            if (blindingAttribute != null)
+            {
+                blindingAttribute.ApplyBlindingEffect();
+            }
             if (currentHealth <= 0 && !dead)
             {
                 StartCoroutine(Death());

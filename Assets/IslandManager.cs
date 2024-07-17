@@ -35,9 +35,31 @@ public class IslandManager : MonoBehaviour
         return island == activeIsland;
     }
 
+    public GameObject GetActiveIsland()
+    {
+        return activeIsland;
+    }
+
     public Transform GetIslandRespawnPoint(GameObject island)
     {
-        var respawnPoint = island.transform.Find("IslandSpawn");
-        return respawnPoint != null ? respawnPoint : null;
+        Transform respawnPoint = FindChildWithTag(island.transform, "IslandSpawner");
+        return respawnPoint;
+    }
+
+    private Transform FindChildWithTag(Transform parent, string tag)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.CompareTag(tag))
+            {
+                return child;
+            }
+            Transform result = FindChildWithTag(child, tag);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+        return null;
     }
 }
