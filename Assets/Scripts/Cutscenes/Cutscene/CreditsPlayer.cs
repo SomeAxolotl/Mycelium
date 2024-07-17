@@ -62,8 +62,8 @@ public class CreditsPlayer : MonoBehaviour
 
         endingText.text = 
         (
-            "You conquered Environment Tier " + GlobalData.currentLoop + "!\n \n" +
-            
+            "You conquered Environment Tier " + GlobalData.currentLoop + "\n \n" +
+
             "CONTINUE to Tier " + (GlobalData.currentLoop + 1) + " or\nFINISH your adventure?"
         );
         difficultyText.text = "Enemy Stats +" + (GlobalData.currentLoop) * 100 + "%" + "\nNutrients Gained +" + (GlobalData.currentLoop) * 50 + "%";
