@@ -41,7 +41,7 @@ public class SpawnCharacter : MonoBehaviour
     SkillManager skillManager;
     NewSporeCam sporeCam;
 
-    private string traitFolderPath = "Assets/Scripts/Character/Traits/ActualTraits";
+    private string traitFolderPath = "Traits/";
     public static string[] traitFiles;
 
     private void Awake()
@@ -57,15 +57,16 @@ public class SpawnCharacter : MonoBehaviour
         traitFiles = GetScriptFiles(traitFolderPath);
     }
     string[] GetScriptFiles(string path){
-        if(Directory.Exists(path)){
-            string[] newStrings = Directory.GetFiles(path, "*.cs");
-            for(int i = newStrings.Length - 1; i >= 0; i--){
-                newStrings[i] = newStrings[i].Replace(traitFolderPath + @"\", "");
-                newStrings[i] = newStrings[i].Replace(".cs", "");
+        TextAsset[] textAssets = Resources.LoadAll<TextAsset>(path);
+        //Debug.LogError("AMOUNT OF TRAITS: " + textAssets.Length);
+        if(textAssets.Length > 0){
+            string[] newStrings = new string[textAssets.Length];
+            for(int i = 0; i < textAssets.Length; i++){
+                newStrings[i] = textAssets[i].name;
             }
             return newStrings;
         }else{
-            Debug.LogError("The specified folder path does not exist: " + path);
+            Debug.LogError("The specified folder path does not exist or is empty: " + path);
             return new string[0];
         }
     }
