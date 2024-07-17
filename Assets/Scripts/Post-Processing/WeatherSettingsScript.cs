@@ -8,6 +8,8 @@ using UnityEditor;
 
 public class WeatherSettingsScript : MonoBehaviour
 {
+    public static WeatherSettingsScript Instance;
+
     [Header("Fog Settings")]
     [SerializeField] [Min(0f)] [Tooltip("Default value is 0")] public float whereFogStarts;
     [SerializeField] [Min(0f)] [Tooltip("Default value is 10")] public float whereFogReachesMax;
@@ -24,6 +26,18 @@ public class WeatherSettingsScript : MonoBehaviour
     [Header("Misc.")]
     private bool isRaining = false;
     private ParticleSystem rainParticleObject;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
