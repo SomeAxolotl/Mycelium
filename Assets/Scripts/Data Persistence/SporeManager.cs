@@ -115,25 +115,34 @@ public class SporeManager : SporeManagerSystem
 
         stats.sporeTrait = sporeData.sporeTrait;
         //Debug.Log("Trait is: " + sporeData.sporeTrait);
-        if(sporeData.sporeTrait != null && sporeData.sporeTrait != ""){
+        if (sporeData.sporeTrait != null && sporeData.sporeTrait != "")
+        {
             Type newTrait = Type.GetType(sporeData.sporeTrait);
-            if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+            if (newTrait != null && typeof(Component).IsAssignableFrom(newTrait))
+            {
                 Spore.AddComponent(newTrait);
-            }else{
+            }
+            else
+            {
                 Debug.LogError("Component type not found or is not a Component: " + sporeData.sporeTrait);
             }
-        }else{
+        }
+        else
+        {
             //Adds random trait to existing spores
             sporeData.sporeTrait = GetRandomTrait();
             stats.sporeTrait = sporeData.sporeTrait;
             Debug.Log(sporeData.sporeTrait);
 
             Type newTrait = Type.GetType(sporeData.sporeTrait);
-            if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+            if (newTrait != null && typeof(Component).IsAssignableFrom(newTrait))
+            {
                 Spore.AddComponent(newTrait);
-            }else{
+            }
+            else
+            {
                 Debug.LogError("Component type not found or is not a Component: " + sporeData.sporeTrait);
-            }   
+            }
         }
 
         stats.highestLoopBeaten = sporeData.highestLoopBeaten;
@@ -213,7 +222,8 @@ public class SporeManager : SporeManagerSystem
     }
 
     //Shoved here to add traits to old spores
-    public string GetRandomTrait(){
+    public string GetRandomTrait()
+    {
         int randomIndex = UnityEngine.Random.Range(0, SpawnCharacter.traitFiles.Length);
         Debug.Log(SpawnCharacter.traitFiles[randomIndex]);
         return SpawnCharacter.traitFiles[randomIndex];
