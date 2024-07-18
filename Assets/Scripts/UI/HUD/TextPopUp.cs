@@ -8,7 +8,7 @@ public class TextPopUp : MonoBehaviour
 {
     //Options for the dropdowns
     private enum HideVia {Timer, PlayerInput, LeavingTrigger}
-    private enum Input {Attack, Roll, SpeciesSkill, GoalCamera, None}
+    private enum Input {Attack, Roll, SpeciesSkill, GoalCamera, ResetCamera, None}
 
     //Text Pop Up stuff
     private CanvasGroup textPopUpCanvasGroup;
@@ -180,6 +180,13 @@ public class TextPopUp : MonoBehaviour
                     }
                     break;
 
+                case Input.ResetCamera:
+                    if (playerInput.Player.ResetCamera.WasPressedThisFrame())
+                    {
+                        currentPresses += 1;
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -258,6 +265,9 @@ public class TextPopUp : MonoBehaviour
                 break;
             case Input.GoalCamera:
                 inputString = InputManager.Instance.GetLatestController().goalCameraHint.GenerateColoredHintString();
+                break;
+            case Input.ResetCamera:
+                inputString = InputManager.Instance.GetLatestController().orientationCameraHint.GenerateColoredHintString();
                 break;
             default:
                 inputString = InputManager.Instance.GetLatestController().attackHint.GenerateColoredHintString();
