@@ -59,17 +59,8 @@ public class PlayerHealth : MonoBehaviour
             playerController.DisableController();
             playerController.isInvincible = true;
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow)) { StartCoroutine(DamageTest()); }
     }
-    private IEnumerator DamageTest()
-    {
-        //Not used anywehre I used this to test the damage bar if you want -Griffin
-        PlayerTakeDamage(50);
-        yield return new WaitForSeconds(0.2f);
-        PlayerTakeDamage(750);
-        yield return new WaitForSeconds(0.4f);
-        PlayerHeal(1000);
-    }
+
     public void GetHealthStats()
     {
         maxHealth = swapCharacter.currentCharacterStats.baseHealth;
