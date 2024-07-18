@@ -40,10 +40,7 @@ public class IKBossArmSolver : MonoBehaviour
 
     void Update()
     {
-        if (bossAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == false)
-        {
-            return;
-        }
+        if (bossAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == false) return;
 
         collisionRay = new Ray(boss.position + (rayOffsetDist * CalcDirection() + (Vector3.up * 10)), Vector3.down);
 
@@ -62,7 +59,6 @@ public class IKBossArmSolver : MonoBehaviour
         }
 
         transform.position = currentPosition;
-
     }
 
     private IEnumerator ChangePosition(float time, Vector3 newPosition)
@@ -80,7 +76,7 @@ public class IKBossArmSolver : MonoBehaviour
             t = elapsedTime / time;
 
             currentPosition = Vector3.Lerp(originalPosition, newPosition, t);
-            currentPosition.y += Mathf.Sin(t * Mathf.PI) * 1f;
+            currentPosition.y += Mathf.Sin(t * Mathf.PI) * 2f;
 
             elapsedTime += Time.deltaTime;
 
@@ -88,6 +84,7 @@ public class IKBossArmSolver : MonoBehaviour
         }
 
         CameraShakeManager.instance.ShakeCamera(impulseSource, 0.25f);
+        SoundEffectManager.Instance.PlaySound("Boss Boom", transform, 1f, 1.5f, 500);
 
         currentPosition = newPosition;
         isMoving = false;

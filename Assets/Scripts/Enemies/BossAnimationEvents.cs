@@ -94,7 +94,7 @@ public class BossAnimationEvents : MonoBehaviour
     {
         float distance = Vector3.Distance(camtracker.position, gameObject.transform.position);
         Vector2 from = new Vector2(5f, 35f);
-        Vector2 to = new Vector2(0f, -0.5f);
+        Vector2 to = new Vector2(-0.1f, -0.5f);
 
         //remap
         float newVolume = to.x + (distance - from.x) * (to.y - to.x) / (from.y - from.x);
