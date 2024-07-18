@@ -46,6 +46,6 @@ public class CameraShakeManager : MonoBehaviour
 
         impulseSource.GenerateImpulseWithForce(forceOverride);
 
-        RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, defaultShakeForce/3, defaultShakeForce/3);
+        RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, forceOverride / 3, forceOverride / 3);
     }
 }
