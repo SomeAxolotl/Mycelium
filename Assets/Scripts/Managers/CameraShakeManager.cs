@@ -51,7 +51,7 @@ public class CameraShakeManager : MonoBehaviour
 
         if (doControllerRumble == true)
         {
-            RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, forceOverride / 3, forceOverride / 3);
+            RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, forceOverride / 6, forceOverride / 6);
         }
     }
 }
