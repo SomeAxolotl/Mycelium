@@ -37,7 +37,6 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         designTracker = GetComponent<DesignTracker>();
         swap = GameObject.Find("PlayerParent").GetComponent<SwapWeapon>();
         player = GameObject.FindWithTag("currentPlayer");
-        
     }
     public void Interact(GameObject interactObject)
     {

@@ -61,6 +61,7 @@ public class SporeAnimationEvents : MonoBehaviour
             Transform particleHolder = currentWeapon.transform.Find("ParticleHolder");
 
             currentStabParticle = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("StabParticle", particleHolder.position, particleHolder.transform.rotation, particleHolder.gameObject);
+            //Stickbug spear particle effect. Put the projectile where this shiny particle would happen instead.
             StartCoroutine(DestroyParticleAfterDone(currentStabParticle.gameObject, "Stab", stabDonePercent)); 
         }
     }
