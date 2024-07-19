@@ -7,7 +7,7 @@ public class AcrobatTrait : TraitBase
     public override void Start(){
         base.Start();
 
-        traitName = "Acrobat";
+        traitName = "Acrobatic";
         traitDesc = "Jumps when dashing";
     }
 
