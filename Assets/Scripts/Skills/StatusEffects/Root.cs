@@ -25,7 +25,13 @@ public class Root : MonoBehaviour
             rootInstance.transform.parent = this.transform;
             GrowToSize grow = rootInstance.GetComponent<GrowToSize>();
             if(grow != null){
-                grow.targetScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                float sizeDifference = transform.localScale.x / 6.5f;
+                float sizeBase = 0.75f;
+                float targetSize = sizeBase + sizeDifference;
+                if(name.Contains("Crab")){
+                    targetSize *= 2;
+                }
+                grow.targetScale = new Vector3(targetSize, targetSize, targetSize);
             }else{
                 Debug.Log("What happened dude...");
             }
