@@ -16,13 +16,13 @@ public class MenuSelectAnimation : MonoBehaviour
     {
         if (name == "Skills")
         {
-            originalColor = transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().color;
+            originalColor = new Color(108f/255f, 222f/255f, 205f/255f);
         }
         else if (GetComponent<TMP_Text>() != null)
         {
             text = GetComponent<TMP_Text>();
 
-            originalColor = text.color;
+            originalColor = new Color(108f / 255f, 222f / 255f, 205f / 255f);
         }
 
         if(startSelected) animator.SetBool("Selected", true);
