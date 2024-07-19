@@ -5,7 +5,8 @@ using Cinemachine;
 
 public class TrophicCascade : Skill
 {
-    [SerializeField] private float vanishDuration = 2f;
+    [SerializeField] private float vanishDuration = 1.4f;
+    private float newVanishDuration = 0.5f;
     [SerializeField] private float cascadeRadius = 3f;
     [SerializeField] private float cameraBlendTimeScalar = 0.75f;
 
@@ -68,19 +69,26 @@ public class TrophicCascade : Skill
     {
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
         Collider[] colliders = Physics.OverlapSphere(player.transform.position, cascadeRadius, enemyLayerMask);
+        //Stops the player from being able to be pushed while gone, I could turn off the collider but that could cause problems when spawning back into an enemy
+        if(player.GetComponent<Rigidbody>() != null){
+            player.GetComponent<Rigidbody>().isKinematic = true;
+        }
 
         yield return new WaitForSeconds(vanishDuration / 4f);
 
         List<GameObject> enemies = new List<GameObject>();
-        foreach (Collider collider in colliders)
+        foreach(Collider collider in colliders)
         {
-            if (!enemies.Contains(collider.gameObject) && collider.gameObject.GetComponent<EnemyHealth>() != null)
-            {
-                enemies.Add(collider.gameObject);
+            if(!enemies.Contains(collider.gameObject) && collider.gameObject.GetComponent<EnemyHealth>() != null){
+                //Only adds it if they have health
+                if(collider.gameObject.GetComponent<EnemyHealth>().currentHealth > 0){
+                    enemies.Add(collider.gameObject);
+                }
             }
         }
 
-        float cascadeDuration = vanishDuration / 2f;
+        newVanishDuration = Mathf.Clamp(enemies.Count * 0.5f, 0.4f, vanishDuration);
+        float cascadeDuration = newVanishDuration / 2f;
 
 
         VCamRotator vcamRotator = GameObject.Find("VCamHolder").GetComponent<VCamRotator>();
@@ -93,19 +101,22 @@ public class TrophicCascade : Skill
             StartCoroutine(TrailMovement(new Vector3(enemies[i].transform.position.x, enemies[i].transform.position.y + 1, enemies[i].transform.position.z), cascadeDuration / enemies.Count));
 
             float blendTime = Mathf.Clamp(cascadeDuration / enemies.Count * cameraBlendTimeScalar, 0, cascadeDuration * cameraBlendTimeScalar * 0.5f);
-            vcamRotator.DramaticCamera(enemies[i].transform, blendTime);
+            //vcamRotator.DramaticCamera(enemies[i].transform, blendTime);
             yield return new WaitForSeconds(cascadeDuration / enemies.Count);
         }
         //Little bit faster than the final extinguish
-        StartCoroutine(TrailMovement(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z), vanishDuration / 6f));
-        yield return new WaitForSeconds(vanishDuration / 4f);
+        StartCoroutine(TrailMovement(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z), newVanishDuration / 6f));
+        yield return new WaitForSeconds(newVanishDuration / 4f);
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
+        if(player.GetComponent<Rigidbody>() != null){
+            player.GetComponent<Rigidbody>().isKinematic = false;
+        }
         //omae wa mou shindeiru
         Extinguish(enemies);
     }
 
     IEnumerator TrailMovement(Vector3 targetPosition, float timeToFinish){
-        timeToFinish *= 0.65f;
+        timeToFinish *= 0.25f;
         Vector3 startPosition = trophicVisuals.transform.position;
         float elapsedTime = 0f;
         while(elapsedTime < timeToFinish){
