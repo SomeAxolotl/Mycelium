@@ -25,6 +25,34 @@ public class TrophicCascade : Skill
         StartCoroutine(Vanish());
     }
 
+    float savedCooldown;
+    public override void StartCooldown(float skillCooldown){
+        savedCooldown = skillCooldown;
+        //Does not do cooldown normally
+        canSkill = false;
+    }
+
+    protected override void ActualCooldownStart(){
+        hudSkills.ToggleActiveBorder(skillSlot, false);
+        
+        if(cooldownCoroutine != null){
+            StopCoroutine(cooldownCoroutine);
+        }
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDCoroutine(hudCooldownCoroutine);
+        }
+
+        cooldownCoroutine = StartCoroutine(Cooldown(savedCooldown));
+    }
+
+    private void RefreshTimer(float skillDuration){
+        hudSkills.ToggleActiveBorder(skillSlot, true);
+        if(hudCooldownCoroutine != null){
+            hudSkills.StopHUDEffectCoroutine(hudCooldownCoroutine);
+        }
+        hudCooldownCoroutine = hudSkills.StartEffectUI(skillSlot, skillDuration);
+    }
+
     IEnumerator Vanish(){
         Renderer[] childRenderers = player.GetComponentsInChildren<Renderer>();
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
@@ -69,13 +97,6 @@ public class TrophicCascade : Skill
     {
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
         Collider[] colliders = Physics.OverlapSphere(player.transform.position, cascadeRadius, enemyLayerMask);
-        //Stops the player from being able to be pushed while gone, I could turn off the collider but that could cause problems when spawning back into an enemy
-        if(player.GetComponent<Rigidbody>() != null){
-            player.GetComponent<Rigidbody>().isKinematic = true;
-        }
-
-        yield return new WaitForSeconds(vanishDuration / 4f);
-
         List<GameObject> enemies = new List<GameObject>();
         foreach(Collider collider in colliders)
         {
@@ -86,8 +107,18 @@ public class TrophicCascade : Skill
                 }
             }
         }
-
         newVanishDuration = Mathf.Clamp(enemies.Count * 0.5f, 0.4f, vanishDuration);
+        RefreshTimer(newVanishDuration);
+        //Stops the player from being able to be pushed while gone, I could turn off the collider but that could cause problems when spawning back into an enemy
+        if(player.GetComponent<Rigidbody>() != null){
+            player.GetComponent<Rigidbody>().isKinematic = true;
+        }
+        //If no enemies are hit, still accounts for the lost time from not hitting enemies
+        float showTime = newVanishDuration / 4f;
+        if(enemies.Count == 0){
+            showTime *= 2;
+        }
+        yield return new WaitForSeconds(showTime);
         float cascadeDuration = newVanishDuration / 2f;
 
 
@@ -106,7 +137,7 @@ public class TrophicCascade : Skill
         }
         //Little bit faster than the final extinguish
         StartCoroutine(TrailMovement(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z), newVanishDuration / 6f));
-        yield return new WaitForSeconds(newVanishDuration / 4f);
+        yield return new WaitForSeconds(showTime);
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
         if(player.GetComponent<Rigidbody>() != null){
             player.GetComponent<Rigidbody>().isKinematic = false;
@@ -149,7 +180,7 @@ public class TrophicCascade : Skill
         {
             SoundEffectManager.Instance.PlaySound("Impact", player.transform);
         }
-
+        ActualCooldownStart();
         EndSkill();
     }
 }
