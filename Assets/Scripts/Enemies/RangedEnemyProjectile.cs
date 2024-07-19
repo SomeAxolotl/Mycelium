@@ -23,7 +23,8 @@ public class RangedEnemyProjectile : MonoBehaviour
     private void Start()
     {
         primalLevel = GetComponent<CharacterStats>();
-        Destroy(gameObject, 5f);
+        //Instead of destroy does some other things to be a bit more consistant 
+        StartCoroutine(DelayedHide());
         gravity = new Vector3(0f, gravityForce, 0f);
         rb = GetComponent<Rigidbody>();
         rend = GetComponent<Renderer>();
@@ -44,13 +45,11 @@ public class RangedEnemyProjectile : MonoBehaviour
             {
                 instantiatorEnemyHealth.OnDamageDealt(finalDamage); // Heal the instantiator enemy
             }
-            
-            Instantiate(ExplosionVFX, transform.position, transform.rotation);
-            Destroy(gameObject);
+            StartCoroutine(DelayedHide(0));
         }
         else if (collision.gameObject.layer == 8 && !collision.isTrigger || collision.gameObject.layer == 12 && !collision.isTrigger || collision.gameObject.layer == 0 && !collision.isTrigger)
         {
-            Destroy(gameObject);
+            StartCoroutine(DelayedHide(0));
         }
         else if (collision.gameObject.layer == 10)
         {
@@ -68,8 +67,7 @@ public class RangedEnemyProjectile : MonoBehaviour
 
                 collision.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(damage * GlobalData.currentLoop);
             }
-            Instantiate(ExplosionVFX, transform.position, transform.rotation);
-            Destroy(gameObject);
+            StartCoroutine(DelayedHide(0));
 
         }
     }
@@ -112,5 +110,18 @@ public class RangedEnemyProjectile : MonoBehaviour
     public void RemoveDamageBuff()
     {
         damageBuffMultiplier = 1f;
+    }
+
+    public IEnumerator DelayedHide(float time = 6){
+        yield return new WaitForSeconds(time);
+        Instantiate(ExplosionVFX, transform.position, transform.rotation);
+        TrailRenderer trail = GetComponentInChildren<TrailRenderer>();
+        if(trail != null){
+            trail.time = 0.425f;
+        }
+        rb.isKinematic = true;
+        rend.enabled = false;
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 2);
     }
 }
