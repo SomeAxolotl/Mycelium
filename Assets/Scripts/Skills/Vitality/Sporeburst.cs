@@ -70,5 +70,13 @@ public class Sporeburst : Skill
         reworkedEnemyNavigation.enabled = true;
         enemiesHit.Clear();
     }
+
+    private bool showRadius = false;
+    void OnDrawGizmos(){
+        if(showRadius){
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, burstRadius);
+        }
+    }
 }
 
