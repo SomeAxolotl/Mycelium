@@ -101,8 +101,8 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
         canAttack = false;
         attackStarted = true;
         animator.speed = 0.5f;
-        reworkedEnemyNavigation.moveSpeed = 0f;
-        chargeSpeed = 8f;
+        reworkedEnemyNavigation.enabled = false;
+        chargeSpeed = 2.66666f * reworkedEnemyNavigation.moveSpeed;
         attackWindupTime = Random.Range(attackWindupTimeMin, attackWindupTimeMax);
         yield return new WaitForSeconds(attackWindupTime + hitStun);
 
@@ -121,6 +121,7 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"));
         while (distanceToPlayer > 0.25f && !playerDamaged && resetAttack < 1.5f)
         {
+            chargeSpeed = 2.66666f * reworkedEnemyNavigation.moveSpeed;
             distanceToPlayer = Vector3.Distance(transform.position, playerPos);
             rb.velocity = new Vector3((moveDirection * chargeSpeed).x, rb.velocity.y, (moveDirection * chargeSpeed).z);
             yield return null;
@@ -134,7 +135,7 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
         }
         isAttacking = false;
         hitStun = 0f;
-        reworkedEnemyNavigation.moveSpeed = 3f;
+        reworkedEnemyNavigation.enabled = true;
         playerDamaged = false;
         playerHit.Clear();
         yield return new WaitForSeconds(attackCooldown);
@@ -148,7 +149,7 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
         animator.SetBool("IsMoving", true);
         isAttacking = false;
         hitStun = GameObject.FindWithTag("currentWeapon").GetComponent<WeaponStats>().secondsTilHitstopSpeedup;
-        reworkedEnemyNavigation.moveSpeed = 3f;
+        reworkedEnemyNavigation.enabled = true;
         chargeSpeed = 8f;
         playerDamaged = false;
         playerHit.Clear();
