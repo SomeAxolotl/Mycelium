@@ -244,7 +244,7 @@ public class CreditsPlayer : MonoBehaviour
         {
             t = elapsedTime / creditsTime;
 
-            movePoint.localPosition = new Vector3(0f, Mathf.Lerp(0f, 2532f, t), 0f);
+            movePoint.localPosition = new Vector3(0f, Mathf.Lerp(0f, 2606f, t), 0f);
 
             elapsedTime += Time.unscaledDeltaTime;
 
