@@ -31,21 +31,27 @@ public class CameraShakeManager : MonoBehaviour
         }
     }
 
-    public void ShakeCamera(CinemachineImpulseSource impulseSource)
+    public void ShakeCamera(CinemachineImpulseSource impulseSource, bool doControllerRumble = true)
     {
         impulseListener.m_ReactionSettings.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
 
         impulseSource.GenerateImpulseWithForce(defaultShakeForce);
 
-        RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, defaultShakeForce/3, defaultShakeForce/3);
+        if (doControllerRumble == true)
+        {
+            RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, defaultShakeForce / 3, defaultShakeForce / 3);
+        }
     }
 
-    public void ShakeCamera(CinemachineImpulseSource impulseSource, float forceOverride)
+    public void ShakeCamera(CinemachineImpulseSource impulseSource, float forceOverride, bool doControllerRumble = true)
     {
         impulseListener.m_ReactionSettings.m_Duration = impulseSource.m_ImpulseDefinition.m_ImpulseDuration;
 
         impulseSource.GenerateImpulseWithForce(forceOverride);
 
-        RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, forceOverride / 3, forceOverride / 3);
+        if (doControllerRumble == true)
+        {
+            RumbleManager.Instance.RumblePulse(impulseSource.m_ImpulseDefinition.m_ImpulseDuration, forceOverride / 3, forceOverride / 3);
+        }
     }
 }

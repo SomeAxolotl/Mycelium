@@ -83,7 +83,7 @@ public class IKBossArmSolver : MonoBehaviour
             yield return null;
         }
 
-        CameraShakeManager.instance.ShakeCamera(impulseSource, 0.25f);
+        CameraShakeManager.instance.ShakeCamera(impulseSource, 0.25f, false);
         SoundEffectManager.Instance.PlaySound("Boss Boom", transform, 1f, 1.5f, 500);
 
         currentPosition = newPosition;
