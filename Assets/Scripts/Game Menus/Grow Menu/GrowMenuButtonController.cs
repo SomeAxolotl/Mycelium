@@ -149,6 +149,7 @@ public class GrowMenuButtonController : MonoBehaviour
         if(currentnutrients.storedExoskeleton >= 1)
         {
         spawnCharacterscript.SpawnNewCharacter("Poison");
+        PrototypeAchievementManager.Instance.IMadeAFungiAch();
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
@@ -166,6 +167,7 @@ public class GrowMenuButtonController : MonoBehaviour
         if(currentnutrients.storedLog >= 1)
         {
         spawnCharacterscript.SpawnNewCharacter("Default");
+        PrototypeAchievementManager.Instance.IMadeAFungiAch();
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
@@ -183,6 +185,7 @@ public class GrowMenuButtonController : MonoBehaviour
         if(currentnutrients.storedCalcite >= 1)
         {
         spawnCharacterscript.SpawnNewCharacter("Coral");
+        PrototypeAchievementManager.Instance.IMadeAFungiAch();
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;
@@ -199,6 +202,7 @@ public class GrowMenuButtonController : MonoBehaviour
         if(currentnutrients.storedFlesh >= 1)
         {
         spawnCharacterscript.SpawnNewCharacter("Cordyceps");
+        PrototypeAchievementManager.Instance.IMadeAFungiAch();
         playerController.EnableController();
         UIenable.SetActive(false);
         HUDCanvasGroup.alpha = 1;

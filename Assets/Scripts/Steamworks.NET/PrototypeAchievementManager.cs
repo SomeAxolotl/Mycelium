@@ -55,4 +55,31 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("SHOULD UNLOCK");
         }
     }
+    public void IDidItMomAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_KILL_BOSS", out achIsUnlocked);
+
+        if(!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_KILL_BOSS");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST BOSS KILL");
+        }
+    }
+
+    public void IMadeAFungiAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_GROW_SPORE", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_GROW_SPORE");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST SPORE GROWTH");
+        }
+    }
 }
