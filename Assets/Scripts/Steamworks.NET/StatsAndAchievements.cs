@@ -47,6 +47,14 @@ public class StatsAndAchievements : MonoBehaviour
         SteamUserStats.RequestCurrentStats();
     }
 
+    private void OnDisable()
+    {
+        StoreStatsAndAchievements();
+
+        if (cb_userStatsReceived != null) { cb_userStatsReceived.Dispose(); }
+        if (cb_userStatsStored != null) { cb_userStatsStored.Dispose(); }
+    }
+
     private void OnUserStatsReceived(UserStatsReceived_t cb)
     {
         if (SteamManager.Initialized == false) { return; }
@@ -98,15 +106,7 @@ public class StatsAndAchievements : MonoBehaviour
 
     public void ListAllAchievements()
     {
-        StartCoroutine(OnListAllAchievements());
-    }
-
-    private IEnumerator OnListAllAchievements()
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
+        if (DoChecks() == false) { return; }
 
         for (uint i = 0; i < SteamUserStats.GetNumAchievements(); i++)
         {
@@ -120,24 +120,9 @@ public class StatsAndAchievements : MonoBehaviour
 
     public void GetAchievement(string achName, out bool isUnlocked)
     {
-        bool buffer = false;
+        if (DoChecks() == false) { isUnlocked = false; return; }
 
-        StartCoroutine(OnGetAchievement(achName, unlockStatus => buffer = unlockStatus));
-
-        isUnlocked = buffer;
-    }
-
-    private IEnumerator OnGetAchievement(string achName, System.Action<bool> callback)
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
-
-        bool unlockStatus;
-
-        SteamUserStats.GetAchievement(achName, out unlockStatus);
-        callback(unlockStatus);
+        SteamUserStats.GetAchievement(achName, out isUnlocked);
     }
 
     //==================================================================================
@@ -146,15 +131,7 @@ public class StatsAndAchievements : MonoBehaviour
 
     public void GiveAchievement(string achName)
     {
-        StartCoroutine(OnGiveAchievement(achName));
-    }
-
-    private IEnumerator OnGiveAchievement(string achName)
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
+        if (DoChecks() == false) { return; }
 
         SteamUserStats.SetAchievement(achName);
     }
@@ -163,48 +140,18 @@ public class StatsAndAchievements : MonoBehaviour
     //GET STATS
     //==================================================================================
 
-    public void GetStat(string statName, out int statValue)
+    public void GetStat(string statName, out int value)
     {
-        int valueBuffer = -1;
-
-        StartCoroutine(OnGetStat(statName, value => valueBuffer = value));
-
-        statValue = valueBuffer;
-    }
-
-    private IEnumerator OnGetStat(string statName, System.Action<int> callback)
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
-
-        int value;
+        if (DoChecks() == false) { value = -1; return; }
 
         SteamUserStats.GetStat(statName, out value);
-        callback(value);
     }
 
-    public void GetStat(string statName, out float statValue)
+    public void GetStat(string statName, out float value)
     {
-        float valueBuffer = -1;
-
-        StartCoroutine(OnGetStat(value => valueBuffer = value, statName));
-
-        statValue = valueBuffer;
-    }
-
-    private IEnumerator OnGetStat(System.Action<float> callback, string statName)
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
-
-        float value;
+        if (DoChecks() == false) { value = -1f; return; }
 
         SteamUserStats.GetStat(statName, out value);
-        callback(value);
     }
 
     //==================================================================================
@@ -213,15 +160,7 @@ public class StatsAndAchievements : MonoBehaviour
 
     public void ChangeStatBy(string statName, int changeBy)
     {
-        StartCoroutine(OnChangeStatBy(statName, changeBy));
-    }
-
-    private IEnumerator OnChangeStatBy(string statName, int changeBy)
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
+        if (DoChecks() == false) { return; }
 
         int currentValue;
 
@@ -231,15 +170,7 @@ public class StatsAndAchievements : MonoBehaviour
 
     public void ChangeStatBy(string statName, float changeBy)
     {
-        StartCoroutine(OnChangeStatBy(statName, changeBy));
-    }
-
-    private IEnumerator OnChangeStatBy(string statName, float changeBy)
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
+        if (DoChecks() == false) { return; }
 
         float currentValue;
 
@@ -253,17 +184,12 @@ public class StatsAndAchievements : MonoBehaviour
 
     public void StoreStatsAndAchievements()
     {
-        StartCoroutine(OnStoreStatsAndAchievements());
-    }
-
-    private IEnumerator OnStoreStatsAndAchievements()
-    {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
+        if (DoChecks() == false) { return; }
 
         SteamUserStats.StoreStats();
+
+        //do NOT comment this debug out because if it's annoying then we're calling this function too much -ryan
+        Debug.Log("STATS AND ACHIEVEMENTS STORED!!!");
     }
 
     //==================================================================================
@@ -272,16 +198,13 @@ public class StatsAndAchievements : MonoBehaviour
 
     public void ResetStatsAndAchievements()
     {
+        if (DoChecks() == false) { return; }
+
         StartCoroutine(OnResetStatsAndAchievements());
     }
 
     private IEnumerator OnResetStatsAndAchievements()
     {
-        bool shouldContinue = false;
-
-        yield return StartCoroutine(DoChecks(result => shouldContinue = result));
-        if (shouldContinue == false) { yield break; }
-
         SteamUserStats.ResetAllStats(true);
         Debug.Log("Resetting All Stats and Achievements");
 
@@ -296,31 +219,19 @@ public class StatsAndAchievements : MonoBehaviour
     //DO CHECKS
     //==================================================================================
 
-    private IEnumerator DoChecks(System.Action<bool> callback)
+    private bool DoChecks()
     {
-        bool result = false;
-
         if (SteamManager.Initialized == false)
         {
-            callback(result);
-            yield break;
+            return false;
         }
 
-        float timeElapsed = 0;
-        while (statsReceived == false)
+        if (statsReceived == false)
         {
-            if (timeElapsed > 30)
-            {
-                callback(result);
-                yield break;
-            }
-
-            timeElapsed += Time.deltaTime;
-            yield return null;
+            return false;
         }
 
-        result = true;
-        callback(result);
+        return true;
     }
 
 #else

@@ -120,6 +120,7 @@ public class EnemyHealth : MonoBehaviour
     {
         Died?.Invoke();
         Actions.EnemyKilled?.Invoke(this);
+        PrototypeAchievementManager.Instance.IncrementAndCheck1000KillsAch();
 
         EnemyAttack enemyAttack = GetComponent<EnemyAttack>();
         if (enemyAttack != null)
