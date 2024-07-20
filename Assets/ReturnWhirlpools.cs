@@ -5,6 +5,7 @@ using UnityEngine;
 public class ReturnWhirlpools : MonoBehaviour
 {
     private Transform returnSpawnPoint; // The return spawn point to teleport the player to
+    [SerializeField] private GameObject pairedWhirlpool; // Paired normal whirlpool for this return whirlpool
 
     void Start()
     {
@@ -68,7 +69,7 @@ public class ReturnWhirlpools : MonoBehaviour
         }
 
         // Find the paired whirlpool associated with the active island
-        GameObject pairedWhirlpool = FindPairedWhirlpool(activeIsland);
+        pairedWhirlpool = FindPairedWhirlpool(activeIsland);
         if (pairedWhirlpool != null)
         {
             // Find the child with the "ReturnSpawn" tag
@@ -108,11 +109,12 @@ public class ReturnWhirlpools : MonoBehaviour
     private GameObject FindPairedWhirlpool(GameObject activeIsland)
     {
         // This function should contain the logic to find the paired whirlpool based on the active island
-        foreach (IslandSpawn islandSpawn in FindObjectsOfType<IslandSpawn>())
+        IslandSpawn[] whirlpools = FindObjectsOfType<IslandSpawn>();
+        foreach (IslandSpawn whirlpool in whirlpools)
         {
-            if (islandSpawn.gameObject == activeIsland)
+            if (whirlpool.GetPairedIsland() == activeIsland)
             {
-                return islandSpawn.GetPairedWhirlpool(); // Ensure this method exists and returns the paired whirlpool
+                return whirlpool.gameObject;
             }
         }
         return null;

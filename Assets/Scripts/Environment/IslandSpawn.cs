@@ -8,15 +8,10 @@ public class IslandSpawn : MonoBehaviour
     [SerializeField] private float timeUntilRespawn = 0.2f;
     public GameObject[] potentialIslands; // Potential islands for this whirlpool
     private Transform islandRespawnPoint; // Public transform to be set based on the active island
+    [SerializeField] private GameObject pairedIsland; // Paired island for this whirlpool
 
     private IslandManager islandManager;
     private static bool islandActivated = false; // Static variable to ensure only one island is activated
-    [SerializeField] private GameObject pairedWhirlpool; // Assign this in the inspector or dynamically if needed
-
-    public GameObject GetPairedWhirlpool()
-    {
-        return pairedWhirlpool;
-    }
 
     void Start()
     {
@@ -125,6 +120,7 @@ public class IslandSpawn : MonoBehaviour
         }
         else
         {
+            pairedIsland = selectedIsland; // Update the paired island
             Debug.Log($"Island {selectedIsland.name} activated with respawn point {islandRespawnPoint.name}");
         }
     }
@@ -136,5 +132,10 @@ public class IslandSpawn : MonoBehaviour
             Debug.Log($"{indent}- {child.name} (Tag: {child.tag})");
             LogHierarchy(child, indent + "  ");
         }
+    }
+
+    public GameObject GetPairedIsland()
+    {
+        return pairedIsland;
     }
 }
