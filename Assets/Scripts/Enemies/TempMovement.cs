@@ -31,7 +31,7 @@ public class TempMovement : MonoBehaviour
         float angleToTarget = Quaternion.Angle(transform.rotation, targetRotation);
         float maxAngleThisFrame = 2f * Time.fixedDeltaTime;
 
-        if(!monsterBossAttack.isAttacking)
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == true)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxAngleThisFrame);
         }
