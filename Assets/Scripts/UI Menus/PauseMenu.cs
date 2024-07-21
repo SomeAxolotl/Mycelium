@@ -83,7 +83,7 @@ public class PauseMenu : MonoBehaviour
         GlobalData.currentAudioMixerSnapshot.TransitionTo(0f);
     }
 
-    void OnPause()
+    public void OnPause() //DO NOT EVER CALL THIS FUNCTION OR IF YOU REALLY NEED TO TALK TO RYAN FIRST -ryan
     {
         if (isOnMainMenu == true || GlobalData.isAbleToPause == false)
         {
@@ -268,6 +268,11 @@ public class PauseMenu : MonoBehaviour
         {
             playerInput.Enable();
             resumeButton.Select();
+        }
+
+        if (SteamManager.Initialized == true)
+        {
+            
         }
     }
 

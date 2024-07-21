@@ -49,8 +49,6 @@ public class StatsAndAchievements : MonoBehaviour
 
     private void OnDisable()
     {
-        StoreStatsAndAchievements();
-
         if (cb_userStatsReceived != null) { cb_userStatsReceived.Dispose(); }
         if (cb_userStatsStored != null) { cb_userStatsStored.Dispose(); }
     }

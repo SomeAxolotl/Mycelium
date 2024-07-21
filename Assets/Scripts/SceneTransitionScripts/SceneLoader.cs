@@ -225,6 +225,8 @@ public class SceneLoader : MonoBehaviour
             yield return StartCoroutine(FadeCanvasOut(loadingCanvasGroup, transitionTime));
         }
 
+        StatsAndAchievements.Instance.StoreStatsAndAchievements();
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "The Carcass":
