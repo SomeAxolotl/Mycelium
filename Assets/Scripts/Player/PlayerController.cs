@@ -435,7 +435,7 @@ public class PlayerController : MonoBehaviour
     }
     public void EnableController()
     {
-        Debug.Log("Attack animation finished!");
+        //Debug.Log("Attack animation finished!");
         canAct = true;
         canUseAttack = true;
         canUseSkill = true;
