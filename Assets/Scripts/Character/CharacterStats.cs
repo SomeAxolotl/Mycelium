@@ -23,7 +23,22 @@ public class CharacterStats : MonoBehaviour
 
     public string sporeTrait;
 
-    public int highestLoopBeaten;
+    private RateValue loopVFX;
+    [SerializeField] private int highestLoopBeaten;
+    [HideInInspector] public int O_highestLoopBeaten{
+    get{
+        return highestLoopBeaten;
+    }
+    set{
+        highestLoopBeaten = value;
+        if(loopVFX != null){
+            Debug.Log("LOOP VALUE CHANGED ON SPORE");
+            loopVFX.O_rateMult = highestLoopBeaten;
+        }else{
+            Debug.LogError("FAILED TO CHANGE LOOP VFX");
+        }
+    }
+    }
 
     //Able to be equipped
     public Dictionary<string, bool> skillEquippables = new Dictionary<string, bool>()
@@ -92,6 +107,10 @@ public class CharacterStats : MonoBehaviour
         Speed,
         Sentience,
         Vitality
+    }
+
+    void Awake(){
+        loopVFX = GetComponentInChildren<RateValue>();
     }
 
     void Start()

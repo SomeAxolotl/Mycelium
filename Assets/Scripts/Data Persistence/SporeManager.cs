@@ -145,7 +145,7 @@ public class SporeManager : SporeManagerSystem
             }
         }
 
-        stats.highestLoopBeaten = sporeData.highestLoopBeaten;
+        stats.O_highestLoopBeaten = sporeData.highestLoopBeaten;
 
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
@@ -191,7 +191,7 @@ public class SporeManager : SporeManagerSystem
 
                 currentSporeData.sporeTrait = currentSporeStats.sporeTrait;
 
-                currentSporeData.highestLoopBeaten = currentSporeStats.highestLoopBeaten;
+                currentSporeData.highestLoopBeaten = currentSporeStats.O_highestLoopBeaten;
 
                 currentSporeData.skillSlot0 = currentSporeStats.equippedSkills[0];
                 currentSporeData.skillSlot1 = currentSporeStats.equippedSkills[1];

@@ -77,7 +77,7 @@ public class SporeInteraction : MonoBehaviour, IInteractable
             tooltipDesc += trait.traitDesc;
         }
 
-        int highestLoopBeaten = characterStats.highestLoopBeaten;
+        int highestLoopBeaten = characterStats.O_highestLoopBeaten;
         Tooltip sporeTooltip = TooltipManager.Instance.CreateTooltip
         (
             gameObject,

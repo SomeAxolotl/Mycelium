@@ -106,7 +106,7 @@ public class LoadCurrentPlayer : SporeManagerSystem
             }
         }
 
-        stats.highestLoopBeaten = sporeData.highestLoopBeaten;
+        stats.O_highestLoopBeaten = sporeData.highestLoopBeaten;
 
         StartCoroutine(StaggerSkillSets(sporeData, Spore));
 
