@@ -61,7 +61,14 @@ public abstract class Skill : MonoBehaviour
 
         //Tentative cooldown math -- Lerps between CooldownAt1Sentience and CooldownAt15Sentience depending on what ur sentience lvl is
         //finalSkillCooldown = Mathf.Lerp(CooldownAt1Sentience, CooldownAt15Sentience, lerpValue);
-        finalSkillCooldown = Mathf.Clamp(cooldownBase + ((characterStats.sentienceLevel - 1) * cooldownIncrement), cooldownBase * 0.2f, cooldownBase);
+        float cooldownPoints =  Mathf.Clamp((characterStats.sentienceLevel - 1), -10, Mathf.Infinity);
+        float minCooldown = 0.2f;
+        float inch = 0.077f;
+        //Debug.Log("Skill parts: " + cooldownPoints);
+        finalSkillCooldown = Mathf.Clamp((-(cooldownBase - (cooldownBase * minCooldown)) * (1-(1/(1 + (inch * cooldownPoints))))) + cooldownBase, cooldownBase * minCooldown, cooldownBase * 2);
+        Debug.Log(finalSkillCooldown);
+
+        //finalSkillCooldown = Mathf.Clamp(cooldownBase + , cooldownBase * 0.2f, cooldownBase);
     }
 
     public float GetFinalValue()
