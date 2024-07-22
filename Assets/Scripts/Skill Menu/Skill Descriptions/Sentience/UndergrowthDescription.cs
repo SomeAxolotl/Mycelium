@@ -26,12 +26,12 @@ public class UndergrowthDescription : MonoBehaviour, ISelectHandler
     if (currentstats.sentienceLevel >= 15 && currentstats.skillEquippables["Undergrowth"] == true)
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Undergrowth: <br><br><size=25> An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit.";
+        SkillDesc.text = "Undergrowth: <br><br><size=25> Summon three roots traveling forwards entangling any enemies hit.";
     }
      else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Undergrowth: <br><size=25>An entangling line of mycelium grows in a line in front of you damaging and rooting any enemies hit. <br><br> <color=#FF534C>Unlocks at Sentience Level 15";
+        SkillDesc.text ="Undergrowth: <br><size=25>Summon three roots traveling forwards entangling any enemies hit. <br><br> <color=#FF534C>Unlocks at Sentience Level 15";
     }
    }
 }

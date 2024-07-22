@@ -26,12 +26,12 @@ public class DefenseMechanismDescription : MonoBehaviour, ISelectHandler
     if (currentstats.vitalityLevel >= 15 && currentstats.skillEquippables["DefenseMechanism"] == true)
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Attacks against you while Defense Mechanism is active is stored as bonus damage on your next attack equal to 50% of the damage absorbed.";
+        SkillDesc.text = "Defense Mechanism: <br><size=25>Defend yourself for 1 second. During this time convert all damage taken into 50% healing. Force enemies off once the duration ends with an explosion.";
     }
     else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text ="Defense Mechanism: <br><size=22>Reduces damage taken by 50% for 1 second. Attacks against you while Defense Mechanism is active is stored as bonus damage on your next attack equal to 50% of the damage absorbed.<br> <color=#FF534C>Unlocks at Vitality Level 15";
+        SkillDesc.text ="Defense Mechanism: <br><size=22>Defend yourself for 1 second. During this time convert all damage taken into 50% healing. Force enemies off once the duration ends with an explosion.<br> <color=#FF534C>Unlocks at Vitality Level 15";
     }
    }
 }

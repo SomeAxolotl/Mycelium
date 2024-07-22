@@ -25,12 +25,12 @@ public class RelentlessFuryDescription : MonoBehaviour, ISelectHandler
     if (currentstats.primalLevel >= 15 && currentstats.skillEquippables["RelentlessFury"] == true)
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Relentless Fury: <br> <size=25>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25%<br> of weapon damage.";
+        SkillDesc.text = "Relentless Fury: <br> <size=25>Gain a stack of Fury, Fury increases damage by 10%. Killing an enemy while furious grants an extra stack, refreshes the duration, and decreases the max duration.";
     }
     else
     {
         SkillDescriptionPanel.SetActive(true);
-        SkillDesc.text = "Relentless Fury: <br> <size=24>Go into a frenzy gaining 30% attack speed. While active lose 5% of current health every second. Attacks restore health equal to 25% of weapon damage.<br> <color=#FF534C>Unlocks at Primal Level 15";
+        SkillDesc.text = "Relentless Fury: <br> <size=24>Gain a stack of Fury, Fury increases damage by 10%. Killing an enemy while furious grants an extra stack, refreshes the duration, and decreases the max duration. <br> <color=#FF534C>Unlocks at Primal Level 15";
     }
    }
 }
