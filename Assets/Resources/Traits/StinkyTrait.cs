@@ -15,6 +15,7 @@ public class StinkyTrait : TraitBase
 
         stinkCloudPrefab = Resources.Load("Attributes/StinkCloud", typeof(GameObject)) as GameObject;
         stinkCloud = Instantiate(stinkCloudPrefab, player.transform);
+        stinkCloud.GetComponent<StinkCloud>().stats = GetComponent<CharacterStats>();
     }
 
     public void OnDestroy(){

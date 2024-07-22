@@ -7,6 +7,8 @@ public class StinkCloud : MonoBehaviour
     public int damageAmount = 1;
     public float damageInterval = 2.0f;
 
+    public CharacterStats stats;
+
     private List<GameObject> targets = new List<GameObject>();
     private Dictionary<GameObject, Coroutine> activeCoroutines = new Dictionary<GameObject, Coroutine>();
 
@@ -33,7 +35,9 @@ public class StinkCloud : MonoBehaviour
     private IEnumerator DamageCoroutine(Collider target){
         EnemyHealth targetHealth = target.GetComponent<EnemyHealth>();
         while(targetHealth != null && targetHealth.currentHealth > 0){
-            targetHealth.EnemyTakeDamage(damageAmount);
+            float statEffectiveness = 0.25f;
+            float damage = Mathf.Clamp(damageAmount + (stats.sentienceLevel * statEffectiveness), 2, Mathf.Infinity);
+            targetHealth.EnemyTakeDamage(damage);
             yield return new WaitForSeconds(damageInterval);
         }
     }
