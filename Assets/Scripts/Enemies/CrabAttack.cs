@@ -118,7 +118,7 @@ public class CrabAttack : EnemyAttack
             holdingShell = false;
             yield return new WaitForSeconds(shellthrowWindup);
             Destroy(shell);
-            if (GameObject.Find("KingCrab") != null)
+            if (GameObject.Find("KingCrab") != null && isopod != null)
             {
                 GameObject spawnedIsopod = Instantiate(isopod, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
                 spawnedIsopod.GetComponent<ShellVelocity>().LaunchShell();
