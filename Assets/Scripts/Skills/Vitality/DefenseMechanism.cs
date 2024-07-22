@@ -42,17 +42,20 @@ public class DefenseMechanism : Skill
         List<GameObject> enemies = new List<GameObject>();
         foreach(Collider collider in colliders){
             if(collider.gameObject.GetComponent<EnemyKnockback>() != null && !enemies.Contains(collider.gameObject)){
+                //Knock enemies away, further if they are closer
                 float distanceToCollider = Vector3.Distance(transform.position, collider.transform.position);
                 enemies.Add(collider.gameObject);
                 EnemyKnockback enemyKnockback = collider.gameObject.GetComponent<EnemyKnockback>();
                 enemyKnockback.Knockback(12 * (distanceToCollider / knockbackRadius), transform, collider.transform, false);
+                if(collider.gameObject.GetComponent<EnemyHealth>() != null){
+                    collider.gameObject.GetComponent<EnemyHealth>().EnemyTakeDamage(finalSkillValue);
+                }
             }
         }
         //Reflects any projectiles in a slightly larger area
         enemyLayerMask = 1 << LayerMask.NameToLayer("EnemyProjectile");
         colliders = Physics.OverlapSphere(transform.position, knockbackRadius * 1.2f, enemyLayerMask);
         foreach(Collider collider in colliders){
-            Debug.Log("Projectile hit!");
             RangedEnemyProjectile proj = collider.GetComponent<RangedEnemyProjectile>();
             if(proj != null){
                 proj.ReverseProjectile();

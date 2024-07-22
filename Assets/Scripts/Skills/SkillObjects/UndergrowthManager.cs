@@ -29,7 +29,7 @@ public class UndergrowthManager : MonoBehaviour
             //Debug.Log("Hitting: " + other.gameObject.name);
             hitTargets.Add(other);
             if(other.GetComponent<EnemyHealth>() != null){
-                other.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue / 5);
+                other.GetComponent<EnemyHealth>().EnemyTakeDamage(undergrowth.finalSkillValue);
                 Root rootEffect = other.gameObject.AddComponent<Root>();
                 rootEffect.duration = rootDuration;
             }
