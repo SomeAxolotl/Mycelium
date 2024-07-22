@@ -56,6 +56,7 @@ public class TrophicCascade : Skill
     IEnumerator Vanish(){
         Renderer[] childRenderers = player.GetComponentsInChildren<Renderer>();
         ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", player.transform.position, Quaternion.Euler(-90,0,0));
+        SoundEffectManager.Instance.PlaySound("TrophicCascadeVanish", player.transform);
 
         if(trophicPrefab != null){
             trophicVisuals = Instantiate(trophicPrefab, new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z), Quaternion.Euler(0,0,0)) as GameObject;
