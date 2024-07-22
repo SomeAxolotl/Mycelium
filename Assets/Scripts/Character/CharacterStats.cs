@@ -814,11 +814,11 @@ public class CharacterStats : MonoBehaviour
         primalDmg = Mathf.RoundToInt(sporeAttributeRanges.attackDamageBase + ((primalLevel - 1) * sporeAttributeRanges.attackDamageIncrement));
         baseHealth = Mathf.RoundToInt(sporeAttributeRanges.healthBase + ((vitalityLevel - 1) * sporeAttributeRanges.healthIncrement));
         baseRegen = sporeAttributeRanges.regenBase + ((vitalityLevel - 1) * sporeAttributeRanges.regenIncrement);
-        float moveSpeedPoints = ((speedLevel - 1) * sporeAttributeRanges.moveSpeedIncrement);
+        float moveSpeedPoints = (speedLevel - 1);
         //Max amount of bonus movement speed
         float cap = 15;
         //How quickly that cap is reached
-        float inch = 0.115f;
+        float inch = 0.02415f;
         //Formula to calculate movement
         float bonusMoveSpeed = cap * (1-(1/(1 + (inch * moveSpeedPoints))));
 
