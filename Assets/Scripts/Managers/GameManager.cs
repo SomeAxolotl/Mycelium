@@ -149,9 +149,6 @@ public class GameManager : MonoBehaviour
                 //sprout the current Spore
                 StartCoroutine(SproutPlayer());
 
-                //and test if its loop beat its highest record
-                currentPlayer.GetComponent<CharacterStats>().TestAgainstHighestLoopRecord(GlobalData.currentLoop - 1);
-
                 yield return new WaitForSeconds(1f);
 
                 //but if it still died, reduce its happiness

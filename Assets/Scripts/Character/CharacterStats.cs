@@ -123,6 +123,11 @@ public class CharacterStats : MonoBehaviour
         sporeAnimator = GetComponent<Animator>();
 
         CalculateHappinessAnimations();
+
+        if (gameObject.tag == "currentPlayer")
+        {
+            TestAgainstHighestLoopRecord(GlobalData.currentLoop - 1);
+        }
     }
 
     void Update()
