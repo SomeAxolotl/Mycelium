@@ -79,4 +79,20 @@ public class ShellVelocity : MonoBehaviour
         }
         Destroy(gameObject, 2);
     }
+
+    private Renderer ren;
+    public void ChangeShellColor(int type){
+        ren = GetComponent<Renderer>();
+        Material shell;
+        switch(type){
+            case 0:
+                shell = Resources.Load("Shells/Seashell", typeof(Material)) as Material;
+                ren.materials = new Material[]{shell};
+                break;
+            case 1:
+                shell = Resources.Load("Shells/Seashell2", typeof(Material)) as Material;
+                ren.materials = new Material[]{shell};
+                break;
+        }
+    }
 }

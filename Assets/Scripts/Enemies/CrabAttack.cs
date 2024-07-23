@@ -24,6 +24,7 @@ public class CrabAttack : EnemyAttack
     [SerializeField] private float meleeDamage = 50f;
     [SerializeField] private float movementSpeed = 3f;
     private float shellthrowWindup = 1.5f;
+    [SerializeField] private bool isBlue = false;
     private float knockbackForce = 30f;
     IEnumerator attack;
     private Animator animator;
@@ -126,7 +127,7 @@ public class CrabAttack : EnemyAttack
             else
             {
                 GameObject spawnedShell = Instantiate(shellProjectile, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
-
+                if(isBlue){spawnedShell.GetComponent<ShellVelocity>().ChangeShellColor(1);}
                 spawnedShell.GetComponent<ShellVelocity>().LaunchShell();
             }
             animator.SetBool("HasShell", false);
