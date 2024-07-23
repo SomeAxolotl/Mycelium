@@ -222,6 +222,7 @@ public class PlayerHealth : MonoBehaviour
         {
             profileManagerScript.tutorialIsDone[GlobalData.profileNumber] = true;
             diedInTutorial = true;
+            PrototypeAchievementManager.Instance.WithoutAPumpkinAch();
             cutscenePlayer.StartCutscene();
 
             //Lobotomize the Giga Beetle

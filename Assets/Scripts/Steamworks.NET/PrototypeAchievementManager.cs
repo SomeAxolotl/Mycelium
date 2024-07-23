@@ -60,6 +60,19 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("SHOULD UNLOCK");
         }
     }
+    public void WithoutAPumpkinAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_TUTORIAL", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_TUTORIAL");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST TUTORIAL DEATH");
+        }
+    }
     public void IDidItMomAch()
     {
         bool achIsUnlocked;
