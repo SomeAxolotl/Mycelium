@@ -17,6 +17,11 @@ public class MaterialController : MonoBehaviour
    
     void OnEnable()
     {
+        CalculateMaterialTexts();
+    }
+
+    public void CalculateMaterialTexts()
+    {
         currentnutrients = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
         LogText.text = currentnutrients.storedLog.ToString();
         ExoText.text = currentnutrients.storedExoskeleton.ToString();

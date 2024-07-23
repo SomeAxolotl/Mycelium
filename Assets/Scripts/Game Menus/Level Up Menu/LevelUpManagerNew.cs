@@ -84,6 +84,8 @@ public class LevelUpManagerNew : MonoBehaviour
     int ogSpeedLevel;
     int ogVitalityLevel;
 
+    MaterialController materialController;
+
     private void Awake()
     {
         controls = new ThirdPersonActionsAsset();
@@ -96,6 +98,7 @@ public class LevelUpManagerNew : MonoBehaviour
         hudNutrients = GameObject.Find("HUD").GetComponent<HUDNutrients>();
         playerHealth = GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>();
         skillManager = GameObject.FindWithTag("PlayerParent").GetComponent<SkillManager>();
+        materialController = GameObject.Find("MenuMaterialHolder").GetComponent<MaterialController>();
         StartCoroutine(UpdateUI());
     }
 
@@ -205,6 +208,8 @@ public class LevelUpManagerNew : MonoBehaviour
         SpeedArrowIncrease();
         SentienceArrowIncrease();
         VitalityArrowIncrease();
+
+        materialController.CalculateMaterialTexts();
     }
     void PrimalDownUpdate()
     {
