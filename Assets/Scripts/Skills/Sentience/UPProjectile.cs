@@ -41,14 +41,13 @@ public class UPProjectile : MonoBehaviour
             && collision.gameObject.GetComponent<EnemySpawner>() == null)
         {
             ParticleManager.Instance.SpawnParticles("PuffballParticles", transform.position, Quaternion.identity);
+            SoundEffectManager.Instance.PlaySound("Explosion", transform.position, pitchMultiplier: 1.1f);
             DamageEnemies();
         }
     }
 
     void DamageEnemies()
     {
-        SoundEffectManager.Instance.PlaySound("Explosion", transform);
-
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, AOERange, enemyLayerMask);

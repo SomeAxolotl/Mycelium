@@ -16,6 +16,7 @@ public class RelentlessFury : Skill
             furyEffect.EffectEnd += ActualCooldownStart;
             //Starts the UI timer for the effect
             furyEffect.EffectRefresh += RefreshTimer;
+            SoundEffectManager.Instance.PlaySound("FuryBuff", player.transform);
             RefreshTimer();
         }
         EndSkill();

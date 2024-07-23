@@ -34,8 +34,10 @@ public class DefenseMechanism : Skill
     private IEnumerator Knockback(){
         showRadius = true;
         ParticleManager.Instance.SpawnParticles("DefenseBuildup", new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity, gameObject);
+        SoundEffectManager.Instance.PlaySound("DefenseBuff", player.transform);
         yield return new WaitForSeconds(skillDuration);
         ParticleManager.Instance.SpawnParticles("DefenseBurst", new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity, gameObject);
+        SoundEffectManager.Instance.PlaySound("Explosion", player.transform, pitchMultiplier: 1.2f);
         //Knocks back enemies
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
         Collider[] colliders = Physics.OverlapSphere(transform.position, knockbackRadius, enemyLayerMask);
