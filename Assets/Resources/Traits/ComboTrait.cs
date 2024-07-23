@@ -12,8 +12,81 @@ public class ComboTrait : TraitBase
         base.Start();
 
         traitName = "Skilled";
-        traitDesc = "Combo attacks";
+        traitDesc = "Two hit combo attacks";
     }
+
+    public override void SporeSelected(){
+        parent = transform.parent.gameObject;
+        attack = parent.GetComponent<PlayerAttack>();
+
+        attack.StartedAttack += CheckCombo;
+        attack.FinishedAttack += StartCombo;
+    }
+    public override void SporeUnselected(){
+        attack.StartedAttack -= CheckCombo;
+        attack.FinishedAttack -= StartCombo;
+    }
+
+    private IEnumerator combo;
+    private IEnumerator ComboTimer(){
+        //Debug.Log("Start combo");
+        ComboOne();
+        yield return new WaitForSeconds(1.2f);
+        if(savedWeapon.weaponType == WeaponStats.WeaponTypes.Smash){
+            yield return new WaitForSeconds(0.8f);
+        }
+        EndCombo();
+    }
+    //Animation times if I want to link the waitforseconds (NOT USED)
+    //Slash = 0.666666
+    //Smash = 1
+    //Stab = 1
+
+    private float savedAttackSpeed;
+    private void StartCombo(){
+        if(combo == null && !inCombo){
+            combo = ComboTimer();
+            StartCoroutine(combo);
+        }
+        if(combo != null && inCombo){
+            EndCombo();
+        }
+    }
+
+    private bool inCombo = false;
+    private void CheckCombo(){
+        if(savedWeapon != attack.curWeapon.GetComponent<WeaponStats>()){
+            inCombo = false;
+            EndCombo();
+            savedWeapon = attack.curWeapon.GetComponent<WeaponStats>();
+            return;
+        }
+        inCombo = (savedAttackSpeed != savedWeapon.wpnAttackSpeedModifier);
+    }
+
+    private void ComboOne(){
+        if(savedWeapon != attack.curWeapon.GetComponent<WeaponStats>()){
+            EndCombo();
+            return;
+        }
+        savedAttackSpeed = savedWeapon.wpnAttackSpeedModifier;
+
+        savedWeapon.wpnAttackSpeedModifier *= 1.5f;
+    }
+
+    private void EndCombo(){
+        //Debug.Log("End combo");
+        if(savedWeapon != null){
+            savedWeapon.wpnAttackSpeedModifier = savedAttackSpeed;
+        }
+        if(combo != null){
+            StopCoroutine(combo);
+        }
+        combo = null;
+    }
+
+    /*
+    Dead Code
 
     public override void SporeSelected(){
         parent = transform.parent.gameObject;
@@ -96,4 +169,6 @@ public class ComboTrait : TraitBase
         }
         combo = null;
     }
+
+    */
 }
