@@ -93,7 +93,7 @@ public class DeathBlossomPlant : MonoBehaviour
             if(enemyHealth != null)
             {
                 Poison poisonEffect = collider.gameObject.AddComponent<Poison>();
-                poisonEffect.PoisonStats(damage / 5);
+                poisonEffect.PoisonStats();
             }
         }
         StartCoroutine(DestroyAfterTime());

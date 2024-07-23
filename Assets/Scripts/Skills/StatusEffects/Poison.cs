@@ -9,6 +9,8 @@ public class Poison : MonoBehaviour
     private string particlePath = "Effects/PoisonParticles";
     [SerializeField] private GameObject poisonParticles;
 
+    private CharacterStats characterStats;
+
     [SerializeField] private float maxPoisonTime = 5;
     [HideInInspector] public float O_maxPoisonTime{get{return maxPoisonTime;}}
     [SerializeField] private float currPoisonTime = 5;
@@ -25,7 +27,14 @@ public class Poison : MonoBehaviour
 
     //Sets relevant information of the poison, refreshes its time to be its max
     //Will never go down in stats, only up when refreshing
-    public void PoisonStats(float dmg = 0.5f, float tick = 0.5f, float maxTime = 5){
+    public void PoisonStats(CharacterStats stats = null, float tick = 0.5f, float maxTime = 5){
+        if(stats == null){
+            characterStats = GameObject.FindGameObjectWithTag("currentPlayer").GetComponent<CharacterStats>();
+        }else{
+            characterStats = stats;
+        }
+        //Normally deals 10 ticks
+        float dmg = Mathf.Clamp( 1 + (characterStats.sentienceLevel * 0.15f) , 1, Mathf.Infinity);
         if(dmg > poisonDamage){poisonDamage = dmg;}
         if(tick > tickTime){tickTime = tick;}
         if(maxTime > maxPoisonTime){maxPoisonTime = maxTime;}
@@ -44,7 +53,7 @@ public class Poison : MonoBehaviour
         if(poisonInstances.Length > 1){
             //Refreshes the poison already on the target
             foreach(Poison poisons in poisonInstances){
-                poisons.PoisonStats(poisonDamage, tickTime, maxPoisonTime);
+                poisons.PoisonStats(characterStats, tickTime, maxPoisonTime);
             }
             Destroy(this);
             return;
