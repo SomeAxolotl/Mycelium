@@ -13,11 +13,13 @@ public class CrabMeleeHitbox : MonoBehaviour, IDamageBuffable
     Cinemachine.CinemachineImpulseSource impulseSource;
     private EnemyHealth enemyHealth;
     private float damageBuffMultiplier = 1f;
+    private EnemyAttributeManager attributeManager; // Reference to the attribute manager
     // Start is called before the first frame update
     void Start()
     {
         impulseSource = GetComponentInParent<Cinemachine.CinemachineImpulseSource>();
         enemyHealth = GetComponentInParent<EnemyHealth>();
+        attributeManager = GetComponentInParent<EnemyAttributeManager>(); // Get the attribute manager
     }
 
     // Update is called once per frame
@@ -55,6 +57,20 @@ public class CrabMeleeHitbox : MonoBehaviour, IDamageBuffable
             else
             {
                 Debug.LogError("EnemyHealth component is not assigned on " + gameObject.name);
+            }
+            // Check for Blinding attribute and apply blinding effect
+            if (attributeManager != null)
+            {
+                var blindingAttribute = attributeManager.GetComponent<Blinding>();
+                if (blindingAttribute != null)
+                {
+                    Debug.Log("Blinding Att applied!");
+                    blindingAttribute.ApplyBlindingEffect(5f); // Apply blinding effect for 5 seconds
+                }
+                else
+                {
+                    Debug.Log("Blinding Att not found!");
+                }
             }
         }
     }

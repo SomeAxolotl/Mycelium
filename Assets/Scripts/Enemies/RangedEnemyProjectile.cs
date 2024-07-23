@@ -19,6 +19,7 @@ public class RangedEnemyProjectile : MonoBehaviour
     public CharacterStats primalLevel;
     Spineshot spineshot;
     private float damageBuffMultiplier = 1f;
+    private EnemyAttributeManager attributeManager; // Reference to the attribute manager
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class RangedEnemyProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rend = GetComponent<Renderer>();
         spineshot = GameObject.FindWithTag("currentPlayer").GetComponentInChildren<Spineshot>();
+        attributeManager = GetComponentInParent<EnemyAttributeManager>(); // Get the attribute manager
     }
     private void FixedUpdate()
     {
@@ -68,7 +70,20 @@ public class RangedEnemyProjectile : MonoBehaviour
                 collision.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(damage * GlobalData.currentLoop);
             }
             StartCoroutine(DelayedHide(0));
-
+        }
+        // Check for Blinding attribute and apply blinding effect
+        if (attributeManager != null)
+        {
+            var blindingAttribute = attributeManager.GetComponent<Blinding>();
+            if (blindingAttribute != null)
+            {
+                Debug.Log("Blinding Att applied!");
+                blindingAttribute.ApplyBlindingEffect(5f); // Apply blinding effect for 5 seconds
+            }
+            else
+            {
+                Debug.Log("Blinding Att not found!");
+            }
         }
     }
 

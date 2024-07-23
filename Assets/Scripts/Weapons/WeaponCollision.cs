@@ -69,6 +69,10 @@ public class WeaponCollision : MonoBehaviour
                 StartCoroutine(HitStop());
             }
             reflectBonusDamage = 0f;
+            if (this.gameObject.name == "Stickbug Spear")
+            {
+                dmgDealt = 0f;
+            }
         }
         /*if (this.gameObject.tag == "currentWeapon" && other.GetType() != typeof(SphereCollider) && other.gameObject.tag == "Boss")
         {

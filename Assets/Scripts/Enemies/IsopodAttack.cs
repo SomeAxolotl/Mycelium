@@ -29,6 +29,7 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
     private float damageBuffMultiplier = 1f;
+    private EnemyAttributeManager attributeManager; // Reference to the attribute manager
 
     [SerializeField] bool doesFlee = false;
     float fleeMultiplier;
@@ -43,6 +44,7 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
         player = GameObject.FindWithTag("currentPlayer").transform;
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
+        attributeManager = GetComponentInParent<EnemyAttributeManager>(); // Get the attribute manager
 
         fleeMultiplier = doesFlee ? -1f : 1;
     }
@@ -169,6 +171,20 @@ public class IsopodAttack : EnemyAttack, IDamageBuffable
             if (enemyHealth != null)
             {
                 enemyHealth.OnDamageDealt(dmgDealt);
+            }
+        }
+        // Check for Blinding attribute and apply blinding effect
+        if (attributeManager != null)
+        {
+            var blindingAttribute = attributeManager.GetComponent<Blinding>();
+            if (blindingAttribute != null)
+            {
+                Debug.Log("Blinding Att applied!");
+                blindingAttribute.ApplyBlindingEffect(5f); // Apply blinding effect for 5 seconds
+            }
+            else
+            {
+                Debug.Log("Blinding Att not found!");
             }
         }
     }

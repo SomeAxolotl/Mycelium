@@ -35,6 +35,7 @@ public class MeleeEnemyAttack : EnemyAttack, IDamageBuffable
     private GameObject edgeChecker;
     [SerializeField] private EnemyHealth enemyHealth;
     private float damageBuffMultiplier = 1f;
+    private EnemyAttributeManager attributeManager; // Reference to the attribute manager
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class MeleeEnemyAttack : EnemyAttack, IDamageBuffable
         center = transform.Find("CenterPoint");
         rb = GetComponent<Rigidbody>();
         storedMoveSpeed = reworkedEnemyNavigation.moveSpeed;
+        attributeManager = GetComponentInParent<EnemyAttributeManager>(); // Get the attribute manager
         storedChargeSpeed = chargeSpeed;
         if (enemyHealth == null)
         {
@@ -198,6 +200,20 @@ public class MeleeEnemyAttack : EnemyAttack, IDamageBuffable
             else
             {
                 Debug.LogError("EnemyHealth component is not assigned on " + gameObject.name);
+            }
+            // Check for Blinding attribute and apply blinding effect
+            if (attributeManager != null)
+            {
+                var blindingAttribute = attributeManager.GetComponent<Blinding>();
+                if (blindingAttribute != null)
+                {
+                    Debug.Log("Blinding Att applied!");
+                    blindingAttribute.ApplyBlindingEffect(5f); // Apply blinding effect for 5 seconds
+                }
+                else
+                {
+                    Debug.Log("Blinding Att not found!");
+                }
             }
         }
     }
