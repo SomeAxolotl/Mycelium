@@ -6,6 +6,8 @@ public class PrototypeAchievementManager : MonoBehaviour
 {
     public static PrototypeAchievementManager Instance;
 
+    private GameObject player;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -16,6 +18,10 @@ public class PrototypeAchievementManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+    private void Start()
+    {
+        player = GameObject.FindWithTag("currentPlayer");
     }
 
     private void Update()
@@ -79,6 +85,86 @@ public class PrototypeAchievementManager : MonoBehaviour
             StatsAndAchievements.Instance.GiveAchievement("ACH_GROW_SPORE");
             StatsAndAchievements.Instance.StoreStatsAndAchievements();
             Debug.Log("UNLOCK ON FIRST SPORE GROWTH");
+        }
+    }
+    public void ShouldHaveUsedBugSprayAch()
+    {
+        bool achIsUnlocked;
+        int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_BUG_SPRAY", out achIsUnlocked);
+        Collider[] enemies = Physics.OverlapSphere(player.transform.position, 10f, enemyLayerMask);
+
+        if (!achIsUnlocked && enemies.Length >= 10)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_BUG_SPRAY");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST BUG SPRAY DEATH");
+        }
+    }
+    public void YokedAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_MAX_PRIMAL", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_MAX_PRIMAL");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST MAX PRIMAL UPGRADE");
+        }
+    }
+    public void BrainiacManiacAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_MAX_SENTIENCE", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_MAX_SENTIENCE");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST MAX SENTIENCE UPGRADE");
+        }
+    }
+    public void GottaGoFastAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_MAX_SPEED", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_MAX_SPEED");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST MAX SPEED UPGRADE");
+        }
+    }
+    public void ICanTankItAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_MAX_VITALITY", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_MAX_VITALITY");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST MAX VITALITY UPGRADE");
+        }
+    }
+    public void NutritionalAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_MAX_ALL_STATS", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_MAX_ALL_STATS");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST MAX ALL STATS");
         }
     }
 }

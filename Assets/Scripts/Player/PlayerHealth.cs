@@ -169,6 +169,7 @@ public class PlayerHealth : MonoBehaviour
         Died?.Invoke();
 
         GlobalData.isAbleToPause = false;
+        PrototypeAchievementManager.Instance.ShouldHaveUsedBugSprayAch();
 
         //Notification stuff
         string heldMaterial = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>().GetCurrentHeldMaterial();
