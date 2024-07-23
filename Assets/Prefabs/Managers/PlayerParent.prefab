@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDodgeCooldown: 3
   dodgeCooldownIncrement: -0.15
+  finalDodgeCooldown: 0
   rb: {fileID: 0}
   forceDirection: {x: 0, y: 0, z: 0}
   moveSpeed: 0
@@ -67,6 +68,9 @@ MonoBehaviour:
   canAct: 1
   activeDodge: 0
   isInvincible: 0
+  animator: {fileID: 0}
+  canDance: 0
+  goadedWaveAngle: 60
 --- !u!114 &4855120389551145187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,13 +123,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   currentHealth: 0
+  regenRate: 0
   isDefending: 0
   isInvincible: 0
   deathTimer: 0
   animator: {fileID: 0}
+  designTracker: {fileID: 0}
   timeBetweenHurtSounds: 0.25
   cutscenePlayer: {fileID: 0}
   dmgTaken: 0
+  displayHealth: 0
   healObj: {fileID: 0}
 --- !u!114 &6339953943085018612
 MonoBehaviour:
@@ -197,10 +204,10 @@ MonoBehaviour:
   - Wilma
   - Lola
   - Beddy
-  - Gladys
   - Paisley
-  - Sissy
-  - Aly
+  - Gerf
+  - Bernd
+  - Cline
   - Rom
   - Lebo
   - Dyl
@@ -331,6 +338,9 @@ MonoBehaviour:
   lungeDurationScalar: 0.05
   animator: {fileID: 0}
   attackAnimation: 
+  rangedEnemyProjectilePrefab: {fileID: 0}
+  negativeVelocityMaterial: {fileID: 0}
+  stickbugSpearName: Stickbug Spear
 --- !u!114 &2120284731979701386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +358,6 @@ MonoBehaviour:
     m_Bits: 128
   currentCharacter: {fileID: 0}
   weaponHolder: {fileID: 0}
-  curWeapon: {fileID: 0}
   betterStatColor: {r: 0.44513953, g: 0.9339623, b: 0.43614274, a: 0}
   worseStatColor: {r: 0.9622642, g: 0.39489147, b: 0.39489147, a: 0}
   evenStatColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 0}
