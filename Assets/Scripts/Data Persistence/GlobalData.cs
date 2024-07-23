@@ -36,7 +36,7 @@ public static class GlobalData
     public static string sporePermaDied = null;
 
     //Audio Stuff
-    public static AudioMixerSnapshot currentAudioMixerSnapshot;
+    public static AudioMixerSnapshot currentUnpausedAudioMixerSnapshot;
 
     //Loop Difficulty Stuff
     public static int currentLoop = 1;

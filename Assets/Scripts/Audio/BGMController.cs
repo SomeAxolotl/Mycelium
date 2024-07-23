@@ -10,17 +10,27 @@ public class BGMController : MonoBehaviour
     [SerializeField] float fadeInTime = 0.25f;
     [SerializeField] float fadeOutTime = 2.5f;
 
+    [SerializeField][Tooltip("Defaults to its starting volume (-1). Can be changed")] float musicFadeInTargetValue = -1;
+    [SerializeField][Tooltip("Defaults to its starting volume (-1). Can be changed")] float ambienceFadeInTargetValue = -1;
+
     void Start()
     {
+        if (musicFadeInTargetValue == -1)
+        {
+            musicFadeInTargetValue = musicSource.volume;
+        }
+        if (ambienceFadeInTargetValue == -1)
+        {
+            ambienceFadeInTargetValue = ambienceSource.volume;
+        }
+
         StartCoroutine(FadeInMusicCoroutine());
         StartCoroutine(FadeInAmbienceCoroutine());
     }
 
     //Music
-    IEnumerator FadeInMusicCoroutine()
+    public IEnumerator FadeInMusicCoroutine()
     {
-        float originalSourceVolume = musicSource.volume;
-
         musicSource.volume = 0f;
 
         float fadeTimer = 0f;
@@ -28,14 +38,14 @@ public class BGMController : MonoBehaviour
         {
             float t = fadeTimer / fadeInTime;
 
-            musicSource.volume = Mathf.Lerp(0f, originalSourceVolume, t);
+            musicSource.volume = Mathf.Lerp(0f, musicFadeInTargetValue, t);
 
             fadeTimer += Time.deltaTime;
 
             yield return null;
         }
 
-        musicSource.volume = originalSourceVolume;
+        musicSource.volume = musicFadeInTargetValue;
     }
 
     public IEnumerator FadeOutMusicCoroutine()
@@ -60,23 +70,21 @@ public class BGMController : MonoBehaviour
     //Ambience
     IEnumerator FadeInAmbienceCoroutine()
     {
-        float originalSourceVolume = ambienceSource.volume;
-
-        musicSource.volume = 0f;
+        ambienceSource.volume = 0f;
 
         float fadeTimer = 0f;
         while (fadeTimer < fadeInTime)
         {
             float t = fadeTimer / fadeInTime;
 
-            ambienceSource.volume = Mathf.Lerp(0f, originalSourceVolume, t);
+            ambienceSource.volume = Mathf.Lerp(0f, ambienceFadeInTargetValue, t);
 
             fadeTimer += Time.deltaTime;
 
             yield return null;
         }
 
-        ambienceSource.volume = originalSourceVolume;
+        ambienceSource.volume = ambienceFadeInTargetValue;
     }
 
     IEnumerator FadeOutAmbienceCoroutine()

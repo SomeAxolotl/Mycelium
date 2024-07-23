@@ -42,6 +42,6 @@ public class CarcassMuffling : MonoBehaviour
         }
 
         selectedSnapshot.TransitionTo(usedTransitionTime);
-        GlobalData.currentAudioMixerSnapshot = selectedSnapshot;
+        GlobalData.currentUnpausedAudioMixerSnapshot = selectedSnapshot;
     }
 }

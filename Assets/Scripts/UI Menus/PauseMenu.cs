@@ -79,8 +79,8 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        GlobalData.currentAudioMixerSnapshot = audioMixer.FindSnapshot("Default");
-        GlobalData.currentAudioMixerSnapshot.TransitionTo(0f);
+        GlobalData.currentUnpausedAudioMixerSnapshot = audioMixer.FindSnapshot("Default");
+        GlobalData.currentUnpausedAudioMixerSnapshot.TransitionTo(0f);
     }
 
     public void OnPause() //DO NOT EVER CALL THIS FUNCTION OR IF YOU REALLY NEED TO TALK TO RYAN FIRST -ryan
@@ -109,7 +109,7 @@ public class PauseMenu : MonoBehaviour
         confirmMenu.SetActive(false);
         HUD.GetComponent<HUDController>().FadeHUD(true);
         unpausedSnapshot.TransitionTo(muffleTransitionTime);
-        GlobalData.currentAudioMixerSnapshot = unpausedSnapshot;
+        GlobalData.currentUnpausedAudioMixerSnapshot = unpausedSnapshot;
         cinemachineBrain.m_UpdateMethod = startingUpdateMethod;
         Time.timeScale = 1f;
         GlobalData.isGamePaused = false;
@@ -126,13 +126,13 @@ public class PauseMenu : MonoBehaviour
     {
         if (!GlobalData.isGamePaused)
         {
-            unpausedSnapshot = GlobalData.currentAudioMixerSnapshot;
+            unpausedSnapshot = GlobalData.currentUnpausedAudioMixerSnapshot;
 
             SoundEffectManager.Instance.PlaySound("UISelect", GameObject.FindWithTag(audioTag).transform);
             pauseMenu.SetActive(true);
             HUD.GetComponent<HUDController>().FadeHUD(false);
             pausedSnapshot.TransitionTo(muffleTransitionTime);
-            GlobalData.currentAudioMixerSnapshot = pausedSnapshot;
+            GlobalData.currentUnpausedAudioMixerSnapshot = pausedSnapshot;
             cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
             Time.timeScale = 0f;
             GlobalData.isGamePaused = true;
