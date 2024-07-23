@@ -7,7 +7,7 @@ public class SensitivityManager : MonoBehaviour
 {
     CinemachineFreeLook cinemachineFreeLook;
 
-    public float sensitivity {private get; set;} = 0.5f;
+    public float sensitivity = 0.5f;
 
     void Awake()
     {
