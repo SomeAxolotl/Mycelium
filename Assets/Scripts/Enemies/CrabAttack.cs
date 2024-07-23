@@ -24,7 +24,7 @@ public class CrabAttack : EnemyAttack
     [SerializeField] private float meleeDamage = 50f;
     [SerializeField] private float movementSpeed = 3f;
     private float shellthrowWindup = 1.5f;
-    [SerializeField] private bool isBlue = false;
+    [SerializeField] private int savedShell = 0;
     private float knockbackForce = 30f;
     IEnumerator attack;
     private Animator animator;
@@ -41,9 +41,21 @@ public class CrabAttack : EnemyAttack
     Quaternion targetRotation;
     public LayerMask enviromentLayer;
     public LayerMask obstacleLayer;
-    // Start is called before the first frame update
-    void Start()
-    {
+    private void Awake(){
+        int randomShell = Random.Range(0, 100);
+        Renderer shellRen = shell.GetComponent<Renderer>();
+        Material shellMat;
+        if(randomShell > 30){
+            savedShell = 0;
+            shellMat = Resources.Load("Shells/Seashell", typeof(Material)) as Material;
+            shellRen.materials = new Material[]{shellMat};
+        }else{
+            savedShell = 1;
+            shellMat = Resources.Load("Shells/Seashell2", typeof(Material)) as Material;
+            shellRen.materials = new Material[]{shellMat};
+        }
+    }
+    void Start(){
         reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         enemyHealth = GetComponent<EnemyHealth>();
         attack = this.Attack();
@@ -127,7 +139,7 @@ public class CrabAttack : EnemyAttack
             else
             {
                 GameObject spawnedShell = Instantiate(shellProjectile, transform.position + new Vector3(0f, 3.2f, 2f), Quaternion.Euler(25f, targetRotation.eulerAngles.y, 0f));
-                if(isBlue){spawnedShell.GetComponent<ShellVelocity>().ChangeShellColor(1);}
+                spawnedShell.GetComponent<ShellVelocity>().ChangeShellColor(savedShell);
                 spawnedShell.GetComponent<ShellVelocity>().LaunchShell();
             }
             animator.SetBool("HasShell", false);
