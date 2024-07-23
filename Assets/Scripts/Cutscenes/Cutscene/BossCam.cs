@@ -10,6 +10,7 @@ public class BossCam : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera introVCam;
     [SerializeField] private CinemachineVirtualCamera deathVCam;
+    [SerializeField] private GameObject cutsceneProtection;
 
     private CinemachineTrackedDolly introVCamDolly;
     private CinemachineTrackedDolly deathVCamDolly;
@@ -68,6 +69,7 @@ public class BossCam : MonoBehaviour
         
         introVCam.enabled = true;
         GlobalData.isAbleToPause = false;
+        cutsceneProtection.SetActive(true);
 
         mainBrain.m_DefaultBlend.m_Time = newBlendTime;
 
@@ -82,6 +84,7 @@ public class BossCam : MonoBehaviour
 
         introVCam.enabled = false;
         GlobalData.isAbleToPause = true;
+        cutsceneProtection.SetActive(false);
 
         yield return new WaitForSeconds(newBlendTime);
         mainBrain.m_DefaultBlend.m_Time = oldBlendTime;
