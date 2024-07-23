@@ -22,7 +22,7 @@ public class ShopMenuHintUpdater : MonoBehaviour
             }
             else
             {
-                shopHint.hintText.text = retrievedHint.GenerateColoredHintString(true);
+                shopHint.hintText.text = retrievedHint.GenerateColoredHintString();
                 shopHint.ToggleText();
             }
         }

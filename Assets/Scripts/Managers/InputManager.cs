@@ -47,9 +47,6 @@ public class InputManager : MonoBehaviour
         //UnityEngine.Debug.Log("Hey <color=ADD8E6>guys</color>! I just <color=green>realized</color> you can do <b>rich text</b> in <i>debug</i> logs!!!");
 
         sensitivityManager = Camera.main.GetComponent<SensitivityManager>();
-
-        RefreshHUDHints();
-        UpdateCameraControls();
     }
 
     void OnEnable()
@@ -64,6 +61,9 @@ public class InputManager : MonoBehaviour
         }
 
         actionsAsset?.Enable();
+
+        RefreshHUDHints();
+        UpdateCameraControls();
     }
 
     void OnDisable()
