@@ -6,7 +6,13 @@ public class PrototypeAchievementManager : MonoBehaviour
 {
     public static PrototypeAchievementManager Instance;
 
-    private GameObject player;
+    private GameObject currentPlayer;
+    private GameObject playerParent;
+    private SwapWeapon swapWeaponScript;
+
+    //VersatileSpore Stuff
+    private GameObject lastUsedWeapon;
+    private WeaponStats currentWeaponStats;
 
     private void Awake()
     {
@@ -21,7 +27,9 @@ public class PrototypeAchievementManager : MonoBehaviour
     }
     private void Start()
     {
-        player = GameObject.FindWithTag("currentPlayer");
+        currentPlayer = GameObject.FindWithTag("currentPlayer");
+        playerParent = GameObject.FindWithTag("PlayerParent");
+        swapWeaponScript = playerParent.GetComponent<SwapWeapon>();
     }
 
     private void Update()
@@ -43,7 +51,6 @@ public class PrototypeAchievementManager : MonoBehaviour
     public void IncrementAndCheck1000KillsAch()
     {
         int statTotal;
-        bool achIsUnlocked;
 
         //Increment
         StatsAndAchievements.Instance.ChangeStatBy("STAT_ENEMIES_KILLED", 1);
@@ -51,15 +58,13 @@ public class PrototypeAchievementManager : MonoBehaviour
         StatsAndAchievements.Instance.GetStat("STAT_ENEMIES_KILLED", out statTotal);
         //Debug.Log("Total Enemies Killed: " + statTotal);
 
-        //Check
-        StatsAndAchievements.Instance.GetAchievement("ACH_1000_KILLS", out achIsUnlocked);
-
         if(statTotal == 1000)
         {
             StatsAndAchievements.Instance.StoreStatsAndAchievements();
             Debug.Log("SHOULD UNLOCK");
         }
     }
+
     public void WithoutAPumpkinAch()
     {
         bool achIsUnlocked;
@@ -73,6 +78,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST TUTORIAL DEATH");
         }
     }
+
     public void IDidItMomAch()
     {
         bool achIsUnlocked;
@@ -100,13 +106,14 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST SPORE GROWTH");
         }
     }
+
     public void ShouldHaveUsedBugSprayAch()
     {
         bool achIsUnlocked;
         int enemyLayerMask = 1 << LayerMask.NameToLayer("Enemy");
 
         StatsAndAchievements.Instance.GetAchievement("ACH_BUG_SPRAY", out achIsUnlocked);
-        Collider[] enemies = Physics.OverlapSphere(player.transform.position, 10f, enemyLayerMask);
+        Collider[] enemies = Physics.OverlapSphere(currentPlayer.transform.position, 10f, enemyLayerMask);
 
         if (!achIsUnlocked && enemies.Length >= 10)
         {
@@ -115,6 +122,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST BUG SPRAY DEATH");
         }
     }
+
     public void YokedAch()
     {
         bool achIsUnlocked;
@@ -128,6 +136,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST MAX PRIMAL UPGRADE");
         }
     }
+
     public void BrainiacManiacAch()
     {
         bool achIsUnlocked;
@@ -141,6 +150,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST MAX SENTIENCE UPGRADE");
         }
     }
+
     public void GottaGoFastAch()
     {
         bool achIsUnlocked;
@@ -154,6 +164,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST MAX SPEED UPGRADE");
         }
     }
+
     public void ICanTankItAch()
     {
         bool achIsUnlocked;
@@ -167,6 +178,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST MAX VITALITY UPGRADE");
         }
     }
+
     public void NutritionalAch()
     {
         bool achIsUnlocked;
@@ -178,6 +190,45 @@ public class PrototypeAchievementManager : MonoBehaviour
             StatsAndAchievements.Instance.GiveAchievement("ACH_MAX_ALL_STATS");
             StatsAndAchievements.Instance.StoreStatsAndAchievements();
             Debug.Log("UNLOCK ON FIRST MAX ALL STATS");
+        }
+    }
+
+    public void VersatileSporeAch()
+    {
+        bool achIsUnlocked;
+
+        //This is an optimization so that we dont use GetComponent() every time an enemy is killed;
+        if(lastUsedWeapon != swapWeaponScript.O_curWeapon)
+        {
+            lastUsedWeapon = swapWeaponScript.O_curWeapon;
+            currentWeaponStats = swapWeaponScript.O_curWeapon.GetComponent<WeaponStats>();
+        }
+
+        switch(currentWeaponStats.weaponType.ToString())
+        {
+            case "Slash":
+                GlobalData.slashKills += 1;
+                break;
+
+            case "Smash":
+                GlobalData.smashKills += 1;
+                break;
+
+            case "Stab":
+                GlobalData.stabKills += 1;
+                break;
+
+            default:
+                break;
+        }
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_20_KILLS_ALL_WEAPON_TYPE", out achIsUnlocked);
+
+        if (GlobalData.slashKills >= 20 && GlobalData.smashKills >= 20 && GlobalData.stabKills >= 20 && achIsUnlocked == false)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_20_KILLS_ALL_WEAPON_TYPE");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON 20 KILLS WITH EACH WEAPON TYPE");
         }
     }
 }

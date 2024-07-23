@@ -61,7 +61,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public virtual void EnemyTakeDamage(float damage, bool wasFromDeathPlane = false)
+    public virtual void EnemyTakeDamage(float damage, bool wasFromDeathPlane = false, bool wasFromWeapon = false)
     {
         // Check for ArmoredAttribute and apply damage reduction
         Armored armoredAttribute = GetComponent<Armored>();
@@ -89,7 +89,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if (currentHealth <= 0 && !alreadyDead)
         {
-            StartCoroutine(Death(wasFromDeathPlane));
+            StartCoroutine(Death(wasFromDeathPlane, wasFromWeapon));
         }
         hasTakenDamage = true;
     }
@@ -116,11 +116,16 @@ public class EnemyHealth : MonoBehaviour
         }
     }
     public Action Died;
-    protected IEnumerator Death(bool wasFromDeathPlane = false)
+    protected IEnumerator Death(bool wasFromDeathPlane = false, bool wasFromWeapon = false)
     {
         Died?.Invoke();
         Actions.EnemyKilled?.Invoke(this);
         PrototypeAchievementManager.Instance.IncrementAndCheck1000KillsAch();
+
+        if(wasFromWeapon == true)
+        {
+        PrototypeAchievementManager.Instance.VersatileSporeAch();
+        }
 
         EnemyAttack enemyAttack = GetComponent<EnemyAttack>();
         if (enemyAttack != null)
