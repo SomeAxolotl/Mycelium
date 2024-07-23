@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Armored : EnemyAttributeBase
 {
-    private float damageReduction = 0.10f; // Damage reduction percentage
+    private float damageReduction = 0.20f; // Damage reduction percentage
 
     protected override void OnInitialize()
     {

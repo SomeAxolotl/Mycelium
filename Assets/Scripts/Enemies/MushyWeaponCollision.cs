@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Adaptive;
+using static Blinding;
 
 public class MushyWeaponCollision : MonoBehaviour, IDamageBuffable
 {
@@ -33,7 +34,21 @@ public class MushyWeaponCollision : MonoBehaviour, IDamageBuffable
             playerHit.Add(other.gameObject);
             // Handle healing logic for Parasitic attribute
             enemyHealth.OnDamageDealt(totalDamage);
-            
+
+            // Check for Blinding attribute and apply blinding effect
+            if (attributeManager != null)
+            {
+                var blindingAttribute = attributeManager.GetComponent<Blinding>();
+                if (blindingAttribute != null)
+                {
+                    Debug.Log("Blinding Att applied!");
+                    blindingAttribute.ApplyBlindingEffect(5f); // Apply blinding effect for 5 seconds
+                }
+                else
+                {
+                    Debug.Log("Blinding Att not found!");
+                }
+            }
         }
     }
     public void ApplyDamageBuff(float multiplier, float duration)
