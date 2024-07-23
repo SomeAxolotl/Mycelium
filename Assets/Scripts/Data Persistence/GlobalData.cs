@@ -55,4 +55,9 @@ public static class GlobalData
 
     //Quitting Stuff
     public static bool isQuitting = false;
+
+    //Achievement Stuff
+    public static int slashKills = 0;
+    public static int smashKills = 0;
+    public static int stabKills = 0;
 }

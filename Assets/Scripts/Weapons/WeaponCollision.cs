@@ -44,11 +44,11 @@ public class WeaponCollision : MonoBehaviour
             //Debug.Log(other.gameObject);
             if (other.GetComponent<EnemyHealth>() != null)
             {
-                other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt);
+                other.GetComponent<EnemyHealth>().EnemyTakeDamage(dmgDealt, false, true);
             }
             else if(other.GetComponent<BossHealth>() != null)
             {
-                other.GetComponent<BossHealth>().EnemyTakeDamage(dmgDealt);
+                other.GetComponent<BossHealth>().EnemyTakeDamage(dmgDealt, false, true);
             }
             if(relentlessFury != null)
             {
