@@ -110,7 +110,7 @@ public class Enigmatic : AttributeBase
         //Protection against it unluckily looping for too long, having a low number also makes it rarely return a stick
         infiniteProtection += 1;
         if(infiniteProtection > 2){return "Slash/Stick";}
-        switch(Random.Range(0, 8)){
+        switch(Random.Range(0, 9)){
             case 0:
                 if(currWeapon.GetComponent<WeaponStats>().wpnName.Contains("Avocado Flamberge")){return(RandomWeapon(currWeapon, infiniteProtection));}
                 return "Slash/AvocadoFlamberge";

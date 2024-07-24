@@ -61,4 +61,5 @@ public static class GlobalData
     public static int smashKills = 0;
     public static int stabKills = 0;
     public static int waterKills = 0;
+    public static List<string> enigmaticWeaponKills = new List<string>();
 }

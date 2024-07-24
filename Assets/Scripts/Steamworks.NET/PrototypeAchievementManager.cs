@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PrototypeAchievementManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class PrototypeAchievementManager : MonoBehaviour
     public static PrototypeAchievementManager Instance;
 
     private SporeDataList sporeDataList;
-    private CharacterStats currrentCharStats;
+    private CurrentSporeStats currrentCharStats = new CurrentSporeStats();
     //private SporeData currentSpore;
     private string filePath;
 
@@ -16,9 +17,10 @@ public class PrototypeAchievementManager : MonoBehaviour
     private GameObject playerParent;
     private SwapWeapon swapWeaponScript;
 
-    //VersatileSpore Stuff
-    private GameObject lastUsedWeapon;
+    //VersatileSpore + UseEmAll Stuff
+    private GameObject mostRecentWeapon;
     private WeaponStats currentWeaponStats;
+    Enigmatic enigmaticComponent;
 
     //InsectaPenta Stuff
     private int killsBuffer;
@@ -40,8 +42,7 @@ public class PrototypeAchievementManager : MonoBehaviour
         currentPlayer = GameObject.FindWithTag("currentPlayer");
         playerParent = GameObject.FindWithTag("PlayerParent");
         swapWeaponScript = playerParent.GetComponent<SwapWeapon>();
-        string currentPlayerName = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>().sporeName;
-        SporeData currentSpore = sporeDataList.Spore_Data.Find(spore => spore.sporeName == currentPlayerName);
+        SporeData currentSpore = sporeDataList.Spore_Data.Find(spore => spore.sporeTag == "currentPlayer");
         currrentCharStats.primalLevel = currentSpore.lvlPrimal;
         currrentCharStats.speedLevel = currentSpore.lvlSpeed;
         currrentCharStats.sentienceLevel = currentSpore.lvlSentience;
@@ -235,9 +236,9 @@ public class PrototypeAchievementManager : MonoBehaviour
         if (achIsUnlocked == true) return;
 
         //This is an optimization so that we dont use GetComponent() every time an enemy is killed;
-        if (lastUsedWeapon != swapWeaponScript.O_curWeapon)
+        if (mostRecentWeapon != swapWeaponScript.O_curWeapon)
         {
-            lastUsedWeapon = swapWeaponScript.O_curWeapon;
+            mostRecentWeapon = swapWeaponScript.O_curWeapon;
             currentWeaponStats = swapWeaponScript.O_curWeapon.GetComponent<WeaponStats>();
         }
 
@@ -334,6 +335,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST ALL FURNITURE UNLOCK");
         }
     }
+
     public void LoopFiveAch()
     {
         bool achIsUnlocked;
@@ -347,6 +349,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST LOOP 5 BEATEN");
         }
     }
+
     public void LoopTenAch()
     {
         bool achIsUnlocked;
@@ -360,6 +363,7 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON FIRST LOOP 10 BEATEN");
         }
     }
+
     public void FeedingTheFishAch()
     {
         bool achIsUnlocked;
@@ -375,4 +379,41 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON 20 WATER KILLS");
         }
     }
+
+    public void UseEmAllAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_ALL_ENIGMATIC", out achIsUnlocked);
+
+        //If the achievement is unlocked just stop running the function
+        if (achIsUnlocked == true) return;
+
+        swapWeaponScript.O_curWeapon.TryGetComponent(out enigmaticComponent);
+
+        //If it's not enigmatic stop running the function
+        if (enigmaticComponent == null) return;
+
+        GlobalData.enigmaticWeaponKills.Add(swapWeaponScript.O_curWeapon.name.Replace("(Clone)", ""));
+        GlobalData.enigmaticWeaponKills = GlobalData.enigmaticWeaponKills.Distinct().ToList();
+
+        Debug.Log("ENIGMATIC UINQUES: " + GlobalData.enigmaticWeaponKills.Count(), mostRecentWeapon);
+
+        if (GlobalData.enigmaticWeaponKills.Count >= 10 && achIsUnlocked == false)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_ALL_ENIGMATIC");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON KILLS WITH ALL ENIGMATIC WEAPONS");
+        }
+    }
+}
+
+
+[Serializable]
+public class CurrentSporeStats
+{
+    public int primalLevel;
+    public int speedLevel;
+    public int sentienceLevel;
+    public int vitalityLevel;
 }

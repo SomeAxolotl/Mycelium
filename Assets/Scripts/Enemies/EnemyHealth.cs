@@ -129,7 +129,8 @@ public class EnemyHealth : MonoBehaviour
 
         if (wasFromWeapon == true)
         {
-        PrototypeAchievementManager.Instance.VersatileSporeAch();
+            PrototypeAchievementManager.Instance.VersatileSporeAch();
+            PrototypeAchievementManager.Instance.UseEmAllAch();
         }
 
         EnemyAttack enemyAttack = GetComponent<EnemyAttack>();
