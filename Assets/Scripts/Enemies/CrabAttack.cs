@@ -30,6 +30,8 @@ public class CrabAttack : EnemyAttack
     private Animator animator;
     private Transform player;
     private Transform center;
+    [SerializeField] private Transform burrowPoint;
+    [SerializeField] private Transform risingPoint;
     private Rigidbody rb;
     private Collider bodyCollider;
     private CrabMeleeHitbox crabMeleeHitbox;
@@ -194,14 +196,23 @@ public class CrabAttack : EnemyAttack
         yield return new WaitForSeconds(1.25f); // Lets player actually see burrow anim
         float timeElapsed = 0f;
         float digDuration = 2.5f;
+        bool burrowParticleSpawned = false;
         Vector3 startPosition = transform.position;
         Vector3 endPosition = transform.position + new Vector3(0f, -10f, 0f);
+        ParticleSystem burrowParticles = null;
         while (timeElapsed < digDuration)
         {
             transform.position = Vector3.Lerp(startPosition, endPosition, timeElapsed / digDuration); // Crab digs underground
             timeElapsed += Time.deltaTime;
             yield return null;
+
+            if(timeElapsed > digDuration * .0009f && !burrowParticleSpawned)
+            {
+                burrowParticles = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("CrabBurrowParticle", burrowPoint.position, Quaternion.Euler(-90,0,0));
+                burrowParticleSpawned = true;
+            }
         }
+        burrowParticles.Stop();
         yield return new WaitForSeconds(2f);
         transform.position = player.position + new Vector3(0f, -10f, 0f); // Moves below where the player is
         digAttack = true;
@@ -211,6 +222,7 @@ public class CrabAttack : EnemyAttack
         Vector3 startPosition_02 = transform.position;
         Vector3 endPosition_02 = transform.position + new Vector3(0f, 9.5f, 0f);
         bool jumpStarted = false;
+        ParticleSystem risingParticles = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("CrabRisingParticle", risingPoint.position + new Vector3(0f, 8f, 0f), Quaternion.Euler(-90,0,0));
         while (timeElapsed_02 < digDuration_02)
         {
             transform.position = Vector3.Lerp(startPosition_02, endPosition_02, timeElapsed_02 / digDuration_02); // Crab pops up from underground
@@ -222,6 +234,7 @@ public class CrabAttack : EnemyAttack
             }
             yield return null;
         }
+        risingParticles.Stop();
         rb.AddForce(Vector3.up * 80f, ForceMode.Impulse);
         yield return new WaitForSeconds(0.75f);
         digAttack = false;
