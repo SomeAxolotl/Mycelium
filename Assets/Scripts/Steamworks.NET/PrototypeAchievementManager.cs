@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,11 @@ using UnityEngine;
 public class PrototypeAchievementManager : MonoBehaviour
 {
     public static PrototypeAchievementManager Instance;
+
+    private SporeDataList sporeDataList;
+    private CharacterStats currrentCharStats;
+    //private SporeData currentSpore;
+    private string filePath;
 
     private GameObject currentPlayer;
     private GameObject playerParent;
@@ -30,9 +36,16 @@ public class PrototypeAchievementManager : MonoBehaviour
     }
     private void Start()
     {
+        GetJSONdata(GlobalData.profileNumber);
         currentPlayer = GameObject.FindWithTag("currentPlayer");
         playerParent = GameObject.FindWithTag("PlayerParent");
         swapWeaponScript = playerParent.GetComponent<SwapWeapon>();
+        string currentPlayerName = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>().sporeName;
+        SporeData currentSpore = sporeDataList.Spore_Data.Find(spore => spore.sporeName == currentPlayerName);
+        currrentCharStats.primalLevel = currentSpore.lvlPrimal;
+        currrentCharStats.speedLevel = currentSpore.lvlSpeed;
+        currrentCharStats.sentienceLevel = currentSpore.lvlSentience;
+        currrentCharStats.vitalityLevel = currentSpore.lvlVitality;
 
         killsBuffer = 0;
     }
@@ -48,6 +61,20 @@ public class PrototypeAchievementManager : MonoBehaviour
             StatsAndAchievements.Instance.GetStat("STAT_ENEMIES_KILLED", out statTotal);
             Debug.Log("Total Enemies Killed: " + statTotal);
         }
+    }
+    void GetJSONdata(int profileNumber)
+    {
+        //Begin Reading SporeData.json
+        if (Application.isEditor)
+        {
+            filePath = Application.dataPath + "/SporeData" + profileNumber + ".json";
+        }
+        else
+        {
+            filePath = Application.persistentDataPath + "/SporeData" + profileNumber + ".json";
+        }
+
+        sporeDataList = JsonUtility.FromJson<SporeDataList>(System.IO.File.ReadAllText(filePath));
     }
 
     /// <summary>
@@ -281,9 +308,13 @@ public class PrototypeAchievementManager : MonoBehaviour
     {
         bool achIsUnlocked;
 
-        StatsAndAchievements.Instance.GetAchievement("ACH_LOOP_2_BASE_STATS", out achIsUnlocked); //NOT DONE YET
+        StatsAndAchievements.Instance.GetAchievement("ACH_LOOP_2_BASE_STATS", out achIsUnlocked);
 
-        if (!achIsUnlocked)
+        if (!achIsUnlocked &&
+            currrentCharStats.primalLevel == 1 &&
+            currrentCharStats.speedLevel == 1 &&
+            currrentCharStats.sentienceLevel == 1 &&
+            currrentCharStats.vitalityLevel == 1)
         {
             StatsAndAchievements.Instance.GiveAchievement("ACH_LOOP_2_BASE_STATS");
             StatsAndAchievements.Instance.StoreStatsAndAchievements();
@@ -327,6 +358,21 @@ public class PrototypeAchievementManager : MonoBehaviour
             StatsAndAchievements.Instance.GiveAchievement("ACH_LOOP_10");
             StatsAndAchievements.Instance.StoreStatsAndAchievements();
             Debug.Log("UNLOCK ON FIRST LOOP 10 BEATEN");
+        }
+    }
+    public void FeedingTheFishAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_20_WATER_KILLS", out achIsUnlocked);
+
+        GlobalData.waterKills += 1;
+
+        if (GlobalData.waterKills >= 20 && !achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_20_WATER_KILLS");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON 20 WATER KILLS");
         }
     }
 }
