@@ -14,6 +14,9 @@ public class PrototypeAchievementManager : MonoBehaviour
     private GameObject lastUsedWeapon;
     private WeaponStats currentWeaponStats;
 
+    //InsectaPenta Stuff
+    private int killsBuffer;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -30,6 +33,8 @@ public class PrototypeAchievementManager : MonoBehaviour
         currentPlayer = GameObject.FindWithTag("currentPlayer");
         playerParent = GameObject.FindWithTag("PlayerParent");
         swapWeaponScript = playerParent.GetComponent<SwapWeapon>();
+
+        killsBuffer = 0;
     }
 
     private void Update()
@@ -197,8 +202,13 @@ public class PrototypeAchievementManager : MonoBehaviour
     {
         bool achIsUnlocked;
 
+        StatsAndAchievements.Instance.GetAchievement("ACH_20_KILLS_ALL_WEAPON_TYPE", out achIsUnlocked);
+
+        //If the achievement is unlocked just stop running the function
+        if (achIsUnlocked == true) return;
+
         //This is an optimization so that we dont use GetComponent() every time an enemy is killed;
-        if(lastUsedWeapon != swapWeaponScript.O_curWeapon)
+        if (lastUsedWeapon != swapWeaponScript.O_curWeapon)
         {
             lastUsedWeapon = swapWeaponScript.O_curWeapon;
             currentWeaponStats = swapWeaponScript.O_curWeapon.GetComponent<WeaponStats>();
@@ -222,13 +232,49 @@ public class PrototypeAchievementManager : MonoBehaviour
                 break;
         }
 
-        StatsAndAchievements.Instance.GetAchievement("ACH_20_KILLS_ALL_WEAPON_TYPE", out achIsUnlocked);
-
         if (GlobalData.slashKills >= 20 && GlobalData.smashKills >= 20 && GlobalData.stabKills >= 20 && achIsUnlocked == false)
         {
             StatsAndAchievements.Instance.GiveAchievement("ACH_20_KILLS_ALL_WEAPON_TYPE");
             StatsAndAchievements.Instance.StoreStatsAndAchievements();
             Debug.Log("UNLOCK ON 20 KILLS WITH EACH WEAPON TYPE");
         }
+    }
+
+    public void InsectaPentaAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_10_KILLS_SAME_TIME", out achIsUnlocked);
+
+        //If the achievement is unlocked just stop running the function
+        if (achIsUnlocked == true) return;
+
+        killsBuffer += 1;
+
+        if (killsBuffer == 1)
+        {
+            StartCoroutine(InsectaPentaCoroutine());
+        }
+
+        if (killsBuffer >= 10 && achIsUnlocked == false)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_10_KILLS_SAME_TIME");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON 10 KILLS AT THE SAME TIME");
+        }
+    }
+
+    private IEnumerator InsectaPentaCoroutine()
+    {
+        float resetBufferTime = 0.5f;
+
+        while(killsBuffer > 0)
+        {
+            yield return new WaitForSeconds(resetBufferTime / 5);
+
+            killsBuffer -= 1;
+        }
+
+        killsBuffer = 0;
     }
 }

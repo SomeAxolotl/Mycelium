@@ -121,8 +121,9 @@ public class EnemyHealth : MonoBehaviour
         Died?.Invoke();
         Actions.EnemyKilled?.Invoke(this);
         PrototypeAchievementManager.Instance.IncrementAndCheck1000KillsAch();
+        PrototypeAchievementManager.Instance.InsectaPentaAch();
 
-        if(wasFromWeapon == true)
+        if (wasFromWeapon == true)
         {
         PrototypeAchievementManager.Instance.VersatileSporeAch();
         }
