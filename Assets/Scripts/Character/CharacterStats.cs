@@ -825,28 +825,31 @@ public class CharacterStats : MonoBehaviour
         designTracker.UpdateBlendshape(sentienceLevel,primalLevel,vitalityLevel,speedLevel);
         UpdateSporeName();
         GameObject.FindWithTag("PlayerParent").GetComponent<PlayerHealth>().UpdateHudHealthUI();
-        if(primalLevel == 15)
+        if (SceneManager.GetActiveScene().name == "The Carcass")
         {
-            PrototypeAchievementManager.Instance.YokedAch();
-        }
-        if (sentienceLevel == 15)
-        {
-            PrototypeAchievementManager.Instance.BrainiacManiacAch();
-        }
-        if (speedLevel == 15)
-        {
-            PrototypeAchievementManager.Instance.GottaGoFastAch();
-        }
-        if (vitalityLevel == 15)
-        {
-            PrototypeAchievementManager.Instance.ICanTankItAch();
-        }
-        if (primalLevel == 15 && 
-            sentienceLevel == 15 &&
-            speedLevel == 15 &&
-            vitalityLevel == 15)
-        {
-            PrototypeAchievementManager.Instance.NutritionalAch();
+            if (primalLevel == 15)
+            {
+                PrototypeAchievementManager.Instance.YokedAch();
+            }
+            if (sentienceLevel == 15)
+            {
+                PrototypeAchievementManager.Instance.BrainiacManiacAch();
+            }
+            if (speedLevel == 15)
+            {
+                PrototypeAchievementManager.Instance.GottaGoFastAch();
+            }
+            if (vitalityLevel == 15)
+            {
+                PrototypeAchievementManager.Instance.ICanTankItAch();
+            }
+            if (primalLevel == 15 &&
+                sentienceLevel == 15 &&
+                speedLevel == 15 &&
+                vitalityLevel == 15)
+            {
+                PrototypeAchievementManager.Instance.NutritionalAch();
+            }
         }
     }
 

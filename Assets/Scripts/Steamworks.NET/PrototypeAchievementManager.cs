@@ -277,4 +277,56 @@ public class PrototypeAchievementManager : MonoBehaviour
 
         killsBuffer = 0;
     }
+    public void LoopDeeLoopAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_LOOP_2_BASE_STATS", out achIsUnlocked); //NOT DONE YET
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_LOOP_2_BASE_STATS");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST LOOP 2 BASE STATS");
+        }
+    }
+    public void FullyFurnishedAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_ALL_FURNITURE", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_ALL_FURNITURE");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST ALL FURNITURE UNLOCK");
+        }
+    }
+    public void LoopFiveAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_LOOP_5", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_LOOP_5");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST LOOP 5 BEATEN");
+        }
+    }
+    public void LoopTenAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_LOOP_10", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_LOOP_10");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST LOOP 10 BEATEN");
+        }
+    }
 }

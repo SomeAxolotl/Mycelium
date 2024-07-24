@@ -152,6 +152,7 @@ public class CreditsPlayer : MonoBehaviour
                     showNotification = true;
                 }
                 FurnitureManager.Instance.fireflyIsUnlocked = true;
+                PrototypeAchievementManager.Instance.LoopFiveAch();
                 break;
             case 7:
                 unlockString = "Game Board";
@@ -168,7 +169,11 @@ public class CreditsPlayer : MonoBehaviour
                     showNotification = true;
                 }
                 FurnitureManager.Instance.drumIsUnlocked = true;
-                break; 
+                PrototypeAchievementManager.Instance.FullyFurnishedAch();
+                break;
+            case 10:
+                PrototypeAchievementManager.Instance.LoopTenAch();
+                break;
         }
 
         if (showNotification)
