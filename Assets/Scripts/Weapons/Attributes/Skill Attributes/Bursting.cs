@@ -6,5 +6,5 @@ public class Bursting : SkillAttributes
 {
     protected override string SkillName => "Sporeburst";
     protected override string AttributeName => "Bursting";
-    protected override string BaseAttributeDescription => "Unleash Sporeburst with a 15% chance when hitting an enemy.";
+    protected override string BaseAttributeDescription => "15% chance to trigger Sporeburst skill";
 }

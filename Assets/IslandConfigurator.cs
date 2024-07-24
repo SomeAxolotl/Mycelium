@@ -27,23 +27,8 @@ public class IslandConfigurator : MonoBehaviour
             activeVolcano.SetActive(Random.value > 0.5f);
         }
 
-        // 2. Minibosses or Treasure Chests
-        if (Random.value > 0.5f)
-        {
-            SetRandomMiniboss();
-            SetAllInactive(treasureChests);
-        }
-        else
-        {
-            SetAllActive(treasureChests);
-            SetAllInactive(minibosses);
-        }
-
-        // Ensure either minibosses or treasure chests are active
-        if (!AnyActive(minibosses) && !AnyActive(treasureChests))
-        {
-            SetRandomMiniboss();
-        }
+        // 2. Minibosses and Treasure Chests
+        ActivateRandomItems(minibosses, treasureChests, 5);
 
         // 3. Color Code
         if (terrain != null && colorMaterials.Length > 0)
@@ -81,23 +66,39 @@ public class IslandConfigurator : MonoBehaviour
         }
     }
 
-    private void SetAllActive(GameObject[] objects)
+    private void ActivateRandomItems(GameObject[] array1, GameObject[] array2, int count)
     {
-        if (objects != null && objects.Length > 0)
+        List<GameObject> combinedList = new List<GameObject>();
+        if (array1 != null)
         {
-            foreach (var obj in objects)
-            {
-                obj.SetActive(true);
-            }
+            combinedList.AddRange(array1);
         }
-    }
-
-    private void SetRandomMiniboss()
-    {
-        if (minibosses != null && minibosses.Length > 0)
+        if (array2 != null)
         {
-            int randomIndex = Random.Range(0, minibosses.Length);
-            minibosses[randomIndex].SetActive(true);
+            combinedList.AddRange(array2);
+        }
+
+        SetAllInactive(combinedList.ToArray());
+
+        if (combinedList.Count > 0)
+        {
+            int itemsToActivate = Mathf.Min(count, combinedList.Count);
+            List<GameObject> selectedItems = new List<GameObject>();
+
+            while (selectedItems.Count < itemsToActivate)
+            {
+                int randomIndex = Random.Range(0, combinedList.Count);
+                GameObject selectedItem = combinedList[randomIndex];
+                if (!selectedItems.Contains(selectedItem))
+                {
+                    selectedItems.Add(selectedItem);
+                }
+            }
+
+            foreach (var item in selectedItems)
+            {
+                item.SetActive(true);
+            }
         }
     }
 

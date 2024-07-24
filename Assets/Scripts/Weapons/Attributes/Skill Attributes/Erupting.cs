@@ -6,6 +6,6 @@ public class Erupting : SkillAttributes
 {
     protected override string SkillName => "Eruption";
     protected override string AttributeName => "Erupting";
-    protected override string BaseAttributeDescription => "Let out an Eruption with a 15% chance when hitting an enemy.";
+    protected override string BaseAttributeDescription => "15% chance to trigger Eruption skill";
 }
 

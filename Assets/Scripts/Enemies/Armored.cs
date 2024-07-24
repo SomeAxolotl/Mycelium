@@ -5,10 +5,11 @@ using UnityEngine;
 public class Armored : EnemyAttributeBase
 {
     private float damageReduction = 0.20f; // Damage reduction percentage
-
+    private GameObject armoredParticles;
     protected override void OnInitialize()
     {
-        // Initialization logic specific to Armored attribute, if any
+        armoredParticles = transform.Find("ArmoredParticles").gameObject;
+        armoredParticles.SetActive(true);
     }
 
     public float ApplyDamageReduction(float damage)

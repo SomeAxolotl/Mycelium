@@ -60,5 +60,18 @@ public class SecretCacheRevealer : MonoBehaviour
         {
             secretCache.EnableInteraction();
         }
+
+        // Remove the trigger collider
+        if (triggerCollider != null)
+        {
+            Destroy(triggerCollider);
+        }
+
+        // Remove the Rigidbody component after a short delay to ensure the cache starts falling
+        yield return new WaitForSeconds(0.5f);
+        if (cacheRigidbody != null)
+        {
+            Destroy(cacheRigidbody);
+        }
     }
 }

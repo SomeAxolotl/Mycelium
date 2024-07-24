@@ -8,8 +8,12 @@ public class Blinding : EnemyAttributeBase, IBlindingEffect
     private float blindingDuration = 5f; // Duration of the blinding effect in seconds
     private bool isBlindingActive = false;
     private Coroutine blindingCoroutine;
-
-    protected override void OnInitialize() { }
+    private GameObject blindingParticles;
+    protected override void OnInitialize() 
+    {
+        blindingParticles = transform.Find("BlindingParticles").gameObject;
+        blindingParticles.SetActive(true);
+    }
 
     public void ApplyBlindingEffect(float duration)
     {

@@ -8,8 +8,13 @@ public class Adaptive : EnemyAttributeBase
     private float buffDuration = 10f; // Duration of the buff in seconds
     private bool isBuffActive = false;
     private Coroutine damageBuffCoroutine;
+    private GameObject adaptiveParticles;
 
-    protected override void OnInitialize() { }
+    protected override void OnInitialize() 
+    {
+        adaptiveParticles = transform.Find("AdaptiveParticles").gameObject;
+        adaptiveParticles.SetActive(true);
+    }
 
     public void ApplyDamageBuff()
     {

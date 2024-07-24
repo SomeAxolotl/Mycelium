@@ -6,5 +6,5 @@ public class Undergrown : SkillAttributes
 {
     protected override string SkillName => "Undergrowth";
     protected override string AttributeName => "Undergrown";
-    protected override string BaseAttributeDescription => "Germinate an Undergrowth with a 15% chance when hitting an enemy.";
+    protected override string BaseAttributeDescription => "15% chance to trigger Undergrowth skill";
 }

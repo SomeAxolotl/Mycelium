@@ -6,5 +6,5 @@ public class Toxicating : SkillAttributes
 {
     protected override string SkillName => "Mycotoxins";
     protected override string AttributeName => "Toxicating";
-    protected override string BaseAttributeDescription => "Gain Mycotoxins with a 15% chance when hitting an enemy.";
+    protected override string BaseAttributeDescription => "15% chance to trigger Mycotoxins skill";
 }

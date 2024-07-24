@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Parasitic : EnemyAttributeBase
 {
+    private GameObject parasiticParticles;
     protected override void OnInitialize()
     {
-        // Initialization logic specific to Parasitic attribute
+        parasiticParticles = transform.Find("ParasiticParticles").gameObject;
+        parasiticParticles.SetActive(true);
     }
 
     public float GetHealAmount(float damageDealt)
