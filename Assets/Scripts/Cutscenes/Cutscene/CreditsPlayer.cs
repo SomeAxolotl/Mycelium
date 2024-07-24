@@ -136,7 +136,7 @@ public class CreditsPlayer : MonoBehaviour
                     showNotification = true;
                 }
                 FurnitureManager.Instance.chairIsUnlocked = true;
-                PrototypeAchievementManager.Instance.LoopDeeLoopAch();
+                PrototypeAchievementManager.Instance.SelfSufficientAch();
                 break;
             case 3:
                 unlockString = "Bonfire";

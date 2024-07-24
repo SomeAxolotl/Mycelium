@@ -268,7 +268,7 @@ public class PrototypeAchievementManager : MonoBehaviour
         }
     }
 
-    public void InsectaPentaAch()
+    public void BoldTenfoldAch()
     {
         bool achIsUnlocked;
 
@@ -305,7 +305,7 @@ public class PrototypeAchievementManager : MonoBehaviour
 
         killsBuffer = 0;
     }
-    public void LoopDeeLoopAch()
+    public void SelfSufficientAch()
     {
         bool achIsUnlocked;
 

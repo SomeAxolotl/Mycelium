@@ -121,7 +121,7 @@ public class EnemyHealth : MonoBehaviour
         Died?.Invoke();
         Actions.EnemyKilled?.Invoke(this);
         PrototypeAchievementManager.Instance.IncrementAndCheck1000KillsAch();
-        PrototypeAchievementManager.Instance.InsectaPentaAch();
+        PrototypeAchievementManager.Instance.BoldTenfoldAch();
         if(wasFromDeathPlane)
         {
             PrototypeAchievementManager.Instance.FeedingTheFishAch();
