@@ -25,6 +25,7 @@ public class PauseMenu : MonoBehaviour
     HUDItem hudItem;
     NutrientTracker nutrientTracker;
     GameObject playerParent;
+    PlayerController playerControllerScript;
     SceneLoader sceneLoaderScript;
     bool isOnMainMenu;
     private string audioTag;
@@ -49,6 +50,7 @@ public class PauseMenu : MonoBehaviour
             playerInput = new ThirdPersonActionsAsset();
             nutrientTracker = GameObject.FindWithTag("Tracker").GetComponent<NutrientTracker>();
             playerParent = GameObject.FindWithTag("PlayerParent");
+            playerControllerScript = playerParent.GetComponent<PlayerController>();
             HUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<CanvasGroup>();
             hudItem = HUD.GetComponent<HUDItem>();
             sceneLoaderScript = GameObject.Find("SceneLoader").GetComponent<SceneLoader>();
@@ -111,6 +113,7 @@ public class PauseMenu : MonoBehaviour
         unpausedSnapshot.TransitionTo(muffleTransitionTime);
         GlobalData.currentUnpausedAudioMixerSnapshot = unpausedSnapshot;
         cinemachineBrain.m_UpdateMethod = startingUpdateMethod;
+        playerControllerScript.EnableController();
         Time.timeScale = 1f;
         GlobalData.isGamePaused = false;
         //Cursor.visible = false;
@@ -134,6 +137,7 @@ public class PauseMenu : MonoBehaviour
             pausedSnapshot.TransitionTo(muffleTransitionTime);
             GlobalData.currentUnpausedAudioMixerSnapshot = pausedSnapshot;
             cinemachineBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
+            playerControllerScript.DisableController();
             Time.timeScale = 0f;
             GlobalData.isGamePaused = true;
 
