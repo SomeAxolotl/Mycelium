@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BossAnimationEvents : MonoBehaviour
 {
+    private enum BossAttack { Left, Right, Smash, Spin}
+
     [SerializeField] private CinemachineImpulseSource impulseSource;
 
     [SerializeField] private AttackTargetSolver leftATS;
@@ -36,16 +38,14 @@ public class BossAnimationEvents : MonoBehaviour
         //boss.SetActive(false);
     }
 
-    void PositionAttackTarget(string attack)
+    void PositionAttackTarget(BossAttack attack)
     {
         //Debug.Log($"Danger Zone: {isInDangerZone}");
         //Debug.Log($"Left Dist: {Vector3.Distance(leftShoulder.position, player.position)} | Right Dist: {Vector3.Distance(rightShoulder.position, player.position)}");
 
-        attack = attack.ToLower();
-
         switch (attack)
         {
-            case "left":
+            case BossAttack.Left:
                 if(isInDangerZone == true && Vector3.Distance(leftShoulder.position, player.position) < 8.8f)
                 {
                     leftATS.GoToPlayer();
@@ -56,7 +56,7 @@ public class BossAnimationEvents : MonoBehaviour
                 }
                 break;
 
-            case "right":
+            case BossAttack.Right:
                 if (isInDangerZone == true && Vector3.Distance(rightShoulder.position, player.position) < 10.4f)
                 {
                     rightATS.GoToPlayer();
@@ -67,7 +67,7 @@ public class BossAnimationEvents : MonoBehaviour
                 }
                 break;
 
-            case "smash":
+            case BossAttack.Smash:
                 if (isInDangerZone == true && Vector3.Distance(leftShoulder.position, player.position) < 10.9f && Vector3.Distance(rightShoulder.position, player.position) < 11.1f)
                 {
                     leftATS.GoToPlayerSmash(true);

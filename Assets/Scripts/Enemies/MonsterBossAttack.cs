@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 public class MonsterBossAttack : MonoBehaviour
 {
@@ -15,23 +13,29 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private BossMeleeHitbox rightArmHitbox;
 
     [SerializeField] private GameObject bossTail;
-
-    [SerializeField] private float pullForce = 100f;
-    [SerializeField] private float pullDuration = 5.0f;
-    [SerializeField] private float pullCooldown = 5.0f;
-
-    [SerializeField] private float tailCooldown = 5.0f;
-
-    [SerializeField] private float cooldownAfterSlam = 6.0f;
-    [SerializeField] private float cooldownAfterSwipe = 4.0f;
-
-    [SerializeField] private float tailAttackDamage = 60f;
-    [SerializeField] private float swipeAttackDamage = 85f;
-    [SerializeField] private float slamAttackDamage = 70f;
+    [Space(10)]
+    [SerializeField] private float pullForce;
+    [SerializeField] private float pullDuration;
+    [SerializeField] private float pullCooldown;
+    [Space(10)]
+    [SerializeField] private float tailCooldown;
+    [SerializeField] private float spinCooldown;
+    [Space(10)]
+    [SerializeField] private float cooldownAfterSlam;
+    [SerializeField] private float cooldownAfterSwipe;
+    [SerializeField] private float cooldownAfterSpin;
+    [Space(10)]
+    [SerializeField] private float tailAttackDamage;
+    [SerializeField] private float swipeAttackDamage;
+    [SerializeField] private float slamAttackDamage;
+    [SerializeField] private float spinAttackDamage;
 
     [HideInInspector] public bool isAttacking = false;
+    private bool isSpinning = false;
+    private bool canDoSpin = true;
+    private float spinSpeed;
 
-    private int numberofAttacks = 2;
+    private int numberofAttacks = 3;
 
     private float swipeHitboxActivationDelay = 2.0f;
     private float slamHitboxActivationDelay = 1.1f;
@@ -51,17 +55,38 @@ public class MonsterBossAttack : MonoBehaviour
         InvokeRepeating("DoTailAttack", 8f, (tailCooldown + 5.0f)); // 5 sec buffer for when tail attack is actually happening
     }
 
+    private void FixedUpdate()
+    {
+        if (isSpinning == true)
+        {
+            transform.Rotate(Vector3.up * spinSpeed * Time.deltaTime);
+        }
+    }
+
     public void DoRandomAttack() // Picks either slam or swipe attack
     {
         int randomAttack = Random.Range(0, numberofAttacks);
 
-        if (randomAttack == 0)
-        { 
-            StartCoroutine(SwipeAttack());
-        }
-        else if (randomAttack == 1)
+        switch(randomAttack)
         {
-            StartCoroutine(SlamAttack());
+            case 0:
+                StartCoroutine(SwipeAttack());
+                break;
+
+            case 1:
+                StartCoroutine(SlamAttack());
+                break;
+
+            case 2:
+                if(canDoSpin == true)
+                {
+                    StartCoroutine(SpinAttack());
+                }
+                else
+                {
+                    DoRandomAttack();
+                }
+                break;
         }
     }
 
@@ -173,6 +198,68 @@ public class MonsterBossAttack : MonoBehaviour
         playerHit.Clear();
         yield return new WaitForSeconds(cooldownAfterSlam + slamAttackAnimationDuration);
         DoRandomAttack();
+    }
+
+    private IEnumerator SpinAttack()
+    {
+        isAttacking = true;
+        animator.SetBool("IsAttacking", true);
+        animator.SetTrigger("Spin");
+        yield return new WaitForEndOfFrame();
+        animator.SetBool("IsAttacking", false);
+
+        spinSpeed = 0f;
+        isSpinning = true;
+        yield return StartCoroutine(ChangeSpinSpeed(-400, 1f));
+        StartCoroutine(ChangeSpinSpeed(-800, 2f));
+
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.37f);
+
+        leftArmHitbox.InstantHitboxToggle(true);
+        leftArmHitbox.damage = spinAttackDamage * GlobalData.currentLoop;
+        rightArmHitbox.InstantHitboxToggle(true);
+        rightArmHitbox.damage = spinAttackDamage * GlobalData.currentLoop;
+
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.87f);
+
+        StartCoroutine(ChangeSpinSpeed(0, 1f));
+        leftArmHitbox.InstantHitboxToggle(false);
+        rightArmHitbox.InstantHitboxToggle(false);
+
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
+
+        spinSpeed = 0f;
+        isAttacking = false;
+        isSpinning = false;
+        canDoSpin = false;
+        playerHit.Clear();
+
+        yield return new WaitForSeconds(cooldownAfterSpin);
+        DoRandomAttack();
+
+        yield return new WaitForSeconds(spinCooldown);
+        canDoSpin = true;
+
+    }
+
+    private IEnumerator ChangeSpinSpeed(float targetSpeed, float timeToChange)
+    {
+        float elapsedTime = 0f;
+        float t;
+        float initialSpinSpeed = spinSpeed;
+
+        while (elapsedTime < timeToChange)
+        {
+            t = elapsedTime / timeToChange;
+
+            spinSpeed = Mathf.Lerp(initialSpinSpeed, targetSpeed, t);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        spinSpeed = targetSpeed;
     }
 
     public void OnDisable()
