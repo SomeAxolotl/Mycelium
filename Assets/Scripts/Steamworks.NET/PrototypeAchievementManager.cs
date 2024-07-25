@@ -40,15 +40,19 @@ public class PrototypeAchievementManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Main Menu") return;
 
-        GetJSONdata(GlobalData.profileNumber);
         currentPlayer = GameObject.FindWithTag("currentPlayer");
         playerParent = GameObject.FindWithTag("PlayerParent");
         swapWeaponScript = playerParent.GetComponent<SwapWeapon>();
-        SporeData currentSpore = sporeDataList.Spore_Data.Find(spore => spore.sporeTag == "currentPlayer");
-        currrentCharStats.primalLevel = currentSpore.lvlPrimal;
-        currrentCharStats.speedLevel = currentSpore.lvlSpeed;
-        currrentCharStats.sentienceLevel = currentSpore.lvlSentience;
-        currrentCharStats.vitalityLevel = currentSpore.lvlVitality;
+
+        if (SceneManager.GetActiveScene().name != "New Tutorial")
+        {
+            GetJSONdata(GlobalData.profileNumber);
+            SporeData currentSpore = sporeDataList.Spore_Data.Find(spore => spore.sporeTag == "currentPlayer");
+            currrentCharStats.primalLevel = currentSpore.lvlPrimal;
+            currrentCharStats.speedLevel = currentSpore.lvlSpeed;
+            currrentCharStats.sentienceLevel = currentSpore.lvlSentience;
+            currrentCharStats.vitalityLevel = currentSpore.lvlVitality;
+        }
 
         killsBuffer = 0;
     }
