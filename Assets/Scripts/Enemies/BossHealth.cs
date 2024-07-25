@@ -21,7 +21,7 @@ public class BossHealth : EnemyHealth
             hudBoss.EncounterBoss(gameObject.name, currentHealth, maxHealth);
             if(SceneManager.GetActiveScene().name == "Impact Barrens")
             {
-                GameObject.Find("Rival Colony Leader").GetComponent<MonsterBossAttack>().DoRandomAttack();
+                StartCoroutine(GameObject.Find("Rival Colony Leader").GetComponent<MonsterBossAttack>().WaitForIntroToEnd());
             }
         }
     }

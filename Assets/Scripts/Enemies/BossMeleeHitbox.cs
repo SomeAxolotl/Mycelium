@@ -29,7 +29,7 @@ public class BossMeleeHitbox : MonoBehaviour
     public void InstantHitboxToggle(bool setActive)
     {
         gameObject.GetComponent<Collider>().enabled = setActive;
-        gameObject.GetComponent<Renderer>().enabled = setActive;
+        //gameObject.GetComponent<Renderer>().enabled = setActive;
     }
 
     public IEnumerator ActivateHitbox()

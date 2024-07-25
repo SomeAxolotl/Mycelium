@@ -11,6 +11,7 @@ public class MonsterBossAttack : MonoBehaviour
 
     [SerializeField] private BossMeleeHitbox leftArmHitbox;
     [SerializeField] private BossMeleeHitbox rightArmHitbox;
+    [SerializeField] private BossMeleeHitbox spineHitbox;
 
     [SerializeField] private GameObject bossTail;
     [Space(10)]
@@ -88,6 +89,15 @@ public class MonsterBossAttack : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public IEnumerator WaitForIntroToEnd()
+    {
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Intro") == false);
+
+        yield return new WaitForSeconds(2f);
+
+        DoRandomAttack();
     }
 
     private void PullPlayer()
@@ -213,18 +223,21 @@ public class MonsterBossAttack : MonoBehaviour
         yield return StartCoroutine(ChangeSpinSpeed(-400, 1f));
         StartCoroutine(ChangeSpinSpeed(-800, 2f));
 
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.37f);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.43f);
 
         leftArmHitbox.InstantHitboxToggle(true);
         leftArmHitbox.damage = spinAttackDamage * GlobalData.currentLoop;
         rightArmHitbox.InstantHitboxToggle(true);
         rightArmHitbox.damage = spinAttackDamage * GlobalData.currentLoop;
+        spineHitbox.InstantHitboxToggle(true);
+        spineHitbox.damage = spinAttackDamage * GlobalData.currentLoop;
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.87f);
 
-        StartCoroutine(ChangeSpinSpeed(0, 1f));
         leftArmHitbox.InstantHitboxToggle(false);
         rightArmHitbox.InstantHitboxToggle(false);
+        spineHitbox.InstantHitboxToggle(false);
+        StartCoroutine(ChangeSpinSpeed(0, 1f));
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
 
@@ -239,7 +252,6 @@ public class MonsterBossAttack : MonoBehaviour
 
         yield return new WaitForSeconds(spinCooldown);
         canDoSpin = true;
-
     }
 
     private IEnumerator ChangeSpinSpeed(float targetSpeed, float timeToChange)
