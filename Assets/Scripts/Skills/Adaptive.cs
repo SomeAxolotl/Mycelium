@@ -12,8 +12,7 @@ public class Adaptive : EnemyAttributeBase
 
     protected override void OnInitialize() 
     {
-        adaptiveParticles = transform.Find("AdaptiveParticles").gameObject;
-        adaptiveParticles.SetActive(true);
+        
     }
 
     public void ApplyDamageBuff()
@@ -28,6 +27,8 @@ public class Adaptive : EnemyAttributeBase
     private IEnumerator DamageBuffCoroutine()
     {
         isBuffActive = true;
+        adaptiveParticles = transform.Find("AdaptiveParticles").gameObject;
+        adaptiveParticles.SetActive(true);
         foreach (var attackScript in GetComponentsInChildren<IDamageBuffable>())
         {
             attackScript.ApplyDamageBuff(damageBuffMultiplier, buffDuration);
@@ -38,6 +39,7 @@ public class Adaptive : EnemyAttributeBase
             attackScript.RemoveDamageBuff();
         }
         isBuffActive = false;
+        adaptiveParticles.SetActive(false);
         damageBuffCoroutine = null;
     }
 
