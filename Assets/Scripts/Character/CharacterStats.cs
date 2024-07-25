@@ -113,7 +113,7 @@ public class CharacterStats : MonoBehaviour
         loopVFX = GetComponentInChildren<RateValue>();
     }
 
-    void Start()
+    IEnumerator Start()
     {
         nutrientTracker = GameObject.Find("NutrientCounter").GetComponent<NutrientTracker>();
         designTracker = GetComponent<DesignTracker>();
@@ -123,6 +123,8 @@ public class CharacterStats : MonoBehaviour
         sporeAnimator = GetComponent<Animator>();
 
         CalculateHappinessAnimations();
+
+        yield return null;
 
         if (gameObject.tag == "currentPlayer")
         {
@@ -1013,9 +1015,9 @@ public class CharacterStats : MonoBehaviour
 
     public void TestAgainstHighestLoopRecord(int loop)
     {
-        if (loop > highestLoopBeaten)
+        if (loop > O_highestLoopBeaten)
         {
-            highestLoopBeaten = loop;
+            O_highestLoopBeaten = loop;
 
             Debug.Log($"{sporeName} beat a new highest loop! " + loop);
         }
