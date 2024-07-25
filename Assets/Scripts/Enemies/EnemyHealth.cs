@@ -146,7 +146,7 @@ public class EnemyHealth : MonoBehaviour
             reworkedEnemyNavigation.enabled = false;
         }
         
-        //gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 
         alreadyDead = true;
 
