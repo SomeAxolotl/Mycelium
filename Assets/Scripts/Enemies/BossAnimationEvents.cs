@@ -32,6 +32,11 @@ public class BossAnimationEvents : MonoBehaviour
 
     void Finish() 
     {
+        if (GlobalData.currentLoop >= 2)
+        {
+            GameObject.Find("Rival Sporemother").GetComponent<BossHealth>().nutrientDrop = (GameObject.Find("Rival Sporemother").GetComponent<BossHealth>().nutrientDrop * (GlobalData.currentLoop / 2));
+        }
+
         GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();
         GameObject boss = GameObject.Find("Rival Sporemother");
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", GameObject.Find("Rival Sporemother").GetComponent<BossHealth>().nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
