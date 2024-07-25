@@ -180,7 +180,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if (GlobalData.currentLoop >= 2)
         {
-            nutrientDrop = (nutrientDrop * (GlobalData.currentLoop / 2));
+            nutrientDrop = (nutrientDrop * ((GlobalData.currentLoop + 1) / 2));
         }
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientDrop, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         if (gameObject.name == "Giga Beetle")

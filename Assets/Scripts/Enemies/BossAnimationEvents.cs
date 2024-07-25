@@ -34,7 +34,7 @@ public class BossAnimationEvents : MonoBehaviour
     {
         if (GlobalData.currentLoop >= 2)
         {
-            GameObject.Find("Rival Sporemother").GetComponent<BossHealth>().nutrientDrop = (GameObject.Find("Rival Sporemother").GetComponent<BossHealth>().nutrientDrop * (GlobalData.currentLoop / 2));
+            GameObject.Find("Rival Sporemother").GetComponent<BossHealth>().nutrientDrop = (GameObject.Find("Rival Sporemother").GetComponent<BossHealth>().nutrientDrop * ((GlobalData.currentLoop + 1) / 2));
         }
 
         GameObject.Find("CreditsPlayer").GetComponent<CreditsPlayer>().StartPlayCredits();

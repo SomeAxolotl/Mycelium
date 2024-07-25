@@ -254,7 +254,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
     {
         if (GlobalData.currentLoop >= 2)
         {
-            nutrientAmount = (nutrientAmount * (GlobalData.currentLoop / 2));
+            nutrientAmount = (nutrientAmount * ((GlobalData.currentLoop + 1) / 2));
         }
         Actions.SalvagedWeapon?.Invoke(this.gameObject);
         nutrientTracker.AddNutrients(nutrientAmount);
