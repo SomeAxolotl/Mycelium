@@ -85,7 +85,7 @@ public class PrototypeAchievementManager : MonoBehaviour
         StatsAndAchievements.Instance.GetStat("STAT_ENEMIES_KILLED", out statTotal);
         //Debug.Log("Total Enemies Killed: " + statTotal);
 
-        if(statTotal == 1000)
+        if(statTotal == 10000)
         {
             StatsAndAchievements.Instance.StoreStatsAndAchievements();
             Debug.Log("SHOULD UNLOCK");
