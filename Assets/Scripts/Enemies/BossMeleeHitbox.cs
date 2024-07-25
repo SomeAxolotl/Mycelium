@@ -29,17 +29,17 @@ public class BossMeleeHitbox : MonoBehaviour
     public void InstantHitboxToggle(bool setActive)
     {
         gameObject.GetComponent<Collider>().enabled = setActive;
-        //gameObject.GetComponent<Renderer>().enabled = setActive;
+        gameObject.GetComponent<Renderer>().enabled = setActive;
     }
 
     public IEnumerator ActivateHitbox()
     {
         yield return new WaitForSeconds(hitboxActivateDelay);
         gameObject.GetComponent<Collider>().enabled = true;
-        //gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.GetComponent<Renderer>().enabled = true;
         yield return new WaitForSeconds(0.3f);
         gameObject.GetComponent<Collider>().enabled = false;
-        //gameObject.GetComponent<Renderer>().enabled = false;
+        gameObject.GetComponent<Renderer>().enabled = false;
     }
     private void OnTriggerEnter(Collider other)
     {

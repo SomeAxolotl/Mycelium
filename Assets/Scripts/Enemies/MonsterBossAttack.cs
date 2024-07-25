@@ -189,10 +189,13 @@ public class MonsterBossAttack : MonoBehaviour
         yield return new WaitForEndOfFrame();
         animator.SetBool("IsAttacking", false);
         //Debug.Log("SWIPE ATTACK!");
-        yield return new WaitForSeconds(swipeAttackAnimationDuration);
+
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f);
+
         isAttacking = false;
         playerHit.Clear();
-        yield return new WaitForSeconds(cooldownAfterSwipe + swipeAttackAnimationDuration);
+
+        yield return new WaitForSeconds(cooldownAfterSwipe);
         DoRandomAttack();
     }
 
@@ -210,10 +213,13 @@ public class MonsterBossAttack : MonoBehaviour
         yield return new WaitForEndOfFrame();
         animator.SetBool("IsAttacking", false);
         //Debug.Log("SLAM ATTACK!");
-        yield return new WaitForSeconds(slamAttackAnimationDuration);
+
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f);
+
         isAttacking = false;
         playerHit.Clear();
-        yield return new WaitForSeconds(cooldownAfterSlam + slamAttackAnimationDuration);
+
+        yield return new WaitForSeconds(cooldownAfterSlam);
         DoRandomAttack();
     }
 
@@ -252,7 +258,7 @@ public class MonsterBossAttack : MonoBehaviour
         spinPartL.Stop();
         spinPartR.Stop();
 
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f);
 
         spinSpeed = 0f;
         isAttacking = false;

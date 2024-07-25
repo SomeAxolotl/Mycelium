@@ -136,6 +136,8 @@ public class CharSelectManagerNew : MonoBehaviour
         GlobalData.smashKills = 0;
         GlobalData.stabKills = 0;
 
+        GlobalData.enigmaticWeaponKills.Clear();
+
         SceneLoader.Instance.BeginLoadScene(3, "Dylano");
     }
 }
