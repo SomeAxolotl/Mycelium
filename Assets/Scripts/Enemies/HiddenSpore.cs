@@ -18,6 +18,16 @@ public class HiddenSpore : MonoBehaviour
         {
             enemyNavigation.enabled = false;
         }
+
+        MushyAttack mushyAttack = GetComponent<MushyAttack>();
+        if (mushyAttack != null)
+        {
+            mushyAttack.enabled = false;
+        }
+        else
+        {
+            Debug.LogError("Object does not have MushyAttack", gameObject);
+        }
     }
 
     public void ActivateHiddenSpore()
@@ -43,6 +53,8 @@ public class HiddenSpore : MonoBehaviour
 
     private IEnumerator EnableNavigationAfterDelay(float delay)
     {
+        Debug.Log("Delay Seconds: " + delay, gameObject);
+
         yield return new WaitForSeconds(delay);
 
         // Enable the hidden spore's navigation script
@@ -50,6 +62,16 @@ public class HiddenSpore : MonoBehaviour
         if (enemyNavigation != null)
         {
             enemyNavigation.enabled = true;
+        }
+
+        MushyAttack mushyAttack = GetComponent<MushyAttack>();
+        if (mushyAttack != null)
+        {
+            mushyAttack.enabled = true;
+        }
+        else
+        {
+            Debug.LogError("Object does not have MushyAttack", gameObject);
         }
     }
 }
