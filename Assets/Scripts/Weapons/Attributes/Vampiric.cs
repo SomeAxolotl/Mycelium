@@ -8,7 +8,7 @@ public class Vampiric : AttributeBase
 
     public override void Initialize(){
         attName = "Vampiric";
-        attDesc = "Heal 15% of damage dealt";
+        attDesc = "Heal 5% of damage dealt";
     }
 
     public override void Equipped(){
@@ -18,7 +18,7 @@ public class Vampiric : AttributeBase
 
     public override void Hit(GameObject target, float damage){
         if(health != null){
-            health.SpawnHealingOrb(target.transform.position, (damage * 0.15f));
+            health.SpawnHealingOrb(target.transform.position, (damage * 0.05f));
         }
     }
 }
