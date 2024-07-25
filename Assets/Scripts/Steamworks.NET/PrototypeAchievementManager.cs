@@ -406,6 +406,32 @@ public class PrototypeAchievementManager : MonoBehaviour
             Debug.Log("UNLOCK ON KILLS WITH ALL ENIGMATIC WEAPONS");
         }
     }
+    public void CloseCallAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_CLOSE_CALL", out achIsUnlocked);
+        Debug.Log("UNLOCK ONCLOSE CALL");
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_CLOSE_CALL");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST CLOSE CALL");
+        }
+    }
+    public void DiversityAch()
+    {
+        bool achIsUnlocked;
+
+        StatsAndAchievements.Instance.GetAchievement("ACH_SPORE_DIVERSITY", out achIsUnlocked);
+
+        if (!achIsUnlocked)
+        {
+            StatsAndAchievements.Instance.GiveAchievement("ACH_SPORE_DIVERSITY");
+            StatsAndAchievements.Instance.StoreStatsAndAchievements();
+            Debug.Log("UNLOCK ON FIRST SPORE DIVERSITY");
+        }
+    }
 }
 
 

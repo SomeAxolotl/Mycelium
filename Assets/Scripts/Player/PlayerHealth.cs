@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private float healingReduction = 0f; // Healing reduction percentage
     private bool canRegen = true; // New flag to control regeneration
     private bool isRegenDisabled = false; // New flag to track if regen is disabled due to disease collider
+    [HideInInspector] public bool closeCall = false;
 
     [HideInInspector] public float deathTimer;
     SwapCharacter swapCharacter;
@@ -103,6 +104,11 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= realDmgTaken;
             AnimateHealth(-realDmgTaken);
 
+            if(currentHealth <= 10)
+            {
+                closeCall = true;
+            }
+
             if (currentHealth <= 0 && !dead)
             {
                 StartCoroutine(Death());
@@ -155,6 +161,10 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+        }
+        if(currentHealth == maxHealth && closeCall)
+        {
+            PrototypeAchievementManager.Instance.CloseCallAch();
         }
         AnimateHealth(healAmount);
     }

@@ -19,6 +19,9 @@ public class SpawnCharacter : MonoBehaviour
         "Gob"
     };
 
+    private List<GameObject> spores;
+    private List<CharacterStats> sporeSkillsList;
+
     [SerializeField] private GameObject characterPrefab;
     [SerializeField] private List<Texture2D> MouthTextures;
     [SerializeField] private List<Texture2D> EyeTextures;
@@ -122,16 +125,20 @@ public class SpawnCharacter : MonoBehaviour
 
             stats.sporeName = GetRandomUniqueName();
 
-            SporePersonalities randomSporePersonality = (SporePersonalities) UnityEngine.Random.Range(0, 5);
+            SporePersonalities randomSporePersonality = (SporePersonalities)UnityEngine.Random.Range(0, 5);
             stats.sporePersonality = randomSporePersonality;
 
             stats.sporeTrait = GetRandomTrait();
-            if(stats.sporeTrait != null && stats.sporeTrait != ""){
+            if (stats.sporeTrait != null && stats.sporeTrait != "")
+            {
                 Type newTrait = Type.GetType(stats.sporeTrait);
-                if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+                if (newTrait != null && typeof(Component).IsAssignableFrom(newTrait))
+                {
                     stats.gameObject.AddComponent(newTrait);
                     chosenTraitName = newTrait.ToString().Replace("Trait", "");
-                }else{
+                }
+                else
+                {
                     Debug.LogError("Component type not found or is not a Component: " + stats.sporeTrait);
                 }
             }
@@ -142,7 +149,7 @@ public class SpawnCharacter : MonoBehaviour
             {
                 stats.sporeName = GetRandomUniqueName();
             }
-            else 
+            else
             {
                 stats.sporeName = customStats.sporeName;
             }
@@ -154,12 +161,16 @@ public class SpawnCharacter : MonoBehaviour
             stats.sporePersonality = customStats.sporePersonality;
 
             stats.sporeTrait = GetRandomTrait();
-            if(stats.sporeTrait != null && stats.sporeTrait != ""){
+            if (stats.sporeTrait != null && stats.sporeTrait != "")
+            {
                 Type newTrait = Type.GetType(stats.sporeTrait);
-                if(newTrait != null && typeof(Component).IsAssignableFrom(newTrait)){
+                if (newTrait != null && typeof(Component).IsAssignableFrom(newTrait))
+                {
                     stats.gameObject.AddComponent(newTrait);
                     chosenTraitName = newTrait.ToString().Replace("Trait", "");
-                }else{
+                }
+                else
+                {
                     Debug.LogError("Component type not found or is not a Component: " + stats.sporeTrait);
                 }
             }
@@ -173,8 +184,8 @@ public class SpawnCharacter : MonoBehaviour
         if (randomDesignFromSpecies)
         {
             CreateSpeciesPalette(newCharacter, subspecies);
-            int randomMouthIndex = UnityEngine.Random.Range(0,MouthTextures.Count);
-            int randomEyeIndex = UnityEngine.Random.Range(0,EyeTextures.Count);
+            int randomMouthIndex = UnityEngine.Random.Range(0, MouthTextures.Count);
+            int randomEyeIndex = UnityEngine.Random.Range(0, EyeTextures.Count);
             designTracker.EyeOption = randomEyeIndex;
             designTracker.MouthOption = randomMouthIndex;
             designTracker.EyeTexture = EyeTextures[randomEyeIndex];
@@ -207,15 +218,60 @@ public class SpawnCharacter : MonoBehaviour
 
         GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassMuffling>().CalculateMuffleSnapshot();
 
-        if(sporeCam != null )
+        if (sporeCam != null)
         {
             sporeCam.SwitchCamera("GrowCamera");
         }
         newCharacter.GetComponent<Animator>().Play("Sprout");
         StartCoroutine(ResetCamera(newCharacter));
 
-        //GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassSong>().PlayCarcassSong();
+        spores = new List<GameObject>();
+        spores.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        spores.AddRange(GameObject.FindGameObjectsWithTag("currentPlayer"));
+
+        // Step 2: Get the CharacterStats component from each object and add it to sporeStatsList
+        sporeSkillsList = new List<CharacterStats>();
+        foreach (GameObject spore in spores)
+        {
+            CharacterStats skills = spore.GetComponent<CharacterStats>();
+            if (skills != null)
+            {
+                sporeSkillsList.Add(skills);
+            }
+        }
+
+        bool hasFungalMight = false;
+        bool hasDeathBlossom = false;
+        bool hasFairyRing = false;
+        bool hasZombify = false;
+
+        foreach (CharacterStats speciesSkill in sporeSkillsList)
+        {
+            if (speciesSkill.equippedSkills[0].Contains("FungalMight"))
+            {
+                hasFungalMight = true;
+            }
+            if (speciesSkill.equippedSkills[0].Contains("DeathBlossom"))
+            {
+                hasDeathBlossom = true;
+            }
+            if (speciesSkill.equippedSkills[0].Contains("FairyRing"))
+            {
+                hasFairyRing = true;
+            }
+            if (speciesSkill.equippedSkills[0].Contains("Zombify"))
+            {
+                hasZombify = true;
+            }
+        }
+
+        if(hasFungalMight && hasDeathBlossom && hasFairyRing && hasZombify)
+        {
+            PrototypeAchievementManager.Instance.DiversityAch();
+        }
     }
+
+            //GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassSong>().PlayCarcassSong();
 
     string GetRandomUniqueName()
     {

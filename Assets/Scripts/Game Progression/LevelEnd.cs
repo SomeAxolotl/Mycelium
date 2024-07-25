@@ -68,6 +68,7 @@ public class LevelEnd : MonoBehaviour
 
     public void SceneChangeSetup()
     {
+        playerHealth.closeCall = false;
         playerHealth.currentHealth = playerHealth.maxHealth;
 
         nutrientTracker.KeepMaterials();
