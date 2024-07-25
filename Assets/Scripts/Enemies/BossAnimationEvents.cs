@@ -51,7 +51,7 @@ public class BossAnimationEvents : MonoBehaviour
         switch (attack)
         {
             case BossAttack.Left:
-                if(isInDangerZone == true && Vector3.Distance(leftShoulder.position, player.position) < 8.8f)
+                if(isInDangerZone == true)
                 {
                     leftATS.GoToPlayer();
                 }
@@ -62,7 +62,7 @@ public class BossAnimationEvents : MonoBehaviour
                 break;
 
             case BossAttack.Right:
-                if (isInDangerZone == true && Vector3.Distance(rightShoulder.position, player.position) < 10.4f)
+                if (isInDangerZone == true)
                 {
                     rightATS.GoToPlayer();
                 }
@@ -73,7 +73,7 @@ public class BossAnimationEvents : MonoBehaviour
                 break;
 
             case BossAttack.Smash:
-                if (isInDangerZone == true && Vector3.Distance(leftShoulder.position, player.position) < 10.9f && Vector3.Distance(rightShoulder.position, player.position) < 11.1f)
+                if (isInDangerZone == true)
                 {
                     leftATS.GoToPlayerSmash(true);
                     rightATS.GoToPlayerSmash(false);
