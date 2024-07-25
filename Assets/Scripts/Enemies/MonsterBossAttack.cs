@@ -239,12 +239,18 @@ public class MonsterBossAttack : MonoBehaviour
         spineHitbox.InstantHitboxToggle(true);
         spineHitbox.damage = spinAttackDamage * GlobalData.currentLoop;
 
+        ParticleSystem spinPartL = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("SpinAttack", leftArmHitbox.transform.position, Quaternion.Euler(0, 0, 0), leftArmHitbox.gameObject);
+        ParticleSystem spinPartR = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("SpinAttack", rightArmHitbox.transform.position, Quaternion.Euler(0, 0, 0), rightArmHitbox.gameObject);
+
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.87f);
 
         leftArmHitbox.InstantHitboxToggle(false);
         rightArmHitbox.InstantHitboxToggle(false);
         spineHitbox.InstantHitboxToggle(false);
         StartCoroutine(ChangeSpinSpeed(0, 1f));
+
+        spinPartL.Stop();
+        spinPartR.Stop();
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
 

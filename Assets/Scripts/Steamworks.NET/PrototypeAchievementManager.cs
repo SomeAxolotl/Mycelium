@@ -51,18 +51,6 @@ public class PrototypeAchievementManager : MonoBehaviour
         killsBuffer = 0;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Backslash))
-        {
-            StatsAndAchievements.Instance.ChangeStatBy("STAT_ENEMIES_KILLED", 990);
-
-            int statTotal;
-
-            StatsAndAchievements.Instance.GetStat("STAT_ENEMIES_KILLED", out statTotal);
-            Debug.Log("Total Enemies Killed: " + statTotal);
-        }
-    }
     void GetJSONdata(int profileNumber)
     {
         //Begin Reading SporeData.json
