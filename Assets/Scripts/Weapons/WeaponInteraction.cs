@@ -259,6 +259,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         Actions.SalvagedWeapon?.Invoke(this.gameObject);
         nutrientTracker.AddNutrients(nutrientAmount);
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientAmount / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
         TooltipManager.Instance.DestroyTooltip();
         Destroy(this.gameObject);
     }

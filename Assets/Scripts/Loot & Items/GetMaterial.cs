@@ -43,7 +43,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactObject)
     {
-        SoundEffectManager.Instance.PlaySound("Pickup", transform);
+        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
 
         AddMaterial();
         TooltipManager.Instance.DestroyTooltip();
@@ -173,6 +173,7 @@ public class GetMaterial : MonoBehaviour, IInteractable
         }
         nutrientTracker.AddNutrients(nutrientAmount);
         ParticleManager.Instance.SpawnParticleFlurry("NutrientParticles", nutrientAmount / 20, 0.1f, this.gameObject.transform.position, Quaternion.Euler(-90f, 0f, 0f));
+        SoundEffectManager.Instance.PlaySound("Pickup", transform.position);
         TooltipManager.Instance.DestroyTooltip();
         Destroy(this.gameObject);
     }

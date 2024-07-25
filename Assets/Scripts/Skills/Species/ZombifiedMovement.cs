@@ -101,7 +101,7 @@ public class ZombifiedMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(explosionTimer);
         ParticleManager.Instance.SpawnParticles("ZombifyExplosionParticles", center.position, Quaternion.identity);
-        SoundEffectManager.Instance.PlaySound("Explosion", center);
+        SoundEffectManager.Instance.PlaySound("Explosion", center.position);
         enemyColliders = Physics.OverlapSphere(center.position, explosionRadius, enemyLayer);
         foreach (Collider collider in enemyColliders)
         {
