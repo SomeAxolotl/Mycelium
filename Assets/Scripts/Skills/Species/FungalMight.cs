@@ -76,7 +76,7 @@ public class FungalMight : Skill
             Debug.LogError("Failure spawning Fungal Might particles: No child of player with tag 'LeftHand'");
         }
 
-        SoundEffectManager.Instance.PlaySound("FuryBuff", player.transform, volumeModifier: -0.25f, pitchMultiplier: 1.3f);
+        SoundEffectManager.Instance.PlaySound("FuryBuff", player.transform, volumeModifier: -0.2f, pitchMultiplier: 1.2f);
 
         EndSkill();
     }
