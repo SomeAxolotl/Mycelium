@@ -55,7 +55,13 @@ public class HiddenSpore : MonoBehaviour
     {
         Debug.Log("Delay Seconds: " + delay, gameObject);
 
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        float originalMass = rigidbody.mass;
+        rigidbody.mass = 1000f;
+
         yield return new WaitForSeconds(delay);
+
+        rigidbody.mass = originalMass;
 
         // Enable the hidden spore's navigation script
         ReworkedEnemyNavigation enemyNavigation = GetComponent<ReworkedEnemyNavigation>();
