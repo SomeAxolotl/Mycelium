@@ -17,6 +17,8 @@ public class DeathBlossom : Skill
         Vector3 spawnPosition = playerPosition + transform.forward * distanceInFront;
         GameObject deathBlossomInstance = Instantiate(deathBlossomPrefab, spawnPosition, Quaternion.identity);
         deathBlossomInstance.GetComponent<DeathBlossomPlant>().finalDamageValue = finalSkillValue;
+
+        SoundEffectManager.Instance.PlaySound("Pickup", player.transform.position, volumeModifier: 3f, pitchMultiplier: 0.6f);
     }
 }
 

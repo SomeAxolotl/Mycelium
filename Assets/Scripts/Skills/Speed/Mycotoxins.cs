@@ -41,10 +41,16 @@ public class Mycotoxins : Skill
     public LayerMask groundLayerMask;
     private IEnumerator ReleaseSpores()
     {
+        float basePitch = 0.5f;
+        float pitchIncrement = 0.2f;
         while (spawnCount < 3)
         {
             // Spawn a spore cone
             GameObject sporeCone = Instantiate(sporeConePrefab, transform.position - transform.forward * 2f, Quaternion.identity);
+
+            float pitchMultiplier = basePitch + pitchIncrement * spawnCount;
+            SoundEffectManager.Instance.PlaySound("Projectile", player.transform.position, volumeModifier: 0.5f, pitchMultiplier: pitchMultiplier);
+
             sporeCone.GetComponent<DamageArea>().finalDamageValue = finalSkillValue;
             spawnCount++;
             if (sporeCone != null)
