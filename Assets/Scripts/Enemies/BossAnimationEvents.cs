@@ -110,6 +110,11 @@ public class BossAnimationEvents : MonoBehaviour
         SoundEffectManager.Instance.PlaySound("Boss Growl", camtracker);
     }
 
+    void SpinSound()
+    {
+        SoundEffectManager.Instance.PlaySound("Boss Spin", camtracker);
+    }
+
     void PlayBossMusic()
     {
         GameObject.Find("BackgroundMusicPlayer").GetComponent<BarrensMuffling>().StartBossMusic();
