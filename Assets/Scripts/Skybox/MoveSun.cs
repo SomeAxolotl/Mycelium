@@ -16,7 +16,7 @@ public class MoveSun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
+        /*if (Input.GetKey(KeyCode.RightArrow))
         {
             float rotationAmount = rotationSpeed * Time.deltaTime;
 
@@ -70,6 +70,6 @@ public class MoveSun : MonoBehaviour
 
             // Apply the new rotation
             transform.rotation = Quaternion.Euler(newRotation, currentRotation.eulerAngles.y, 0f);
-        }
+        }*/
     }
 }

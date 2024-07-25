@@ -17,7 +17,7 @@ public class ForFindingLeaks : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Comma))
+        /*if(Input.GetKeyDown(KeyCode.Comma))
         {
             try
             {
@@ -32,6 +32,6 @@ public class ForFindingLeaks : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Period))
         {
             SceneManager.LoadScene("The Carcass");
-        }
+        }*/
     }
 }
