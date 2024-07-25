@@ -32,6 +32,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
     [HideInInspector] public Animator animator;
     Rigidbody rb;
     private List<Vector3> waypoints = new List<Vector3>();
+    EnemyHealth enemyHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,7 @@ public class ReworkedEnemyNavigation : MonoBehaviour
         gravity = new Vector3(0f, gravityForce, 0f);
         rb.useGravity = !isFlyingEnemy;
         origin = transform.position;
+        enemyHealth = GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame
@@ -66,6 +68,11 @@ public class ReworkedEnemyNavigation : MonoBehaviour
                     playerSeen = true;
                     startedPatrol = false;
                     waypoints.Clear();
+
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.DisplayMinibossHealthBarName();
+                    }
                 }
                 else
                 {

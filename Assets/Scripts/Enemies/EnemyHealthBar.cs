@@ -22,23 +22,49 @@ public class EnemyHealthBar : BaseEnemyHealthBar
     [SerializeField] [Tooltip("Duration of fade out on death")] private float fadeOutDuration = 0.75f;
     private Camera mainCamera;
 
+    Vector3 originalEnemyHealthNameSize;
+
+    bool nameDisplayed = false;
+
     void Start()
     {
         enemyHealthPanel.GetComponent<CanvasGroup>().alpha = 0f;
 
-        EnemyHealth enemyHealth = transform.parent.gameObject.GetComponent<EnemyHealth>();
-        if (enemyHealth.isMiniBoss || enemyHealth.gameObject.name == "Rival Sporemother")
-        {
-            string enemyName = enemyHealth.attributePrefix + enemyHealth.miniBossName;
-            enemyHealthName.text = enemyName;
-        }
-        else
-        {
-            enemyHealthName.text = "";
-        }
+        enemyHealthName.text = "";
+        originalEnemyHealthNameSize = enemyHealthName.rectTransform.localScale;
+        enemyHealthName.rectTransform.localScale = Vector3.zero;
 
         mainCamera = Camera.main;
         enemyHealthCanvas.GetComponent<Canvas>().worldCamera = mainCamera;
+    }
+
+    public void DisplayMinibossName(EnemyHealth enemyHealth)
+    {
+        if (nameDisplayed) return;
+
+        string enemyName = enemyHealth.attributePrefix + enemyHealth.miniBossName;
+        enemyHealthName.text = enemyName;
+
+        nameDisplayed = true;
+
+        StartCoroutine(PopName());
+    }
+
+    IEnumerator PopName()
+    {
+        float timer = 0f;
+        while (timer < fadeOutDuration)
+        {
+            float t = DylanTree.EaseOutQuart(timer / fadeOutDuration);
+
+            enemyHealthName.rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalEnemyHealthNameSize, t);
+
+            timer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        enemyHealthName.rectTransform.localScale = originalEnemyHealthNameSize;
     }
 
     public override void UpdateEnemyHealthUI()

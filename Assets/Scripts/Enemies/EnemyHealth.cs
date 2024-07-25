@@ -39,7 +39,7 @@ public class EnemyHealth : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         currentHealth = maxHealth * GlobalData.currentLoop;
         maxHealth = maxHealth * GlobalData.currentLoop;
@@ -58,6 +58,13 @@ public class EnemyHealth : MonoBehaviour
         if (isMiniBoss || gameObject.name == "Rival Sporemother")
         {
             AddAttributePrefix(attributePrefix);
+        }
+
+        yield return null;
+
+        if (GetComponent<ReworkedEnemyNavigation>() == null)
+        {
+            DisplayMinibossHealthBarName();
         }
     }
 
@@ -146,7 +153,10 @@ public class EnemyHealth : MonoBehaviour
             reworkedEnemyNavigation.enabled = false;
         }
         
-        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        if (gameObject.name != "BustlingCranium")
+        {
+            gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        }
 
         alreadyDead = true;
 
@@ -252,6 +262,22 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void DisplayMinibossHealthBarName()
+    {
+        if (isMiniBoss)
+        {
+            Debug.Log("displaying miniboss name");
+
+            foreach (EnemyHealthBar enemyHealthBar in enemyHealthBars)
+            {
+                if (enemyHealthBar != null)
+                {
+                    enemyHealthBar.DisplayMinibossName(this);
+                }
+            }
+        }
+    }
+
     public bool HasTakenDamage()
     {
         return hasTakenDamage;
@@ -268,7 +294,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void UpdateMinibossName()
     {
-        if (isMiniBoss || gameObject.name == "Rival Sporemother")
+        if (isMiniBoss)
         {
             foreach (EnemyHealthBar enemyHealthBar in enemyHealthBars)
             {
