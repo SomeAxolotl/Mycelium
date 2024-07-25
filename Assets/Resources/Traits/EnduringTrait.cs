@@ -44,7 +44,7 @@ public class EnduringTrait : TraitBase
     }
 
     private void TakeDamage(float dmgTaken){
-        if(cooldownTimer == null && (O_health.currentHealth - dmgTaken / O_health.maxHealth) <= activateAmount){
+        if(cooldownTimer == null && ((O_health.currentHealth - dmgTaken) / O_health.maxHealth) <= activateAmount){
             //Activate the skill
             skillInstance.CalculateProperties();
             skillInstance.DoSkill();
