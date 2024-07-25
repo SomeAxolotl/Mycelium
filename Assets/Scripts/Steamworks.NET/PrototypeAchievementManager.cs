@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine;
 
@@ -38,6 +38,8 @@ public class PrototypeAchievementManager : MonoBehaviour
     }
     private void Start()
     {
+        if (SceneManager.GetActiveScene().name == "Main Menu") return;
+
         GetJSONdata(GlobalData.profileNumber);
         currentPlayer = GameObject.FindWithTag("currentPlayer");
         playerParent = GameObject.FindWithTag("PlayerParent");
