@@ -108,8 +108,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5377042, y: 2.3238463, z: 0.7}
-  m_Center: {x: 0.019895911, y: 1.0148177, z: 0.06999999}
+  m_Size: {x: 0.89209116, y: 2.3238463, z: 0.94276446}
+  m_Center: {x: 0.039160088, y: 1.0148177, z: 0.050400227}
 --- !u!114 &4175980618206839249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +151,9 @@ MonoBehaviour:
   percentUntilSwingDone: 0.55
   secondsTilHitstopSpeedup: 0.15
   acceptingAttribute: 1
+  player: {fileID: 0}
+  hit: {fileID: 0}
+  attack: {fileID: 0}
 --- !u!114 &9175921539585561640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,11 +180,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57dae48cec810e04781ceeebf421a573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interact: {fileID: 0}
+  stats: {fileID: 0}
+  highestRarity: 0
+  hasCustomName: 0
+  hasCustomAtts: 0
   hasStats: 0
   primalAmount: 0
   sentienceAmount: 0
   speedAmount: 0
   vitalityAmount: 0
+  doesSpawnRarityParticles: 0
 --- !u!1 &6203665785093094411
 GameObject:
   m_ObjectHideFlags: 0
