@@ -126,6 +126,54 @@ public class AdvStat
         }
         return didRemove;
     }
+    public virtual float ReadValuesFromSource(object source){
+        float finalValue = BaseValue;
+        float sumPercentAdd = 0;
+        float multAdded = 1;
+        for(int i = statModifiers.Count - 1; i >= 0; i--){
+            if(statModifiers[i].Source == source){
+                StatModifier mod = statModifiers[i];
+                if(mod.Type == StatModType.Flat){
+                    finalValue += statModifiers[i].Value;
+                }else if(mod.Type == StatModType.PercentAdd){
+                    sumPercentAdd += mod.Value;
+                    if(i + 1 >= statModifiers.Count || statModifiers[i + 1].Type != StatModType.PercentAdd){
+                        finalValue *= 1 + sumPercentAdd;
+                        multAdded += sumPercentAdd;
+                        sumPercentAdd = 0;
+                    }
+                }else if(mod.Type == StatModType.PercentMult){
+                    multAdded *= mod.Value;
+                    finalValue *= 1 + mod.Value;
+                }
+            }
+        }
+        return finalValue;
+    }
+    public virtual float ReadPercentFromSource(object source){
+        float sumPercentAdd = 0;
+        for(int i = statModifiers.Count - 1; i >= 0; i--){
+            if(statModifiers[i].Source == source){
+                StatModifier mod = statModifiers[i];
+                if(mod.Type == StatModType.PercentAdd){
+                    sumPercentAdd += mod.Value;
+                }
+            }
+        }
+        return sumPercentAdd;
+    }
+    public virtual float ReadPercentMultFromSource(object source){
+        float sumPercentMult = 0;
+        for(int i = statModifiers.Count - 1; i >= 0; i--){
+            if(statModifiers[i].Source == source){
+                StatModifier mod = statModifiers[i];
+                if(mod.Type == StatModType.PercentMult){
+                    sumPercentMult += mod.Value;
+                }
+            }
+        }
+        return sumPercentMult;
+    }
 
     protected virtual int CompareModifierOrder(StatModifier a, StatModifier b){
         if(a.Order < b.Order){

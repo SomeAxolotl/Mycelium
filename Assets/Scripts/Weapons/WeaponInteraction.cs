@@ -163,13 +163,30 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         WeaponStats oldStats = curWeapon.GetComponent<WeaponStats>();
         WeaponStats newStats = weapon.gameObject.GetComponent<WeaponStats>();
         string damageComparisonText;
-        float damageDifference = newStats.statNums.advDamage.PercentValue - oldStats.statNums.advDamage.PercentValue;
+
+        float currentDamage = oldStats.statNums.advDamage.ReadPercentFromSource(oldStats) + 1;
+        AttributeBase[] currAtts = curWeapon.GetComponents<AttributeBase>();
+        foreach(AttributeBase currAtt in currAtts){currentDamage += oldStats.statNums.advDamage.ReadPercentFromSource(currAtt);}
+        currentDamage *= oldStats.statNums.advDamage.ReadPercentMultFromSource(oldStats);
+        Debug.Log("CURRENT DAMAGE: " + currentDamage);
+        currentDamage *= 100;
+
+        float newDamage = newStats.statNums.advDamage.ReadPercentFromSource(newStats) + 1;
+        AttributeBase[] newAtts = weapon.gameObject.GetComponents<AttributeBase>();
+        foreach(AttributeBase currAtt in newAtts){newDamage += newStats.statNums.advDamage.ReadPercentFromSource(currAtt);}
+        //Debug.Log("CURRENT DAMAGE: " + newDamage);
+        newDamage *= newStats.statNums.advDamage.ReadPercentMultFromSource(newStats);
+        newDamage *= 100;
+
+        Debug.Log("Current damage: " + currentDamage + "     New damage: " + newDamage);
+
+        float damageDifference = newDamage - currentDamage;
         float knockDifference = newStats.statNums.advKnockback.Value - oldStats.statNums.advKnockback.Value;
-        if (newStats.statNums.advDamage.PercentValue > oldStats.statNums.advDamage.PercentValue)
+        if (newDamage > currentDamage)
         {
             damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(betterStatColor) + "> +" + "(" + (damageDifference).ToString("F0") + "%)" + "</color>";
         }
-        else if (newStats.statNums.advDamage.PercentValue < oldStats.statNums.advDamage.PercentValue)
+        else if (newDamage < currentDamage)
         {
             damageComparisonText = "<color=#" + ColorUtility.ToHtmlStringRGB(worseStatColor) + "> -" + "(" + Mathf.Abs(damageDifference).ToString("F0") + "%)" + "</color>";
         }
