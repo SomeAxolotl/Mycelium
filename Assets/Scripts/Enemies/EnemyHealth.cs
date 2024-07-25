@@ -55,7 +55,7 @@ public class EnemyHealth : MonoBehaviour
         //UpdateMinibossName();
 
         // Add attribute prefix if necessary
-        if (isMiniBoss || gameObject.name == "Rival Colony Leader")
+        if (isMiniBoss || gameObject.name == "Rival Sporemother")
         {
             AddAttributePrefix(attributePrefix);
         }
@@ -223,11 +223,11 @@ public class EnemyHealth : MonoBehaviour
 
     protected IEnumerator BossDeath()
     {
-        if (GameObject.Find("Rival Colony Leader") != null)
+        if (GameObject.Find("Rival Sporemother") != null)
         {
             BossCam.Instance.StartBossDeathCutscene();
 
-            GameObject boss = GameObject.Find("Rival Colony Leader");
+            GameObject boss = GameObject.Find("Rival Sporemother");
 
             Collider[] bossCollider = boss.GetComponents<Collider>();
             foreach (Collider collider in bossCollider)
@@ -268,7 +268,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void UpdateMinibossName()
     {
-        if (isMiniBoss || gameObject.name == "Rival Colony Leader")
+        if (isMiniBoss || gameObject.name == "Rival Sporemother")
         {
             foreach (EnemyHealthBar enemyHealthBar in enemyHealthBars)
             {

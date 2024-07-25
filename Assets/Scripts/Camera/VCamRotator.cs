@@ -44,7 +44,7 @@ public class VCamRotator : MonoBehaviour
                 break;
 
             case "Impact Barrens":
-                levelGoal = GameObject.Find("Rival Colony Leader");
+                levelGoal = GameObject.Find("Rival Sporemother");
                 break;
 
             default:

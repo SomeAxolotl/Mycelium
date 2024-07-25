@@ -21,7 +21,7 @@ public class BossHealth : EnemyHealth
             hudBoss.EncounterBoss(gameObject.name, currentHealth, maxHealth);
             if(SceneManager.GetActiveScene().name == "Impact Barrens")
             {
-                StartCoroutine(GameObject.Find("Rival Colony Leader").GetComponent<MonsterBossAttack>().WaitForIntroToEnd());
+                StartCoroutine(GameObject.Find("Rival Sporemother").GetComponent<MonsterBossAttack>().WaitForIntroToEnd());
             }
         }
     }
@@ -62,7 +62,7 @@ public class BossHealth : EnemyHealth
             Actions.EnemyKilled?.Invoke(this);
 
             hudBoss.UpdateBossHealthUI(0f, maxHealth);
-            if(gameObject.name == "Rival Colony Leader")
+            if(gameObject.name == "Rival Sporemother")
             {
                 DestroyNonBossEnemies();
                 StartCoroutine(BossDeath());
@@ -83,7 +83,7 @@ public class BossHealth : EnemyHealth
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemyObj in enemies)
         {
-            if (enemyObj.name != "Rival Colony Leader")
+            if (enemyObj.name != "Rival Sporemother")
             {
                 Debug.Log("Enemy Spawner: " + enemyObj.name);
                 enemyObj.SetActive(false);

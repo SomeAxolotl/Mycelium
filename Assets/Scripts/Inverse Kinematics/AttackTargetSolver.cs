@@ -13,8 +13,8 @@ public class AttackTargetSolver : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("currentPlayer").GetComponent<Transform>();
-        boss = GameObject.Find("Rival Colony Leader").GetComponent<Transform>();
-        bossAnimator = GameObject.Find("Rival Colony Leader").GetComponent<Animator>();
+        boss = GameObject.Find("Rival Sporemother").GetComponent<Transform>();
+        bossAnimator = GameObject.Find("Rival Sporemother").GetComponent<Animator>();
     }
 
     public void GoToPlayer()

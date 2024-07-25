@@ -9,7 +9,7 @@ public class BossDangerZone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bossAnimEvents = GameObject.Find("Rival Colony Leader").GetComponent<BossAnimationEvents>(); ;
+        bossAnimEvents = GameObject.Find("Rival Sporemother").GetComponent<BossAnimationEvents>(); ;
     }
 
     private void OnTriggerEnter(Collider other)

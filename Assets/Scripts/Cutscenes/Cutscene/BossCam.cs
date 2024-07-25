@@ -39,7 +39,7 @@ public class BossCam : MonoBehaviour
         deathVCamDolly = deathVCam.GetCinemachineComponent<CinemachineTrackedDolly>();
 
         mainBrain = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineBrain>();
-        boss = GameObject.Find("Rival Colony Leader");
+        boss = GameObject.Find("Rival Sporemother");
         bossAnimator = boss.GetComponent<Animator>();
         bossHead = boss.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0);
         introVCam.m_LookAt = bossHead;
