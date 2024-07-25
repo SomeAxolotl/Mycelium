@@ -134,19 +134,25 @@ public class MonsterBossAttack : MonoBehaviour
         Quaternion tailRotation = Quaternion.Euler(-21.7f, 0f, 0f);
         GameObject bossTailInstance = Instantiate(bossTail, spawnPosition, tailRotation, null); //Spawns tail under player
         bossTailInstance.GetComponentInChildren<TailCollision>().damage = tailAttackDamage * GlobalData.currentLoop;
-        ParticleManager.Instance.SpawnParticles("TrophicCascadePoof", spawnPosition + new Vector3(0f, 2.75f, 0f), Quaternion.Euler(-90, 0, 0));
+        ParticleSystem tailRisePart = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("TailRisingParticle", spawnPosition + new Vector3(0f, 5f, 0f), Quaternion.Euler(-90, 0, 0));
+
         yield return new WaitForSeconds(1.75f);
+
         float timeElapsed = 0f;
         float duration = 0.5f;
         Vector3 startPosition = bossTailInstance.transform.position;
         Vector3 endPosition = bossTailInstance.transform.position + new Vector3(0f, 4f, 0f);
+
         while (timeElapsed < duration)
         {
             bossTailInstance.transform.position = Vector3.Lerp(startPosition, endPosition, timeElapsed / duration); // Tail shoots up
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+
+        tailRisePart.Stop();
         yield return new WaitForSeconds(1f);
+
         float timeElapsed_02 = 0f;
         float duration_02 = 1f;
         while (timeElapsed_02 < duration_02)
@@ -155,6 +161,7 @@ public class MonsterBossAttack : MonoBehaviour
             timeElapsed_02 += Time.deltaTime;
             yield return null;
         }
+
         Destroy(bossTailInstance);
     }
 
