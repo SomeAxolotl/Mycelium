@@ -20,6 +20,7 @@ public class RandomEvent : MonoBehaviour
             {
                 _event.RemoveObjects();
                 _event.ActivateObjects();
+                CheckRainEvent(_event);
             }     
         }   
     }
@@ -31,7 +32,16 @@ public class RandomEvent : MonoBehaviour
             {
                 _event.RemoveObjects();
                 _event.ActivateObjects();
+                CheckRainEvent(_event);
             }
+        }
+    }
+    private void CheckRainEvent(REvent _event)
+    {
+        // 40% chance to turn rain on
+        if (UnityEngine.Random.Range(0f, 1f) <= 0.2f)
+        {
+            WeatherSettingsScript.Instance.UpdateRain(true);
         }
     }
 }

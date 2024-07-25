@@ -1855,6 +1855,7 @@ GameObject:
   - component: {fileID: 5314648658636964980}
   - component: {fileID: -6789104260802187796}
   - component: {fileID: 9150985608851356855}
+  - component: {fileID: -9124136498915698913}
   m_Layer: 7
   m_Name: Stickbug Spear
   m_TagString: Weapon
@@ -1878,7 +1879,7 @@ Transform:
   - {fileID: 1749702689972719588}
   - {fileID: 1303067449209096866}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &698990476529956455
 BoxCollider:
@@ -1933,7 +1934,7 @@ MonoBehaviour:
   weaponType: 2
   wpnName: Stickbug Spear
   baseDmg: 10
-  mult: 1.1
+  mult: 0
   knockback: 5.5
   wpnAttackSpeedModifier: 0.9
   holdPositionOffset: {x: 0, y: -0.15, z: 0.25}
@@ -1982,6 +1983,37 @@ MonoBehaviour:
   speedAmount: 0
   vitalityAmount: 0
   doesSpawnRarityParticles: 0
+--- !u!114 &-9124136498915698913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786587982829778811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0688f0ebdb8cc1344a954ce0d6455f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 0}
+  hit: {fileID: 0}
+  interact: {fileID: 0}
+  player: {fileID: 0}
+  playerParent: {fileID: 0}
+  attack: {fileID: 0}
+  swap: {fileID: 0}
+  characterStats: {fileID: 0}
+  hudStats: {fileID: 0}
+  manager: {fileID: 0}
+  statChange: 0
+  attName: 
+  attDesc: 
+  rating: 4
+  specialAttNum: 0
+  primalAmount: 0
+  sentienceAmount: 0
+  speedAmount: 0
+  vitalityAmount: 0
 --- !u!1 &7046459841120461411
 GameObject:
   m_ObjectHideFlags: 0
