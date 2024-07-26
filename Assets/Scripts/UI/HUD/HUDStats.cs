@@ -6,6 +6,12 @@ using TMPro;
 
 public class HUDStats : MonoBehaviour
 {    
+    [SerializeField] RectTransform sporeName;
+    [SerializeField] RectTransform sporeTrait;
+    [SerializeField] RectTransform sporeTraitOutsideTarget;
+    [SerializeField] RectTransform sporeAndNameTarget;
+    [SerializeField] RectTransform sporeNameInsideTarget;
+
     [SerializeField] RectTransform statsHolder;
     [SerializeField] RectTransform statsOutsideTarget;
     [SerializeField] RectTransform statsInsideTarget;
@@ -38,9 +44,23 @@ public class HUDStats : MonoBehaviour
         vitalityText.color = defaultStatColor;
     }
 
+    public void UpdateSporeTraitName(CharacterStats characterStats)
+    {
+        TraitBase trait = characterStats.GetComponent<TraitBase>();
+        string traitName = "";
+        if (trait != null)
+        {
+            traitName = characterStats.GetComponent<TraitBase>().traitName;
+        }
+        sporeTrait.GetComponent<TMP_Text>().text = traitName;
+    }
+
     public void ShowStats()
     {
-        CharacterStats characterStats = GameObject.FindWithTag("currentPlayer").GetComponent<CharacterStats>();
+        GameObject currentPlayer = GameObject.FindWithTag("currentPlayer");
+        CharacterStats characterStats = currentPlayer.GetComponent<CharacterStats>();
+
+        UpdateSporeTraitName(characterStats);
 
         initialPrimalLevel = characterStats.primalLevel;
         initialSpeedLevel = characterStats.speedLevel;
@@ -51,7 +71,15 @@ public class HUDStats : MonoBehaviour
         initialBaseHealth = characterStats.baseHealth;
 
         RefreshStats();
-        GetComponent<HUDController>().SlideHUDElement(statsHolder, statsInsideTarget);
+
+        HUDController hudController = GetComponent<HUDController>();
+        hudController.SlideHUDElement("Stats", statsHolder, statsInsideTarget);
+
+        sporeTrait.pivot = new Vector2(0f, 0.5f);
+        sporeNameInsideTarget.localPosition = new Vector2(sporeAndNameTarget.localPosition.x + sporeTrait.rect.width + 5, sporeAndNameTarget.localPosition.y);
+
+        hudController.SlideHUDElement("Trait", sporeTrait, sporeAndNameTarget);
+        hudController.SlideHUDElement("Name", sporeName, sporeNameInsideTarget);
     }
 
     public void HideStats(float delay = 0f)
@@ -63,7 +91,11 @@ public class HUDStats : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        GetComponent<HUDController>().SlideHUDElement(statsHolder, statsOutsideTarget);
+        HUDController hudController = GetComponent<HUDController>();
+        hudController.SlideHUDElement("Stats",statsHolder, statsOutsideTarget);
+        sporeTrait.pivot = new Vector2(1f, 0.5f);
+        hudController.SlideHUDElement("Trait", sporeTrait, sporeTraitOutsideTarget);
+        hudController.SlideHUDElement("Name", sporeName, sporeAndNameTarget);
     }
 
     public void FlashHUDStats()

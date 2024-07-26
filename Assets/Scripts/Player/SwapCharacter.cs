@@ -16,6 +16,7 @@ public class SwapCharacter : MonoBehaviour
     private SkillManager skillManager;
 
     private HUDSkills hudSkills;
+    private HUDStats hudStats;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,6 +27,7 @@ public class SwapCharacter : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         skillManager = GetComponent<SkillManager>();
         hudSkills = GameObject.Find("HUD").GetComponent<HUDSkills>();
+        hudStats = GameObject.Find("HUD").GetComponent<HUDStats>();
 
         SwitchCharacter(currentCharacterIndex);
     }
@@ -64,6 +66,7 @@ public class SwapCharacter : MonoBehaviour
         StartCoroutine(UpdateHealth());
         StartCoroutine(UpdateName());
         hudSkills.UpdateHUDIcons();
+        hudStats.UpdateSporeTraitName(currentCharacterStats);
 
         Debug.Log("Swapped characters");
         Actions.SwappedCharacter?.Invoke(oldSpore, characters[currentCharacterIndex]);
@@ -105,6 +108,7 @@ public class SwapCharacter : MonoBehaviour
         StartCoroutine(UpdateHealth());
         StartCoroutine(UpdateName());
         hudSkills.UpdateHUDIcons();
+        hudStats.UpdateSporeTraitName(currentCharacterStats);
         playerController.GetStats();
         playerHealth.GetHealthStats();
 

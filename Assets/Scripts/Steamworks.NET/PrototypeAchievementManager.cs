@@ -44,7 +44,8 @@ public class PrototypeAchievementManager : MonoBehaviour
         playerParent = GameObject.FindWithTag("PlayerParent");
         swapWeaponScript = playerParent.GetComponent<SwapWeapon>();
 
-        if (SceneManager.GetActiveScene().name != "New Tutorial")
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName != "New Tutorial" && sceneName != "The Carcass")
         {
             GetJSONdata(GlobalData.profileNumber);
             SporeData currentSpore = sporeDataList.Spore_Data.Find(spore => spore.sporeTag == "currentPlayer");

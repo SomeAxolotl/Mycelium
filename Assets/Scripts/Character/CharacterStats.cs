@@ -129,6 +129,7 @@ public class CharacterStats : MonoBehaviour
         if (gameObject.tag == "currentPlayer")
         {
             TestAgainstHighestLoopRecord(GlobalData.currentLoop - 1);
+            GameObject.Find("HUD").GetComponent<HUDStats>().UpdateSporeTraitName(this);
         }
     }
 

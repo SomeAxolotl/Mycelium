@@ -12,10 +12,11 @@ public class HUDController : MonoBehaviour
     [SerializeField] private float blackCanvasFadeTransitionTime = 0.25f;
 
     Coroutine currentFadeCoroutine = null;
-    Coroutine currentSlideCoroutine = null;
     Coroutine currentBlackFadeCoroutine = null;
 
     [SerializeField] CanvasGroup blackCanvasGroup;
+
+    Dictionary<string, Coroutine> slideCoroutines = new Dictionary<string, Coroutine>();
 
     void Awake()
     {
@@ -25,14 +26,16 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public void SlideHUDElement(RectTransform element, RectTransform toTarget)
+    public void SlideHUDElement(string coroutineKey, RectTransform element, RectTransform toTarget)
     {
-        if (currentSlideCoroutine != null)
+        if (slideCoroutines.TryGetValue(coroutineKey, out Coroutine currentCoroutine))
         {
-            StopCoroutine(currentSlideCoroutine);
+            StopCoroutine(currentCoroutine);
+            slideCoroutines.Remove(coroutineKey);
         }
 
-        currentSlideCoroutine = StartCoroutine(SlideHUDElementCoroutine(element, toTarget));
+        Coroutine newCoroutine = StartCoroutine(SlideHUDElementCoroutine(element, toTarget));
+        slideCoroutines[coroutineKey] = newCoroutine;
     }
 
     void OnEnable()

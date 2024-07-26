@@ -272,7 +272,7 @@ public class GameManager : MonoBehaviour
                 selectedSpawnPoint = GameObject.Find("BeginningSpawn");
 
                 VCamRotator vcamRotator = GameObject.Find("VCamHolder").GetComponent<VCamRotator>();
-                vcamRotator.DramaticCamera(GameObject.Find("Keeper").transform, 2f);
+                vcamRotator.DramaticCamera(GameObject.Find("SporeMother").transform, 2f);
             }
         }
 
