@@ -14,6 +14,7 @@ public class MonsterBossAttack : MonoBehaviour
     [SerializeField] private BossMeleeHitbox spineHitbox;
 
     [SerializeField] private GameObject bossTail;
+    [SerializeField] private ParticleSystem spinWindParticle;
     [Space(10)]
     [SerializeField] private float pullForce;
     [SerializeField] private float pullDuration;
@@ -235,6 +236,7 @@ public class MonsterBossAttack : MonoBehaviour
         isSpinning = true;
         yield return StartCoroutine(ChangeSpinSpeed(-400, 1f));
         StartCoroutine(ChangeSpinSpeed(-800, 2f));
+        spinWindParticle.Play();
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.43f);
 
@@ -265,6 +267,7 @@ public class MonsterBossAttack : MonoBehaviour
         isSpinning = false;
         canDoSpin = false;
         playerHit.Clear();
+        spinWindParticle.Stop();
 
         yield return new WaitForSeconds(cooldownAfterSpin);
         DoRandomAttack();
@@ -299,6 +302,7 @@ public class MonsterBossAttack : MonoBehaviour
         CancelInvoke("PullPlayer");
         CancelInvoke("DoTailAttack");
         isAttacking = false;
+        spinWindParticle.Stop();
     }
 }
 
