@@ -21,6 +21,7 @@ public class EnemyHealth : MonoBehaviour
     protected List<BaseEnemyHealthBar> enemyHealthBars = new List<BaseEnemyHealthBar>();
     public Transform centerPoint;
     protected bool hasTakenDamage = false;
+    [HideInInspector] public bool isInvincible = false;
     [HideInInspector] public bool alreadyDead = false;
     Animator animator;
 
@@ -70,35 +71,38 @@ public class EnemyHealth : MonoBehaviour
 
     public virtual void EnemyTakeDamage(float damage, bool wasFromDeathPlane = false, bool wasFromWeapon = false)
     {
-        // Check for ArmoredAttribute and apply damage reduction
-        Armored armoredAttribute = GetComponent<Armored>();
-        if (armoredAttribute != null)
+        if(!isInvincible)
         {
-            damage = armoredAttribute.ApplyDamageReduction(damage);
-        }
-
-        //Save current damage taken
-        dmgTaken = damage;
-        //Call action to modify damage
-        TakeDamage?.Invoke(dmgTaken);
-        if (!wasFromDeathPlane) SoundEffectManager.Instance.PlaySound("Hitmarker", GameObject.FindWithTag("Camtracker").transform, 0, 1, 200);
-
-        currentHealth -= dmgTaken;
-
-        foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
-        {
-            if (enemyHealthBar != null && currentHealth + dmgTaken > 0)
+            // Check for ArmoredAttribute and apply damage reduction
+            Armored armoredAttribute = GetComponent<Armored>();
+            if (armoredAttribute != null)
             {
-                enemyHealthBar.UpdateEnemyHealthUI();
-                enemyHealthBar.DamageNumber(dmgTaken);
-                ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
+                damage = armoredAttribute.ApplyDamageReduction(damage);
             }
+
+            //Save current damage taken
+            dmgTaken = damage;
+            //Call action to modify damage
+            TakeDamage?.Invoke(dmgTaken);
+            if (!wasFromDeathPlane) SoundEffectManager.Instance.PlaySound("Hitmarker", GameObject.FindWithTag("Camtracker").transform, 0, 1, 200);
+
+            currentHealth -= dmgTaken;
+
+            foreach (BaseEnemyHealthBar enemyHealthBar in enemyHealthBars)
+            {
+                if (enemyHealthBar != null && currentHealth + dmgTaken > 0)
+                {
+                    enemyHealthBar.UpdateEnemyHealthUI();
+                    enemyHealthBar.DamageNumber(dmgTaken);
+                    ParticleManager.Instance.SpawnParticles("Blood", centerPoint.position, Quaternion.identity);
+                }
+            }
+            if (currentHealth <= 0 && !alreadyDead)
+            {
+                StartCoroutine(Death(wasFromDeathPlane, wasFromWeapon));
+            }
+            hasTakenDamage = true;
         }
-        if (currentHealth <= 0 && !alreadyDead)
-        {
-            StartCoroutine(Death(wasFromDeathPlane, wasFromWeapon));
-        }
-        hasTakenDamage = true;
     }
     public void OnDamageDealt(float damageDealt)
     {
@@ -150,6 +154,7 @@ public class EnemyHealth : MonoBehaviour
         ReworkedEnemyNavigation reworkedEnemyNavigation = GetComponent<ReworkedEnemyNavigation>();
         if (reworkedEnemyNavigation != null)
         {
+            reworkedEnemyNavigation.moveSpeed = 0f;
             reworkedEnemyNavigation.enabled = false;
         }
         

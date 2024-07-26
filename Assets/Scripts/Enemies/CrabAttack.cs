@@ -192,7 +192,7 @@ public class CrabAttack : EnemyAttack
     private IEnumerator DigAttack()
     {
         animator.SetTrigger("Burrow");
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Burrow")); 
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Burrow"));
         yield return new WaitForSeconds(1.25f); // Lets player actually see burrow anim
         float timeElapsed = 0f;
         float digDuration = 2.5f;
@@ -211,6 +211,11 @@ public class CrabAttack : EnemyAttack
                 burrowParticles = ParticleManager.Instance.SpawnParticlesAndGetParticleSystem("CrabBurrowParticle", burrowPoint.position, Quaternion.Euler(-90,0,0));
                 burrowParticleSpawned = true;
             }
+
+            if (enemyHealth.alreadyDead)
+            {
+                burrowParticles.Stop();
+            }
         }
         burrowParticles.Stop();
         yield return new WaitForSeconds(2f);
@@ -227,6 +232,12 @@ public class CrabAttack : EnemyAttack
         {
             transform.position = Vector3.Lerp(startPosition_02, endPosition_02, timeElapsed_02 / digDuration_02); // Crab pops up from underground
             timeElapsed_02 += Time.deltaTime;
+
+            if (enemyHealth.alreadyDead)
+            { 
+                risingParticles.Stop();
+            }
+
             if(Vector3.Distance(center.position, endPosition_02) < 6f && !jumpStarted)
             {
                 animator.SetTrigger("Jump"); // Premtively starts jump anim
@@ -277,8 +288,6 @@ public class CrabAttack : EnemyAttack
             other.gameObject.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(meleeDamage * GlobalData.currentLoop);
             other.gameObject.GetComponentInParent<PlayerController>().Knockback(this.gameObject, knockbackForce);
             playerHit.Add(other.gameObject);
-            
-            
         }
     }
 }
