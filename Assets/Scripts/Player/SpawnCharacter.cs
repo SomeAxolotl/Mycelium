@@ -100,7 +100,6 @@ public class SpawnCharacter : MonoBehaviour
         string statSkill1 = "NoSkill";
         string statSkill2 = "NoSkill";
         CharacterStats stats = newCharacter.GetComponent<CharacterStats>();
-        string chosenTraitName = "";
         //If growing a Spore normally from Sporemother
         if (customStats == null)
         {
@@ -135,7 +134,6 @@ public class SpawnCharacter : MonoBehaviour
                 if (newTrait != null && typeof(Component).IsAssignableFrom(newTrait))
                 {
                     stats.gameObject.AddComponent(newTrait);
-                    chosenTraitName = newTrait.ToString().Replace("Trait", "");
                 }
                 else
                 {
@@ -167,7 +165,6 @@ public class SpawnCharacter : MonoBehaviour
                 if (newTrait != null && typeof(Component).IsAssignableFrom(newTrait))
                 {
                     stats.gameObject.AddComponent(newTrait);
-                    chosenTraitName = newTrait.ToString().Replace("Trait", "");
                 }
                 else
                 {
@@ -202,12 +199,7 @@ public class SpawnCharacter : MonoBehaviour
         }
 
         //string coloredSporeName = "<color=#" + ColorUtility.ToHtmlStringRGB(designTracker.bodyColor) + ">" + newCharacter.GetComponent<CharacterStats>().sporeName+"</color>";
-        string coloredSporeName = newCharacter.GetComponent<CharacterStats>().GetColoredSporeName();
-        NotificationManager.Instance.Notification
-        (
-            coloredSporeName + " was born",
-            "They are " + chosenTraitName
-        );
+        StartCoroutine(SporeNotification(newCharacter));
 
         swapCharacter.characters.Add(newCharacter);
 
@@ -269,6 +261,28 @@ public class SpawnCharacter : MonoBehaviour
         {
             PrototypeAchievementManager.Instance.DiversityAch();
         }
+    }
+
+    IEnumerator SporeNotification(GameObject newCharacter)
+    {
+        yield return null;
+
+        string coloredSporeName = newCharacter.GetComponent<CharacterStats>().GetColoredSporeName();
+        TraitBase trait = newCharacter.gameObject.GetComponent<TraitBase>();
+        string chosenTraitName = "";
+        if (chosenTraitName != null)
+        {
+            chosenTraitName = trait.traitName;
+        }
+        else
+        {
+            Debug.LogError("Spore doesn't have trait", newCharacter.gameObject);
+        }
+        NotificationManager.Instance.Notification
+        (
+            coloredSporeName + " was born",
+            "They are " + chosenTraitName
+        );
     }
 
             //GameObject.Find("BackgroundMusicPlayer").GetComponent<CarcassSong>().PlayCarcassSong();

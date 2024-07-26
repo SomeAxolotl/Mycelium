@@ -266,8 +266,6 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isMiniBoss)
         {
-            Debug.Log("displaying miniboss name");
-
             foreach (EnemyHealthBar enemyHealthBar in enemyHealthBars)
             {
                 if (enemyHealthBar != null)
