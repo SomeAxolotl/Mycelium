@@ -11,7 +11,7 @@ public class IslandSpawn : MonoBehaviour
     [SerializeField] private GameObject pairedIsland; // Paired island for this whirlpool
 
     private IslandManager islandManager;
-    private static bool islandActivated = false; // Static variable to ensure only one island is activated
+    public static bool islandActivated = false; // Static variable to ensure only one island is activated
 
     void Start()
     {

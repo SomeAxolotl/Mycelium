@@ -23,8 +23,10 @@ public class EnemyAttributeAssigner : MonoBehaviour
         allAttributes = attributesParent.GetComponentsInChildren<EnemyAttributeBase>();
     }
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(() => IslandSpawn.islandActivated);
+
         if (GlobalData.currentLoop > 1)
         {
             EnemyAttributeManager.AssignAttributesToExistingEnemies();
