@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class UndergroundTrigger : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class UndergroundTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "currentPlayer")
+        if(other.tag == "currentPlayer" && (weatherSettings.isRaining || SceneManager.GetActiveScene().name != "The Carcass"))
         {
             normalSnapshot = GlobalData.currentUnpausedAudioMixerSnapshot;
 
@@ -29,7 +30,7 @@ public class UndergroundTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "currentPlayer")
+        if(other.tag == "currentPlayer" && (weatherSettings.isRaining || SceneManager.GetActiveScene().name != "The Carcass"))
         {
             normalSnapshot.TransitionTo(snapshotTransitionSeconds);
             GlobalData.currentUnpausedAudioMixerSnapshot = normalSnapshot;
