@@ -11,10 +11,12 @@ public class DefenseBubble : MonoBehaviour
     public bool isBubble = true;
     //I'm sorry this is a crime
     public bool work = true;
+    public GameObject connected;
 
     public void Awake(){
         ren = this.gameObject.GetComponent<Renderer>();
         ren.enabled = false;
+        if(connected != null){connected.SetActive(false);}
         baseMaterial = ren.material;
         //Make sure the default is not 0
         maxIntensity = 1;
@@ -48,11 +50,13 @@ public class DefenseBubble : MonoBehaviour
             ren.material.SetFloat("_Intensity", 0);
             currFlash = 0;
             ren.enabled = false;
+            if(connected != null){connected.SetActive(false);}
             break;
         case 4:
             ren.material.SetFloat("_Intensity", maxIntensity);
             currFlash = maxIntensity;
             ren.enabled = true;
+            if(connected != null){connected.SetActive(true);}
             break;
         }
         if(currentState != null){
@@ -78,7 +82,7 @@ public class DefenseBubble : MonoBehaviour
             }
             yield return null;
         }
-        if(turnOn){currFlash = maxIntensity; ren.enabled = true;}else{currFlash = 0; ren.enabled = false;}
+        if(turnOn){currFlash = maxIntensity; ren.enabled = true; if(connected != null){connected.SetActive(true);}}else{currFlash = 0; ren.enabled = false; if(connected != null){connected.SetActive(false);}}
         ren.material.SetFloat("_Intensity", currFlash);
         timePassed = 0f;
         currentState = null;
