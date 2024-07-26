@@ -147,7 +147,8 @@ public class CreditsPlayer : MonoBehaviour
                 FurnitureManager.Instance.fireIsUnlocked = true;
                 break;
             case 5:
-                unlockString = "Firefly Bottle";
+                unlockString = "Firefly Bottles";
+                Debug.Log("Is FireflyBottle Unlocked? " + FurnitureManager.Instance.FurnitureIsUnlocked(unlockString));
                 if (!FurnitureManager.Instance.FurnitureIsUnlocked(unlockString))
                 {
                     showNotification = true;
