@@ -72,6 +72,15 @@ public class ProfileInfoDisplay : MonoBehaviour
 
             tierText.text = "Highest Tier: " + profileData.highestLoopBeaten;
 
+            if (profileData.highestLoopBeaten == 0)
+            {
+                tierText.gameObject.SetActive(false);
+            }
+            else
+            {
+                tierText.gameObject.SetActive(true);
+            }
+
             if(profileData.permadeathIsOn == true)
             {
                 easyModeImage.SetActive(false);
