@@ -11,7 +11,8 @@ public class IslandSpawn : MonoBehaviour
     [SerializeField] private GameObject pairedIsland; // Paired island for this whirlpool
 
     private IslandManager islandManager;
-    public static bool islandActivated = false; // Static variable to ensure only one island is activated
+    private static bool islandActivated = false; // Static variable to ensure only one island is activated
+    private bool islandActivationCompleted = false; // Boolean to track island activation after the delay
 
     void Start()
     {
@@ -88,7 +89,7 @@ public class IslandSpawn : MonoBehaviour
 
         // Randomly select one whirlpool to activate an island
         IslandSpawn selectedWhirlpool = whirlpools[Random.Range(0, whirlpools.Length)];
-        selectedWhirlpool.ActivateRandomIsland();
+        yield return selectedWhirlpool.StartCoroutine(selectedWhirlpool.ActivateRandomIsland());
 
         // Set the flag to true so no other whirlpool tries to activate an island
         islandActivated = true;
@@ -103,8 +104,10 @@ public class IslandSpawn : MonoBehaviour
         }
     }
 
-    public void ActivateRandomIsland()
+    public IEnumerator ActivateRandomIsland()
     {
+        yield return new WaitForSeconds(2f); // Ensure delay before activation
+
         int randomIndex = Random.Range(0, potentialIslands.Length);
         GameObject selectedIsland = potentialIslands[randomIndex];
         Debug.Log($"Attempting to activate island: {selectedIsland.name}");
@@ -123,6 +126,9 @@ public class IslandSpawn : MonoBehaviour
             pairedIsland = selectedIsland; // Update the paired island
             Debug.Log($"Island {selectedIsland.name} activated with respawn point {islandRespawnPoint.name}");
         }
+
+        // Set islandActivationCompleted to true after the island is activated
+        islandActivationCompleted = true;
     }
 
     private void LogHierarchy(Transform parent, string indent = "")
@@ -137,5 +143,10 @@ public class IslandSpawn : MonoBehaviour
     public GameObject GetPairedIsland()
     {
         return pairedIsland;
+    }
+
+    public bool IsIslandActivationCompleted()
+    {
+        return islandActivationCompleted;
     }
 }

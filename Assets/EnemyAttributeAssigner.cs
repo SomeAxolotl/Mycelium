@@ -25,7 +25,7 @@ public class EnemyAttributeAssigner : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return new WaitUntil(() => IslandSpawn.islandActivated);
+        yield return new WaitUntil(() => AnyIslandActivated());
 
         if (GlobalData.currentLoop > 1)
         {
@@ -75,5 +75,18 @@ public class EnemyAttributeAssigner : MonoBehaviour
         {
             enemy.ClearAttributes();
         }
+    }
+
+    private bool AnyIslandActivated()
+    {
+        IslandSpawn[] islandSpawns = FindObjectsOfType<IslandSpawn>();
+        foreach (IslandSpawn islandSpawn in islandSpawns)
+        {
+            if (islandSpawn.IsIslandActivationCompleted())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
