@@ -102,7 +102,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void OnDamageDealt(float damageDealt)
     {
-        Debug.Log("OnDamageDealt called with damage: " + damageDealt);
+        //Debug.Log("OnDamageDealt called with damage: " + damageDealt);
 
         // Handle the healing logic for the Parasitic attribute
         Parasitic parasiticAttribute = GetComponent<Parasitic>();
