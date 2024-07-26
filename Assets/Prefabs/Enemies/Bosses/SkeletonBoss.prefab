@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &288637703123376651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7033493334029123786}
+  m_Layer: 6
+  m_Name: Attach
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7033493334029123786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288637703123376651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.41, z: 1.509}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9144698789280099335}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &397776831422859828
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5277858246235535568}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Neck
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,9 +72,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7685739410050931323}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Jaw_end
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +106,7 @@ GameObject:
   - component: {fileID: 540068581871676599}
   m_Layer: 6
   m_Name: HeadTarget
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +150,7 @@ GameObject:
   - component: {fileID: 2500842881789451091}
   m_Layer: 6
   m_Name: RightArm_target
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,7 +203,7 @@ GameObject:
   - component: {fileID: 6999435426559084428}
   m_Layer: 6
   m_Name: DangerZone
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,7 +318,7 @@ GameObject:
   - component: {fileID: 8559656981328582712}
   m_Layer: 6
   m_Name: LeftAttack_target
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,7 +364,7 @@ GameObject:
   - component: {fileID: 8692413225596523483}
   m_Layer: 6
   m_Name: LeftAttack
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,9 +448,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4293512928902155319}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spine.001
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -449,9 +480,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3338594443601513693}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shoulder_L
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -486,7 +517,7 @@ GameObject:
   - component: {fileID: 563059352386298886}
   m_Layer: 6
   m_Name: RightArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -621,7 +652,7 @@ GameObject:
   - component: {fileID: 8781960835455942440}
   m_Layer: 6
   m_Name: TargetTracking
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -677,9 +708,9 @@ GameObject:
   - component: {fileID: 4166927188307718501}
   - component: {fileID: 6420958848669534805}
   - component: {fileID: 5027836739519744328}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpineHitbox
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -796,9 +827,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1133295159925349537}
   - component: {fileID: 5549065330440306898}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arm_L.002
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -850,9 +881,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7748637413126480309}
   - component: {fileID: 3048614230292361871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arm_L.001
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -905,7 +936,7 @@ GameObject:
   - component: {fileID: 9094724909415398794}
   m_Layer: 6
   m_Name: RightArm_hint
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -937,7 +968,7 @@ GameObject:
   - component: {fileID: 3197568542387956459}
   m_Layer: 6
   m_Name: HeadTracking
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1021,9 +1052,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5280819298548824598}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Root
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1058,9 +1089,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2388685432285027291}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Jaw
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1090,9 +1121,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5220097656183363124}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spine.002
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1163,6 +1194,7 @@ Transform:
   - {fileID: 3307588424716172929}
   - {fileID: 1789834665089924674}
   - {fileID: 7056642457721063912}
+  - {fileID: 7033493334029123786}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1483,7 +1515,7 @@ GameObject:
   - component: {fileID: 8036246142267473107}
   m_Layer: 6
   m_Name: LeftArm_target
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1533,7 +1565,7 @@ GameObject:
   - component: {fileID: 5657976841275571789}
   m_Layer: 6
   m_Name: RightAttack_target
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1576,9 +1608,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8887161420747055230}
   - component: {fileID: 2035311742970008457}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skele
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1683,9 +1715,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4028500853069219627}
   - component: {fileID: 24237835736850902}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arm_R.002
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1742,7 +1774,7 @@ GameObject:
   - component: {fileID: 2122427950765479873}
   m_Layer: 6
   m_Name: RightHitbox
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1858,9 +1890,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 158832188578177995}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand_R_end
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1889,9 +1921,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4848830633359407873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SkeletonRig
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1927,7 +1959,7 @@ GameObject:
   - component: {fileID: 2991194417771006418}
   m_Layer: 6
   m_Name: LeftHitbox
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2043,9 +2075,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2669356138687335874}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2080,7 +2112,7 @@ GameObject:
   - component: {fileID: 8055443819454249546}
   m_Layer: 6
   m_Name: LeftArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2213,9 +2245,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1744436683959427202}
   - component: {fileID: 267485810996286716}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand_R
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2269,7 +2301,7 @@ GameObject:
   - component: {fileID: 7080140048609990203}
   m_Layer: 6
   m_Name: LeftArm_hint
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2298,9 +2330,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2667266224407659846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shoulder_R
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2330,9 +2362,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2729091049987842964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand_L_end
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2362,9 +2394,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6626951587741500564}
   - component: {fileID: 3840951605629036095}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand_L
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2417,9 +2449,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2359549221613208874}
   - component: {fileID: 6007489267211287736}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arm_R.001
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2474,7 +2506,7 @@ GameObject:
   - component: {fileID: 5856769545729004784}
   m_Layer: 6
   m_Name: RightAttack
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2557,6 +2589,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5280819298548824598}
     m_Modifications:
+    - target: {fileID: 533929052562482702, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 533929052562482702, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1637405634227717786, guid: 9424e43d83722fc46baffc78277b921e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2667,6 +2709,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: RivalSporeVine (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6456476418340649743, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456476418340649743, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 383993897759764002, guid: 9424e43d83722fc46baffc78277b921e, type: 3}
@@ -2688,6 +2740,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5280819298548824598}
     m_Modifications:
+    - target: {fileID: 533929052562482702, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 533929052562482702, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1637405634227717786, guid: 9424e43d83722fc46baffc78277b921e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2798,6 +2860,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: RivalSporeVine (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6456476418340649743, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456476418340649743, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 383993897759764002, guid: 9424e43d83722fc46baffc78277b921e, type: 3}
@@ -2826,8 +2898,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 245081987043943222, guid: 44afa8753cf652945914573c84f5fbe7,
         type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 245081987043943222, guid: 44afa8753cf652945914573c84f5fbe7,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 245081987043943222, guid: 44afa8753cf652945914573c84f5fbe7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5258788014104324117, guid: 44afa8753cf652945914573c84f5fbe7,
         type: 3}
@@ -2909,6 +2991,166 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5280819298548824598}
     m_Modifications:
+    - target: {fileID: 1527668005080591125, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527668005080591125, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732141837964647653, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732141837964647653, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529967719446369003, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529967719446369003, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555913346239132421, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555913346239132421, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801623295451036393, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801623295451036393, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154012796641257130, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154012796641257130, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341704072135561148, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341704072135561148, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559883921902089916, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559883921902089916, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4076407819089217165, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4076407819089217165, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409130410213501071, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409130410213501071, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755254657298773901, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755254657298773901, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547326164686108269, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547326164686108269, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766123749624291415, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766123749624291415, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780751009365275150, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780751009365275150, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996681932277073323, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996681932277073323, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7338890034155896784, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7338890034155896784, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7371837309083737687, guid: 729b3848591e6994c8adfc5e672fe334,
         type: 3}
       propertyPath: m_RootOrder
@@ -2964,10 +3206,60 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7795599842842867909, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7795599842842867909, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7855920785835689197, guid: 729b3848591e6994c8adfc5e672fe334,
         type: 3}
       propertyPath: m_Name
       value: SporeMother Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855920785835689197, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855920785835689197, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7896609464322433253, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7896609464322433253, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923033359985264420, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923033359985264420, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015933241721522653, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015933241721522653, guid: 729b3848591e6994c8adfc5e672fe334,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2988,6 +3280,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5280819298548824598}
     m_Modifications:
+    - target: {fileID: 533929052562482702, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 533929052562482702, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1637405634227717786, guid: 9424e43d83722fc46baffc78277b921e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3097,6 +3399,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RivalSporeVine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456476418340649743, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456476418340649743, guid: 9424e43d83722fc46baffc78277b921e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
