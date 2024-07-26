@@ -9,6 +9,13 @@ public class UndergroundTrigger : MonoBehaviour
     [SerializeField] AudioMixerSnapshot undergroundSnapshot;
     [SerializeField] float snapshotTransitionSeconds = 0.5f;
 
+    WeatherSettingsScript weatherSettings;
+
+    void Start()
+    {
+        weatherSettings = GameObject.Find("WeatherSettings").GetComponent<WeatherSettingsScript>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "currentPlayer")

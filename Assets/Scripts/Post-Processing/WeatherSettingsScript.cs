@@ -24,7 +24,7 @@ public class WeatherSettingsScript : MonoBehaviour
     private WindZone zone;
 
     [Header("Misc.")]
-    private bool isRaining = false;
+    public bool isRaining = false;
     private ParticleSystem rainParticleObject;
 
     private void Awake()
