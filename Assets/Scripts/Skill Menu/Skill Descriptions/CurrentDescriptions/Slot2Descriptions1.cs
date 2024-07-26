@@ -64,7 +64,7 @@ public class Slot2Descriptions : MonoBehaviour, ISelectHandler
                 SkillDesc.text = "Sporeburst: <br><br> <size=25>Spores explode from you stunning and damaging all enemies caught in its radius. Heal for 50% of all damage dealt.";
                 break;
             case "DefenseMechanism":
-                SkillDesc.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Attacks against you while Defense Mechanism is active is stored as bonus damage on your next attack equal to 50% of the damage absorbed.";
+                SkillDesc.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Damage against you while Defense Mechanism is active is stored as explosion damage.";
                 break;
             default:
                 SkillDesc.text = "No Skill Currently Equipped.";

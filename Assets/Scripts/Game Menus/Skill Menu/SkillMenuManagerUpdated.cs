@@ -1666,7 +1666,7 @@ public class SkillMenuManagerUpdated : MonoBehaviour
       }
       else if (DefenseDescrip == true)
       {
-        DescriptionText.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Attacks against you while Defense Mechanism is active is stored as bonus damage on your next attack equal to 50% of the damage absorbed.";
+        DescriptionText.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Damage against you while Defense Mechanism is active is stored as explosion damage.";
         DefenseMechanismUnlocked.navigation = NoneNav;
         DefenseMechanismUnlocked.onClick.RemoveListener(DefenseMechanismSlot1);
         SkillVideoManager.Instance.PlaySkillVideo(SkillManager.StatSkills.DefenseMechanism);

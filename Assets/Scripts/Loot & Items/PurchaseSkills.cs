@@ -222,7 +222,7 @@ public class PurchaseSkills : MonoBehaviour
             nutrientTracker.SubtractNutrients(defenseMechanismNutrientCost);
             nutrientTracker.SpendFlesh(defenseMechanismMaterialCost);
             currentstats.skillEquippables["DefenseMechanism"] = true;
-            SkillDesc.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Attacks against you while Defense Mechanism is active is stored as bonus damage on your next attack equal to 50% of the damage absorbed.";
+            SkillDesc.text = "Defense Mechanism: <br><size=25>Reduces damage taken by 50% for 1 second. Damage against you while Defense Mechanism is active is stored as explosion damage.";
         }
         else
         {
