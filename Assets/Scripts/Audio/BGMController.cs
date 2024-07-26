@@ -7,11 +7,14 @@ public class BGMController : MonoBehaviour
 {
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource ambienceSource;
+    [SerializeField] AudioSource rainSource;
+    
     [SerializeField] float fadeInTime = 0.25f;
     [SerializeField] float fadeOutTime = 2.5f;
 
     [SerializeField][Tooltip("Defaults to its starting volume (-1). Can be changed")] float musicFadeInTargetValue = -1;
     [SerializeField][Tooltip("Defaults to its starting volume (-1). Can be changed")] float ambienceFadeInTargetValue = -1;
+    [SerializeField][Tooltip("Defaults to its starting volume (-1). Can be changed")] float rainFadeInTargetValue = -1;
 
     void Start()
     {
@@ -23,6 +26,12 @@ public class BGMController : MonoBehaviour
         {
             ambienceFadeInTargetValue = ambienceSource.volume;
         }
+        if (rainFadeInTargetValue == -1)
+        {
+            rainFadeInTargetValue = rainSource.volume;
+        }
+
+        rainSource.volume = 0f;
 
         StartCoroutine(FadeInMusicCoroutine());
         StartCoroutine(FadeInAmbienceCoroutine());
@@ -68,7 +77,7 @@ public class BGMController : MonoBehaviour
     }
 
     //Ambience
-    IEnumerator FadeInAmbienceCoroutine()
+    public IEnumerator FadeInAmbienceCoroutine()
     {
         ambienceSource.volume = 0f;
 
@@ -87,7 +96,7 @@ public class BGMController : MonoBehaviour
         ambienceSource.volume = ambienceFadeInTargetValue;
     }
 
-    IEnumerator FadeOutAmbienceCoroutine()
+    public IEnumerator FadeOutAmbienceCoroutine()
     {
         float originalSourceVolume = ambienceSource.volume;
 
@@ -104,5 +113,41 @@ public class BGMController : MonoBehaviour
         }
 
         ambienceSource.volume = 0f;
+    }
+
+    public IEnumerator FadeInRainCoroutine()
+    {
+        float fadeTimer = 0f;
+        while (fadeTimer < 0.5f)
+        {
+            float t = fadeTimer / 0.5f;
+
+            rainSource.volume = Mathf.Lerp(0f, rainFadeInTargetValue, t);
+
+            fadeTimer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        rainSource.volume = rainFadeInTargetValue;
+    }
+
+    public IEnumerator FadeOutRainCoroutine()
+    {
+        float originalSourceVolume = rainSource.volume;
+
+        float fadeTimer = 0f;
+        while (fadeTimer < 0.5f)
+        {
+            float t = fadeTimer / 0.5f;
+
+            rainSource.volume = Mathf.Lerp(originalSourceVolume, 0f, t);
+
+            fadeTimer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        rainSource.volume = 0f;
     }
 }

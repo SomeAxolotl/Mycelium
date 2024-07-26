@@ -82,6 +82,9 @@ public class WeatherSettingsScript : MonoBehaviour
         {
             isRaining = true;
 
+            BGMController bgmController = GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>();
+            StartCoroutine(bgmController.FadeInRainCoroutine());
+
             Vector3 spawnPosition = GameObject.FindWithTag("currentPlayer").transform.position;
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y + 15, spawnPosition.z);
 
@@ -92,6 +95,9 @@ public class WeatherSettingsScript : MonoBehaviour
         else if (newRainState == false)
         {
             isRaining = false;
+
+            BGMController bgmController = GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>();
+            StartCoroutine(bgmController.FadeOutRainCoroutine());
 
             if (rainParticleObject == null) return;
 

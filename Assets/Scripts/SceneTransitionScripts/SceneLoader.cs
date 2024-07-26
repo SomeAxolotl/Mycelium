@@ -115,7 +115,10 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(int sceneIndex, bool doGoodTransition, bool diedInTutorial = false)
     {
-        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+        BGMController bgmController = GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>();
+        StartCoroutine(bgmController.FadeOutMusicCoroutine());
+        StartCoroutine(bgmController.FadeOutAmbienceCoroutine());
+        StartCoroutine(bgmController.FadeOutRainCoroutine());
 
         if (GameObject.Find("HUD") != null)
         {
@@ -134,7 +137,10 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(string sceneName, bool doGoodTransition,  bool diedInTutorial = false)
     {
-        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+        BGMController bgmController = GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>();
+        StartCoroutine(bgmController.FadeOutMusicCoroutine());
+        StartCoroutine(bgmController.FadeOutAmbienceCoroutine());
+        StartCoroutine(bgmController.FadeOutRainCoroutine());
 
         int sceneIndex;
 
@@ -163,7 +169,10 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(int sceneIndex, string notificationText,  bool diedInTutorial = false)
     {
-        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+        BGMController bgmController = GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>();
+        StartCoroutine(bgmController.FadeOutMusicCoroutine());
+        StartCoroutine(bgmController.FadeOutAmbienceCoroutine());
+        StartCoroutine(bgmController.FadeOutRainCoroutine());
 
         if (GameObject.Find("HUD") != null)
         {
@@ -175,7 +184,10 @@ public class SceneLoader : MonoBehaviour
 
     public void BeginLoadScene(string sceneName, string notificationText)
     {
-        StartCoroutine(GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>().FadeOutMusicCoroutine());
+        BGMController bgmController = GameObject.Find("BackgroundMusicPlayer").GetComponent<BGMController>();
+        StartCoroutine(bgmController.FadeOutMusicCoroutine());
+        StartCoroutine(bgmController.FadeOutAmbienceCoroutine());
+        StartCoroutine(bgmController.FadeOutRainCoroutine());
 
         int sceneIndex;
 
