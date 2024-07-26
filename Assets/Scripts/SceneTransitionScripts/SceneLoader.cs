@@ -314,6 +314,8 @@ public class SceneLoader : MonoBehaviour
         loadBar.fillAmount = 0;
         ChangeFunText(funText);
 
+        yield return StartCoroutine(CheckForNotification());
+
         StartCoroutine(FadeCanvasIn(blackCanvasGroup, transitionTime));
 
         ProfileManager profileManager = GameObject.Find("ProfileManager").GetComponent<ProfileManager>();
