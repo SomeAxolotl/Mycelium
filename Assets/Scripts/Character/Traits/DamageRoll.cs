@@ -20,6 +20,7 @@ public class DamageRoll : MonoBehaviour
             EnemyKnockback enemyKnockback = other.gameObject.GetComponent<EnemyKnockback>();
             if(targetHealth != null && targetHealth.currentHealth > 0){
                 targetHealth.EnemyTakeDamage(damageAmount + characterStats.speedLevel);
+                SoundEffectManager.Instance.PlaySound("Impact", other.gameObject.transform);
             }
             if(enemyKnockback != null){
                 float distanceToCollider = Vector3.Distance(transform.position, other.transform.position);
