@@ -80,6 +80,11 @@ public class EnemyAttributeAssigner : MonoBehaviour
     private bool AnyIslandActivated()
     {
         IslandSpawn[] islandSpawns = FindObjectsOfType<IslandSpawn>();
+        if (islandSpawns.Length == 0)
+        {
+            // No islands in the scene, proceed with attribute assignment
+            return true;
+        }
         foreach (IslandSpawn islandSpawn in islandSpawns)
         {
             if (islandSpawn.IsIslandActivationCompleted())
