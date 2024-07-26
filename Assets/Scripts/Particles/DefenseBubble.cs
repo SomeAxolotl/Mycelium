@@ -9,9 +9,12 @@ public class DefenseBubble : MonoBehaviour
 
     private bool acceptNewStates = true;
     public bool isBubble = true;
+    //I'm sorry this is a crime
+    public bool work = true;
 
     public void Awake(){
         ren = this.gameObject.GetComponent<Renderer>();
+        ren.enabled = false;
         baseMaterial = ren.material;
         //Make sure the default is not 0
         maxIntensity = 1;
@@ -22,6 +25,7 @@ public class DefenseBubble : MonoBehaviour
 
     public IEnumerator currentState;
     public void SwitchStatement(int num){
+        if(!work){return;}
         if(failedAdjust){
             AdjustSize();
         }
@@ -43,10 +47,12 @@ public class DefenseBubble : MonoBehaviour
         case 3:
             ren.material.SetFloat("_Intensity", 0);
             currFlash = 0;
+            ren.enabled = false;
             break;
         case 4:
             ren.material.SetFloat("_Intensity", maxIntensity);
             currFlash = maxIntensity;
+            ren.enabled = true;
             break;
         }
         if(currentState != null){
@@ -72,7 +78,7 @@ public class DefenseBubble : MonoBehaviour
             }
             yield return null;
         }
-        if(turnOn){currFlash = maxIntensity;}else{currFlash = 0;}
+        if(turnOn){currFlash = maxIntensity; ren.enabled = true;}else{currFlash = 0; ren.enabled = false;}
         ren.material.SetFloat("_Intensity", currFlash);
         timePassed = 0f;
         currentState = null;
@@ -95,6 +101,7 @@ public class DefenseBubble : MonoBehaviour
     }
 
     public void DisableBubble(){
+        if(!work){return;}
         SwitchStatement(2);
         acceptNewStates = false;
     }
@@ -124,9 +131,14 @@ public class DefenseBubble : MonoBehaviour
                 transform.localScale = new Vector3(5f, 5f, 5f);
                 return;
             }
-            if(parent.name.Contains("Leader")){
+            if(parent.name.Contains("Sporemother")){
                 transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z);
-                transform.localScale = new Vector3(5.25f, 5.25f, 15f);
+                transform.localScale = new Vector3(3.5f, 3.5f, 4.25f);
+                return;
+            }
+            if(parent.name.Contains("Isopod")){
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z + 0.3f);
+                transform.localScale = new Vector3(2.8f, 3.6f, 2.8f);
                 return;
             }
 
@@ -138,18 +150,23 @@ public class DefenseBubble : MonoBehaviour
             }
         }else{
             if(parent.tag == "Player" || parent.tag == "currentPlayer" || parent.name == "SporeModel" || parent.name.Contains("Mushy")){
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.3f, transform.localPosition.z - 0.1f);
-                transform.localScale = Vector3.one;
+                //transform.GetChild(0).localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.3f, transform.localPosition.z - 0.1f);
+                //transform.GetChild(0).localScale = Vector3.one;
                 return;
             }
             if(parent.name.Contains("Beetle")){
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z + 0.6f);
-                transform.localScale = Vector3.one * 0.6f;
+                //transform.GetChild(0).localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z + 0.6f);
+                //transform.GetChild(0).localScale = Vector3.one * 0.6f;
                 return;
             }
             if(parent.name.Contains("Stickbug")){
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 1f, transform.localPosition.z + 1.5f);
-                transform.localScale = Vector3.one * 0.6f;
+                //transform.GetChild(0).localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 1f, transform.localPosition.z + 1.5f);
+                //transform.GetChild(0).localScale = Vector3.one * 0.6f;
+                return;
+            }
+            if(parent.name.Contains("Crab")){
+                transform.GetChild(0).localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 2f, transform.localPosition.z);
+                transform.GetChild(0).localScale = new Vector3(3f, 3f, 3f);
                 return;
             }
         }
