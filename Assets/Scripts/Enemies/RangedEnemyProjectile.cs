@@ -41,7 +41,7 @@ public class RangedEnemyProjectile : MonoBehaviour
         if (collision.gameObject.tag == "currentPlayer" && collision.GetComponentInParent<PlayerController>().isInvincible == false)
         {
             float finalDamage = damage * GlobalData.currentLoop * damageBuffMultiplier;
-            Debug.Log("Dmg Multi: " + damageBuffMultiplier);
+            //Debug.Log("Dmg Multi: " + damageBuffMultiplier);
             collision.GetComponentInParent<PlayerHealth>().PlayerTakeDamage(finalDamage);
             if (instantiatorEnemyHealth != null)
             {

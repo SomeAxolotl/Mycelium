@@ -19,7 +19,7 @@ public class AcrobatTrait : TraitBase
     }
 
     public void Jump(){
-        Debug.Log("Jump!");
+        //Debug.Log("Jump!");
         rb.velocity = new Vector3(0f, 12f, 0f);
     }
 }

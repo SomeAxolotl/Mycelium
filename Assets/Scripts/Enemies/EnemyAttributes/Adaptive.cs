@@ -39,8 +39,12 @@ public class Adaptive : EnemyAttributeBase
             attackScript.RemoveDamageBuff();
         }
         isBuffActive = false;
-        adaptiveParticles.SetActive(false);
         damageBuffCoroutine = null;
+
+        if (damageBuffCoroutine == null)
+        {
+            adaptiveParticles.SetActive(false);
+        }
     }
 
     public interface IDamageBuffable

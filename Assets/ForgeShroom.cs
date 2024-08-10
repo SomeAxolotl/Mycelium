@@ -50,7 +50,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         HandleForgeShroomInteraction();
             if (currentWeapon == null)
             {
-                Debug.Log("Weapon error");
+                //Debug.Log("Weapon error");
             }
         
     }
@@ -59,7 +59,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         currentWeapon = GameObject.FindWithTag("currentWeapon");
         if (currentWeapon != null && currentWeapon.GetComponent<WeaponStats>().wpnName == "Stick")
         {
-            Debug.Log(currentWeapon.name);
+            //Debug.Log(currentWeapon.name);
             return;
         }
         //Also return if it's a forged weapon (or no attribute)
@@ -76,7 +76,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
                 attribute.CleanUpSkillInstance();
             }
             salvagedWeapons++;
-            Debug.Log("Deposited " + currentWeapon.name + " to the Forge Shroom!");
+            //Debug.Log("Deposited " + currentWeapon.name + " to the Forge Shroom!");
 
             if (salvagedWeapons == 1)
             {
@@ -122,7 +122,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
             else
             {
                 depositedWeapons.Add(weapon);
-                Debug.Log("Base weapon set: " + baseWeaponPrefab.name);
+                //Debug.Log("Base weapon set: " + baseWeaponPrefab.name);
             }
         }
         else
@@ -138,7 +138,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
         {
             string attributeName = attributes[attributeIndex].GetType().Name;
             depositedWeapons.Add(weapon);
-            Debug.Log("Attribute added: " + attributeName);
+            //Debug.Log("Attribute added: " + attributeName);
         }
     }
     
@@ -286,7 +286,7 @@ public class ForgeShroom : MonoBehaviour, IInteractable
 
             rewardWeapon.GetComponent<WeaponStats>().acceptingAttribute = false; // Enable accepting new attributes if needed
 
-            Debug.Log("Reward weapon instantiated at the cache location.");
+            //Debug.Log("Reward weapon instantiated at the cache location.");
         }
         else
         {

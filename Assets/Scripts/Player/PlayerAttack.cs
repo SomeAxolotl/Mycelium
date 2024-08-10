@@ -23,12 +23,15 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector] public string attackAnimation;
 
     public IEnumerator attackstart;
-    public IEnumerator lunge;
 
     private float windupMoveSpeed = 1f;
     public GameObject rangedEnemyProjectilePrefab;
     public Material negativeVelocityMaterial;
     [SerializeField] private string stickbugSpearName = "Stickbug Spear";
+
+    private bool isLunging = false;
+    private float lungeStartTime;
+    private Vector3 lungeDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +45,6 @@ public class PlayerAttack : MonoBehaviour
         player = GameObject.FindWithTag("currentPlayer");
         playerController = GetComponent<PlayerController>();
         attackstart = this.Attack(curWeapon);
-        lunge = this.Lunge();
     }
 
     // Update is called once per frame
@@ -56,7 +58,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void StartAttack()
     {
-        if(GameObject.FindWithTag("currentWeapon") != null)
+        if (GameObject.FindWithTag("currentWeapon") != null)
         {
             curWeapon = GameObject.FindWithTag("currentWeapon");
             WeaponCollision weaponCollision = curWeapon.GetComponent<WeaponCollision>();
@@ -65,13 +67,14 @@ public class PlayerAttack : MonoBehaviour
             dmgDealt = (swapCharacter.currentCharacterStats.primalDmg) * fungalMightBonus * curWeapon.GetComponent<WeaponStats>().statNums.advDamage.MultValue; //took out base weapon for now
             animator = GetComponentInChildren<Animator>();
             StartCoroutine(Attack(curWeapon));
-            StartCoroutine(Lunge());
+            StartLunge();
         }
         else
         {
             return;
         }
     }
+
     public Action StartedAttack;
     public Action FinishedAttack;
     private IEnumerator Attack(GameObject curWeapon)
@@ -100,13 +103,12 @@ public class PlayerAttack : MonoBehaviour
         yield return null;
 
         float currentAnimationLength = animator.GetCurrentAnimatorStateInfo(0).length;
-        //hudSkills.StartCooldownUI(3, currentAnimationLength);
 
         lungeDuration = (animator.GetCurrentAnimatorStateInfo(0).length * animator.speed) * lungeDurationScalar;
         float percentUntilWindupDone = curWeapon.GetComponent<WeaponStats>().percentUntilWindupDone;
         float percentUntilSwingDone = curWeapon.GetComponent<WeaponStats>().percentUntilSwingDone;
         yield return new WaitForEndOfFrame();
-        yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
         if (animator.GetCurrentAnimatorStateInfo(0).IsName(attackAnimation) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone)
         {
             curWeapon.GetComponent<Collider>().enabled = true;
@@ -122,11 +124,12 @@ public class PlayerAttack : MonoBehaviour
         playerController.moveSpeed = swapCharacter.currentCharacterStats.moveSpeed;
 
         SpeedChange speedChange = animator.GetComponent<SpeedChange>();
-        if(speedChange != null){
+        if (speedChange != null)
+        {
             speedChange.SpeedUpdate();
         }
 
-        yield return new WaitUntil (() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilSwingDone);
         curWeapon.GetComponent<Collider>().enabled = false;
         ClearAllFungalMights();
 
@@ -136,46 +139,34 @@ public class PlayerAttack : MonoBehaviour
         animator.speed = originalAnimatorSpeed;
         FinishedAttack?.Invoke();
     }
-    private void InstantiateRangedProjectile()
+
+    private void StartLunge()
     {
-        Vector3 spawnPosition = player.transform.position + player.transform.forward * 4f + player.transform.up * 1f + player.transform.right * 1f; // Adjust the forward, upward, and right offsets as needed
-        GameObject projectile = Instantiate(rangedEnemyProjectilePrefab, spawnPosition, Quaternion.identity);
-
-        // Set the projectile's tag and material
-        projectile.tag = "ReversedProjectile";
-        Renderer renderer = projectile.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            renderer.material = negativeVelocityMaterial;
-        }
-
-        // Apply initial velocity or any other necessary settings for the projectile
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.velocity = player.transform.forward * 10f; // Adjust the projectile speed as needed
-        }
+        isLunging = true;
+        lungeStartTime = Time.time;
+        lungeDirection = player.transform.forward;
     }
-    private IEnumerator Lunge()
+
+    private void FixedUpdate()
     {
-        float percentUntilWindupDone = curWeapon.GetComponent<WeaponStats>().percentUntilWindupDone;
-        yield return new WaitForEndOfFrame();
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > percentUntilWindupDone);
-        Vector3 lungeDirection = player.transform.forward;
-        float forcePerSecond = lungeForce / lungeDuration;
-        float elapsedTime = 0f;
-        while (elapsedTime < lungeDuration)
+        if (isLunging)
         {
-            yield return null;
-            elapsedTime += Time.deltaTime;
-            player.GetComponent<Rigidbody>().AddForce(lungeDirection * forcePerSecond * Time.deltaTime, ForceMode.Impulse);
-            yield return new WaitForFixedUpdate();
+            float elapsedTime = Time.time - lungeStartTime;
+            if (elapsedTime < lungeDuration)
+            {
+                float forcePerSecond = lungeForce / lungeDuration;
+                player.GetComponent<Rigidbody>().AddForce(lungeDirection * forcePerSecond * Time.fixedDeltaTime, ForceMode.Impulse);
+            }
+            else
+            {
+                isLunging = false;
+            }
         }
     }
 
     //Fungal Might for Attacking
     public void ActivateFungalMight(float fungalMightValue)
-    {   
+    {
         fungalMightBonus = fungalMightValue;
     }
     public void DeactivateFungalMight()
@@ -216,6 +207,27 @@ public class PlayerAttack : MonoBehaviour
         if (playerActionsAsset != null)
         {
             playerActionsAsset.Disable();
+        }
+    }
+
+    private void InstantiateRangedProjectile()
+    {
+        Vector3 spawnPosition = player.transform.position + player.transform.forward * 4f + player.transform.up * 1f + player.transform.right * 1f; // Adjust the forward, upward, and right offsets as needed
+        GameObject projectile = Instantiate(rangedEnemyProjectilePrefab, spawnPosition, Quaternion.identity);
+
+        // Set the projectile's tag and material
+        projectile.tag = "ReversedProjectile";
+        Renderer renderer = projectile.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material = negativeVelocityMaterial;
+        }
+
+        // Apply initial velocity or any other necessary settings for the projectile
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = player.transform.forward * 10f; // Adjust the projectile speed as needed
         }
     }
 }

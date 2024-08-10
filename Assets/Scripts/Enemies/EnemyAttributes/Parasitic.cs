@@ -15,4 +15,11 @@ public class Parasitic : EnemyAttributeBase
     {
         return damageDealt * 0.2f; // Heal for 20% of the damage dealt
     }
+    private void Update()
+    {
+        if (this.gameObject == null)
+        {
+            parasiticParticles.SetActive(false);
+        }
+    }
 }

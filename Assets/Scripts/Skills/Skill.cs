@@ -66,7 +66,7 @@ public abstract class Skill : MonoBehaviour
         float inch = 0.077f;
         //Debug.Log("Skill parts: " + cooldownPoints);
         finalSkillCooldown = Mathf.Clamp((-(cooldownBase - (cooldownBase * minCooldown)) * (1-(1/(1 + (inch * cooldownPoints))))) + cooldownBase, cooldownBase * minCooldown, cooldownBase * 2);
-        Debug.Log(finalSkillCooldown);
+        //Debug.Log(finalSkillCooldown);
 
         //finalSkillCooldown = Mathf.Clamp(cooldownBase + , cooldownBase * 0.2f, cooldownBase);
     }

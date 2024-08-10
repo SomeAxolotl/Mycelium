@@ -168,7 +168,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         AttributeBase[] currAtts = curWeapon.GetComponents<AttributeBase>();
         foreach(AttributeBase currAtt in currAtts){currentDamage += oldStats.statNums.advDamage.ReadPercentFromSource(currAtt);}
         currentDamage *= oldStats.statNums.advDamage.ReadPercentMultFromSource(oldStats);
-        Debug.Log("CURRENT DAMAGE: " + currentDamage);
+        //Debug.Log("CURRENT DAMAGE: " + currentDamage);
         currentDamage *= 100;
 
         float newDamage = newStats.statNums.advDamage.ReadPercentFromSource(newStats) + 1;
@@ -178,7 +178,7 @@ public class WeaponInteraction : MonoBehaviour, IInteractable
         newDamage *= newStats.statNums.advDamage.ReadPercentMultFromSource(newStats);
         newDamage *= 100;
 
-        Debug.Log("Current damage: " + currentDamage + "     New damage: " + newDamage);
+        //Debug.Log("Current damage: " + currentDamage + "     New damage: " + newDamage);
 
         float damageDifference = newDamage - currentDamage;
         float knockDifference = newStats.statNums.advKnockback.Value - oldStats.statNums.advKnockback.Value;
